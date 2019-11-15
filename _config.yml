@@ -1,69 +1,57 @@
-title       : "Simple Man"
-description : "Personal blog."
-logo        : #null
-remote_theme: mmistakes/so-simple-theme@3.2.0
+title: "Simple Man's Journey"
+description: "Personal Blog"
 
+locale: "el-GR"
+timezone: Europoe/Athens
+date_format: "%Y-%m-%d"
+remote_theme: "mmistakes/so-simple-theme"
 
-locale      : "el-GR"
-timezone    : Europe/Athens
-date_format : "%B %-d, %Y"
-future      : true
+url: "https://chatziiola.github.io"
+source: .
+destination: ./_site
 
-url         : "https://chatziiola.github.io" 
-baseurl     : #"/test/"
-source      : .
-destination : ./_site
+search: false
+comments: false
+read_time: false
+future: true
+permalink: date
+highlighter: rouge
+markdown: kramdown
 
-markdown    : kramdown
-# Pagination - https://jekyllrb.com/docs/pagination/
-paginate       : 10
-paginate_path. : /page:num/
-
-plugins:
-  - jekyll-paginate
-whitelist:
-  - jekyll-paginate
-
-defaults:
-  # Post defaults
-  - scope:
-      path	: "_posts"
-      type	: posts
-    values	:
-      layout	: post
-      comments	: true
-      share	: true
- 
-# Site Author
 author:
-  name			: Lamprinos Chatziioannou
-  picture		:	 		#null for now
-  email			: chatziiol@gmail.com	
-  twitter		: chatziiola
-  links			:
-    - title			: Twitter
-      url			: https://twitter.com/chatziiola
-      icon			: fab fa-twitter-square
-    - title			: Instagram
-      url			: https://instagram.com/chatziiola
-      icon			: fab fa-instagram
-    - title			: GitHub
-      url			: https://github.com/chatziiola
-      icon			: fab fa-github-square
-
+    name: "Lamprinos Chatziioannou"
+    email: "chatziiol@gmail.com"
+    picture: 
+    twitter: "@chatziiola"
+    links:
+        - title: GitHub
+          url: https://github.com/chatziiola
+          icon: fab fa-github
+        - title: Twitter
+          url: https://twitter.com/chatziiola
+          icon: fab fa-twitter-square
+        - title: Instagram
+          url: https://instagram.com/oxi_esy_lampeis_mpampi_mou
+          icon: fab fa-instagram
+       # - title: LinkedIn
+       #   url: 
+       #   icon: fab fa-linkedin
+       # - title: StackExchange
+       #   url: 
+       #  icon: fab fa-stack-exchange
+       
 footer_links:
-    - title			: Twitter
-      url			: https://twitter.com/chatziiola
-      icon			: fab fa-twitter-square
-    - title			: Instagram
-      url			: https://instagram.com/chatziiola
-      icon			: fab fa-instagram
-    - title			: GitHub
-      url			: https://github.com/chatziiola
-      icon			: fab fa-github-square
-      
-      
-  google_fonts:
+        - title: GitHub
+          url: https://github.com/chatziiola
+          icon: fab fa-github
+        - title: Twitter
+          url: https://twitter.com/chatziiola
+          icon: fab fa-twitter-square
+        - title: Instagram
+          url: https://instagram.com/oxi_esy_lampeis_mpampi_mou
+          icon: fab fa-instagram
+   
+google_fonts:
   - name: "Source Sans Pro"
     weights: "400,400i,700,700i"
   - name: "Lora"
