@@ -1,1 +1,1 @@
-gem "github-pages", group: :jekyll-plugins
+gem "github-pages", group: :jekyll_plugins
