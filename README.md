@@ -1,3 +1,6 @@
-# Personal Blog
+# Simple Man's Journey
+** Personal Blog **
 
-Hello everybody! This is the repository of my personal blog! Here, I will post my thoughts and tips on a wide variety of subjects but mainly focused on computer science and cybersecurity. Hope you'll find it useful ( After all, if my tips are inadequate, you may learn something from my mistakes... :P )
+Γεια σε όλους! Το ιστολόγιο αυτό δεν είναι τίποτα άλλο παρά μια προσπάθεια μου, βλέποντας και γνωρίζοντας από πρώτο χέρι την έλλειψη υλικού στο τομέα της πληροφορικής, στην ελληνική γλώσσα, να αντιμετωπίσω αυτό το πρόβλημα. Εδώ θα δημοσιεύω τεχνικές και συμβουλές για προσωπική βελτίωση αλλά και *οποτε προλαβαίνω* νέα στον τομέα της πληροφορικής και της ασφάλειας στον κυβερνοχώρο.
+
+**Ελπίζω να φανεί χρήσιμο σε όσους το χρειαστούν**
