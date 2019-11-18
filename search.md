@@ -1,5 +1,5 @@
 ---
-title: Search
+title: Αναζήτηση
 layout: search
 permalink: /search/
 ---
