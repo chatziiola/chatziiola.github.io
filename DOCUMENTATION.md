@@ -21,6 +21,7 @@ Feel free to check [my _config.yml file](./_config.yml).
 ## Markdown
 https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 https://daringfireball.net/projects/markdown/basics
+https://bookdown.org/yihui/rmarkdown-cookbook/formatting.html
 
 ## Git
 
