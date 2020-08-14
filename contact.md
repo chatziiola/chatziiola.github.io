@@ -33,18 +33,3 @@ permalink: /contact/
 Σε μηνύματα που ανεπίσημα μου ζητούν να προωθήσω την δουλειά/έρευνα/εργασία τους στο site μου.
 
 Τέλος, θα προτιμούσα να αποφύγουμε τα όποια μηνύματα σπαταλάνε το χρόνο τόσο του αποστολέα όσο και του παραλήπτη μη περιέχοντας τίποτα ουσίας.
-
-
-
-
-# Χρήσιμα link για όσους θέλουν να ενημερώνονται για τις εξελίξεις:
-Ένα δωράκι που ελπίζω να φανεί χρήσιμο:
--  darkreading.com 
--  devopsreactions.tumblr.com 
--  linuxfoundation.org 
--  lwn.net 
--  lxer.com 
--  securityfocus.com 
--  everythingsysadmin.com 
--  oreilly.com/topics 
--  schneier.com 
