@@ -1,39 +1,35 @@
 title: "Simple Man's Journey"
-description: "Personal Blog"
-copyright: "©Copyright 2020, Lamprinos Chatziioannou and Michael Rose.<br/>This work is licensed under a Creative Commons Attribution 4.0 International License (not the software). Share generously, but provide attribution <br/>  Operated with love and humour."
-# TODO -> custom skin (differentiation from the rather basic one found here)
-skin: "/assets/css/skins/light.css"
-
-locale: "gr-GR"
-timezone: Europe/Athens
-date_format: "%d-%m-%Y"
-remote_theme: "mmistakes/so-simple-theme"
+tagline: "Lamprinos' Chatziioannou Personal Blog"
+description: "Μια ιστοσελίδα φτιαγμένη για την προσφορά ποιοτικού περιεχομένου στην πληροφορική και την ασφάλεια δικτύων στα ελληνικά."
+copyright: "©Copyright 2020, Lamprinos Chatziioannou and Michael Rose"
 
 url: "https://chatziiola.github.io"
 source: .
 destination: ./_site
+
+locale: "gr-GR"
+timezone: Europe/Athens
+date_format: "%d-%m-%Y"
+
+skin: "/assets/css/skins/light.css"
 logo: "/images/site-logo.png"
+remote_theme: "mmistakes/so-simple-theme"
 
 search: true
 future: true
-# To be able to press on category links
 category_archive_path: "/categories/#"                      
 mathjax: false
-# TODO -> see if you can find well designed comment provider and consider enabling read_time
+# TODO -> aesthetically appealing comment section
 read_time: true
 words_per_minute: 200
 comments: false
-# not installing disqus due to ads and bad-looking ui
-#disqus:
-#   shortname: lamprinoschatziioannou
 
 permalink: date
 highlighter: rouge
 markdown: GFM
 
 # This was inserted to enable share buttons
-# Front Matter Defaults
-# TODO: what is fm?
+# TODO: what is Front Matter Defaults?
 defaults:
   # Posts defaults
   - scope:
@@ -87,3 +83,6 @@ google_fonts:
     weights: "400,400i,700,700i"
   - name: "Lora"
     weights: "400,400i,700,700i"
+
+plugins:
+    - jekyll-seo-tag
