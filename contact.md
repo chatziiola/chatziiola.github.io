@@ -15,19 +15,6 @@ permalink: /contact/
 Το κρατάω προσωπικό και θα σας αποδεχτώ μόνο αν σας έχω γνωρίσει και θεωρώ ότι μπορώ να σας παραθέσω έστω ως γνωστους μου. Δεν απαντάω σε αιτήματα από ανθρώπους που δεν ξέρω.
 
 
-` Feedback is more than welcome `
- <form class="contact-form" action="https://formspree.io/moqkzvel" method="post" spellcheck="false">
-            <input type="hidden" name="_subject" value="Someone sent you a message!" />
-            <label class="required" for="name">Name</label>
-            <input class="input" type="text" name="name" id="name" required>
-            <label for="email">Email</label>
-            <input class="input" type="email" name="_replyto" id="email"/>
-            <label class="required" for="message">Message</label>
-            <textarea class="input" name="body" id="message" required></textarea>
-            <button type="submit" class="button solid-button">Send message</button>
-            <input type="text" name="_gotcha" class="honeypot" />
-        </form>
-
 <!--
 ## Discord:
 Μπορείτε να με βρείτε στον server @simpleMansJourney
