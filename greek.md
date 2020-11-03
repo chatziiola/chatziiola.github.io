@@ -1,5 +1,5 @@
 ---
-title: Homepage
+title: Ελληνικά
 layout: home
 limit: 4
 show_excerpts: true

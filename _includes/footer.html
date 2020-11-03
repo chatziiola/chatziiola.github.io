@@ -1,0 +1,71 @@
+<style>
+
+	{
+		box-sizing: border-box;
+	}
+
+	.site-footer{
+		padding-left=10%
+		padding-right=10%
+		background-color= $background-color;
+	}
+
+	.footerContainer{
+		background-color: mix(#000,#252a34,15%);
+		padding-left: 20%;
+		padding-right: 20%;
+		float: none;
+	}
+
+	.footerContainer:after{
+		content: "";
+		display: block;
+		clear: both;
+	}
+
+	.column{
+		width: 50%;
+		text-align: center;
+		padding-left: 2%;
+		padding-right: 2%;
+		float:left
+	}
+
+
+</style>
+
+
+
+
+<div class="site-footer" >
+	<div class="footerContainer copyright">
+		<div class="column">
+			<h5>License</h5>
+			<p> This work is licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.<br>
+			It can be used/cited freely but always followed by a copy of the license. 
+			 COPYRIGHT 2020, Lamprinos Chatziioannou and Michael Rose.</p>
+		</div>
+		<div class="column">
+			<h5>Personal Blog</h5>
+			<p> This blog is the product of my efforts to document my findings and track my progress. The material listed  here is purely for educational purposes and I am not liable for any damages arising from its misuse.</p>
+		</div>
+	</div>
+</div>
+
+
+<footer class="site-footer">
+
+	{%- if site.footer_links -%}
+	<div class="social-icons">
+		{%- for footer_link in site.footer_links -%}
+			{%- if footer_link.url contains "://" -%}
+				{%- assign url = footer_link.url -%}
+			{%- else -%}
+				{%- assign url = footer_link.url | relative_url -%}
+			{%- endif -%}
+		<a class="social-icon" href="{{ url }}"><i class="{{ footer_link.icon | default: 'fas fa-link' }} fa-2x" title="{{ footer_link.title }}"></i></a>
+		{%- endfor -%}
+	{%- endif -%}
+	</div>
+
+</footer>

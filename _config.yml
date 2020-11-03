@@ -1,17 +1,17 @@
 title: "Simple Man's Journey"
 description: "Personal Blog on Informatics"
 tagline: "Μια ιστοσελίδα φτιαγμένη για την προσφορά ποιοτικού περιεχομένου στην πληροφορική και την ασφάλεια δικτύων στα ελληνικά."
-copyright: "©Copyright 2020, Lamprinos Chatziioannou and Michael Rose"
 
 url: "https://chatziiola.github.io"
 source: .
 destination: ./_site
 
-locale: "gr-GR"
+locale: "en-US"
 timezone: Europe/Athens
 date_format: "%d-%m-%Y"
 
 skin: "/assets/css/skins/light.css"
+  # just remember than we can use it to our advantage -> create our own color skin -> w zoe
 logo: "/images/site-logo.png"
 remote_theme: "mmistakes/so-simple-theme"
 
@@ -28,8 +28,6 @@ permalink: date
 highlighter: rouge
 markdown: GFM
 
-# This was inserted to enable share buttons
-# TODO: what is Front Matter Defaults?
 defaults:
   # Posts defaults
   - scope:
@@ -41,7 +39,7 @@ defaults:
 
 author:
     name: "Lamprinos Chatziioannou"
-    email: "chatziiol@gmail.com"
+    email: "lampischatziioannou@gmail.com"
     picture: "images/author.png"
     twitter: "@chatziiola"
     links:
@@ -52,17 +50,11 @@ author:
           url: https://twitter.com/chatziiola
           icon: fab fa-twitter-square
         - title: Instagram
-          url: https://instagram.com/oxi_esy_lampeis_mpampi_mou
+          url: https://instagram.com/chatziio.zs
           icon: fab fa-instagram
-       # - title: Dev.to
-       #    url: https://dev.to/chatziiola
-       #    icon: fab fa-dev
-       # - title: LinkedIn
-       #   url: 
-       #   icon: fab fa-linkedin
        # - title: StackExchange
        #   url: 
-       #  icon: fab fa-stack-exchange
+       #   icon: fab fa-stack-exchange
        
 footer_links:
         - title: GitHub
@@ -74,12 +66,16 @@ footer_links:
         - title: Instagram
           url: https://instagram.com/oxi_esy_lampeis_mpampi_mou
           icon: fab fa-instagram
+        - title: Feed
+          url: atom.xml
+          icon: fas fa-rss-square
    
 google_fonts:
-  - name: "Source Sans Pro"
-    weights: "400,400i,700,700i"
-  - name: "Lora"
-    weights: "400,400i,700,700i"
+  - name: "Roboto"
+    weights: "300,300i,700,700i"
+  - name: "Roboto Mono"
+    weights: "300,300i,700,700i"
 
 plugins:
     - jekyll-seo-tag
+    - jekyll-feed
