@@ -1,6 +1,5 @@
 title: "Simple Man's Journey"
 description: "Personal Blog on Informatics"
-tagline: "Μια ιστοσελίδα φτιαγμένη για την προσφορά ποιοτικού περιεχομένου στην πληροφορική και την ασφάλεια δικτύων στα ελληνικά."
 
 url: "https://chatziiola.github.io"
 source: .
@@ -11,7 +10,6 @@ timezone: Europe/Athens
 date_format: "%d-%m-%Y"
 
 skin: "/assets/css/skins/light.css"
-  # just remember than we can use it to our advantage -> create our own color skin -> w zoe
 logo: "/images/site-logo.png"
 remote_theme: "mmistakes/so-simple-theme"
 
@@ -28,6 +26,11 @@ permalink: date
 highlighter: rouge
 markdown: GFM
 
+collections:
+    greek:
+          output: true
+          permalink: /:collection/:path/
+
 defaults:
   # Posts defaults
   - scope:
@@ -36,6 +39,9 @@ defaults:
     values:
       layout: post
       share: true
+      
+feed:
+  path: atom.xml
 
 author:
     name: "Lamprinos Chatziioannou"
@@ -52,28 +58,15 @@ author:
         - title: Instagram
           url: https://instagram.com/chatziio.zs
           icon: fab fa-instagram
-       # - title: StackExchange
-       #   url: 
-       #   icon: fab fa-stack-exchange
-       
-footer_links:
-        - title: GitHub
-          url: https://github.com/chatziiola
-          icon: fab fa-github
-        - title: Twitter
-          url: https://twitter.com/chatziiola
-          icon: fab fa-twitter-square
-        - title: Instagram
-          url: https://instagram.com/oxi_esy_lampeis_mpampi_mou
-          icon: fab fa-instagram
         - title: Feed
           url: atom.xml
           icon: fas fa-rss-square
+       
    
 google_fonts:
-  - name: "Roboto"
+  - name: "Source Sans Pro"
     weights: "300,300i,700,700i"
-  - name: "Roboto Mono"
+  - name: "Lora"
     weights: "300,300i,700,700i"
 
 plugins:

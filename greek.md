@@ -1,7 +1,8 @@
 ---
 title: Ελληνικά
-layout: home
-limit: 4
-show_excerpts: true
+permalink: /greek/
+collection: greek
+layout: collection
 entries_layout: list
+show_excerpts: true
 ---

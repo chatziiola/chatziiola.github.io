@@ -1,3 +1,5 @@
+{%- assign author = page.author | default: page.authors[0] | default: site.author -%}
+
 <style>
 
 	{
@@ -42,7 +44,7 @@
 		<div class="column">
 			<h5>License</h5>
 			<p> This work is licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.<br>
-			It can be used/cited freely but always followed by a copy of the license. 
+			It can be used/cited freely but always followed by a copy of the license. <br>
 			 COPYRIGHT 2020, Lamprinos Chatziioannou and Michael Rose.</p>
 		</div>
 		<div class="column">
@@ -54,18 +56,19 @@
 
 
 <footer class="site-footer">
-
-	{%- if site.footer_links -%}
+	
+	{%- if author.links -%}
 	<div class="social-icons">
-		{%- for footer_link in site.footer_links -%}
-			{%- if footer_link.url contains "://" -%}
-				{%- assign url = footer_link.url -%}
+		{%- for link in author.links -%}
+			{%- if link.url contains "://" -%}
+				{%- assign url = link.url -%}
 			{%- else -%}
-				{%- assign url = footer_link.url | relative_url -%}
+				{%- assign url = link.url | relative_url -%}
 			{%- endif -%}
-		<a class="social-icon" href="{{ url }}"><i class="{{ footer_link.icon | default: 'fas fa-link' }} fa-2x" title="{{ footer_link.title }}"></i></a>
+		<a class="social-icon" href="{{ url }}"><i class="{{ link.icon | default: 'fas fa-link' }} fa-2x" title="{{ link.title }}"></i></a>
 		{%- endfor -%}
-	{%- endif -%}
 	</div>
+	{%- endif -%}
 
 </footer>
+
