@@ -1,10 +1,10 @@
 ---
-title: "HTB: SP: Archetype"
+title: "HTB: Archetype"
 description: "Documentation of the first HackTheBox room"
-category: HTB
+category: "Hack The Box"
 date: 2020-11-06
 image:
- path: /images/htbsparchetype/head.png
+ path: /images/htbsp/archetype/head.png
  caption: "That's a really good thumbnail"
 ---
 
