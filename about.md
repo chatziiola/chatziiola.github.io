@@ -3,7 +3,7 @@ title: Simple Man's Journey
 permalink: /aboutme/
 layout: page 
 image:
- path: /images/about.png
+ path: /images/site/about.png
  caption: "Photo by [Elena Theodoridou](https://unsplash.com/@theodoridou?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/thessaloniki?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)"
 ---
 **"Be a simple kind of man,be something you love and understand"**
