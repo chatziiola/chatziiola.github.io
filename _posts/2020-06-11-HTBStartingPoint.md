@@ -1,7 +1,7 @@
 ---
 title: "HTB: Archetype"
 description: "Documentation of the first HackTheBox room"
-category: "Hack The Box"
+category: 'Hack The Box'
 date: 2020-11-06
 image:
  path: /images/htbsp/archetype/head.png
