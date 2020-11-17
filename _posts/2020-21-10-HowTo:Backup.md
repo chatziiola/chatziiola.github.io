@@ -2,7 +2,7 @@
 title: "HowTo: Linux BackUp"
 description: "Κάνε τον δικό σου εξωτερικό σκληρό και οργάνωσε την ενημέρωσή του ώστε να μην ξαναστεναχωριέσαι για χαμένες φωτογραφίες και έγγραφα!"
 date: 2020-10-21
-category: HowTo
+categories: 'HowTo' 'Lil Scripts'
 layout: post
 collection: greek
 ---
