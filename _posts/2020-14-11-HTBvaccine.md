@@ -2,7 +2,7 @@
 title: "HTB: Vaccine"
 description: "HackTheBox Starting Point writeup"
 date: 2020-11-14
-categories: 'Hack The Box'
+category: 'Hack The Box'
 image:
  path: /images/htbsp/vaccine/head.png
  caption: "Hustle never stops"
