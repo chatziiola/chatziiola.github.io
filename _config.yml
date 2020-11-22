@@ -9,16 +9,16 @@ locale: "en-US"
 timezone: Europe/Athens
 date_format: "%d-%m-%Y"
 
-skin: "/assets/css/skins/light.css"
+skin: "/assets/css/skins/mine.css"
 logo: "/images/site/site-logo.png"
+category_archive_path: "/categories/#"                    
+tag_archive_path: "/tags/#"
 remote_theme: "mmistakes/so-simple-theme"
 
 search: true
-future: true
-category_archive_path: "/categories/#"                      
+future: false
 mathjax: false
-# TODO -> aesthetically appealing comment section
-read_time: true
+read_time: false
 words_per_minute: 200
 comments: false
 # TODO -> https://github.com/wireddown/ghpages-ghcomments
@@ -31,6 +31,7 @@ collections:
     greek:
           output: true
           permalink: /:collection/:path/
+
 
 defaults:
   # Posts defaults
@@ -68,9 +69,9 @@ author:
    
 google_fonts:
   - name: "Source Sans Pro"
-    weights: "300,300i,700,700i"
-  - name: "Lora"
-    weights: "300,300i,700,700i"
+    weights: "200,200i,300,300i"
+  - name: "IBM Plex Mono"
+    weights: "300,400,500,600"
 
 plugins:
     - jekyll-seo-tag

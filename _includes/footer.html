@@ -1,45 +1,10 @@
+<!--
+	Edited by Lamprinos Chatziioannou
+-->
+
 {%- assign author = page.author | default: page.authors[0] | default: site.author -%}
 
-<style>
-
-	{
-		box-sizing: border-box;
-	}
-
-	.site-footer{
-		padding-left=10%
-		padding-right=10%
-		background-color= $background-color;
-	}
-
-	.footerContainer{
-		background-color: mix(#000,#252a34,15%);
-		padding-left: 20%;
-		padding-right: 20%;
-		float: none;
-	}
-
-	.footerContainer:after{
-		content: "";
-		display: block;
-		clear: both;
-	}
-
-	.column{
-		width: 50%;
-		text-align: center;
-		padding-left: 2%;
-		padding-right: 2%;
-		float:left
-	}
-
-
-</style>
-
-
-
-
-<div class="site-footer" >
+<footer class="site-footer">
 	<div class="footerContainer copyright">
 		<div class="column">
 			<h5>License</h5>
@@ -52,11 +17,11 @@
 			<p> This blog is the product of my efforts to document my findings and track my progress. The material listed  here is purely for educational purposes and I am not liable for any damages arising from its misuse.</p>
 		</div>
 	</div>
-</div>
-
-
-<footer class="site-footer">
 	
+	<br>
+    <br>
+	<br>
+
 	{%- if author.links -%}
 	<div class="social-icons">
 		{%- for link in author.links -%}
