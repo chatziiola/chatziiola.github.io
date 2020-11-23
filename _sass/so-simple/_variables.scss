@@ -4,18 +4,18 @@
 
 /* Breakpoint widths */
 $small: 320px !default;
-$medium: 768px !default;
+$medium: 720px !default;
 $large: 1024px !default;
 $xlarge: 1280px !default;
 
 /* Fluid type */
-$base-font-size: 14px !default;
+$base-font-size: 16px !default;
 
 $min-vw: $small !default;
 $max-vw: $xlarge !default;
 
-$min-font-size: 14px !default;
-$max-font-size: 18px !default;
+$min-font-size: 15px !default;
+$max-font-size: 19px !default;
 
 /* Calculate Modular Scale */
 $modular-scale-1: 1.067 !default; /* small */
@@ -45,26 +45,35 @@ $sans-serif-font-family: "Source Sans Pro", sans-serif !default;
 $monospace-font-family: Menlo, Consolas, Monaco, "Courier New", Courier, monospace !default;
 $ibm-mono-font-family: "IBM Plex Mono", monospace !default;
 $syne-mono-font-family: "Syne Mono", monospace !default;
+$cursive-font-family: 'Caveat', cursive !default;
 
-/* Font Applications */
-$base-font-family: $sans-serif-font-family !default;
-$headline-font-family: $ibm-mono-font-family !default;
+/*/ __/___  ____  / /______
+ / /_/ __ \/ __ \/ __/ ___/
+/ __/ /_/ / / / / /_(__  ) 
+_/  \____/_/ /_/\__/____/ */ 
 
-/* homepage and excerpt stuff */
-$title-font-family: $serif-font-family !default;
-$description-font-family: $serif-font-family !default;
-
-/* site-fonts */
 $site-nav-family: $ibm-mono-font-family !default;
-$site-title-font-family: $ibm-mono-font-family !default;
-$site-description-font-family: $serif-font-family !default;
-
-/* */
+$site-title-font-family: $cursive-font-family !default;
+$site-description-font-family: $cursive-font-family !default;
+// H1, H2 -> inside articles mainly
+$title-font-family: $cursive-font-family !default;
+$base-font-family: $sans-serif-font-family !default;
+$description-font-family: $cursive-font-family !default;
+$headline-font-family: $cursive-font-family  !default;
 $button-font-family: $serif-font-family !default;
 $meta-font-family: $serif-font-family !default;
 
 $page-title-weight: bold !default;
 $entry-title-weight: bold !default;
+
+/*
+$headline-font-family: $ibm-mono-font-family !default;
+$site-description-font-family: $serif-font-family !default; 
+$title-font-family: $serif-font-family !default;
+$description-font-family: $serif-font-family !default;
+*/
+
+
 
 
 /* YIQ color contrast */
@@ -108,7 +117,7 @@ $site-logo-width: 75px !default;
 $site-logo-height: 75px !default;
 
 /* Border radius */
-$border-radius: 0.25rem !default;
+$border-radius: 3em !default;
 
 /* Global transition */
 $global-transition: all 0.4s ease !default;

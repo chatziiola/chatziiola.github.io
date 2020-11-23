@@ -6,6 +6,8 @@ image:
  path: /images/site/about.png
  caption: "Photo by [Elena Theodoridou](https://unsplash.com/@theodoridou?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText) on [Unsplash](https://unsplash.com/s/photos/thessaloniki?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText)"
 ---
+
+<!-- checkout https://blogonyourown.com/about-me-page/ -->
 **"Be a simple kind of man,be something you love and understand"**
 
 I spent a serious amount of time trying to think of the best way to describe my blog and of the reasons why it is different than most of the other personal blogs out there. I suppose, however, that this is exactly what this website is: just another personal blog, dedicated to the careful documentation of the problems I either `(encounter)||(create)` and to the proper tracking of my progress. Here you may find articles about FOS software, the Linux/Unix environment, programming concepts, cyber security and technology news...followed by way too many quotes, book references and *not so funny* jokes.

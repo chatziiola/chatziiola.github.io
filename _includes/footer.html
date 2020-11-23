@@ -5,7 +5,7 @@
 {%- assign author = page.author | default: page.authors[0] | default: site.author -%}
 
 <footer class="site-footer">
-	<div class="footerContainer copyright">
+	<section class="columns">
 		<div class="column">
 			<h5>License</h5>
 			<p> This work is licensed under <a href="https://opensource.org/licenses/MIT">The MIT License</a>.<br>
@@ -16,11 +16,8 @@
 			<h5>Personal Blog</h5>
 			<p> This blog is the product of my efforts to document my findings and track my progress. The material listed  here is purely for educational purposes and I am not liable for any damages arising from its misuse.</p>
 		</div>
-	</div>
+	</section>
 	
-	<br>
-    <br>
-	<br>
 
 	{%- if author.links -%}
 	<div class="social-icons">

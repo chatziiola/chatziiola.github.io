@@ -31,10 +31,11 @@
   ul {
     display: block;
     margin: 0 auto;
+    border-radius: 0 0 (2 * $border-radius) (2 * $border-radius);
     padding-top: 0.4em;
 	padding-bottom: 0.4em;
     list-style: none;
-  	width: 55%;
+  	width: 45%;
 
     @include breakpoint($medium) {
       display: inline-block;
@@ -43,7 +44,7 @@
 
   li {
     display: inline-block;
-    font-size: 0.75rem;
+    font-size: 0.75em;
   }
 
   a {
@@ -74,8 +75,9 @@
   margin: 0.5em 0 0;
   padding: 0;
   font-family: $site-title-font-family;
-  @include fluid-type($min-vw, $max-vw, $h2-min, $h2-max);
-  font-weight: 500;
+  @include fluid-type($min-vw, $max-vw, $h1-min, $h1-max);
+  font-weight: 700;
+  font-style: bold;
 
   a {
     text-decoration: none;
@@ -85,8 +87,8 @@
 .site-description {
   margin-bottom: 1em;
   font-family: $site-description-font-family;
-  @include fluid-type($min-vw, $max-vw, $h5-min, $h5-max);
-  font-weight: 300;
+  @include fluid-type($min-vw, $max-vw, $h4-min, $h4-max);
+  font-weight: 500;
   font-style: italic;
 }
 

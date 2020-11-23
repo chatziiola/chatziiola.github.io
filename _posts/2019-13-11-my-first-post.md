@@ -2,6 +2,8 @@
 layout: post
 title: Η πρώτη μου δημοσίευση
 date: 2019-11-13
+category: Introductory
+image: https://live.staticflickr.com/7329/8772000651_5cdde00865_b.jpg
 ---
 
 Καλησπέρες κόσμε! Το όνομα μου είναι Λαμπρινός Χατζηιωάννου και είμαι, τη στιγμή που αυτό γράφεται, μαθητής του 1ου Πειραματικού Γ.Ε.Λ Θεσσαλονίκης, "Μανόλης Ανδρόνικος". 
@@ -12,3 +14,5 @@ date: 2019-11-13
 
 Μέχρι το επόμενο άρθρο, την επόμενη Κυριακή, καλά να περνάτε!
 
+# Credits:
+ - "Dark Linux" by okubax is licensed with [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/)
