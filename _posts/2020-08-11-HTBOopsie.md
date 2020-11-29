@@ -1,7 +1,11 @@
 ---
 title: 'HTB: Oopsie!'
 description: "How we managed to complete the 2nd room"
-category: 'Hack The Box'
+category: 
+- 'Hack The Box'
+tags:
+- CTF
+- Walkthrough
 date: 2020-11-08
 image:
  path: '/images/htbsp/oopsie/oopsie-final.png'
@@ -10,16 +14,7 @@ image:
 
 Today we're gonna study the `Oopsie` machine of [Hack The Box](https://www.hackthebox.eu) starting point series.
 
-<!-- vim-markdown-toc GFM -->
-
-* [Enumeration](#enumeration)
-	* [Burp Suite](#burp-suite)
-* [Uploading a reverse shell](#uploading-a-reverse-shell)
-* [Little *bug*](#little-bug)
-* [Thoughts](#thoughts)
-
-<!-- vim-markdown-toc -->
-
+{% include toc %}
 
 # Enumeration
 First things first, let's study the target machine. We already know its IP address (`10.10.10.28`) and we want to learn as possible about the services used on it.

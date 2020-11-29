@@ -1,7 +1,7 @@
 ---
-title: Archive
+title: Series
 layout: categories
-permalink: /categories/
+permalink: /series/
 show_excerpts: true
 entries_layout: list
 ---

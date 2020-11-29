@@ -1,7 +1,11 @@
 ---
 title: "HTB: Archetype"
 description: "Documentation of the first HackTheBox room"
-category: 'Hack The Box'
+category: 
+- 'Hack The Box'
+tags:
+- CTF
+- Walkthrough
 date: 2020-11-06
 image:
  path: /images/htbsp/archetype/head.png
@@ -11,17 +15,7 @@ image:
 
 So, after some time experimenting with [TryHackMe]() I decided to check [HackTheBox]() so that I could *hopefully* base my learning path on both of them and utilize their resources to the max. Here, I describe the steps I took to complete the first HackTheBox room, while providing some extra insight for those that would like to learn some more about what they're typing.
 
-<!-- vim-markdown-toc GFM --some extra
-
-* [Before you begin](#before-you-begin)
-* [Active recon](#active-recon)
-	* [Processes](#processes)
-		* [Impacket](#impacket)
-	* [What comes next?](#what-comes-next)
-* [We are in - the last step](#we-are-in---the-last-step)
-* [Summing up - a short review](#summing-up---a-short-review)
-
-<!-- vim-markdown-toc -->
+{% include toc %}
 
 Let's start!
 

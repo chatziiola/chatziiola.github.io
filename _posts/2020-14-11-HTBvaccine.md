@@ -2,13 +2,19 @@
 title: "HTB: Vaccine"
 description: "HackTheBox Starting Point writeup"
 date: 2020-11-14
-category: 'Hack The Box'
+category: 
+- 'Hack The Box'
+tags:
+- CTF
+- Walkthrough
 image:
  path: /images/htbsp/vaccine/head.png
  caption: "Hustle never stops"
 ---
 
 Hello, everybody! I hope you're all safe and sound out there! Today's room is the third room in the [HackTheBox]() Starting Point series and was extremely fun for me. It is undoubtedly easy - I was able to complete it without searching for what to do at *almost* any step along the way - but it helped me understand that I'm on a good track, for which I am grateful. So, without wasting any more time, let's dive in.
+
+{% include toc %}
 
 # Port scanning
 First things first:

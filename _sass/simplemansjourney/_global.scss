@@ -25,7 +25,7 @@
 
 .site-nav {
   display: none;
-  margin-bottom: 1em;
+  margin-bottom: 2em;
   text-align: center;
 
   ul {
@@ -33,7 +33,7 @@
     margin: 0;
     padding: 0.25em 0.75em;
     list-style: none;
-    border-radius: 0 0 (2 * $border-radius) (2 * $border-radius);
+    border-radius: 0 0 (2 * $nav-radius) (2 * $nav-radius);
 
     @include breakpoint($medium) {
       display: inline-block;
@@ -50,8 +50,6 @@
     padding: 0.5em 0.75em;
     text-transform: uppercase;
     text-decoration: none;
-    border: 1px solid;
-    border-radius: $border-radius;
   }
 
   @include breakpoint($medium) {
@@ -99,8 +97,9 @@
 .site-logo-img {
   width: $site-logo-width;
   height: $site-logo-height;
-  border: 5px solid;
+  border: 4px solid;
   border-radius: $site-logo-width;
+  border-color: $background-color;
 
   @include breakpoint($medium) {
     width: 1.5 * $site-logo-width;
@@ -279,8 +278,7 @@
 .toc-wrapper {
   display: inline-block;
   margin-bottom: 1.5em;
-  border: 1px solid;
-  border-radius: $border-radius;
+  width: 100%;
 
   h2 {
     display: -webkit-box;
