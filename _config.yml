@@ -1,20 +1,32 @@
-author: Lamprinos Chatziioannou
-title: Dazed and Confused
-description: A nerd's takes on stuff
-theme: no-style-please
+# Welcome to Jekyll!
+#
+# Site settings
+title: An Educated Fool
 email: chatziiol@gmail.com
-baseurl: ""
-#permalink
+description: >
+ A nerds takes on stuff
+baseurl: "" 
+url: "https://chatziiola.github.io"
+#twitter_username: jekyllrb
+#github_username:  jekyll
+
+# Build settings
+markdown: kramdown
+theme: no-style-please
 
 theme_config:
-	appearance: "auto"
-	back_home_text: ".."
-	date_format: "%Y-%m-%d"
-	show_description: false
+  appearance: "auto" # can be "light", "dark" or "auto"
+  back_home_text: ".." # customize text for homepage link in post layout
+  date_format: "%Y-%m-%d" # customize how date is formatted
+  show_description: false # show blog description in home page
 
 sass:
-	style: :compressed
+  style: :compressed
 
 plugins:
- - jekyll-feed
- - jekyll-seo-tag
+  - jekyll-feed
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
