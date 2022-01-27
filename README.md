@@ -1,2 +1,3 @@
-# chatziiola.github.io
-My personal website
+# Personal Blog
+
+Nothing more to see here.
