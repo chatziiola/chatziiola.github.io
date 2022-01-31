@@ -23,12 +23,12 @@
 (setq org-html-validation-link nil            ;; Don't show validation link
       org-html-head-include-scripts nil       ;; Use our own scripts
       org-html-head-include-default-style nil ;; Use our own styles
-      org-html-link-home "index.html"
-      org-html-link-up "index.html"
+      org-html-link-home "/index.html"
+      org-html-link-up "/index.html"
       org-html-indent nil
       org-html-self-link-headlines t
       ;; org-export-filter-body-functions (I just want to read a file)
-      org-html-head "<link rel=\"stylesheet\" href=\"rougier.css\" />")
+      org-html-head "<link rel=\"stylesheet\" href=\"/rougier.css\" />")
 
 ;; Define the publishing project
 (setq org-publish-project-alist

