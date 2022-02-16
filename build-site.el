@@ -61,3 +61,6 @@
 (org-publish-all t)
 
 (message "Build complete!")
+
+(provide 'build-site)
+;; build-site.el ends here

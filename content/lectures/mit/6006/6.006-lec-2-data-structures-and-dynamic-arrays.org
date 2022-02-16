@@ -1,0 +1,132 @@
+#+TITLE: 6.006 Lec 2: Data Structures and Dynamic Arrays
+
+* Difference between an interface and a data structure
+The interface can also be called /ADT or API/.
+
+The interface, often called /ADT or API/, offers the general specifications on
+solving the problem; it describes what operations the data structure must
+perform and what they will be /achieving/ while the data structures is the
+*actual* implementation of these functions. It consists of all the commands
+(algorithm), describing how the interface operations will be implemented and
+function.
+
+** The main interfaces
+There are two main interfaces:
+- set
+- sequence
+
+** DS approaches
+Additionally there are two schools of thought:
+1. [[*Analyzing static sequences][/static/ arrays]]
+   Their size is predefined and difficult to change
+2. [[*Analyzing dynamic sequences][dynamic structures]]
+   Focusing on variable length and easy addition/deletion operations.
+
+Now, we will combine these two together, focusing on sequences.
+
+* Analyzing static sequences
+Static sequences are to be used when dealing with data in which the order is
+important, however the volume of it does not change often.
+
+** Interface functions
+/The methods that static data structures need to implement efficiently/
+- ~build()~, O(n)
+  The creation of a new array, runs in linear time, due to the fact that the
+  computer needs to ~malloc()~ space for n elements and initialize *all* of
+  their elements
+- ~length()~, O(1)
+  Returns n, no matter how many elements are used inside the array
+- ~iter_seq()~, O(n)
+  Visit every element from the beginning of the array to the end of the array
+- ~get_at(i)~, O(1)
+- ~set_at(i,x)~, O(1)
+  These two functions take constant time as explained in [[*Word RAM model of computation][the word RAM model]]
+
+The natural solution to this /problem/ is the static array.
+
+** Word RAM model of computation
+RAM stands out for Random Access Memory, meaning that the computer (CPU) can
+access every element in it in constant time. This differentiates data structures
+that follow this model to ones that focus on other operations.
+
+Practically, this means that all items are stored in a continuous location in
+memory, where the ith field  consists of x_i
+#+begin_source c
+x[i] = x_i
+#+end_source
+
+** Reality and memory
+/I must have misunderstood something here, cause I can not explain it clearly/
+
+This is more of a /theoretical/ warning at this point but, in order for the
+static data structures to be implemented it is crucial that the memory increases
+at least as fast as the $\lg{n}$. Meaning that if you have less space than the
+$\lg{n}$ you can not store all the values that you want, therefore you can not
+use the data structure.
+
+* Analyzing dynamic sequences
+Dynamic sequences are to be used when we care more about quick insertion and
+sorting and not so much about random access speeds
+
+** Interface functions
+Analyzing the previous statement a little bit more, we use dynamic sequences
+when we find ourselves dealing with the following operations[fn:3]:
+- ~insert/delete_first(i,x)~, O(1)
+  We do not need to allocate more space *and* copy every element in our array to
+  another location in memory, like in ds, but we just need to create a new node
+  make it point to ~head~ and set it up as the new head. Thus, constant running
+  time.
+- ~insert/delete_last()~, O(n) or O(1)
+  Normaly O(n), due to the fact that you need to follow the pointers of each
+  node in the list to reach the last node _but_ O(1) is achievable through /data
+  structure augmentation/; inserting a new field for our data structure ( a
+  pointer to the ~tail~ node ), to have instant access to the last element.
+- ~insert_at(i,x),delete_at(i)~, O(n)
+  Even though it takes 0(1) when you have reached the previous node, you can not
+  perform the operation at 0(1), because you need to iterate through (worst case
+  scenario) the entire array
+
+** Linked List
+The linked list is a data structure based on the Dynamic Sequence ADT. It is a
+sequence of nodes, each one with a ~value~ and a ~next~ field, pointing to the
+next node.
+
+Unlike arrays, linked lists are not stored in a consecutive chunk of memory;
+they are found in random positions in ram. This is the reason why you need
+pointers in each node, and why RAM operations do not work efficiently
+
+* Dynamic arrays
+/In Python: lists/
+
+Let's try to create an improved data structure, kind of combining dynamic and
+static data structures to get the best out of both worlds.
+
+The main constraint that we have with simple arrays, is that for every time that
+you want to add an element you have to *resize the whole array*. That translates
+into allocating a n+1 chunk of memory, copying all of the arrays elements and
+then adding the new one. To address that, we could create a larger array of size
+/rougly/ n. Then, whenever it gets big enough, resize it but not by expanding it
+by a constant. Instead, by doubling (multiplying by $c>1$) the existing size.
+
+
+This simple change would lead to:
+~insert_last()~: O(n)->O(1) [fn:4]
+It actually is not *always* correct, but most of the time. There will be times
+when the size of the array will no longer suffice and it will have to resize
+- Fewer ~malloc~ calls and copying values around in memory, thus increased performance.
+- To visualize, think of performing n ~insert_last()~ in a row and compare the
+  efficiency of static array to dynamic array
+
+* Summary: Comparing operations
+| operation        | static array | linked list |
+|------------------+--------------+-------------|
+| insert/delete_at | 0(n)         | 0(1)        |
+| get/set_at       | 0(1)         | 0(n)        |
+| get/set_last     |              | 0(n)/O(1)   |
+
+* Footnotes
+
+[fn:4] We use amortization: operation takes T(n) amortized time if any k operations take $\geq k T(n)$
+
+[fn:3] We can always use the static functions as well, yet not so efficiently
+
