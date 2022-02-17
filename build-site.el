@@ -37,7 +37,7 @@
        (list "org-site:main"
              :recursive t
              :base-directory "./content"
-             :auto-sitemap t
+   ;          :auto-sitemap t
 ;             :sitemap-filename "sitemap.org"
 ;             :sitemap-title ""
 ;             :sitemap-sort-files: 'anti-chronologically
@@ -49,7 +49,7 @@
              :headline-level 3
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
-             :time-stamp-file t)
+             :time-stamp-file nil)
        (list "images"
         :base-directory "./content/images"
          :base-extension ".*"

@@ -1,0 +1,258 @@
+#+TITLE: 6.006 Lec 3: Sets and Sorting
+
+* Lecture details:
+- Instructor: Justin Solomon
+- Link: [[https://www.youtube.com/watch?v=oS9aPzUNG-s&list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&index=4][YouTube Lecture]]
+
+/Note to reader:/ The 6.006 course is, in fact, based on the Python language.
+However, due to the fact that the Data Structures course in my university uses
+Java, all the code snippets here will be written in Java.
+
+* The set interface
+Our interface is a container, hosting items and associating them with key
+values. The functions that we want the set implementation to perform are:
+- ~build(X)~
+  Given another structure ~X~, through which we can move (and retrieve data),
+  create a set and fill it with data from ~X~
+- ~len()~
+  Return the size of the ~set~, how many elements are in it.
+- ~find(k)~
+  Search using the key ~k~
+- ~insert(x)~
+  Add the element ~x~ [fn:2]
+- ~delete(k)~
+  Find the element with key ~k~ and then remove it.
+- ~iter_ord()~
+  Return every item in the store, in some order
+- ~find_min(),find_max()~
+  Return the stored item with the smaller and largest key respectively
+- ~find_next(k),find_prev(k)~
+  Given a key ~k~ , return the item with the key ~K~ that is the /immediate/
+  next or previous respectively
+
+* Understanding and implementing
+Now that we have outlined the set interface, let's check possible implementations
+
+** Using an unordered array
+This is a /generally/ poorly functioning implementation of the set ADT.
+
+| operation         | Analysis |
+|-------------------+----------|
+| build(X)          | n        |
+| len()             | 1        |
+| find(k)           | n        |
+| insert(x)         | n        |
+| delete(k)         | n        |
+| find_min/max()    | n        |
+| itr_ord()         | n        |
+| find_next/prev(k) | m        |
+
+Essentially, what we are doing in this implementation is to allocate space for
+an array of size ~n~, add elements in it with no particular order and in case of
+insertion/deletion, as it happens in static arrays, one needs to allocate space
+~n+1~ or ~n-1~, and then copy the array, making insertions and deletions too
+costly.
+
+** Using an sorted array
+| operation | analysis |
+|-----------+----------|
+| find(k)   | $\lg{n}$ |
+
+What if we want to have quicker find though? If we do not care about the initial
+build efficiency but heavily utilize the ~find(k)~ function one can use the
+sorted array implementation.
+
+What changes is that during ~build(X)~, the given input is first sorted by key
+and then stored, in that order, in the static array. That enables us to use
+binary search to find the desired key reducing the ~find(k)~ complexity from
+$O(n)$ to $O(\lg{n})$
+
+* Sorting
+In order to have a sorted array, we need to study which algorithms will give us
+one:
+
+** Basic vocabulary
+*** Destructive
+An algorithm is called destructive when it operates on the input array. More
+specifically, it /destroys/ the input unsorted array, overwriting it with its
+sorted version
+*** In place
+An algorith is called _in place_ when, being a destructive algorithm, it uses
+constant extra space in memory ($O(1)$).
+
+** Algorithms
+*** Permutation sort
+/Analysis/:  We have $\Omega(n!n)$[fn:1]
+1. Enumerate perms $\Omega(n!)$
+2. Check (for every perm) if the permutation is sorted $O(n)$
+
+
+*** Selection sort
+/Analysis/: $O(n^{2})$
+
+There are two ( obviously, could be more than just 2 ), ways to implement
+selection sort. A recursive one, useful to perform induction and mathematical
+analysis, and one, much simpler to implement, using just for loops.
+
+1. Find the largest item in 1-i
+2. Swap it with the item at the $i^{th}$ position
+3. Reduce i by one
+4. Go to 1
+
+This is, following the definitions above, an /in place/ algorithm
+**** Recursive
+#+begin_src java
+void selectionSort(int[] myArray, int lastItem)
+{
+    // Initialize the largestInd to the first entry
+    // because it can only be it, or one of the following entries
+    int largestInd = 0;
+
+    // Find the largest
+    for ( int i = 1; i < lastItem; i++ )
+       if ( myArray[i] > myArray[largestInd] )
+            largestInd = i;
+
+    // Perform the swap
+    int temp = myArray[lastItem];
+    myArray[lastItem] = myArray[largestInd];
+    myArray[largestInd] = temp;
+
+    // At this point every element after the ith element is sorted
+    selectionSort(myArray, lastItem-1)
+}
+#+end_src
+
+
+**** Simple Implementation
+#+begin_src java
+void selectionSort(int[] myArray)
+{
+    // Declare it here so that we do not initialize n temporary variables
+    int largestInd;
+    // Reduce the size of the unsorted array by one with each repetition
+    // The unsorted array at any given moment in time is 1-lastItem
+    for ( int lastItem = myArray.length; lastItem > 0; lastItem-- )
+    {
+        // Initialize the largestInd to the first entry
+        // because it can only be it, or one of the following entries
+        largestInd = 0;
+
+        // Find the largest
+        for ( int i = 1; i < lastItem; i++ )
+        if ( myArray[i] > myArray[largestInd] )
+                largestInd = i;
+        // Perform the swap
+        int temp = myArray[lastItem];
+        myArray[lastItem] = myArray[largestInd];
+        myArray[largestInd] = temp;
+    }
+}
+#+end_src
+
+
+*** Insertion sort
+/Analysis/: $O(n^{2})$
+
+Insertion sort is similar to selection sort, with the main difference being that
+in insertion sort you work from beginning to the end while in selection sort you
+follow the opposite route.
+
+You start with the first element in the array, because, by definition, an array
+with a single element is sorted. Then for each element in the array you _insert_
+it, swapping every element larger than it.
+1.
+#+begin_src java
+void insertionSort(int[] myArray)
+{
+    // Memory usage optimization
+    int temp;
+    // Increase the sorted array size by one for each iteration
+    for ( int i = 1; i < myArray.length; i++ )
+    {
+        // For every element in the 1-i subarray
+        for ( int l = i; l > 0; l-- )
+        {
+            // Swap them if in wrong order
+            if ( myArray[l] < myArray[l-1] )
+            {
+                temp = myArray[l];
+                myArray[l] = myArray[l-1];
+                myArray[l-1] = temp;
+            }
+            else
+                // Because the array is sorted, no need to continue
+                // till index 1
+                break;
+        }
+    }
+}
+#+end_src
+
+
+*** Merge sort
+/Analysis/: $O(n\lg{n})$
+
+This, last algorithm, is the most efficient one in this lecture. It splits the
+array in half, recursively, ultimately sorting arrays of length 2, and then
+gradually merging them together (in $O(n)$ time) till they reach the starting
+size of the array
+
+**** Implementation
+#+begin_src java
+    static void mergeSort(int[] myArray)
+    {
+        mergeSort(0,myArray.length,myArray);
+    }
+
+    static void mergeSort(int startIndex, int lastIndex, int[] myArray)
+    {
+
+        // Only if there are more than 1 elements can the array be unsorted, otherwise it is
+        // by default, sorted
+        if ( lastIndex - startIndex > 1 )
+        {
+            int middleIndex = ( lastIndex + 1 + startIndex ) / 2;
+            // Sort the first half of the subarray
+            mergeSort(startIndex, middleIndex, myArray);
+            // Sort the second half of the subarray
+            mergeSort(middleIndex, lastIndex, myArray);
+            // Merge sub arrays
+            int A[] = Arrays.copyOfRange(myArray,startIndex,middleIndex);
+            int B[] = Arrays.copyOfRange(myArray,middleIndex,lastIndex);
+            merge(A,B,myArray, startIndex, lastIndex);
+        }
+    }
+
+    static void merge (int[] firstSubArray, int[] secondSubArray, int[] myArray, int startIndex, int lastIndex)
+    {
+        int pointA = firstSubArray.length-1;
+        int pointB = secondSubArray.length-1;
+        int temp = lastIndex;
+        while ( pointA >= 0 || pointB >= 0 )
+        {
+            if ( pointB < 0 || (pointA >= 0 && firstSubArray[pointA] > secondSubArray[pointB] ))
+                myArray[--lastIndex] = firstSubArray[pointA--];
+            else
+                myArray[--lastIndex] = secondSubArray[pointB--];
+        }
+        printArray(myArray, startIndex, temp);
+    }
+
+    static void printArray ( int[] myArray )
+    {
+        printArray(myArray,0, myArray.length);
+    }
+    static void printArray ( int[] myArray, int start, int end )
+    {
+        System.out.printf("Start: %d, End: %d\n", start,end);
+        while ( start < end )
+            System.out.printf("%d ", myArray[start++]);
+        System.out.println("");
+    }
+#+end_src
+
+* Footnotes
+[fn:2] It contains the key in it
+
+[fn:1] Nice explanation regarding the reason why $\Omega$ was chosen
