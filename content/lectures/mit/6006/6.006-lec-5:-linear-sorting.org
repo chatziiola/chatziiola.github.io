@@ -1,0 +1,144 @@
+#+TITLE: 6.006 Lec 5: Linear Sorting
+#+date: [2022-02-19 Sat]
+
+* Lecture details:
+- Professor: Jason Kun
+- Lecture: [[https://www.youtube.com/watch?v=yndgIDO0zQQ&list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&index=7][YouTube Link]]
+
+** Note
+This lecture seemed full of gaps to me. Only through the lecture and rescitation
+notes did I understand the topics discussed.
+
+* Introduction
+In lecture 3, we discussed sorting algorithms based on the comparison model. We
+saw however, that using similar-to-hash functions we can move from the comparison to the
+word RAM model and take advantage of $O(1)$ access.
+
+* Sorting
+In the comparison model, the ~find(k)~ operation has $n+1$ possible output
+items while the ~sort()~ function has $n!$ possible outputs, the $n!$
+permutations of the array, some of which will be sorted.
+
+If we followed the decision tree approach, with the number of leaves for the
+sorting operation being $n!$, there would be a need of $O(\lg{n!})$ operations.
+Building on that[fn:1]
+\begin{align}
+n! = n * n-1 * n-2 * \cdots >= n^{n/2}\\
+O(\lg{n!}) \to \Omega(n\lg{n})
+\end{align}
+
+** Direct Access Array Sort
+Instantiante a big access array and store every item ~x~ in the ~x.key~ slot.
+Then walk down the array (iterate through it), returning the items in their
+existing order.
+
+With the _requirement_ that each key is unique we have:
+#+begin_src java
+<type>[] directAccessSort(<type>[] inputArray)
+{
+   // Find the maximum key value
+   int maxKey = inputArray[0].key;
+   for ( int l = 1; l < inputArray.length; l++ ) // compute max key in O(n)
+       maxKey = max(maxKey, inputArray[l].key);
+
+   <type>[] tempArray = new <type>[u];
+   for ( int l = 0; l < inputArray.length; l++ ) // O(n), again
+       // Move each x to output[x.key]
+       // collisions can not occur since input keys are unique
+       tempArray[inputArray[l].key] = inputArray[l];
+
+   // Now, create the array to be returned (size n), and fill it with
+   // the items in sorted order
+   <type>[] outputArray = new <type>[n];
+   for ( int l = 0,i = 0; l < u; l++) // O(u)
+   {
+       if ( tempArray[l] != null )
+           outputArray[i++] = tempArray[l];
+   }
+
+   return outputArray;
+}
+#+end_src
+
+It is obvious that the complexity of this algorithm is $O(n+u)$, which means
+that, the running time can be $O(n)$ if $u = O(n)$, however, it can also become
+$O(n^{1232})$, if $u$ is in that range and we can not allow that to happen.
+
+** Tuple sort
+What if we /split/ the key values though?
+
+This way we can associate each item with a tuple of constant length[fn:3], and
+sort the entries lexicographically, sorting for each key from the least to the
+most significant one. *The algorithm must be stable*.
+
+/From here on we assume that the tuples are of length two. It is not necessary/
+Write every item as tuples, using ~divmod()~, with each key in the form of
+~(a,b)~:
+#+begin_src python
+a,b = divmod(k,n)
+#+end_src
+
+In this algorithm we repeatedly sort the array, sorting first by the least
+significant number and then moving on to the more significant one. Here is
+where _stable_ sorting algorithms come into play: If the stable algorithm can
+not /differentiate/ between two items, the order that the items have in input is kept.
+
+*** Counting sort
+In this *stable* algorithm, given an array $A$ we put every item in $x\in A$ in a
+dynamic structure at ~B[x.key]~. Then we iterate through $B$, returning the
+items in a /FIFO/ order.
+
+#+begin_src python
+def counting_sort(A):
+    "Sort A assuming items have non-negative keys"
+    u = 1 + max([x.key for x in A])      # O(n) find maximum key
+    B = [[] for i in range(u)]           # O(u) direct access array of chains
+    for x in A:                         # O(n) insert into chain at x.key
+        B[x.key].append(x)              # O(1), insertion at end
+    i = 0
+    for chain in B:                     # O(u) read out items in order
+        for x in chain:
+            A[i] = x
+            i += 1
+#+end_src
+
+*** Why is that faster?
+Even though it does not look much different to [[*Direct Access Array Sort][DAA Sort]], counting sort handles
+collisions, meaning that we have now no problem dealing with sets containing
+duplicate keys.
+
+This is critical, because it enables the idea behind tuple sort to come into
+reality using repeated calls to the ~counting_sort(A)~ function. That
+implementation of tuple sort is called:
+
+** Radix Sort
+#+begin_src python
+def radix_sort(A):
+    "Sort A assuming items have non-negative keys"
+    n = len(A)
+    u = 1 + max([x.key for x in A])                         # O(n) find maximum key
+    c = 1 + (u.bit_length() // n.bit_length())              # u = O(n^c), calculate c
+    class Obj: pass
+    D = [Obj() for a in A]                                  #O(n) initiate objects
+    for i in range(n):                                      # O(nc) make digit tuples
+        D[i].digits = []
+        D[i].item = A[i]
+        high = A[i].key
+        for j in range(c):                                  # O(c) make digit tuple
+            high, low = divmod(high, n)
+            D[i].digits.append(low)
+    # Sort based on each digit key
+    for i in range(c):                                      # O(nc) sort each digit
+        for j in range(n):                                  # O(n) assign key i to tuples
+            D[j].key = D[j].digits[i]
+        counting_sort(D)                                    # O(n) sort on digit i
+    for i in range(n):                                      # O(n) output
+        A[i] = D[i].item
+#+end_src
+
+* Footnotes
+
+[fn:3]  Critical constant number of fields in tuple, because these are constant, only
+constant calls to the tuple sort function will need to be called
+
+[fn:1] The Sterling formula can also be used

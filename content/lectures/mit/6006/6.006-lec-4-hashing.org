@@ -1,0 +1,219 @@
+#+TITLE: 6.006 Lec 4: Hashing
+#+date: 2022-02-18 Wed
+
+* Lecture notes:
+- Professor: Jason Ku
+- Lecture: [[https://www.youtube.com/watch?v=Nu8YGneFCWE&list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&index=5][YouTube Link]]
+
+* Set vs Sequence
+/Linking to the previous lecture/
+
+ It is interesting to note a core difference between sets and sequences. In
+sequences, we design the data structure to include extra information regarding
+the order in which the elements will be (an extrinsic property). This is more
+obvious since functions like ~get_at(i),set_at(i)~, are quite common. However,
+in sets the order is an intrinsic property of the object getting stored (the
+key)
+
+* Prove that ~find()~ can not be faster than $O(\lg{n})$
+In the [[file:6.006-lec-3:-sorting.org][last lecture]], we managed to reduce the time needed to find an element in
+our data structure from $O(n)$ to $O(\lg{n})$[fn:3], by implementing a sorted array.
+Is it somehow possible to make this operation any faster?
+
+Well yes... but actually, no![fn:1]
+
+Let's see it in greater detail
+** The comparison model
+In the comparison model, the items themselves do not matter ( their value ), but
+we use only comparison operations on them to differentiate them ( and sort them
+)
+
+Every single one of the algorithms found in lecture 3 were following that model.
+
+** The decision tree
+The decision tree is a binary tree, with each node representing a comparison
+operation and creating a branch for each of the possible outcomes of the comparison.
+
+In the decision tree, the leaves are the possible output values of the function,
+which in our case, since we /search/ for a value in a $n$ sized array, are
+$n+1$, representing each value stored in the array and ~null~ for when the value
+we search for does not exist in the data structure.
+
+We can easily visualize /( take a tree with 1 comparison, count leaves, move on
+to a tree with 3 comparisons etc )/ that for the binary tree to have $n+1$
+different leaves it needs to have a /minimum length/[fn:2] of at least
+$\lg{n+1}$, which means that the shortest path that one can take from the root
+to a leaf is $\lg{n+1}$ and thus we have $\Theta(\lg{n})$
+
+Sadly, that means that a faster than $O(\lg{n})$ algorithm can not exist in the
+comparison model.
+
+* ~find()~ at $0(1)$
+What if we want to perform ~find()~ faster, though?
+
+Thinking about the previous section, it is kind of obvious that in order to
+achieve that, we will have to do something different than the comparison model;
+we will gain advantage of the actual value, using it as a white-box instead.
+
+** Static array
+/In this course this technique is often referred to as Direct Access Array/
+
+We know from the RAM model that access to any specific index in a static array
+takes constant time ( O(1) ). If, when dealing with sets, we create an array in
+which every item with key $k$ gets stored at $x[k]$, ~find(k)~ will work at $O(1)$.
+
+** Drawbacks
+With relatively no extra work we have managed to implement ~find(k)~ at
+$0(1)$... But at what cost?
+
+*** What if we deal with huge key values
+  Not talking about $n$ but about the keys. The array we create to store our
+  data needs to have at least so many indeces as the highest key value, meaning
+  that if we were dealing with a key value of $h=123122412341234134$, the array
+  would have to have space for $h$ elements ! That is even if $n$ was 5, meaning
+  that we would also have to deal with many empty entries.
+
+/An example of that would be linking telephone numbers(key) to users/
+
+Mapping each telephone number to the user might seem very easy with this
+technique. We would easily be able to access ~catalogue[phoneNo]~ and get the
+user, however there is a small catch: since phone numbers have 10 digits the
+array would need to be of size O(10^10)!
+
+*** Limitation regarding the key values that can be stored
+Think of the registers of size w, so we can use $2^w$ number of addresses[fn:4]
+
+*** Same keys?
+  We assume that all of our keys are unique. In this implementation there is no
+  way to deal with collisions.
+
+** Improving on that model
+
+*** Using less space
+Since most of our problems with the previous structure are associated with its
+enormous size, it is vital to reduce the space needed for it. To do that we will
+need a function $h$, that is to map our keys (belonging to a range of
+$\{1,2,\cdots,u-1\}$) to a smaller range $\{0,1,2,\cdots,m-1\}$.
+
+\begin{equation}
+h:\{1,2,\cdots,u-1\}to \{0,1,2,\cdots,m-1\}
+\end{equation}
+
+The array that is the result of this operation is called _the hash table_
+**** The pigeonhole principle
+That seems fantastic, dealing effectively with our unused space problem. Another
+problem arises, though. Depending on the number $m$ that we choose, the
+possibility of a collision arises, and /obviously/ becomes a certainty if
+$m\leq n$
+
+
+The possibility of collisions, also varies with the hashing function, making the
+usage of a right hashing method imperative for our model to function.
+
+*** Solving the duplicate keys problem
+Two solutions:
+**** Open addressing
+   /notoriously difficult to analyze/
+**** The chaining idea
+   At collision, add a pointer to another data structure (presumably a linked
+   list), effectively mapping each key $x[k]\to$ a structure containing all
+   elements with that key. It is vital that these data structures are kept sort,
+   otherwise we will not benefit from the $O(1)$ access.
+
+   If collisions are optimally distributed amongst the indeces (which is what
+   the hash function must perform), then the length of the /chain/ data
+   structure will be given by:
+
+\begin{equation}
+l = \frac{n}{m} = \frac{n}{\Omega{n}} = O(1)
+\end{equation}
+
+And if that is true, then we can access every index in $O(1)$ time.
+
+* Picking the /right/ hash function
+Collisions are /in general/ unavoidable. The only thing that one can do to get
+away is to select $m$ and the hashing function appropriately
+
+** The divmod method
+An example of a hash function is the following:
+\begin{equation}
+h(k) = k\mod{m}
+\end{equation}
+
+This is the _deterministic_ approach to hashing, because the function is already
+hard coded and there will, unfortunately, be a certain type of input for which
+the function will not perform well
+
+#+begin_comment
+This is what Python does in the backend, along with some bit manipulation,
+causing problems under certain circumstances due to the high number of collisions.
+#+end_comment
+
+*** Additional methods
+/These are not discussed in the lecture, taken from A.U.Th course/
+- Midsquare
+  Compute the square of the key and get the $m$ middle digits
+- Digit Extraction
+  /Needs careful examination, may not be useful under certain
+  circumstances/ Given an $m$ number of digits ($m_{1},m_2,\cdots$) return the
+  keys digits at these places
+- Folding
+  - Shift Fold
+  - Mirror Fold
+
+** The Universal Hashing Functio[fn:6]n
+Instead of using a single function, it is possible to fix a family of them,
+something that  we refer to as a UHF[fn:5], to avoid the error presented above:
+having a predefined particular set of inputs that breaks our program.
+
+For $a,b\in \{0,\cdots,p-1\}$, an /improved/ hashing function would be:
+\begin{equation}
+h_{ab}(k)=(((ak+b)\mod{p})\mod{m})
+\end{equation}
+
+And the family that we could use would be:
+\begin{equation}
+H(p,m)=\{h_{ab}(k)|a,b\in\{0,\cdots,p-1\}, a\neq0\}
+\end{equation}
+
+The /universal/ part means that the collision probability is reduced and
+therefore, the chain lengths are kept sort. More specifically, if we use the
+/boolean/ $X_{ij}$ to inform us whether $h(k_{i})=h(k_{j})$, the expected chain
+length will be given by, and $X_{i}$ to be the length of the chain:
+\begin{align}
+Pr_{h\in H}\{h(k_i)&=h(k_j)\} \leq \frac{1}{m} \forall k_i\neq k_j\\
+E_{h\in{H}}\{X_{i}\} &= E_{h\in{H}}\sum_{j=0}^{n-1}X_{ij} = \cdots \leq 1+\frac{n-1}{m}
+\end{align}
+
+
+* Dynamic allocation
+Combining that with what we discussed in previous lectures about dynamic arrays,
+we can optimize it for quick insertions/deletions, and low unused space. This
+way, cost can be _amortized_.
+
+* Summary
+Hashing is a technique, used to organize the input data, getting large integers
+and mapping them to smaller ones to save space, or getting other types of keys
+(Strings for example) and mapping them to integers, so that a hash table can be
+used.
+
+
+| data structure      |   | build(X) | find(k) | insert(x), delete(k) | find_min/max() | find_prev/next(k) |
+|---------------------+---+----------+---------+----------------------+----------------+-------------------|
+| Array               |   | n        | n       | n                    | n              | n                 |
+| Sorted Array        |   | nlogn    | logn    | n                    | 1              | 1                 |
+| Direct Access Array |   | u        | 1_{ea}  | 1                    | u              | u                 |
+| Hash Table          |   | n_e      | 1_{ae}  | 1_{ae}               | n              | n                 |
+
+* Footnotes
+[fn:6] Can also be found as uniform hashing function, since the keys are equally
+distributed among the hash table slots
+
+[fn:5] Universal is a descriptor here not _the universal_
+[fn:4] This, interestingly, links to [[https://www.amazon.com/gp/product/B00G4N7I2K/ref=dbs_a_def_rwt_bibl_vppi_i0][Patterson,Henessy2013]]
+
+[fn:3] There a $O(\lg{\lg{n}})$ algorithm.
+
+[fn:2]  The terminology might not be exactly right
+
+[fn:1] I'm sorry
