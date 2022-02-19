@@ -1,0 +1,167 @@
+#+TITLE: 6.006 Lec 6: Binary Trees Part I
+#+date: [2022-02-19 Sat]
+
+* Lecture details
+- Professor: Erik Demain
+- Lecture: [[https://www.youtube.com/watch?v=76dhtgZt38A&list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&index=9][YouTube Link]]
+
+* Trees, the ultimate data structure
+From the data structures that we have seen so far in this course, one can make
+the case that we have no data structure /to rule them all/. They all perform
+reasonably well under certain circumstances, and under certain sets of input but
+their overall performance is, at times, not optimal. Take hash tables for an
+example. They are useful when ~find(k)~ and ~insert(x)~ are often used, but
+absolutely ridiculous when we also want to ~find_next(),find_previous()~
+
+#+begin_comment
+This lecture is just the preparation to the next lecture, focusing more on the
+theory behind *binary* trees.
+#+end_comment
+
+** Terminology
+Since binary trees are a linked-based data structure, utilizing pointers, much
+of the terminology is know from our experience with Linked Lists:
+- Nodes
+- Links
+
+*** Tree specific attributes
+- Leaf
+  Leaves are the nodes that have no children ( because they are the items at the
+  /end/ of the data structure, just like the leaves in a normal tree)
+- ~parent~
+  Pointer to the parent node
+- ~left~
+  Pointer to the left child node
+- ~right~
+  Pointer to the right child node
+
+*** Node characteristics
+- ~subtree(X)~ = X and its defendants
+  so if X is the root node, then the subtree is the whole node
+- ~depth(X)~
+  Number of ancestors or, equally, edges in path from node X to root
+- ~height(X)~
+  Number of edges in the longest downward path, max depth of a node in subtree(X)
+  - height(X)= max(left.height,right.height)+1
+  - height(tree) = height(root Node)
+
+* Today's analysis
+We focus on getting to a point where tree operations perform in $O(h)$, with h
+being ~height~ of the tree.  Then in the next lecture, we will show that if the
+tree is balanced then:  $O(h)=O(\lg{n})$
+
+** Working with an example
+[[~/Desktop/Screenshot 2022-02-18 at 10.14.21 AM.png]]
+
+To further clarify the properties we talked about above before we continue:
+
+| property value\node | A | B | C | D | E | F |
+|---------------------+---+---+---+---+---+---|
+| item                | A | B | C | D | E | F |
+| parent              | / | A | A | B | B | D |
+| left                | B | D | / | F | / | / |
+| right               | C | E | / | / | / | / |
+
+** Traversal order
+The traversal order ( as explained in this course ), is the /inorder/ traversal.
+More specifically, the nodes in a tree are recursively iterated in this order:
+#+begin_quote
+for every node X
+Nodes in .left before X, in .right after X
+#+end_quote
+Thus, the traversal order in the example tree is $FDBEAC$
+
+Theoritically, what follows could be a legitimate function
+#+begin_src java
+void traverseSubtreeWithRootX(Node X)
+{
+    if ( X.left != null )
+        iterate(X.left);
+    System.out.println(X);
+    if ( X.right != null )
+        iterate(X.right);
+}
+#+end_src
+
+** Operations
+- ~subtree_first(Node X)~
+  return the leftmost node in the subtree of X ( in our example that would be $F$ )
+- ~successor(Node X)~
+  return the next node in traversal order
+  - if ~node.right~: ~subtree_first(X.right)~
+  - else walk up until we go up a left branch ~node.parent.left == node~
+- ~predecessor(Node X)~
+  return the previous node in traversal order
+  - Directly linked to ~successor(X)~
+- ~subtree_insert_after(Node X, Node new)~
+  - if no ~X.right~: put the new node there
+  - else ~successor.subtree_first().left~
+- ~subtree_insert_before(...)~
+  - In a similar fashion to the previous fashion
+  - if no ~X.left~: put the new node there
+- ~subtree_delete(node)~[fn:1]
+  - if it is a leaf, simply delete it and delete the pointer in parent
+  - else if ~node.left~: [fn:2]
+    1. swap ~node.item~ with ~predecessor(node).item~
+       /No need to change the nodes themselves/
+    2. ~subtree_delete(predecessor(node))~
+  - else if ~node.right~
+    1. swap ~node.item~ with ~successor(node).item~
+    2. ~subtree_delete(successor(node))~
+
+       | Performance\Function | subtree_first() | successor() | subtree_insert_after() | subtree_delete() |
+       | Binary Tree          | O(h)            | O(h)        | O(h)                   | O(h)             |
+
+* Trees and sets
+We have outlined our binary tree's functions, but we do not know yet, where they
+could be useful. The set interface, with which we have worked in previous
+lectures can be implemented with a tree!
+
+More specifically, due to the fact that binary trees have the _binary search
+tree property_[fn:3], we can ensure that ~find(k)~ performs in $O(h)$, with
+insertion, deletion in $O(h)$ as well.
+
+* Trees and sequences
+The sequence interface can also be effectively implemented by a binary tree. In
+that case the sequence order will match the tree's traversal order. However, we
+do not know yet how to implement one of the core sequence functions:
+~subtree_at(i)~, to get the item in the $i^{th}$ position.
+
+Of course, we could iterate through the tree, and when we reach that position
+return that item, but this algorithm runs in $O(n)$ and obviously is not
+efficient. What can we do to solve it?
+
+We will ues the ~size~ property of the subtree. In that case the algorithm is:
+1. Get the size $n_{l}$ of the left subtree
+2. if $i<n_l$, then recurse on the left subtree
+3. else if $i>n_l$, then ~i-=nl+1~ and recurse on the right subtree
+4. else you have $i=n_l$ and you have found your node
+
+Let's check the performance of this last algorithm. If ~size~ can be computed in
+constant time then the algorithm runs in $O(h)$!
+
+** Data Structure Augmentation
+By adding a ~size~ property in each node,  since size is a _subtree property_:
+#+begin_src python
+node.size = left.size + right.size + 1
+#+end_src
+We only add a $O(h)$ operation for maintainance (when adding or removing a
+node one should update the size for all ancestors) in return for constant time
+in the size operation.
+
+* Summary
+| set data structure | build()  | find() | insert/delete | find min/max | find prev/next |
+|--------------------+----------+--------+---------------+--------------+----------------|
+| Binary Search Tree | O(nlogn) | O(h)   | O(h)          | O(h)         | O(h)           |
+
+| sequence data structure | build() | get_at(),set_at() | insert/delete first | inset/delete last | insert/delete at |
+|-------------------------+---------+-------------------+---------------------+-------------------+------------------|
+| Binary Tree             | O(n)    | h                 | h                   | h                 | h                |
+
+* Footnotes
+
+[fn:3] Every key in left subtree $\leq$ node.key $\leq$ every key in right subtree
+
+[fn:2] We do not care about balance right now.
+
+[fn:1] Are they actually linked to ~rotateLeft(X)~, ~rotateRight(X)~?
