@@ -244,41 +244,10 @@ h3::before {
 }
 
 
-
 code {
     background-color: #f9f9f9;
     font-family: "Roboto Mono", sans-serif;
     font-weight: 400;
-}
-
-pre::before {
-    color: #cccccc;
-    float: left;
-    text-align: right;
-    font-weight: 300;
-    width: 3.0em;
-    margin-left: -4.25em;
-    font-variant: small-caps;
-    content: "";
-}
-pre.src-lisp::before { content: "lisp"; }
-pre.src-org::before { content: "org"; }
-
-pre {
-    color: #00008b;
-    background-color: #fbfbfb;
-    overflow: auto;
-    margin: 0em;
-    padding: 0.25em;
-    padding-left: 0.5em;
-    line-height: 1.35em;
-    font-family: "Roboto Mono", sans-serif;
-    font-weight: 300;
-    border-left: 2px dotted #00008b;
-}
-pre.src {
-    position: relative;
-    overflow: visible;
 }
 
 /* --- Code folding --- */
@@ -294,10 +263,12 @@ details pre {
     border: 0;
 }
 details pre.src-lisp::before { content: ""; }
+
 summary {
     outline: 0;
     color: rgba(48,63,159, 1.00);
 }
+
 summary::after {
     font-size: 0.85em;
     color: rgba(48,63,159, 0.25);
@@ -374,3 +345,111 @@ p {
     text-align: justify;
 }
 
+
+/* --- Default Parts --- */
+.todo   { font-family: monospace; color: red; }
+.done   { font-family: monospace; color: green; }
+.priority { font-family: monospace; color: orange; }
+.tag    { background-color: #eee; font-family: monospace;
+        padding: 2px; font-size: 80%; font-weight: normal; }
+.timestamp { color: #bebebe; }
+.timestamp-kwd { color: #5f9ea0; }
+.inlinetask {
+  padding: 10px;
+  border: 2px solid gray;
+  margin: 10px;
+  background: #ffffcc;
+}
+.underline { text-decoration: underline; }
+
+pre::before {
+    color: #cccccc;
+    float: left;
+    text-align: right;
+    font-weight: 300;
+    width: 3.0em;
+    margin-left: -4.25em;
+    font-variant: small-caps;
+    content: "";
+}
+
+pre {
+    border-left: 2px solid #e6e6e6;
+    background-color: #f2f2f2;
+    overflow: auto;
+    margin: 0em;
+    padding: 0.25em;
+    padding-left: 0.5em;
+    line-height: 1.35em;
+    font-family: "Roboto Mono", sans-serif;
+    font-weight: 300;
+}
+
+pre.src {
+    position: relative;
+    overflow: visible;
+}
+
+
+pre.src-awk:before { content: 'Awk'; }
+pre.src-authinfo::before { content: 'Authinfo'; }
+pre.src-C:before { content: 'C'; }
+/* pre.src-C++ doesn't work in CSS */
+pre.src-css:before { content: 'CSS'; }
+pre.src-D:before { content: 'D'; }
+pre.src-calc:before { content: 'Emacs Calc'; }
+pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+pre.src-gnuplot:before { content: 'gnuplot'; }
+pre.src-java:before { content: 'Java'; }
+pre.src-js:before { content: 'Javascript'; }
+pre.src-latex:before { content: 'LaTeX'; }
+pre.src-lisp:before { content: 'Lisp'; }
+pre.src-lua:before { content: 'Lua'; }
+pre.src-matlab:before { content: 'MATLAB'; }
+pre.src-octave:before { content: 'Octave'; }
+pre.src-org:before { content: 'Org mode'; }
+pre.src-python:before { content: 'Python'; }
+pre.src-R:before { content: 'R'; }
+pre.src-ruby:before { content: 'Ruby'; }
+pre.src-sass:before { content: 'Sass'; }
+pre.src-scheme:before { content: 'Scheme'; }
+pre.src-screen:before { content: 'Gnu Screen'; }
+pre.src-sed:before { content: 'Sed'; }
+pre.src-sh:before { content: 'shell'; }
+pre.src-sql:before { content: 'SQL'; }
+pre.src-sqlite:before { content: 'SQLite'; }
+pre.src-makefile:before { content: 'Makefile'; }
+pre.src-perl:before { content: 'Perl'; }
+pre.src-shell:before { content: 'Shell Script'; }
+pre.src-cpp:before  { content: 'C++'; }
+pre.src-bash:before  { content: 'bash'; }
+pre.src-asm:before { content: 'Assembler'; }
+pre.src-html:before { content: 'HTML'; }
+pre.src-ps:before { content: 'PostScript'; }
+pre.src-tex:before { content: 'TeX'; }
+pre.src-xml:before { content: 'XML'; }
+pre.src-conf:before { content: 'Configuration File'; }
+
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+
+
+/* --- Equations --- */
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+  vertical-align: middle;
+}
+.equation-label {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
