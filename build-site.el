@@ -37,10 +37,10 @@
        (list "org-site:main"
              :recursive t
              :base-directory "./content"
-   ;          :auto-sitemap t
-;             :sitemap-filename "sitemap.org"
-;             :sitemap-title ""
-;             :sitemap-sort-files: 'anti-chronologically
+             :auto-sitemap t
+             :sitemap-filename "sitemap.org"
+             :sitemap-title ""
+             :sitemap-sort-files: 'anti-chronologically
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./public"
              :with-author t           ;; Don't include author name
@@ -53,6 +53,7 @@
        (list "images"
         :base-directory "./content/images"
          :base-extension ".*"
+         :recursive t
          :publishing-directory "./public/images"
          :publishing-function 'org-publish-attachment)))
 
