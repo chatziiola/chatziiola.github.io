@@ -18,35 +18,51 @@
 
 ;; Load the publishing system
 (require 'ox-publish)
+; TODO ox-rss
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil            ;; Don't show validation link
       org-html-head-include-scripts nil       ;; Use our own scripts
       org-html-head-include-default-style nil ;; Use our own styles
-      org-html-link-home "/index.html"
-      org-html-link-up "index.html"
       org-html-indent nil
       org-html-self-link-headlines t
-      ;; org-export-filter-body-functions (I just want to read a file)
-      org-html-head "<link rel=\"stylesheet\" href=\"/rougier.css\" />")
+      org-html-head "<link rel=\"stylesheet\" href=\"/src/rougier.css\" />")
 
-;; Define the publishing project
-;; TODO, when you try more customizations here: check this https://ogbe.net/blog/blogging_with_org.html
 (setq org-publish-project-alist
       (list
-       (list "org-site:main"
+       (list "org-files"
              :recursive t
-             :base-directory "./content"
-             :auto-sitemap t
-             :sitemap-filename "sitemap.org"
-             :sitemap-title ""
-             :sitemap-sort-files: 'anti-chronologically
+             :base-directory "./content/"
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./public"
+             :with-author nil           ;; Don't include author name
+             :with-creator nil            ;; Include Emacs and Org versions in footer
+             :with-drawers t
+             :headline-level 4
+             :with-toc nil
+             :html-link-home "/index.html"
+             :section-numbers nil       ;; Don't include section numbers
+             :html-link-up "../index.html"
+             :time-stamp-file nil)
+       (list "blog-posts"
+             :recursive t
+             :html-link-up "./index.html"
+             :html-link-home "/index.html"
+             :base-directory "./content/posts"
+             :exclude ".*index.org"
+             :auto-sitemap t
+             :sitemap-filename "blog.org"
+             :sitemap-title "Blog"
+             ;; custom sitemap generator function
+             :sitemap-sort-files 'anti-chronologically
+             :sitemap-date-format "Published: %a %b %d %Y"
+             :publishing-function 'org-html-publish-to-html
+             :publishing-directory "./public/posts"
+             :html-postamble "<script src=\"https://utteranc.es/client.js\" repo=\"chatziiola/chatziiola.github.io\" issue-term=\"pathname\" label=\"comment\" theme=\"github-light\" crossorigin=\"anonymous\" async> </script>"
              :with-author t           ;; Don't include author name
              :with-creator t            ;; Include Emacs and Org versions in footer
              :with-drawers t
-             :headline-level 3
+             :headline-level 4
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
              :time-stamp-file nil)
@@ -55,8 +71,15 @@
          :base-extension ".*"
          :recursive t
          :publishing-directory "./public/images"
-         :publishing-function 'org-publish-attachment)))
-
+         :publishing-function 'org-publish-attachment)
+       (list "static"
+        :base-directory "./content/src"
+         :base-extension "html\\|css"
+         :recursive t
+         :publishing-directory "./public/src"
+         :publishing-function 'org-publish-attachment)
+       )
+      )
 
 ;; Generate the site output
 (org-publish-all t)

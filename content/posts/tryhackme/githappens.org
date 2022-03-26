@@ -1,0 +1,55 @@
+#+title: Git Happens
+
+* Reconnaisance
+** SPARTA
+
+*** nmap
+#+begin_quote
+Nmap scan report for ip-10-10-185-163.eu-west-1.compute.internal (10.10.185.163)
+Host is up (0.0013s latency).
+Not shown: 999 closed ports
+PORT   STATE SERVICE
+80/tcp open  http
+MAC Address: 02:2F:44:26:EF:8D (Unknown)
+#+end_quote
+
+*** ACTION nikto
+It revealed a /.git/index file, heading to the ~/.git/~ repository and we can
+already see everything here
+** Gobuster
+You forgot that and you're not allowed to..
+
+nevermind - could not get any evidence out of here
+
+* Inside the git repository
+/Using the hacker playbook 2/
+
+#+begin_code sh
+wget -r http://<IP>/.git/logs && cd <IP>
+#+end_code
+
+After that we can use ~git reset --hard~ to have all our files there, readily waiting.
+
+*** how i failed Index file
+/This is where nikto also points us to look/
+- gitlab-ci.yml
+  #+begin_code
+  echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+  #+end_code
+- Dockerfile
+- README.md
+- dashboard.html
+- default.conf
+
+They may be proven helpful but nothing more for nowcd .
+
+We also have these login elements but I do not know
+#+begin_quote
+hydragyrum:kMhJnM42EHdTN7MXNWeD
+#+end_quote
+
+*** LOGS
+git log, diff to commit,
+The cookie "login" has "1" for value
+
+The answer was *too* simple, in the git logs
