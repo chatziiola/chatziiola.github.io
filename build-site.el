@@ -58,7 +58,8 @@
              :sitemap-date-format "Published: %a %b %d %Y"
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./public/posts"
-             :html-postamble "<script src=\"https://utteranc.es/client.js\" repo=\"chatziiola/chatziiola.github.io\" issue-term=\"pathname\" label=\"comment\" theme=\"github-light\" crossorigin=\"anonymous\" async> </script>"
+;             :html-postamble "<script src=\"https://utteranc.es/client.js\" repo=\"chatziiola/chatziiola.github.io\" issue-term=\"pathname\" label=\"comment\" theme=\"github-light\" crossorigin=\"anonymous\" async> </script>"
+             :html-postamble "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
              :with-author t           ;; Don't include author name
              :with-creator t            ;; Include Emacs and Org versions in footer
              :with-drawers t
