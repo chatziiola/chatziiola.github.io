@@ -51,8 +51,8 @@
              :base-directory "./content/posts"
              :exclude ".*index.org"
              :auto-sitemap t
-             :sitemap-filename "blog.org"
-             :sitemap-title "Blog"
+             :sitemap-filename "sitemap.org"
+             :sitemap-title "Sitemap"
              ;; custom sitemap generator function
              :sitemap-sort-files 'anti-chronologically
              :sitemap-date-format "Published: %a %b %d %Y"
