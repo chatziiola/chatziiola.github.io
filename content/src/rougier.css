@@ -24,6 +24,8 @@ body {
     counter-increment: toc-section;
 }
 
+
+
 a, a:visited {
     text-decoration: none;
     color: rgba(48,63,159, 1.00);
@@ -231,7 +233,6 @@ h2::before {
     content: "Chapter " counter(section) " ";
 }
 
-
 h3::before {
     color: #cccccc;
     float: left;
@@ -347,6 +348,10 @@ p {
 
 img {
     max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+/* width: 50%;*/
 }
 
 
@@ -456,4 +461,24 @@ caption.t-bottom { caption-side: bottom; }
   display: table-cell;
   text-align: right;
   vertical-align: middle;
+}
+
+.quote::before {
+    color: #cccccc;
+    float: left;
+    text-align: right;
+    font-weight: 200;
+    width: 7.5em;
+    margin-left: -8.0em;
+    content: "Quote ";
+}
+
+.quote {
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    font-weight: 300;
+    color:  rgba(51, 51, 51, 1.00);
+    background: #999999
+    line-height: 1.4em;
+    font-weight: italic;
 }

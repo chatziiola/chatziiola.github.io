@@ -1,6 +1,6 @@
 ;; Source: https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/
 ;; Big thanks to an extraordinary member of the emacs community
-;;
+
 ;;Set the package installation directory so that packages aren't stored in the
 ;; ~/.emacs.d/elpa path.
 (require 'package)
@@ -18,7 +18,6 @@
 
 ;; Load the publishing system
 (require 'ox-publish)
-; TODO ox-rss
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil            ;; Don't show validation link
@@ -33,6 +32,7 @@
        (list "org-files"
              :recursive t
              :base-directory "./content/"
+             :exclude "./content/drafts/*.org"
              :publishing-function 'org-html-publish-to-html
              :publishing-directory "./public"
              :with-author nil           ;; Don't include author name
@@ -84,6 +84,7 @@
 
 ;; Generate the site output
 (org-publish-all t)
+;(org-static-blog-assemble-index)
 
 (message "Build complete!")
 
