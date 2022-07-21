@@ -1,0 +1,346 @@
+#+TITLE: Elisp Org-Publish Configuration
+#+PROPERTY: header-args :tangle ../../build-site.el
+
+#+begin_tribute
+Before getting in greater depth: Huge thanks to an extraordinary member of the
+Emacs community, whose (live) videos on YouTube, greatly helped me when I
+decided to... turn evil: David Wilson of System Crafters[fn:1]
+#+end_tribute
+
+In fact, this configuration is fully based on the one he presented on his
+YouTube [[https://www.youtube.com/c/SystemCrafters][channel]].
+
+* Package Settings
+These are pretty basic settings, only required in order for us to call a /clean/
+emacs instance. A separate directory for packages is specified in order to not
+liter our *actual* Emacs directory.
+
+While one could avoid using extra packages ( as I have tried doing ) and keep it
+as simple as possible, it is not smart to reinvent the wheel. If the desired
+functionality is provided by a third party package, use it.
+
+#+begin_src elisp
+;;Set the package installation directory so that packages aren't stored in the
+;; ~/.emacs.d/elpa path.
+(require 'package)
+(setq package-user-dir (expand-file-name "./.packages"))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+;; Initialize the package system
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; Install dependencies
+(package-install 'htmlize)
+#+end_src
+
+Loading emacs does not mean that the publishing functions and variables have
+already been loaded. The following line ensures that.
+#+begin_src elisp
+;; Load the publishing system
+(require 'ox-publish)
+#+end_src
+
+* Org To Html Settings
+These are settings that are used during the conversion of my org files
+(articles) to html files. Under certain circumstances they can be overwritten
+from the ~org-projects-alist~' options.
+
+#+begin_src elisp
+;; Customize the HTML output
+(setq org-html-validation-link t            ;; Don't show validation link
+      org-html-head-include-scripts nil       ;; Use our own scripts
+      org-html-head-include-default-style nil ;; Use our own styles
+      org-html-indent nil
+      org-html-self-link-headlines t
+      org-export-with-tags t
+      org-export-with-smart-quotes t
+      org-html-head "<link rel=\"stylesheet\" href=\"/src/rougier.css\" />")
+#+end_src
+
+* Project Alist
+Org publishing works with projects, a fancy way to call files and directories.
+
+There are four projects, with different variables and settings:
+1. [[*Org-files][Org-files]], all org files in my ~/content~ folder
+2. [[*Blog-posts][Blog-posts]], all org files in my ~/content/posts~ folder
+3. [[*Images][Images]], images in ~/content/images~
+4. [[*Static][Static]], html and css files in ~/content/src~
+
+#+begin_src elisp
+(setq org-publish-project-alist
+      (list
+       #+end_src
+
+*** The Brief
+The ~org~ mode files ( the articles ) exist in the ~/contents/~ folder, which is
+where I'm working. We want to automate the process of converting these files to
+html and moving this web-friendly version to the ~/public~ directory, which is
+the root directory of our web server.
+
+To achieve that we first convert all org mode files
+*** Summing up
+1. Order is crucial, since the export is sequential and the later exports may
+   overwrite previous ones.
+
+
+** Org-files
+
+       #+begin_src elisp
+       (list "org-files"
+       #+end_src
+
+It contains all files in ~/content/~ except for my draft articles. ( It should
+work like that, however drafts are currently being exported... Maybe someone
+notices the error here and proposes a solution in the comments )
+       #+begin_src elisp
+             :base-directory "./content/"
+             :exclude "./content/drafts/"
+       #+end_src
+
+
+       #+begin_src elisp
+             :recursive t
+       #+end_src
+
+
+Kinda general, the publishing function and where to publish
+       #+begin_src elisp
+             :publishing-function 'org-html-publish-to-html
+             :publishing-directory "./public"
+       #+end_src
+
+       #+begin_src elisp
+             :with-author nil           ;; Don't include author name
+             :with-creator nil            ;; Include Emacs and Org versions in footer
+             :with-drawers t
+             :headline-level 4
+       #+end_src
+
+       Table of contents has been taken /offline/ due to the fact that I did not
+       like how it looked.
+       #+begin_src elisp
+             :with-toc nil
+       #+end_src
+
+
+      Section numbers do not work with my ~css~ since it provides numbering.
+       #+begin_src elisp
+             :section-numbers nil       ;; Don't include section numbers
+       #+end_src
+
+       This is a setting that gets overwritten for blog posts but it essentially
+       makes the home button to point to the home page of my website and the up
+       button to go a directory higher.
+       #+begin_src elisp
+             :html-link-home "/index.html"
+             :html-link-up "../index.html"
+       #+end_src
+
+       This could be a rather useful entry, if there was maybe an integration
+       with version control so that files would only get published if the had
+       been edited. The problem is that it makes all posts have the same date
+       and that does not look nice. A better way to deal with this problem is
+       the ~#+DATE:~ header at the top of blog posts.
+       #+begin_src elisp
+             :time-stamp-file nil)
+       #+end_src
+
+
+** Blog-posts
+       #+begin_src elisp
+       (list "blog-posts"
+       #+end_src
+
+       This is crucial.
+       #+begin_src elisp
+             :base-directory "./content/posts"
+             :exclude ".*index.org"
+       #+end_src
+
+       Recursive once again
+       #+begin_src elisp
+             :recursive t
+       #+end_src
+
+       Another difference
+       #+begin_src elisp
+             :html-link-up "./index.html"
+             :html-link-home "/index.html"
+       #+end_src
+
+Yup, I decided against that
+       #+begin_src elisp
+             :auto-sitemap t
+             :sitemap-filename "sitemap.org"
+             :sitemap-title "Sitemap"
+             :sitemap-sort-files 'anti-chronologically
+             :sitemap-date-format "Published: %a %b %d %Y"
+       #+end_src
+
+       #+begin_src elisp
+             :publishing-function 'org-html-publish-to-html
+             :publishing-directory "./public/posts"
+       #+end_src
+Comments
+       #+begin_src elisp
+             :html-postamble "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
+       #+end_src
+
+The following settings actually do not need further explanation
+       #+begin_src elisp
+             :with-author t           ;; Don't include author name
+             :with-creator t            ;; Include Emacs and Org versions in footer
+             :with-drawers t
+             :headline-level 4
+             :with-toc t                ;; Include a table of contents
+             :section-numbers nil       ;; Don't include section numbers
+             :time-stamp-file nil)
+       #+end_src
+
+** Images
+You may have already noticed that the two previous projects contain only my org
+files, even though a website is so much more than html ( to which org will get
+converted ). There are other types of media, such as images and css elements. In
+order to get these published ( contained in ~/content/images~ and ~/content/src~
+respectively) we use the ~org-publish-attachment~ function, which essentially
+copies the specified files to the target directory
+
+       #+begin_src elisp
+       (list "images"
+        :base-directory "./content/images"
+         :base-extension ".*"
+         :recursive t
+         :publishing-directory "./public/images"
+         :publishing-function 'org-publish-attachment)
+       #+end_src
+
+** Static
+       #+begin_src elisp
+       (list "static"
+        :base-directory "./content/src"
+         :base-extension "html\\|css"
+         :recursive t
+         :publishing-directory "./public/src"
+         :publishing-function 'org-publish-attachment)
+       )
+      )
+#+end_src
+
+* The End
+#+begin_src elisp
+;; Generate the site output
+(org-publish-all t)
+;(org-static-blog-assemble-index)
+
+(message "Build complete!")
+#+end_src
+
+* Tips:
+#+begin_export elisp
+(setq org-link-file-path-type 'relative)
+#+end_export
+
+* To look at sometime :noexport:
+#+begin_export elisp
+;; package --- Summary
+;;; Commentary:
+;;; Code: Lamprinos Chatziioannou, hugely modifying bastibe/org-static-blog
+
+(setq org-static-blog-publish-directory  "./public/posts"
+      org-static-blog-posts-directory  "./content/posts")
+
+(defun chatziiol/create-index (&optional tDirectory)
+  "Assemble an index page.
+ A directory can be given so that the index page is relative to its subdirectories"
+  (when-let (not tDirectory)
+    ((tDirectory org-static-blog-posts-directory))
+  (let ((post-filenames
+         ;; We want all .org files, except for indeces
+         ;; - FIXME Unable to sort based on time
+         (directory-files-recursively tDirectory ".*\[^\(^index\)\]\\.org$")))
+    (chatziiol/fix-index-content
+     (expand-file-name "index.html" tDirectory)
+     (last post-filenames 8)))))
+
+(chatziiol/fix-index-content
+ (expand-file-name "index.html" org-static-blog-posts-directory)
+ (directory-files-recursively org-static-blog-posts-directory ".*\[^\(^index\)\]\\.org$"))
+
+(defun chatziiol/fix-index-content (tIndex tPostList)
+  "Assemble a page that contains multiple posts one after another.
+Posts are sorted in descending time."
+ (with-temp-buffer
+   (find-file tIndex)
+   (message "file opened")
+   (erase-buffer)
+   (insert
+   (concat
+   "<!DOCTYPE html>\n"
+   "<html lang=\"en\">\n"
+   "<head>\n"
+   "<meta charset=\"UTF-8\">\n"
+   "<title>Simple Man's Journey</title>\n"
+   "</head>\n"
+   "<body>\n"
+   "<div id=\"preamble\" class=\"status\">"
+   "</div>\n"
+   "<div id=\"navigation\">
+ /   \    _________         ___
+|  |  |  /         \__/\   /   \
+ \ | /  |               |  \  \/
+  |||   |           ___/    \  \
+  ###   |   ___   _/       / \  /
+   #    |__|/ |__|/        \___/
+<a href=\"posts/lectures/index.html\">lectures</a> / <a href=\"posts/books/index.html\">books</a> / <a href=\"posts/sitemap.html\">sitemap</a> / <a href=\"https://github.com/chatziiola\">github</a> / <a href=\"about.html\">whoami</a>
+</div>"
+   "<div id=\"content\">\n"
+    (apply 'concat (mapcar 'org-static-blog-get-body tPostList))
+   "</div>\n"
+   "</body>\n"
+   "</html>\n"))
+   (basic-save-buffer)
+   (kill-buffer)))
+
+(defun org-static-blog-get-body (post-filename &optional exclude-title)
+  "Completely changed by chatziiol. Only changing lines."
+  (with-temp-buffer
+    (insert-file-contents post-filename)
+    (buffer-substring-no-properties
+     (progn
+       (goto-line 5)
+       (point))
+     (progn
+       (goto-line 10)
+       (point)))))
+
+
+#+end_export
+* Stealing from Daviwil A little bit more :noexport:
+When you find the time make sure to read the system crafters publish.el file
+
+#   begin_src elisp
+
+(defun get-article-output-path (org-file pub-dir)
+  (let ((article-dir (concat pub-dir
+                             (downcase
+                              (file-name-as-directory
+                               (file-name-sans-extension
+                                (file-name-nondirectory org-file)))))))
+
+    (if (string-match "\\/index.org$" org-file)
+        pub-dir
+        (progn
+          (unless (file-directory-p article-dir)
+            (make-directory article-dir t))
+          article-dir))))
+
+(get-article-output-path "elisp-blog.org" "../public/")
+(org-element-property :title "elisp-blog.org")
+
+#+end_src
+* Footnotes
+
+[fn:1] Make sure to look at:  https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/
