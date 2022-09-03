@@ -5,9 +5,16 @@
 
 I manage my dotfiles using GNU Stow. This means that I have a git directory
 [[file:../../][dotfiles]], which contains the configuration files for the applications I have
-bothered tailoring to my needs. However, it is not as simple as it sounds. The
-following hierarchy shows part of the problem:
+bothered tailoring to my needs. Maintaining it is not as simple as it sounds,
+though.
 
+In this article I aim to describe how this got /just a little bit/ easier for me
+in the past couple days
+
+* Building the script
+The following folder hierarchy shows part of the general dotfiles problem:
+
+#+begin_quote
 - dotfiles
   - bspwm
     - .config
@@ -26,39 +33,41 @@ following hierarchy shows part of the problem:
     - .emacs.d
       - config.org
   - ...
+#+end_quote
 
-The comments above highlight the fact that *there is not a single place to look*,
-when it comes to dotfiles. Obviously, however, we can recursively check our
-directory for ~.org~ files.
+The directories above highlight the fact that *there is not a single place to look*.
+Almost every package has something different in the way it structures its
+dotfiles, that makes the use of regular expressions necessary. Obviously, we
+want to recursively search our directory for ~.org~ files.
 
 #+begin_src elisp
 (setq chatziiola/dot-dir "~/dotfiles/emacs")
 (directory-files-recursively chatziiola/dot-dir "org$")
 #+end_src
 
-A problem arises: Too many files within the emacs directory! Almost entirely
-from the ~straight~ subdirectory. To solve that we need to filter out this
-directory ( and it would be even better to implement that as a /whitelist/, so
-that we do not have to repeat the process in case we find ourselves in trouble
-again ).
+** Dealing with too many org files
+A problem arises: Too many files within the emacs directory, almost all of which
+from the ~straight~ subdirectory /(this is what hapenned to me, it may be different
+for you)/. To solve that we need to filter out non-important to our configs org files.
 
 The way I see it there are two possible scenarios, neither of which do I like:
 1. Play with the output of ~directory-files-recursively~, filtering out whatever
-   contains an element of our list
-2. Redefine the function with one more parameter ~DIR-REGEXP~. Since it is a
-   rather small function, I'm pretty sure we can work it out.
+   contains an element of our blacklist
+2. Redefine the ~directory-files-recursively~ function with one more parameter
+   ~DIR-REGEXP~. Since it is a rather small function, I'm pretty sure we can work
+   it out.
 
-Alright alright alright. I found the third option:
-3. Keep using files only named as *config.org* and then present them by getting
-   the org-title property
+Alright, alright, alright. I found the third option:
+3. Instead of using files in this format ~<app>.org~ , we are to use files only
+   named as *config.org* and then differentiate them in the selection panel using
+   their "TITLE" property
 
    #+begin_src elisp
    (setq chatziiola/dot-dir "~/dotfiles/")
    (directory-files-recursively chatziiola/dot-dir "^config.org$")
    #+end_src
 
-Now we have to see how we can present them: *THIS NEEDS TO BE REFACTORED*
-
+** Getting the titles
 Make sure that we get the title of our configuration files:
 
 #+begin_src elisp
@@ -67,9 +76,38 @@ Make sure that we get the title of our configuration files:
         (unless (stringp (chatziiola/get-keyword-value "TITLE" file))
                  (print file)))
 #+end_src
+**** Complementary functions
+These functions were found online (albeit the second one has been changed) when
+I was building my lecture notetaking scripts
+#+begin_src elisp
+; This and the next func ( even though slightly modified ):
+; src: https://stackoverflow.com/questions/66574715/how-to-get-org-mode-file-title-and-other-file-level-properties-from-an-arbitra
+(defun ndk/get-keyword-key-value (kwd)
+  "This function was found on stackoverflow - google or see config.org for more. \n It should only be used by ~chatziiola/get-keyword-value~"
+  (let ((data (cadr kwd)))
+    (list (plist-get data :key)
+          (plist-get data :value))))
 
+(defun chatziiola/get-keyword-value (key &optional file)
+  "Return the actual value associated with key 'myString' of the current org buffer\n For example: (chatziiola/get-keyword-value \"TITLE\") should return the title of that org file."
+        ; Return the nth element of the list
+  ;; TODO better documentation
+  (let ((file (or file "")))
+    (cond
+     ((not (string-blank-p file))
+      (with-current-buffer (find-file-noselect file) (chatziiola/get-keyword-value key)))
+     ;; In that case key is a list of keys actually
+     ((proper-list-p key)
+      (let ((keyVals '()))
+        (cl-loop for title in key
+              do (add-to-list 'keyVals (chatziiola/get-keyword-value title) t))
+        keyVals)
+      )
+     (t
+      (nth 1 (assoc key (org-element-map (org-element-parse-buffer 'greater-element) '(keyword) #'ndk/get-keyword-key-value)))))))
+#+end_src
 
-
+** Presenting Them To The User 
 Create a dictionary in the form of ~"TITLE":"FILE"~:
 #+begin_quote
 We do not call it a directory but rather a /prompt-list/
@@ -108,13 +146,15 @@ Script building is over: Just open the file
        (car (last (assoc prompt-answer prompt-list)))))
 #+end_src
 
+** Integrating rougier's scripts
 With the steps above with have achieved a /basic level/ of ease when dealing with
 dotfiles. What is missing?
 1. Declaring it as an interactive function
 2. Binding it to a key
 3. Integrating Rougier
 
-~nrougier~ implemented these wonderful functions ( that inspired me to work on
+*** @[[https://github.com/rougier][rougier]] functions
+~rougier~ implemented these wonderful functions ( that inspired me to work on
 this ):
 #+begin_src elisp 
 (defun my/config ()
@@ -186,6 +226,7 @@ this ):
 One does not really need to understand all of them. They just have to look at
 the first one. The reason why this is the /path of least effort/ is obvious. By
 changing it *just a little bit*, we have the perfect end product:
+*** Merging them with our funcs
 #+begin_comment
 Our implemenation needed just a little push to work flawlessly, but having seen
 the rest of the code I think the change is pretty self-explanatory
@@ -211,10 +252,10 @@ the rest of the code I think the change is pretty self-explanatory
 )
 #+end_src
 
-** Extra goodies :BINDING:
+* Making it usable
 
 Autoload the configuration function ( so that it is always available ), /stolen/
-from ~nrougier~, once again.
+from ~rougier~, once again.
 
 #+begin_src elisp :prologue "" :epilogue ""
 
@@ -230,6 +271,7 @@ from ~nrougier~, once again.
 (evil-define-key 'normal 'global (kbd "<leader>fp") 'chatziiola/open-conf)
 #+end_src
 
+  
 * Summing Up ( some extra details )
 This article took for granted that one has some prior experience with org mode,
 though I understand that this is not always the case. To gain advantage of the
@@ -246,3 +288,6 @@ And enclose your code in source blocks such as these:
 #+begin_src elisp
 #+end_src
 #+end_export
+
+
+Lastly: Do not forget to add ~config.org~ to .stow-local-ignore to avoid clutter
