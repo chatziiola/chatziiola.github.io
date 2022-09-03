@@ -1,0 +1,248 @@
+#+TITLE: Literate Configuration Management with vanilla Emacs
+#+DATE: <2022-09-03 23:56>
+#+DESCRIPTION: Creating an easy way to review configs
+#+FILETAGS:  :emacs:elisp:
+
+I manage my dotfiles using GNU Stow. This means that I have a git directory
+[[file:../../][dotfiles]], which contains the configuration files for the applications I have
+bothered tailoring to my needs. However, it is not as simple as it sounds. The
+following hierarchy shows part of the problem:
+
+- dotfiles
+  - bspwm
+    - .config
+      - bspwm
+        - bspwm.org
+        - bspwmrc
+  - sxhkd
+    - .config
+      - sxhkd
+        - sxhkd.org
+        - sxhkdrc
+  - zsh
+    - zsh.org
+    - .zshrc
+  - emacs
+    - .emacs.d
+      - config.org
+  - ...
+
+The comments above highlight the fact that *there is not a single place to look*,
+when it comes to dotfiles. Obviously, however, we can recursively check our
+directory for ~.org~ files.
+
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/emacs")
+(directory-files-recursively chatziiola/dot-dir "org$")
+#+end_src
+
+A problem arises: Too many files within the emacs directory! Almost entirely
+from the ~straight~ subdirectory. To solve that we need to filter out this
+directory ( and it would be even better to implement that as a /whitelist/, so
+that we do not have to repeat the process in case we find ourselves in trouble
+again ).
+
+The way I see it there are two possible scenarios, neither of which do I like:
+1. Play with the output of ~directory-files-recursively~, filtering out whatever
+   contains an element of our list
+2. Redefine the function with one more parameter ~DIR-REGEXP~. Since it is a
+   rather small function, I'm pretty sure we can work it out.
+
+Alright alright alright. I found the third option:
+3. Keep using files only named as *config.org* and then present them by getting
+   the org-title property
+
+   #+begin_src elisp
+   (setq chatziiola/dot-dir "~/dotfiles/")
+   (directory-files-recursively chatziiola/dot-dir "^config.org$")
+   #+end_src
+
+Now we have to see how we can present them: *THIS NEEDS TO BE REFACTORED*
+
+Make sure that we get the title of our configuration files:
+
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/")
+(dolist (file (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+        (unless (stringp (chatziiola/get-keyword-value "TITLE" file))
+                 (print file)))
+#+end_src
+
+
+
+Create a dictionary in the form of ~"TITLE":"FILE"~:
+#+begin_quote
+We do not call it a directory but rather a /prompt-list/
+#+end_quote
+
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/")
+
+(let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+       (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files)))
+prompt-list)
+#+end_src
+
+
+Prompt the user to select and get the file to be edited
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/")
+
+(let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+       (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+       (prompt-answer (completing-read "Select configuration file: " prompt-list)))
+; Prompt an
+(car (last (assoc prompt-answer prompt-list))))
+#+end_src
+
+Script building is over: Just open the file
+
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/")
+
+(find-file
+       (let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+              (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+              (prompt-answer (completing-read "Select configuration file: " prompt-list)))
+       ; Prompt an
+       (car (last (assoc prompt-answer prompt-list)))))
+#+end_src
+
+With the steps above with have achieved a /basic level/ of ease when dealing with
+dotfiles. What is missing?
+1. Declaring it as an interactive function
+2. Binding it to a key
+3. Integrating Rougier
+
+~nrougier~ implemented these wonderful functions ( that inspired me to work on
+this ):
+#+begin_src elisp 
+(defun my/config ()
+  "Create a new for editing configuration"
+
+  (interactive)
+  (select-frame (make-frame '((name . "my/config")
+                              (width . 150)
+                              (height . 45))))
+  (find-file "~/.emacs.d/config.org")
+  (my/org-sidebar-toggle))
+#+end_src
+
+#+name: my/org-sidebar
+#+begin_src elisp
+
+(require 'imenu)
+(require 'imenu-list)
+
+(defun my/org-tree-to-indirect-buffer ()
+  "Create indirect buffer, narrow it to current subtree and unfold blocks"
+
+  (org-tree-to-indirect-buffer)
+  (org-show-block-all)
+  (setq-local my/org-blocks-hidden nil))
+
+(defun my/org-sidebar ()
+  "Open an imenu list on the left that allow navigation."
+
+  (interactive)
+  (setq imenu-list-after-jump-hook #'my/org-tree-to-indirect-buffer
+        imenu-list-position 'left
+        imenu-list-size 36
+        imenu-list-focus-after-activation t)
+
+  (let ((heading (substring-no-properties (or (org-get-heading t t t t) ""))))
+    (when (buffer-base-buffer)
+      (switch-to-buffer (buffer-base-buffer)))
+    (imenu-list-minor-mode)
+    (imenu-list-stop-timer)
+    (hl-line-mode)
+    (face-remap-add-relative 'hl-line :inherit 'nano-subtle)
+    (setq header-line-format
+          '(:eval
+            (nano-modeline-render nil
+                                  (buffer-name imenu-list--displayed-buffer)
+                                  "(outline)"
+                                  "")))
+    (setq-local cursor-type nil)
+    (when (> (length heading) 0)
+      (goto-char (point-min))
+      (search-forward heading)
+      (imenu-list-display-dwim))))
+
+#+end_src
+
+#+begin_src elisp
+(defun my/org-sidebar-toggle ()
+  "Toggle the org-sidebar"
+
+  (interactive)
+  (if (get-buffer-window "*Ilist*")
+      (progn
+        (quit-window nil (get-buffer-window "*Ilist*"))
+        (switch-to-buffer (buffer-base-buffer)))
+    (my/org-sidebar)))
+#+end_src
+
+One does not really need to understand all of them. They just have to look at
+the first one. The reason why this is the /path of least effort/ is obvious. By
+changing it *just a little bit*, we have the perfect end product:
+#+begin_comment
+Our implemenation needed just a little push to work flawlessly, but having seen
+the rest of the code I think the change is pretty self-explanatory
+#+end_comment
+
+#+begin_src elisp
+(setq chatziiola/dot-dir "~/dotfiles/")
+
+
+(defun chatziiola/open-conf ()
+     "Finds all ~config.org~ files within chatziiola/dot-dir and opens them up for you"
+
+  (interactive)
+  (let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+         (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+         (prompt-answer (completing-read "Select configuration file: " prompt-list))
+         (cur-conf-file (car (last (assoc prompt-answer prompt-list)))))
+      (select-frame (make-frame '((name . "my/config")
+                                  (width . 150)
+                                  (height . 45))))
+      (find-file cur-conf-file))
+  (my/org-sidebar-toggle)
+)
+#+end_src
+
+** Extra goodies :BINDING:
+
+Autoload the configuration function ( so that it is always available ), /stolen/
+from ~nrougier~, once again.
+
+#+begin_src elisp :prologue "" :epilogue ""
+
+(autoload 'chatziiola/open-conf
+  (expand-file-name "init.el" user-emacs-directory)
+  "Autoloaded my/config command."
+  t)
+
+#+end_src
+
+#+begin_src elisp
+;; For those of you that don't use evil, you better start :P
+(evil-define-key 'normal 'global (kbd "<leader>fp") 'chatziiola/open-conf)
+#+end_src
+
+* Summing Up ( some extra details )
+This article took for granted that one has some prior experience with org mode,
+though I understand that this is not always the case. To gain advantage of the
+scripts outlined above you only need to add the following lines at the beginning
+of your ~config.org~ files:
+
+#+begin_src org
+#+TITLE: <yourtitle>
+#+PROPERTY: header-args :tangle <path-to-your-file>
+#+end_src
+
+And enclose your code in source blocks such as these:
+#+begin_export org
+#+begin_src elisp
+#+end_src
+#+end_export
