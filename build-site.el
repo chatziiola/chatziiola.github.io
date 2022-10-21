@@ -88,7 +88,12 @@
          :recursive t
          :publishing-directory "./public/images"
          :publishing-function 'org-publish-attachment)
-
+    (list "post-images"
+        :base-directory "./content/posts"
+         :base-extension ".png"
+         :recursive t
+         :publishing-directory "./public/posts"
+         :publishing-function 'org-publish-attachment)
        (list "static"
         :base-directory "./content/src"
          :base-extension "html\\|css"
