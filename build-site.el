@@ -90,7 +90,7 @@
          :publishing-function 'org-publish-attachment)
     (list "post-images"
         :base-directory "./content/posts"
-         :base-extension ".png"
+         :base-extension "png"
          :recursive t
          :publishing-directory "./public/posts"
          :publishing-function 'org-publish-attachment)
