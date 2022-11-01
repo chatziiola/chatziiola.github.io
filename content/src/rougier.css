@@ -30,21 +30,24 @@ a, a:visited {
     text-decoration: none;
     color: rgba(48,63,159, 1.00);
 }
+
 .org-bold {
     font-weight: 400;
 }
+
 i, i a {
     color: #999999;
     font-style: normal;
 }
+
 .org-italic, .org-org-meta-line {
     color: rgba(48,63,159, 0.75);
     font-style: normal;
 }
+
 .org-face-salient {
     font-weight: 400;
 }
-
 
 /* Blinking cursor when strike-through */
 .custom { animation: blinker 1s linear infinite; }
@@ -70,9 +73,10 @@ div.side-note {
 #table-of-contents {
     padding-top: 0em;
     margin-top: 0em;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     padding-bottom: 3em;
 }
+
 #table-of-contents ul {
     padding: 0;
     font-weight: 400;
@@ -100,6 +104,7 @@ div.side-note {
     text-transform: uppercase;
     color:#2255bb;
 }
+
 #table-of-contents ul li ul,
 #table-of-contents ul li ul li {
     display: static;
@@ -119,14 +124,13 @@ div.side-note {
     content: "⌘";
 }
 
-
-blockquote {
-    color: #999999;
-    padding-top: 0;
-    margin-left: 1em;
-    padding-left: 1em;
-    border-left: 3px solid #cccccc;
-}
+/* blockquote { */
+/*     color: #999999; */
+/*     padding-top: 0; */
+/*     margin-left: 1em; */
+/*     padding-left: 1em; */
+/*     border-left: 3px solid #cccccc; */
+/* } */
 
 ul.org-ul {
     padding-left: 0
@@ -169,7 +173,6 @@ ol.org-ol {
 }
 
 
-
 #content, #postamble {
     margin: 0 auto;
     max-width: 720px;
@@ -181,6 +184,7 @@ ol.org-ol {
 /*    border-top: 1px solid #999999; */
     padding-top: 1.5em;
 }
+
 #postamble p, #postamble a {
     color: #999999;
     line-height: 1.25em;
@@ -204,8 +208,7 @@ span.subtitle {
     color: #999999;
 }
 
-
-h3 { padding-top: .5em; }
+/* h3 { padding-top: .5em; } */
 h1, h2, h3, h4 {
     color: black;
     font-size: 1em;
@@ -251,33 +254,6 @@ code {
     font-weight: 400;
 }
 
-/* --- Code folding --- */
-details {
-    color: rgba(48,63,159, 1.00);
-    background: #fbfbfb;
-    border: 1px solid rgba(48,63,159, 1.00);
-    border-radius: 3px;
-    padding:  0.25em;
-    margin-bottom: 1.0em;
-}
-details pre {
-    border: 0;
-}
-
-summary {
-    outline: 0;
-    color: rgba(48,63,159, 1.00);
-}
-
-summary::after {
-    font-size: 0.85em;
-    color: rgba(48,63,159, 0.25);
-    display: inline-block;
-    float: right;
-    content: "Click to fold/unfold";
-    padding-right:  0.5em;
-}
-
 /* --- Table --- */
 table { min-width: 100%; }
 table, tbody, td, tr, th, colgroup, thead {
@@ -303,12 +279,6 @@ tr:nth-child(even) {background: #f9f9f9;}
 tr:nth-child(odd) {background: #ffffff;}
 tbody {
 /* border-bottom: 1px solid black; */
-}
-
-/* --- Description list --- */
-dd {
-    margin-top: 0.25em;
-    margin-bottom: 0.50em;
 }
 
 /* --- Back links in header --- */
