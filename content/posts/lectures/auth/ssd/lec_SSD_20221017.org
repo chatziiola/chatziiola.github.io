@@ -1,0 +1,254 @@
+#+TITLE: Διάλεξη 4: Μοντέλο Ροπών 
+#+FILETAGS: lecture
+#+DATE: <2022-10-17>
+#+FILETAGS: lecture
+#+COURSE: SSD
+#+INSTITUTION: A.U.Th
+
+#+begin_note
+Το μοντέλο που εξετάστηκε στις προηγούμενες περιπτώσεις για τον προσδιορισμό της
+πιθανότητας ορισμένων γεγονότων ονομάζεται *πλήρες μοντέλο*.[fn:2] Αυτό γιατί μας
+επιτρέπει να ξέρουμε τι συμβαίνει για κάθε τιμή της τυχαίας μεταβλητής. Καθώς,
+όμως, αυτό δεν είναι πάντα σημαντικό ή και επιτεύξιμο (πειράματα) , είναι δυνατή
+και μια ενναλλακτική προσέγγιση.
+#+end_note
+
+* Μοντέλο Ροπών - Μη πλήρες μοντέλο
+#+begin_note
+Σελίδα 152
+#+end_note
+
+Έξτρα παράμετροι, υπολογίσιμοι από τις συναρτήσεις κατανομής, δίνοντας περαιτέρω
+πληροφορίες (κυρίως οπτικές/κατανόησης) επί των πιθανοτήτων.
+
+Ο αριθμός τους και το είδος τους καθορίζουν, κατα Πανά, την στατιστική του μοντέλου.
+#+begin_comment
+- [ ] ποιος είναι ο γενικός τύπος
+- [ ] προς τι η ονομασία. 
+#+end_comment
+ 
+Ο γενικός τύπος των ροπών είναι:
+\begin{equation}
+\label{eq:17}
+m_k = \int_{-\infty}^{\infty}x^kf_x(x)dx
+\end{equation}
+
+** Πρώτη ροπή: Μέση τιμή
+Γνωστή ήδη από PTS, *στατιστική μέση τιμή* ή *αναμενόμενη τιμή*:
+  
+\begin{align}
+\label{eq:1}
+m_1 = \bar{X} = \mu = E[X] &= \int_{-\infty}^{\infty}xf_X(x)dx\\
+&= - \int_{-\infty}^0 F_X(x)dx + \int_{0}^{+\infty}(1-F_X(x))dx &\text{graphical proof}\\
+E[X] &= \sum_{i=1}^n x_if_X(x_i)
+\end{align}
+Για συνεχείς και διακριτές τμ αντίστοιχα.
+
+[[file:course_tlp1_images/tlp1_lec4_deuteros-typos-mesis-timis.png]]
+#+CAPTION: Το γκρι σκιασμένο κομμάτι είναι το εμβαδό της $E[X]$ όπως προκύπτει από τον ορισμό της (απειραθροίσματα των μπλε χωρίων). Ο εναλλακτικός τύπος χρησιμοποιεί τα πράσινα χωρία.
+
+Χτίζοντας επι αυτού εύκολα προκύπτει:
+\begin{equation}
+\label{eq:2}
+E[Y] = E[g(X)] = \int_{-\infty}^{\infty}g(x)f_X(x)dx
+\end{equation}
+
+*** Ιδιότητες:
+- Αποτελεί γραμμικό τελεστή.
+ 
+\begin{align}
+\label{eq:18}
+E[C] &= C, C\in {\mathbb R}\\
+E[CX] &= CE[X], C\in {\mathbb R}\\
+E[g_1(X) + g_2(X) + \cdots] &= E[g_1(X)] + E[g_2(X)] + \cdots
+\end{align}
+
+** Δεύτερη ροπή: Μέση τετραγωνική τιμή τμ.
+Αποτελεί την συνολική ισχύ της στοχαστικής διαδικασίας, προκύπτει από τον γενικό
+τύπο για $k=2$
+\begin{equation}
+\label{eq:3}
+m_{2}=E[X^2] = \int_{-\infty}^{\infty} x^2f_xdx
+\end{equation}
+
+* Κεντρικές ροπές
+Αποτελούν ουσιαστικά επεκτάσεις της γενικότερης έννοιας των ροπών. Αυτό γιατί
+αποτελούν τις ροπές της τυχαίας μεταβλητής αν απο εκείνη /αφαιρεθεί/ η αναμενόμενη τιμή[fn:3]
+
+\begin{align}
+\label{eq:4}
+\mu_k &= \int_{\infty}^{\infty}(X-E[X])^kf_X(x)dx\\
+\mu_k &= \sum_{i}^{k}(x_i-E[X])^kf_X(x_{i})
+\end{align}
+
+- Ονοματολογία βάση $k$
+  - Μηδενική
+  - Πρώτη
+  - Δεύτερη
+  - ...
+    
+** Βασική ανάλυση
+\begin{align*}
+\mu_0 &= \cdots = m_{0} = 1\\
+\mu_1 &= \cdots = 0\\
+\mu_2 &= \int_{-\infty}^{\infty} (X-E[X])^2f_X(x)dx = \sigma^2 &\text{variance}\\
+&= E[X^2] - E[X]^{2}
+\end{align*}
+
+** Αναλυση επί της δεύτερης κεντρικής ροπής.
+- Όπως είδαμε: $\sqrt{Var[X]}= \sigma$ *τυπική απόκλιση*.
+- Σημασία αυτού:
+  - Όσο μεγαλώνει απλώνει η γραφική παράσταση της pdf
+  - Όσο μικραίνει τόσο περισσότερο συγκεντρώνονται οι τιμές γύρω από την μέση
+    της τιμή.
+  - [ ] ΔΕες διάγραμμα στις διαφάνειες
+
+* Ροπές υπο συνθήκη
+Υπο συνθήκη αναμενόμενη τιμή:
+\begin{equation}
+\label{eq:5}
+E[X|A] = \int_{-\infty}^{\infty} xf_{X|A} (x)dx
+\end{equation}
+
+Αντίστοιχα με $g(x)$[fn:1]
+
+#+begin_comment
+- Παράδειγμα με κανονική κατανομή.
+/Πολύ απλό/. Βγαίνει ακόμα και αποκλειστικά μέσω τύπου.
+Η λύση είναι $\sqrt\frac{2}{\pi}$
+#+end_comment
+
+* Χαρακτηριστική συνάρτηση τυχαίας μεταβλητής
++Έχουμε Fourier της PDF:+
+
+Ως χαρακτηριστική συνάρτηση τυχαίας μεταβλητής $X$[fn:4] με PDF $f_X(x)$ ορίζουμε την:
+\begin{equation}
+\label{eq:6}
+\Phi_X(\omega) = \int_{-\infty}^{\infty}f_X(x)e^{\jmath \omega x}dx 
+\end{equation}
+
+Αναπτύσσοντας περαιτέρω την προηγούμενη εξίσωση (με σειρές Taylor):
+\begin{align}
+\label{eq:7}
+\Phi_X(\omega) &= \sum_{k=0}^{\infty} \frac{(\jmath\omega)^k}{k!}\int_{-\infty}^{\infty}f_X(x)x^{k}dx\\
+&= \sum_{k=0} \frac{(\jmath\omega)^k}{k!}m_k 
+\end{align}
+
+Όπου, ως γνωστόν, $m_k$ η κ-οστή ροπή. Μας δείχνει καθ'αυτόν τον τρόπο πως με
+την χρήση των ροπών μπορούμε να /προσεγγίσουμε/ το γενικότερο μοντέλο.
+** Ιδιότητες
+\begin{align}
+\label{eq:19}
+\Phi_X(0) &= 1 &\text{by definition}\\
+|\Phi_X(\omega)| &= 1 &\text{easily proven}
+\end{align}
+
+* Ανισότητες Markov Chebychev
+** Markov
+- Αν $f_X(x)=0 \forall x<0$ τότε
+  
+\begin{equation}
+\label{eq:9}
+\forall \alpha >0: Pr\{ X \geq \alpha\} \leq \frac{E[X]}{\alpha}
+\end{equation}
+
+Πως βγαίνει;  
+\begin{equation}
+\label{eq:8}
+E[X] = \int_0^{\infty} xf_Xdx \geq \int_{\alpha}^{\infty}xf_Xdx \geq \alpha\int_a^{\infty}f_Xdx = \alpha Pr\{ X\geq \alpha\}
+\end{equation}
+
+Τι σημαίνει? Ποια η ερμηνεία του?
+** Chebychev
+/Εφαρμόσιμη τόσο για θετικές όσο και για αρνητικές τιμές/
+- Θέτοντας $\eta = E[X]$, και $\sigma^2 = E[(X-\eta)^2]$ τότε για $\forall\epsilon>0$:
+\begin{equation}
+\label{eq:10}
+Pr\{ |x-\eta| \geq \epsilon\}\leq 
+\frac{\sigma^2}{\epsilon^2}
+\end{equation}
+
+Βγαίνει με όμοια λογική με την Markov.
+
+* Όρια Chernoff
+/Λεει αν και ευρύτατα μαθηματικά έχουν πολλές εφαρμογές/
+Προκύπτουν από την σχέση:
+\begin{equation}
+\label{eq:12}
+E[e^{Sx}] = \int\cdots = \Phi(s)
+\end{equation}
+
+- [ ] Να αντιγραφούν απο τις διαφάνειες.
+\begin{equation}
+\label{eq:11}
+\forall \alpha>0, \forall s\in {\mathbb R}: Pr\{ e^{sX} \geq \alpha\} \leq \frac{\Phi(s)}{\alpha}
+\end{equation}
+* Γνωστές Κατανομές. :noexport:
+** Bernoulli
+- Να αναπτυχθεί κατάλληλα και @emacs
+  
+\begin{equation}
+\label{eq:13}
+f_X(x)= p\delta(x-1) + (1-p)\delta(x)
+\end{equation}
+
+Και αντίστοιχα ΑΣΚ...
+- Βάλε εδώ και τα στοιχεία των διαφανειών
+- Αφού πρώτα τα υπολογίσεις @wacom
+
+** Binomial
+Ο διωνυμικός όρος μπαίνει μόνο όταν μας ενδιαφέρει και η σειρά.
+
+\begin{equation}
+\label{eq:14}
+p_y(y) = \binom{n}{y} p^y(1-p)^{n-y}
+\end{equation}
+
+μπορεί να γραφεί ως pdf με την χρήση $\delta$ functions, όπως είδαμε και στην bernoulli.
+
+\begin{equation}
+\label{eq:15}
+F_y(y)=\sum_{k=0}^y \binom{n}{k}p^k(1-p)^{n-k}
+\end{equation}
+
+Και αντίστοιχα έχουμε ροπες μέση τιμή και μέση τετραγωνική τιμή
+- [ ] Να υπολογιστούν στο χέρι πριν προστεθούν
+
+** ACTION Pascal (γενίκευση της πολυωνυμικής)
+- Αρνητική διωνυμική
+
+** ACTION Υπεργεωμετρική
+
+** ACTION Poisson
+
+** ACTION Gaussian Κανονική
+- Η μόνη της οποίας το πλήρες μοντέλο προσδιορίζεται από μόνο δύο ροπές. Αν
+  ξέρεις μέση τιμή και διασπορά ξέρεις τα πάντα.
+*** Ιδιότητες:
+\begin{equation}
+\label{eq:16}
+\begin{cases}
+X~ N(\mu,\sigma^2)\\
+Y = aX +b
+\end{axiom}\Rightarrow
+Y ~ N(\alpha\mu +b, \alpha\sigma)
+\end{equation}
+
+*** Υπολογισμός τιμων μέσω της $(0,1)$
+Θυμίσου και δες σημειώσεις και σε αυτό.
+
+*** Σχέση με $erf(x)$
+
+
+#+begin_comment
+Σταματήσαμε πριν την ισχύ.
+#+end_comment
+* Footnotes
+[fn:4] Αναφερθήκαμε ακόμα στην $\Phi_X$ και ως /moment generating function/,
+ροπογεννήτρια συνάρτηση.  
+
+[fn:3] Expected Value - μέση στατιστική τιμή. Και ο λόγος για τον οποίο την
+συμβολίζουμε με $E[X]$ 
+
+[fn:1] Στην πραγματικότητα όπου υπάρχει $X$ εκείνη αποτελεί την πιο απλή (την
+γραμμική συνάρτηση) ως όρισμα εκείνου του όρου/συνάρτησης 
