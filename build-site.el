@@ -32,7 +32,7 @@
      org-html-self-link-headlines t
      org-export-with-tags t
      org-export-with-smart-quotes t
-     org-html-head "<link rel=\"stylesheet\" href=\"/src/rougier.css\" />")
+     org-html-head "<link rel=\"stylesheet\" href=\"/src/rougier.css\" /> <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">")
 
 (setq org-publish-project-alist
       (list
