@@ -87,7 +87,7 @@
          :publishing-function 'org-publish-attachment)
        (list "static"
         :base-directory "./content/src"
-         :base-extension "html\\|css"
+         :base-extension "html\\|css\\|ico"
          :recursive t
          :publishing-directory "./public/src"
          :publishing-function 'org-publish-attachment)
