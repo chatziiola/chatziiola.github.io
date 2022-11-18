@@ -1,0 +1,165 @@
+#+TITLE: Διάλεξη 6: Ολοκλήρωση θεωρίας της διαμόρφωσης γωνίας.
+#+FILETAGS: lecture
+#+DATE: <2022-10-25>
+#+FILETAGS: lecture
+#+COURSE: TLP1
+#+INSTITUTION: A.U.Th
+
+#+begin_comment
+Έχασα την χθεσινή διάλεξη η οποία ήταν το δεύτερο μέρος των ασκήσεων.
+#+end_comment
+
+#+begin_note
+Ήταν περισσότερο επανάληψη και λεπτομέρειες επί του προηγούμενου
+μαθήματος παρά καινούρια ύλη.
+- Για αυτό μεγάλο μέρος της διάλεξης δεν επανδημοσιεύτηκε.
+#+end_note
+
+* Επανάληψη FM:
+- Η πληροφορία πλέον στην γωνία, και ανάλογα με τον τρόπο που μπαίνει εκεί
+  έχουμε Phase ή Frequency Modulation
+
+- Ευαισθησία φάσης και συχνότητας: $K_p,K_f$
+
+- Δείκτης διαμόρφωσης - μέγιστη απόκλιση φάσης ή συχνότητας αντίστοιχα. $\beta_p,\beta_f$
+  - προσοχή όμως στην διαμόρφωση συχνότητας διαιρείται με το πλάτος $W$ (κανονικοποίηση)
+
+- διάκριση πεδίου συχνότητας (Fourier) και στιγμιαίας συχνότητας $f_{i}$, η οποία μας δείχνει
+  την συχνότητα του σήματος εκείνη την χρονική στιγμή.
+
+** Παράδειγμα. :noexport:
+#+begin_note
+Χρησιμοποιώ τον εξής συμβολισμό (ramp = $r(t)$)
+#+end_note
+
+Έστω το σήμα πληροφορίας: 
+\begin{equation}
+\label{eq:1}
+m(t) = ar(t)
+\end{equation}
+Ενώ ακόμα δίνονται $f_c=0.25 Hz$
+
+*** Phase Modulation
+Γνωρίζουμε ότι στο PM είναι:
+\begin{equation}
+\label{eq:2}
+s(t) = A_c\cos{(2\pi f_{c}t+\phi(t))} \stackrel{\phi(t)=K_pm(t)}{=}
+\begin{cases}
+A_c\cos{(2\pi f_{c}t+K_pat)},&t\in \cdots\\
+A_c\cos{(2\pi f_{c}t+0)} ,&\text{elsewhere}\\
+\end{cases}
+\end{equation}
+
+οπότε έχουμε σημεία μηδενισμού του $s$ (γιατί τα χρειαζόμαστε?)
+
+Λύνοντας ως προς $t$ για τα σημεία μηδενισμού:$\theta(t) = n\pi + \frac{\pi}{2}, n\in {\mathbb N}$
+\begin{equation}
+\label{eq:3}
+t_n= \cdots = \frac{1}{2}+n, n\in {\mathbb N}
+\end{equation}
+Τα σημεία μηδενισμού απέχουν σταθερές αποστάσεις μεταξύ τους
+
+*** Freq Modulation
+#+begin_comment
+Δεν γράφω την θεωρία δεν χρειάζεται να συμπληρωθεί.
+#+end_comment
+Εν ολίγοις καταλήγουμε σε:
+
+\begin{equation}
+\label{eq:4}
+s(t) =
+\begin{cases}
+A_c\cos{2\pi f_ct}\\
+A_c\cos{(2\pi f_ct + \pi K_{f} at^2 )}
+\end{cases}
+\end{equation}
+
+Πάλι την ίδια διαδικασία για σημεία μηδενισμού της $s$:
+- Πιο δύσκολες πράξεις μα καταλήγουμε σε:
+
+  
+\begin{equation}
+\label{eq:5}
+t_n = \cdots = \frac{1}{aK_f}(-f_c+ \sqrt{f_c^2+aK_f(a+ \frac{1}{2})})
+\end{equation}
+
+όπου αντικαθιστώντας τις τιμές:
+\begin{equation}
+\label{eq:6}
+t_n= 
+\frac{1}{4} (-1+ \sqrt{9+16n})
+\end{equation}
+
+όμως εδώ *αλλάζουν οι αποστάσεις των σημείων μηδενισμού*.
+Αλλάζει η στιγμιαία συχνότητα και αυξάνει.
+
+* Παρένθεση σε γραφική παράσταση σημάτων:
+Σε PM από τον ορισμό της στιγμιαίας συχνότητας αν είναι αύξουσα -> πύκνωση.
+Είναι δύσκολο να την καταλάβεις.
+
+* Ανάλυση σημάτων σε συνιστώσες: :noexport:
+#+begin_comment
+Έχει αναλυθεί στην προηγούμενη διάλεξη.
+#+end_comment
+
+\begin{equation}
+\label{eq:7}
+x(t) = x_i\cos{2\pi f_ct} - x_q(t) \sin{2\pi f_ct}
+\end{equation}
+
+το οποίο μπορεί να εκφραστεί στο μιγαδικό επίπεδο (θεωρώντας το συνημίτονο και
+το ημίτονο ως πραγματική και φανταστική μονάδα αντίστοιχα)
+
+Έτσι $V = \sqrt{x_i^2 + x_Q^2}$
+
+* Φάσμα και ισχύς σημάτων με διαμόρφωση γωνίας. :noexport:
+Έχοντας γράψει το σήμα σε ορθογώνιες και συμφασικές συνιστώσες:
+
+\begin{equation}
+\label{eq:10}
+\mathcal{F}[x(t)] = \cdots = 
+\frac{1}{2}A_c \mathcal{F}[\cos{\phi(t)}]|_{f-f_c} 
++ \frac{1}{2}A_c \mathcal{F}[\cos{\phi(t)}]|_{f+f_c} 
+- \frac{1}{2}A_c (-\jmath)\mathcal{F}[\sin{\phi(t)}]|_{f-f_c} 
+- \frac{1}{2}A_c \jmath\mathcal{F}[\sin{\phi(t)}]|_{f+f_c} 
+\end{equation}
+
+- [ ] Καταλήγουμε σε κανόνα του Carson
+- Ενεργό εύρος Ζώνης
+  
+* Διαμόρφωση γωνίας στενής και ευρείας ζώνης.
+Στην περίπτωση που ο δείκτης διαμόρφωσης  $\beta<< 1$ έχουμε:
+
+\begin{align}
+\label{eq:11}
+\beta_{p} &= K_p\max|m(t)| << 1&\text{PM}\\
+\beta_{f} &= \frac{K_f}{f_{m}}\max|m(t)| << 1&\text{FM}
+\end{align}
+
+Με την ανάλυση του διαμορφωμένου σήματος σε συνιστώσες, και καθώς $\beta<<1
+\Rightarrow \phi(t)<< 1$:
+
+\begin{equation}
+\label{eq:8}
+x(t) = A_c\cos{2\pi f_ct}\cos{\phi(t)}-A_c\sin{2\pi f_ct}\sin{\phi(t)}  \stackrel{a\approx0 \Rightarrow \sin{a}=a, \cos{a}=1}{=} A_c\cos{2\pi f_{c}t} - A_c\sin{2\pi f_ct}\phi(t)
+\end{equation}
+
+όπου και φαίνεται πως το σήμα μας χωρίζεται σε μία συνιστώσα /φέροντος/ που
+θυμίζει DSBAMTC, και σε μία συνιστώσα που θυμίζει DSBAMSC (βέβαια με διαφορά
+φάσης $\frac{\pi}{2}$).
+
+Έχουμε λοιπόν στο πεδίο της συχνότητας:
+\begin{equation}
+\label{eq:9}
+\mathcal{F}[x(t)] = X(f) = 
+\frac{A_c}{2}[\delta(f-f_c) + \delta(f+f_c)] - 
+\frac{A_c j}{2}[\Phi(f-f_c)-\Phi(f+f_{c})]
+\end{equation}
+
+Αυτή την διαμόρφωση την λέμε *στενής ζώνης (Narrow-Band FM/PM)*
+- NBFM
+- NBPM
+
+** Ευρείας Ζώνης
+Αν δεν ισχύει βέβαια αυτή η σχέση για το $\beta$ λέμε ότι έχουμε διαμόρφωση
+ *ευρείας ζώνης, (Wide-band FM/PM)*
