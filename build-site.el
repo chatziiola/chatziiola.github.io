@@ -23,9 +23,9 @@
   "See the description of posts-dir. It does not need to be the same. I have set it that way though.")
 
 
-(defvar src-path "./content/src/"
+(defvar src-dir "./content/src/"
   "Self-descriptive")
-(defvar src-public-path "./content/src/"
+(defvar src-public-dir "./content/src/"
   "Self-descriptive")
 
 (defvar css-path "/src/rougier.css"
@@ -135,7 +135,7 @@
          :publishing-function 'org-publish-attachment)
 
        (list "static"
-        :base-directory src-path
+        :base-directory src-dir
          :base-extension "html\\|css\\|ico"
          :recursive t
          :publishing-directory src-public-dir
