@@ -14,7 +14,7 @@
 (defvar public-dir "./public/"
   "The root directory of our webserver")
 
-(defvar drafts-dir (expand-file-name "drafts/" base-dir)
+(defvar drafts-dir (concat base-dir "drafts/")
   "To be ignored when publishing")
 
 (defvar posts-dir (expand-file-name "posts/" base-dir)
@@ -25,7 +25,7 @@
 
 (defvar src-dir "./content/src/"
   "Self-descriptive")
-(defvar src-public-dir "./content/src/"
+(defvar src-public-dir "./public/src/"
   "Self-descriptive")
 
 (defvar css-path "/src/rougier.css"
@@ -118,28 +118,18 @@
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
              :time-stamp-file nil)
-
-; Deactivated due to no longer being in use
-;       (list "images"
-;        :base-directory (expand-file-name "images" base-dir)
-;         :base-extension ".*"
-;         :recursive t
-;         :publishing-directory (expand-file-name "images" public-dir)
-;         :publishing-function 'org-publish-attachment)
-
-    (list "post-images"
-        :base-directory posts-dir
-         :base-extension "png"
-         :recursive t
-         :publishing-directory posts-public-dir
-         :publishing-function 'org-publish-attachment)
-
-       (list "static"
-        :base-directory src-dir
-         :base-extension "html\\|css\\|ico"
-         :recursive t
-         :publishing-directory src-public-dir
-         :publishing-function 'org-publish-attachment)
+	(list "post-images"
+	    :base-directory posts-dir
+	    :base-extension "png"
+	    :recursive t
+	    :publishing-directory posts-public-dir
+	    :publishing-function 'org-blog-publish-attachment)
+	(list "static"
+	    :base-directory src-dir
+	    :base-extension "html\\|css\\|ico"
+	    :recursive t
+	    :publishing-directory src-public-dir
+	    :publishing-function 'org-publish-attachment)
        )
       )
 
@@ -158,10 +148,7 @@ Return output file name."
              (file-name-as-directory (expand-file-name pub-dir)))
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
         (if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
-            (shell-command 
-             (format "convert %s -resize 800x800\\> +dither -colors 16 -depth 4 %s"
-                     filename
-                     dst-file))
+            (shell-command (format "convert %s -resize 800x800\\> +dither -colors 16 -depth 4 %s" filename dst-file))
           (copy-file filename dst-file t)))))
 
 ;; Generate the site output
