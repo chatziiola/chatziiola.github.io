@@ -61,14 +61,16 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
+;; Load the publishing system
+(require 'ox-publish)
+(require 'ox-html)
+
 ;; Install dependencies
 ;; htmlize is needed for proper code formatting:
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
 (package-install 'htmlize)
 (setq org-src-fontify-natively t)
-
-;; Load the publishing system
-(require 'ox-publish)
+(setq org-html-htmlize-output-type 'inline-css)
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil

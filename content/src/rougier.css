@@ -11,11 +11,11 @@
 
 /*
  * Colorscheme to use:
- * 353535 - Black / Darks    
- * 3C6E71 - Green / Emphasis 
- * FFFFFF - White / Bg	     
- * D9D9D9 - Gray / Notes     
- * 284B63 - Blue / Links
+ * #353535 - Black / Darks    
+ * #3C6E71 - Green / Emphasis 
+ * #FFFFFF - White / Bg	     
+ * #D9D9D9 - Gray / Notes     
+ * #284B63 - Blue / Links
  */
 
 @charset "utf-8";
@@ -25,7 +25,7 @@ body {
     font-family: "Roboto Mono", monospace;
     font-size: 14px;
     font-weight: 300;
-    color:  rgba(51, 51, 51, 1.00);
+    color: #353535 ;
     line-height: 1.4em;
     font-weight: light;
     counter-reset: section;
@@ -37,7 +37,7 @@ body {
 
 a, a:visited {
     text-decoration: none;
-    color: rgba(48,63,159, 1.00);
+    color: #3C6E71;
 }
 
 .org-bold {
@@ -45,12 +45,12 @@ a, a:visited {
 }
 
 i, i a {
-    color: #999999;
+    color: #D9D9D9; 
     font-style: normal;
 }
 
 .org-italic, .org-org-meta-line {
-    color: rgba(48,63,159, 0.75);
+    color: #3C6E71 ;
     font-style: normal;
 }
 
@@ -63,20 +63,6 @@ i, i a {
 @keyframes blinker { 50% { opacity: 0; } }
 
 
-/* --- Side notes --- */
-div.side-note::before {
-    content: "Note";
-    color: rgba(0,0,0,.75);
-    font-weight: 400;
-}
-div.side-note {
-    color: rgba(0,0,0,.5);
-    float: left;
-    font-size: .85em;
-    line-height: 1.25em;
-    margin-left: -24em;
-    width: 20em;
-}
 
 /* --- Table of contents --- */
 #table-of-contents {
@@ -111,7 +97,7 @@ div.side-note {
     counter-increment: list;
     content: counters(list, ".") ".";
     text-transform: uppercase;
-    color:#2255bb;
+    color: #3C6E71;
 }
 
 #table-of-contents ul li ul,
@@ -133,17 +119,10 @@ div.side-note {
     content: "⌘";
 }
 
-/* blockquote { */
-/*     color: #999999; */
-/*     padding-top: 0; */
-/*     margin-left: 1em; */
-/*     padding-left: 1em; */
-/*     border-left: 3px solid #cccccc; */
-/* } */
-
 ul.org-ul {
     padding-left: 0
 }
+
 ul.org-ul li  {
     list-style-type: none;
     margin-bottom: .5em;
@@ -158,7 +137,7 @@ ul.org-ul li p {
 ul.org-ul li::before {
     display: inline-block;
     content: "— ";
-    color: #999999;
+    color: #D9D9D9;
     width: 1em;
     margin-left: -1em;
 }
@@ -175,7 +154,7 @@ ol.org-ol {
 }
 .org-ol li::before {
     content: counter(li) ". ";
-    color: #999999;
+    color:  #D9D9D9;
     display: inline-block;
     width: 2em;
     margin-left: -2em;
@@ -195,7 +174,7 @@ ol.org-ol {
 }
 
 #postamble p, #postamble a {
-    color: #999999;
+    color: #D9D9D9;
     line-height: 1.25em;
     margin: 0;
     text-align: right;
@@ -214,12 +193,12 @@ span.subtitle {
     margin-top: .25em;
     font-size: 74.5%;
     font-weight: 300;
-    color: #999999;
+    color: #D9D9D9;
 }
 
 /* h3 { padding-top: .5em; } */
 h1, h2, h3, h4 {
-    color: black;
+    color: #353535;
     font-size: 1em;
     font-weight: 400;
     /* font-variant: all-small-caps; */
@@ -235,27 +214,28 @@ h2 {
   counter-reset: subsection;
 }
 h2::before {
-    color: #cccccc;
+    color: #D9D9D9;
     float: left;
     text-align: right;
     font-weight: 300;
     width: 7.5em;
     margin-left: -8.0em;
     counter-increment: section;
-    content: "Chapter " counter(section) " ";
+    content: "# "
+    /* content: "Chapter " counter(section) " "; */
 }
 
 h3::before {
-    color: #cccccc;
+    color: #D9D9D9;
     float: left;
     text-align: right;
     font-weight: 300;
     width: 2.5em;
     margin-left: -3.0em;
     counter-increment: subsection;
-    content: counter(section) "." counter(subsection) " ";
+    content: "## "
+    /* content: counter(section) "." counter(subsection) " "; */
 }
-
 
 code {
     background-color: #f9f9f9;
@@ -273,7 +253,7 @@ table {
     margin-top: 1em;
 }
 thead {
-    border-bottom: 1px dashed black;
+    border-bottom: 1px dashed #353535;
 }
 th {
     text-align: left;
@@ -286,20 +266,15 @@ td { padding: 0; }
 
 tr:nth-child(even) {background: #f9f9f9;}
 tr:nth-child(odd) {background: #ffffff;}
-tbody {
-/* border-bottom: 1px solid black; */
-}
 
 /* --- Back links in header --- */
 div.back a {
     float: right;
     font-weight: 300;
-    color: #cccccc;
+    color: #D9D9D9;
     font-variant: small-caps;
     margin-top: -2.5em;
 }
-/* h2 { border-bottom: .5px solid #999999; } */
-
 
 /* My personal additions */
 div#navigation {
@@ -336,19 +311,14 @@ img {
 /* --- Default Parts --- */
 .tag    { background-color: #eee; font-family: monospace;
         padding: 2px; font-size: 80%; font-weight: normal; }
-.timestamp { color: #bebebe; }
-.timestamp-kwd { color: #5f9ea0; }
 
-.inlinetask {
-  padding: 10px;
-  border: 2px solid gray;
-  margin: 10px;
-  background: #ffffcc;
-}
+.timestamp { color: #D9D9D9;}
+.timestamp-kwd { color: #3C6E71; }
+
 .underline { text-decoration: underline; }
 
 pre::before {
-    color: #cccccc;
+    color: #D9D9D9;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -359,8 +329,8 @@ pre::before {
 }
 
 pre {
-    border-left: 2px solid #e6e6e6;
-    background-color: #f2f2f2;
+    border-left: 2px solid #D9D9D9;
+    background-color: #D9D9D9;
     overflow: auto;
     margin: 0em;
     padding: 0.25em;
@@ -445,14 +415,14 @@ caption.t-bottom { caption-side: bottom; }
     font-size: 14px;
     font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
-    background: #999999
+    background: #D9D9D9;
     line-height: 1.4em;
     font-weight: italic;
 }
 
 
 .quote::before {
-    color: #cccccc;
+    color: #D9D9D9;
     float: left;
     text-align: right;
     font-weight: 200;
@@ -466,13 +436,13 @@ caption.t-bottom { caption-side: bottom; }
     font-size: 14px;
     font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
-    background: #95B300
+    background: #3C6E71;
     line-height: 1.4em;
     font-weight: italic;
 }
 
 .tribute::before {
-    color: #cccccc;
+    color: #D9D9D9;
     float: left;
     text-align: right;
     font-weight: 200;
@@ -485,10 +455,15 @@ caption.t-bottom { caption-side: bottom; }
     content: "Note";
     font-weight: bold;
     text-decoration-line: underline;
+    font-weight: 400;
 }
 
 .note {
     background: #D9D9D9;
     padding: 1em;
+    float: left;
+    font-size: .85em;
+    line-height: 1.25em;
+    margin-left: -24em;
+    width: 20em;
 }
-
