@@ -94,6 +94,7 @@
              :with-creator nil            ;; Include Emacs and Org versions in footer
              :with-drawers t
              :headline-level 4
+	     :html-postamble general-postamble
              :with-toc nil
              :section-numbers nil       ;; Don't include section numbers
              :html-link-home "/index.html"
