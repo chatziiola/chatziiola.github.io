@@ -14,8 +14,8 @@
  * #353535 - Black / Darks    
  * #3C6E71 - Green / Emphasis 
  * #FFFFFF - White / Bg	     
- * #D9D9D9 - Gray / Notes     
  * #284B63 - Blue / Links
+ * #D9D9D9 - Gray / Notes     
  */
 
 @charset "utf-8";
@@ -38,7 +38,7 @@ body {
 
 a, a:visited {
     text-decoration: none;
-    color: #3C6E71;
+    color: #284B63;
 }
 
 .org-bold {
@@ -46,12 +46,12 @@ a, a:visited {
 }
 
 i, i a {
-    color: #D9D9D9; 
+    color: #3C6E71; 
     font-style: normal;
 }
 
 .org-italic, .org-org-meta-line {
-    color: #3C6E71 ;
+    color: #284B63 ;
     font-style: normal;
 }
 
@@ -98,7 +98,7 @@ i, i a {
     counter-increment: list;
     content: counters(list, ".") ".";
     text-transform: uppercase;
-    color: #3C6E71;
+    color: #284B63;
 }
 
 #table-of-contents ul li ul,
@@ -138,7 +138,7 @@ ul.org-ul li p {
 ul.org-ul li::before {
     display: inline-block;
     content: "— ";
-    color: #D9D9D9;
+    color: #3C6E71;
     width: 1em;
     margin-left: -1em;
 }
@@ -155,7 +155,7 @@ ol.org-ol {
 }
 .org-ol li::before {
     content: counter(li) ". ";
-    color:  #D9D9D9;
+    color:  #3C6E71;
     display: inline-block;
     width: 2em;
     margin-left: -2em;
@@ -175,7 +175,7 @@ ol.org-ol {
 }
 
 #postamble p, #postamble a {
-    color: #D9D9D9;
+    color: #3C6E71;
     line-height: 1.25em;
     margin: 0;
     text-align: right;
@@ -184,7 +184,7 @@ ol.org-ol {
 h1.title {
     font-size: 1.5em;
     margin-top: 4em;
-    margin-bottom: 0em;
+    margin-bottom: 3em;
     font-weight: 400;
     text-align: left;
 }
@@ -194,7 +194,7 @@ span.subtitle {
     margin-top: .25em;
     font-size: 74.5%;
     font-weight: 300;
-    color: #D9D9D9;
+    color: #3C6E71;
 }
 
 /* h3 { padding-top: .5em; } */
@@ -215,7 +215,7 @@ h2 {
   counter-reset: subsection;
 }
 h2::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -227,7 +227,7 @@ h2::before {
 }
 
 h3::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -239,7 +239,7 @@ h3::before {
 }
 
 h4::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -251,7 +251,7 @@ h4::before {
 }
 
 h5::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -295,7 +295,7 @@ tr:nth-child(odd) {background: #ffffff;}
 div.back a {
     float: right;
     font-weight: 300;
-    color: #D9D9D9;
+    color: #3C6E71;
     font-variant: small-caps;
     margin-top: -2.5em;
 }
@@ -336,13 +336,13 @@ img {
 .tag    { background-color: #eee; font-family: monospace;
         padding: 2px; font-size: 80%; font-weight: normal; }
 
-.timestamp { color: #D9D9D9;}
-.timestamp-kwd { color: #3C6E71; }
+.timestamp { color: #3C6E71;}
+.timestamp-kwd { color: #284B63; }
 
 .underline { text-decoration: underline; }
 
 pre::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 300;
@@ -353,8 +353,8 @@ pre::before {
 }
 
 pre {
-    border-left: 2px solid #D9D9D9;
-    background-color: #D9D9D9;
+    border-left: 2px solid #3C6E71;
+    background-color: #3C6E71;
     overflow: auto;
     margin: 0em;
     padding: 0.25em;
@@ -439,14 +439,14 @@ caption.t-bottom { caption-side: bottom; }
     font-size: 14px;
     font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
-    background: #D9D9D9;
+    background: #3C6E71;
     line-height: 1.4em;
     font-weight: italic;
 }
 
 
 .quote::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 200;
@@ -460,13 +460,13 @@ caption.t-bottom { caption-side: bottom; }
     font-size: 14px;
     font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
-    background: #3C6E71;
+    background: #284B63;
     line-height: 1.4em;
     font-weight: italic;
 }
 
 .tribute::before {
-    color: #D9D9D9;
+    color: #3C6E71;
     float: left;
     text-align: right;
     font-weight: 200;
@@ -483,7 +483,7 @@ caption.t-bottom { caption-side: bottom; }
 }
 
 .note {
-    background: #D9D9D9;
+    background: #3C6E71;
     padding: 1em;
     float: left;
     font-size: .85em;
