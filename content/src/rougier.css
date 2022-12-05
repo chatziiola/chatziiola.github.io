@@ -348,12 +348,11 @@ pre::before {
     width: 3.0em;
     margin-left: -4.25em;
     font-variant: small-caps;
-    content: "";
 }
 
 pre {
     border-left: 2px solid #3C6E71;
-    background-color: #3C6E71;
+    background-color : #04626882;
     overflow: auto;
     margin: 0em;
     padding: 0.25em;
@@ -459,7 +458,8 @@ caption.t-bottom { caption-side: bottom; }
     font-size: 14px;
     font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
-    background: #284B63;
+    /* insert border here
+    bor: #284B63;*/
     line-height: 1.4em;
     font-weight: italic;
 }
@@ -482,12 +482,13 @@ caption.t-bottom { caption-side: bottom; }
 }
 
 .note {
-    background: #3C6E71;
+    background: #04626882;
     padding: 1em;
     float: left;
     font-size: .85em;
     line-height: 1.25em;
-    margin-left: -24em;
+    /* This was needed to ensure that notes didn't go on top of text-body*/
+    margin-left: -30em;
     width: 20em;
 }
 
