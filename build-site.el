@@ -47,6 +47,8 @@
 (defvar comments-postamble
   (concat
    "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
+
+  "<p class=\"date\"> Originally published on %d </p>"
    general-postamble
    )
   "Postamble for posts so that giscus comments are enabled" )
@@ -118,6 +120,7 @@
              :with-creator t            ;; Include Emacs and Org versions in footer
              :with-drawers t
              :headline-level 4
+	     :with-date t
              :with-toc t                ;; Include a table of contents
              :section-numbers nil       ;; Don't include section numbers
              :time-stamp-file nil)
