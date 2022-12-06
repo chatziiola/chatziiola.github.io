@@ -1,0 +1,55 @@
+#+TITLE: Exporting Org Mode to LaTeX and PDFs - Multilanguage
+#+DATE: <2022-05-27 10:40>
+#+DESCRIPTION: 
+#+FILETAGS: latex
+
+One problem I often encountered when dealing with \LaTeX was the fact that I
+could not get the document to be multilingual. More specifically, back in my
+~vim~ days, I had a set up tailored to my notetaking ...
+
+I did not like the fact that everything had to be compiled in order for me to
+see it though. I like it when I can keep things simple ( KISS ) and that's what
+drove me to org mode in the first place (That and GTD to be frank, even though I
+have since personalized the whole setup to my needs).
+
+I can now write *everything* in a very /beautiful/ if you ask me and organized
+structure, completely inside my editor, have my own functions for automatic
+creation and so on, and of course, writing \LaTeX expressions is still
+*extremely* easy, if not easier than using snippets through CDLaTeX
+
+So, while installing \LaTeX with all the impressive additions, synching,
+realtime exporting and so on, I thought to myself that I do not want to go
+through the hassle of writing ~\engbloc{PSPICE}~ every time I need english
+characters. [fn:1]
+
+What is needed then?
+#+begin_src elisp
+(setq org-latex-compiler "xelatex")
+
+(add-to-list 'org-latex-packages-alist
+             '("AUTO" "polyglossia" t ("xelatex" "lualatex")))
+#+end_src
+
+Along with that it is important noting down that these options are useful
+#+begin_quote
+#+TITLE: <<your title>>
+#+DATE: <<a date string>>
+#+AUTHOR: <<author's name>
+#+LATEX_COMPILER: xelatex
+# #+LATEX_CLASS: article 
+#+LATEX_CLASS_OPTIONS: [a4paper,11pt,titlepage]
+#+LANGUAGE: el
+#+latex_header: \setmainfont{Courier New}
+#+end_quote
+
+* Notice
+I would not say, however, that org mode can replace plain \LaTeX. That's because it
+can not. It is a fact that in order for you to customize your document,  you'll
+need to spend much more time in org mode than by simply working in \LaTeX all
+along...
+
+* Footnotes
+
+[fn:1] Now, having checked ~xelatex~ for just a little bit of time, it seems
+that using ~latexmk~ with babel instead of ~xelatex~ with polyglossia was a huge
+error - yet \LaTeX remains more difficult than plain org.

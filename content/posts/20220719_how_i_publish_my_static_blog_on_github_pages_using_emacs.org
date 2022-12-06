@@ -1,0 +1,134 @@
+#+TITLE: How i publish my static blog on Github pages using Emacs
+#+DATE: <2022-07-19 19:26>
+#+DESCRIPTION: Automating the tricky org mode to html process was never easier
+#+FILETAGS:  emacs elisp
+
+Almost everyone nowadays agrees that having a personal website is a virtue. That
+consists of two parts[fn:1]: The technical and the writing one.
+
+Of course, I would not try to tell you how to write.
+
+This article aims to /fill/ a very niche gap on the first aspect of personal
+blogs: to show how one can use Emacs and Org Mode to create the website they
+want *and* how to host it on GitHub Pages.
+
+** Notice
+I wrote this article in a form of rubber duck debugging of my own publishing
+progress. As such it will remain a work-in-progress even after its publication.
+
+* Why Emacs and Org Mode? A personal story
+#+begin_note
+If you have found a setup you like and feel comfortable working in, then there's
+no need to listen to me or anyone else about moving to a different editor. 
+#+end_note
+
+The answer for me was pretty simple. I moved to Emacs almost a year from now
+(<2022-12-06 Tue>), having used ~vim~ for something less than 5 years, on a daily,
+almost, basis.
+
+I love plain text.
+
+However, when I had to publish something I was writing mainly in $\LaTeX$, and
+even with my good ol' snippets, it felt far from natural[fn:2] Somehow,
+somewhere I read about Org Mode and decided to give it a shot; it did not
+disappoint.
+
+Its syntax is very similar to markdown but, it has *numerous* benefits and extra
+capabilities (if you are an Emacs user that is)
+
+* Piece of wisdom: Write small scripts
+#+begin_quote ULSAH
+Do not think of coding projects as *major ones*
+#+end_quote
+
+It was only during the last year of using ~vim~ that I realized the power of
+writing scripts for myself, instead of searching for plugins, extensions and
+other /pre-made/ scripts. Do not get me wrong: *If they exist, use them*. Follow
+the path of least resistance and be ruthless to the things that do not matter.
+
+
+* The Process
+Publishing with Emacs is relatively simple as long as you follow some basic
+principles:
+- [ ] You need to create your files yourself and give them the proper attributes
+  (such as a title, filetags, a date and or a description)
+- [ ] You need to keep your /content/ directory clean and organized because your
+  website's hierarchy will mimic your working one.
+- [ ] You understand how it functions:
+  1. You write in org inside your git repo
+  2. You commit the changes
+  3. You push the changes to your GitHub repo (effectively making them public)
+  4. GitHub actions takes over and launches a VM on which it installs Emacs
+  5. Emacs is called within that VM through your ~bash~ script and performs
+     ~org-publish~
+  6. The files that ~org-publish~ creates do not litter your working branch, but
+     they reside on a different one, pages
+  7. A web server then runs on that branch, letting you visit these files just
+     like any other website.
+
+*** Dealing with the Emacs Back End:
+#+begin_note
+Writing in <2022-12-06 Tue>, this configuration file is actually outdated due to
+the fact that I did not remember publishing it. /*sigh*/. It will be fixed in the
+future, but the ~.el~ version can always be found in my blog repo.
+#+end_note
+
+I have published my ~elisp~ script, largely based on the one SystemCrafters' David
+Wilson shared: [[file:~/Github/chatziiola.github.io/content/elisp-blog.org][Elisp -Configuration]].
+
+** Bash
+One liner - not really much to say here
+#+begin_export bash
+#!/bin/sh
+emacs -Q --script build-site.el
+#+end_export
+
+** Publishing on Github
+In order for Github to function as described above a file called ~publish.yml~ in
+~.github/workflows/~ is needed 
+
+#+begin_src  yaml
+name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v1
+
+      - name: Install Emacs
+        run: sudo apt install emacs-nox --yes
+
+      - name: Build the site
+        run: ./build.sh
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.0.8
+        with:
+          args: --verbose --no-progress ./public/**/*.html
+
+      - name: Publish generated content to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: public
+#+end_src
+
+* Notes:
+- To see these in action feel free to browse this blog's [[https://github.com/chatziiola/chatziiola.github.io][source]]
+- Of course you can run the bash script locally, maybe with Emacs' ~httpd~ mini
+  webserver or with your python oneliner to preview it before publishing. After
+  all, a problem for me often is that a problem in the ~publish.yml~ execution may
+  result in my website taken offline. 
+
+* Footnotes
+[fn:2] [[https://castel.dev][The best resource out there for notetaking with vim and latex]].
+
+[fn:1] ...and, if you navigate around mine, I think it will be pretty obvious
+which one could use a little bit of work:
