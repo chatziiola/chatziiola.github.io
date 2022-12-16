@@ -510,8 +510,13 @@ div.paradeigma {
     padding: 2em;
 }
 
+h1 {
+    counter-reset: example;
+}
+
 div.paradeigma::before {
-    content: "Παράδειγμα";
+    counter-increment: example;
+    content: "Παράδειγμα " counter(section) "." counter(example) " ";
     background: #3b9ebe;
     border-radius: 0.2em;
     padding: 0.5em;
