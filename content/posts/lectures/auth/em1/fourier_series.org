@@ -1,0 +1,184 @@
+#+title: Σειρές Fourier
+#+course: ss ic2 em1
+
+Οι σειρές Fourier βρίσκουν εφαρμογή σε πολλούς διαφορετικούς τομείς. Ο
+κρισιμότερος (από ότι φαίνεται) για τους μηχανικούς είναι η σχέση που έχουν με
+τον [[id:d6ee0c5f-5b5f-44be-972d-bf4ab39c3392][μετασχηματισμός Fourier]], επιτρέποντας μας να πάμε από το πεδίο του χρόνου
+στο πεδίο της συχνότητας.
+
+* Fourier και διατύπωση συνάρτησης με την χρήση βάσεων
+Είναι σημαντικό να καταλάβουμε πως οι σειρές Fourier είναι κάτι παραπάνω από την
+ανάλυση μίας συνάρτησης σε άθροισμα επιμέρους συναρτήσεων (τριγωνικής ή
+εκθετικής) μορφής.
+
+Αποτελεί, στην πραγματικότητα, την ανάλυση της συνάρτησης σε άθροισμα των *βάσεων*
+του εξεταζόμενου χώρου, σε ορθογώνιες, δηλαδή, μεταξύ τους συνιστώσες.
+
+Αποδεικνύεται πως βάσεις στον πραγματικό και τον μιγαδικό χώρο αντίστοιχα
+αποτελούν οι συναρτήσεις:
+\begin{align}
+\label{eq:4}
+\frac{\sqrt{2}}{T}\cos{\left(n\omega_0t\right)}\\
+\frac{\sqrt{2}}{T}\sin{\left(n\omega_0t\right)}
+\frac{\sqrt{1}}{T}e^{jn\omega_0t}
+\end{align}
+
+** ACTION Μια σύντομη επανάληψη                                   :noexport:
+#+begin_note
+Με θυμίζει πάρα πολύ Strang και θα ήθελα να το εξετάσω ξανά στο μέλλον. Αν
+κάποιος έχει το κόκινο βιβλίο του Πανά, αξίζει η μελέτη του κεφαλαίου 2 σε αυτή
+την φάση. Εξηγεί συνοπτικότατα την θεωρία των /διανυσματικών/ χώρων.
+#+end_note
+
+** ACTION Οι βάσεις στον πραγματικό και τον μιγαδικό χώρο         :noexport:
+
+* Τύποι
+Καθώς είδαμε στις  $~(\Ref{eq:4})$ τις /βάσεις/ του μιγαδικού και του πραγματικού
+χώρου αντίστοιχα είναι αναμενόμενο το να μπορούμε να εκφράσουμε μία τυχαία
+συνάρτηση ως άθροισμα αυτών ( με κατάλληλους συντελεστές ). Και αυτό συμβαίνει
+_σχεδόν_ σε όλες τις περιπτώσεις ([[*Συνθήκες Dirichlet][Συνθήκες Dirichlet]]).
+1. Τριγωνομετρική (Trigonometric):
+   - Type A
+     
+\begin{equation}
+\label{eq:1}
+\hat{f} = 
+\frac{a_0}{2}+ \sum_{n=1}^{\infty}a_n \cos{\left(\n\omega_0t\right)}+
+\sum_{n=1}^{\infty}b_n \cos{\left(\n\omega_0t\right)}
+\end{equation}
+
+   - Type B
+\begin{equation}
+\label{eq:2}
+\hat{f} = 
+\frac{A_0}{2}+ \sum_{n=1}^{\infty}A_n \cos{\left( n\omega_0t \right) + \phi_{n}}
+\end{equation}
+2. Εκθετική (Complex Exponential)
+\begin{equation}
+\label{eq:3}
+\hat{f} = \sum_{n=-\infty}^{\infty}f_n \cos{\left(n\omega_0t\right)}
+\end{equation}
+
+** Σχόλιο για τους συντελεστές
+#+begin_note
+Ο όρος μπροστά αποτελεί κανονικοποίηση και προκύπτει από τον ορισμό εν τέλη των
+βάσεων ( Το $\cos{\left(n\omega_0t\right)}$ δεν αποτελεί βάση αλλά το
+$\sqrt{\frac{2}{T}}\cos{\left(n\omega_0t\right)}$ είναι)
+#+end_note
+
+Οι συντελεστές των βάσεων στις παραπάνω εξισώσεις
+($\eqref{eq:1},~(\Ref{eq:2}),~(\Ref{eq:3})$), δεν είναι παρά οι προβολές 
+της συνάρτησης επί των αντίστοιχων βάσεων:
+\begin{align}
+\label{eq:6}
+a_n &= \frac{2}{T}\int_{t_1}^{t_1+T}2 f(t)\cos{\left(n\omega_0t\right)T}dt\\
+b_n &= \frac{2}{T}\int_{t_1}^{t_1+T} f(t)\sin{\left(n\omega_0t\right)}dt\\
+F_n &= \frac{1}{T}\int_{t_1}^{t_1+T} f(t)e^{-\jmath\omega_0nt}dt
+\end{align}
+
+ενώ για τον τριγωνομετρικό τύπο Β (που δεν είναι παρα μία εναλλακτική /αποτύπωση/
+του Α):
+
+\begin{align}
+\label{eq:12}
+A_0 &= \frac{a_0}{2}\\
+A_n &= \sqrt{a_n^2+b_n^2}\\
+\phi_n &= \arctan{\left(\frac{b_n}{a_n}\right)}
+\end{align}
+
+Ακόμα, αν και δεν είναι /τόσο/ σημαντικό, ενδιαφέρουσα είναι και η σχέση μεταξύ
+του τριγωνομετρικού τύπου Β και του εκθετικού:
+\begin{align*}
+A_n &= 2|F_n|\\
+\phi_{n} &= args{F_{n}}
+\end{align*}
+
+Ενώ ακόμα εύκολα αποδεικνύεται
+\begin{align}
+F_0 &= \frac{a_0}{2}\\
+F_n &= \frac{1}{2}(a_n-\jmath b_n)
+\end{align}
+
+* Συνθήκες Dirichlet
+Για να μπορεί μια συνάρτηση να αναπτυχθεί ως σειρά Fourier πρέπει:
+1. Να έχει πεπερασμένο αριθμό μεγίστων και ελαχίστων σε πεπερασμένο διάστημα
+2. Να έχει πεπερασμένο αριθμό ασυνεχειών.
+3. Να είναι απολύτως ολοκληρώσιμη.
+\begin{equation}
+\label{eq:13}
+\int_{-\infty}^{\infty} |f(t)|dt < \infty
+\end{equation}
+
+#+begin_comment
+1. Finite number of maxima and minima over the range of time period.
+   - How could this not be finite? Καποια ποσοότητα θα μπορούσε να απειρίζει .?
+2. Finite number of discontinuities over the range of time period.
+3. Singal should be _absolutely integrable_ over the range of a period
+   The integral of the signal within a period is a real number (not infinite).
+#+end_comment
+
+* Συμμετρία και συντελεστές
+Γενικά ισχύει πως κάθε συνάρτηση μπορεί να εκφραστεί ως άθροισμα δύο /επιμέρους/
+συναρτήσεων: Μιας άρτιας και μίας περιττής, ούτως ώστε:
+\begin{equation}
+\label{eq:14}
+f(t) = f_o(t) + f_e(t)
+\end{equation}
+Γεγονός που καθίσταται ιδιαίτερα εμφανές με τις σειρές Fourier, καθώς:
+\begin{align*}
+f_o(t) &= \sum_{n=1}^{\infty} b_n\sin{\left(n\omega_0t\right)}\\
+f_e(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty} a_n\cos{\left(n\omega_0t\right)}\\
+\end{align*}
+
+Αυτό με την σειρά του δημιουργεί τις προϋποθέςσεις για τις παρακάτω ιδιότητες:
+** Είδη συμμετρίας και σχέση με τους συντελεστές.
+
+*** Αν η $f$ άρτια συμμετρική
+Τότε θα είναι $f(t) = f_e(t) \Rightarrow b_n = 0$
+
+*** Αν η $f$ περιττά συμμετρική
+- $f(t) = f_o(t)\Rightarrow a_n = 0$
+- $\text{avg} = 0 \Rightarrow a_{0} = 0$
+
+*** Συμμετρία μισού μήκους
+Συμμετρία μισού μήκους υφίσταται όταν για το περιοδικό σήμα $x(t)$ ικανοποιείται
+η:
+\begin{equation}
+\label{eq:15}
+x(t) = -x(t+ \frac{T}{2})
+\end{equation}
+
+Σε αυτή την περίπτωση θα υπάρχουν μόνο /περιττές/ αρμονικές: $n=2\kappa+1, \kappa\in {\mathbb R}$:
+\begin{align*}
+a_n,b_n =
+\begin{cases}
+0, n = 2\kappa\\
+(\Ref{eq:6}), n = 2\kappa+1\\
+\end{cases}
+\end{align*}
+
+*** Συμμετρία τετάρτου μήκους
+Ουσιαστικά αποτελεί συνδυασμό συμμετρίας μισού μήκους και άρτιας/περιττής. Οπότε
+έχουμε μόνο περιττές αρμονικές, και μόνο $a_n$ (άρτια συμμετρία) ή μόνο $b_n$
+(περιττή συμμετρία)
+
+* Ενέργεια και ισχύς σειρών Fourier
+Από τον ορισμό της μέσης ισχύος έχουμε:
+\begin{equation}
+\label{eq:18}
+{\bar P} = \frac{1}{T}\int_{t_1}^{t_1+T}f^2(t)dt
+\end{equation}
+
+Το οποίο κατα την έκφραση των περιοδικών συναρτήσεων με Fourier series, μπορεί
+να γραφεί ως εξής:
+\begin{align}
+\label{eq:17}
+{\bar P} &= \frac{a_0^2}{4} + \frac{1}{2}\sum_{n=1}^{\infty}(a_n^2+b_n^2) &\text{type A}\\
+{\bar P} &= \frac{A_0^2}{2} + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 &\text{type B}\\
+{\bar P} &= \sum^{\infty}_{n=\infty} |F_{n}|^2
+\end{align}
+
+* Resources:
+- [[https://www.youtube.com/watch?v=9R3-0-Xg_Ro&list=PLBlnK6fEyqRiikSSOMCdErAdxvmGpzFQq][Fourier Series Neso Academy]]
+- Πανάς (εξαιρετικές σημειώσεις και αξίζει)
+
