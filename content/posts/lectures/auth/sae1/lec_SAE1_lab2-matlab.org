@@ -1,0 +1,169 @@
+#+TITLE: 2ο Εργαστήριο
+#+DATE: <2022-11-24 Thu>
+
+ Σύστημα κλειστού βρόχου ίδιου τύπου με την προηγούμενη φορά μόνο που έχει
+ προστεθεί μοναδιαία αρνητική ανάδραση
+ 
+\begin{equation}
+\label{eq:1}
+HT(s) = \frac{2.92(s+440)}{s+12.064}
+\end{equation}
+
+\begin{equation}
+\label{eq:2}
+HV(s) = \frac{18.69}{s+12.064}
+\end{equation}
+
+
+* Προδιαγραφές.
+Ώστε να προσδιορίσουμε κατάλληλα τον ελεγκτή k
+
+1. Μηδενική υπερύψψση για τις στροφές $\omega(t),\Omega(s)$
+2 Σφάλμα μόνιμης κατάστασης θέσης μηδενικό για το ΣΚΒ:. 
+\begin{equation}
+\label{eq:3}
+e_{ss} = 0, \omega_{\delta,ss} = V
+\end{equation}
+3. Χρόνος ανόδου $t_a \leq 160ms$
+4. Τάση διέγερσης $v_a(t) \leq 350V$
+5. $V=150V$
+6. $\omega_{\delta,max} = 200rad/sec$
+
+** Προδιαγραφή του $v_a$
+Πρέπει ανεξαρτήτως εισόδου $v_a \leq 350V$
+ 
+\begin{equation}
+\label{eq:4}
+v_a = (v-\omega)*k = e_{max}*k \Rightarrow \cdots k\leq 1.75
+\end{equation}
+
+* Συνάρτηση μεταφοράς κλειστού βρόχου
+Από την αρχή της επαλληλίας, παίρνοντας $T_L = 0$$
+
+\begin{equation}
+\HV_k(s) = \frac{18.69k}{s + (12.064 + 18.69k)}
+\end{equation} 
+
+Οπότε παρατηρούμε πως ο πόλος του closed loop μετακινείται προς τα αριστερα. Δεν
+ μένει δηλαδή στο -12. Είναι καλό αυτό (γιατί?). Βέβαια δεν μπορεί να πάει πολύ
+ πιο αριστερά λόγω των προδιαγραφών.
+
+* Σφάλμα Θέσης
+Από την θεωρία γνωρίζουμε πως:
+
+\begin{equation}
+\e_{ssp} = \frac{1}{1+k_p} = \frac{12.064}{12.064+128.69k} \neq 0
+\end{equation}
+
+Επομένως, όσο αυξάνει το κέρδος μειώνεται το σφάλμα στην μόνιμη
+κατάσταση.
+
+* Μελέτη με $k=1.5$
+Γιατί όμως πήραμε 1.5 και όχι 1.75?
+
+#+begin_src matlab
+k = 1.5;
+nHVK = [18.69*k];
+dHVK = [1 12.064+18.69*k];
+
+HVk = tf(nHVK,dHVK)
+#+end_src
+
+* Closed Loop TF για το $T$
+Οι πράξεις εδώ δεν έγιναν θεωρήθηκε δεδομένο
+
+#+begin_src matlab
+nHTK = -1*[2.92 2.92*440];
+dHTK = [1 40.1];
+ 
+HTk = tf(nHTK,dHTK)
+#+end_src
+
+* Ανάλυση των ΣΜΚΒ
+Ο πόλος μας πήγε στο -40, ενώ έχουμε ακόμα ένα μηδενικό...
+
+* Στροφές κινητήρα
+Απολύτως αναμενόμενα βάση της θεωρίας:
+
+\begin{equation}
+\Omega(s) = HV_k(s)V(s) + HT_k(s)T_L(s)
+\end{equation}
+
+* Υπολογισμός DC Gains
+Θυμίσου από θεωρία dcgain = Tf(0)
+
+#+begin_src matlab
+HVk0 = dcgain(HVk)
+HTk0 = dcgain(HTk)
+essp = 12.064/( 12.064+18.69*k )
+#+end_src
+
+* Σύγκριση με την μελέτη ανοιχτού βρόχου:
+Παρατηρούμε πως τα dcgain έχουν και στις0δύο περιπτώσεις μεωθεί,
+οδηγώντας σε μια μεγαλύτερη μείωση του σφάλματος με είσοδο μοναδιαία
+βηματική συνάρτηση.
+
+* Στροφές σε steady state
+Από FVT:
+
+\begin{equation}
+\omega_{\delta,ss} = \lim_{s\to0}s*\Omega(s) = \cdots
+\end{equation}
+
+Στην διαφάνεια 6 φανερώνεται η σύγκριση για ανοιχτό και κλειστό βρόχο.
+
+* Ανάλυση σε matlab
+
+#+begin_src matlab
+figure(3)
+step(150*HV)
+hold on
+step(150*HVk)
+#+end_src
+[[file:course_sae1_images/lab2_01.png]]
+
+
+* Σύγκριση προδιαγραφών OL, CL
+- Rise time -> πτώση από τα 180+ στα 54, υπερκαλύπτοντας τις προδιαγραφες
+- Settle Time -> από 324+ στα 97
+
+* Απόκριση στροφών σε κλιμακωτού τύπου φορτίο
+Το γράφω μόνο για ορολογία
+Δειγματοληψία του χρόνου απο 0 εως 30 με 10ms sampling time
+
+#+begin_src matlab
+figure(4);
+t = 0 : 0.01 : 30;
+uV = 150 * stepfun(t,0);
+yV = lsim(HVk, uV, t);
+
+uT = 0.5 * stepfun(t,0) + 0.5 * stepfun(t, 8) + -0.5 * stepfun(t, 22);
+yT = lsim(HTk, uT, t);
+
+y = yV + yT;
+plot(t, y, t, 20*uT)
+#+end_src
+[[file:course_sae1_images/lab2_03.png]]
+
+* Bode HV
+#+begin_src matlab
+figure(5)
+bode(HV)
+hold on;
+bode(HVk)
+#+end_src
+
+[[file:course_sae1_images/lab2_04.png]]
+
+
+* Bode HT
+#+begin_src matlab
+figure(6)
+bode(HT)
+hold on;
+bode(HTk)
+#+end_src
+
+[[file:course_sae1_images/lab2_05.png]]
+
+[[file:course_sae1_images/lab2_01.png]]
