@@ -38,21 +38,15 @@
 συνάρτηση ως άθροισμα αυτών ( με κατάλληλους συντελεστές ). Και αυτό συμβαίνει
 _σχεδόν_ σε όλες τις περιπτώσεις ([[*Συνθήκες Dirichlet][Συνθήκες Dirichlet]]).
 1. Τριγωνομετρική (Trigonometric):
-   - Type A
-     
-\begin{equation}
+\begin{align}
 \label{eq:1}
-\hat{f} = 
+\hat{f} &= 
 \frac{a_0}{2}+ \sum_{n=1}^{\infty}a_n \cos{\left(n\omega_0t\right)}+
-\sum_{n=1}^{\infty}b_n \cos{\left(n\omega_0t\right)}
-\end{equation}
-
-   - Type B
-\begin{equation}
+\sum_{n=1}^{\infty}b_n \cos{\left(n\omega_0t\right)}&\text{type A}\\
 \label{eq:2}
-\hat{f} = 
-\frac{A_0}{2}+ \sum_{n=1}^{\infty}A_n \cos{\left( n\omega_0t \right) + \phi_{n}}
-\end{equation}
+\hat{f} &= 
+\frac{A_0}{2}+ \sum_{n=1}^{\infty}A_n \cos{\left( n\omega_0t \right) + \phi_{n}}&\text{type B}
+\end{align}
 2. Εκθετική (Complex Exponential)
 \begin{equation}
 \label{eq:3}
@@ -71,7 +65,7 @@ $\sqrt{\frac{2}{T}}\cos{\left(n\omega_0t\right)}$ είναι)
 της συνάρτησης επί των αντίστοιχων βάσεων:
 \begin{align}
 \label{eq:6}
-a_n &= \frac{2}{T}\int_{t_1}^{t_1+T}2 f(t)\cos{\left(n\omega_0t\right)T}dt\\
+a_n &= \frac{2}{T}\int_{t_1}^{t_1+T} f(t)\cos{\left(n\omega_0t\right)}dt\\
 b_n &= \frac{2}{T}\int_{t_1}^{t_1+T} f(t)\sin{\left(n\omega_0t\right)}dt\\
 F_n &= \frac{1}{T}\int_{t_1}^{t_1+T} f(t)e^{-\jmath\omega_0nt}dt
 \end{align}
@@ -181,4 +175,5 @@ a_n,b_n =
 * Resources:
 - [[https://www.youtube.com/watch?v=9R3-0-Xg_Ro&list=PLBlnK6fEyqRiikSSOMCdErAdxvmGpzFQq][Fourier Series Neso Academy]]
 - Πανάς (εξαιρετικές σημειώσεις και αξίζει)
+- [[https://www.youtube.com/watch?v=28oKg7GMbvI&list=PLX2gX-ftPVXVScC8Hz8nmcZTAMXTluTIn][Michel Van Biezen]]
 
