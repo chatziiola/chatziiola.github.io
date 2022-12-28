@@ -34,8 +34,6 @@ body {
     counter-increment: toc-section;
 }
 
-
-
 a, a:visited {
     text-decoration: none;
     color: #284B63;
@@ -50,6 +48,7 @@ a:hover {
     font-weight: 400;
 }
 
+
 i, i a {
     color: #3C6E71; 
     font-style: normal;
@@ -57,7 +56,7 @@ i, i a {
 
 .org-italic, .org-org-meta-line {
     color: #284B63 ;
-    font-style: normal;
+    font-style: italic;
 }
 
 .org-face-salient {
@@ -346,6 +345,14 @@ img {
 
 .underline { text-decoration: underline; }
 
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+.org-string {
+    color: #3C6E71 
+    font-style: italic;
+}
+
 pre::before {
     color: #3C6E71;
     float: left;
@@ -358,7 +365,7 @@ pre::before {
 
 pre {
     border-left: 2px solid #3C6E71;
-    background-color : #04626882;
+    background-color : #eee;
     overflow: auto;
     margin: 0em;
     padding: 0.25em;
@@ -371,50 +378,43 @@ pre {
 pre.src {
     position: relative;
     overflow: visible;
+    margin-top: 2em;
 }
-
 
 pre.src-awk:before { content: 'Awk'; }
 pre.src-authinfo::before { content: 'Authinfo'; }
 pre.src-C:before { content: 'C'; }
-/* pre.src-C++ doesn't work in CSS */
 pre.src-css:before { content: 'CSS'; }
-pre.src-D:before { content: 'D'; }
-pre.src-calc:before { content: 'Emacs Calc'; }
-pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+pre.src-elisp:before { content: 'Elisp'; }
 pre.src-gnuplot:before { content: 'gnuplot'; }
 pre.src-java:before { content: 'Java'; }
-pre.src-js:before { content: 'Javascript'; }
 pre.src-latex:before { content: 'LaTeX'; }
-pre.src-lisp:before { content: 'Lisp'; }
-pre.src-lua:before { content: 'Lua'; }
 pre.src-matlab:before { content: 'MATLAB'; }
 pre.src-octave:before { content: 'Octave'; }
 pre.src-org:before { content: 'Org mode'; }
 pre.src-python:before { content: 'Python'; }
-pre.src-R:before { content: 'R'; }
-pre.src-ruby:before { content: 'Ruby'; }
-pre.src-sass:before { content: 'Sass'; }
-pre.src-scheme:before { content: 'Scheme'; }
-pre.src-screen:before { content: 'Gnu Screen'; }
 pre.src-sed:before { content: 'Sed'; }
 pre.src-sh:before { content: 'shell'; }
 pre.src-sql:before { content: 'SQL'; }
 pre.src-sqlite:before { content: 'SQLite'; }
-pre.src-makefile:before { content: 'Makefile'; }
-pre.src-perl:before { content: 'Perl'; }
 pre.src-shell:before { content: 'Shell Script'; }
 pre.src-cpp:before  { content: 'C++'; }
+pre.src-c:before  { content: 'C'; }
 pre.src-bash:before  { content: 'bash'; }
 pre.src-asm:before { content: 'Assembler'; }
 pre.src-html:before { content: 'HTML'; }
-pre.src-ps:before { content: 'PostScript'; }
 pre.src-tex:before { content: 'TeX'; }
-pre.src-xml:before { content: 'XML'; }
 pre.src-conf:before { content: 'Configuration File'; }
 
+/*--------------------------------------------------*/
+/* Captions
+/*--------------------------------------------------*/
 caption.t-above { caption-side: top; }
 caption.t-bottom { caption-side: bottom; }
+
+/*--------------------------------------------------*/
+/* Footnotes
+/*--------------------------------------------------*/
 
 .footpara { display: inline; }
 .footdef  { margin-bottom: 1em; }
@@ -422,7 +422,9 @@ caption.t-bottom { caption-side: bottom; }
 .figure p { text-align: center; }
 
 
-/* --- Equations --- */
+/*--------------------------------------------------*/
+/* Equations
+/*--------------------------------------------------*/
 .equation-container {
     display: table;
     text-align: center;
@@ -438,6 +440,11 @@ caption.t-bottom { caption-side: bottom; }
 }
 
 
+/*--------------------------------------------------*/
+/* My /classes/
+/*--------------------------------------------------*/
+
+/* Quotes */
 .quote {
     font-family: "Roboto Mono", monospace;
     font-size: 14px;
@@ -459,6 +466,7 @@ caption.t-bottom { caption-side: bottom; }
     content: "Quote ";
 }
 
+/* Tribute - used only in one article */
 .tribute {
     font-family: "Roboto Mono", monospace;
     font-size: 14px;
@@ -480,6 +488,7 @@ caption.t-bottom { caption-side: bottom; }
     content: "Tribute ";
 }
 
+/* Tribute - used only in one article */
 .note::before {
     content: "Note";
     font-weight: bold;
@@ -498,6 +507,10 @@ caption.t-bottom { caption-side: bottom; }
     width: 20em;
 }
 
+
+/*--------------------------------------------------*/
+/* Miscellaneous - to bundle with the rest
+/*--------------------------------------------------*/
 .outline-3{
     padding-left: 2em;}
 
@@ -525,4 +538,33 @@ div.paradeigma::before {
     /* margin-top: 2em; */
     /* text-emphasis: revert; */
     color: #FFFFFF;
+}
+
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+
+.org-keyword {
+    color: red;
+}
+
+.org-constant {
+    font-style: italic;
+}
+
+.org-variable-name, .org-type, .org-function-name{
+    color: blue;
+}
+
+.org-builtin{
+    color: purple;
+}
+
+.org-comment {
+    font-style: italic;
+}
+
+.org-string {
+    color: #3C6E71;
+    font-style: italic;
 }

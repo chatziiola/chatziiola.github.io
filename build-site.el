@@ -6,61 +6,60 @@
 ;; - [ ] updates taken from https://her.esy.fun/posts/0001-new-blog/index.html
 
 ;; Instead of having it all hardcoded
-(defvar domainname "https://chatziiola.github.io"
-  "Self-Descriptive")
 
-(defvar base-dir "./content/"
-  "The content directory")
-(defvar public-dir "./public/"
-  "The root directory of our webserver")
-
-(defvar drafts-dir (concat base-dir "drafts/")
-  "To be ignored when publishing")
-
-(defvar posts-dir (expand-file-name "posts/" base-dir)
-  "Created specifically for me - All of my /actual/ posts lie in content/posts")
-(defvar posts-public-dir (expand-file-name "posts/" public-dir)
-  "See the description of posts-dir. It does not need to be the same. I have set it that way though.")
-
-(defvar src-dir "./content/src/"
-  "Self-descriptive")
-(defvar src-public-dir "./public/src/"
-  "Self-descriptive")
-
-(defvar css-path "/src/rougier.css"
-  "Self-descriptive")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Variable declarations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar domainname "https://chatziiola.github.io" "Self-Descriptive")
+(defvar base-dir "./content/" "The content directory")
+(defvar public-dir "./public/" "The root directory of our webserver")
+(defvar drafts-dir (concat base-dir "drafts/") "To be ignored when publishing")
+(defvar posts-dir (expand-file-name "posts/" base-dir) "Subfolder of content where posts lie")
+(defvar posts-public-dir (expand-file-name "posts/" public-dir) "The public subfolder in which posts will be published")
+(defvar src-dir "./content/src/" "Self-descriptive")
+(defvar src-public-dir "./public/src/" "Self-descriptive")
+(defvar css-path "/src/rougier.css" "Self-descriptive")
 
 (defvar org-blog-head
   (concat
    "<link rel=\"stylesheet\" href=\"" css-path "\" />
     <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+    "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
    )
   "Description - BLOG HTML HEAD")
 
 (defvar general-postamble
   "<p class=\"footer\"> Made with Emacs and Org. CSS theme developed by @rougier.</p>"
-  "To be used on all pages"
-  )
+  "To be used on all pages")
 
 (defvar comments-postamble
   (concat
    "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
-
   "<p class=\"date\"> Originally created on %d </p>"
    general-postamble
-   )
-  "Postamble for posts so that giscus comments are enabled" )
+   ) "Postamble for posts so that giscus comments are enabled" )
 
-(require 'package)
-(setq package-user-dir (expand-file-name "./.packages"))
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package Management
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq straight-vc-git-default-clone-depth 1)
+(setq straight-recipes-gnu-elpa-use-mirror t)
 
-;; Initialize the package system
-(package-initialize)
-(unless package-archive-contents
-  (package-refresh-contents))
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
 
 ;; Load the publishing system
 (require 'ox-publish)
@@ -70,11 +69,45 @@
 ;; Install dependencies
 ;; htmlize is needed for proper code formatting:
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
-(package-install 'htmlize)
+(use-package htmlize)
+(use-package org-static-blog)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package Management
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
-(setq org-html-htmlize-font-prefix "org-")
+;(setq org-html-htmlize-font-prefix "org-")
+
+(setq-default org-src-fontify-natively t         ; Fontify code in code blocks.
+              org-adapt-indentation nil          ; Adaptive indentation
+              org-src-tab-acts-natively t        ; Tab acts as in source editing
+              org-confirm-babel-evaluate nil     ; No confirmation before executing code
+              org-edit-src-content-indentation 2 ; No relative indentation for code blocks
+              org-fontify-whole-block-delimiter-line t) ; Fontify whole block
+
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (gnuplot . t)
+   (haskell . nil)
+   (latex . t)
+   (octave . t)
+   (python . t)
+   (matlab . t)
+   (shell . t)
+   (ruby . t)
+;   (c . t)
+;   (cpp . t)
+   (sql . nil)
+   (sqlite . t)))
+
+; Avoid trash
+(setq make-backup-files nil
+        auto-save-default nil
+        create-lockfiles nil)
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil
@@ -88,56 +121,56 @@
 
 (setq org-publish-project-alist
       (list
-       (list "org-files"
-             :base-directory base-dir
-             :exclude drafts-dir
-             :recursive t
-             :publishing-function 'org-html-publish-to-html
-             :publishing-directory public-dir
-             :with-author nil           ;; Don't include author name
-             :with-creator nil            ;; Include Emacs and Org versions in footer
-             :with-drawers t
-             :headline-level 4
-	     :html-postamble general-postamble
-             :with-toc nil
-             :section-numbers nil       ;; Don't include section numbers
-             :html-link-home "/index.html"
-             :html-link-up "../index.html"
-             :time-stamp-file nil)
-       (list "blog-posts"
-             :base-directory posts-dir
-             :exclude ".*index.org"
-             :recursive t
-             :html-link-up "./index.html"
-             :html-link-home "/index.html"
-;             :auto-sitemap t
-;             :sitemap-filename "sitemap.org"
-;             :sitemap-title "Sitemap"
-;             :sitemap-sort-files 'anti-chronologically
-;             :sitemap-date-format "Published: %a %b %d %Y"
-             :publishing-function 'org-html-publish-to-html
-             :publishing-directory posts-public-dir
-             :html-postamble  comments-postamble 
-             :with-author t           ;; Don't include author name
-             :with-creator t            ;; Include Emacs and Org versions in footer
-             :with-drawers t
-             :headline-level 4
-	     :with-date t
-             :with-toc t                ;; Include a table of contents
-             :section-numbers nil       ;; Don't include section numbers
-             :time-stamp-file nil)
-	(list "post-images"
+       (list "Index files"
+	    :base-directory base-dir
+	    :base-extension "org"
+	    :exclude drafts-dir
+	    :headline-level 4
+	    :html-link-home "/index.html"
+	    :html-link-up "../index.html"
+	    :html-postamble general-postamble
+	    ; :preparation-function -> this could be good for some 
+	    ; :completion-function -> this could be good for some 
+	    ; :with-statistics-cookies
+	    :publishing-directory public-dir
+	    :publishing-function 'org-html-publish-to-html
+	    :recursive t
+	    :section-numbers nil    ;; Don't include section numbers
+	    :time-stamp-file nil
+	    :with-drawers t
+	    :with-toc nil
+	    )
+       (list "Blog posts"
+	    :base-directory posts-dir
+	    :base-extension "org"
+	    :exclude ".*index.org"
+	    :headline-level 4
+	    :html-link-home "/index.html"
+	    :html-link-up "./index.html"
+	    :html-postamble  comments-postamble 
+	    :publishing-directory posts-public-dir
+	    :publishing-function 'org-html-publish-to-html
+	    :recursive t
+	    :section-numbers nil    ;; Don't include section numbers
+	    :time-stamp-file nil
+	    :with-date t
+	    :with-drawers t
+	    :with-toc t             ;; Include a table of contents
+	    )
+	(list "Images"
 	    :base-directory posts-dir
 	    :base-extension "png"
-	    :recursive t
 	    :publishing-directory posts-public-dir
-	    :publishing-function 'org-blog-publish-attachment)
-	(list "static"
+	    :publishing-function 'org-blog-publish-attachment
+	    :recursive t
+	    )
+	(list "Website static stuff"
 	    :base-directory src-dir
 	    :base-extension "html\\|css\\|ico"
-	    :recursive t
 	    :publishing-directory src-public-dir
-	    :publishing-function 'org-publish-attachment)
+	    :publishing-function 'org-publish-attachment
+	    :recursive t
+	    )
        )
       )
 
@@ -161,3 +194,4 @@ Return output file name."
 
 ;; Generate the site output
 (org-publish-all t)
+
