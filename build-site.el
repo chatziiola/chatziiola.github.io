@@ -22,7 +22,6 @@
 (defvar posts-public-dir (expand-file-name "posts/" public-dir)
   "See the description of posts-dir. It does not need to be the same. I have set it that way though.")
 
-
 (defvar src-dir "./content/src/"
   "Self-descriptive")
 (defvar src-public-dir "./public/src/"
@@ -66,13 +65,16 @@
 ;; Load the publishing system
 (require 'ox-publish)
 (require 'ox-html)
+(require 'cl-extra)
 
 ;; Install dependencies
 ;; htmlize is needed for proper code formatting:
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
 (package-install 'htmlize)
+
 (setq org-src-fontify-natively t)
-(setq org-html-htmlize-output-type 'inline-css)
+(setq org-html-htmlize-output-type 'css)
+(setq org-html-htmlize-font-prefix "org-")
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil

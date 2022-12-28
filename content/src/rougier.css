@@ -209,14 +209,15 @@ h1, h2, h3, h4 {
     /* font-variant: all-small-caps; */
     text-transform: uppercase;
 }
-h2 { padding-top: 5em; }
 h3 { padding-top: 3em; }
 
 body {
   counter-reset: section;
 }
 h2 {
-  counter-reset: subsection;
+    padding-top: 5em;
+    font-weight: medium;
+    counter-reset: subsection;
 }
 h2::before {
     color: #3C6E71;
