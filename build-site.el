@@ -5,8 +5,6 @@
 ;; - [ ] add disclaimer to never edit this file again
 ;; - [ ] updates taken from https://her.esy.fun/posts/0001-new-blog/index.html
 
-;; Instead of having it all hardcoded
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variable declarations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -42,21 +40,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq straight-vc-git-default-clone-depth 1)
-(setq straight-recipes-gnu-elpa-use-mirror t)
+;(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+;                         ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(defvar bootstrap-version)
-(let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
-  (unless (file-exists-p bootstrap-file)
-    (with-current-buffer
-        (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
-         'silent 'inhibit-cookies)
-      (goto-char (point-max))
-      (eval-print-last-sexp)))
-  (load bootstrap-file nil 'nomessage))
+;;; Initialize the package system
+(require 'package)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
+
+(setq user-emacs-directory (expand-file-name "./.packages"))
+(setq package-user-dir user-emacs-directory)
 
 ;; Load the publishing system
 (require 'ox-publish)
@@ -66,8 +60,9 @@
 ;; Install dependencies
 ;; htmlize is needed for proper code formatting:
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
-(straight-use-package 'htmlize)
-(straight-use-package 'org-static-blog)
+(package-install 'htmlize)
+(message "And this is my default directory: %s" default-directory)
+(load (expand-file-name "org-static-blog.el" default-directory))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
