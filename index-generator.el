@@ -86,7 +86,7 @@ Preamble and Postamble are excluded, too."
 	(buffer-substring-no-properties
 	    (progn
 		(goto-char (point-min))
-		(search-forward "<div id=\"content\" class=\"content\">")
+		(search-forward "<div id=\"content\"")
 		(point))
 	    (progn
 	    (goto-char (point-max))
