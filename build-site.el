@@ -62,13 +62,13 @@
 ;;;; These were set up on a need-to-set basis
 
 (setq org-static-blog-enable-tags t)
-(setq org-static-blog-index-file "index.html")
+(setq org-static-blog-index-file "recents.html")
 (setq org-static-blog-index-front-matter org-blog-head)
 (setq org-static-blog-index-length 2)
 (setq org-static-blog-posts-directory "./content/posts/")
 (setq org-static-blog-page-postamble general-postamble)
 (setq org-static-blog-publish-directory "./public/posts/")
-(setq org-static-blog-publish-title "My Fantastic Index page")
+(setq org-static-blog-publish-title "Recent Articles")
 (setq org-static-blog-publish-url "https://chatziiola.github.io")
 (setq org-static-blog-index-front-matter "")
 
@@ -232,7 +232,7 @@ Return output file name."
           (copy-file filename dst-file t)))))
 
 ; Generate the site output
-(org-publish-all t)
+;(org-publish-all t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
