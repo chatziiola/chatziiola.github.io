@@ -1,22 +1,41 @@
-;;Set the package installation directory so that packages aren't stored in the
-;; ~/.emacs.d/elpa path.
+;; build-site.el -- Summary
+;;; Commentary:
+;;;  TODO update the .org file
+;;;  - [ ] add disclaimer to never edit this file again
+;;;  - [ ] updates taken from https://her.esy.fun/posts/0001-new-blog/index.html
 
-;; TODO update the .org file
-;; - [ ] add disclaimer to never edit this file again
-;; - [ ] updates taken from https://her.esy.fun/posts/0001-new-blog/index.html
+;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Variable declarations
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar domainname "https://chatziiola.github.io" "Self-Descriptive")
-(defvar base-dir "./content/" "The content directory")
-(defvar public-dir "./public/" "The root directory of our webserver")
-(defvar drafts-dir (concat base-dir "drafts/") "To be ignored when publishing")
-(defvar posts-dir (expand-file-name "posts/" base-dir) "Subfolder of content where posts lie")
-(defvar posts-public-dir (expand-file-name "posts/" public-dir) "The public subfolder in which posts will be published")
-(defvar src-dir "./content/src/" "Self-descriptive")
-(defvar src-public-dir "./public/src/" "Self-descriptive")
-(defvar css-path "/src/rougier.css" "Self-descriptive")
+
+(defvar domainname "https://chatziiola.github.io"
+  "Self-Descriptive.")
+
+(defvar base-dir "./content/"
+  "The content directory.")
+
+(defvar public-dir "./public/"
+  "The root directory of our webserver.")
+
+(defvar drafts-dir (concat base-dir "drafts/")
+  "To be ignored when publishing.")
+
+(defvar posts-dir (expand-file-name "posts/" base-dir)
+  "Subfolder of content where posts lie.")
+
+(defvar posts-public-dir (expand-file-name "posts/" public-dir)
+  "The public subfolder in which posts will be published.")
+
+(defvar src-dir "./content/src/"
+  "Self-descriptive.")
+
+(defvar src-public-dir "./public/src/"
+  "Self-descriptive.")
+
+(defvar css-path "/src/rougier.css"
+  "Self-descriptive.")
 
 (defvar org-blog-head
   (concat
@@ -24,22 +43,46 @@
     <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">"
     "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
    )
-  "Description - BLOG HTML HEAD")
+  "Description - BLOG HTML HEAD.")
 
 (defvar general-postamble
   "<p class=\"footer\"> Made with Emacs and Org. CSS theme developed by @rougier.</p>"
-  "To be used on all pages")
+  "To be used on all pages.")
 
 (defvar comments-postamble
   (concat
    "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
   "<p class=\"date\"> Originally created on %d </p>"
-   general-postamble
-   ) "Postamble for posts so that giscus comments are enabled" )
+   general-postamble)
+  "Postamble for posts so that giscus comments are enabled.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org-static-blog index variables
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; These were set up on a need-to-set basis
+
+(setq org-static-blog-enable-tags t)
+(setq org-static-blog-index-file "index.html")
+(setq org-static-blog-index-front-matter org-blog-head)
+(setq org-static-blog-index-length 2)
+(setq org-static-blog-posts-directory "./content/posts/")
+(setq org-static-blog-page-postamble general-postamble)
+(setq org-static-blog-publish-directory "./public/posts/")
+(setq org-static-blog-publish-title "My Fantastic Index page")
+(setq org-static-blog-publish-url "https://chatziiola.github.io")
+(setq org-static-blog-index-front-matter "")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Avoid trash - Basic Settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq make-backup-files nil
+        auto-save-default nil
+        create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
@@ -63,23 +106,36 @@
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
 (package-install 'htmlize)
 (message "And this is my default directory: %s" default-directory)
-(load (expand-file-name "org-static-blog.el" default-directory))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Package Management
+;; Beautification - org publish settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
 ;(setq org-html-htmlize-font-prefix "org-")
 
-(setq-default org-src-fontify-natively t         ; Fontify code in code blocks.
-              org-adapt-indentation nil          ; Adaptive indentation
-              org-src-tab-acts-natively t        ; Tab acts as in source editing
-              org-confirm-babel-evaluate nil     ; No confirmation before executing code
-              org-edit-src-content-indentation 2 ; No relative indentation for code blocks
-              org-fontify-whole-block-delimiter-line t) ; Fontify whole block
+(setq org-src-fontify-natively t		; Fontify code in code blocks.
+      org-adapt-indentation nil			; Adaptive indentation
+      org-src-tab-acts-natively t		; Tab acts as in source editing
+      org-confirm-babel-evaluate nil		; No confirmation before executing code
+      org-edit-src-content-indentation 2	; No relative indentation for code blocks
+      org-fontify-whole-block-delimiter-line t) ; Fontify whole block
 
+
+;; Customize the HTML output
+(setq org-html-validation-link nil
+     org-html-head-include-scripts nil
+     org-html-head-include-default-style nil
+     org-html-indent nil
+     org-html-self-link-headlines t
+     org-export-with-tags t
+     org-export-with-smart-quotes t
+     org-html-head org-blog-head)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Babel
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -92,28 +148,18 @@
    (matlab . t)
    (shell . t)
    (ruby . t)
-;   (c . t)
-;   (cpp . t)
    (sql . nil)
    (sqlite . t)))
 
-; Avoid trash
-(setq make-backup-files nil
-        auto-save-default nil
-        create-lockfiles nil)
 
-;; Customize the HTML output
-(setq org-html-validation-link nil
-     org-html-head-include-scripts nil
-     org-html-head-include-default-style nil
-     org-html-indent nil
-     org-html-self-link-headlines t
-     org-export-with-tags t
-     org-export-with-smart-quotes t
-     org-html-head org-blog-head)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Publishing
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (setq org-publish-project-alist
       (list
+       ;; Unnecesary and time consuming
+       ;; FIXME: org-static-blog.el for index files
        (list "Index files"
 	    :base-directory base-dir
 	    :base-extension "org"
@@ -122,8 +168,8 @@
 	    :html-link-home "/index.html"
 	    :html-link-up "../index.html"
 	    :html-postamble general-postamble
-	    ; :preparation-function -> this could be good for some 
-	    ; :completion-function -> this could be good for some 
+	    ; :preparation-function -> this could be good for some
+	    ; :completion-function -> this could be good for some
 	    ; :with-statistics-cookies
 	    :publishing-directory public-dir
 	    :publishing-function 'org-html-publish-to-html
@@ -140,7 +186,7 @@
 	    :headline-level 4
 	    :html-link-home "/index.html"
 	    :html-link-up "./index.html"
-	    :html-postamble  comments-postamble 
+	    :html-postamble  comments-postamble
 	    :publishing-directory posts-public-dir
 	    :publishing-function 'org-html-publish-to-html
 	    :recursive t
@@ -185,6 +231,15 @@ Return output file name."
             (shell-command (format "convert %s -resize 800x800\\> +dither -colors 16 -depth 4 %s" filename dst-file))
           (copy-file filename dst-file t)))))
 
-;; Generate the site output
+; Generate the site output
 (org-publish-all t)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Org-static-blog for index creation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(load (expand-file-name "index-generator.el" default-directory))
+(chatziiola/org-static-blog-assemble-index)
+
+;;; build-site.el ends here.

@@ -1,4 +1,6 @@
 #+title: Git Happens
+#+filetags: noexport
+#+date: <2022-03-26 Sat>
 
 * Reconnaisance
 ** SPARTA
@@ -33,9 +35,9 @@ After that we can use ~git reset --hard~ to have all our files there, readily wa
 *** how i failed Index file
 /This is where nikto also points us to look/
 - gitlab-ci.yml
-  #+begin_code
+  #+begin_src bash
   echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
-  #+end_code
+  #+end_src
 - Dockerfile
 - README.md
 - dashboard.html

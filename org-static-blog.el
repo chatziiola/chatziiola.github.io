@@ -412,6 +412,7 @@ unconditionally."
   (directory-files-recursively
    org-static-blog-posts-directory ".*\\.org$"))
 
+
 (defun org-static-blog-get-draft-filenames ()
   "Returns a list of all drafts."
   (directory-files-recursively
@@ -708,26 +709,6 @@ posts as full text posts."
      (last post-filenames org-static-blog-index-length)
      org-static-blog-index-front-matter)))
 
-(defun org-static-blog-assemble-multipost-page (pub-filename post-filenames &optional front-matter)
-  "Assemble a page that contains multiple posts one after another.
-Posts are sorted in descending time."
-  (setq post-filenames (sort post-filenames (lambda (x y) (time-less-p (org-static-blog-get-date y)
-                                                                  (org-static-blog-get-date x)))))
-  (org-static-blog-with-find-file
-   pub-filename
-   (org-static-blog-template
-    org-static-blog-publish-title
-   (concat
-    (when front-matter front-matter)
-    (apply 'concat (mapcar
-                    (if org-static-blog-use-preview
-                        'org-static-blog-get-preview
-                      'org-static-blog-get-post-content) post-filenames))
-    "<div id=\"archive\">\n"
-    "<a href=\"" (org-static-blog-get-absolute-url org-static-blog-archive-file) "\">" (org-static-blog-gettext 'other-posts) "</a>\n"
-    "</div>\n"))))
-
-
 
 (defun org-static-blog-post-preamble (post-filename)
   "Returns the formatted date and headline of the post.
@@ -961,55 +942,4 @@ blog post, sorted by tags, but no post body."
         (find-file (cadr posts))
       (message (org-static-blog-gettext 'no-next-post)))))
 
-(defun org-static-blog-open-matching-publish-file ()
-  "Opens HTML for post."
-  (interactive)
-  (find-file (org-static-blog-matching-publish-filename (buffer-file-name))))
-
-;;;###autoload
-(defun org-static-blog-create-new-post (&optional draft)
-  "Creates a new blog post.
-Prompts for a title and proposes a file name. The file name is
-only a suggestion; You can choose any other file name if you so
-choose."
-  (interactive)
-  (let ((title (read-string (org-static-blog-gettext 'title))))
-    (find-file (concat-to-dir
-                (if draft
-                    org-static-blog-drafts-directory
-                    org-static-blog-posts-directory)
-                (read-string (org-static-blog-gettext 'filename)
-			     (concat (format-time-string "%Y-%m-%d-" (current-time))
-				     (replace-regexp-in-string "\s" "-" (downcase title))
-				     ".org"))))
-    (insert "#+title: " title "\n"
-            "#+date: " (format-time-string "<%Y-%m-%d %H:%M>") "\n"
-            "#+description: \n"
-            "#+filetags: ")))
-
-;;;###autoload
-(defun org-static-blog-create-new-draft ()
-  "Creates a new blog draft.
-Prompts for a title and proposes a file name. The file name is
-only a suggestion; You can choose any other file name if you so
-choose."
-  (interactive)
-  (org-static-blog-create-new-post 't))
-
-
-;;;###autoload
-(define-derived-mode org-static-blog-mode org-mode "OSB"
-  "Blogging with org-mode and emacs."
-  (run-mode-hooks)
-  :group 'org-static-blog)
-
-;; Key bindings
-(define-key org-static-blog-mode-map (kbd "C-c C-f") 'org-static-blog-open-next-post)
-(define-key org-static-blog-mode-map (kbd "C-c C-b") 'org-static-blog-open-previous-post)
-(define-key org-static-blog-mode-map (kbd "C-c C-p") 'org-static-blog-open-matching-publish-file)
-(define-key org-static-blog-mode-map (kbd "C-c C-n") 'org-static-blog-create-new-post)
-(define-key org-static-blog-mode-map (kbd "C-c C-d") 'org-static-blog-create-new-draft)
-
 (provide 'org-static-blog)
-
-;;; org-static-blog.el ends here
