@@ -232,7 +232,7 @@ Return output file name."
           (copy-file filename dst-file t)))))
 
 ; Generate the site output
-;(org-publish-all t)
+(org-publish-all t)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
