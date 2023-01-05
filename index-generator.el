@@ -105,7 +105,7 @@ Preamble and Postamble are excluded, too."
 		    (goto-char (point-min))
 		    (if (search-forward-regexp "^\\#\\+date:[ ]*<\\([^]>]+\\)>$" nil t)
 			(match-string 1)))
-		0 9)
+		0 10)
 	    ">  </p>"
 	    ;; Get title
 	    (unless exclude-title
@@ -164,28 +164,14 @@ Preamble and Postamble are excluded, too."
      (format "<meta name=\"description\" content=\"%s\">\n" tDescription))
    "<title>" tTitle "</title>\n"
    ;;This is for mathjax support
-    "<script type=\"text/x-mathjax-config\">\n
-	MathJax.Hub.Config({\n
-	    displayAlign: \"center\",\n
-	    displayIndent: \"0em\",\n
-	    \"HTML-CSS\": { scale: 100,\n
-			    linebreaks: { automatic: \"false\" },\n
-			    webFont: \"TeX\"\n
-			},\n
-	    SVG: {scale: 100,\n
-		linebreaks: { automatic: \"false\" },\n
-		font: \"TeX\"},\n
-	    NativeMML: {scale: 100},\n
-	    TeX: { equationNumbers: {autoNumber: \"AMS\"},\n
-		MultLineWidth: \"85%\",\n
-		TagSide: \"right\",\n
-		TagIndent: \".8em\"\n
-		}\n
-    });\n
-    </script>\n"
-    "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML\"></script>\n"
+;    "<script type=\"text/x-mathjax-config\">\n MathJax.Hub.Config({\n displayAlign: \"center\",\n displayIndent: \"0em\",\n \"HTML-CSS\": { scale: 100,\n linebreaks: { automatic: \"false\" },\n webFont: \"TeX\"\n },\n SVG: {scale: 100,\n linebreaks: { automatic: \"false\" },\n font: \"TeX\"},\n NativeMML: {scale: 100},\n TeX: { equationNumbers: {autoNumber: \"AMS\"},\n MultLineWidth: \"85%\",\n TagSide: \"right\",\n TagIndent: \".8em\"\n }\n });\n </script>\n" "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML\"></script>\n"
    "</head>\n"
    "<body>\n"
+"<div id=\"org-div-home-and-up\">"
+" <a accesskey=\"h\" href=\"./index.html\"> UP </a>"
+" |"
+" <a accesskey=\"H\" href=\"/index.html\"> HOME </a>"
+"</div>"
    "<div id=\"preamble\" class=\"status\">"
     " <div id=\"navigation\">\n"
     " /   \\    _________         ___\n"
@@ -194,7 +180,7 @@ Preamble and Postamble are excluded, too."
     "  |||   |           ___/    \\  \\\n"
     "  ###   |   ___   _/       / \\  /\n"
     "   #    |__|/ |__|/        \\___/\n"
-    "<a href=\"/posts/lectures/index.html\">lectures</a> / <a href=\"/posts/books/index.html\">books</a> / <a href=\"https://github.com/chatziiola\">github</a>\n"
+    "<a href=\"/index.html\">home</a> / <a href=\"/posts/lectures/index.html\">lectures</a> / <a href=\"/posts/books/index.html\">books</a> / <a href=\"https://github.com/chatziiola\">github</a>\n"
     "</div>\n"
    "</div>\n"
    "<div id=\"content\">\n"
