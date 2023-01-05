@@ -64,7 +64,7 @@
 (setq org-static-blog-enable-tags t)
 (setq org-static-blog-index-file "recents.html")
 (setq org-static-blog-index-front-matter org-blog-head)
-(setq org-static-blog-index-length 2)
+(setq org-static-blog-index-length 50)
 (setq org-static-blog-posts-directory "./content/posts/")
 (setq org-static-blog-page-postamble general-postamble)
 (setq org-static-blog-publish-directory "./public/posts/")
@@ -240,6 +240,6 @@ Return output file name."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (load (expand-file-name "index-generator.el" default-directory))
-(chatziiola/org-static-blog-assemble-index)
+(chatziiola/org-static-blog-assemble-index-no-content)
 
 ;;; build-site.el ends here.
