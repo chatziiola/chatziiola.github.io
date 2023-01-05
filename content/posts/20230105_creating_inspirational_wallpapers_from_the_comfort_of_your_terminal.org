@@ -1,0 +1,134 @@
+#+TITLE: Creating inspirational wallpapers from the comfort of your terminal
+#+DATE: <2023-01-05 13:25>
+#+DESCRIPTION: Because, who does not want that!
+#+FILETAGS: random short
+
+The first two months of the year are always somewhat difficult if you are an
+undergraduate in Greece, since the final exams of the Fall Semester take place
+and... you have to [[https://www.youtube.com/watch?v=M6JRD-ubxR4&ab_channel=asasyn151][ruuuuuuun]]. Yet, we must press on, no matter how easily one may
+feel demotivated.
+
+What I, personally, find most difficult, is taking a step back and relaxing. No
+matter how many hours I put in, or how I push myself, university exams for some
+reason mess with my well being. It most probably is a direct result of the first
+year being through Zoom calls, making it difficult to participate and cultivate
+a genuine interest in my courses. I'm working on it.
+
+Since I spend most of my time studying on my computer (a process which I would I
+will explore in a later post), I decided to create some inspirational
+wallpapers.
+
+Not so obviously, a graphical interface will not be necessary for this task.
+
+* The process
+1. Make sure that you have the proper package installed
+   #+begin_src bash
+   sudo apt install imagemagick # Good ol' linux
+   brew install imagemagick     # Well, what can I say here
+   #+end_src
+2. Find the images you want. Ideally
+   - High resolution. I had a major problem here and this is the main reason I'm
+     posting today. I may need to come back here when I eventually spend some
+     more time to find quality pictures
+   - I like the black and white style due to minimalism and simplicity
+   - You may want to use google dorking, even though it was not really helpful
+     in the end
+3. Find the quotes you want
+   - Try using smaller quotes
+   - If you settle on quotes that you see that exceed the boundaries of your
+     image use "\n" to break the quote in lines
+4. Copy the following command to your terminal
+    #+begin_src bash
+    convert <input image> -font Iosevka -pointsize 24 -gravity Center -interline-spacing 26 -fill white -annotate 0 "<quote>" <output image>
+    #+end_src
+    Explaining the options used here:
+   - ~<input image>~ self-descriptive
+   - ~-font~ self-descriptive
+   - ~-pointsize~ the size of the letters of your font
+   - ~-gravity~ the location in which the text will be placed
+     - Center, South, West, North, East
+   - ~-interline-spacing~, the space between the lines
+   - ~-fill~, font color
+   - ~-annotate~, essentially the function we want to perform: adding the quote
+     on top of the image
+   - ~<output image>~
+    There are some other options I have explored yet did not work the way I
+   wanted:
+5. ~-warp~, not supported by my ~magick~ version, even though it should be
+   - ~-split~, It inserts a solid color part in the image, effectively ruining the
+     images we have selected in 2.
+6. Then, for every image:
+   - Substitute input, output and quote. Following the tips in quotes above may
+     be necessary to customize your output wallpapers
+   - If you are kind lazy and want to put many quotes on the same images you
+     could modify what 
+7. It's done. 
+
+* My way
+It's not perfect but...
+
+Also, *DISCLAIMER*:
+I have found most of these quotes online on goodreads or elsewhere. They may or
+may not have been said by the people I attribute them to. Even if they were not,
+their purpose to me is inspiration and hopefully, getting some wisdom out of them.
+** Schwarzenegger quotes
+   #+begin_src bash
+   cd ~/Downloads
+   # Notice how I have '\n' inside of my quotes
+   for quote in \
+       "The resistance that you fight in life can only build a strong character."\
+       "If you don’t find the time ,\n if you don’t do the work,\n you don’t get the results."\
+       "Failure is not an option"\
+       "You can’t climb the ladder of success with your hands in your pockets."\
+       "Life may be full of pain but that’s not an excuse to give up."
+   do
+        # Modify the field used to be a more descriptive filename. It obviously is not perfect, but it is usable
+       output_filename=wallpapers_withquote/wallpaper_scharzi-$(echo $quote | awk '{print $5}').png
+       convert wallpapers_prequote/schwarzi.png -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 "$quote" "$output_filename"
+        # Useful for previewing the files right after creation
+       open $output_filename
+     done
+   #+end_src
+** Feynman quotes
+   #+begin_src bash
+   cd ~/Downloads
+   # Notice how I have '\n' inside of my quotes
+   for quote in \
+    "The first principle is that you must not fool yourself and you are the easiest person to fool"\
+    "I learned very early the difference between knowing the name of something and knowing something"\
+    "I would rather have questions that can't be answered than answers that can't be questioned."\
+    "Physics isn't the most important thing. Love is"\
+    "We are trying to prove ourselves wrong as quickly as possible, because only in that way can we find progress"\
+    "I think it's much more interesting to live not knowing than to have answers which might be wrong"\
+    "All the time you're saying to yourself, 'I could do that, but I won't,' — which is just another way of saying that you can't"\
+    "For a successful technology, reality must take precedence over public relations, for nature cannot be fooled"\
+    "What I cannot create, I do not understand."\
+    "“What Do You Care What Other People Think?”"
+   do
+   # Maybe this is a better approach than the previous one, however the filenames are pretty long 
+       output_filename="wallpapers_withquote/wallpaper_feynman-$quote.jpg"
+       convert wallpapers_prequote/feynman-wide.jpg -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 "$quote" "$output_filename"
+        # Useful for previewing the files right after creation
+       open "$output_filename"
+     done
+   #+end_src
+** Gates quotes
+   #+begin_src bash
+   cd ~/Downloads
+   # Notice how I have '\n' inside of my quotes
+   for quote in \
+    "Most people overestimate what they can do in one year and underestimate what they can do in ten years"\
+    "Success is a lousy teacher. It seduces smart people into thinking they can't lose"\
+    "Measuring programming progress by lines of code is like measuring aircraft building progress by weight"\
+    "It's fine to celebrate success but it is more important to heed the lessons of failure"\
+    "Power comes not from knowledge kept but from knowledge shared"\
+    "I believe that if you show people the problems and you show them the solutions they will be moved to act"\
+    "But I hope you’ll spend more time and energy supporting whatever you’re in favor of than opposing whatever you’re against."
+   do
+   # Maybe this is a better approach than the previous one, however the filenames are pretty long 
+       output_filename="wallpapers_withquote/wallpaper_gates-$quote.jpg"
+       convert wallpapers_prequote/gates.jpg -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 "$quote" "$output_filename"
+        # Useful for previewing the files right after creation
+       open "$output_filename"
+     done
+   #+end_src
