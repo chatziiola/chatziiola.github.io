@@ -96,7 +96,7 @@ Preamble and Postamble are excluded, too."
 	(concat 
 	 "<li>"
 	    ;; Add Date. 
-	    "<p class=\"date index-date\"><"
+	    "<p class=\"timestamp\"><"
 		;; The substring trick is to ensure that dates exist only in the
 		;; yyyy-mm-dd format, with no extra information
 	    (substring
