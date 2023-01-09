@@ -1,0 +1,161 @@
+#+TITLE: Literate DevOps in Emacs and Org Mode
+#+DATE: <2023-01-09 11:34>
+#+DESCRIPTION: 
+#+FILETAGS: youtube-notes
+
+This is a set of notes on [[https://www.youtube.com/watch?v=dljNabciEGg&list=WL&index=119&ab_channel=HowardAbrams][Literate Devops with Emacs]].
+
+Ενώ ήδη χρησιμοποιώ Org Mode και literate programming αρκετά εκτεταμένα είδα ότι
+είχα αυτή την παρουσίαση στο /Watch Later/ μου εδώ και αρκετό καιρό οπότε είπα να
+την /καθαρίσω/.
+
+Ξέρω:
+#+begin_export html
+<iframe src="https://giphy.com/embed/qlKs0m0GxHN6ycbDmV" width="480"
+#height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a
+#href="https://giphy.com/gifs/pudgypenguins-aintmuch-aintmuchmoons-honnestworkmoon-qlKs0m0GxHN6ycbDmV">via
+#GIPHY</a></p>
+#+end_export
+
+Ακόμα θα ήθελα να πω, για την περίπτωση που κάποιος δει το source code, δεν
+χρησιμοποιώ τα ~:exports~ directives, μόνο και μόνο για να μην μου δημιουργούν
+πρόβλημα κατά το ~org-publish~, ενώ θα βλέπετε μπροστά στα παραδείγματα που δεν
+κάνουν render να υπάρχει μία ~#~ συνοδευόμενη από κενό. Αυτό έγινε κα
+* Εισαγωγή
+Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
+στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
+διακοπτόμενο ανα σημεία από τον κώδικα και όχι κώδικα διακοπτόμενο ανα σημεία
+για σχόλια, είναι για να βελτιώσει την αναγνωσιμότητα του κώδικα: κατ αυτόν τον
+τρόπο, /αν και δουλεύεις περισσότερο γράφοντας τον κώδικα/, όταν τον επισκεφτείς
+στο μέλλον έχεις ένα σύνολο σημειώσεων, οι οποίες αν είναι αναλυτικές, μειώνουν
+ή ακόμα μηδενίζουν τον χρόνο για την πλοήγηση στον κώδικα, εύρεση του κατάλληλου
+σημείου και πραγματοποίηση των απαιτούμενων τροποποιήσεων.
+
+
+Βέβαια, γράφοντας την παραπάνω παράγραφο, συνειδητοποίησα πως η τελευταία
+πρόταση μάλλον δεν επαληθεύεται από την προσωπική μου εμπειρία. Ενώ η λογική
+λέει πως πληκτρολογώντας περισσότερες λέξεις και όντας πολύ πιο αναλυτικός θα
+έπρεπε να σε παίρνει περισσότερο χρόνο, υπάρχει άλλη μία διασταση: η δυνατότητα
+να γράφεις τις σκέψεις σου, όπως εκείνες σε έρχονται εκείνη την στιγμή, στο ίδιο
+αρχείο, αντί να μετακινείσαι μεταξύ αρχείων ή από το χαρτί στην οθόνη και πάλι
+πίσω.
+
+Είναι επιστημονικό γεγονός πως το να γράφεις τις ιδέες σου, αντί να τις
+δουλεύεις σε νοητικό επίπεδο, επιτρέπει την καλύτερη εργασία επί αυτών (βασικός
+λόγος για αυτό είναι τα οπτικά ερεθίσματα). Αυτό αποδίδω στην καλύτερη επίδοση
+που έχω παρατηρήσει, όταν δουλεύω σε κάποιο πρόγραμμα κατ' αυτόν τον τρόπο.
+
+
+Πρέπει να παραδεχθώ, σε κάθε περίπτωση, πως δεν γράφω προγραμματισμό μόνο καθ'
+αυτόν τον τρόπο. Στην πλειοψηφία μάλιστα των προγραμμάτων μου, προσπαθώντας να
+τα κρατήσω μικρά και απλά, ούτως ώστε να συνδυάζονται και μεταξύ τους μένω στο
+παλιό, κλασσικό τρόπο προγραμματισμού.
+
+* Writing code
+Τα βασικά είναι:
+1. Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
+   βάλεις εύκολα χρησιμοποιώντας το ~C-c C-,~:
+    #+begin_example
+    #+begin_src sh
+    #+end_src
+    #+end_example
+2. Εκτελείς τον κώδικα εντός ενός source block με το ~C-c C-c~
+
+** Code and Results
+This shows both input 
+#+begin_example
+#+begin_src sh :exports both
+#+end_src
+#+end_example
+
+Παράδειγμα
+#+begin_src sh 
+brew search pyenv
+#+end_src
+
+#+RESULTS:
+| pyenv                   |
+| pyenv-ccache            |
+| pyenv-pip-migrate       |
+| pyenv-virtualenv        |
+| pyenv-virtualenvwrapper |
+| pyenv-which-ext         |
+| plenv                   |
+| pipenv                  |
+
+
+** Example Only
+Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
+#+begin_example
+#+begin_src sh :exports code
+#+end_src
+#+end_example
+
+#+begin_src sh 
+pyenv virtualenv demo
+pyenv activate demo
+pip install --upgrade flake
+#+end_src
+
+* Setting directory in which the code is to run
+#+begin_example
+#+begin_src sh :dir ~
+#+end_src
+#+end_example
+
+Παράδειγμα:
+#+begin_src sh :dir ~
+pwd 
+#+end_src
+
+#+RESULTS:
+: /Users/sickvm
+
+** Modifying the directory var to run on a server
+#+begin_example
+#:PROPERTIES:
+#:dir:  /<server-dns>:
+#:END:
+#+end_example
+
+I am not sure how this works though.
+
+* Setting Variables
+#+begin_example
+#+begin_src sh :var varname=varvalue
+#+end_src
+#+end_example
+
+#+begin_src sh :var hellostring="Hello World"
+echo $hellostring
+#+end_src
+
+#+RESULTS:
+: Hello World
+
+
+** Setting variables up so that they are used in all source blocks
+#+begin_example
+#:PROPERTIES:
+#:dir:  /Users/sickvm
+#:END:
+#+end_example
+
+Nah this does not seem to be working - I do not know why though.
+#+begin_src sh 
+pwd
+#+end_src
+
+* Tangle
+Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
+/κλασσικού/ προγραμματισμού, μέσα από ένα αρχείο literate programming:
+~org-babel-tangle~
+
+#+begin_example
+#+begin_src sh :tangle <filename>
+#+end_src
+#+end_example
+
+* Exporting
+Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το ~C-c C-e~ δουλέυει
+και απο μόνο του.
