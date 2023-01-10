@@ -22,7 +22,7 @@ jobs:
         run: ./build.sh
 
       - name: Copy /index.html to /posts/index.html
-        run: cp content/index.html content/posts/index.html
+        run: cp public/index.html public/posts/index.html
 
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
