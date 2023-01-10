@@ -62,7 +62,7 @@ index.org files. Namely return a list of all blog post files"
 ;     org-static-blog-index-front-matter
 ;     t)))
 
-(defun chatziiola/org-static-blog-assemble-index-no-content ()
+(defun chatziiola/org-static-blog-assemble-index-no-content (&optional index-length)
   "See `org-static-blog-assemble-index'."
   (let ((post-filenames (chatziiola/org-static-blog-get-post-filenames)))
     ;; reverse-sort, so that the later `last` will grab the newest posts
@@ -73,7 +73,7 @@ index.org files. Namely return a list of all blog post files"
 	;; The filename to which you will create the index.html file
 	(concat-to-dir org-static-blog-publish-directory org-static-blog-index-file)
 	;; Last `org-static-blog-index-length' articles
-	(last post-filenames org-static-blog-index-length)
+	(last post-filenames (or index-length org-static-blog-index-length))
 	;; FIXME wth this option
 	org-static-blog-index-front-matter
 	;; Exclude toc
@@ -148,7 +148,7 @@ Preamble and Postamble are excluded, too."
 			(search-backward "</div>")
 			(search-backward "<div id=\"footnotes\">" nil t)
 			(point))))
-	    "</li>"
+	    "</li>\n"
 	))))
 
 (defun chatziiola/org-static-blog-paginated-post-template (tTitle tContent &optional tDescription)
@@ -207,7 +207,7 @@ Posts are sorted in descending time."
     (when front-matter front-matter)
     ;; Posts' contents
     (concat
-     "<ul class=\"org-ul indexul\">"
+     "<ul class=\"org-ul indexul\">\n"
     (apply 'concat (mapcar
 		    #'(lambda (x) (chatziiola/org-static-blog-get-post-content x nil exclude-content))
 		    post-filenames))

@@ -168,9 +168,6 @@
 	    :html-link-home "/index.html"
 	    :html-link-up "../index.html"
 	    :html-postamble general-postamble
-	    ; :preparation-function -> this could be good for some
-	    ; :completion-function -> this could be good for some
-	    ; :with-statistics-cookies
 	    :publishing-directory public-dir
 	    :publishing-function 'org-html-publish-to-html
 	    :recursive t
