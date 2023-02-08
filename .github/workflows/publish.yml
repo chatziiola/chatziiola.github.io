@@ -21,6 +21,12 @@ jobs:
       - name: Build the site
         run: ./build.sh
 
+      - name: Add latest posts
+        run: ./latestposts.sh
+
+      - name: Copy index html to secondary location
+        run: cp public/index.html public/posts/index.html
+
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:

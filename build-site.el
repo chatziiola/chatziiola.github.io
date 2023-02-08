@@ -46,13 +46,13 @@
   "Description - BLOG HTML HEAD.")
 
 (defvar general-postamble
-  "<p class=\"footer\"> Made with Emacs and Org. CSS theme developed by @rougier.</p>"
+  "<p class=\"footer\"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href=\"https://github.com/rougier\">@rougier</a>.</p>"
   "To be used on all pages.")
 
 (defvar comments-postamble
   (concat
    "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
-  "<p class=\"date\"> Originally created on %d </p>"
+  "<p class=\"date footer\"> Originally created on %d </p>"
    general-postamble)
   "Postamble for posts so that giscus comments are enabled.")
 

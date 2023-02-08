@@ -92,6 +92,7 @@ i, i a {
     margin-bottom: 1em;
     padding-left: 2em;
 }
+
 #table-of-contents h2:before {
     content: "";
     counter-reset: section;
@@ -178,10 +179,12 @@ ol.org-ol {
 }
 
 #postamble p, #postamble a {
-    color: #3C6E71;
-    line-height: 1.25em;
+    color: rgb(136 136 136);
     margin: 0;
-    text-align: right;
+    text-align: center;
+    font-size: small;
+    padding-top: 1em;
+    padding-bottom: 3em;
 }
 
 h1.title {
@@ -189,7 +192,12 @@ h1.title {
     margin-top: 4em;
     margin-bottom: 3em;
     font-weight: 400;
-    text-align: left;
+    text-align: center;
+    /*  border: whitesmoke; */
+    /*  border-bottom-style: ridge; */
+    /*  padding-bottom: 0.3em; */
+    font-style: italic;
+    font-weight: bold;
 }
 
 span.subtitle {
@@ -208,6 +216,14 @@ h1, h2, h3, h4 {
     /* font-variant: all-small-caps; */
     text-transform: uppercase;
 }
+
+/* FIXME σκέψου το λίγο ακόμα αυτό */
+h2 {
+    border: whitesmoke;
+    border-bottom-style: ridge;
+    padding-bottom: 0.3em;
+}
+
 h3 { padding-top: 3em; }
 
 body {
@@ -582,3 +598,4 @@ div#archive {
     padding-bottom: 5em;
     margin-bottom: 10em;
 }
+

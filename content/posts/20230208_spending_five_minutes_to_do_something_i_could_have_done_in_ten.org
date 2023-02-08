@@ -1,0 +1,98 @@
+#+TITLE: Build your script library
+#+DATE: <2023-02-08 23:53>
+#+DESCRIPTION: Late night thought collection on improving ones relationship with  small scripts
+#+FILETAGS: scripting sysad
+
+
+#+begin_note
+God, do I miss the non-exam period.
+#+end_note
+
+You know, we are often in the position of having to perform tedious tasks
+repeatedly, yet fearing that by trying to automate we will lose more time, we...
+do the boring stuff.
+
+In /Unix and Linux System Administration Handbook/, the authors suggest that
+sysadmins do not fall into the trap of believing that automation is only for big
+projects and that it requires elaborate planning.
+
+Thinking of that section of the book, today, after not being able to sleep as
+well as I'd like the previous day, I gave this a shot. To my surprise, not only
+did it work, but it was also (if I remember correctly) way more efficient, than
+if I had done that by hand.
+
+The script simple, I just needed to replace a property that was wrongly set in
+my notes. The fact that it is less than 10 lines, is a consequence of the
+library of small scripts and functions, which even though they may not be
+beautifully written, have tremendous practical value.
+
+#+begin_src elisp
+
+(cl-loop for file in (chatziiola/get-lecture-file-list "CCNA") do
+	 (message "Starting %s" file)
+	 (with-current-buffer (get-file-buffer file)
+	   (message "Inside the file")
+	   (goto-char (point-min))
+	   (if (search-forward "A.U.Th" nil t)
+	    (replace-match "CISCO")
+	    (message "Un-Successful search"))
+	   )
+	 )
+
+#+end_src
+
+In fact, with just a slight modification, this can turn into a function,
+allowing me to use it in the future without losing time re-implementing it,
+effectively solving the same /problem/ again.
+
+#+begin_src elisp
+
+(defun chatziiola/correct-lecturefiles-course-property course
+  "Fix the lectures' in COURSE, course property.
+
+Get the property from the main (INFO) file of COURSE or, if that
+is not set, replace current value with the default one"
+  (cl-loop for file in (chatziiola/get-lecture-file-list course) do
+	   (with-current-buffer (get-file-buffer file)
+	     (goto-char (point-min))
+	     ;; Actually this part needs to be modified to be used in a more
+	     ;; generic environment, but for me this search is enough in 9 out
+	     ;; of 10 times, and that is why i dont mess with a modification in
+	     ;; the form of '#+course: .*\n'
+	     (if (search-forward "A.U.Th" nil t)
+		 ;; See how a small function from another time may go a long way? ;P
+		 (replace-match (chatziiola/get-lecture-institution course))
+	       (message "Un-Successful search in file: %s" file)))
+	   )
+  )
+#+end_src
+
+I have to make a couple of points here:
+1. *You do not always save time by writing a script.* You have to pick your
+   battles. If writing the script is sure to take some time and will not be used
+   often, making it hard to /get your time back/, it probably is a good idea to
+   deal with it manually. No one wants that but /*sigh*/ time is limited
+2. *You can always win something by writing a script.* That /something/ most of the
+   times is experience, which you will take advantage of when found in similar
+   situations. (This is more or less what I tell myself when a script took more
+   time than I had anticipated :P)
+3. *Use the right tool for the job - utilize existing infrastructure.* Once again,
+   the script above is rather simple, and I had opened a python file to write it
+   in, when I realized that writing it in elisp would most probably be a little
+   bit better for me, since I have some functions I could use. That decision
+   saved me some time. Imagine how much time one could save with an equivalent
+   decision in a much more complicated script.
+4. *Organize your scripts properly*. If they are not small functions that can be
+   grouped together, consider bundling them all by topic or by programming
+   language and creating a catalog, with a small description for each one.
+   Ironically this, usually, is the kind of job that we tried to avoid in the
+   first place, but in the long run it is definitely worth it.
+
+
+Summing up, the thing is, that /Rome was not built in a day/. From my experience,
+one needs to start building their script arsenal, keeping track of the problems
+they have solved and in time, they will find that being able to utilize previous
+work saves them much time.
+
+
+
