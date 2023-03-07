@@ -39,9 +39,12 @@
 
 (defvar org-blog-head
   (concat
+   "<link rel=\"preconnect\" href=\"https://fonts							.	googleapis.com\">"
+   "<link rel=\"preconnect\" href=\"https://fonts							.	gstatic.com\" crossorigin=\"\">"
+   "<link href=\"https://fonts									.	googleapis.com/css2?family=Fira+Sans+Condensed&amp;family=Manrope&amp;family=Roboto+Condensed:wght@300&amp;display=swap\" rel=\"stylesheet\">"
    "<link rel=\"stylesheet\" href=\"" css-path "\" />
     <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">"
-    "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+   "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1	.	0\">"
    )
   "Description - BLOG HTML HEAD.")
 
