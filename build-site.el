@@ -107,7 +107,29 @@
 ;; Install dependencies
 ;; htmlize is needed for proper code formatting:
 ;; https://stackoverflow.com/questions/24082430/org-mode-no-syntax-highlighting-in-exported-html-page
-(package-install 'htmlize)
+(eval-when-compile
+  (add-to-list 'load-path (expand-file-name "use-package" default-directory))
+  (require 'use-package))
+
+(use-package htmlize)
+
+; FIXME I can not work that way 
+;(use-package org-ref)
+;(setq bibtex-completion-bibliography org-ref-default-bibliography)
+;(setq bibtex-completion-library-path org-ref-pdf-directory)
+;(setq bibtex-completion-notes-path org-ref-notes-directory)
+;(setq bibtex-autokey-name-case-convert-function 'capitalize)
+;(setq bibtex-autokey-name-year-separator "")
+;(setq bibtex-autokey-titleword-length 5)
+;(setq bibtex-autokey-titleword-separator "")
+;(setq bibtex-autokey-titlewords 2)
+;(setq bibtex-autokey-titlewords-stretch 1)
+;(setq bibtex-autokey-year-length 4)
+;(setq bibtex-autokey-year-title-separator "")
+;(define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+;(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
+;(define-key org-mode-map (kbd "s-[") 'org-ref-insert-link-hydra/body)
+
 (message "And this is my default directory: %s" default-directory)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
