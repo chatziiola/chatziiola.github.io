@@ -45,6 +45,9 @@
    "<link rel=\"stylesheet\" href=\"" css-path "\" />
     <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">"
    "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1	.	0\">"
+   "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css\">"
+   "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js\"></script>"
+   "<script>hljs.highlightAll();</script>"
    )
   "Description - BLOG HTML HEAD.")
 
@@ -55,7 +58,7 @@
 (defvar comments-postamble
   (concat
    "<script src=\"https://giscus.app/client.js\" data-repo=\"chatziiola/chatziiola.github.io\" data-repo-id=\"R_kgDOGq8p0g\" data-category=\"Announcements\" data-category-id=\"DIC_kwDOGq8p0s4COSFW\" data-mapping=\"pathname\" data-reactions-enabled=\"1\" data-emit-metadata=\"0\" data-input-position=\"bottom\" data-theme=\"light\" data-lang=\"en\" data-loading=\"lazy\" crossorigin=\"anonymous\" async> </script>"
-  "<p class=\"date footer\"> Originally created on %d </p>"
+   "<p class=\"date footer\"> Originally created on %d </p>"
    general-postamble)
   "Postamble for posts so that giscus comments are enabled.")
 
@@ -79,8 +82,8 @@
 ;; Avoid trash - Basic Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq make-backup-files nil
-        auto-save-default nil
-        create-lockfiles nil)
+      auto-save-default nil
+      create-lockfiles nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Package Management
@@ -88,7 +91,7 @@
 
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
+			 ("elpa" . "https://elpa.gnu.org/packages/")))
 
 (setq user-emacs-directory (expand-file-name "./.packages"))
 (setq package-user-dir user-emacs-directory)
@@ -113,22 +116,22 @@
 
 (use-package htmlize)
 
-; FIXME I can not work that way 
-;(use-package org-ref)
-;(setq bibtex-completion-bibliography org-ref-default-bibliography)
-;(setq bibtex-completion-library-path org-ref-pdf-directory)
-;(setq bibtex-completion-notes-path org-ref-notes-directory)
-;(setq bibtex-autokey-name-case-convert-function 'capitalize)
-;(setq bibtex-autokey-name-year-separator "")
-;(setq bibtex-autokey-titleword-length 5)
-;(setq bibtex-autokey-titleword-separator "")
-;(setq bibtex-autokey-titlewords 2)
-;(setq bibtex-autokey-titlewords-stretch 1)
-;(setq bibtex-autokey-year-length 4)
-;(setq bibtex-autokey-year-title-separator "")
-;(define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
-;(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
-;(define-key org-mode-map (kbd "s-[") 'org-ref-insert-link-hydra/body)
+					; FIXME I can not work that way 
+					;(use-package org-ref)
+					;(setq bibtex-completion-bibliography org-ref-default-bibliography)
+					;(setq bibtex-completion-library-path org-ref-pdf-directory)
+					;(setq bibtex-completion-notes-path org-ref-notes-directory)
+					;(setq bibtex-autokey-name-case-convert-function 'capitalize)
+					;(setq bibtex-autokey-name-year-separator "")
+					;(setq bibtex-autokey-titleword-length 5)
+					;(setq bibtex-autokey-titleword-separator "")
+					;(setq bibtex-autokey-titlewords 2)
+					;(setq bibtex-autokey-titlewords-stretch 1)
+					;(setq bibtex-autokey-year-length 4)
+					;(setq bibtex-autokey-year-title-separator "")
+					;(define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+					;(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
+					;(define-key org-mode-map (kbd "s-[") 'org-ref-insert-link-hydra/body)
 
 (message "And this is my default directory: %s" default-directory)
 
@@ -138,7 +141,7 @@
 
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
-;(setq org-html-htmlize-font-prefix "org-")
+					;(setq org-html-htmlize-font-prefix "org-")
 
 (setq org-src-fontify-natively t		; Fontify code in code blocks.
       org-adapt-indentation nil			; Adaptive indentation
@@ -150,13 +153,13 @@
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil
-     org-html-head-include-scripts nil
-     org-html-head-include-default-style nil
-     org-html-indent nil
-     org-html-self-link-headlines t
-     org-export-with-tags t
-     org-export-with-smart-quotes t
-     org-html-head org-blog-head)
+      org-html-head-include-scripts nil
+      org-html-head-include-default-style nil
+      org-html-indent nil
+      org-html-self-link-headlines t
+      org-export-with-tags t
+      org-export-with-smart-quotes t
+      org-html-head org-blog-head)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Babel
@@ -186,52 +189,52 @@
        ;; Unnecesary and time consuming
        ;; FIXME: org-static-blog.el for index files
        (list "Index files"
-	    :base-directory base-dir
-	    :base-extension "org"
-	    :exclude drafts-dir
-	    :headline-level 4
-	    :html-link-home "/index.html"
-	    :html-link-up "../index.html"
-	    :html-postamble general-postamble
-	    :publishing-directory public-dir
-	    :publishing-function 'org-html-publish-to-html
-	    :recursive t
-	    :section-numbers nil    ;; Don't include section numbers
-	    :time-stamp-file nil
-	    :with-drawers t
-	    :with-toc nil
-	    )
+	     :base-directory base-dir
+	     :base-extension "org"
+	     :exclude drafts-dir
+	     :headline-level 4
+	     :html-link-home "/index.html"
+	     :html-link-up "../index.html"
+	     :html-postamble general-postamble
+	     :publishing-directory public-dir
+	     :publishing-function 'org-html-publish-to-html
+	     :recursive t
+	     :section-numbers nil    ;; Don't include section numbers
+	     :time-stamp-file nil
+	     :with-drawers t
+	     :with-toc nil
+	     )
        (list "Blog posts"
-	    :base-directory posts-dir
-	    :base-extension "org"
-	    :exclude ".*index.org"
-	    :headline-level 4
-	    :html-link-home "/index.html"
-	    :html-link-up "./index.html"
-	    :html-postamble  comments-postamble
-	    :publishing-directory posts-public-dir
-	    :publishing-function 'org-html-publish-to-html
-	    :recursive t
-	    :section-numbers nil    ;; Don't include section numbers
-	    :time-stamp-file nil
-	    :with-date t
-	    :with-drawers t
-	    :with-toc t             ;; Include a table of contents
-	    )
-	(list "Images"
-	    :base-directory posts-dir
-	    :base-extension "png"
-	    :publishing-directory posts-public-dir
-	    :publishing-function 'org-blog-publish-attachment
-	    :recursive t
-	    )
-	(list "Website static stuff"
-	    :base-directory src-dir
-	    :base-extension "html\\|css\\|ico"
-	    :publishing-directory src-public-dir
-	    :publishing-function 'org-publish-attachment
-	    :recursive t
-	    )
+	     :base-directory posts-dir
+	     :base-extension "org"
+	     :exclude ".*index.org"
+	     :headline-level 4
+	     :html-link-home "/index.html"
+	     :html-link-up "./index.html"
+	     :html-postamble  comments-postamble
+	     :publishing-directory posts-public-dir
+	     :publishing-function 'org-html-publish-to-html
+	     :recursive t
+	     :section-numbers nil    ;; Don't include section numbers
+	     :time-stamp-file nil
+	     :with-date t
+	     :with-drawers t
+	     :with-toc t             ;; Include a table of contents
+	     )
+       (list "Images"
+	     :base-directory posts-dir
+	     :base-extension "png"
+	     :publishing-directory posts-public-dir
+	     :publishing-function 'org-blog-publish-attachment
+	     :recursive t
+	     )
+       (list "Website static stuff"
+	     :base-directory src-dir
+	     :base-extension "html\\|css\\|ico"
+	     :publishing-directory src-public-dir
+	     :publishing-function 'org-publish-attachment
+	     :recursive t
+	     )
        )
       )
 
@@ -247,13 +250,13 @@ Return output file name."
   (unless (file-directory-p pub-dir)
     (make-directory pub-dir t))
   (or (equal (expand-file-name (file-name-directory filename))
-             (file-name-as-directory (expand-file-name pub-dir)))
+	     (file-name-as-directory (expand-file-name pub-dir)))
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
-        (if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
-            (shell-command (format "convert %s -resize 800x800\\> +dither -colors 16 -depth 4 %s" filename dst-file))
-          (copy-file filename dst-file t)))))
+	(if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
+	    (shell-command (format "convert %s -resize 800x800\\> +dither -colors 16 -depth 4 %s" filename dst-file))
+	  (copy-file filename dst-file t)))))
 
-; Generate the site output
+					; Generate the site output
 (org-publish-all t)
 
 
