@@ -116,22 +116,19 @@
 
 (use-package htmlize)
 
-					; FIXME I can not work that way 
-					;(use-package org-ref)
-					;(setq bibtex-completion-bibliography org-ref-default-bibliography)
-					;(setq bibtex-completion-library-path org-ref-pdf-directory)
-					;(setq bibtex-completion-notes-path org-ref-notes-directory)
-					;(setq bibtex-autokey-name-case-convert-function 'capitalize)
-					;(setq bibtex-autokey-name-year-separator "")
-					;(setq bibtex-autokey-titleword-length 5)
-					;(setq bibtex-autokey-titleword-separator "")
-					;(setq bibtex-autokey-titlewords 2)
-					;(setq bibtex-autokey-titlewords-stretch 1)
-					;(setq bibtex-autokey-year-length 4)
-					;(setq bibtex-autokey-year-title-separator "")
-					;(define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
-					;(define-key org-mode-map (kbd "C-c ]") 'org-ref-insert-link)
-					;(define-key org-mode-map (kbd "s-[") 'org-ref-insert-link-hydra/body)
+; DO NOT UNCOMMENT THESE LINES. THE PROBLEM LIES WITH USE PACKAGE. The alternative is to use org-ref locally and export to org buffers before publishing
+;(use-package org-ref)
+;(setq bibtex-completion-bibliography org-ref-default-bibliography)
+;(setq bibtex-completion-library-path org-ref-pdf-directory)
+;(setq bibtex-completion-notes-path org-ref-notes-directory)
+;(setq bibtex-autokey-name-case-convert-function 'capitalize)
+;(setq bibtex-autokey-name-year-separator "")
+;(setq bibtex-autokey-titleword-length 5)
+;(setq bibtex-autokey-titleword-separator "")
+;(setq bibtex-autokey-titlewords 2)
+;(setq bibtex-autokey-titlewords-stretch 1)
+;(setq bibtex-autokey-year-length 4)
+;(setq bibtex-autokey-year-title-separator "")
 
 (message "And this is my default directory: %s" default-directory)
 
