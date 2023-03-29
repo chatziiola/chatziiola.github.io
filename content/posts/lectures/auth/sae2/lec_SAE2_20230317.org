@@ -363,11 +363,8 @@ V_2(x_1,x_2) &= x_1^{2}
 
 ** Άμεση μέθοδος ευστάθειας
 Δεύτερο θεώρημα του Lyapunov.
-
 #+begin_note
-Δυστυχώς δεν κράτησα καλές σημειώσεις απο ότι φαίνεται στο συγκεκριμένο κομμάτι.
-Με την πρώτη ευκαιρία, κατόπιν μελέτης θα ενημερώσω αυτό το section, πιθανότατα
-με βιβλιογραφικές παραπομπές.
+Πηγή: https://helit.org/ece-notes/sae2.pdf, σελίδα 27.
 #+end_note
 
 Έστω /κλασσικά/ σύστημα της μορφής:
@@ -377,22 +374,26 @@ V_2(x_1,x_2) &= x_1^{2}
 \end{equation}
 και σημείο ισορροπίας $x^{*}$
 
-Έστω θετικά ορισμένη συνάρτηση: 
+Έστω θετικά ορισμένη συνάρτηση, την οποία και ονομάζουμε συνάρτηση Lyapunov 
 \begin{equation}
 \label{eq:33}
 V(x) >0
 \end{equation}
 
-Αν δείξουμε ότι:
-\begin{equation}
-\label{eq:32}
-{\dot V} = \frac{\partial{V}}{\partial{x}}^T {\dot x} = \frac{\partial{V}}{\partial{x}}^T F(x) \leq 0
-\end{equation}
-
+Αν δείξουμε ότι εντός της σφαίρας:
 \begin{equation}
 \label{eq:34}
 B_r(0) = \left\{ x\in {\mathbb R}^n : |x| < r\right\}
 \end{equation}
+
+Η συνάρτηση
+\begin{equation}
+\label{eq:32}
+{\dot V} = \frac{\partial{V}}{\partial{x}}^T {\dot x} = \frac{\partial{V}}{\partial{x}}^T F(x) 
+\end{equation}
+
+- Αρνητικά ημιορισμένη: το $x=0$ ευσταθές σημείο ισορροπίας
+- Αρνητικά ορισμένη: το $x=0$ είναι τοπικά ασυμπτωτικά ευσταθές
 
 * Footnotes
 
