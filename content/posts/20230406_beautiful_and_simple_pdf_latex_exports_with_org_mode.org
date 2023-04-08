@@ -1,0 +1,251 @@
+#+TITLE: Beautiful and simple pdf-latex exports with org mode
+#+DATE: <2023-04-06 15:28>
+#+DESCRIPTION: C'est la vie
+#+FILETAGS: emacs org-mode 
+
+#+begin_note
+Cringineer will surely like this one :P
+#+end_note
+
+If you also find yourself writing a lot of essays and assignments in org-mode,
+taking advantage of its nearly natural syntax, but the end result, when
+exporting to PDF, disappoints you, this article is for you.
+
+* A trip down memory lane
+Historically, there were many different many different solutions to producing a
+scientific paper, or publishing any kind of digital document, for that matter.
+
+Initially what mattered most was the document's final appearance on paper,
+making programs such as [[https://en.wikipedia.org/wiki/Roff_(software)][roff]], quite popular. I mean, I remember like yesterday
+studying the legendary book duo of /The Unix Programmer's Manual/ and /The C
+Programming Language/, which were (if I'm not mistaken) using a roff derivative.
+Aren't they beautiful?
+
+However, roff and its derivatives had their limitations. In a [[https://www.youtube.com/watch?v=82TxNejKsng][computerphile
+youtube video]], some time in the past I remember professor Brailsford taking
+about the sheer difficulty of working with mathematics in that environment[fn:1]
+
+Another alternative was Donald Knuth's TeX. Being too young for that, I have
+only played around with its only(?) still usable derivative: LaTeX. That
+system is so powerful, you can create presentations, papers, cvs, all in a very
+smooth and straightforward manner.
+
+I sincerely believe it to be the most versatile way of writing any type of
+documents, however, it has a relatively steep learning curve.
+
+* Introduction: An Org vs LaTeX comparison                         
+LaTeX might be more than simply wonderful as a publication backend, with
+templates being freely available on the Internet, but it is not so /easy/ to write
+in[fn:2] - mainly because for most of us, LaTeX will most probably be used only
+once in a while and that will force us to /revise/ or search online for stuff that
+we once knew how to do.
+
+This is where ~org-mode~ and ~org-export~ comes in.
+
+The Org ecosystem is a wonderful environment. It is the main feature that keeps
+me using Emacs instead of moving back to my simpler roots. It is a plain text
+format with the simplest syntax I have ever seen out there, many times easier
+and more intuitive than markdown, full of interesting features and constantly
+improved, due to the plethora of experienced Org users out there, through a
+suite of rather helpful complementary packages to make your life even easier.
+
+From snippets, to inline LaTeX for mathematics, to inline images for more
+difficult subjects, to syncing notes with books... I mean, what more is there to
+do??
+
+/(This would be also a good point in the article to say the following: *Org is fun
+to work in* )/
+
+Back to what I promised, ~org-mode~ is not a LaTeX replacement and it was never
+meant to be. Its consistency and standardized format is what makes it so useful
+for producing pretty documents: it can be exported to many different formats:
+LaTeX (and thus PDFs), html (this blog is powered by Org), markdown... 
+
+Let's see what exactly is needed for a seamless LaTeX experience within Org.
+
+* Configuring Emacs
+#+begin_note
+At this point one should have some basic level understanding of customizing
+Emacs. If you use a different way of installing packages, my snippets should be
+modified. The logic behind them, however, remains the same.
+#+end_note
+
+In general, almost everything I describe here can be achieved on a vanilla Emacs
+installation, since Org ships with Emacs. No need to overcomplicate things.
+
+There is only one package I only find myself using /way too much/ when writing in
+Org-mode, and that is CDLatex, by the creator of ~org-mode~. I'll try to publish
+an article on it soon, comparing it to snippet managers and providing an
+analysis on how I have integrated it into my more general workflow, allowing for
+seamless LaTeX snippets inside of Org.
+
+#+begin_src elisp
+(use-package cdlatex
+    :hook (org-mode . org-cdlatex-mode))
+#+end_src
+
+What it essentially allows us to do is treat the buffer as a mix of LaTeX and
+Org, easily utilizing the first one's math commands (and more detailed at times)
+syntax. For example this
+
+#+begin_src tex
+\begin{equation}
+E = mc
+\end{equation}
+#+end_src
+
+#+begin_note
+And you could preview that while in buffer with ~C-c C-x C-l~
+#+end_note
+
+Would give us:
+\begin{equation}
+E = mc
+\end{equation}
+
+
+* Writing in Org
+Now we open an Emacs buffer pointing to an Org file (a plain text file with the
+~.org~ extension).
+
+#+begin_note Org Mode syntax
+If you want a refresher on Org syntax, you may like this one [[https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/][org-mode cheatsheet]]
+#+end_note
+
+You will need to set some headers up top. These provide information for the rest
+of the document, and the most basic ones are the following (these are actually
+the ones used for this article):
+#+begin_src org
+#+TITLE: Beautiful and simple pdf-latex exports with org mode
+#+DATE: <2023-04-06 15:28>
+#+DESCRIPTION: C'est la vie ;; feel free to use better decriptions
+#+FILETAGS: emacs org-mode 
+#+end_src
+
+You can find more options to set, such as the following ones, but I generally
+only set these before I export to LaTeX. 
+#+begin_src org
+#+SUBTITLE:  dunno
+#+AUTHOR: chatziiola
+#+LANGUAGE: el ;; Obviously this one is not needed if you are not writing Greek
+#+end_src
+
+* The LaTeX part
+There are more specific options, that essentially modify the behavior (or
+certain aspects) of the export process you choose. In our case, since we are
+interested in LaTeX export, the main options to set are the following:
+
+#+begin_src org
+#+latex_class_options: [a4paper,11pt]
+#+latex_compiler: xelatex
+#+latex_header: \input{/path/to/sample.tex}
+#+end_src
+
+The first one specifies the paper and font size for our LaTeX export and is in
+fact the optional argument that will get passed at the ~\documentclass{article}~
+statement at the beginning of our /exported/ LaTeX buffer.
+
+The second one, changes the default latex compiler to ~xelatex~, something rather
+unnecessary for most, but really helpful to those of us who regularly use
+characters of more than one language in their documents, since the ~polyglossia~
+package makes it unbelievably easy.[fn:3]
+
+The third one, is how you can turn a /decent/ looking PDF (the one that gets
+exported by default) into one that is tailored to your liking.
+
+** The LaTeX template: ~sample.tex~
+~sample.tex~ needs to follow some properties. First of all, unlike any (template)
+LaTeX document you may have worked on, it *must not* start with ~\documentclass~.
+
+There will simply be an ~\input~ statement in the LaTeX buffer that will get
+created by the export process. That ~\input~ statement essentially translates to
+all of ~sample.tex~'s contents being merged inside your document at the LaTeX
+compilation stage.
+
+A very simple such ~tex~ file, that not only gets the job done, but results in an
+aesthetically pleasing result is the following. 
+
+#+begin_src tex
+
+% Set up document layout
+\usepackage{geometry}
+\geometry{
+  margin=1.5cm,
+  includeheadfoot
+}
+
+% Set up fonts
+\usepackage{fontspec}
+\setmainfont{Avenir Next}
+\setmonofont{Avenir Next}
+\newfontfamily\greekfont{Avenir Next}
+
+% Set up colors
+\usepackage{xcolor}
+\definecolor{myblue}{RGB}{19,64,140}
+\definecolor{myblack}{RGB}{0,0,0}
+\definecolor{linkblue}{RGB}{19,64,140}
+
+% Set up hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  filecolor=linkblue,
+  urlcolor=linkblue,
+}
+
+% Set up headers and footers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{myblue}{\rightmark}}
+\fancyfoot[C]{\textcolor{myblack}{\thepage}}
+
+% Set up section/subsection/chapter titles
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{myblue}}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{myblue}}{\thesubsubsection}{1em}{}
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{myblue}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+#+end_src
+
+* Exporting
+At that point, if you have a document that has an appropriately created list of
+header options (~#+~ statements), and a suitable ~sample.tex~ file, you are ready to
+create your own beautiful documents:
+1. ~C-c C-e~ while you are on your document's buffer
+2. ~l~ to select the LaTeX submenu
+3. ~o~ to export as a PDF file and open it upon completion
+
+Your PDF file will be there waiting for you.
+
+
+
+Feel free to play around the process, modifying the tex file to create a
+template to your liking. If you have any questions or have found some
+inconsistencies and mistakes in the article, feel free to add a comment with
+them. 
+
+* Further reading:
+You may also want to have a look at [[file:20230309_a_practical_note_taking_system.org][my notetaking system]] setup. I'm trying to
+build a detailed analysis of that system before I implement a /series/
+functionality in this blog. This article will, then, be part of the /notetaking
+in emacs/ series.
+
+* Footnotes
+
+[fn:3] You can not understand how difficult this is unless you try it.
+
+[fn:2] Do not get me wrong, for simple texts (the kind that you'll use ~org-mode~
+for) the syntax is straightforward enough. The main advantage to Org is
+consistency, the ability to use the same format to create notes for yourself, to
+write blog posts, to practice literate programming, to produce pdfs and
+presentations...
+
+[fn:1] There also exists this [[https://www.youtube.com/watch?v=XvwNKpDUkiE][video]], which provides a deeper analysis of the
+subject
