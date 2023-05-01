@@ -153,39 +153,26 @@
 
 (defun my-find-next-previous-series-article (file)
   "Find the filenames of the next and previous article, if they exist, in the same directory as FILE.
-   This function acts only on lectures (files starting with 'lec_.) as of now.
-The filenames are returned in HTML format."
-  (when (string-prefix-p "lec_" (file-name-nondirectory file))
+   This function acts only on lectures (files starting with 'lec_.) as of now."
+  (when (string-prefix-p "pet_" (file-name-nondirectory file))
     (let* ((dir (file-name-directory file))
-	   (name (file-name-nondirectory file))
-	   (files (sort (directory-files dir nil "^lec_.*\\.org$") 'string<))
-	   (index (cl-position name files :test 'equal)))
-
-	;; This is a hack to ensure that the files get returned with the .html extension
-	(let ((prev (if (and (> index 0) (nth (1- index) files))
-			     (concat (file-name-sans-extension (nth (1- index) files)) ".html")))
-	      (next 
-		    (if (and (< index (1- (length files))) (nth (1+ index) files))
-			(concat (file-name-sans-extension (nth (1+ index) files)) ".html"))))
-	  (cons prev next))))
-  )
+           (name (file-name-nondirectory file))
+           (files (sort (directory-files dir nil "^lec_.*\\.org$") 'string<))
+           (index (cl-position name files :test 'equal)))
+      (when index
+        (let ((prev (and (> index 0) (nth (1- index) files)))
+              (next (and (< index (1- (length files))) (nth (1+ index) files))))
+          (cons prev next))))))
 
 (defun my-add-links-to-next-previous-series-article (backend)
-  "Add links to the previous and next series articles, if they exist."
+  "Add links to the previous and next 'pet_' articles, if they exist."
   (when (org-export-derived-backend-p backend 'html)
     (let ((prev-next (my-find-next-previous-series-article (buffer-file-name))))
       (when prev-next
-	(let ((prev (car prev-next))
-	      (next (cdr prev-next)))
-	  (when (or prev next)
-	    (goto-char (point-max))
-	    (forward-line 1)
-	    (insert "\n#+begin_export html\n")
-	    (insert "<div class=\"series-navigation-div\">\n")
-	    (when prev (insert (format "<p><a class=\"nav-button previous-nav-button\" href=\"%s\">Previous</a></p>\n" prev)))
-	    (when next (insert (format "<p><a class=\"nav-button next-nav-button\" href=\"%s\">Next</a></p>\n" next)))
-	    (insert "</div>\n")
-	    (insert "#+end_export")))))))
+        (let ((prev (car prev-next))
+              (next (cdr prev-next)))
+          (when prev (insert (format "<p><a href=\"%s\">Previous</a></p>\n" prev)))
+          (when next (insert (format "<p><a href=\"%s\">Next</a></p>\n" next))))))))
 
 (add-hook 'org-export-before-parsing-hook 'my-add-links-to-next-previous-series-article)
 
