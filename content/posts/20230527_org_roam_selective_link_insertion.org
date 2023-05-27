@@ -1,0 +1,133 @@
+#+TITLE: Org-roam selective link insertion
+#+DATE: <2023-05-27 22:35>
+#+DESCRIPTION: 
+#+FILETAGS: 
+
+
+* Disclaimer
+This article does not cover how to use ~org-roam~. It is simply a step by step
+analysis of a potentially sketchy solution to overcome a niche problem. 
+
+If anyone wants to write their own ~org-roam~ configuration, I would suggest
+that they visit [[https://github.com/jethrokuan/dots][Jethro's dotfiles]].
+
+While most mortals are still learning how to use it efficiently, occasionally
+falling in the trap of overthinking stuff, while trying to practice Zettelkasten
+as a means to get better in our pursuits, he seems to have all this figured out.
+After all he is the creator of the package.
+
+* Problem at hand
+If there is something I always wanted to tackle in ~org-roam~, is that I quite
+often, when revisiting older nodes, encounter phrases and/or topics I have built
+on since then. Manually fixing these /missing links/ has been quite a burden.
+
+That functionality, was not very difficult to achieve.
+
+* Solution
+The solution consists of two parts:
+- The function that does everything
+- The keybinding to use :P
+
+Focusing on the hard stuff first: the function. Since I am an [[https://github.com/emacs-evil/evil][evil user]], I use
+~visual mode~ quite a lot, and it feels like the perfect tool for this job.
+Whenever I find a snippet I want to replace with a link to the related node, I
+can easily press ~v~, select the appropriate text and then call the function.
+
+#+begin_note
+If you do not use evil, you can still use the function (after commenting out the
+last line). The usage will necessarily be different though.
+#+end_note
+
+Upon selection of text in emacs the text's starting and ending points are marked with
+~(region-beginning)~ and ~(region-end)~, respectively. Knowing just those two we can
+easily select the desired string: 
+
+#+NAME: Get the proper string
+#+begin_src elisp
+(buffer-substring-no-properties (region-beginning) (region-end))
+#+end_src
+
+Normally, that would be all, but to make my life a little bit easier, due to my
+/bad/ (?) habit of using solely the ~w~ and not the ~e~ motion, I wanted to
+automatically strip the selected string of any undesired whitespace.
+This step improves the accuracy of the subsequent processing
+
+#+NAME: Filter whitespace
+#+begin_src elisp
+(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
+#+end_src
+
+Having the selected text in the proper form, we then want to search our ~org-roam~
+database for the proper node. If such a node exists, we want to get it's ~id~ so
+that we can then insert the link in our starting file.
+
+#+NAME: Perform the node check
+#+begin_src elisp
+(progn
+  ;; Open a node-find prompt with the selected-text as initial input
+  ;; If a node is found/created open it on a different window
+  (org-roam-node-find t selected-text)
+  ;; If the previous part runs as it is supposed
+  ;; get the id of the file we want to link to
+  (org-roam-node-id (org-roam-node-at-point)))
+#+end_src
+
+#+begin_note
+Interestingly, the node need not actually match that selected text - we can clear it all in the
+~org-roam-node-find~ prompt, and simply insert a link for the node we want
+#+end_note
+
+We're getting there. So far, we have both selected the text, properly formatted
+it, and then found/created the node we want the text to point to. The only thing
+left here is to replace the plain text with a link to our /target node/.
+
+#+NAME: Insert the link
+#+begin_src elisp
+(with-current-buffer current-buffer
+	    (progn
+	      (goto-char re-start)
+	      (delete-region re-start (search-forward selected-text))
+	      (insert (concat "\[\[ID:" id "\]\[" selected-text "\]\]"))
+	      (evil-force-normal-state)
+	      ))
+#+end_src
+
+
+Now, let's put it all together. 
+
+#+NAME: Roam node insert selected text
+#+begin_src elisp
+(defun my-org-roam-node-find-selected-text ()
+  "Open org-roam-node-find with selected text as initial input
+and replace with org-roam link if node is selected or created."
+  (interactive)
+    (let* ((re-start (region-beginning))
+	   (selected-text (string-trim-whitespace (buffer-substring-no-properties re-start (region-end))))
+	   (current-buffer (current-buffer))
+	   (id (progn
+		 (org-roam-node-find t selected-text)
+		 (org-roam-node-id (org-roam-node-at-point)))))
+      (if  (not (eq current-buffer (current-buffer)))
+	  (with-current-buffer current-buffer
+	    (progn
+	      (goto-char re-start)
+	      (delete-region re-start (search-forward selected-text))
+	      (insert (concat "\[\[ID:" id "\]\[" selected-text "\]\]"))
+	      (evil-force-normal-state)
+	      ))
+      )
+    )
+  )
+#+end_src
+
+
+Now as far as the keybinding itself is concerned, there is no reason to analyze
+it. ~R~ (for Roam) in visual mode points to a command I do not remember myself ever using
+(and frankly, of little use I suppose), so I can safely change it to something
+much more helpful. 
+#+NAME: Changing the keybinding
+#+begin_src elisp
+(define-key evil-visual-state-map (kbd "R") 'my-org-roam-node-find-selected-text) 
+#+end_src
+
+
