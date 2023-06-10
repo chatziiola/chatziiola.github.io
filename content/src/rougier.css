@@ -9,26 +9,16 @@
  */
 
 
-/*
- * Colorscheme to use:
- * #353535 - Black / Darks    
- * #3C6E71 - Green / Emphasis 
- * #FFFFFF - White / Bg	     
- * #284B63 - Blue / Links
- * #D9D9D9 - Gray / Notes     
- */
-
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500'); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
 body {
-    font-family: "Roboto Mono", monospace;
-    font-size: 14px;
-    font-weight: 300;
+    font-family: "Roboto Condensed";
+    font-size: 16px;
+    font-weight: 400;
     color: #353535 ;
     background: #FFFFFF;
     line-height: 1.4em;
-    font-weight: light;
     counter-reset: section;
     counter-reset: toc-section;
     counter-increment: toc-section;
@@ -59,9 +49,6 @@ i, i a {
     font-style: italic;
 }
 
-.org-face-salient {
-    font-weight: 400;
-}
 
 /* Blinking cursor when strike-through */
 .custom { animation: blinker 1s linear infinite; }
@@ -118,7 +105,6 @@ i, i a {
 }
 #table-of-contents h2 {
     font-size: 1em;
-    font-weight: 400;
     padding-top: 5em;
 }
 #table-of-contents h2:before {
@@ -191,19 +177,13 @@ h1.title {
     font-size: 1.75em;
     margin-top: 3em;
     margin-bottom: 1em;
-    font-weight: 400;
     text-align: center;
-    /*  border: whitesmoke; */
-    /*  border-bottom-style: ridge; */
-    /*  padding-bottom: 0.3em; */
-    font-family: 'Roboto Condensed', sans-serif;
 }
 
 span.subtitle {
     display: inline-block;
     margin-top: .25em;
     font-size: 74.5%;
-    font-weight: 300;
     color: #3C6E71;
 }
 
@@ -211,8 +191,6 @@ span.subtitle {
 h1, h2, h3, h4 {
     color: #353535;
     font-size: 1em;
-    font-weight: 400;
-    /* font-variant: all-small-caps; */
     text-transform: uppercase;
 }
 
@@ -231,26 +209,14 @@ body {
 }
 h2 {
     padding-top: 5em;
-    font-weight: medium;
     counter-reset: subsection;
 }
-h2::before {
-    color: #3C6E71;
-    float: left;
-    text-align: right;
-    font-weight: 300;
-    width: 7.5em;
-    margin-left: -8.0em;
-    counter-increment: section;
-    content: "# "
-    /* content: "Chapter " counter(section) " "; */
-}
 
-h3::before {
+/* Fixing befores */
+h2::before, h3::before, h4::before, h5::before {
     color: #3C6E71;
     float: left;
     text-align: right;
-    font-weight: 300;
     width: 2.5em;
     margin-left: -3.0em;
     counter-increment: subsection;
@@ -258,33 +224,29 @@ h3::before {
     /* content: counter(section) "." counter(subsection) " "; */
 }
 
+h2::before {
+    content: "# "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h3::before {
+    content: "## "
+    /* content: "Chapter " counter(section) " "; */
+}
+
 h4::before {
-    color: #3C6E71;
-    float: left;
-    text-align: right;
-    font-weight: 300;
-    width: 2.5em;
-    margin-left: -3.0em;
-    counter-increment: subsection;
     content: "### "
-    /* content: counter(section) "." counter(subsection) " "; */
 }
 
 h5::before {
-    color: #3C6E71;
-    float: left;
-    text-align: right;
-    font-weight: 300;
-    width: 2.5em;
-    margin-left: -3.0em;
-    counter-increment: subsection;
     content: "#### "
     /* content: counter(section) "." counter(subsection) " "; */
 }
+
 code {
     background-color: #f9f9f9;
-    font-family: "Roboto Mono", sans-serif;
-    font-weight: 400;
+    font-family: "Roboto Mono";
+    font-size: 14px;
 }
 
 /* --- Table --- */
@@ -301,7 +263,6 @@ thead {
 }
 th {
     text-align: left;
-    font-weight: 400;
     padding: 0;
     margin-bottom: 0.25em;
     padding-bottom: 0.25em;
@@ -314,7 +275,6 @@ tr:nth-child(odd) {background: #ffffff;}
 /* --- Back links in header --- */
 div.back a {
     float: right;
-    font-weight: 300;
     color: #3C6E71;
     font-variant: small-caps;
     margin-top: -2.5em;
@@ -353,13 +313,24 @@ img {
 
 
 /* --- Default Parts --- */
-.tag    { background-color: #eee; font-family: monospace;
-        padding: 2px; font-size: 80%; font-weight: normal; }
+.tag    {
+    background-color: #eee;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    padding: 2px;
+    font-size: 80%;
+}
 
-.timestamp { color: #3C6E71;}
-.timestamp-kwd { color: #284B63; }
+.timestamp {
+    color: #3C6E71;
+}
+.timestamp-kwd {
+    color: #284B63;
+}
 
-.underline { text-decoration: underline; }
+.underline {
+    text-decoration: underline;
+}
 
 /*--------------------------------------------------*/
 /* Code Coloring
@@ -371,30 +342,28 @@ img {
 
 pre::before {
     color: #3C6E71;
-    float: left;
     text-align: right;
-    font-weight: 300;
     width: 3.0em;
-    margin-left: -4.25em;
-    font-variant: small-caps;
+    margin: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 2px dotted #3C6E71;
 }
 
 pre {
     border-left: 2px solid #3C6E71;
-    background-color : #eee;
+    background-color: #eee;
     overflow: auto;
-    margin: 0em;
-    padding: 0.25em;
-    padding-left: 0.5em;
+    padding: 3em 0.5em 0.5em;
     line-height: 1.35em;
-    font-family: "Roboto Mono", sans-serif;
-    font-weight: 300;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    position: relative;
 }
 
 pre.src {
-    position: relative;
     overflow: scroll;
-    margin-top: 2em;
 }
 
 pre.src-awk:before { content: 'Awk'; }
@@ -462,13 +431,10 @@ caption.t-bottom { caption-side: bottom; }
 
 /* Quotes */
 .quote {
-    font-family: "Roboto Mono", monospace;
     font-size: 14px;
-    font-weight: 300;
     color:  rgba(51, 51, 51, 1.00);
     background: #3C6E71;
     line-height: 1.4em;
-    font-weight: italic;
 }
 
 
@@ -476,7 +442,6 @@ caption.t-bottom { caption-side: bottom; }
     color: #3C6E71;
     float: left;
     text-align: right;
-    font-weight: 200;
     width: 7.5em;
     margin-left: -8.0em;
     content: "Quote ";
@@ -485,9 +450,7 @@ caption.t-bottom { caption-side: bottom; }
 
 .note::before {
     content: "Note";
-    font-weight: bold;
     text-decoration-line: underline;
-    font-weight: 400;
 }
 
 .note {

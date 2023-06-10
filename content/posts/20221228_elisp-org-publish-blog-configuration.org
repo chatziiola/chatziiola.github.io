@@ -2,6 +2,7 @@
 #+PROPERTY: header-args :tangle build-site.el
 #+DATE: <2022-07-09 Sat>
 
+
 Before getting in greater depth: Huge thanks to an extraordinary member of the
 Emacs community, whose (live) videos on YouTube, greatly helped me when I
 decided to... turn evil: David Wilson of [[https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/][System Crafters]]
@@ -36,13 +37,16 @@ YouTube [[https://www.youtube.com/c/SystemCrafters][channel]].
 #+end_src
 
 
-* Getting the gist                                                 :INACTIVE:
+* Getting the gist
 This is a literate configuration file, setting up and emacs instance to be run
 on a simple virtual machine (Github actions). As such, you will not see most of
 the options one cares for when setting up emacs. If you look at [[https://github.com/chatziiola/chatziiola.github.io][my shell script]],
 you can see that I run emacs as /cleanly/ as possible:
 
+#+begin_src shell :tangle no
 emacs -Q --script build-site.el
+#+end_src
+
 
 * Site-wide Variables
 In this section of the configuration file I initialize the variables that I use
@@ -79,7 +83,7 @@ To keep it simple:
 (defvar src-public-dir "./public/src/"
   "Self-descriptive.")
 #+end_src
-** CSS
+** CSS Path
 #+begin_src elisp
 (defvar css-path "/src/rougier.css"
   "Self-descriptive.")
@@ -89,18 +93,14 @@ To keep it simple:
 #+begin_src elisp
 (defvar org-blog-head
   (concat
-   "<link rel=\"preconnect\" href=\"https://fonts							.	googleapis.com\">"
-   "<link rel=\"preconnect\" href=\"https://fonts							.	gstatic.com\" crossorigin=\"\">"
-   "<link href=\"https://fonts									.	googleapis.com/css2?family=Fira+Sans+Condensed&amp;family=Manrope&amp;family=Roboto+Condensed:wght@300&amp;display=swap\" rel=\"stylesheet\">"
+   "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">"
+   "<link href=\"https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap\"rel=\"stylesheet\">"
+   "<link href=\"https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap\"rel=\"stylesheet\">"
    "<link rel=\"stylesheet\" href=\"" css-path "\" />
     <link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">"
-   "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1	.	0\">"
-   "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css\">"
-   "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js\"></script>"
-   "<script>hljs.highlightAll();</script>"
+   "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
    )
   "Description - BLOG HTML HEAD.")
-
 #+end_src
 
 ** Postamble 
