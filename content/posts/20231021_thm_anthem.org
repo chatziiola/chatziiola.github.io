@@ -66,7 +66,6 @@ a writer (Jane Doe), which included a flag at a suspiciously obvious
 location. 
 
 #+caption: A flag :P
-#+DOWNLOADED: screenshot @ 2023-10-21 10:50:49
 [[file:Reconnaissance/20231021_105049_screenshot.png]]
 
 
@@ -77,11 +76,9 @@ disappoint. Aside from giving as a direct /flag/, it showed that the
 target host uses the Umbraco CMS, and it's sign-in page is also revealed. 
 
 #+caption: Robots.txt contents
-#+DOWNLOADED: screenshot @ 2023-10-21 10:52:17
 [[file:Reconnaissance/20231021_105217_screenshot.png]]
 
 #+caption: Umbraco Sign-in Page
-#+DOWNLOADED: screenshot @ 2023-10-21 10:55:56
 [[file:Reconnaissance/20231021_105556_screenshot.png]]
 
 Sadly, however, ~security.txt~ and ~sitemap.xml~ turned out to be empty,
@@ -99,11 +96,9 @@ exists hidden there, I searched with 'thm', to make sure I did not
 miss anything).
 
 #+caption: Another random flag found during this stage
-#+DOWNLOADED: screenshot @ 2023-10-21 10:59:32
 [[file:Reconnaissance/20231021_105932_screenshot.png]]
 
 #+caption: Another random flag
-#+DOWNLOADED: screenshot @ 2023-10-21 11:00:55
 [[file:Reconnaissance/20231021_110055_screenshot.png]]
 
 After skimming through the pages and realizing that the information I
@@ -112,7 +107,6 @@ web portal, hoping that (since its a common misconfiguration) no one
 had bothered changing them:
 
 #+caption: No luck
-#+DOWNLOADED: screenshot @ 2023-10-21 11:05:56
 [[file:Reconnaissance/20231021_110556_screenshot.png]]
 
 At this point I seriously considered bruteforcing Jane Doe's RDP
@@ -137,7 +131,6 @@ We now know the administrator's username, and we have a potential
 password, so checking RDP out seems like a good choice: it was.
 
 #+caption: Got the root flag
-#+DOWNLOADED: screenshot @ 2023-10-21 11:20:03
 [[file:Trying_RDP_out/20231021_112003_screenshot.png]]
 
 
@@ -147,7 +140,6 @@ presumably hidden within the source code, nice
 #+end_note
 
 #+caption: Completing the last web flag
-#+DOWNLOADED: screenshot @ 2023-10-21 11:22:23
 [[file:Trying_RDP_out/20231021_112223_screenshot.png]]
 
 * Privilege Escalation
@@ -173,7 +165,6 @@ permission to read, but seeing that I was the owner, I edited its
 properties so that I could open it properly:
 
 #+caption: Got a password-like string
-#+DOWNLOADED: screenshot @ 2023-10-21 11:39:02
 [[file:Privilege_Escalation/20231021_113902_screenshot.png]]
 
 #+begin_quote
@@ -183,7 +174,6 @@ Seems like a good combination to choose, so I try to view
 ~Administrator~'s home folder:
 
 #+caption: Final Flag
-#+DOWNLOADED: screenshot @ 2023-10-21 11:42:59
 [[file:Privilege_Escalation/20231021_114259_screenshot.png]]
 
 'twas good.
