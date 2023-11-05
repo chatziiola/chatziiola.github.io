@@ -1,0 +1,97 @@
+#+TITLE: THM: Bounty Hacker
+#+DATE: <2023-11-05 21:54>
+#+DESCRIPTION: 
+#+FILETAGS: 
+
+Ever since the last room I published here, every time that I logged in
+TryHackMe I would only complete /tutorial/ rooms (except for the Net Sec
+Challenge, that was not much of a challenge), revising stuff I had
+already learned mainly, and that got to a point that it was tedious.
+On the one hand, I want to complete the suggested paths, making sure
+that I have the right tools (and mindset) to take on more difficult
+CTFs (and eventually take part in a hackathon or two), but ... it gets
+boring at times.
+
+
+That's the reason why I now am here (even though I suppose that taking
+on a medium difficulty room instead of an easy one would be better)!
+
+
+* Recon
+Like always: a quick ~nmap~ scan
+#+NAME: quick nmap 
+#+begin_src bash
+IP=10.10.61.63
+nmap -sV -sC -oN nmap.initial $IP
+#+end_src
+
+That informs us of three open ports:
+- [ ] 21: ftp, allowing for anonymous login
+- [ ] 22: ssh
+- [ ] 80: http, an apache web server
+
+After putting on a complete port scan to see if our initial scan
+missed anything, we visit the website.
+
+#+NAME: Nmap Full Port Scan
+#+begin_src bash
+nmap -p- -oN nmap.full -T4 $IP
+#+end_src
+
+* The Website
+First things first, after visiting the website it looks like its a
+simple static website, comprised of just one html page, in which
+Avatar (the airbender) characters seem to be assigning the task of
+getting into the target system to us. Nothing is hidden in the html.
+
+Gobuster also did not reveal any promising files.
+ #+NAME: Using gobuster
+#+begin_src bash
+ gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+ #+end_src
+
+
+* The FTP server
+Using the standard command we can visit the ftp server as ~anonymous~.
+
+If performing any commands returns:
+#+begin_example
+530 Please login with USER and PASS.
+#+end_example
+make sure that you did not actually press ~Enter~ when logging in
+because that would make you enter as ~root~ and thereby not be
+authenticated on the server. Not proud of that :P.
+
+Running ~ls~ there we gain knowledge of two files:
+- ~locks.txt~, which turns out to be a wordlist, hinting at a possible
+  bruteforce attack on the ssh server
+- ~task.txt~, containing two Avatar-related (?) tasks, and giving a
+  small /flag/ 
+
+* The SSH server
+Trying our luck with the wordlist found above, eventually gives us the
+password for the user ~lin~
+ #+NAME: Hydra ssh bruteforcing
+ #+begin_src bash
+ hydra -l lin -P locks.txt ssh://$IP -t 1
+ #+end_src
+
+At this point we have successfully gained access to the target
+machine, and by visiting lin's Desktop, we get the first actual flag.
+
+
+* Privilege Escalation
+Just running ~sudo -l~ shows that we can run ~/bin/tar~ as root.
+
+Obviously, we go to [[https://gtfobins.github.io/#at][GTFObins]] and following the steps we get root
+privileges in no time:
+
+ #+NAME: Getting root through tar: src GTFObins
+ #+begin_src bash
+ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+ #+end_src
+
+
+* Conclusion
+It was a nice room, arguably a wrong choice for me, but a good place
+to start I suppose, covering a little bit of the basics. 

@@ -386,6 +386,7 @@ pre.src-shell:before { content: 'Shell Script'; }
 pre.src-cpp:before  { content: 'C++'; }
 pre.src-c:before  { content: 'C'; }
 pre.src-bash:before  { content: 'bash'; }
+pre.example:before  { content: 'example'; }
 pre.src-asm:before { content: 'Assembler'; }
 pre.src-html:before { content: 'HTML'; }
 pre.src-tex:before { content: 'TeX'; }
@@ -486,6 +487,7 @@ h1 {
     counter-reset: example;
 }
 
+/* Lectures specific specific */
 div.paradeigma::before {
     counter-increment: example;
     content: "Παράδειγμα " counter(section) "." counter(example) " ";
