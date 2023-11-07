@@ -1,0 +1,172 @@
+#+TITLE: THM: Wonderland
+#+DATE: <2023-11-06 23:49>
+#+DESCRIPTION: 
+#+FILETAGS: 
+
+* Recon
+The initial nmap scan gives us some starting info:
+- [ ] port 22 is open, so we will probably have to get some
+  user/password combination to get ssh access to the target machine
+- [ ] port 80 is open, a web server that we should check thoroughly
+#+begin_src bash
+IP=10.10.52.199
+nmap -sV -sC -oN nmap.initial $IP
+#+end_src
+
+Before moving on to the web-server analysis:
+#+begin_src bash
+nmap -p- -oN nmap.full -T4 $IP
+#+end_src
+
+** Web Server
+Just by visiting the website we notice that:
+- The website seems to be plain html
+- There is an ~/img~ directory (might be useful?)
+
+Running ~gobuster~ against it:
+#+begin_src bash
+gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP
+#+end_src
+
+Two new directories are revealed:
+- ~poem~
+- ~r~
+
+Due to the /keep going/ in ~r~, I decided to run ~gobuster~ again, this time
+on the /r subdirectory, revealing ~r/a~, and then (in the next
+iteration) a ~b~, pointing that the final path will most probably be
+~r/a/b/b/i/t~. 
+
+There hidden lies a possible username:password combination:
+#+begin_comment
+alice:HowDothTheLittleCrocodileImproveHisShiningTail
+#+end_comment
+
+Testing it and...we have access as ~alice~
+* Alice
+Strangely enough, good ol' find does not give us the position of
+~user.txt~, hinting that we will have to login as a different user in
+order to get it.
+#+begin_example
+alice@wonderland:/$ find . -name user.txt 2>/dev/null
+#+end_example
+
+The different users, as listed by ~cat /etc/passwd~:
+#+begin_example
+root:x:0:0:root:/root:/bin/bash
+tryhackme:x:1000:1000:tryhackme:/home/tryhackme:/bin/bash
+alice:x:1001:1001:Alice Liddell,,,:/home/alice:/bin/bash
+hatter:x:1003:1003:Mad Hatter,,,:/home/hatter:/bin/bash
+rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
+#+end_example
+
+~sudo -l~ shows us that there is a very peculiar command we can run as
+~rabbit~ (while being alice):
+
+#+begin_example
+User alice may run the following commands on wonderland:
+    (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
+#+end_example
+
+It obviously is the way to access rabbit's home directory and assume
+their identity, however, I can not mess around with any element of the
+command: both files are obviously not writeable for me, so I can not
+modify them :/. Furthermore, I can not add any arguments to the
+command, I can only use it as is.
+
+Maybe play around with the ~random~ library? Nah, the file is also
+properly protected.
+
+As it turns out, what I initially thought possible was actually
+possible: python path hijack on the rescue:
+- create a random.py file in current working directory
+- properly redefine the functions as one should
+
+
+I then tinkered with the reverse shells in payloads all the things,
+settling for a netcat one that got the job done
+
+* Hopping away
+After receiving the reverse shell in my netcat listener, the interface
+was sadly unusable, so I had to /spice it up/ with some simple python:
+ #+NAME: Python improved shell
+ #+begin_src bash
+ python3.6 -c 'import pty; pty.spawn("/bin/bash")' # python can not be found in the path
+ #+end_src
+
+
+A strange teaParty file exists in ~rabbit~'s home directory, with SUID bit set!
+
+After running it, it seems like a riddle, but no matter what input I
+provide it says that a segmentation fault occurs! Should I try to
+reverse engineer?
+
+Just by using ~cat teaParty~, we see that ~date~ gets used, so I could try
+replacing it with a reverse shell  maybe or sh itself? 
+
+The second option worked just fine with ~bash -i~:
+ #+NAME: Adding a false date to path
+ #+begin_src bash
+ PATH="/home/rabbit:$PATH"
+ echo 'bash -i' > date
+ ./teaParty
+ #+end_src
+
+There, in ~hatter~'s home folder, their password exists in plaintext!
+Thus, no need to keep using that shell, I can ssh into ~hatter~ far more
+easily.
+#+begin_comment
+WhyIsARavenLikeAWritingDesk?
+#+end_comment
+
+* Hatter
+As ~hatter~ there is not much I can do. In fact, this is the part of the
+room where I got impressively stuck and could not figure out what to
+do, so one can say I cheated my way out :(
+
+Since ~hatter~:
+- can not run any commands with ~sudo~
+- does not have any cronjobs
+- does not have any potentially helpful suid files
+running ~linpeas.sh~, as payloads all the things suggests, was the
+logical choice. The problem was that, due to the sheer size of its
+output (and its strange encoding that would not let for its output to
+be redirected to a file) I could not read all of it (initially due to
+the terminal application not scrolling back enough so information was
+lost), let alone understand it.
+
+I, then, carefully not to see more than needed, proceeded with reading:
+https://fmash16.github.io/content/writeups/tryhackme/thm-Wonderland.html
+1. The ~/etc/hosts~ idea was incredible, it can really help at times.
+2. Got me thinking whether using a reverse shell for ~rabbit~ was the
+   only logical option. The author there used a solution perhaps
+   identical to mine, but could not ~bash -i~ work as well?
+3. *SUID Capability*
+
+Now, this last one (along with the python hijack trick, which took me
+some time to find out) made the whole room surely more than just worth
+it!
+
+* Privilege Escalation through ~suid~ capability
+Hidden in ~linpeas.sh~ output, there is the fact that in the target
+machine ~perl~ has the capability to ~setuid~. This effectively means that
+we can ~setuid(0)~ and run the perl commands as root.
+
+GTFOBins, like always, is a good place to go once you know there is
+something like that you can take advantage of, and it does not
+disappoint. 
+
+#+NAME: Exploiting perl capabilities
+#+begin_src bash
+/usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+#+end_src
+
+After that I just used ~find~, to get both ~root.txt~ and ~user.txt~
+
+* Summing up
+I really liked how this room challenged me. It was not just at the
+last part, the python path hijack was a really nice technique as well!
+While, I felt that I was going smoothly, having developed a basic
+methodology/way of thinking that has so far worked for me, it became
+apparent that my Linux PrivEsc skills could be significantly improved.
+On we go!
