@@ -1,0 +1,84 @@
+#+TITLE: THM: Anonymous
+#+DATE: <2023-11-07 09:50>
+#+DESCRIPTION: 
+#+FILETAGS: thm ctf
+
+* Recon
+- adding to ~/etc/hosts~
+
+
+We start by doing a quick scan on the target machine:
+#+NAME: Initial nmap scan
+#+begin_src bash
+nmap -sV -sC -oN nmap.initial anonymous.thm
+#+end_src
+
+There are some interesting findings:
+- [ ] Port 21: FTP: allowing for anonymous login
+- [ ] Port 22: SSH: probably going to utilize that later
+- [ ] Ports 139/445: Samba file server
+
+Before going further with the file servers, starting a complete scan
+to make sure no port gets 'lost'
+#+begin_src bash
+IP=anonymous.thm
+nmap -p- -oN nmap.full -T4 $IP
+#+end_src
+
+** FTP Server
+Visiting the ftp server (and in ~nmap~'s output), we see that there is a
+directory ~scripts~, whose contents may be useful to us:
+- ~ftp anonymous.thm~
+- logging in as ~anonymous~, successfully
+- getting the files back to our local machine with ~get~
+
+These files are:
+- ~clean.sh~, a simple (and at the same time actually non-working)
+  shell script
+- A log file, for clean.sh
+- A ~todo.txt~, which simply states that "/anonymous login is not safe/"
+
+Since I'm writing this article while completing the room, I did not
+have to wait much before getting the log file again and comparing it
+with the older version:
+#+begin_example
+root@ip-10-10-121-199:~# cat removed_files.log | wc -l
+28
+# Here I went back to the ftp server got the file again
+root@ip-10-10-121-199:~# cat removed_files.log | wc -l
+33
+#+end_example
+
+It is obvious, then, that ~clean.sh~, that populates the log file,
+must be connected to a cronjob. This should be an easy point of entry
+for us!
+
+Just by adding a simple netcat reverse shell in ~clean.sh~, gives as
+access to the machine!
+
+* Privilege escalation
+After making our terminal a little more usable with ~python~'s pty module, we see that we are logged in as ~namelessone~, who is part of
+many groups, however, since we do not know the user's password ~sudo -l~
+is unusable.
+#+begin_example
+namelessone@anonymous:~$ id
+id
+uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd)
+#+end_example
+
+
+Searching for files with ~SUID~, we ~find~ (pun intended), that ~env~ is
+improperly configured, allowing for an easy privilege escalation:
+#+begin_example
+namelessone@anonymous:~$ env /bin/sh -p
+env /bin/sh -p
+# whoami
+whoami
+root
+#+end_example
+
+
+* Conclusion
+I do not know why this room was marked as being one of medium
+difficulty, but I liked being able to complete it really easily and
+quickly :P.
