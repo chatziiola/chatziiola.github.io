@@ -60,7 +60,7 @@ disappointed seeing just the default Apache2 Homepage.
 [[file:Recon/20231111_193556_screenshot.png]]
 
 However, seeing that there were disallowed entries in robots.txt
-(~http-robots.txt~ was run among the default scripts by nmap), I figured
+(~http-robots.txt~ was executed among the default scripts by nmap), I figured
 that I should check it out. There were *a lot of entries there[fn:1]*,
 but after visiting them, they were not of any interest (the
 files/directories did not exist).
@@ -107,9 +107,9 @@ in the meantime, the full nmap scan was complete, and after using ~nc~
 to connect to that port (55007), an ssh server also became available :P.
 
 ** Webmin
-The quesiton "Can you exploit the service running on that port?" got
+The question "Can you exploit the service running on that port?" got
 me thinking that I should most probably go there, before keep going
-against the joomla website, but I was wrong. A quick search revealedd
+against the joomla website, but I was wrong. A quick search revealed
 that there was no readily available exploit on the running version, so
 the answer there, sadly, was "nay"
 
@@ -189,8 +189,12 @@ seems to be my way out:
 #+begin_src bash
 find / -perm /4000 2>/dev/null
 #+end_src
-revealed that I can it as root
+revealed that I can execute it as root, so:
 
+#+NAME: Getting root
+#+begin_src bash
+find . -exec /bin/sh -p \; -quit
+#+end_src
 * Root
 The flag can be found in ~/root~
 
