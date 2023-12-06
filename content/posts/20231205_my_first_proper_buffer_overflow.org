@@ -163,7 +163,9 @@ address from which the computer should continue - exists in memory.
 One (not-so-innocent) user, might try to modify this, so that another
 program executes, thus modifying the flow of the program.
 
-For example, the snippet above gives us 140 bytes to store
+Even though I suppose that this is not actual reverse engineering -
+but focusing only on the buffer overflow part of the challenge: We
+know the source code: The snippet above gives us 140 bytes to store
 information, before it prints it to the command line. We could, and
 this is the target of this task, populate /some/ of these 140 bytes with
 a shellcode (code to spawn a shell for us), and modify the return
@@ -174,43 +176,24 @@ the ~buffer~ variable.
 In addition to those 140 bytes to populate, we should also add enough
 contents to overwrite the return value of the function.
 
-Even though I suppose that this is not actual reverse engineering -
-but focusing only on the buffer overflow part of the challenge: We
-know the source code:
-#+NAME: Task 8 source code
-#+begin_src c
-#include <stdio.h>
-#include <stdlib.h>
 
-void copy_arg(char *string)
-{
-    char buffer[140];
-    strcpy(buffer, string);
-    printf("%s\n", buffer);
-    return 0;
-}
-
-int main(int argc, char **argv)
-{
-    printf("Here's a program that echo's out your input\n");
-    copy_arg(argv[1]);
-}
-#+end_src
-
+#+begin_quote
 Silly as it may seem, chatgpt does more than just a fine job helping
 you revise assembly. It was fun analyzing where I should look at :P
+#+end_quote
 
 
 #+caption: Filling buffer with A's and checking the return address
 [[file:images/Task_8/20231205_234129_screenshot.png]]
 
+Through experimentation we can understand the following:
 - The highlighted one's (and the 0x41s in between) are our input
 - The address in the block is the return address - the command
   following ~copy_arg~ in main
 
-So while our input was alright to populate the buffer variable, it
+So while our input did its job of populating the buffer variable, it
 needs to be improved to work for us:
-- Checking at the picture we can see that the return address is found
+- Glancing at the picture we can see that the return address is found
   152 bytes after the first 'A' (0x41), and has a length of 4 bytes,
   meaning that we are interested in the bytes 152-156.
 
@@ -284,24 +267,27 @@ int main(int argc, char **argv)
 - doggo has 5 characters length, meaning that there are 149 more
   characters left to fill buffer. After that, there will be a padding
   and the return address.
-- Following the same methodology as before, I fired up ~gdb~, set up
+- Following the same methodology as before, I fired up ~gdb~, set
+  ~stop-hook~ up and ...
 
-  #+caption: Started from the bottom now we here
+#+caption: Started from the bottom now we here
 [[file:images/Task_9/20231206_002813_screenshot.png]]
 
-I then created the setuid payload once again, and then proceeded to
+I then created the setuid payload once again, and proceeded to
 modify the payload to fit in our example.
 #+begin_example
 root@ip-10-10-80-64:~# pwn shellcraft -f d amd64.linux.setreuid 1003
 \x31\xff\x66\xbf\xeb\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05
 #+end_example
 
-Namely the changes:
-1. Different size:
+Namely the changes (compared to task 8):
+1. Different size - but we can still use the same payload:
    - Bytes 164-170 are of interest now
    - Our payload remains 54 bytes in length, so with a padding of 100
      and 9 we should be fine.
-2. Different address:
+2. Different user id:
+   - Already fixed in our setuid payload (went ahead and checked )
+3. Different address:
    - As shown in the image above:
      - 0x7fffffffe3b0
      - 0xb0e3ffffff7f
