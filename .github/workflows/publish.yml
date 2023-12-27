@@ -18,14 +18,11 @@ jobs:
       - name: Install imagemagick
         run: sudo apt install imagemagick --yes
 
-      - name: Build the site
-        run: ./build.sh
+      - name: Install make
+        run: sudo apt install make --yes
 
-      - name: Add latest posts
-        run: ./latestposts.sh
-
-      - name: Copy index html to secondary location
-        run: cp public/index.html public/posts/index.html
+      - name: Run make
+        run: make publish
 
       - name: Publish generated content to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
