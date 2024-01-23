@@ -255,13 +255,14 @@ The filenames are returned in HTML format."
       :recursive t
       )
 
-(list "Website static stuff"
-      :base-directory src-dir
-      :base-extension "html\\|css\\|ico"
-      :publishing-directory src-public-dir
-      :publishing-function 'org-publish-attachment
-      :recursive t
-      )
+;; Commenting these out to include in makefile
+;; (list "Website static stuff"
+;;       :base-directory src-dir
+;;       :base-extension "html\\|css\\|ico"
+;;       :publishing-directory src-public-dir
+;;       :publishing-function 'org-publish-attachment
+;;       :recursive t
+;;       )
 )
 )
 
