@@ -1,8 +1,56 @@
 #+TITLE: Chasing Simplicity
 
-Hello all, this is my personal blog, built using emacs and org mode. Feel free
-to browse the repo if you are interested in the source code (it may be in
-spaghetti form, but I believe it is unique as far its performance is taken into
-consideration), or to visit the web site itself and read its articles.
+Hello all!
+
+This is my personal blog, built using emacs and org mode. Feel free to
+browse the repo if you are interested in the source code (it may be in
+spaghetti form, but I believe it is unique as far its performance and
+obviously implementation is taken into consideration), or to visit the
+web site itself and read its articles.
 
 You can find the link for the web site [[https://chatziiola.github.io][here]]!
+
+* Starting Points
+- [[file:Makefile][Make-it all happen]]
+- [[file:index-generator.el][Generating an Index]] with elisp
+- [[file:content/posts/20221228_elisp-org-publish-blog-configuration.org][Publishing blog with Elisp]]
+  - [[https://blog.chatziiola.live/posts/20220719_how_i_publish_my_static_blog_on_github_pages_using_emacs.html][Article: How I publish on GH pages using Emacs]]
+- [[file:org-static-blog.el][Org-static-blog Functions]]
+
+* Structure
+The site is built by publishing, through ~org-publish~, org mode files
+into html. The actual conversion is specified in [[file:build-site.el]].
+
+The aspect I find the most unorthodox, and actually want to tackle, is
+the way that I have based everything on ~elisp~, for which I do not know
+a lot. This causes:
+- The whole blog to be translated on every change, which even though
+  it is relatively harmless when I publish on Github, happens only
+  once and allows for detailed feedback, results in great time loss.
+
+* Task list
+I plan to simplify the process as much as possible, allowing for
+easier publishing *and* more features, such as link previews, tag
+grouping, searches...and more. To do this, it is vital to build a
+scalable and easily maintainable core. I do not want to leave emacs
+(since I like the "hacky" aspect), so all that is left is
+** Functional
+- [ ] Check the way I always regenerate static files - maybe it is not
+  necessary for my local repo, saving me time
+- [ ] Split index-generation and build, presumably by adding all
+  variables to a separate file to be loaded
+- [ ] Split tasks and remove tasks that need not be in emacs from emacs
+  - [ ] An example would be statically copying files -> easier as a make
+    task.
+- [ ] Enforce common policies among articles 
+  - [ ] Images only in one /parent/ directory: ~images~, to avoid clutter
+  - [ ] Tags on all articles, no need for categories
+
+** Cosmetics
+- [ ] Implement a better header
+- [ ] Table of contents to be movable on the side (in bigger screens)
+
+* Tools I use:
+- ~flameshot~ and ~org-download~
+  - This combination is unbelievable
+- 

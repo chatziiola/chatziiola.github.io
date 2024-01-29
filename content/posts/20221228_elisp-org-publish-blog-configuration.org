@@ -1,8 +1,7 @@
 #+TITLE: Elisp Org-Publish Configuration
-#+PROPERTY: header-args :tangle build-site.el
+#+PROPERTY: header-args :tangle (let ((org-use-tag-inheritance t)) (if (member "INACTIVE" (org-get-tags))  "no" "../../build-site.el"))
+#+auto_tangle: t
 #+DATE: <2022-07-09 Sat>
-
-
 Before getting in greater depth: Huge thanks to an extraordinary member of the
 Emacs community, whose (live) videos on YouTube, greatly helped me when I
 decided to... turn evil: David Wilson of [[https://systemcrafters.net/publishing-websites-with-org-mode/building-the-site/][System Crafters]]
@@ -27,8 +26,10 @@ YouTube [[https://www.youtube.com/c/SystemCrafters][channel]].
 ;;; Yup, it is needed twice to make sure I'll read it.
 
 ;;; Commentary:
-;;;; TODO Someday I will write something here. Till then ;) I changed quite some
-;;;; stuff after having a look at:
+;;;; TODO Someday I will write something here. Till then ;)
+
+
+;;;; I changed/restructured quite some stuff after having a look at:
 ;;;; https://her.esy.fun/posts/0001-new-blog/index.html
 
 ;;; Code:
@@ -47,7 +48,6 @@ you can see that I run emacs as /cleanly/ as possible:
 emacs -Q --script build-site.el
 #+end_src
 
-
 * Site-wide Variables
 In this section of the configuration file I initialize the variables that I use
 in the rest of the script. The goal here is to have no hard coded paths and/or
@@ -55,7 +55,7 @@ settings, and instead, rely on the modification of predefined variables to
 change the behavior of already implemented features.
 
 #+begin_src elisp
-(defvar domainname "https://chatziiola.github.io"
+(defvar domainname "https://blog.chatziiola.live"
   "Self-Descriptive. It is the address for which we build our site")
 #+end_src
 
@@ -129,17 +129,16 @@ butchered it to my needs
 ;;;; These were set up on a need-to-set basis
 (setq org-static-blog-enable-tags t)
 (setq org-static-blog-index-file "recents.html")
-(setq org-static-blog-index-front-matter org-blog-head)
+(setq org-static-blog-index-front-matter "")
 (setq org-static-blog-index-length 50)
 (setq org-static-blog-posts-directory "./content/posts/")
 (setq org-static-blog-page-postamble general-postamble)
 (setq org-static-blog-publish-directory "./public/posts/")
 (setq org-static-blog-publish-title "Recent Articles")
 (setq org-static-blog-publish-url "https://chatziiola.github.io")
-(setq org-static-blog-index-front-matter "")
 
 #+end_src
-* Package Settings
+* Package Settings :restructure:
 These are pretty basic settings, only required in order for us to call a /clean/
 emacs instance. A separate directory for packages is specified in order to not
 liter our *actual* Emacs directory.
@@ -204,7 +203,6 @@ from the ~org-projects-alist~' options.
 
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
-					;(setq org-html-htmlize-font-prefix "org-")
 
 (setq org-src-fontify-natively t		; Fontify code in code blocks.
       org-adapt-indentation nil			; Adaptive indentation
@@ -246,7 +244,7 @@ than simply highlighting but I'm not 100% sure.
    (sqlite . t)))
 #+end_src
 
-* Series next/before links
+* Series next/before links :INACTIVE:
 This is a functionality that I long wanted to have implemented.  Now, although
 this works perfectly, it creates a restriction: The files are chronologically
 inserted in the previous/next "queue". This means that in the case of lectures,
@@ -538,12 +536,15 @@ Return output file name."
 
 #+begin_src elisp
 
-					; Generate the site output
 (org-publish-all t)
 
 #+end_src
 
 * Org-static-blog for index creation
+I tried removing this section, but in great terror I realized how
+naive I was when I wrote this. It needs the variables that I set in
+here.
+
 #+begin_src elisp
 
 (load (expand-file-name "index-generator.el" default-directory))
