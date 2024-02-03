@@ -54,33 +54,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0bb566e">Εισαγωγή</a></li>
-<li><a href="#orgb0d2439">Ειδικές περιπτώσεις πίνακα \(A\)</a>
+<li><a href="#org628a8d5">Εισαγωγή</a></li>
+<li><a href="#org192c4f4">Ειδικές περιπτώσεις πίνακα \(A\)</a>
 <ul>
-<li><a href="#orgc0c0377">Διαγώνιος ή τριγωνικός</a></li>
-<li><a href="#org5dc1f33"><i>Μπλοκ</i> πίνακας</a></li>
+<li><a href="#org82b8a24">Διαγώνιος ή τριγωνικός</a></li>
+<li><a href="#org3119c39"><i>Μπλοκ</i> πίνακας</a></li>
 </ul>
 </li>
-<li><a href="#orgb0f07c9">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#org57fa5dc">Θεωρήματα Lyapunov</a>
+<li><a href="#org964e024">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#orgc67e3f6">Θεωρήματα Lyapunov</a>
 <ul>
-<li><a href="#org3fd2fef">Έμμεση μέθοδος ευστάθειας</a>
+<li><a href="#org55595d4">Έμμεση μέθοδος ευστάθειας</a>
 <ul>
-<li><a href="#orga9aa395">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#orge75bc81">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
 </ul>
 </li>
-<li><a href="#org2f7c212">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a>
+<li><a href="#org60d09c3">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a>
 <ul>
-<li><a href="#orgc34b110">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org69604cc">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
 </ul>
 </li>
-<li><a href="#org418c514">Άμεση μέθοδος ευστάθειας</a></li>
+<li><a href="#org0931163">Άμεση μέθοδος ευστάθειας</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="note" id="orgf4006f2">
+<div class="note" id="org6df6f6e">
 <p>
 Το συγκεκριμένο μάθημα απο εδώ και στο εξής θα ακολουθήσει την αρίθμηση 1,2,3
 (κλασσική), όμως το 5 εδώ δείχνει πως ουσιαστικά <i>πρέπει</i> να έγιναν 4 διαλέξεις
@@ -89,9 +89,9 @@
 
 </div>
 
-<div id="outline-container-org0bb566e" class="outline-2">
-<h2 id="org0bb566e"><a href="#org0bb566e">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-org0bb566e">
+<div id="outline-container-org628a8d5" class="outline-2">
+<h2 id="org628a8d5"><a href="#org628a8d5">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org628a8d5">
 <p>
 Περιορισμός του αντικειμένου του μαθήματος σε γραμμικά συστήματα, δηλαδή σε
 συστήματα που περιγράφονται από εξισώσεις της μορφής:
@@ -126,13 +126,13 @@
 </div>
 </div>
 
-<div id="outline-container-orgb0d2439" class="outline-2">
-<h2 id="orgb0d2439"><a href="#orgb0d2439">Ειδικές περιπτώσεις πίνακα \(A\)</a></h2>
-<div class="outline-text-2" id="text-orgb0d2439">
+<div id="outline-container-org192c4f4" class="outline-2">
+<h2 id="org192c4f4"><a href="#org192c4f4">Ειδικές περιπτώσεις πίνακα \(A\)</a></h2>
+<div class="outline-text-2" id="text-org192c4f4">
 </div>
-<div id="outline-container-orgc0c0377" class="outline-3">
-<h3 id="orgc0c0377"><a href="#orgc0c0377">Διαγώνιος ή τριγωνικός</a></h3>
-<div class="outline-text-3" id="text-orgc0c0377">
+<div id="outline-container-org82b8a24" class="outline-3">
+<h3 id="org82b8a24"><a href="#org82b8a24">Διαγώνιος ή τριγωνικός</a></h3>
+<div class="outline-text-3" id="text-org82b8a24">
 <p>
 Αν ο \(A\) διαγώνιος ή τριγωνικός, ως γνωστόν τα στοιχεία της διαγωνίου είναι οι
 ιδιοτιμές:
@@ -150,9 +150,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org5dc1f33" class="outline-3">
-<h3 id="org5dc1f33"><a href="#org5dc1f33"><i>Μπλοκ</i> πίνακας</a></h3>
-<div class="outline-text-3" id="text-org5dc1f33">
+<div id="outline-container-org3119c39" class="outline-3">
+<h3 id="org3119c39"><a href="#org3119c39"><i>Μπλοκ</i> πίνακας</a></h3>
+<div class="outline-text-3" id="text-org3119c39">
 \begin{equation}
 \label{eq:4}
 \begin{bmatrix}
@@ -194,9 +194,9 @@ x_{2j-1}(t) = e^{\sigma_jt}(x_{2j-1}(0)\cos{\left(\omega_jt\right)}+x_{2j}(0)\si
 </div>
 </div>
 
-<div id="outline-container-orgb0f07c9" class="outline-2">
-<h2 id="orgb0f07c9"><a href="#orgb0f07c9">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-orgb0f07c9">
+<div id="outline-container-org964e024" class="outline-2">
+<h2 id="org964e024"><a href="#org964e024">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-org964e024">
 <p>
 Έχουμε σύστημα της μορφής:
 </p>
@@ -225,7 +225,7 @@ b_0\\0
 u = -kx_2
 \end{equation}
 
-<div class="note" id="orgb391433">
+<div class="note" id="org6d99d9a">
 <p>
 Γραμμική ανάδραση <i>μεταβολής</i> 
 </p>
@@ -301,18 +301,18 @@ det(sI - A) = 0 \Rightarrow \cdots \Rightarrow  s^2+ (k_0+k_1+k_2)s + k_2(b_0k+k
 </div>
 
 
-<div id="outline-container-org57fa5dc" class="outline-2">
-<h2 id="org57fa5dc"><a href="#org57fa5dc">Θεωρήματα Lyapunov</a></h2>
-<div class="outline-text-2" id="text-org57fa5dc">
+<div id="outline-container-orgc67e3f6" class="outline-2">
+<h2 id="orgc67e3f6"><a href="#orgc67e3f6">Θεωρήματα Lyapunov</a></h2>
+<div class="outline-text-2" id="text-orgc67e3f6">
 <p>
 Στα μη γραμμικά συστήματα η ανάλυση ευστάθειας γίνεται με δύο κυρίως τρόπους:
 </p>
 </div>
 
-<div id="outline-container-org3fd2fef" class="outline-3">
-<h3 id="org3fd2fef"><a href="#org3fd2fef">Έμμεση μέθοδος ευστάθειας</a></h3>
-<div class="outline-text-3" id="text-org3fd2fef">
-<div class="note" id="org95ae620">
+<div id="outline-container-org55595d4" class="outline-3">
+<h3 id="org55595d4"><a href="#org55595d4">Έμμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-org55595d4">
+<div class="note" id="orgb1e573f">
 <p>
 Επί του θεωρήματος. Με το εξεταζόμενο θεώρημα (πρώτο θεώρημα του
 <a href="https://en.wikipedia.org/wiki/Aleksandr_Lyapunov">Lyapunov</a>) ελέγχουμε μόνο
@@ -361,9 +361,9 @@ z^{\cdot} = {\dot x}
 \end{equation}
 </div>
 
-<div id="outline-container-orga9aa395" class="outline-4">
-<h4 id="orga9aa395"><a href="#orga9aa395">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
-<div class="outline-text-4" id="text-orga9aa395">
+<div id="outline-container-orge75bc81" class="outline-4">
+<h4 id="orge75bc81"><a href="#orge75bc81">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-orge75bc81">
 \begin{equation}
 \label{eq:19}
 {\dot x} = 
@@ -395,8 +395,8 @@ x_2 \\ \sin{\left(x_1\right)} - \gamma x_2
 </div>
 
 <ul class="org-ul">
-<li><a id="org815cab2"></a><a href="#org815cab2">Εξετάζοντας το πρώτο σημείο</a><br />
-<div class="outline-text-5" id="text-org815cab2">
+<li><a id="orgf7b9169"></a><a href="#orgf7b9169">Εξετάζοντας το πρώτο σημείο</a><br />
+<div class="outline-text-5" id="text-orgf7b9169">
 <ul class="org-ul">
 <li>Για μικρές γωνίες: \(\sin{\left(x_1\right)}\approx x_1\), οπότε και να κάνω την
 αντικατάσταση επί του πίνακα:</li>
@@ -432,15 +432,15 @@ x
 \end{equation}
 
 <p>
-Από <a href="#orgb0f07c9">το σχόλιο για την εφαρμογή του Routh σε δευτεροβάθμια εξίσωση</a> το σύστημα δεν
+Από <a href="#org964e024">το σχόλιο για την εφαρμογή του Routh σε δευτεροβάθμια εξίσωση</a> το σύστημα δεν
 είναι ευσταθές σε αυτό το σημείο ισορροπίας.
 </p>
 </div>
 </li>
 
-<li><a id="org8194935"></a><a href="#org8194935">Εξετάζοντας το δεύτερο σημείο</a><br />
-<div class="outline-text-5" id="text-org8194935">
-<div class="note" id="org536bd68">
+<li><a id="org326e149"></a><a href="#org326e149">Εξετάζοντας το δεύτερο σημείο</a><br />
+<div class="outline-text-5" id="text-org326e149">
+<div class="note" id="orge19df90">
 <p>
 Αν το σημείο ισορροπίας είναι το 0, καλώς. Αν όχι χρειάζεται να κάνουμε αλλαγή
 μεταβλητής της μεταβλητής: \(z = x- x^{*}\). Αυτό είναι επιτρεπτό χωρίς βλάβη της γενικότητας.
@@ -519,9 +519,9 @@ z_2 & 0 \\
 </div>
 
 
-<div id="outline-container-org2f7c212" class="outline-3">
-<h3 id="org2f7c212"><a href="#org2f7c212">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a></h3>
-<div class="outline-text-3" id="text-org2f7c212">
+<div id="outline-container-org60d09c3" class="outline-3">
+<h3 id="org60d09c3"><a href="#org60d09c3">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a></h3>
+<div class="outline-text-3" id="text-org60d09c3">
 <p>
 Οριζουμε συνάρτηση: \(V: {\mathbb R}^n \to {\mathbb R}\). Εκείνη ονομάζεται θετικά
 ορισμένη αν και μόνο αν:
@@ -548,9 +548,9 @@ V(x)<0 \forall x \neq 0
 </div>
 
 
-<div id="outline-container-orgc34b110" class="outline-4">
-<h4 id="orgc34b110"><a href="#orgc34b110">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
-<div class="outline-text-4" id="text-orgc34b110">
+<div id="outline-container-org69604cc" class="outline-4">
+<h4 id="org69604cc"><a href="#org69604cc">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-org69604cc">
 <p>
 Έστω ότι έχουμε αυτές τις δύο συναρτήσεις, και θέλουμε
 </p>
@@ -571,13 +571,13 @@ V_2(x_1,x_2) &= x_1^{2}
 </div>
 </div>
 
-<div id="outline-container-org418c514" class="outline-3">
-<h3 id="org418c514"><a href="#org418c514">Άμεση μέθοδος ευστάθειας</a></h3>
-<div class="outline-text-3" id="text-org418c514">
+<div id="outline-container-org0931163" class="outline-3">
+<h3 id="org0931163"><a href="#org0931163">Άμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-org0931163">
 <p>
 Δεύτερο θεώρημα του Lyapunov.
 </p>
-<div class="note" id="org48f992a">
+<div class="note" id="orgc4bb31e">
 <p>
 Πηγή: <a href="https://helit.org/ece-notes/sae2.pdf">https://helit.org/ece-notes/sae2.pdf</a>, σελίδα 27.
 </p>

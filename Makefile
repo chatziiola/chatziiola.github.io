@@ -15,6 +15,9 @@ clean:
 		rm -rf $(PUBLIC_DIR) && echo "Local directory deleted"; \
 	fi
 
+add_cname:
+	echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
+
 # Build the site using Emacs
 build: clean
 	echo "Building the site"
@@ -45,5 +48,4 @@ serve_local:
 	cd $(PUBLIC_DIR) && python3 -m http.server
 
 # Build the site locally
-local: build add_latest_posts copy_index_to_posts copy_static serve_local
-blog: build add_latest_posts copy_index_to_posts copy_static
+local: build add_latest_posts copy_index_to_posts copy_static serve_local add_cname
