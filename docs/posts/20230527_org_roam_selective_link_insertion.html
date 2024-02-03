@@ -22,17 +22,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1ea88c2">Disclaimer</a></li>
-<li><a href="#org9bf0146">Problem at hand</a></li>
-<li><a href="#org64459d8">Solution</a></li>
+<li><a href="#org98aeec3">Disclaimer</a></li>
+<li><a href="#orgf73c542">Problem at hand</a></li>
+<li><a href="#org926e4dc">Solution</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org1ea88c2" class="outline-2">
-<h2 id="org1ea88c2"><a href="#org1ea88c2">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-org1ea88c2">
+<div id="outline-container-org98aeec3" class="outline-2">
+<h2 id="org98aeec3"><a href="#org98aeec3">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-org98aeec3">
 <p>
 This article does not cover how to use <code>org-roam</code>. It is simply a step by step
 analysis of a potentially sketchy solution to overcome a niche problem. 
@@ -52,9 +52,9 @@ After all he is the creator of the package.
 </div>
 </div>
 
-<div id="outline-container-org9bf0146" class="outline-2">
-<h2 id="org9bf0146"><a href="#org9bf0146">Problem at hand</a></h2>
-<div class="outline-text-2" id="text-org9bf0146">
+<div id="outline-container-orgf73c542" class="outline-2">
+<h2 id="orgf73c542"><a href="#orgf73c542">Problem at hand</a></h2>
+<div class="outline-text-2" id="text-orgf73c542">
 <p>
 If there is something I always wanted to tackle in <code>org-roam</code>, is that I quite
 often, when revisiting older nodes, encounter phrases and/or topics I have built
@@ -67,9 +67,9 @@ That functionality, was not very difficult to achieve.
 </div>
 </div>
 
-<div id="outline-container-org64459d8" class="outline-2">
-<h2 id="org64459d8"><a href="#org64459d8">Solution</a></h2>
-<div class="outline-text-2" id="text-org64459d8">
+<div id="outline-container-org926e4dc" class="outline-2">
+<h2 id="org926e4dc"><a href="#org926e4dc">Solution</a></h2>
+<div class="outline-text-2" id="text-org926e4dc">
 <p>
 The solution consists of two parts:
 </p>
@@ -85,7 +85,7 @@ Whenever I find a snippet I want to replace with a link to the related node, I
 can easily press <code>v</code>, select the appropriate text and then call the function.
 </p>
 
-<div class="note" id="org0ef61a5">
+<div class="note" id="org16c17d7">
 <p>
 If you do not use evil, you can still use the function (after commenting out the
 last line). The usage will necessarily be different though.
@@ -100,7 +100,7 @@ easily select the desired string:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org305f481">(buffer-substring-no-properties (region-beginning) (region-end))
+<pre class="src src-elisp" id="org36bd8aa">(buffer-substring-no-properties (region-beginning) (region-end))
 </pre>
 </div>
 
@@ -112,7 +112,7 @@ This step improves the accuracy of the subsequent processing
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org0ef70aa">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
+<pre class="src src-elisp" id="org06bde43">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
 </pre>
 </div>
 
@@ -123,7 +123,7 @@ that we can then insert the link in our starting file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgadda22a">(<span class="org-keyword">progn</span>
+<pre class="src src-elisp" id="org1670e82">(<span class="org-keyword">progn</span>
   <span class="org-comment-delimiter">;; </span><span class="org-comment">Open a node-find prompt with the selected-text as initial input</span>
   <span class="org-comment-delimiter">;; </span><span class="org-comment">If a node is found/created open it on a different window</span>
   (org-roam-node-find t selected-text)
@@ -133,7 +133,7 @@ that we can then insert the link in our starting file.
 </pre>
 </div>
 
-<div class="note" id="org562b48c">
+<div class="note" id="orgf0b6af9">
 <p>
 Interestingly, the node need not actually match that selected text - we can clear it all in the
 <code>org-roam-node-find</code> prompt, and simply insert a link for the node we want
@@ -148,7 +148,7 @@ left here is to replace the plain text with a link to our <i>target node</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org3f80644">(<span class="org-keyword">with-current-buffer</span> current-buffer
+<pre class="src src-elisp" id="org4ceecd6">(<span class="org-keyword">with-current-buffer</span> current-buffer
             (<span class="org-keyword">progn</span>
               (goto-char re-start)
               (delete-region re-start (search-forward selected-text))
@@ -164,7 +164,7 @@ Now, let&rsquo;s put it all together.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgf3f5257">(<span class="org-keyword">defun</span> <span class="org-function-name">my-org-roam-node-find-selected-text</span> ()
+<pre class="src src-elisp" id="org4968fe1">(<span class="org-keyword">defun</span> <span class="org-function-name">my-org-roam-node-find-selected-text</span> ()
   <span class="org-doc">"Open org-roam-node-find with selected text as initial input</span>
 <span class="org-doc">and replace with org-roam link if node is selected or created."</span>
   (<span class="org-keyword">interactive</span>)
@@ -196,7 +196,7 @@ it. <code>R</code> (for Roam) in visual mode points to a command I do not rememb
 much more helpful. 
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgeaa8666">(define-key evil-visual-state-map (kbd <span class="org-string">"R"</span>) 'my-org-roam-node-find-selected-text) 
+<pre class="src src-elisp" id="org4bc3663">(define-key evil-visual-state-map (kbd <span class="org-string">"R"</span>) 'my-org-roam-node-find-selected-text) 
 </pre>
 </div>
 </div>

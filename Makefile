@@ -1,6 +1,6 @@
 # Makefile for building and publishing a site
 # Directories
-PUBLIC_DIR := public
+PUBLIC_DIR := ./docs
 POSTS_PUBLIC_DIR := $(PUBLIC_DIR)/posts
 LOCAL_DIR := content
 SHELL := /bin/bash
@@ -30,7 +30,7 @@ show_drafts:
 add_latest_posts:
 	echo "Adding latest posts (archive) on /index.html"
 	echo '<ul class="org-ul indexul">' > /tmp/index
-	grep "^<li>" $(PUBLIC_DIR)/posts/recents.html | head -5 >> /tmp/index
+	grep "^<li>" $(POSTS_PUBLIC_DIR)/recents.html | head -5 >> /tmp/index
 	echo '</ul>' >> /tmp/index
 	sed -i -e '/Latest Articles<\/a><\/h2>/r /tmp/index' $(PUBLIC_DIR)/index.html
 

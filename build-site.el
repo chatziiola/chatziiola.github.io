@@ -29,7 +29,7 @@
 (defvar base-dir "./content/"
   "The content directory.")
 
-(defvar public-dir "./public/"
+(defvar public-dir "./docs/"
   "The root directory of our webserver.")
 
 (defvar drafts-dir (concat base-dir "drafts/")
@@ -44,7 +44,7 @@
 (defvar src-dir "./content/src/"
   "Self-descriptive.")
 
-(defvar src-public-dir "./public/src/"
+(defvar src-public-dir "./docs/src/"
   "Self-descriptive.")
 
 (defvar css-path "/src/rougier.css"
@@ -79,7 +79,7 @@
 (setq org-static-blog-index-length 50)
 (setq org-static-blog-posts-directory "./content/posts/")
 (setq org-static-blog-page-postamble general-postamble)
-(setq org-static-blog-publish-directory "./public/posts/")
+(setq org-static-blog-publish-directory "./docs/posts/")
 (setq org-static-blog-publish-title "Recent Articles")
 (setq org-static-blog-publish-url "https://chatziiola.github.io")
 
