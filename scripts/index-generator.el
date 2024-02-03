@@ -2,19 +2,17 @@
 ;; Hack on top of `org-static-blog' package, designed to give me more power to
 ;; use the default org mode publishing scheme, with a /pageinated/ index page
 
-;;; Commentary:
-
-;;;; How it starts:
-;;
-
 ;;;; Understanding it better / Principles:
 ;; 1. I have tried to avoid modifying functions. As such you will see me use
 ;; `org-static-blog' functions a lot
 ;; 2. All my functions title with `chatziiola/org-static-blog-...' are but minor
 ;; modifications on top of already existing functions
+;; 3. It performs no action upon evaluation. Functions inside of it need to be called elsewhere.
 
 ;;; Code:
-(load (expand-file-name "org-static-blog.el" default-directory))
+
+(load (expand-file-name "org-static-blog.el" (file-name-directory load-file-name)))
+;; (load (expand-file-name "index-generator.el" (file-name-directory load-file-name)))
 
 (defun chatziiola/org-static-blog-get-date (post-filename)
   "Extract the `#+date:` from POST-FILENAME as date-time."
@@ -44,23 +42,6 @@ index.org files. Namely return a list of all blog post files"
    files))
 	 
 
-;;;; Modified to use my version of the `org-static-blog' functions
-;;;; Essentially this is the heart of the `index-generator.el'
-;;;; - [ ] Make it add the contents of index.org so that I can also put manually stuff in there.
-;;;;;;;; - [ ] Nah I cant add the contents of index.org, I need the contents of index.html
-;(defun chatziiola/org-static-blog-assemble-index ()
-;  "See `org-static-blog-assemble-index'."
-;  (let ((post-filenames (chatziiola/org-static-blog-get-post-filenames)))
-;    ;; reverse-sort, so that the later `last` will grab the newest posts
-;    (setq post-filenames (sort post-filenames (lambda (x y) (time-less-p (chatziiola/org-static-blog-get-date x)
-;                                                                         (chatziiola/org-static-blog-get-date y)))))
-;    (chatziiola/org-static-blog-assemble-multipost-page
-;     ;; The filename to which you will create the index.html file
-;     (concat-to-dir org-static-blog-publish-directory org-static-blog-index-file)
-;     ;; Last `org-static-blog-index-length' articles
-;     (last post-filenames org-static-blog-index-length)
-;     org-static-blog-index-front-matter
-;     t)))
 
 (defun chatziiola/org-static-blog-assemble-index-no-content (&optional index-length)
   "See `org-static-blog-assemble-index'."
@@ -151,48 +132,6 @@ Preamble and Postamble are excluded, too."
 	    "</li>\n"
 	))))
 
-(defun chatziiola/org-static-blog-paginated-post-template (tTitle tContent &optional tDescription)
-  "Create the template that is used to generate the static pages."
-  (concat
-   "<!DOCTYPE html>\n"
-   "<html lang=\"" org-static-blog-langcode "\">\n"
-   "<head>\n"
-   "<link rel=\"stylesheet\" href=\"" css-path "\"/>\n"
-    "<link rel=\"icon\" type=\"image/x-icon\" href=\"/src/favicon.ico\">\n"
-    "<meta charset=\"UTF-8\" name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n"
-   (when tDescription
-     (format "<meta name=\"description\" content=\"%s\">\n" tDescription))
-   "<title>" tTitle "</title>\n"
-   ;;This is for mathjax support
-;    "<script type=\"text/x-mathjax-config\">\n MathJax.Hub.Config({\n displayAlign: \"center\",\n displayIndent: \"0em\",\n \"HTML-CSS\": { scale: 100,\n linebreaks: { automatic: \"false\" },\n webFont: \"TeX\"\n },\n SVG: {scale: 100,\n linebreaks: { automatic: \"false\" },\n font: \"TeX\"},\n NativeMML: {scale: 100},\n TeX: { equationNumbers: {autoNumber: \"AMS\"},\n MultLineWidth: \"85%\",\n TagSide: \"right\",\n TagIndent: \".8em\"\n }\n });\n </script>\n" "<script src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML\"></script>\n"
-   "</head>\n"
-   "<body>\n"
-"<div id=\"org-div-home-and-up\">"
-" <a accesskey=\"h\" href=\"/index.html\"> UP </a>"
-" |"
-" <a accesskey=\"H\" href=\"/index.html\"> HOME </a>"
-"</div>"
-   "<div id=\"preamble\" class=\"status\">"
-    " <div id=\"navigation\">\n"
-    ;; TODO sketchy solution, should include as a variable here, and properly set everything
-    ;; " /   \\    _________         ___\n"
-    ;; "|  |  |  /         \\__/\\   /   \\\n"
-    ;; "\\ | /  |               |  \\  \\/\n"
-    ;; "  |||   |           ___/    \\  \\\n"
-    ;; "  ###   |   ___   _/       / \\  /\n"
-    ;; "   #    |__|/ |__|/        \\___/\n"
-    ;; "<a href=\"/index.html\">home</a> / <a href=\"/posts/lectures/index.html\">lectures</a> / <a href=\"/posts/books/index.html\">books</a> / <a href=\"https://github.com/chatziiola\">github</a>\n"
-    "</div>\n"
-   "</div>\n"
-   "<div id=\"content\">\n"
-   tContent
-   "</div>\n"
-   "<div id=\"postamble\" class=\"status\">"
-   org-static-blog-page-postamble
-   "</div>\n"
-   "</body>\n"
-   "</html>\n"))
-
 (defun chatziiola/org-static-blog-assemble-multipost-page (pub-filename post-filenames &optional front-matter exclude-content include-archive)
   "Assemble a page that contains multiple posts one after another.
 Posts are sorted in descending time."
@@ -222,3 +161,22 @@ Posts are sorted in descending time."
     (org-static-blog-gettext 'other-posts) "</a>\n"
     "</div>\n")))
    )))
+
+
+;;;; Modified to use my version of the `org-static-blog' functions
+;;;; Essentially this is the heart of the `index-generator.el'
+;;;; - [ ] Make it add the contents of index.org so that I can also put manually stuff in there.
+;;;;;;;; - [ ] Nah I cant add the contents of index.org, I need the contents of index.html
+;(defun chatziiola/org-static-blog-assemble-index ()
+;  "See `org-static-blog-assemble-index'."
+;  (let ((post-filenames (chatziiola/org-static-blog-get-post-filenames)))
+;    ;; reverse-sort, so that the later `last` will grab the newest posts
+;    (setq post-filenames (sort post-filenames (lambda (x y) (time-less-p (chatziiola/org-static-blog-get-date x)
+;                                                                         (chatziiola/org-static-blog-get-date y)))))
+;    (chatziiola/org-static-blog-assemble-multipost-page
+;     ;; The filename to which you will create the index.html file
+;     (concat-to-dir org-static-blog-publish-directory org-static-blog-index-file)
+;     ;; Last `org-static-blog-index-length' articles
+;     (last post-filenames org-static-blog-index-length)
+;     org-static-blog-index-front-matter
+;     t)))

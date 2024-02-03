@@ -18,13 +18,14 @@ clean:
 # Build the site using Emacs
 build: clean
 	echo "Building the site"
-	emacs -Q --script build-site.el
+	emacs -Q --script scripts/build-site.el
 
 copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 
-show_drafts:
-	git status | grep Untracked -n | cut -d: -f1 | xargs -I {} sh -c 'git status | tail +{} | grep .org'
+# Has since been made obsolete
+# show_drafts:
+# 	git status | grep Untracked -n | cut -d: -f1 | xargs -I {} sh -c 'git status | tail +{} | grep .org'
 
 # Add latest posts to /index.html
 add_latest_posts:

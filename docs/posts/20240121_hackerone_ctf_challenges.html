@@ -8,7 +8,7 @@
 <title>HackerOne: CTF: Micro-CMS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -22,18 +22,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2c1a3cb">Introduction</a></li>
-<li><a href="#org927af6c">Testing</a></li>
-<li><a href="#orgd0ed3d3">XSS</a></li>
-<li><a href="#org50323e2">Getting access to the forbidden file</a></li>
-<li><a href="#org621ee69">Not-so-good SQLi</a></li>
+<li><a href="#orgdb3a745">Introduction</a></li>
+<li><a href="#org25ada7f">Testing</a></li>
+<li><a href="#org1ae1209">XSS</a></li>
+<li><a href="#org34c7edb">Getting access to the forbidden file</a></li>
+<li><a href="#orgade7547">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2c1a3cb" class="outline-2">
-<h2 id="org2c1a3cb"><a href="#org2c1a3cb">Introduction</a></h2>
-<div class="outline-text-2" id="text-org2c1a3cb">
+<div id="outline-container-orgdb3a745" class="outline-2">
+<h2 id="orgdb3a745"><a href="#orgdb3a745">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgdb3a745">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -60,9 +60,9 @@ have since completed.
 </div>
 </div>
 
-<div id="outline-container-org927af6c" class="outline-2">
-<h2 id="org927af6c"><a href="#org927af6c">Testing</a></h2>
-<div class="outline-text-2" id="text-org927af6c">
+<div id="outline-container-org25ada7f" class="outline-2">
+<h2 id="org25ada7f"><a href="#org25ada7f">Testing</a></h2>
+<div class="outline-text-2" id="text-org25ada7f">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -80,7 +80,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="org5667b1b">
+<div class="note" id="orgcbb87ec">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -102,7 +102,7 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org67dc5d3"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
+<pre class="src src-python" id="orgd660c7f"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
 <span class="org-keyword">import</span> webbrowser
 
@@ -117,7 +117,7 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="orgf3c0bd5"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
+<pre class="src src-python" id="org031832c"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
 
 <span class="org-keyword">import</span> requests
@@ -142,7 +142,7 @@ stored within Burp Suite as well:
 </pre>
 </div>
 
-<pre class="example" id="org0834202">
+<pre class="example" id="orgaa8cae5">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -155,7 +155,7 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="org7bfeefe" class="figure">
+<div id="org93a6f63" class="figure">
 <p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
@@ -163,9 +163,9 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 </div>
 </div>
 
-<div id="outline-container-orgd0ed3d3" class="outline-2">
-<h2 id="orgd0ed3d3"><a href="#orgd0ed3d3">XSS</a></h2>
-<div class="outline-text-2" id="text-orgd0ed3d3">
+<div id="outline-container-org1ae1209" class="outline-2">
+<h2 id="org1ae1209"><a href="#org1ae1209">XSS</a></h2>
+<div class="outline-text-2" id="text-org1ae1209">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -194,9 +194,9 @@ At this point we have flags 2,3, searching for 1,2.
 </div>
 </div>
 
-<div id="outline-container-org50323e2" class="outline-2">
-<h2 id="org50323e2"><a href="#org50323e2">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-org50323e2">
+<div id="outline-container-org34c7edb" class="outline-2">
+<h2 id="org34c7edb"><a href="#org34c7edb">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-org34c7edb">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -206,9 +206,9 @@ want to <i>wrap</i> this mini challenge.
 </div>
 </div>
 
-<div id="outline-container-org621ee69" class="outline-2">
-<h2 id="org621ee69"><a href="#org621ee69">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-org621ee69">
+<div id="outline-container-orgade7547" class="outline-2">
+<h2 id="orgade7547"><a href="#orgade7547">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-orgade7547">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall

@@ -8,7 +8,7 @@
 <title>Διάλεξη 7: Πολυπλεξία και Υπερετερόδυνος Δέκτης.</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
@@ -54,20 +54,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbd44b0c">Πολυπλεξία</a>
+<li><a href="#org939c9af">Πολυπλεξία</a>
 <ul>
-<li><a href="#orgf675df5">Πολυπλεξία στην συχνότητα</a></li>
+<li><a href="#org30dc81b">Πολυπλεξία στην συχνότητα</a></li>
 </ul>
 </li>
-<li><a href="#orge828671">Δέκτες</a>
+<li><a href="#org506ac79">Δέκτες</a>
 <ul>
-<li><a href="#org0c716d7">Ομόδυνος δέκτης</a></li>
-<li><a href="#org5a07ab3">Υπερετερόδυνος Δέκτης:</a>
+<li><a href="#org8c4bef1">Ομόδυνος δέκτης</a></li>
+<li><a href="#org09ce979">Υπερετερόδυνος Δέκτης:</a>
 <ul>
-<li><a href="#orgf278640">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></li>
-<li><a href="#orgc45438c">Up and Down Conversion</a></li>
-<li><a href="#org3d57f84">Low and High Side Injection</a></li>
-<li><a href="#orgaaffb8f">Εικονικό σήμα</a></li>
+<li><a href="#org97cad0d">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></li>
+<li><a href="#org1262cad">Up and Down Conversion</a></li>
+<li><a href="#orgc58b1c4">Low and High Side Injection</a></li>
+<li><a href="#org496b68c">Εικονικό σήμα</a></li>
 </ul>
 </li>
 </ul>
@@ -76,10 +76,10 @@
 </div>
 </div>
 
-<div id="outline-container-orgbd44b0c" class="outline-2">
-<h2 id="orgbd44b0c"><a href="#orgbd44b0c">Πολυπλεξία</a></h2>
-<div class="outline-text-2" id="text-orgbd44b0c">
-<div class="note" id="org4c5de0c">
+<div id="outline-container-org939c9af" class="outline-2">
+<h2 id="org939c9af"><a href="#org939c9af">Πολυπλεξία</a></h2>
+<div class="outline-text-2" id="text-org939c9af">
+<div class="note" id="org34f5eda">
 <p>
 Θα ήταν καλό, όποιος βλέπει αυτές τις σημειώσεις, να ανατρέξει και στην σελίδα
 233 των Καραγιαννίδη, Παππή, καθώς το περιεχόμενο αυτής της ενότητας, αν και
@@ -118,9 +118,9 @@
 </p>
 </div>
 
-<div id="outline-container-orgf675df5" class="outline-3">
-<h3 id="orgf675df5"><a href="#orgf675df5">Πολυπλεξία στην συχνότητα</a></h3>
-<div class="outline-text-3" id="text-orgf675df5">
+<div id="outline-container-org30dc81b" class="outline-3">
+<h3 id="org30dc81b"><a href="#org30dc81b">Πολυπλεξία στην συχνότητα</a></h3>
+<div class="outline-text-3" id="text-org30dc81b">
 <p>
 Γενικά κινούμαστε μεταξύ των 
 </p>
@@ -135,7 +135,7 @@
 </p>
 
 
-<div id="org2e5493a" class="figure">
+<div id="orga36b144" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_radiospectrum-transportationgov.png" alt="tlp1_lec7_radiospectrum-transportationgov.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Photo retrieved from <a href="https://www.transportation.gov/pnt/what-radio-spectrum">the U.S. Department of Transportation</a> on <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-04 Sun&gt;</span></span></p>
@@ -144,9 +144,9 @@
 </div>
 </div>
 
-<div id="outline-container-orge828671" class="outline-2">
-<h2 id="orge828671"><a href="#orge828671">Δέκτες</a></h2>
-<div class="outline-text-2" id="text-orge828671">
+<div id="outline-container-org506ac79" class="outline-2">
+<h2 id="org506ac79"><a href="#org506ac79">Δέκτες</a></h2>
+<div class="outline-text-2" id="text-org506ac79">
 <p>
 Στις προηγούμενες διαλέξεις έχουμε δει το κομμάτι των αποδιαμορφωτών και
 διαμορφωτών, αλλά δεν είναι <b>όλες</b> οι τηλεπικοινωνίες. Αγνοήσαμε ένα πολύ
@@ -155,9 +155,9 @@
 </p>
 </div>
 
-<div id="outline-container-org0c716d7" class="outline-3">
-<h3 id="org0c716d7"><a href="#org0c716d7">Ομόδυνος δέκτης</a></h3>
-<div class="outline-text-3" id="text-org0c716d7">
+<div id="outline-container-org8c4bef1" class="outline-3">
+<h3 id="org8c4bef1"><a href="#org8c4bef1">Ομόδυνος δέκτης</a></h3>
+<div class="outline-text-3" id="text-org8c4bef1">
 <p>
 Αποτελεί, ιστορικά, την πρώτη μορφή δέκτη, η οποία παραγκωνίσθηκε από τον
 υπερετερόδυνο δέκτη. Έχει αρχίσει να χρησιμοποιείται ευρέως ξανά, με την άνοδο
@@ -169,7 +169,7 @@ SHTR.
 </ul>
 
 
-<div id="org2df3506" class="figure">
+<div id="org3bddd0f" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_homodyne-amp.png" alt="tlp1_lec7_homodyne-amp.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Μια <b>πολύ</b> απλουστευμένη μορφή του ομόδυνου δέκτη, με ενισχυτή και φίλτρα narrow-band</p>
@@ -192,9 +192,9 @@ SHTR.
 </div>
 </div>
 
-<div id="outline-container-org5a07ab3" class="outline-3">
-<h3 id="org5a07ab3"><a href="#org5a07ab3">Υπερετερόδυνος Δέκτης:</a></h3>
-<div class="outline-text-3" id="text-org5a07ab3">
+<div id="outline-container-org09ce979" class="outline-3">
+<h3 id="org09ce979"><a href="#org09ce979">Υπερετερόδυνος Δέκτης:</a></h3>
+<div class="outline-text-3" id="text-org09ce979">
 <p>
 Ο <i>τύπος</i> δέκτη που μας ενδιαφέρει (SHTR: Super Heterodyne Receiver), λειτουργεί
 μετατοπίζοντας το σήμα εισόδου σε μία ενδιάμεση συχνότητα \(f_{if}\), συνήθως
@@ -217,17 +217,17 @@ SHTR.
 </p>
 
 
-<div id="orga669053" class="figure">
+<div id="orgedd0a0e" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_shtr.png" alt="tlp1_lec7_shtr.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Διάταξη υπερετερόδυνου δέκτη, περιλαμβάνοντας όλες τις <i>κρίσιμες</i> έννοιες</p>
 </div>
 </div>
 
-<div id="outline-container-orgf278640" class="outline-4">
-<h4 id="orgf278640"><a href="#orgf278640">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></h4>
-<div class="outline-text-4" id="text-orgf278640">
-<div class="note" id="org156792b">
+<div id="outline-container-org97cad0d" class="outline-4">
+<h4 id="org97cad0d"><a href="#org97cad0d">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></h4>
+<div class="outline-text-4" id="text-org97cad0d">
+<div class="note" id="orgf568934">
 <p>
 Ό,τι σημειώνεται για ΑΜ προφανώς ισχύει και για FM, αν και <i>ενδεχομένως</i> με
 κάποιες αλλαγές.
@@ -246,7 +246,7 @@ x(t) = [A_c + m(t)]\cos{2\pi f_ct}
 
 <p>
 Πολλαπλασιάζεται με το σήμα του τοπικού ταλαντωτή (στην πραγματικότητα εδώ, για
-χάρη απλότητας, φαίνεται μόνο η μία από τις δύο περιπτώσεις. Αναλυτικότερα δες <a href="#org3d57f84">LSI,HSI</a>, \(\ref{eq:4}\)):
+χάρη απλότητας, φαίνεται μόνο η μία από τις δύο περιπτώσεις. Αναλυτικότερα δες <a href="#orgc58b1c4">LSI,HSI</a>, \(\ref{eq:4}\)):
 </p>
 
 \begin{align}
@@ -268,9 +268,9 @@ z(t) = [A_c + m(t)]cos{2\pi f_{if}t}
 </div>
 </div>
 
-<div id="outline-container-orgc45438c" class="outline-4">
-<h4 id="orgc45438c"><a href="#orgc45438c">Up and Down Conversion</a></h4>
-<div class="outline-text-4" id="text-orgc45438c">
+<div id="outline-container-org1262cad" class="outline-4">
+<h4 id="org1262cad"><a href="#org1262cad">Up and Down Conversion</a></h4>
+<div class="outline-text-4" id="text-org1262cad">
 <p>
 Η άνω ή κάτω μετατροπή <i>αποφασίζεται</i> βάση της σχέσης μεταξύ των \(f_{if},f_c\).
 </p>
@@ -288,10 +288,10 @@ z(t) = [A_c + m(t)]cos{2\pi f_{if}t}
 </div>
 </div>
 
-<div id="outline-container-org3d57f84" class="outline-4">
-<h4 id="org3d57f84"><a href="#org3d57f84">Low and High Side Injection</a></h4>
-<div class="outline-text-4" id="text-org3d57f84">
-<div class="note" id="org81f803e">
+<div id="outline-container-orgc58b1c4" class="outline-4">
+<h4 id="orgc58b1c4"><a href="#orgc58b1c4">Low and High Side Injection</a></h4>
+<div class="outline-text-4" id="text-orgc58b1c4">
+<div class="note" id="org12f4d62">
 <p>
 Ένας εύκολος τρόπος να θυμάσαι up/down conversion και LSI/HSI:
 </p>
@@ -320,9 +320,9 @@ y(t) =
 </div>
 </div>
 
-<div id="outline-container-orgaaffb8f" class="outline-4">
-<h4 id="orgaaffb8f"><a href="#orgaaffb8f">Εικονικό σήμα</a></h4>
-<div class="outline-text-4" id="text-orgaaffb8f">
+<div id="outline-container-org496b68c" class="outline-4">
+<h4 id="org496b68c"><a href="#org496b68c">Εικονικό σήμα</a></h4>
+<div class="outline-text-4" id="text-org496b68c">
 <p>
 Αν το φίλτρο RF δεν είναι ρυθμισμένο κατάλληλα, και περάσουν συχνότητες πέραν
 του επιθυμητού εύρους ( δηλαδή γύρω από την \(f_c\) που θέλουμε) μπορεί στο βήμα

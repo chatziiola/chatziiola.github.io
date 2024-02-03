@@ -42,7 +42,7 @@ process_directory() {
 
 # Check if directory is provided
 if [ -z "$1" ]; then
-    echo "Usage: $0 <directory>"
+    echo "Usage: $0 <directory> <outputfile>"
     exit 1
 fi
 
@@ -54,8 +54,8 @@ if [ ! -d "$directory" ]; then
     exit 1
 fi
 
-result_file="summary.json"
+result_file="$2"
 
 # Process the directory and print JSON entries
 process_directory "$directory" | tee /tmp/myjson |  jq -s '.'  > $result_file 
-python3 fixtags.py
+python3 fixtags.py $result_file

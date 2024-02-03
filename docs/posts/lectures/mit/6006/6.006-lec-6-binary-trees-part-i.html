@@ -8,7 +8,7 @@
 <title>6.006 Lec 6: Binary Trees Part I</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
@@ -54,38 +54,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5fc6e2c">Lecture details</a></li>
-<li><a href="#org42cf0c3">Trees, the ultimate data structure</a>
+<li><a href="#org476b5cf">Lecture details</a></li>
+<li><a href="#org2cfc9a0">Trees, the ultimate data structure</a>
 <ul>
-<li><a href="#orgca5abd3">Terminology</a>
+<li><a href="#org41cf87d">Terminology</a>
 <ul>
-<li><a href="#org9c21a92">Tree specific attributes</a></li>
-<li><a href="#org274f251">Node characteristics</a></li>
+<li><a href="#org6ca0a54">Tree specific attributes</a></li>
+<li><a href="#org9ca9122">Node characteristics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgbae397c">Today&rsquo;s analysis</a>
+<li><a href="#orga3ac1ee">Today&rsquo;s analysis</a>
 <ul>
-<li><a href="#org63c780d">Working with an example</a></li>
-<li><a href="#org151efce">Traversal order</a></li>
-<li><a href="#org498d4ea">Operations</a></li>
+<li><a href="#org51be501">Working with an example</a></li>
+<li><a href="#org21c9ec5">Traversal order</a></li>
+<li><a href="#orgd2fdb3b">Operations</a></li>
 </ul>
 </li>
-<li><a href="#org8d277b8">Trees and sets</a></li>
-<li><a href="#org8a7f135">Trees and sequences</a>
+<li><a href="#org422eae9">Trees and sets</a></li>
+<li><a href="#org2b8676e">Trees and sequences</a>
 <ul>
-<li><a href="#orgf1bc33f">Data Structure Augmentation</a></li>
+<li><a href="#org3a12e60">Data Structure Augmentation</a></li>
 </ul>
 </li>
-<li><a href="#org4c34b97">Summary</a></li>
+<li><a href="#orgc74cb92">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5fc6e2c" class="outline-2">
-<h2 id="org5fc6e2c"><a href="#org5fc6e2c">Lecture details</a></h2>
-<div class="outline-text-2" id="text-org5fc6e2c">
+<div id="outline-container-org476b5cf" class="outline-2">
+<h2 id="org476b5cf"><a href="#org476b5cf">Lecture details</a></h2>
+<div class="outline-text-2" id="text-org476b5cf">
 <ul class="org-ul">
 <li>Professor: Erik Demain</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=76dhtgZt38A&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=9">YouTube Link</a></li>
@@ -93,9 +93,9 @@
 </div>
 </div>
 
-<div id="outline-container-org42cf0c3" class="outline-2">
-<h2 id="org42cf0c3"><a href="#org42cf0c3">Trees, the ultimate data structure</a></h2>
-<div class="outline-text-2" id="text-org42cf0c3">
+<div id="outline-container-org2cfc9a0" class="outline-2">
+<h2 id="org2cfc9a0"><a href="#org2cfc9a0">Trees, the ultimate data structure</a></h2>
+<div class="outline-text-2" id="text-org2cfc9a0">
 <p>
 From the data structures that we have seen so far in this course, one can make
 the case that we have no data structure <i>to rule them all</i>. They all perform
@@ -106,9 +106,9 @@ absolutely ridiculous when we also want to <code>find_next(),find_previous()</co
 </p>
 </div>
 
-<div id="outline-container-orgca5abd3" class="outline-3">
-<h3 id="orgca5abd3"><a href="#orgca5abd3">Terminology</a></h3>
-<div class="outline-text-3" id="text-orgca5abd3">
+<div id="outline-container-org41cf87d" class="outline-3">
+<h3 id="org41cf87d"><a href="#org41cf87d">Terminology</a></h3>
+<div class="outline-text-3" id="text-org41cf87d">
 <p>
 Since binary trees are a linked-based data structure, utilizing pointers, much
 of the terminology is know from our experience with Linked Lists:
@@ -119,9 +119,9 @@ of the terminology is know from our experience with Linked Lists:
 </ul>
 </div>
 
-<div id="outline-container-org9c21a92" class="outline-4">
-<h4 id="org9c21a92"><a href="#org9c21a92">Tree specific attributes</a></h4>
-<div class="outline-text-4" id="text-org9c21a92">
+<div id="outline-container-org6ca0a54" class="outline-4">
+<h4 id="org6ca0a54"><a href="#org6ca0a54">Tree specific attributes</a></h4>
+<div class="outline-text-4" id="text-org6ca0a54">
 <ul class="org-ul">
 <li>Leaf
 Leaves are the nodes that have no children ( because they are the items at the
@@ -136,9 +136,9 @@ Pointer to the right child node</li>
 </div>
 </div>
 
-<div id="outline-container-org274f251" class="outline-4">
-<h4 id="org274f251"><a href="#org274f251">Node characteristics</a></h4>
-<div class="outline-text-4" id="text-org274f251">
+<div id="outline-container-org9ca9122" class="outline-4">
+<h4 id="org9ca9122"><a href="#org9ca9122">Node characteristics</a></h4>
+<div class="outline-text-4" id="text-org9ca9122">
 <ul class="org-ul">
 <li><code>subtree(X)</code> = X and its defendants
 so if X is the root node, then the subtree is the whole node</li>
@@ -156,9 +156,9 @@ Number of edges in the longest downward path, max depth of a node in subtree(X)
 </div>
 </div>
 
-<div id="outline-container-orgbae397c" class="outline-2">
-<h2 id="orgbae397c"><a href="#orgbae397c">Today&rsquo;s analysis</a></h2>
-<div class="outline-text-2" id="text-orgbae397c">
+<div id="outline-container-orga3ac1ee" class="outline-2">
+<h2 id="orga3ac1ee"><a href="#orga3ac1ee">Today&rsquo;s analysis</a></h2>
+<div class="outline-text-2" id="text-orga3ac1ee">
 <p>
 We focus on getting to a point where tree operations perform in \(O(h)\), with h
 being <code>height</code> of the tree.  Then in the next lecture, we will show that if the
@@ -166,9 +166,9 @@ tree is balanced then:  \(O(h)=O(\lg{n})\)
 </p>
 </div>
 
-<div id="outline-container-org63c780d" class="outline-3">
-<h3 id="org63c780d"><a href="#org63c780d">Working with an example</a></h3>
-<div class="outline-text-3" id="text-org63c780d">
+<div id="outline-container-org51be501" class="outline-3">
+<h3 id="org51be501"><a href="#org51be501">Working with an example</a></h3>
+<div class="outline-text-3" id="text-org51be501">
 <p>
 To further clarify the properties we talked about above before we continue:
 </p>
@@ -247,9 +247,9 @@ To further clarify the properties we talked about above before we continue:
 </div>
 </div>
 
-<div id="outline-container-org151efce" class="outline-3">
-<h3 id="org151efce"><a href="#org151efce">Traversal order</a></h3>
-<div class="outline-text-3" id="text-org151efce">
+<div id="outline-container-org21c9ec5" class="outline-3">
+<h3 id="org21c9ec5"><a href="#org21c9ec5">Traversal order</a></h3>
+<div class="outline-text-3" id="text-org21c9ec5">
 <p>
 The traversal order ( as explained in this course ), is the <i>inorder</i> traversal.
 More specifically, the nodes in a tree are recursively iterated in this order:
@@ -281,9 +281,9 @@ Theoritically, what follows could be a legitimate function
 </div>
 </div>
 
-<div id="outline-container-org498d4ea" class="outline-3">
-<h3 id="org498d4ea"><a href="#org498d4ea">Operations</a></h3>
-<div class="outline-text-3" id="text-org498d4ea">
+<div id="outline-container-orgd2fdb3b" class="outline-3">
+<h3 id="orgd2fdb3b"><a href="#orgd2fdb3b">Operations</a></h3>
+<div class="outline-text-3" id="text-orgd2fdb3b">
 <ul class="org-ul">
 <li><code>subtree_first(Node X)</code>
 return the leftmost node in the subtree of X ( in our example that would be \(F\) )</li>
@@ -363,9 +363,9 @@ return the previous node in traversal order
 </div>
 </div>
 
-<div id="outline-container-org8d277b8" class="outline-2">
-<h2 id="org8d277b8"><a href="#org8d277b8">Trees and sets</a></h2>
-<div class="outline-text-2" id="text-org8d277b8">
+<div id="outline-container-org422eae9" class="outline-2">
+<h2 id="org422eae9"><a href="#org422eae9">Trees and sets</a></h2>
+<div class="outline-text-2" id="text-org422eae9">
 <p>
 We have outlined our binary tree&rsquo;s functions, but we do not know yet, where they
 could be useful. The set interface, with which we have worked in previous
@@ -380,9 +380,9 @@ insertion, deletion in \(O(h)\) as well.
 </div>
 </div>
 
-<div id="outline-container-org8a7f135" class="outline-2">
-<h2 id="org8a7f135"><a href="#org8a7f135">Trees and sequences</a></h2>
-<div class="outline-text-2" id="text-org8a7f135">
+<div id="outline-container-org2b8676e" class="outline-2">
+<h2 id="org2b8676e"><a href="#org2b8676e">Trees and sequences</a></h2>
+<div class="outline-text-2" id="text-org2b8676e">
 <p>
 The sequence interface can also be effectively implemented by a binary tree. In
 that case the sequence order will match the tree&rsquo;s traversal order. However, we
@@ -412,9 +412,9 @@ constant time then the algorithm runs in \(O(h)\)!
 </p>
 </div>
 
-<div id="outline-container-orgf1bc33f" class="outline-3">
-<h3 id="orgf1bc33f"><a href="#orgf1bc33f">Data Structure Augmentation</a></h3>
-<div class="outline-text-3" id="text-orgf1bc33f">
+<div id="outline-container-org3a12e60" class="outline-3">
+<h3 id="org3a12e60"><a href="#org3a12e60">Data Structure Augmentation</a></h3>
+<div class="outline-text-3" id="text-org3a12e60">
 <p>
 By adding a <code>size</code> property in each node,  since size is a <span class="underline">subtree property</span>:
 </p>
@@ -431,9 +431,9 @@ in the size operation.
 </div>
 </div>
 
-<div id="outline-container-org4c34b97" class="outline-2">
-<h2 id="org4c34b97"><a href="#org4c34b97">Summary</a></h2>
-<div class="outline-text-2" id="text-org4c34b97">
+<div id="outline-container-orgc74cb92" class="outline-2">
+<h2 id="orgc74cb92"><a href="#orgc74cb92">Summary</a></h2>
+<div class="outline-text-2" id="text-orgc74cb92">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 

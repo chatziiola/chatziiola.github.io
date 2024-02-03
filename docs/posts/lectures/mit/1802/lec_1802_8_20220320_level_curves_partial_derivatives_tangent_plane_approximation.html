@@ -8,7 +8,7 @@
 <title>Level curves; partial derivatives; tangent plane approximation</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
@@ -54,31 +54,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8956f06">Introducing multivariable functions</a></li>
-<li><a href="#org2cbd2a8">Visualizing functions</a>
+<li><a href="#org21f1d56">Introducing multivariable functions</a></li>
+<li><a href="#org27d61ee">Visualizing functions</a>
 <ul>
-<li><a href="#org3fcd5d1">Understanding a three-dimensional plot</a></li>
-<li><a href="#org7d4a8ce">Contour plots:</a>
+<li><a href="#orgfc82957">Understanding a three-dimensional plot</a></li>
+<li><a href="#org1f3471a">Contour plots:</a>
 <ul>
-<li><a href="#orgf57594b">Octave code for simple contour plots:</a></li>
-<li><a href="#orga44039a">Contour plots applications</a></li>
-<li><a href="#org50d3ee0">Examples</a></li>
+<li><a href="#org84e9c27">Octave code for simple contour plots:</a></li>
+<li><a href="#orge90e4f6">Contour plots applications</a></li>
+<li><a href="#orgd997423">Examples</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org2dfb705">Partial Derivatives</a>
+<li><a href="#org909857a">Partial Derivatives</a>
 <ul>
-<li><a href="#orgbf58439">Remember</a>
+<li><a href="#org2bc6d11">Remember</a>
 <ul>
-<li><a href="#org785c0f1">Differentiability</a></li>
-<li><a href="#org8f65e8f">Approximation formula</a></li>
+<li><a href="#orga125722">Differentiability</a></li>
+<li><a href="#org2da5d35">Approximation formula</a></li>
 </ul>
 </li>
-<li><a href="#org8df8dde">What changes</a>
+<li><a href="#orgde47bbc">What changes</a>
 <ul>
-<li><a href="#org6fc6c5c">Geometric implications</a></li>
-<li><a href="#org34d69a9">Computing partial derivatives</a></li>
+<li><a href="#orgc7088d3">Geometric implications</a></li>
+<li><a href="#org1815301">Computing partial derivatives</a></li>
 </ul>
 </li>
 </ul>
@@ -96,9 +96,9 @@ well.
 From geometry to functions of several functions.
 </p>
 
-<div id="outline-container-org8956f06" class="outline-2">
-<h2 id="org8956f06"><a href="#org8956f06">Introducing multivariable functions</a></h2>
-<div class="outline-text-2" id="text-org8956f06">
+<div id="outline-container-org21f1d56" class="outline-2">
+<h2 id="org21f1d56"><a href="#org21f1d56">Introducing multivariable functions</a></h2>
+<div class="outline-text-2" id="text-org21f1d56">
 <p>
 Think of a random <i>ordinary</i> function of one variable, such as:
 </p>
@@ -141,9 +141,9 @@ f(x,y)&= \frac{1}{x+y}
 </div>
 </div>
 
-<div id="outline-container-org2cbd2a8" class="outline-2">
-<h2 id="org2cbd2a8"><a href="#org2cbd2a8">Visualizing functions</a></h2>
-<div class="outline-text-2" id="text-org2cbd2a8">
+<div id="outline-container-org27d61ee" class="outline-2">
+<h2 id="org27d61ee"><a href="#org27d61ee">Visualizing functions</a></h2>
+<div class="outline-text-2" id="text-org27d61ee">
 <p>
 Truth be told, while functions with two variables are slightly more difficult
 than our <i>common</i> functions in visualization, they can be easily perceived. That
@@ -171,9 +171,9 @@ the near future.</li>
 </ol>
 </div>
 
-<div id="outline-container-org3fcd5d1" class="outline-3">
-<h3 id="org3fcd5d1"><a href="#org3fcd5d1">Understanding a three-dimensional plot</a></h3>
-<div class="outline-text-3" id="text-org3fcd5d1">
+<div id="outline-container-orgfc82957" class="outline-3">
+<h3 id="orgfc82957"><a href="#orgfc82957">Understanding a three-dimensional plot</a></h3>
+<div class="outline-text-3" id="text-orgfc82957">
 <p>
 It is not necessary however, to use a computer to generate such a plot.
 Obviously, it will make our lives significantly easier <b>and</b> will ensure a good
@@ -190,9 +190,9 @@ taking the common points that it has with different planes ( such as the
 </div>
 </div>
 
-<div id="outline-container-org7d4a8ce" class="outline-3">
-<h3 id="org7d4a8ce"><a href="#org7d4a8ce">Contour plots:</a></h3>
-<div class="outline-text-3" id="text-org7d4a8ce">
+<div id="outline-container-org1f3471a" class="outline-3">
+<h3 id="org1f3471a"><a href="#org1f3471a">Contour plots:</a></h3>
+<div class="outline-text-3" id="text-org1f3471a">
 <p>
 So far, following the simple path, we built upon what we already knew and
 managed to describe <i>every</i> function of two variables in the three dimensional
@@ -214,16 +214,16 @@ Interesting is not it<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-b
 </p>
 
 
-<div id="orgb3ca132" class="figure">
+<div id="org22df4c3" class="figure">
 <p><img src="https://www.acsu.buffalo.edu/~dbertuca/maps/cat/contours-spot.jpg" alt="contours-spot.jpg" />
 </p>
 </div>
 </div>
 
 
-<div id="outline-container-orgf57594b" class="outline-4">
-<h4 id="orgf57594b"><a href="#orgf57594b">Octave code for simple contour plots:</a></h4>
-<div class="outline-text-4" id="text-orgf57594b">
+<div id="outline-container-org84e9c27" class="outline-4">
+<h4 id="org84e9c27"><a href="#org84e9c27">Octave code for simple contour plots:</a></h4>
+<div class="outline-text-4" id="text-org84e9c27">
 <div class="org-src-container">
 <pre class="src src-octave">[x<span class="org-builtin">,</span>y] <span class="org-builtin">=</span> meshgrid(<span class="org-builtin">-</span>10<span class="org-builtin">:</span>0.1<span class="org-builtin">:</span>10<span class="org-builtin">,-</span>10<span class="org-builtin">:</span>01.<span class="org-builtin">:</span>10)
 contour(x<span class="org-builtin">.^</span>2<span class="org-builtin">+</span>y<span class="org-builtin">.^</span>2)
@@ -238,9 +238,9 @@ func ) gives us:
 </div>
 </div>
 
-<div id="outline-container-orga44039a" class="outline-4">
-<h4 id="orga44039a"><a href="#orga44039a">Contour plots applications</a></h4>
-<div class="outline-text-4" id="text-orga44039a">
+<div id="outline-container-orge90e4f6" class="outline-4">
+<h4 id="orge90e4f6"><a href="#orge90e4f6">Contour plots applications</a></h4>
+<div class="outline-text-4" id="text-orge90e4f6">
 <p>
 Just like we have already seen, contour plots are often met in mapsThere are many applications in maps, being able to get information on the
 location generally:
@@ -253,9 +253,9 @@ location generally:
 </div>
 </div>
 
-<div id="outline-container-org50d3ee0" class="outline-4">
-<h4 id="org50d3ee0"><a href="#org50d3ee0">Examples</a></h4>
-<div class="outline-text-4" id="text-org50d3ee0">
+<div id="outline-container-orgd997423" class="outline-4">
+<h4 id="orgd997423"><a href="#orgd997423">Examples</a></h4>
+<div class="outline-text-4" id="text-orgd997423">
 <p>
 Linking to the previous examples, their contour plots:
 </p>
@@ -273,9 +273,9 @@ Linking to the previous examples, their contour plots:
 </div>
 
 
-<div id="outline-container-org2dfb705" class="outline-2">
-<h2 id="org2dfb705"><a href="#org2dfb705">Partial Derivatives</a></h2>
-<div class="outline-text-2" id="text-org2dfb705">
+<div id="outline-container-org909857a" class="outline-2">
+<h2 id="org909857a"><a href="#org909857a">Partial Derivatives</a></h2>
+<div class="outline-text-2" id="text-org909857a">
 <p>
 Now think of a random contour plot. Just by looking at it we can understand in
 just one look how moving on the plane is going to affect our function&rsquo;s values.
@@ -291,9 +291,9 @@ derivative of a function:
 </p>
 </div>
 
-<div id="outline-container-orgbf58439" class="outline-3">
-<h3 id="orgbf58439"><a href="#orgbf58439">Remember</a></h3>
-<div class="outline-text-3" id="text-orgbf58439">
+<div id="outline-container-org2bc6d11" class="outline-3">
+<h3 id="org2bc6d11"><a href="#org2bc6d11">Remember</a></h3>
+<div class="outline-text-3" id="text-org2bc6d11">
 <p>
 For a function of one variable the derivative is given as:
 </p>
@@ -302,9 +302,9 @@ f'(x) = \frac{d{f}}{d{x}} = \lim_{\Delta{x}\to 0 }\frac{f(x+\Delta f(x)}{\Delta 
 \end{equation}
 </div>
 
-<div id="outline-container-org785c0f1" class="outline-4">
-<h4 id="org785c0f1"><a href="#org785c0f1">Differentiability</a></h4>
-<div class="outline-text-4" id="text-org785c0f1">
+<div id="outline-container-orga125722" class="outline-4">
+<h4 id="orga125722"><a href="#orga125722">Differentiability</a></h4>
+<div class="outline-text-4" id="text-orga125722">
 <p>
 Obviously, we can not compute the derivative of each and every function. There
 are some functions for which the derivative does not exist and that remains true
@@ -314,9 +314,9 @@ scope of this course.
 </div>
 </div>
 
-<div id="outline-container-org8f65e8f" class="outline-4">
-<h4 id="org8f65e8f"><a href="#org8f65e8f">Approximation formula</a></h4>
-<div class="outline-text-4" id="text-org8f65e8f">
+<div id="outline-container-org2da5d35" class="outline-4">
+<h4 id="org2da5d35"><a href="#org2da5d35">Approximation formula</a></h4>
+<div class="outline-text-4" id="text-org2da5d35">
 <p>
 If we know the value of \(f,f'\) at a point \(x_0\) we can approximate the value of
 \(f\) at \(x\), provided that \(x\) is <i>close</i> to \(x_0\) using the following formula:
@@ -329,9 +329,9 @@ f(x)\approx  f(x_0) + f'(x_0)(x-x_0)
 </div>
 
 
-<div id="outline-container-org8df8dde" class="outline-3">
-<h3 id="org8df8dde"><a href="#org8df8dde">What changes</a></h3>
-<div class="outline-text-3" id="text-org8df8dde">
+<div id="outline-container-orgde47bbc" class="outline-3">
+<h3 id="orgde47bbc"><a href="#orgde47bbc">What changes</a></h3>
+<div class="outline-text-3" id="text-orgde47bbc">
 <p>
 The difficulty presented in functions of more variables is that we can change
 more than one variable and we can also change both of them in <b>UNLIMITED</b> combinations.
@@ -347,9 +347,9 @@ as \(x\) or \(y\):
 \end{equation}
 </div>
 
-<div id="outline-container-org6fc6c5c" class="outline-4">
-<h4 id="org6fc6c5c"><a href="#org6fc6c5c">Geometric implications</a></h4>
-<div class="outline-text-4" id="text-org6fc6c5c">
+<div id="outline-container-orgc7088d3" class="outline-4">
+<h4 id="orgc7088d3"><a href="#orgc7088d3">Geometric implications</a></h4>
+<div class="outline-text-4" id="text-orgc7088d3">
 <p>
 It is interesting noting down that partial derivatives can be easily found in 3d
 plots as well. Let&rsquo;s pick one of the previous 3d plots and focus on calculating
@@ -371,9 +371,9 @@ where it intersects \(f\) as the plot of a single variable function \(g\)</li>
 </div>
 </div>
 
-<div id="outline-container-org34d69a9" class="outline-4">
-<h4 id="org34d69a9"><a href="#org34d69a9">Computing partial derivatives</a></h4>
-<div class="outline-text-4" id="text-org34d69a9">
+<div id="outline-container-org1815301" class="outline-4">
+<h4 id="org1815301"><a href="#org1815301">Computing partial derivatives</a></h4>
+<div class="outline-text-4" id="text-org1815301">
 <p>
 Just like normal derivatives we won&rsquo;t rely on limits to compute them. The rules
 we know are applicable to partial derivatives as well, we just need to slightly

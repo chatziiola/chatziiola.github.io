@@ -8,7 +8,7 @@
 <title>Διάλεξη 2: ΑΜ: Σημειώσεις επί των διαφανειών.</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
@@ -54,31 +54,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org517b2b2">Βασικές έννοιες.</a>
+<li><a href="#org6a67e00">Βασικές έννοιες.</a>
 <ul>
-<li><a href="#orgf25f5fc">Φίλτρα</a>
+<li><a href="#orgcf4e4ee">Φίλτρα</a>
 <ul>
-<li><a href="#orgb32e41b">LPF - Χαμηλοπερατό Φίλτρο</a></li>
-<li><a href="#org6f7e23e">HPF - Υψηλοπερατό Φίλτρο</a></li>
-<li><a href="#orgbe7e468">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></li>
-<li><a href="#org9409fac">BSF - Band Stop Filter</a></li>
+<li><a href="#orgef7c366">LPF - Χαμηλοπερατό Φίλτρο</a></li>
+<li><a href="#orgda6dd87">HPF - Υψηλοπερατό Φίλτρο</a></li>
+<li><a href="#org63db266">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></li>
+<li><a href="#org04b89d3">BSF - Band Stop Filter</a></li>
 </ul>
 </li>
-<li><a href="#orgb4ef60b">Ζωνοπερατά σήματα</a>
+<li><a href="#orgcbdf828">Ζωνοπερατά σήματα</a>
 <ul>
-<li><a href="#org1e6c6e7">Παρατηρήσεις επι αυτού</a></li>
+<li><a href="#org9e6c5fc">Παρατηρήσεις επι αυτού</a></li>
 </ul>
 </li>
-<li><a href="#orgddb9203">Περιβάλλουσα</a></li>
-<li><a href="#org1cee713">Διαμόρφωση</a></li>
+<li><a href="#org7a45c9f">Περιβάλλουσα</a></li>
+<li><a href="#org0c8776e">Διαμόρφωση</a></li>
 </ul>
 </li>
-<li><a href="#org5756e03">ΑΜ: Amplitude Modulation</a>
+<li><a href="#orgf14fe5c">ΑΜ: Amplitude Modulation</a>
 <ul>
-<li><a href="#org20d8c6d">Δείκτης Διαμόρφωσης</a></li>
-<li><a href="#orgbb8e04a">Φασματικό Περιεχόμενο</a></li>
-<li><a href="#org5ad9d3d">Ισχύς</a></li>
-<li><a href="#org152813f">Επιπλέον: Φέρον και DC Συνιστώσα.</a></li>
+<li><a href="#org824eafb">Δείκτης Διαμόρφωσης</a></li>
+<li><a href="#orgb1ce171">Φασματικό Περιεχόμενο</a></li>
+<li><a href="#org4b02f79">Ισχύς</a></li>
+<li><a href="#orga2e3883">Επιπλέον: Φέρον και DC Συνιστώσα.</a></li>
 </ul>
 </li>
 </ul>
@@ -103,18 +103,18 @@
 <img src="course_tlp1_images/course_tlp1_basics_signal-in-am.png" alt="course_tlp1_basics_signal-in-am.png" />
 </p>
 
-<div id="outline-container-org517b2b2" class="outline-2">
-<h2 id="org517b2b2"><a href="#org517b2b2">Βασικές έννοιες.</a></h2>
-<div class="outline-text-2" id="text-org517b2b2">
+<div id="outline-container-org6a67e00" class="outline-2">
+<h2 id="org6a67e00"><a href="#org6a67e00">Βασικές έννοιες.</a></h2>
+<div class="outline-text-2" id="text-org6a67e00">
 </div>
-<div id="outline-container-orgf25f5fc" class="outline-3">
-<h3 id="orgf25f5fc"><a href="#orgf25f5fc">Φίλτρα</a></h3>
-<div class="outline-text-3" id="text-orgf25f5fc">
+<div id="outline-container-orgcf4e4ee" class="outline-3">
+<h3 id="orgcf4e4ee"><a href="#orgcf4e4ee">Φίλτρα</a></h3>
+<div class="outline-text-3" id="text-orgcf4e4ee">
 </div>
 
-<div id="outline-container-orgb32e41b" class="outline-4">
-<h4 id="orgb32e41b"><a href="#orgb32e41b">LPF - Χαμηλοπερατό Φίλτρο</a></h4>
-<div class="outline-text-4" id="text-orgb32e41b">
+<div id="outline-container-orgef7c366" class="outline-4">
+<h4 id="orgef7c366"><a href="#orgef7c366">LPF - Χαμηλοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-orgef7c366">
 <p>
 Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο μικρότερες ορισμένης
 συχνότητας \(f_1\)
@@ -122,9 +122,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-org6f7e23e" class="outline-4">
-<h4 id="org6f7e23e"><a href="#org6f7e23e">HPF - Υψηλοπερατό Φίλτρο</a></h4>
-<div class="outline-text-4" id="text-org6f7e23e">
+<div id="outline-container-orgda6dd87" class="outline-4">
+<h4 id="orgda6dd87"><a href="#orgda6dd87">HPF - Υψηλοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-orgda6dd87">
 <p>
 Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο μεγαλύτερες ορισμένης
 συχνότητας \(f_1\)
@@ -132,9 +132,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-orgbe7e468" class="outline-4">
-<h4 id="orgbe7e468"><a href="#orgbe7e468">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></h4>
-<div class="outline-text-4" id="text-orgbe7e468">
+<div id="outline-container-org63db266" class="outline-4">
+<h4 id="org63db266"><a href="#org63db266">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-org63db266">
 <p>
 Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο εντός μιας ζώνης
 συχνοτήτων, δηλαδή συχνότητες οι οποίες βρίσκονται μεταξύ των
@@ -143,9 +143,9 @@
 </p>
 </div>
 </div>
-<div id="outline-container-org9409fac" class="outline-4">
-<h4 id="org9409fac"><a href="#org9409fac">BSF - Band Stop Filter</a></h4>
-<div class="outline-text-4" id="text-org9409fac">
+<div id="outline-container-org04b89d3" class="outline-4">
+<h4 id="org04b89d3"><a href="#org04b89d3">BSF - Band Stop Filter</a></h4>
+<div class="outline-text-4" id="text-org04b89d3">
 <p>
 Ονομάζουμε το φίλτρο το οποίο <i>κόβει</i> συχνότητες μόνο εντός μιας ζώνης συχνοτήτων,
 δηλαδή συχνότητες οι οποίες βρίσκονται μεταξύ των ορισμένων \(f_1\) και \(f_2\)
@@ -155,9 +155,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgb4ef60b" class="outline-3">
-<h3 id="orgb4ef60b"><a href="#orgb4ef60b">Ζωνοπερατά σήματα</a></h3>
-<div class="outline-text-3" id="text-orgb4ef60b">
+<div id="outline-container-orgcbdf828" class="outline-3">
+<h3 id="orgcbdf828"><a href="#orgcbdf828">Ζωνοπερατά σήματα</a></h3>
+<div class="outline-text-3" id="text-orgcbdf828">
 <p>
 Δοθείσης συχνότητας \(f_c\) μπορούμε να αναλύσουμε ένα σήμα (εκείνης της
 συχνότητας) σε inphase και quadrature συνιστώσα:
@@ -168,9 +168,9 @@ x(t) = x_i(t)\cos{2\pi f_c t} - x_q(t)\sin{2\pi f_c t}
 \end{equation}
 </div>
 
-<div id="outline-container-org1e6c6e7" class="outline-4">
-<h4 id="org1e6c6e7"><a href="#org1e6c6e7">Παρατηρήσεις επι αυτού</a></h4>
-<div class="outline-text-4" id="text-org1e6c6e7">
+<div id="outline-container-org9e6c5fc" class="outline-4">
+<h4 id="org9e6c5fc"><a href="#org9e6c5fc">Παρατηρήσεις επι αυτού</a></h4>
+<div class="outline-text-4" id="text-org9e6c5fc">
 <ul class="org-ul">
 <li>Inphase όταν είναι το ήδη γνωστό σήμα πολλαπλασιζόμενο
 από συνημίτονο στην κατάλληλη συχνότητα</li>
@@ -181,9 +181,9 @@ x(t) = x_i(t)\cos{2\pi f_c t} - x_q(t)\sin{2\pi f_c t}
 </div>
 </div>
 
-<div id="outline-container-orgddb9203" class="outline-3">
-<h3 id="orgddb9203"><a href="#orgddb9203">Περιβάλλουσα</a></h3>
-<div class="outline-text-3" id="text-orgddb9203">
+<div id="outline-container-org7a45c9f" class="outline-3">
+<h3 id="org7a45c9f"><a href="#org7a45c9f">Περιβάλλουσα</a></h3>
+<div class="outline-text-3" id="text-org7a45c9f">
 <p>
 Με αυτόν τον τρόπο (ανάλυση σε συμφασική και κάθετη συνιστώσα) είναι εύκολος ο
 προσδιορισμός της περιβάλλουσας (δηλαδή της καμπύλης που πρακτικά περικλείει την
@@ -196,9 +196,9 @@ V(t) = \sqrt{x_I^2(t) + x_Q^2(t)}
 </div>
 </div>
 
-<div id="outline-container-org1cee713" class="outline-3">
-<h3 id="org1cee713"><a href="#org1cee713">Διαμόρφωση</a></h3>
-<div class="outline-text-3" id="text-org1cee713">
+<div id="outline-container-org0c8776e" class="outline-3">
+<h3 id="org0c8776e"><a href="#org0c8776e">Διαμόρφωση</a></h3>
+<div class="outline-text-3" id="text-org0c8776e">
 <p>
 Μετασχηματισμός του σήματος πληροφορίας ούτως ώστε να μπορεί να μεταδοθεί και να
 απομονωθεί με την χρήση ζωνοπερατού φίλτρου.
@@ -220,9 +220,9 @@ V(t) = \sqrt{x_I^2(t) + x_Q^2(t)}
 </div>
 </div>
 
-<div id="outline-container-org5756e03" class="outline-2">
-<h2 id="org5756e03"><a href="#org5756e03">ΑΜ: Amplitude Modulation</a></h2>
-<div class="outline-text-2" id="text-org5756e03">
+<div id="outline-container-orgf14fe5c" class="outline-2">
+<h2 id="orgf14fe5c"><a href="#orgf14fe5c">ΑΜ: Amplitude Modulation</a></h2>
+<div class="outline-text-2" id="text-orgf14fe5c">
 <p>
 Διαμόρφωση πλάτους στον χρόνο.
 Είδη διαμόρφωσης πλάτους (κατηγορίες):
@@ -235,7 +235,7 @@ V(t) = \sqrt{x_I^2(t) + x_Q^2(t)}
 ουσιαστικά έρχεται με την μορφή ενίσχυσης ούτως ώστε να μπορεί να μεταβληθεί
 η ισχύς του σήματος.</li>
 <li>SSB-AM: Single Sideband AM
-Μετάδοση μόνο μιας εκ των δύο πλευρικών ζωνών: <a href="#orgbb8e04a">Φασματικό Περιεχόμενο</a>.</li>
+Μετάδοση μόνο μιας εκ των δύο πλευρικών ζωνών: <a href="#orgb1ce171">Φασματικό Περιεχόμενο</a>.</li>
 <li>VSB-AM: Vestigial Side Band AM
 Χρησιμοποιούνταν παλιότερα ακόμα και στις τηλεοράσεις, ουσιαστικά βελτίωση
 του SSB-AM ως προς τον απαιτούμενο εξοπλισμό.</li>
@@ -251,9 +251,9 @@ x(t) &= [A_C+m(t)]\cos{2\pi f_c t}
 \end{align}
 </div>
 
-<div id="outline-container-org20d8c6d" class="outline-3">
-<h3 id="org20d8c6d"><a href="#org20d8c6d">Δείκτης Διαμόρφωσης</a></h3>
-<div class="outline-text-3" id="text-org20d8c6d">
+<div id="outline-container-org824eafb" class="outline-3">
+<h3 id="org824eafb"><a href="#org824eafb">Δείκτης Διαμόρφωσης</a></h3>
+<div class="outline-text-3" id="text-org824eafb">
 <p>
 Ορίζουμε μέγεθος \(\mu\), τέτοιο ώστε:
 </p>
@@ -280,9 +280,9 @@ x(t) &= [A_C+m(t)]\cos{2\pi f_c t}
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbb8e04a" class="outline-3">
-<h3 id="orgbb8e04a"><a href="#orgbb8e04a">Φασματικό Περιεχόμενο</a></h3>
-<div class="outline-text-3" id="text-orgbb8e04a">
+<div id="outline-container-orgb1ce171" class="outline-3">
+<h3 id="orgb1ce171"><a href="#orgb1ce171">Φασματικό Περιεχόμενο</a></h3>
+<div class="outline-text-3" id="text-orgb1ce171">
 <p>
 Όπως ήδη είδαμε σε EM1: ο μετασχηματισμός Fourier βοηθά στην μετάβαση από το
 πεδίο του χρόνου, στο πεδίο της συχνότητας. Επομένως, με Fourier στο
@@ -312,7 +312,7 @@ X(f) = \mathcal{F}[x(t)] = \cdots = \frac{1}{2}[M(f-f_c)+M(f+f_c)] + \frac{1}{2}
 </p>
 
 
-<div id="org7877db2" class="figure">
+<div id="org82f609f" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec2_plevrikeszones.png" alt="tlp1_lec2_plevrikeszones.png" />
 </p>
 </div></li>
@@ -321,9 +321,9 @@ X(f) = \mathcal{F}[x(t)] = \cdots = \frac{1}{2}[M(f-f_c)+M(f+f_c)] + \frac{1}{2}
 </div>
 </div>
 
-<div id="outline-container-org5ad9d3d" class="outline-3">
-<h3 id="org5ad9d3d"><a href="#org5ad9d3d">Ισχύς</a></h3>
-<div class="outline-text-3" id="text-org5ad9d3d">
+<div id="outline-container-org4b02f79" class="outline-3">
+<h3 id="org4b02f79"><a href="#org4b02f79">Ισχύς</a></h3>
+<div class="outline-text-3" id="text-org4b02f79">
 <p>
 Ουσιαστικά το αποστελλόμενο σήμα είναι της μορφής:
 </p>
@@ -350,9 +350,9 @@ P_{AM} = \frac{1}{2}A_c^2 + \frac{1}{2} P_{m(t)}
 </div>
 </div>
 
-<div id="outline-container-org152813f" class="outline-3">
-<h3 id="org152813f"><a href="#org152813f">Επιπλέον: Φέρον και DC Συνιστώσα.</a></h3>
-<div class="outline-text-3" id="text-org152813f">
+<div id="outline-container-orga2e3883" class="outline-3">
+<h3 id="orga2e3883"><a href="#orga2e3883">Επιπλέον: Φέρον και DC Συνιστώσα.</a></h3>
+<div class="outline-text-3" id="text-orga2e3883">
 <p>
 Το φέρον είναι το σήμα το οποίο προσθέτουμε κατά την διαμόρφωση έτσι ώστε να
 βοηθήσουμε στην αποδιαμόρφωση του σήματος. Στην περίπτωση της <i>κλασικής</i> AM

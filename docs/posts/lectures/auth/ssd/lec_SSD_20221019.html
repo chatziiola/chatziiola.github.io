@@ -8,7 +8,7 @@
 <title>Διάλεξη 5: Γνωστές Κατανομές</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
@@ -54,49 +54,49 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org02b434c">Σύνοψη</a>
+<li><a href="#org715c084">Σύνοψη</a>
 <ul>
-<li><a href="#org92876a6">Διακριτές</a></li>
-<li><a href="#orgdc39021">Συνεχείς</a></li>
+<li><a href="#org529d5d8">Διακριτές</a></li>
+<li><a href="#org532f839">Συνεχείς</a></li>
 </ul>
 </li>
-<li><a href="#orgcb916fd">Διακριτές Κατανομές</a>
+<li><a href="#orgfc58e31">Διακριτές Κατανομές</a>
 <ul>
-<li><a href="#orgac37b1a">Bernoulli</a></li>
-<li><a href="#org6edcb1b">Binomial</a></li>
-<li><a href="#orgda85247">Γεωμετρική κατανομή</a></li>
-<li><a href="#orga721780">Pascal</a></li>
-<li><a href="#org295ad18">Υπεργεωμετρική</a></li>
+<li><a href="#org17ba019">Bernoulli</a></li>
+<li><a href="#org6b573f3">Binomial</a></li>
+<li><a href="#org2496da3">Γεωμετρική κατανομή</a></li>
+<li><a href="#org002cc9b">Pascal</a></li>
+<li><a href="#org0e37015">Υπεργεωμετρική</a></li>
 </ul>
 </li>
-<li><a href="#orgf957cde">Συνεχείς</a>
+<li><a href="#org2343c7d">Συνεχείς</a>
 <ul>
-<li><a href="#org5dffe4f">Gaussian Κανονική</a>
+<li><a href="#orgf8cadf8">Gaussian Κανονική</a>
 <ul>
-<li><a href="#org944a2f1">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></li>
-<li><a href="#orgc33fabb">Κανονικοποίηση</a></li>
-<li><a href="#orge29f4c4">Σχέση με \(\Phi\)</a></li>
-<li><a href="#orgd2e6895">Σχέση με Gaussian \(Q\)</a></li>
+<li><a href="#org067f9b0">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></li>
+<li><a href="#orgd91591a">Κανονικοποίηση</a></li>
+<li><a href="#org4f0065d">Σχέση με \(\Phi\)</a></li>
+<li><a href="#org92880fa">Σχέση με Gaussian \(Q\)</a></li>
 </ul>
 </li>
-<li><a href="#orgccf607b">Εκθετική κατανομή</a></li>
-<li><a href="#org2a43484">Erlang</a></li>
-<li><a href="#orgd4c45ee">Ακόμα</a></li>
+<li><a href="#org751b6ff">Εκθετική κατανομή</a></li>
+<li><a href="#org0931309">Erlang</a></li>
+<li><a href="#org16d4b3e">Ακόμα</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="note" id="orgf3d679d">
+<div class="note" id="orgb2cddb8">
 <p>
 Από βιβλίο Καραγιαννίδη και Χατζηδιαμαντή: <b>σελίδες 255,271</b>
 </p>
 
 </div>
 
-<div id="outline-container-org02b434c" class="outline-2">
-<h2 id="org02b434c"><a href="#org02b434c">Σύνοψη</a></h2>
-<div class="outline-text-2" id="text-org02b434c">
+<div id="outline-container-org715c084" class="outline-2">
+<h2 id="org715c084"><a href="#org715c084">Σύνοψη</a></h2>
+<div class="outline-text-2" id="text-org715c084">
 <p>
 Αρχικά είναι σημαντικό κανείς να διακρίνει τις κατανομές βάση της φύσεως των
 τυχαίων μεταβλητών τους. Να τις χωρίσει, δηλαδή, σε διακριτές και συνεχείς
@@ -104,9 +104,9 @@
 </p>
 </div>
 
-<div id="outline-container-org92876a6" class="outline-3">
-<h3 id="org92876a6"><a href="#org92876a6">Διακριτές</a></h3>
-<div class="outline-text-3" id="text-org92876a6">
+<div id="outline-container-org529d5d8" class="outline-3">
+<h3 id="org529d5d8"><a href="#org529d5d8">Διακριτές</a></h3>
+<div class="outline-text-3" id="text-org529d5d8">
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 <caption class="t-above"><span class="table-number">Table 1:</span> Μια γενική εικόνα των διακριτών κατανομών</caption>
 
@@ -234,9 +234,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgdc39021" class="outline-3">
-<h3 id="orgdc39021"><a href="#orgdc39021">Συνεχείς</a></h3>
-<div class="outline-text-3" id="text-orgdc39021">
+<div id="outline-container-org532f839" class="outline-3">
+<h3 id="org532f839"><a href="#org532f839">Συνεχείς</a></h3>
+<div class="outline-text-3" id="text-org532f839">
 <p>
 Εφεξής ΣΚ.
 </p>
@@ -342,13 +342,13 @@
 </div>
 </div>
 
-<div id="outline-container-orgcb916fd" class="outline-2">
-<h2 id="orgcb916fd"><a href="#orgcb916fd">Διακριτές Κατανομές</a></h2>
-<div class="outline-text-2" id="text-orgcb916fd">
+<div id="outline-container-orgfc58e31" class="outline-2">
+<h2 id="orgfc58e31"><a href="#orgfc58e31">Διακριτές Κατανομές</a></h2>
+<div class="outline-text-2" id="text-orgfc58e31">
 </div>
-<div id="outline-container-orgac37b1a" class="outline-3">
-<h3 id="orgac37b1a"><a href="#orgac37b1a">Bernoulli</a></h3>
-<div class="outline-text-3" id="text-orgac37b1a">
+<div id="outline-container-org17ba019" class="outline-3">
+<h3 id="org17ba019"><a href="#org17ba019">Bernoulli</a></h3>
+<div class="outline-text-3" id="text-org17ba019">
 <p>
 Η κατανομή Bernoulli είναι πολύ απλή στην κατανόηση: έστω ότι έχουμε ένα πείραμα
 με μόνο δύο πιθανά αποτελέσματα (επιτυχία ή αποτυχία), με το αποτέλεσμα του να
@@ -377,11 +377,11 @@ f_X(x)= p\delta(x-1) + (1-p)\delta(x)
 </div>
 </div>
 
-<div id="outline-container-org6edcb1b" class="outline-3">
-<h3 id="org6edcb1b"><a href="#org6edcb1b">Binomial</a></h3>
-<div class="outline-text-3" id="text-org6edcb1b">
+<div id="outline-container-org6b573f3" class="outline-3">
+<h3 id="org6b573f3"><a href="#org6b573f3">Binomial</a></h3>
+<div class="outline-text-3" id="text-org6b573f3">
 <p>
-<i>Χτίζοντας επί της <a href="#orgac37b1a">Bernoulli</a>:</i> Έστω ότι επαναλαμβάνουμε το πείραμα Bernoulli \(n\)
+<i>Χτίζοντας επί της <a href="#org17ba019">Bernoulli</a>:</i> Έστω ότι επαναλαμβάνουμε το πείραμα Bernoulli \(n\)
 φορές. Η τυχαία μεταβλητή που <b>μετρά το πλήθος των επιτυχιών σε \(n\) ανεξάρτητες
 δοκιμές Bernoulli</b> ακολουθεί διωνυμική κατανομή και η ΣΜΠ της δίνεται από την:
 </p>
@@ -407,9 +407,9 @@ F_y(y)=\sum_{k=0}^y \binom{n}{k}p^k(1-p)^{n-k}
 </div>
 </div>
 
-<div id="outline-container-orgda85247" class="outline-3">
-<h3 id="orgda85247"><a href="#orgda85247">Γεωμετρική κατανομή</a></h3>
-<div class="outline-text-3" id="text-orgda85247">
+<div id="outline-container-org2496da3" class="outline-3">
+<h3 id="org2496da3"><a href="#org2496da3">Γεωμετρική κατανομή</a></h3>
+<div class="outline-text-3" id="text-org2496da3">
 <p>
 Έστω και πάλι πως επαναλαμβάνουμε ένα πείραμα Bernoulli \(X\) φορές: τόσες όσες
 χρειάζεται για να έχουμε την πρώτη επιτυχία. Η τυχαία μεταβλητή \(X\), που
@@ -426,9 +426,9 @@ f_X(x) = p(1-p)^{x-1}
 </p>
 </div>
 </div>
-<div id="outline-container-orga721780" class="outline-3">
-<h3 id="orga721780"><a href="#orga721780">Pascal</a></h3>
-<div class="outline-text-3" id="text-orga721780">
+<div id="outline-container-org002cc9b" class="outline-3">
+<h3 id="org002cc9b"><a href="#org002cc9b">Pascal</a></h3>
+<div class="outline-text-3" id="text-org002cc9b">
 <p>
 Όταν μία τμ \(X\) λέμε πως ακολουθεί κατανομή Pascal, ή αλλιώς <b>αρνητική διωνυμική</b>,
 τότε η τιμή της είναι ενδεικτική του πλήθους των δοκιμών που χρειάστηκαν μέχρι
@@ -444,9 +444,9 @@ f_X(x) = p(1-p)^{x-1}
 </div>
 </div>
 
-<div id="outline-container-org295ad18" class="outline-3">
-<h3 id="org295ad18"><a href="#org295ad18">Υπεργεωμετρική</a></h3>
-<div class="outline-text-3" id="text-org295ad18">
+<div id="outline-container-org0e37015" class="outline-3">
+<h3 id="org0e37015"><a href="#org0e37015">Υπεργεωμετρική</a></h3>
+<div class="outline-text-3" id="text-org0e37015">
 <p>
 Μια πολύ ενδιαφέρουσα κατανομή γιατί αν και συναντάει ευρεία εφαρμογή σε
 πειράματα Bernoulli μπορεί να επεκταθεί και σε συνθετότερα πειράματα (με
@@ -455,8 +455,8 @@ f_X(x) = p(1-p)^{x-1}
 </div>
 
 <ul class="org-ul">
-<li><a id="org0942d86"></a><a href="#org0942d86">Το γενικό concept (εξήγηση για πειράματα Bernoulli)</a><br />
-<div class="outline-text-5" id="text-org0942d86">
+<li><a id="orgd8099a3"></a><a href="#orgd8099a3">Το γενικό concept (εξήγηση για πειράματα Bernoulli)</a><br />
+<div class="outline-text-5" id="text-orgd8099a3">
 <p>
 Έστω οτι έχουμε πραγματοποιήσει \(N\) επαναλήψεις ενός πειράματος Bernoulli, στις
 οποίες οι \(k\) ήταν επιτυχίες. <i>Αυτό προφανώς σημαίνει πως οι \((N-k)\) ήταν
@@ -471,8 +471,8 @@ f_X(x) = \frac{\binom{N-k}{n-x} \binom{k}{x}}{\binom{N}{n}}
 </div>
 </li>
 
-<li><a id="org580b75d"></a><a href="#org580b75d">Επέκταση για \(z\) διαφορετικά αποτελέσματα</a><br />
-<div class="outline-text-5" id="text-org580b75d">
+<li><a id="org96c1283"></a><a href="#org96c1283">Επέκταση για \(z\) διαφορετικά αποτελέσματα</a><br />
+<div class="outline-text-5" id="text-org96c1283">
 <p>
 Τώρα αν το πείραμα μας δεν έχει μόνο 2 αλλά \(z\) διαφορετικά αποτελέσματα και
 \(N_i\forall i<z\) ο αριθμός των πειραμάτων που <i>έφεραν</i> το $i$οστό αποτέλεσμα
@@ -488,13 +488,13 @@ f(x_1,x_2,x_3,x_4,\cdots) = \frac{\binom{N_1}{x_1} \binom{N_2}{x_2} \binom{N_3}{
 </div>
 </div>
 
-<div id="outline-container-orgf957cde" class="outline-2">
-<h2 id="orgf957cde"><a href="#orgf957cde">Συνεχείς</a></h2>
-<div class="outline-text-2" id="text-orgf957cde">
+<div id="outline-container-org2343c7d" class="outline-2">
+<h2 id="org2343c7d"><a href="#org2343c7d">Συνεχείς</a></h2>
+<div class="outline-text-2" id="text-org2343c7d">
 </div>
-<div id="outline-container-org5dffe4f" class="outline-3">
-<h3 id="org5dffe4f"><a href="#org5dffe4f">Gaussian Κανονική</a></h3>
-<div class="outline-text-3" id="text-org5dffe4f">
+<div id="outline-container-orgf8cadf8" class="outline-3">
+<h3 id="orgf8cadf8"><a href="#orgf8cadf8">Gaussian Κανονική</a></h3>
+<div class="outline-text-3" id="text-orgf8cadf8">
 <ul class="org-ul">
 <li><b>Η μόνη της οποίας το πλήρες μοντέλο προσδιορίζεται από μόνο δύο ροπές.</b> Αν
 ξέρεις μέση τιμή και διασπορά ξέρεις τα πάντα.</li>
@@ -508,9 +508,9 @@ f(x_1,x_2,x_3,x_4,\cdots) = \frac{\binom{N_1}{x_1} \binom{N_2}{x_2} \binom{N_3}{
 </ul>
 </div>
 
-<div id="outline-container-org944a2f1" class="outline-4">
-<h4 id="org944a2f1"><a href="#org944a2f1">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></h4>
-<div class="outline-text-4" id="text-org944a2f1">
+<div id="outline-container-org067f9b0" class="outline-4">
+<h4 id="org067f9b0"><a href="#org067f9b0">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></h4>
+<div class="outline-text-4" id="text-org067f9b0">
 <p>
 Έστω ότι έχουμε τμ \(X\) που ακολουθεί κανονική κατανομή:
 </p>
@@ -529,9 +529,9 @@ Y = aX +b \Rightarrow Y \sim N(\alpha\mu +b, \alpha\sigma)
 </div>
 </div>
 
-<div id="outline-container-orgc33fabb" class="outline-4">
-<h4 id="orgc33fabb"><a href="#orgc33fabb">Κανονικοποίηση</a></h4>
-<div class="outline-text-4" id="text-orgc33fabb">
+<div id="outline-container-orgd91591a" class="outline-4">
+<h4 id="orgd91591a"><a href="#orgd91591a">Κανονικοποίηση</a></h4>
+<div class="outline-text-4" id="text-orgd91591a">
 <ul class="org-ul">
 <li>Αν δεν έχεις διαβάσει προηγουμένως μια μαθηματική ανάλυση (έστω την επόμενη
 παράγραφο) ίσως το αντικείμενο αυτής δεν είναι τόσο ξεκάθαρο.</li>
@@ -555,9 +555,9 @@ F_X(x) = \int_{-\infty}^xf_x(r)dr = \cdots =
 </div>
 </div>
 
-<div id="outline-container-orge29f4c4" class="outline-4">
-<h4 id="orge29f4c4"><a href="#orge29f4c4">Σχέση με \(\Phi\)</a></h4>
-<div class="outline-text-4" id="text-orge29f4c4">
+<div id="outline-container-org4f0065d" class="outline-4">
+<h4 id="org4f0065d"><a href="#org4f0065d">Σχέση με \(\Phi\)</a></h4>
+<div class="outline-text-4" id="text-org4f0065d">
 <p>
 Ορίζουμε συνάρτηση
 </p>
@@ -589,9 +589,9 @@ F_X(x) = \Phi(
 </div>
 </div>
 
-<div id="outline-container-orgd2e6895" class="outline-4">
-<h4 id="orgd2e6895"><a href="#orgd2e6895">Σχέση με Gaussian \(Q\)</a></h4>
-<div class="outline-text-4" id="text-orgd2e6895">
+<div id="outline-container-org92880fa" class="outline-4">
+<h4 id="org92880fa"><a href="#org92880fa">Σχέση με Gaussian \(Q\)</a></h4>
+<div class="outline-text-4" id="text-org92880fa">
 <p>
 Ορίζουμε συνάρτηση:
 </p>
@@ -612,15 +612,15 @@ erfc = \text{complimentary }erf(x) = 1 - erf(x) = 2Q(\sqrt{2}x)
 \end{equation}
 
 <p>
-Ακόμα, μέσω αυτής ορίζονται ουσιαστικά τα <a href="lec_SSD_20221017.html#org92e8553">Όρια Chernoff - Rubin</a>
+Ακόμα, μέσω αυτής ορίζονται ουσιαστικά τα <a href="lec_SSD_20221017.html#org7af9689">Όρια Chernoff - Rubin</a>
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgccf607b" class="outline-3">
-<h3 id="orgccf607b"><a href="#orgccf607b">Εκθετική κατανομή</a></h3>
-<div class="outline-text-3" id="text-orgccf607b">
+<div id="outline-container-org751b6ff" class="outline-3">
+<h3 id="org751b6ff"><a href="#org751b6ff">Εκθετική κατανομή</a></h3>
+<div class="outline-text-3" id="text-org751b6ff">
 <ul class="org-ul">
 <li>Πολύ σημαντικές ιδιότητες:</li>
 </ul>
@@ -636,9 +636,9 @@ Pr\{X>a+b|X>a\} &= Pr\{X>b\}
 </div>
 </div>
 
-<div id="outline-container-org2a43484" class="outline-3">
-<h3 id="org2a43484"><a href="#org2a43484">Erlang</a></h3>
-<div class="outline-text-3" id="text-org2a43484">
+<div id="outline-container-org0931309" class="outline-3">
+<h3 id="org0931309"><a href="#org0931309">Erlang</a></h3>
+<div class="outline-text-3" id="text-org0931309">
 <ul class="org-ul">
 <li>Όπως γράφει και παραπάνω, χρήσιμη όταν μας ενδιαφέρει ο χρόνος μεταξύ \(k\)
 διαδοχικών γεγονότων και όχι μόνο δύο, στην οποία περίπτωση και χρησιμοποιούμε
@@ -648,9 +648,9 @@ Pr\{X>a+b|X>a\} &= Pr\{X>b\}
 </div>
 </div>
 
-<div id="outline-container-orgd4c45ee" class="outline-3">
-<h3 id="orgd4c45ee"><a href="#orgd4c45ee">Ακόμα</a></h3>
-<div class="outline-text-3" id="text-orgd4c45ee">
+<div id="outline-container-org16d4b3e" class="outline-3">
+<h3 id="org16d4b3e"><a href="#org16d4b3e">Ακόμα</a></h3>
+<div class="outline-text-3" id="text-org16d4b3e">
 <p>
 Αναφερθήκαμε συνοπτικά σε
 </p>

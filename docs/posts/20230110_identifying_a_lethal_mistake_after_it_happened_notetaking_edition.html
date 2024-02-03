@@ -9,7 +9,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="How I lost a lecture (twice) and put the blame on me (human error) instead of pointing at the faulty part of my code." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
     <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -23,14 +23,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7f94c03">The story</a></li>
-<li><a href="#orgf1e0ffe">The Doombringer</a></li>
-<li><a href="#org43625ed">Understanding my mistake</a></li>
-<li><a href="#orga4eef6d">Implementing solutions</a>
+<li><a href="#org55e939c">The story</a></li>
+<li><a href="#orga8bb55b">The Doombringer</a></li>
+<li><a href="#orge9e5eed">Understanding my mistake</a></li>
+<li><a href="#org67928d7">Implementing solutions</a>
 <ul>
-<li><a href="#orgd9d1d34">Impossible filename approach</a></li>
-<li><a href="#org5cdce3e">Check for file approach</a></li>
-<li><a href="#orgaa89220">Selecting the proper one</a></li>
+<li><a href="#org5060293">Impossible filename approach</a></li>
+<li><a href="#org21ec8a3">Check for file approach</a></li>
+<li><a href="#org2f21ee5">Selecting the proper one</a></li>
 </ul>
 </li>
 </ul>
@@ -58,10 +58,10 @@ Until it failed.
 And today it failed again.
 </p>
 
-<div id="outline-container-org7f94c03" class="outline-2">
-<h2 id="org7f94c03"><a href="#org7f94c03">The story</a></h2>
-<div class="outline-text-2" id="text-org7f94c03">
-<div class="note" id="orgcd470ec">
+<div id="outline-container-org55e939c" class="outline-2">
+<h2 id="org55e939c"><a href="#org55e939c">The story</a></h2>
+<div class="outline-text-2" id="text-org55e939c">
+<div class="note" id="org59e163a">
 <p>
 While writing the draft for this article I realized that this might have never
 happened if I had published my configuration earlier. Anyone seeing the code
@@ -110,9 +110,9 @@ And that is when I saw how naive I was when I wrote this little part of the code
 </div>
 </div>
 
-<div id="outline-container-orgf1e0ffe" class="outline-2">
-<h2 id="orgf1e0ffe"><a href="#orgf1e0ffe">The Doombringer</a></h2>
-<div class="outline-text-2" id="text-orgf1e0ffe">
+<div id="outline-container-orga8bb55b" class="outline-2">
+<h2 id="orga8bb55b"><a href="#orga8bb55b">The Doombringer</a></h2>
+<div class="outline-text-2" id="text-orga8bb55b">
 <p>
 This is the function that I had originally created (and used till this day)
 </p>
@@ -141,9 +141,9 @@ assume&#x2026; a lot of things.
 </div>
 </div>
 
-<div id="outline-container-org43625ed" class="outline-2">
-<h2 id="org43625ed"><a href="#org43625ed">Understanding my mistake</a></h2>
-<div class="outline-text-2" id="text-org43625ed">
+<div id="outline-container-orge9e5eed" class="outline-2">
+<h2 id="orge9e5eed"><a href="#orge9e5eed">Understanding my mistake</a></h2>
+<div class="outline-text-2" id="text-orge9e5eed">
 <p>
 Back when I created this function I hoped my files would get named like that :
  <code>lec_course_lecnumber_title.org</code>.
@@ -177,7 +177,7 @@ the file title to separate lecture files it from each other. After all, I wanted
 to keep it minimal.
 </p>
 
-<div class="note" id="org6d44c5d">
+<div class="note" id="orgad9a0cd">
 <p>
 <b>Free tip:</b> When you reach a point, even in scripts as simple as my notetaking
 ones, where you can spend 5 minutes implementing a check, please do it, no
@@ -196,13 +196,13 @@ the file exists.
 </div>
 </div>
 
-<div id="outline-container-orga4eef6d" class="outline-2">
-<h2 id="orga4eef6d"><a href="#orga4eef6d">Implementing solutions</a></h2>
-<div class="outline-text-2" id="text-orga4eef6d">
+<div id="outline-container-org67928d7" class="outline-2">
+<h2 id="org67928d7"><a href="#org67928d7">Implementing solutions</a></h2>
+<div class="outline-text-2" id="text-org67928d7">
 </div>
-<div id="outline-container-orgd9d1d34" class="outline-3">
-<h3 id="orgd9d1d34"><a href="#orgd9d1d34">Impossible filename approach</a></h3>
-<div class="outline-text-3" id="text-orgd9d1d34">
+<div id="outline-container-org5060293" class="outline-3">
+<h3 id="org5060293"><a href="#org5060293">Impossible filename approach</a></h3>
+<div class="outline-text-3" id="text-org5060293">
 <p>
 Extremely safe yet against my <i>simple-filenames</i> policy (keeping filenames as
 simple and organized as possible to reduce visual clutter when manually visiting
@@ -220,9 +220,9 @@ these dirs)
 </div>
 </div>
 
-<div id="outline-container-org5cdce3e" class="outline-3">
-<h3 id="org5cdce3e"><a href="#org5cdce3e">Check for file approach</a></h3>
-<div class="outline-text-3" id="text-org5cdce3e">
+<div id="outline-container-org21ec8a3" class="outline-3">
+<h3 id="org21ec8a3"><a href="#org21ec8a3">Check for file approach</a></h3>
+<div class="outline-text-3" id="text-org21ec8a3">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
   <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
@@ -245,9 +245,9 @@ these dirs)
 </div>
 </div>
 
-<div id="outline-container-orgaa89220" class="outline-3">
-<h3 id="orgaa89220"><a href="#orgaa89220">Selecting the proper one</a></h3>
-<div class="outline-text-3" id="text-orgaa89220">
+<div id="outline-container-org2f21ee5" class="outline-3">
+<h3 id="org2f21ee5"><a href="#org2f21ee5">Selecting the proper one</a></h3>
+<div class="outline-text-3" id="text-org2f21ee5">
 <p>
 I will keep the second one, mainly because of the fact that rarely will I need
 the extra information that exists on the filename.
