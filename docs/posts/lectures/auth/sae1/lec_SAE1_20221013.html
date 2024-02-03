@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 1: Εισαγωγική και σφάλματα</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 1: Εισαγωγική και σφάλματα</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org10ec26c">Εισαγωγικά</a>
+<ul>
+<li><a href="#orgf2ba79d">Βασικές έννοιες</a>
+<ul>
+<li><a href="#orge866568"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></li>
+<li><a href="#orgfa88e79">Προδιαγραφές λειτουργίας</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org10aadf1">Παράδειγμα Σταμούλη</a>
+<ul>
+<li><a href="#org6c8595d">Επίδραση κέρδους ενισχυτή</a></li>
+</ul>
+</li>
+<li><a href="#org52d2ef5">Παράδειγμα Δουλγέρη στον πίνακα</a>
+<ul>
+<li><a href="#org385de6d">Unexpected</a></li>
+</ul>
+</li>
+<li><a href="#org6b96c56">Παράδειγμα αναρτήσεων αυτοκινήτου</a>
+<ul>
+<li><a href="#org863e148">Πόλοι και μηδενικά.</a></li>
+</ul>
+</li>
+<li><a href="#orgc6cae1d">Συναρτήσεις μεταφοράς σε σειρά</a>
+<ul>
+<li><a href="#org3768d8f"><b>Η συνθήκη είναι:</b></a></li>
+</ul>
+</li>
+<li><a href="#org28b8c03">Αρχή της επαλληλίας</a></li>
+<li><a href="#org5773a00">Πιο σύνθετο παράδειγμα</a></li>
+<li><a href="#org392d49e">Σφάλμα εισόδου</a>
+<ul>
+<li><a href="#orgeff5fc0">Δίνοντας συγκεκριμένους τύπους</a></li>
+<li><a href="#org939a698">Τύπος συστήματος</a>
+<ul>
+<li><a href="#org44f3554">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org8831f9b">Τελευταία άσκηση:</a></li>
+<li><a href="#org3c80cd2">Βελτιώνοντας το σύστημα</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org10ec26c" class="outline-2">
+<h2 id="org10ec26c"><a href="#org10ec26c">Εισαγωγικά</a></h2>
+<div class="outline-text-2" id="text-org10ec26c">
+<p>
+<i>Ποιο είναι το αντικείμενο του μαθήματος?</i>
+Ο καθορισμός της μεταβλητής που μας ενδιαφέρει βάση των μεταβλητών (εισόδων) του
+συστήματος. Εκείνες (μεταβλητές εισόδου) χωρίζονται σε <b>μεταβλητές ελέγχου</b> και
+μεταβλητές <i>θορύβου</i> (δεν είναι αυτή η έννοια που χρησιμοποιήθηκε, αλλά είναι
+σημασιολογικά σωστή).
+</p>
+
+<p>
+Ο στόχος είναι η ανάλυση συστημάτων. Μια γενική μεθοδολογία:
+</p>
+<ol class="org-ol">
+<li>Βρίσκεις γενικότερη μαθηματική έκφραση, την αναλύεις βάση σήματος εισόδου
+και εξόδου</li>
+<li>Βγάζεις την μαθηματική έκφραση του ελεγκτή που θέλεις</li>
+<li>Υλοποιείς τον ελεγκτή εντός του κυκλώματος.</li>
+</ol>
+</div>
+<div id="outline-container-orgf2ba79d" class="outline-3">
+<h3 id="orgf2ba79d"><a href="#orgf2ba79d">Βασικές έννοιες</a></h3>
+<div class="outline-text-3" id="text-orgf2ba79d">
+</div>
+<ul class="org-ul">
+<li><a id="org89cad36"></a><a href="#org89cad36">Η <i>φύση</i> του προβλήματος</a><br />
+<div class="outline-text-5" id="text-org89cad36">
+<p>
+Εξαρτάται από τον τύπο της εισόδου: αν εκείνη είναι σταθερή, τότε λέμε πως
+έχουμε <b>πρόβλημα ελέγχου ρύθμισης</b>. Αλλιώς, αν εκείνη μεταβάλλεται συναρτήσει
+κάποιας παραμέτρου (έστω του χρόνου) λέμε πως έχουμε
+<b>πρόβλημα ελέγχου παρακολούθησης</b>, και την παράμετρο την λέμε και <i>τροχιά</i>
+</p>
+</div>
+</li>
+
+<li><a id="org756a6b0"></a><a href="#org756a6b0">Συστήματα <b>κλειστού δρόμου</b>:</a><br />
+<div class="outline-text-5" id="text-org756a6b0">
+
+<div id="org1927e29" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_broxgxoi.png" alt="sae1_lec1_broxgxoi.png" />
+</p>
+</div>
+</div>
+</li>
+
+<li><a id="orgdf495f4"></a><a href="#orgdf495f4"><b>Είσοδος αναφοράς</b>: καθορίζει το τί θέλουμε να κάνει η έξοδος</a><br /></li>
+
+<li><a id="org59a809c"></a><a href="#org59a809c">Συνάρτηση μεταφοράς</a><br />
+<div class="outline-text-5" id="text-org59a809c">
+<p>
+Συνάρτηση μεταφοράς του συστήματος (ως προς <b>μία</b> μεταβλητή εισόδου) ονομάζουμε
+την συνάρτηση - πηλίκο του μετασχηματισμού Laplace της εξόδου προς τον
+μετασχηματισμό Laplace της εισόδου:
+</p>
+\begin{equation}
+\label{eq:16}
+\frac{Y(s)}{R(s)} = 
+\frac{\mathcal{L}[y]}{\mathcal{L}[r]}
+\end{equation}
+</div>
+</li>
+</ul>
+
+<div id="outline-container-orge866568" class="outline-4">
+<h4 id="orge866568"><a href="#orge866568"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></h4>
+<div class="outline-text-4" id="text-orge866568">
+</div>
+<ul class="org-ul">
+<li><a id="org36e1787"></a><a href="#org36e1787">Μαθηματικά:</a><br />
+<div class="outline-text-6" id="text-org36e1787">
+<p>
+Η έξοδος του συστήματος όταν ο χρόνος τείνει στο άπειρο ( εφόσον το όριο
+υπάρχει. Αν δεν υπάρχει (ασταθές σύστημα) δεν έχουμε μόνιμη κατάσταση )
+</p>
+</div>
+</li>
+<li><a id="orgec09fde"></a><a href="#orgec09fde">Πρακτικά</a><br />
+<div class="outline-text-6" id="text-orgec09fde">
+<p>
+Όταν ουσιαστικά έχει εξασθενήσει η επιρροή οποιασδήποτε απρόσμενης μεταβολής.
+</p>
+</div>
+</li>
+</ul>
+
+<li><a id="orgc34ff2c"></a><a href="#orgc34ff2c">Θεώρημα Τελικής Τιμής</a><br />
+<div class="outline-text-5" id="text-orgc34ff2c">
+<p>
+Μας λεει αυτό ( χρήση Laplace )
+</p>
+\begin{equation}
+\label{eq:14}
+\lim_{t\to \infty}f(t) \Rightarrow \lim_{s\to 0} sf(s)
+\end{equation}
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgfa88e79" class="outline-4">
+<h4 id="orgfa88e79"><a href="#orgfa88e79">Προδιαγραφές λειτουργίας</a></h4>
+<div class="outline-text-4" id="text-orgfa88e79">
+<p>
+Ουσιαστικά θα αναλύσουμε αυτά στην διάρκεια του εξαμήνου. Θα εξεταστούν πρωτα
+τα 1-3 και μετα κάποια στιγμή θα περάσουμε στο 4.
+</p>
+
+<ol class="org-ol">
+<li>Ακρίβεια στην μόνιμη κατάσταση</li>
+<li>Ταχύτητα απόκρισης</li>
+<li>Ευστάθεια και σχετική ευστάθεια.</li>
+<li>Απόσβεση διαταραχών του θορύβου.</li>
+</ol>
+</div>
+
+<ul class="org-ul">
+<li><a id="orgf731dd9"></a><a href="#orgf731dd9">Κλασσικές συναρτήσεις εισόδου(?):</a><br />
+<div class="outline-text-5" id="text-orgf731dd9">
+<p>
+Επισημάνθηκε και η σημασία <b>γρήγορης</b> αναγνώρισης των μετατροπών Laplace των
+παρακάτω συναρτήσεων:
+</p>
+<ol class="org-ol">
+<li>βηματική</li>
+</ol>
+
+\begin{equation}
+\label{eq:17}
+u(t) =
+\begin{cases}
+0, & t<0\\
+1, & t\geq0
+\end{cases}
+\end{equation}
+<ol class="org-ol">
+<li>Ράμπας</li>
+</ol>
+\begin{equation}
+\label{eq:18}
+r(t) =
+\begin{cases}
+0, &t<0\\
+t, &t\geq0
+\end{cases}
+\end{equation}
+<ol class="org-ol">
+<li>παραβολής</li>
+</ol>
+\begin{equation}
+\label{eq:19}
+f(t) = t^{2n}, n\in{\mathbb N}
+\end{equation}
+<ol class="org-ol">
+<li>συνάρτηση \(\delta\)</li>
+<li>ημιτονοειδής συναρτήσεις</li>
+</ol>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org10aadf1" class="outline-2">
+<h2 id="org10aadf1"><a href="#org10aadf1">Παράδειγμα Σταμούλη</a></h2>
+<div class="outline-text-2" id="text-org10aadf1">
+<p>
+Επίδειξη απλού συστήματος. Κινητήρας, ελεγκτής και εμφάνιση τελικής λειτουργίας
+στην οθόνη  μέσω παλμογράφου.
+</p>
+
+<ul class="org-ul">
+<li>Τιμή ποτενσιομέτρου (τάσης στα άκρα αυτού) ως ένδειξη θέσης (γωνίας-φάσης)
+περιστρεφόμενης εξόδου.
+<ul class="org-ul">
+<li><p>
+Η έξοδος στον παλμογράφο φαίνεται παράξενη: είναι σαν να λέμε <i>τριγωνική</i>
+Πέφτει απότομα λόγω της φύσεως του ποτενσιομέτρου καθώς από την πλήρως
+θετική τιμή ( ή θεωρητικά πλήρως αρνητική τιμή αν εφαρμοστεί αντίθετη τάση
+στα άκρα του ) πάει στην ακραία αρνητική τιμή ( ή ακραία θετική (θεωρητικά) αντίστοιχα).
+</p>
+
+
+<div id="orgc7b17c9" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_potensiometro-grafiki.png" alt="sae1_lec1_potensiometro-grafiki.png" />
+</p>
+</div></li>
+</ul></li>
+</ul>
+</div>
+<div id="outline-container-org6c8595d" class="outline-3">
+<h3 id="org6c8595d"><a href="#org6c8595d">Επίδραση κέρδους ενισχυτή</a></h3>
+<div class="outline-text-3" id="text-org6c8595d">
+<p>
+<b>Το κέρδος ενίσχυσης του ελεγκτή επηρεάζει <i>σημαντικά</i> την μορφή της εξόδου του
+συστήματος</b>. Αν και μειώνει τον χρόνο αποκατάστασης (δηλαδή κατα την μεταβολή της
+εισόδου μειώνει τον χρόνο που χρειάζεται η έξοδος να πιάσει την επιθυμητή τιμή),
+εισάγει ταλάντωση ( το σύστημα περνάει εκείνη την τιμή και ταλαντώνεται μέχρι να
+μείνει σε εκείνη ).
+</p>
+
+
+<div id="orge1c0bc5" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_epidrasikerdousenisxiti.png" alt="sae1_lec1_epidrasikerdousenisxiti.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org52d2ef5" class="outline-2">
+<h2 id="org52d2ef5"><a href="#org52d2ef5">Παράδειγμα Δουλγέρη στον πίνακα</a></h2>
+<div class="outline-text-2" id="text-org52d2ef5">
+<p>
+Έχουμε το παρακάτω σύστημα:
+<img src="course_sae1_images/sae1_lec1_paradeigmakyklwma.png" alt="sae1_lec1_paradeigmakyklwma.png" />
+</p>
+
+<p>
+Εύκολα προκύπτει πως περιγράφεται από τις:
+</p>
+\begin{align}
+\label{eq:1}
+\begin{cases}
+r &= L \frac{di}{dt} + Ri + \frac{1}{C} \int i dt\\
+y &= \frac{1}{C} \int i dt\\
+\end{cases}
+\end{align}
+
+<p>
+Έτσι έχουμε την συνάρτηση μεταφοράς:
+</p>
+\begin{equation}
+\label{eq:2}
+H(s) = \frac{Y(s)}{R(s)}
+\end{equation}
+
+<p>
+Επομένως η αρχική μας εξίσωση γίνεται:
+</p>
+\begin{equation}
+\label{eq:3}
+U(s) = {\mathcal L}[u(t)] = Y(s)(s^2LC + s CR + 1)
+\end{equation}
+<p>
+Συνδέοντας την είσοδο με την έξοδο σε μία πολύ απλή σχέση.
+</p>
+</div>
+
+<div id="outline-container-org385de6d" class="outline-3">
+<h3 id="org385de6d"><a href="#org385de6d">Unexpected</a></h3>
+<div class="outline-text-3" id="text-org385de6d">
+<p>
+Αυτό είναι κάτι που συνειδητοποίησα την ώρα που λύναμε το παράδειγμα και, παρόλο
+που φαντάζομαι πολλοί θα το ήξεραν εκ των προτέρων: <b>η λύση συστημάτων με σύνθετη
+αντίσταση δεν είναι τίποτα άλλο παρά ανάλυση με Laplace στο πεδίο της συχνότητας</b>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6b96c56" class="outline-2">
+<h2 id="org6b96c56"><a href="#org6b96c56">Παράδειγμα αναρτήσεων αυτοκινήτου</a></h2>
+<div class="outline-text-2" id="text-org6b96c56">
+<p>
+Έστω λοιπόν πως έχουμε το παρακάτω σύστημα αναρτήσεων ενός αυτοκινήτου (ελατήριο
+και υγρό για απορρόφηση των ταλαντώσεων του πηνίου)
+</p>
+
+
+<div id="orge4bd697" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_paradeigmaanartisi.png" alt="sae1_lec1_paradeigmaanartisi.png" />
+</p>
+</div>
+
+<p>
+Έχουμε τις παρακάτω εξισώσεις, οι οποίες περιγράφουν γενικά το σύστημα:
+</p>
+\begin{align}
+\label{eq:4}
+F &= ma\\
+F &= k\delta x\\
+F &= bv
+\end{align}
+
+<p>
+Όπου \(\delta{x} = x_{out}-x_{in}\), με \(x_{out}\) την μεταβολή του ύψους του <i>κορμού</i> του
+αυτοκινήτου, και \(x_{in}\) τις όποιες ανωμαλίες υπάρξουν ως είσοδος στο σύστημα μας:
+</p>
+
+<p>
+Οπότε προκύπτει η διαφορική:
+</p>
+\begin{equation}
+\label{eq:5}
+m x^{(2)} + b(x_0^{(2)} - x_i^{(2)}) + k(x_0-x_i) = 0
+\end{equation}
+
+<p>
+Εδώ μια ερώτηση είναι γιατί είναι ο πρώτος όρος \(mx^{(2)}\) και όχι
+\(m(x_o^{(2)}-x_i^{(2)})\). Αν το ερμηνεύω σωστά είναι \(F=mx_o^{(2)}\) καθώς ο
+νόμος του Νεύτωνα εφαρμόστηκε (όπως και η παραπάνω εξίσωση) στο κυρίως σώμα του
+αυτοκινήτου, την μετατόπιση του οποίου ορίσαμε και \(x_{out}\)
+</p>
+
+\begin{equation}
+\label{eq:6}
+\mathcal{L}[\cdots] \Rightarrow (ms^2 + bs +k)x_0(s) = (bs + k) x_i(s)
+\end{equation}
+
+<p>
+Η συνάρτηση μεταφοράς 
+</p>
+
+\begin{equation}
+\label{eq:7}
+H(s) = 
+\frac{bs+k}{ms^2+bs+k}
+\end{equation}
+</div>
+
+<div id="outline-container-org863e148" class="outline-3">
+<h3 id="org863e148"><a href="#org863e148">Πόλοι και μηδενικά.</a></h3>
+<div class="outline-text-3" id="text-org863e148">
+<p>
+Όταν μια συνάρτηση μεταφοράς μπορεί να εκφραστεί στην παρακάτω μορφή, λέμε πως
+έχουμε <b>πόλους</b> και <b>μηδενικά</b>:
+</p>
+\begin{equation}
+\label{eq:8}
+H(s) = \frac{N(s)}{D(s)} \stackrel{nom, denom}{=} \frac{\prod_i (s-z_i)}{\prod (s-p_i)}
+\end{equation}
+
+<p>
+Σε αυτή την μορφή είναι εμφανείς οι ρίζες του αριθμητή και του παρονομαστή, με
+τα \(p_i\) (ρίζες) που μένουν μετά την απλοποίηση να λέγονται πόλοι του
+συστήματος.
+</p>
+
+<p>
+Αντιστοίχως η μη απλοιποιούμενες ρίζες του αριθμητή λέγονται <b>μηδενικά</b>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc6cae1d" class="outline-2">
+<h2 id="orgc6cae1d"><a href="#orgc6cae1d">Συναρτήσεις μεταφοράς σε σειρά</a></h2>
+<div class="outline-text-2" id="text-orgc6cae1d">
+<p>
+Σε περίπτωση που έχεις <i>πολλαπλά</i> συστήματα μεταφοράς, υπό συνθήκες:
+</p>
+\begin{equation}
+\label{eq:9}
+H(s) = H_{1}(s)H_2(s)
+\end{equation}
+
+
+<div id="org51c39b1" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_synartiseis-metaforas-se-seira.png" alt="sae1_lec1_synartiseis-metaforas-se-seira.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3768d8f" class="outline-3">
+<h3 id="org3768d8f"><a href="#org3768d8f"><b>Η συνθήκη είναι:</b></a></h3>
+<div class="outline-text-3" id="text-org3768d8f">
+<p>
+Η έξοδος του πρώτου συστήματος να μην επηρεάζεται από την παρουσία του δεύτερου
+συστήματος εκεί.
+</p>
+
+<p>
+Παράδειγμα στα κυκλώματα θα μπορούσε να είναι η <i>απειρη</i> αντίσταση εξόδου, ούτως
+ώστε να μην επηρεάζεται η έξοδος του πρώτου συστήματος.
+</p>
+
+<p>
+Σημαντικό, όμως, είναι να υπογραμμίσουμε ότι στην πλειοψηφία των συστημάτων που
+θα εξετάσουμε στο πλαίσιο του μαθήματος, ακολουθούμε την θεώρηση πως είναι
+ιδανικά, που σημαίνει πως <span class="underline">η παραπάνω ιδιότητα είναι εφαρμόσιμη εκτός αν ρητά
+επισημαίνεται το αντίθετο</span>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org28b8c03" class="outline-2">
+<h2 id="org28b8c03"><a href="#org28b8c03">Αρχή της επαλληλίας</a></h2>
+<div class="outline-text-2" id="text-org28b8c03">
+
+<div id="orgcfffa86" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_sistimamethorybo.png" alt="sae1_lec1_sistimamethorybo.png" />
+</p>
+</div>
+
+<p>
+Η αρχή της επαλληλίας είναι εφαρμόσιμη στα εξεταζόμενα συστήματα, <b>καθώς αυτά
+γραμμικά</b>. Μπορούμε λοιπόν να υπολογίσουμε την συνάρτηση μεταφοράς του \(Y\) ως
+προς \(r\) <i>(την είσοδο ελέγχου)</i> και κατόπιν ως προς την \(d\).
+</p>
+
+
+
+<p>
+Καταλήγουμε έτσι στις παρακάτω σχέσεις:
+</p>
+\begin{equation}
+\label{eq:10}
+T_r(s) = \frac{Y(s)}{r(s)} = \cdots = \frac{G(s)}{1+GH}
+\end{equation}
+
+<p>
+<b>Αυτή η σχέση ισχύει για όλα τα συστήματα κλειστού δρόμου με ανάδραση \(h\)</b>
+</p>
+
+<p>
+Εδώ η άσκηση κανονικά συνεχίζει μα καθώς δεν μπορούσα να καταλήξω σε αποτέλεσμα
+που να συμφωνεί με εκείνο των σημειώσεων έχει αφεθεί εκτός.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5773a00" class="outline-2">
+<h2 id="org5773a00"><a href="#org5773a00">Πιο σύνθετο παράδειγμα</a></h2>
+<div class="outline-text-2" id="text-org5773a00">
+
+<div id="org0bcabe7" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_syntheto-paradeigma.png" alt="sae1_lec1_syntheto-paradeigma.png" />
+</p>
+</div>
+
+
+\begin{align*}
+\label{eq:12}
+y &= H_2(ku + H_1e)\Rightarrow\\
+ &= H_2(ku + H_1(u-y))\Rightarrow\\
+ &= \frac{H_2(k+H_1)U}{1+H_1+H_2}
+\end{align*}
+
+<p>
+Οπότε προκύπτει και η συνάρτηση μεταφοράς:
+</p>
+\begin{equation}
+\label{eq:13}
+G(s) = \frac{H_2(k+H_1)}{1+H_1+H_2}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org392d49e" class="outline-2">
+<h2 id="org392d49e"><a href="#org392d49e">Σφάλμα εισόδου</a></h2>
+<div class="outline-text-2" id="text-org392d49e">
+<p>
+Ορίζουμε νέο μέγεθος, το <i>λάθος</i>, το οποίο συμβολίζουμε με \(e\) και δίνεται από την σχέση:
+</p>
+\begin{equation}
+\label{eq:15}
+e(s) = r(s) - y(s)
+\end{equation}
+
+<p>
+Αν και το ορίσαμε με αυτή την <i>γενική</i> σχέση στην πραγματικότητα μας ενδιαφέρουν,
+και προσπαθούμε να τους εξασφαλίσουμε μηδενικές τιμές:
+</p>
+<ol class="org-ol">
+<li>Σφάλμα θέσης, όταν η συνάρτηση εισόδου είναι η βηματική</li>
+<li>Σφάλμα ταχύτητας, όταν η συνάρτηση εισόδου είναι ράμπα</li>
+<li>Σφάλμα επιτάχυνσης, όταν η συνάρτηση εισόδου είναι παραβολική</li>
+</ol>
+
+
+
+<p>
+Γιατί σταματάμε στην επιτάχυνση και δεν συνεχίζουμε? Γιατί το να πετύχεις στην
+πράξη σφάλμα μηδεν σε μεγαλύτερη τάξη είναι εξαιρετικά δύσκολο και επηρεάζει την
+ευστάθεια του συστήματος.
+</p>
+
+\begin{align}
+\label{eq:69}
+e_{ssp} &= \frac{1}{s} - y(s)&\text{position}\\
+e_{ssv} &= \frac{1}{s^2} - y(s) &\text{velocity}\\
+e_{ssa} &= \frac{1}{s^3} - y(s)&\text{acceleration}
+\end{align}
+</div>
+
+<div id="outline-container-orgeff5fc0" class="outline-3">
+<h3 id="orgeff5fc0"><a href="#orgeff5fc0">Δίνοντας συγκεκριμένους τύπους</a></h3>
+<div class="outline-text-3" id="text-orgeff5fc0">
+<p>
+Οι παρακάτω τύποι, όπου εμφανίζονται όρια, προφανώς συνδέονται με το θεώρημα
+τελικής τιμής από τις βασικές έννοιες.
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org20271fe"></a><a href="#org20271fe">Μοναδιαία Αρνητική Ανάδραση</a><br />
+<div class="outline-text-5" id="text-org20271fe">
+<p>
+Έχουμε το κλασσικό σύστημα μοναδιαίας αρνητικής ανάδρασης:
+<img src="course_sae1_images/sae1_lec1_monadiaia-arn-anadrasi.png" alt="sae1_lec1_monadiaia-arn-anadrasi.png" />
+</p>
+
+<p>
+Είναι γνωστό πως η συνάρτηση μεταφοράς δίνεται από την:
+</p>
+
+\begin{equation}
+\label{eq:68}
+\frac{Y}{R} = \frac{H_1}{1+H_1}
+\end{equation}
+
+<p>
+Επομένως η αρχική εξίσωση μας γίνεται:
+</p>
+\begin{equation}
+\label{eq:31}
+e(s) = r(s) - y(s) = r(s) - \frac{H_1}{1+H_1}r(s) = r(s)(1-\cdots) = r(s) \frac{1}{1+H_1}
+\end{equation}
+
+<p>
+Απο αυτό αντικαθιστώντας στις εξισώσεις για τα επιμέρους σφάλματα:
+</p>
+
+\begin{align}
+\label{eq:79}
+e_{ssp} &\stackrel{r = 1}{ = } \frac{1}{s} \frac{1}{1+H_1} \stackrel{FinalValueTheorem}{=} \frac{1}{1+\lim_{s\to0}H(s)} &\text{position}\\
+e_{ssv} &\stackrel{r = linear}{ = }  \frac{1}{s^2} \frac{1}{1+H_1} \stackrel{FinalValueTheorem}{ = } \frac{1}{\lim_{s\to0}sH(s)} &&\text{velocity}\\
+e_{ssa} &\stackrel{r = parab}{ = }  \frac{1}{s^3} \frac{1}{1+H_1} \stackrel{FinalValueTheorem}{ = } \frac{1}{\lim_{s\to0}s^2H(s)} &&\text{acceleration}
+\end{align}
+</div>
+
+<ul class="org-ul">
+<li><a id="org407f571"></a><a href="#org407f571">Σταθερές ορίων</a><br />
+<div class="outline-text-6" id="text-org407f571">
+<p>
+Ουσιαστικα οι σταθεροί όροι που εμφανίζονται με μορφή ορίων στα αντίστοιχα όρια
+ονομάζονται σταθερα σφαλματος θεσης, ταχύτητας, επιταχυνσης
+</p>
+\begin{align}
+\label{eq:27}
+K_p &= \lim_{s\to0} H(s)\\
+K_v &= \lim_{s\to0} sH(s)\\
+K_a &= \lim_{s\to0} s^2H(s)
+\end{align}
+
+<p>
+Και έχουμε 
+</p>
+</div>
+</li>
+</ul>
+</li>
+<li><a id="org8870e31"></a><a href="#org8870e31">Γενική Περίπτωση (Closed Loop)</a><br />
+<div class="outline-text-5" id="text-org8870e31">
+<p>
+Προφανώς, όμως, η παραπάνω ανάλυση, καθώς βασίζεται στην συνάρτηση μεταφοράς
+συστήματος με μοναδιαία αρνητική ανάδραση δεν είναι εφαρμόσιμη σε όλες τις
+περιπτώσεις. Σε εκείνες έχουμε: (έστω \(H_2\) το σύστημα στην ανάδραση)
+</p>
+
+<p>
+Χρησιμοποιώντας την συνάρτηση μεταφοράς στο πιο <i>σύνθετο</i> πλέον σύστημα:
+</p>
+\begin{equation}
+\label{eq:32}
+Y(s) \stackrel{cl = closed loop}{=} H_{cl }r(s) = \frac{H_1}{1+H_1H_2}r(s)
+\end{equation}
+
+<p>
+Έτσι έχουμε 
+</p>
+\begin{equation}
+\label{eq:33}
+e(s) = r(s)(1 - \frac{H_1}{1+H_1H_2}) = r(s)(1 - H_{cl})
+\end{equation}
+
+<p>
+Και κατ&rsquo;επέκταση, τις εξισώσεις για τα επιμέρους σφάλματα:
+</p>
+\begin{align}
+\label{eq:34}
+e_{ssp} &= \frac{1}{s}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} (1-H_{cl})\\
+e_{ssp} &= \frac{1}{s^2}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} s(1-H_{cl})\\
+e_{ssp} &= \frac{1}{s^3}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} s^2(1-H_{cl})
+\end{align}
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-org939a698" class="outline-3">
+<h3 id="org939a698"><a href="#org939a698">Τύπος συστήματος</a></h3>
+<div class="outline-text-3" id="text-org939a698">
+<p>
+Παραπάνω αναφέραμε <a href="#org863e148">τους πόλους και τα μηδενικά</a> μίας συνάρτησης. Ανάλογα με την
+φύση των πόλων ορίζουμε και τον τύπο του συστήματος μας. Αναλυτικότερα, το
+πλήθος των πόλων στο σημείο μηδεν ισούται με τον τύπο του συστήματος όπως
+φαίνεται στον παρακάτω πίνακα:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Αριθμός πόλων στο 0</th>
+<th scope="col" class="org-left">Τύπος αντίστοιχου συστήματος</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">0</td>
+<td class="org-left">Τύπου 0</td>
+</tr>
+
+<tr>
+<td class="org-left">1</td>
+<td class="org-left">Τύπου 1</td>
+</tr>
+
+<tr>
+<td class="org-left">&#x2026;</td>
+<td class="org-left">&#x2026;</td>
+</tr>
+
+<tr>
+<td class="org-left">Ν</td>
+<td class="org-left">Τύπου Ν</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div id="outline-container-org44f3554" class="outline-4">
+<h4 id="org44f3554"><a href="#org44f3554">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></h4>
+<div class="outline-text-4" id="text-org44f3554">
+<p>
+Ο τύπος συστήματος μας δείχνει ποιο <i>επίπεδο</i> σφάλματος θα είναι το τελευταίο που
+θα έχει τιμή πραγματικού αριθμού (βασικά θα είναι το μόνο που μπορεί να έχει μη
+μηδενική τιμή πραγματικού αριθμού). Ενδεικτικά, ισχύει το παρακάτω πινακάκι όπου
+μας δείχνει τα σφάλματα ανά τύπο σε σύστημα με μοναδιαία αρνητική ανάδραση:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">τύπος</th>
+<th scope="col" class="org-left">σφάλμα θέσης</th>
+<th scope="col" class="org-left">σφάλμα ταχύτητας</th>
+<th scope="col" class="org-left">σφάλμα επιτάχυνσης</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">τύπου 0  N = 0</td>
+<td class="org-left">\(\frac{1}{1+G}\)</td>
+<td class="org-left">\(\infty\)</td>
+<td class="org-left">\(\infty\)</td>
+</tr>
+
+<tr>
+<td class="org-left">τύπου 1  N = 1</td>
+<td class="org-left">\(0\)</td>
+<td class="org-left">\(\frac{1}{G}\)</td>
+<td class="org-left">\(\infty\)</td>
+</tr>
+
+<tr>
+<td class="org-left">τύπου 2  N = 2</td>
+<td class="org-left">\(0\)</td>
+<td class="org-left">\(0\)</td>
+<td class="org-left">\(\frac{1}{G}\)</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Παρατηρούμε λοιπόν πως η αύξηση του \(G\) συνεπάγεται μείωση των σφαλμάτων.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org8831f9b" class="outline-2">
+<h2 id="org8831f9b"><a href="#org8831f9b">Τελευταία άσκηση:</a></h2>
+<div class="outline-text-2" id="text-org8831f9b">
+<p>
+Έχουμε το παρακάτω σύστημα
+<img src="course_sae1_images/sae1_lec1_teleytaiaaskisi.png" alt="sae1_lec1_teleytaiaaskisi.png" />
+</p>
+
+<p>
+όπου, όπως φαίνεται και στην εικόνα είναι:
+</p>
+\begin{align*}
+H_1 &= K\\
+H_{2} &= \frac{1}{s(\jmath s + b)}
+\end{align*}
+
+<p>
+Ζητείται \(e_{ssp}= 0\)
+</p>
+
+<p>
+Αρχικά υπολογίζουμε τις επιμέρους συναρτήσεις αναφοράς
+</p>
+\begin{align}
+\label{eq:29}
+\frac{Y(s)}{R(s)} &= \frac{k}{s^2j+bs+k}\\
+\frac{Y(s)}{D(s)} &= \frac{1}{s^2j+bs+k}
+\end{align}
+
+
+<p>
+Για τα <b>σφάλματα.</b>
+</p>
+
+<p>
+Είτε πάει κανείς από ορισμό και FVT είτε πάει με τις σταθερές καταλήγουμε στο
+ίδιο αποτέλεσμα:
+</p>
+<ul class="org-ul">
+<li><p>
+Ως προς \(y\):
+</p>
+\begin{align}
+ \label{eq:35}
+ e_{ssp} &= 0\\
+ e_{ssv} &= \frac{b}{k}\\
+ e_{ssa} &= \infty
+ \end{align}</li>
+
+<li>Ενώ ως προς την \(D\):</li>
+</ul>
+\begin{align}
+\label{eq:36}
+e_{ssp} &= \infty\\
+& \Rightarrow e_{ssv} = e_{ssa} = \infty
+\end{align}
+</div>
+</div>
+
+
+<div id="outline-container-org3c80cd2" class="outline-2">
+<h2 id="org3c80cd2"><a href="#org3c80cd2">Βελτιώνοντας το σύστημα</a></h2>
+<div class="outline-text-2" id="text-org3c80cd2">
+<p>
+Επομένως για να μηδενίσουμε το σφάλμα θέσης θα πρέπει να αλλάξουμε τον ελεγκτή μας.
+</p>
+
+<p>
+Μπορούμε να τον αντικαταστήσουμε με έναν της μορφής:
+</p>
+
+\begin{equation}
+\label{eq:30}
+u = (K_p+ \frac{K_i}{s})e(s)
+\end{equation}
+
+<p>
+Με αυτόν τον τρόπο παρατηρούμε πως η συνάρτηση μεταφοράς (ως προς την είσοδο
+αναφοράς) είναι τύπου 2 επομένως ξέρουμε ήδη πως για την \(y\) το σύστημα έχει ήδη
+βελτιωθεί:
+</p>
+\begin{align}
+\label{eq:37}
+e_{ssp} &= 0\\
+e_{ssv} &= 0\\
+e_{ssa} &= \frac{b}{K_i}
+\end{align}
+
+<p>
+Αντίστοιχα (προστίθοντας τον ολοκληρωτή πριν την είσοδο της διαταραχής):
+</p>
+\begin{equation}
+\label{eq:38}
+e_{ssp} = \cdots = 1
+\end{equation}
+<p>
+Το οποίο μας δείχνει δηλαδή ότι η διαταραχή <i>απορροφάται</i> από το σύστημα και δεν
+εμφανίζεται στην έξοδο.
+</p>
+
+
+<div id="org0a7ba70" class="figure">
+<p><img src="course_sae1_images/sae1_lec1_teleytaiaaskisi-mideniko-ssp.png" alt="sae1_lec1_teleytaiaaskisi-mideniko-ssp.png" />    
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-13 Thu 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

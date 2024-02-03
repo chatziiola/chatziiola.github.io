@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Literate DevOps in Emacs and Org Mode</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Literate DevOps in Emacs and Org Mode</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org71dab87">Εισαγωγή</a></li>
+<li><a href="#org10e5761">Writing code</a>
+<ul>
+<li><a href="#orgcf01ffc">Code and Results</a></li>
+<li><a href="#orgf9ac19c">Example Only</a></li>
+</ul>
+</li>
+<li><a href="#org873b58e">Setting directory in which the code is to run</a>
+<ul>
+<li><a href="#org9fb4cfa">Modifying the directory var to run on a server</a></li>
+</ul>
+</li>
+<li><a href="#orgfb63f48">Setting Variables</a>
+<ul>
+<li><a href="#orgd895a60">Setting variables up so that they are used in all source blocks</a></li>
+</ul>
+</li>
+<li><a href="#orgc0a7925">Tangle</a></li>
+<li><a href="#org2b064ef">Exporting</a></li>
+</ul>
+</div>
+</div>
+<p>
+This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>.
+</p>
+
+<p>
+Ενώ ήδη χρησιμοποιώ Org Mode και literate programming αρκετά εκτεταμένα είδα ότι
+είχα αυτή την παρουσίαση στο <i>Watch Later</i> μου εδώ και αρκετό καιρό οπότε είπα να
+την <i>καθαρίσω</i>.
+</p>
+
+<p>
+Ξέρω:
+</p>
+<iframe src="https://giphy.com/embed/qlKs0m0GxHN6ycbDmV" width="480"
+#height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a
+#href="https://giphy.com/gifs/pudgypenguins-aintmuch-aintmuchmoons-honnestworkmoon-qlKs0m0GxHN6ycbDmV">via
+#GIPHY</a></p>
+
+<p>
+Ακόμα θα ήθελα να πω, για την περίπτωση που κάποιος δει το source code, δεν
+χρησιμοποιώ τα <code>:exports</code> directives, μόνο και μόνο για να μην μου δημιουργούν
+πρόβλημα κατά το <code>org-publish</code>, ενώ θα βλέπετε μπροστά στα παραδείγματα που δεν
+κάνουν render να υπάρχει μία <code>#</code> συνοδευόμενη από κενό. Αυτό έγινε κα
+</p>
+<div id="outline-container-org71dab87" class="outline-2">
+<h2 id="org71dab87"><a href="#org71dab87">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org71dab87">
+<p>
+Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
+στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
+διακοπτόμενο ανα σημεία από τον κώδικα και όχι κώδικα διακοπτόμενο ανα σημεία
+για σχόλια, είναι για να βελτιώσει την αναγνωσιμότητα του κώδικα: κατ αυτόν τον
+τρόπο, <i>αν και δουλεύεις περισσότερο γράφοντας τον κώδικα</i>, όταν τον επισκεφτείς
+στο μέλλον έχεις ένα σύνολο σημειώσεων, οι οποίες αν είναι αναλυτικές, μειώνουν
+ή ακόμα μηδενίζουν τον χρόνο για την πλοήγηση στον κώδικα, εύρεση του κατάλληλου
+σημείου και πραγματοποίηση των απαιτούμενων τροποποιήσεων.
+</p>
+
+
+<p>
+Βέβαια, γράφοντας την παραπάνω παράγραφο, συνειδητοποίησα πως η τελευταία
+πρόταση μάλλον δεν επαληθεύεται από την προσωπική μου εμπειρία. Ενώ η λογική
+λέει πως πληκτρολογώντας περισσότερες λέξεις και όντας πολύ πιο αναλυτικός θα
+έπρεπε να σε παίρνει περισσότερο χρόνο, υπάρχει άλλη μία διασταση: η δυνατότητα
+να γράφεις τις σκέψεις σου, όπως εκείνες σε έρχονται εκείνη την στιγμή, στο ίδιο
+αρχείο, αντί να μετακινείσαι μεταξύ αρχείων ή από το χαρτί στην οθόνη και πάλι
+πίσω.
+</p>
+
+<p>
+Είναι επιστημονικό γεγονός πως το να γράφεις τις ιδέες σου, αντί να τις
+δουλεύεις σε νοητικό επίπεδο, επιτρέπει την καλύτερη εργασία επί αυτών (βασικός
+λόγος για αυτό είναι τα οπτικά ερεθίσματα). Αυτό αποδίδω στην καλύτερη επίδοση
+που έχω παρατηρήσει, όταν δουλεύω σε κάποιο πρόγραμμα κατ&rsquo; αυτόν τον τρόπο.
+</p>
+
+
+<p>
+Πρέπει να παραδεχθώ, σε κάθε περίπτωση, πως δεν γράφω προγραμματισμό μόνο καθ&rsquo;
+αυτόν τον τρόπο. Στην πλειοψηφία μάλιστα των προγραμμάτων μου, προσπαθώντας να
+τα κρατήσω μικρά και απλά, ούτως ώστε να συνδυάζονται και μεταξύ τους μένω στο
+παλιό, κλασσικό τρόπο προγραμματισμού.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org10e5761" class="outline-2">
+<h2 id="org10e5761"><a href="#org10e5761">Writing code</a></h2>
+<div class="outline-text-2" id="text-org10e5761">
+<p>
+Τα βασικά είναι:
+</p>
+<ol class="org-ol">
+<li><p>
+Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
+βάλεις εύκολα χρησιμοποιώντας το <code>C-c C-,</code>:
+</p>
+<pre class="example" id="orge7fb248">
+#+begin_src sh
+#+end_src
+</pre></li>
+<li>Εκτελείς τον κώδικα εντός ενός source block με το <code>C-c C-c</code></li>
+</ol>
+</div>
+
+<div id="outline-container-orgcf01ffc" class="outline-3">
+<h3 id="orgcf01ffc"><a href="#orgcf01ffc">Code and Results</a></h3>
+<div class="outline-text-3" id="text-orgcf01ffc">
+<p>
+This shows both input 
+</p>
+<pre class="example" id="org8eee125">
+#+begin_src sh :exports both
+#+end_src
+</pre>
+
+<p>
+Παράδειγμα
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">brew search pyenv
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgf9ac19c" class="outline-3">
+<h3 id="orgf9ac19c"><a href="#orgf9ac19c">Example Only</a></h3>
+<div class="outline-text-3" id="text-orgf9ac19c">
+<p>
+Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
+</p>
+<pre class="example" id="org3d113ba">
+#+begin_src sh :exports code
+#+end_src
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-sh">pyenv virtualenv demo
+pyenv activate demo
+pip install --upgrade flake
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org873b58e" class="outline-2">
+<h2 id="org873b58e"><a href="#org873b58e">Setting directory in which the code is to run</a></h2>
+<div class="outline-text-2" id="text-org873b58e">
+<pre class="example" id="orgbf5aee0">
+#+begin_src sh :dir ~
+#+end_src
+</pre>
+
+<p>
+Παράδειγμα:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">pwd</span> 
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org9fb4cfa" class="outline-3">
+<h3 id="org9fb4cfa"><a href="#org9fb4cfa">Modifying the directory var to run on a server</a></h3>
+<div class="outline-text-3" id="text-org9fb4cfa">
+<pre class="example" id="orgbdeae6e">
+#:PROPERTIES:
+#:dir:  /&lt;server-dns&gt;:
+#:END:
+</pre>
+
+<p>
+I am not sure how this works though.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfb63f48" class="outline-2">
+<h2 id="orgfb63f48"><a href="#orgfb63f48">Setting Variables</a></h2>
+<div class="outline-text-2" id="text-orgfb63f48">
+<pre class="example" id="org7458672">
+#+begin_src sh :var varname=varvalue
+#+end_src
+</pre>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">echo</span> $<span class="org-variable-name">hellostring</span>
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-orgd895a60" class="outline-3">
+<h3 id="orgd895a60"><a href="#orgd895a60">Setting variables up so that they are used in all source blocks</a></h3>
+<div class="outline-text-3" id="text-orgd895a60">
+<pre class="example" id="org0aeb867">
+#:PROPERTIES:
+#:dir:  /Users/sickvm
+#:END:
+</pre>
+
+<p>
+Nah this does not seem to be working - I do not know why though.
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">pwd</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc0a7925" class="outline-2">
+<h2 id="orgc0a7925"><a href="#orgc0a7925">Tangle</a></h2>
+<div class="outline-text-2" id="text-orgc0a7925">
+<p>
+Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
+<i>κλασσικού</i> προγραμματισμού, μέσα από ένα αρχείο literate programming:
+<code>org-babel-tangle</code>
+</p>
+
+<pre class="example" id="orgfb8bb84">
+#+begin_src sh :tangle &lt;filename&gt;
+#+end_src
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org2b064ef" class="outline-2">
+<h2 id="org2b064ef"><a href="#org2b064ef">Exporting</a></h2>
+<div class="outline-text-2" id="text-org2b064ef">
+<p>
+Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το <code>C-c C-e</code> δουλέυει
+και απο μόνο του.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-01-09 Mon 11:34 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

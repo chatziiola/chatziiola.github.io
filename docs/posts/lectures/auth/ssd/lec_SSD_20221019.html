@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 5: Γνωστές Κατανομές</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 5: Γνωστές Κατανομές</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org968da93">Σύνοψη</a>
+<ul>
+<li><a href="#org21328ab">Διακριτές</a></li>
+<li><a href="#org29f9e21">Συνεχείς</a></li>
+</ul>
+</li>
+<li><a href="#org56fa116">Διακριτές Κατανομές</a>
+<ul>
+<li><a href="#org4836d45">Bernoulli</a></li>
+<li><a href="#org0214bae">Binomial</a></li>
+<li><a href="#orgefe080d">Γεωμετρική κατανομή</a></li>
+<li><a href="#org37d21de">Pascal</a></li>
+<li><a href="#org2dcd24d">Υπεργεωμετρική</a></li>
+</ul>
+</li>
+<li><a href="#org7145e5c">Συνεχείς</a>
+<ul>
+<li><a href="#orgad61d78">Gaussian Κανονική</a>
+<ul>
+<li><a href="#org132dd20">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></li>
+<li><a href="#org18a86bf">Κανονικοποίηση</a></li>
+<li><a href="#org8e80d70">Σχέση με \(\Phi\)</a></li>
+<li><a href="#org077031a">Σχέση με Gaussian \(Q\)</a></li>
+</ul>
+</li>
+<li><a href="#orga8ff2bf">Εκθετική κατανομή</a></li>
+<li><a href="#orgb58b898">Erlang</a></li>
+<li><a href="#orgd0fe1ae">Ακόμα</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="note" id="org700afb3">
+<p>
+Από βιβλίο Καραγιαννίδη και Χατζηδιαμαντή: <b>σελίδες 255,271</b>
+</p>
+
+</div>
+
+<div id="outline-container-org968da93" class="outline-2">
+<h2 id="org968da93"><a href="#org968da93">Σύνοψη</a></h2>
+<div class="outline-text-2" id="text-org968da93">
+<p>
+Αρχικά είναι σημαντικό κανείς να διακρίνει τις κατανομές βάση της φύσεως των
+τυχαίων μεταβλητών τους. Να τις χωρίσει, δηλαδή, σε διακριτές και συνεχείς
+κατανομές.
+</p>
+</div>
+
+<div id="outline-container-org21328ab" class="outline-3">
+<h3 id="org21328ab"><a href="#org21328ab">Διακριτές</a></h3>
+<div class="outline-text-3" id="text-org21328ab">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 1:</span> Μια γενική εικόνα των διακριτών κατανομών</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Κατανομή</th>
+<th scope="col" class="org-left">Περιγραφή</th>
+<th scope="col" class="org-left">ΣΜΠ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Bernoulli</td>
+<td class="org-left">Πείραμα με 2 αποτελέσματα: 0,1</td>
+<td class="org-left">\(f_x(x) = \begin{cases} p &x=1\\ q=1-p &x=0 \end{cases}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Διωνυμική</td>
+<td class="org-left">Επιτυχίες σε n Bernoulli</td>
+<td class="org-left">\(f_x(x) = \binom{n}{x}p^x(1-p)^{n-x}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Πολυωνυμική</td>
+<td class="org-left">Πείραμα με k αποτελέσματα (Γενίκευση πολυωνυμικής)</td>
+<td class="org-left">\(f(x_1,x_2,\cdots) = \binom{n}{x_1,x_2,\cdots}p_1^{x_1},p_2^{x_2},\cdots\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Γεωμετρική</td>
+<td class="org-left">Πλήθος δοκιμών πριν την <span class="underline">πρώτη</span> επιτυχία</td>
+<td class="org-left">\(f_{X}(x) = p(1-p)^{x-1}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Πασκάλ</td>
+<td class="org-left">Πλήθος δοκιμών πριν την <span class="underline">κοστή</span> επιτυχία<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup></td>
+<td class="org-left">\(f_{X_k}(x) = \binom{x-1}{k-1}p^k(1-p)^{x-k}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Υπεργεωμετρική</td>
+<td class="org-left">Πλήθος επιτυχιών σε τυχαία δειγματοληψία</td>
+<td class="org-left">\(f_{X_K}(x) = \frac{\binom{N-k}{n-x} \binom{k}{x}}{\binom{N}{n}}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Poisson</td>
+<td class="org-left">Πλήθος αποτελεσμάτων εντός δεδομένου χρόνου</td>
+<td class="org-left">\(f_{X}(x) = \frac{\lambda^x}{x!}e^{-\lambda}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Ομοιόμορφη</td>
+<td class="org-left">(-_-)</td>
+<td class="org-left">\(f_X(x) = \begin{cases} \frac{1}{b-a}, &x\in [a,b]\\ 0 &\text{elsewhere} \end{cases}\)</td>
+</tr>
+</tbody>
+</table>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 2:</span> Πίνακας αναφοράς για ΔΚ</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Κατανομή</th>
+<th scope="col" class="org-left">\(\mu\)</th>
+<th scope="col" class="org-left">\(\sigma^2\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Bernoulli</td>
+<td class="org-left">\(p\)</td>
+<td class="org-left">\(p(1-p)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Διωνυμική</td>
+<td class="org-left">\(np\)</td>
+<td class="org-left">\(np(1-p)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Γεωμετρική</td>
+<td class="org-left">\(\frac{1}{p}\)</td>
+<td class="org-left">\(\frac{q}{p^2}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Πασκάλ</td>
+<td class="org-left">\(\frac{k}{p}\)</td>
+<td class="org-left">\(k*\frac{q}{p^2}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Υπεργεωμετρική</td>
+<td class="org-left">\(np\)</td>
+<td class="org-left">\(np(1-p) \frac{N-n}{N-1}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Poisson</td>
+<td class="org-left">\(\lambda\)</td>
+<td class="org-left">\(\lambda\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org29f9e21" class="outline-3">
+<h3 id="org29f9e21"><a href="#org29f9e21">Συνεχείς</a></h3>
+<div class="outline-text-3" id="text-org29f9e21">
+<p>
+Εφεξής ΣΚ.
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<caption class="t-above"><span class="table-number">Table 3:</span> Συνοπτικός πίνακας για τις ΣΚ.</caption>
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Κατανομή</th>
+<th scope="col" class="org-left">Περιγραφή</th>
+<th scope="col" class="org-left">ΣΜΠ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Gaussian</td>
+<td class="org-left">Γιατί γίνεται να υπάρξει μάθημα μηχανικού χωρίς Gauss?</td>
+<td class="org-left">\(f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{- \frac{(x-\mu)^2}{2\sigma^2}}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Λογαριθμοκανονική</td>
+<td class="org-left"><i>Αντίγραψε την μα άλλαξε την να μην μας καταλάβουνε</i></td>
+<td class="org-left">\(f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}x}e^{- \frac{(\ln{x}-\mu)^2}{2\sigma^2}}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Εκθετική</td>
+<td class="org-left">Όπου λογάριθμος και εκθετική. Ενδεικτική του χρόνου μεταξύ δύο γεγονότων</td>
+<td class="org-left">\(f_X(x) = \lambda e^{-\lambda x}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Erlang</td>
+<td class="org-left">Εκθετική μα για τον χρόνο μεταξύ κ γεγονότων</td>
+<td class="org-left">\(f_X(x) = \frac{\lambda^{k-1}x^{k-1}}{(k-1)!}\lambda e^{-\lambda x}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Laplace</td>
+<td class="org-left"><i>Αντίγραψε την μα άλλαξε την να μην μας καταλάβουνε</i></td>
+<td class="org-left">\(f_X(x) = \frac{1}{2}\lambda e^{-\lambda\abs{x}}\)</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Κατανομή</th>
+<th scope="col" class="org-left">\(\mu\)</th>
+<th scope="col" class="org-left">\(\sigma^2\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Gaussian</td>
+<td class="org-left">\(\mu\)</td>
+<td class="org-left">\(\sigma^2\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Λογαριθμοκανονική</td>
+<td class="org-left">\(e^{\mu+ \frac{\sigma^2}{2}}\)</td>
+<td class="org-left">\(e^{2\mu+ \sigma^2}(e^{\sigma^2}-1)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Εκθετική</td>
+<td class="org-left">\(\frac{1}{\lambda}\)</td>
+<td class="org-left">\(\frac{1}{\lambda^2}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Erlang</td>
+<td class="org-left">\(\frac{k}{\lambda}\)</td>
+<td class="org-left">\(\frac{k}{\lambda^2}\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org56fa116" class="outline-2">
+<h2 id="org56fa116"><a href="#org56fa116">Διακριτές Κατανομές</a></h2>
+<div class="outline-text-2" id="text-org56fa116">
+</div>
+<div id="outline-container-org4836d45" class="outline-3">
+<h3 id="org4836d45"><a href="#org4836d45">Bernoulli</a></h3>
+<div class="outline-text-3" id="text-org4836d45">
+<p>
+Η κατανομή Bernoulli είναι πολύ απλή στην κατανόηση: έστω ότι έχουμε ένα πείραμα
+με μόνο δύο πιθανά αποτελέσματα (επιτυχία ή αποτυχία), με το αποτέλεσμα του να
+δίνεται από την τιμή της τμ \(X\), 1 ή 0 αντίστοιχα. Αυτού του είδους τα πειράματα
+λέγονται <b>πειράματα Bernoulli</b>, και η \(X\) λέμε πως ακολουθεί κατανομή Bernoulli:
+</p>
+
+<p>
+Έχει ΣΜΠ:
+</p>
+\begin{equation}
+\label{eq:13}
+f_X(x)=
+\begin{cases}
+p & \text{success}\\
+1-p &\text{failure}
+\end{cases} 
+\end{equation}
+
+<p>
+Το οποίο σε μορφή συναρτήσεων συνεχούς χρόνου μπορεί να γραφτεί ως εξής:
+</p>
+\begin{equation*}
+f_X(x)= p\delta(x-1) + (1-p)\delta(x) 
+\end{equation*}
+</div>
+</div>
+
+<div id="outline-container-org0214bae" class="outline-3">
+<h3 id="org0214bae"><a href="#org0214bae">Binomial</a></h3>
+<div class="outline-text-3" id="text-org0214bae">
+<p>
+<i>Χτίζοντας επί της <a href="#org4836d45">Bernoulli</a>:</i> Έστω ότι επαναλαμβάνουμε το πείραμα Bernoulli \(n\)
+φορές. Η τυχαία μεταβλητή που <b>μετρά το πλήθος των επιτυχιών σε \(n\) ανεξάρτητες
+δοκιμές Bernoulli</b> ακολουθεί διωνυμική κατανομή και η ΣΜΠ της δίνεται από την:
+</p>
+
+\begin{equation}
+\label{eq:14}
+f_x(x) = p_x(x) = \binom{n}{x} p^x(1-p)^{n-x}
+\end{equation}
+
+<p>
+Η διωνυμική κατανομή μπορεί να χρησιμοποιηθεί <span class="underline">όταν η σειρά με την οποία ήρθαν
+τα αποτελέσματα έχει σημασία</span>.
+</p>
+
+<p>
+Μπορεί να γραφεί ως pdf με την χρήση \(\delta\) functions, όπως είδαμε και στην Bernoulli.
+</p>
+
+\begin{equation}
+\label{eq:15}
+F_y(y)=\sum_{k=0}^y \binom{n}{k}p^k(1-p)^{n-k}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orgefe080d" class="outline-3">
+<h3 id="orgefe080d"><a href="#orgefe080d">Γεωμετρική κατανομή</a></h3>
+<div class="outline-text-3" id="text-orgefe080d">
+<p>
+Έστω και πάλι πως επαναλαμβάνουμε ένα πείραμα Bernoulli \(X\) φορές: τόσες όσες
+χρειάζεται για να έχουμε την πρώτη επιτυχία. Η τυχαία μεταβλητή \(X\), που
+<b>περιγράφει τον αριθμό των δοκιμών μέχρι την πρώτη επιτυχία</b> ακολουθεί γεωμετρική
+κατανομή με:
+</p>
+\begin{equation}
+\label{eq:2}
+f_X(x) = p(1-p)^{x-1}
+\end{equation}
+
+<p>
+<i>Προκύπτει πολύ εύκολα, όπως και οι περισσότερες διακριτές κατανομές με την λογική</i>
+</p>
+</div>
+</div>
+<div id="outline-container-org37d21de" class="outline-3">
+<h3 id="org37d21de"><a href="#org37d21de">Pascal</a></h3>
+<div class="outline-text-3" id="text-org37d21de">
+<p>
+Όταν μία τμ \(X\) λέμε πως ακολουθεί κατανομή Pascal, ή αλλιώς <b>αρνητική διωνυμική</b>,
+τότε η τιμή της είναι ενδεικτική του πλήθους των δοκιμών που χρειάστηκαν μέχρι
+την $k$-οστή επιτυχία ( ή του πλήθους των αποτυχιών που χρειάστηκαν, με μία
+μικρή μεταβολή στους τύπους )
+</p>
+
+<p>
+Αν και το όνομα είναι αρκετά παραπλανητικό, έχει άμεση σχέση με την γεωμετρική
+κατανομή. Ακόμα ο όρος \(\binom{k-1}{x-1}\) έχει αυτή την μορφή καθώς ξέρουμε ήδη
+πως το τελευταίο στοιχείο θα είναι (η $k$οστή) επιτυχία.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2dcd24d" class="outline-3">
+<h3 id="org2dcd24d"><a href="#org2dcd24d">Υπεργεωμετρική</a></h3>
+<div class="outline-text-3" id="text-org2dcd24d">
+<p>
+Μια πολύ ενδιαφέρουσα κατανομή γιατί αν και συναντάει ευρεία εφαρμογή σε
+πειράματα Bernoulli μπορεί να επεκταθεί και σε συνθετότερα πειράματα (με
+περισσότερα αποτελέσματα).
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org87e74e3"></a><a href="#org87e74e3">Το γενικό concept (εξήγηση για πειράματα Bernoulli)</a><br />
+<div class="outline-text-5" id="text-org87e74e3">
+<p>
+Έστω οτι έχουμε πραγματοποιήσει \(N\) επαναλήψεις ενός πειράματος Bernoulli, στις
+οποίες οι \(k\) ήταν επιτυχίες. <i>Αυτό προφανώς σημαίνει πως οι \((N-k)\) ήταν
+αποτυχίες</i>. Αν ορίσουμε τμ Χ τέτοια ώστε να περιγράφει το πλήθος επιτυχιών σε μία
+τυχαία δειγματοληψία (επιλογή \(n\) <b>τυχαίων</b> στοιχείων εκ των \(Ν\) ), τότε εκείνη
+λέμε οτι ακολουθεί <span class="underline">υπεργεωμετρική</span> κατανομή, και η ΣΜΠ της δίνεται από την:
+</p>
+\begin{equation}
+\label{eq:3}
+f_X(x) = \frac{\binom{N-k}{n-x} \binom{k}{x}}{\binom{N}{n}}
+\end{equation}
+</div>
+</li>
+
+<li><a id="org6194c37"></a><a href="#org6194c37">Επέκταση για \(z\) διαφορετικά αποτελέσματα</a><br />
+<div class="outline-text-5" id="text-org6194c37">
+<p>
+Τώρα αν το πείραμα μας δεν έχει μόνο 2 αλλά \(z\) διαφορετικά αποτελέσματα και
+\(N_i\forall i<z\) ο αριθμός των πειραμάτων που <i>έφεραν</i> το $i$οστό αποτέλεσμα
+έχουμε<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>:
+</p>
+\begin{equation}
+\label{eq:4}
+f(x_1,x_2,x_3,x_4,\cdots) = \frac{\binom{N_1}{x_1} \binom{N_2}{x_2} \binom{N_3}{x_3} \binom{N_4}{x_4} \cdots}{\binom{N}{n}}
+\end{equation}
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7145e5c" class="outline-2">
+<h2 id="org7145e5c"><a href="#org7145e5c">Συνεχείς</a></h2>
+<div class="outline-text-2" id="text-org7145e5c">
+</div>
+<div id="outline-container-orgad61d78" class="outline-3">
+<h3 id="orgad61d78"><a href="#orgad61d78">Gaussian Κανονική</a></h3>
+<div class="outline-text-3" id="text-orgad61d78">
+<ul class="org-ul">
+<li><b>Η μόνη της οποίας το πλήρες μοντέλο προσδιορίζεται από μόνο δύο ροπές.</b> Αν
+ξέρεις μέση τιμή και διασπορά ξέρεις τα πάντα.</li>
+<li>Η γραφική της παράσταση είναι πολύ εύκολη στην αναγνώριση: <i>καμπάνα</i></li>
+<li>Συχνά, μία μεταβλητή ακολουθεί κανονική κατανομή την συμβολίζουμε ως: \(X\sim N(\mu,\sigma^{2})\)</li>
+<li><b>Εξαιρετικά κρίσιμη</b> όπως θα φανεί σε επόμενη διάλεξη γιατί προσεγγίζει <i>όλες</i> τις
+κατανομές.
+<ul class="org-ul">
+<li>Με αυτόν τον τρόπο, για παράδειγμα, σχετίζεται με τον θόρυβο στις τηλεπικοινωνίες.</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-org132dd20" class="outline-4">
+<h4 id="org132dd20"><a href="#org132dd20">Μετασχηματισμός μεταβλητής με κανονική κατανομή</a></h4>
+<div class="outline-text-4" id="text-org132dd20">
+<p>
+Έστω ότι έχουμε τμ \(X\) που ακολουθεί κανονική κατανομή:
+</p>
+\begin{equation}
+\label{eq:5}
+X\sim N(\mu,\sigma^2)\\
+\end{equation}
+
+<p>
+τότε:
+</p>
+\begin{equation}
+\label{eq:16}
+Y = aX +b \Rightarrow Y \sim N(\alpha\mu +b, \alpha\sigma)
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org18a86bf" class="outline-4">
+<h4 id="org18a86bf"><a href="#org18a86bf">Κανονικοποίηση</a></h4>
+<div class="outline-text-4" id="text-org18a86bf">
+<ul class="org-ul">
+<li>Αν δεν έχεις διαβάσει προηγουμένως μια μαθηματική ανάλυση (έστω την επόμενη
+παράγραφο) ίσως το αντικείμενο αυτής δεν είναι τόσο ξεκάθαρο.</li>
+<li>Η ΑΣΚ της κανονικής κατανομής έχει την μορφή:</li>
+</ul>
+
+\begin{equation}
+\label{eq:6}
+F_X(x) = \int_{-\infty}^xf_x(r)dr = \cdots =
+\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\frac{x-\mu}{\sigma}}e^{- \frac{u^2}{2}}du = \Phi(\frac{x-\mu}{\sigma})
+\end{equation}
+
+<ul class="org-ul">
+<li>Το ολοκλήρωμα είναι μόνο αριθμητικά υπολογίσιμο, αναγκάζοντας μας να στραφούμε
+σε πίνακες για τον υπολογισμό του.</li>
+<li>Την ίδια στιγμή, παρατηρώντας την παραπάνω σχέση προκύπτει πως η ΑΣΚ μιας
+οποιασδήποτε τμ \(X\sim N(\mu,\sigma^2)\) ανάγεται στην ΑΣΚ της \(N(0,1)\)</li>
+<li>Οπότε μπορούμε να πούμε ότι <i>κανονικοποιούμε</i> την κανονική  κατανομή υιοθετώντας
+την σχέση \(z = \frac{x-\mu}{\sigma}\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8e80d70" class="outline-4">
+<h4 id="org8e80d70"><a href="#org8e80d70">Σχέση με \(\Phi\)</a></h4>
+<div class="outline-text-4" id="text-org8e80d70">
+<p>
+Ορίζουμε συνάρτηση
+</p>
+\begin{equation}
+\label{eq:7}
+\Phi(x) =\frac{1}{\sqrt{2\pi}} \int_{-\infty}^x e^{- \frac{u^2}{2}}du 
+\end{equation}
+<p>
+όπως άλλωστε είδαμε και στην προηγούμενη παράγραφο. Έχουμε έτσι:
+</p>
+\begin{equation}
+\label{eq:8}
+F_X(x) = \Phi(
+\frac{x-\mu}{\sigma^{2}})
+\end{equation}
+
+<p>
+Ισχύει η ιδιότητα:
+</p>
+\begin{equation}
+\label{eq:9}
+\Phi(-x) = 1 - \Phi(x)
+\end{equation}
+
+
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Προς ανάπτυξη: Ροπογεννήτρια συνάρτηση και \(\Phi\) όπως την είδαμε εδώ.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org077031a" class="outline-4">
+<h4 id="org077031a"><a href="#org077031a">Σχέση με Gaussian \(Q\)</a></h4>
+<div class="outline-text-4" id="text-org077031a">
+<p>
+Ορίζουμε συνάρτηση:
+</p>
+\begin{equation}
+\label{eq:10}
+Q(x) = 1 - \Phi(x)
+\end{equation}
+
+<p>
+της οποίας η εφαρμογή στα τηλεπικοινωνιακά συστήματα υπογραμμίζεται στο βιβλίο
+των Καραγιαννίδη, Χατζηδιαμαντή. Δεν αναλύθηκε ιδιαίτερα στην διάλεξη, πέραν από
+την σύνδεσή της με την συνάρτηση λάθους
+</p>
+
+\begin{equation}
+\label{eq:11}
+erfc = \text{complimentary }erf(x) = 1 - erf(x) = 2Q(\sqrt{2}x)
+\end{equation}
+
+<p>
+Ακόμα, μέσω αυτής ορίζονται ουσιαστικά τα <a href="lec_SSD_20221017.html#org6941b81">Όρια Chernoff - Rubin</a>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga8ff2bf" class="outline-3">
+<h3 id="orga8ff2bf"><a href="#orga8ff2bf">Εκθετική κατανομή</a></h3>
+<div class="outline-text-3" id="text-orga8ff2bf">
+<ul class="org-ul">
+<li>Πολύ σημαντικές ιδιότητες:</li>
+</ul>
+
+\begin{align}
+\label{eq:1}
+Pr\{X>a+b\} &= Pr\{X>a\}Pr\{X>b\}\\
+Pr\{X>a+b|X>a\} &= Pr\{X>b\}
+\end{align}
+<ul class="org-ul">
+<li>η δεύτερη ιδιότητα λέγεται memoryless property</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb58b898" class="outline-3">
+<h3 id="orgb58b898"><a href="#orgb58b898">Erlang</a></h3>
+<div class="outline-text-3" id="text-orgb58b898">
+<ul class="org-ul">
+<li>Όπως γράφει και παραπάνω, χρήσιμη όταν μας ενδιαφέρει ο χρόνος μεταξύ \(k\)
+διαδοχικών γεγονότων και όχι μόνο δύο, στην οποία περίπτωση και χρησιμοποιούμε
+την εκθετική κατανομή.</li>
+<li>Αναφέρθηκε το παράδειγμα της ουράς σουπερμαρκετ, αυξανόμενου αριθμού πελατών.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd0fe1ae" class="outline-3">
+<h3 id="orgd0fe1ae"><a href="#orgd0fe1ae">Ακόμα</a></h3>
+<div class="outline-text-3" id="text-orgd0fe1ae">
+<p>
+Αναφερθήκαμε συνοπτικά σε
+</p>
+<ul class="org-ul">
+<li>Rayleigh</li>
+<li>Weibull</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Τώρα να ρωτήσει κανείς <b>γιατί δεν λέγεται η Πασκάλ υπεργεωμετρική και
+λέγεται αρνητική διωνυμική?</b>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Ακόμα, εξ&rsquo; ορισμού ισχύει: \(\sum_{i=1}^z N_i = N\)
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-19 Wed 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

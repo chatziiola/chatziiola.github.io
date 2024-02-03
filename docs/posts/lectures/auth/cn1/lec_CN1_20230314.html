@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη (1): Υλική εξέλιξη των δικτύων.</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη (1): Υλική εξέλιξη των δικτύων.</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb7a24bf">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></li>
+<li><a href="#org32263ca">POTS</a></li>
+<li><a href="#org32c644a">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></li>
+<li><a href="#orgc90af07">Λειτουργία χειριστηρίων TP</a>
+<ul>
+<li><a href="#orgba56e2a">Περιστροφικός</a></li>
+<li><a href="#orgf0594c5">Πίνακας αριθμών</a></li>
+</ul>
+</li>
+<li><a href="#org319fb68">Εκπομπή σε μεγάλες αποστάσεις</a>
+<ul>
+<li><a href="#org9d24e4e">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></li>
+<li><a href="#orgdb1e8cc">FDM</a></li>
+<li><a href="#orgc890098">TDM και οπτικές ίνες</a></li>
+</ul>
+</li>
+<li><a href="#orgc798e81">Analog to Digital in voice:</a></li>
+<li><a href="#orgab9c3bb">Κλείνοντας</a></li>
+</ul>
+</div>
+</div>
+<div class="note" id="orgb93c1a7">
+<p>
+Δεν είναι ιδιαίτερα ποιοτικές σημειώσεις, τόσο λόγω της αδυναμίας μου να
+συγκεντρώσω κατάλληλα το αντικείμενο όπως αυτό διδάσκεται, όσο και λόγω της
+έλλειψης χρόνου για <i>άμεση</i> επανάληψη του αντικειμένου με αποτέλεσμα να μην
+θυμάμαι αρκετά καλά ορισμένες <i>εγκυκλοπαιδικές</i> αναφορές.
+</p>
+
+</div>
+
+<div id="outline-container-orgb7a24bf" class="outline-2">
+<h2 id="orgb7a24bf"><a href="#orgb7a24bf">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></h2>
+<div class="outline-text-2" id="text-orgb7a24bf">
+
+<div id="org5395c48" class="figure">
+<p><img src="course_cn1_images/230327_2341_intro.png" alt="230327_2341_intro.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Κάνοντας εικόνα τις διαφορετικές απαιτήσεις καλωδίων</p>
+</div>
+
+<p>
+Με το κόστος του δικτύου, το βασικό ζητούμενο είναι η ισορροπία μεταξύ κόστους
+και QoS (όχι με τον αυστηρά τεχνικό όρο). Όσο μεγαλύτερο είναι το πλήθος των
+γραμμών (\(M\)) τόσο μεγαλύτερο είναι και το κόστος του δικτύου, με αποτέλεσμα να
+θέλουμε, για δεδομένο αριθμό συνδεδεμένων συσκευών (\(N\)) να έχουμε ένα όσο το
+δυνατόν μικρότερο πλήθος καλωδιών, χωρίς όμως αυτό να επηρεάζει τους χρήστες.
+</p>
+
+<p>
+Αυτό γίνεται ουσιαστικά στο τρίτο <i>στάδιο</i> που φαίνεται στην εισαγωγική εικόνα.
+</p>
+
+<p>
+Εγινε ακόμα γενική αναφορά σε LANs, WANs, και την μεταξύ τους σύνδεση.
+</p>
+
+<div id="orga235334" class="figure">
+<p><img src="course_cn1_images/230327_2350_lan-wan.png" alt="230327_2350_lan-wan.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Προς έλλειψη καλύτερου σχήματος, ένα συνοπτικό σχήμα.</p>
+</div>
+
+<p>
+Συνοπτικά, καθώς αυτές είναι πιο <i>απτές</i> έννοιες από πολλές άλλες που
+πραγματεύονται αυτές οι διαλέξεις, για τους όρους LAN (Local Area Network) και
+WAN(Wide Area Network) οι ορισμοί είναι δύσκολο να δοθούν ντετερμινιστικά, και
+αυτό γιατί υπάρχουν <b>πολλοί</b> τύποι δικτύων οι οποίοι <i>μπορεί</i> να υπάρξουν μεταξύ των
+δύο (για παράδειγμα CAN(Campus AN), MAN(Metropolitan AN) &#x2026;).
+</p>
+
+<p>
+Παρόλα αυτά, κάνω μία προσπάθεια εδώ διαχώρισης σε κάποιο επίπεδο των εννοιών:
+Το LAN, είναι κατα κύριο λόγο ένα δίκτυο το οποίο έχει περιορισμένο γεογραφικά
+χαρακτήρα (όροφος κτηρίου, διαμέρισμα, εγκαταστάσεις μικρού καφέ) και κατα
+κανόνα προσφέρει δύο τρόπους σύνδεσης των συσκευών: ασύρματα μέσω διαφόρων
+Access Points, είτε ενσύρματα με τα γνωστά λίγο πολύ σε όλους καλώδια Ethernet.
+</p>
+
+<p>
+Αντίθετα το WAN, δίκτυο στο οποίο δεν συνδέονται οι τελικές συσκευές των χρηστών
+αλλά ευρύτερη <i>ένωση</i> μικρότερων δικτύων (LANs, CANs, MANs &#x2026;), έχει μεγάλη
+γεωγραφική έκταση και <i>υποστηρίζει</i> μεγάλο πλήθος διαφορετικών προτοκόλλων (στα
+χαμηλότερα επίπεδα του δικτύου)και καλωδιώσεων.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org32263ca" class="outline-2">
+<h2 id="org32263ca"><a href="#org32263ca">POTS</a></h2>
+<div class="outline-text-2" id="text-org32263ca">
+<ul class="org-ul">
+<li>Circuit Switching (Μεταγωγή κυκλώματος)</li>
+<li>Δίκτυα υπολογιστών επί <b>POTS</b> <i>(Plain Old Telephone Service)</i></li>
+<li>Κλήση με Dialing
+<ul class="org-ul">
+<li>Ορολογία συμμετέχοντων συσκευών: <i>Receiver, Transceiver</i></li>
+</ul></li>
+<li><p>
+Έγινε γενική αναφορά στην (από πίσω) υποδομή:
+</p>
+<ul class="org-ul">
+<li>στους <i>τοπικούς</i> κατανεμητές (τηλεφωνικά <i>KW</i>)</li>
+<li>και τον κεντρικό κατανεμητή (στις εγκαταστάσεις του παρόχου (OTE)),</li>
+</ul>
+<p>
+Καταλήγοντας εκεί από το σπίτι μας σε μορφή συνεχούς ηλεκτρικής σύνδεσης.
+</p></li>
+
+<li>Μπαταρίες για την διαμόρφωση του κυκλώματος.</li>
+</ul>
+
+<div class="note" id="org1c46da8">
+<p>
+Κατα Μητράκο η εξέταση τέτοιων συστημάτων επεξηγεί τις επιδόσεις στα σύγχρονα συστήματα
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org32c644a" class="outline-2">
+<h2 id="org32c644a"><a href="#org32c644a">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></h2>
+<div class="outline-text-2" id="text-org32c644a">
+
+<div id="orga149359" class="figure">
+<p><img src="course_cn1_images/230327_2232_aplo-pots-kykloma.png" alt="230327_2232_aplo-pots-kykloma.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Απλουστευμένο simplex τηλεφωνικό κύκλωμα</p>
+</div>
+
+<ul class="org-ul">
+<li>Simplex λειτουργία: Μόνο ένας μπορεί να μιλήσει και ο άλλος μπορεί μόνο να ακούσει
+<ul class="org-ul">
+<li><i>Πρόγονος</i> της half, full duplex:
+<ul class="org-ul">
+<li><b>half duplex</b>: Μόνο ένας μπορεί να εκπέμπει επί του μέσου κάθε χρονική
+στιγμή. (Με όρους υπολογιστών, μόνο upload ή μόνο download, ποτέ ταυτόχρονα)</li>
+<li><b>full duplex</b>: Και οι δύο <i>συμμετέχοντες</i> μπορούν τόσο να εκπέμπουν όσο και να
+λαμβάνουν κάθε χρονική στιγμή</li>
+</ul></li>
+</ul></li>
+<li>Σε αυτό το απλουστευμένο <i>κυκλωμα</i> φαίνεται ακόμα και γιατί πλέον (VoIP) τα
+τηλέφωνα δεν λειτουργούν κατα την διάρκεια διακοπής ρεύματος. Ενώ στο
+εικονιζόμενο σύστημα τα τηλέφωνα τροφοδοτούνται απο ανεξάρτητο σύστημα
+μπαταριών που βρίσκεται στα κεντρικά του παρόχου, πλέον τα τηλέφωνα
+τροφοδοτούνται τοπικά, με αποτέλεσμα η διακοπή ρεύματος να επηρεάζει την
+λειτουργία τους.</li>
+</ul>
+
+<div class="note" id="org20da9c1">
+<p>
+Δεν είχα κρατήσει κατάλληλες σημειώσεις ως προς το ίδιο το βελτιωμένο κύκλωμα
+την ώρα της διάλεξης και δεν μπόρεσα να βρω πουθενά το <i>σχεδιάγραμμα</i>. Αν το έχει
+κανείς ας το περιγράψει στα σχόλια, ή να το ανεβάσει σαν PR&#x2026;
+</p>
+
+</div>
+
+<p>
+Αναλύοντας λίγο παραπάνω το κύκλωμα της προηγούμενης εικόνας, και με την χρήση
+μετασχηματιστών, μπορούμε να φτιάξουμε το <i>αντίστοιχο</i> full duplex τηλεφωνικό
+κύκλωμα.
+</p>
+
+<p>
+Το πρόβλημα σε αυτήν την υλοποίηση είναι οτι έχει echo, καθώς όπως φαίνεται σε
+αυτό το <i>μέρος</i> του κυκλώματος το μικρόφωνο βρίσκεται άμεσα συνδεδεμένο με το μεγάφωνο.
+</p>
+
+
+<div id="orga036abb" class="figure">
+<p><img src="course_cn1_images/230327_2249_echo-and-echo-cancelling.png" alt="230327_2249_echo-and-echo-cancelling.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Μέρος του full duplex κυκλώματος που ουσιαστικά αποτελεί την τοπική τηλεφωνική συσκευή, και (δεξιά) αναλογική λύση για echo canceling με ενισχυτή και αφαιρέτη.</p>
+</div>
+
+<p>
+Το echo canceling παλαιότερα γινόταν με hardware, αλλά πλέον εξ ολοκλήρου
+ψηφιακά. Ήταν (και είναι) απαραίτητο και για γραμμές δεδομένων επί του
+τηλεφωνικού δικτύου.
+</p>
+
+<p>
+Η εξεταζόμενη κατα την διάλεξη διάταξη ήταν της μορφής ADSL (Asymmetric Digital
+Subscriber Line)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc90af07" class="outline-2">
+<h2 id="orgc90af07"><a href="#orgc90af07">Λειτουργία χειριστηρίων TP</a></h2>
+<div class="outline-text-2" id="text-orgc90af07">
+<div class="note" id="org52ef69b">
+<p>
+Για μεταβατική περίοδο, τηλέφωνα που εξυπηρετούν και τις δύο ουσιαστικά
+τεχνολογίες (διακοπτάκι TP απο κάτω (TONE, PUNCH))
+</p>
+
+</div>
+
+
+
+<div id="orge0657de" class="figure">
+<p><img src="course_cn1_images/230327_2256_tone-punch-models.png" alt="230327_2256_tone-punch-models.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Αριστουργηματική αναπαράσταση tone(αριστερά) και punch(δεξιά) τύπου τηλεφωνικής συσκευής.</p>
+</div>
+</div>
+
+<div id="outline-container-orgba56e2a" class="outline-3">
+<h3 id="orgba56e2a"><a href="#orgba56e2a">Περιστροφικός</a></h3>
+<div class="outline-text-3" id="text-orgba56e2a">
+<ul class="org-ul">
+<li>Λειτουργία του <i>περιστροφικού επιλογέα αριθμών (καντραν)</i></li>
+<li>Επιτυγχανόταν λόγω της σταθερής κυκλικής συχνότητας κατά την επιστροφή,
+παράγοντας παλμούς DC και επιτελώντας την λειτουργία signaling
+<ul class="org-ul">
+<li>αριθμός +2 παλμούς ανα αριθμό</li>
+<li>αν χανόταν παλμός, λόγω του τύπου λειτουργίας θα καλούσαμε λάθος νούμερο.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf0594c5" class="outline-3">
+<h3 id="orgf0594c5"><a href="#orgf0594c5">Πίνακας αριθμών</a></h3>
+<div class="outline-text-3" id="text-orgf0594c5">
+<ul class="org-ul">
+<li>Εξέλιξη: number matrix αντί για περιστροφικού δίσκου (αυτό λέγεται και πινακας
+αριθμών).</li>
+<li>Είναι αδιάφορο το κυκλωματικό μέρος - προκαλούν την λειτουργία τοπικών
+ταλαντωτών&#x2026; περιορισμός στα 4kHz.</li>
+<li>Συχνότητες εντός του τηλεφωνικού φάσματος μεταφέρονται με το πάτημα κουμπιού,
+και αναγνωρίζονται στο σημείο εισόδου του παρόχου (filter bank),
+αναγνωρίζοντας τον αριθμό.
+<ul class="org-ul">
+<li>Σύνολο BPF Filters. Με αυτό το σύστημα αναγνωρίζεται η έξοδος απο δύο
+φίλτρα, δείχνοντας το κατάλληλο νούμερο. Η τεχνολογία ονομάζεται DTMF (Dual
+Tone Multiple Frequency)</li>
+<li>Ενδιαφέρουσα εφαρμογή αυτού συναντάται στα αυτοματοποιημένα τηλεφωνικά
+κέντρα &ldquo;πατήστε 1&rdquo; &#x2026;</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org319fb68" class="outline-2">
+<h2 id="org319fb68"><a href="#org319fb68">Εκπομπή σε μεγάλες αποστάσεις</a></h2>
+<div class="outline-text-2" id="text-org319fb68">
+</div>
+<div id="outline-container-org9d24e4e" class="outline-3">
+<h3 id="org9d24e4e"><a href="#org9d24e4e">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></h3>
+<div class="outline-text-3" id="text-org9d24e4e">
+<p>
+Παλαιά διαρρύθμιση του ΟΤΕ κατ&rsquo; αυτόν τον τρόπο. Ουσιαστικά είχαμε πολύ <i>χαμηλή</i>
+εκμετάλλευση των υποδομών.
+</p>
+
+
+<div id="org1c7158b" class="figure">
+<p><img src="course_cn1_images/230327_2303_metafora-me-kalodia-enaeria.png" alt="230327_2303_metafora-me-kalodia-enaeria.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Ναι σαν κολώνες ΔΕΗ, φαίνεται ξεκάθαρα</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdb1e8cc" class="outline-3">
+<h3 id="orgdb1e8cc"><a href="#orgdb1e8cc">FDM</a></h3>
+<div class="outline-text-3" id="text-orgdb1e8cc">
+<div class="note" id="orgc890f28">
+<p>
+Προβληματική για το διαδίκτυο σύμβαση που ίσχυσε στα δίκτυα φωνής, ο
+περιορισμός του καναλιού με LPF στα 4KHz
+</p>
+
+</div>
+
+
+<div id="org77b6919" class="figure">
+<p><img src="course_cn1_images/230327_2306_fdm-kai-rf-athroistes.png" alt="230327_2306_fdm-kai-rf-athroistes.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Άχρηστο γράφημα να δείξει ότι με την κατάλληλη διαμόρφωση και άθροιση των <b>πολλών</b> καναλιών εισόδου, μπορούν ουσιαστικά να ομαδοποιηθούν και να σταλούν ταυτόχρονα μεγάλα πλήθη τηλεφωνικών καναλιών.</p>
+</div>
+
+<p>
+Αντικατάσταση με FDM συστήματα:
+</p>
+<ul class="org-ul">
+<li>LPF @4KHz</li>
+<li>Πολλαπλασιασμός με διάφορα φέροντα</li>
+<li>άθροισμα των επιμέρους <i>διαμορφωμένων-μετατοπισμένων</i> σημάτων, και περαιτέρω
+μετατόπιση με φίλτρο RF, ούτως ώστε αυτή εν συνεχεία να μπορεί να υπάρξει
+εκπομπή</li>
+<li>Εκπομπή από κεραία μεγάλης ορατότητας.</li>
+</ul>
+
+
+<p>
+Αυτή η τεχνολογία μετάδοσης, αν και δεν κράτησε πολύ και γρήγορα αντικαταστάθηκε από το
+ομοαξονικό καλώδιο είχε πολύ άμεσα αποτελέσματα, επιτρέποντας σε συνδρομήτες
+(για παράδειγμα) να φτάσουν από την Θεσσαλονίκη Αθήνα μόνο με μερικά hops μεταξύ
+κεραιών
+</p>
+
+
+<div id="orgb70b4df" class="figure">
+<p><img src="course_cn1_images/Coaxial_cable_cutaway.svg.png" alt="Coaxial_cable_cutaway.svg.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Ομοαξονικό χάλκινο καλώδιο. Πηγή:<a href="https://en.m.wikipedia.org/wiki/">https://en.m.wikipedia.org/wiki/</a></p>
+</div>
+
+<p>
+Αντί να συνδέεται πλέον σε πιάτο (κεραία) για να σταλεί ασύρματα
+</p>
+<ul class="org-ul">
+<li>coaxial cable</li>
+<li>2 σύρματη γραμμη,</li>
+<li>Άνετα περνάει 1GHz σε 100 χιλιόμετρα.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc890098" class="outline-3">
+<h3 id="orgc890098"><a href="#orgc890098">TDM και οπτικές ίνες</a></h3>
+<div class="outline-text-3" id="text-orgc890098">
+<p>
+Μετάβαση από FDM σε TDM:
+</p>
+<ul class="org-ul">
+<li>Προστέθηκε: DFDM, DTDM, ενώ τονίστηκε πως εμείς θα μπλέξουμε με SFDM STDM
+<ul class="org-ul">
+<li>Deterministic</li>
+<li>Statistical</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc798e81" class="outline-2">
+<h2 id="orgc798e81"><a href="#orgc798e81">Analog to Digital in voice:</a></h2>
+<div class="outline-text-2" id="text-orgc798e81">
+<p>
+Από αναλογικά κανάλια των 4KHz, να περάσουμε σε ψηφιοποίηση της πληροφορίας
+για μετάδοση μέσω ηλεκτρονικών/ψηφιακών συστημάτων:
+</p>
+
+<p>
+Ο Nyquist λέει ότι με τέτοια συχνότητα αναλογικού σήματος η συχνότητα
+δειγματοληψίας θα πρέπει να είναι 2x4ksamples/sec, έτσι με κβάντιση της τάξης
+των 8bits/sample, έχουμε ένα κατώτατο όριο μετάδοσης της τάξης των 64Kbps
+</p>
+<ul class="org-ul">
+<li>PCM voice channel</li>
+
+<li>Κανάλια επί ομοαξονικού καλωδίου, ανάγκη TDM σε αυτή την περίπτωση, έγινε απλή
+σχηματική αναπαράσταση.</li>
+<li>Διαμόρφωση του σήματος σε υποδιαιρέσεις του παλμού PCM</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgab9c3bb" class="outline-2">
+<h2 id="orgab9c3bb"><a href="#orgab9c3bb">Κλείνοντας</a></h2>
+<div class="outline-text-2" id="text-orgab9c3bb">
+<p>
+Και φτάσαμε μέχρι την οπτική ίνα, με μία απλή επεξήγηση της <i>φύσης</i> της.
+</p>
+<ul class="org-ul">
+<li>Grading - κυματοδήγηση κτλ κτλ</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-03-14 Tue 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

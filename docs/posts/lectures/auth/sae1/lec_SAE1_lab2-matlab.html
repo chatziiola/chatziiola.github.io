@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>2ο Εργαστήριο</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">2ο Εργαστήριο</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org9811309">Προδιαγραφές.</a>
+<ul>
+<li><a href="#orgd5e5bb3">Προδιαγραφή του \(v_a\)</a></li>
+</ul>
+</li>
+<li><a href="#org46699e5">Συνάρτηση μεταφοράς κλειστού βρόχου</a></li>
+<li><a href="#org2ecbdc3">Σφάλμα Θέσης</a></li>
+<li><a href="#orgd58825c">Μελέτη με \(k=1.5\)</a></li>
+<li><a href="#org7656d17">Closed Loop TF για το \(T\)</a></li>
+<li><a href="#org93804f5">Ανάλυση των ΣΜΚΒ</a></li>
+<li><a href="#orgaba1c3d">Στροφές κινητήρα</a></li>
+<li><a href="#org2cb1679">Υπολογισμός DC Gains</a></li>
+<li><a href="#org26345fd">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></li>
+<li><a href="#org4239413">Στροφές σε steady state</a></li>
+<li><a href="#org6d636f4">Ανάλυση σε matlab</a></li>
+<li><a href="#org5911ff2">Σύγκριση προδιαγραφών OL, CL</a></li>
+<li><a href="#orgbf97c21">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></li>
+<li><a href="#org766a304">Bode HV</a></li>
+<li><a href="#org6e49cb8">Bode HT</a></li>
+</ul>
+</div>
+</div>
+<p>
+Σύστημα κλειστού βρόχου ίδιου τύπου με την προηγούμενη φορά μόνο που έχει
+προστεθεί μοναδιαία αρνητική ανάδραση
+</p>
+
+\begin{equation}
+\label{eq:1}
+HT(s) = \frac{2.92(s+440)}{s+12.064}
+\end{equation}
+
+\begin{equation}
+\label{eq:2}
+HV(s) = \frac{18.69}{s+12.064}
+\end{equation}
+
+
+<div id="outline-container-org9811309" class="outline-2">
+<h2 id="org9811309"><a href="#org9811309">Προδιαγραφές.</a></h2>
+<div class="outline-text-2" id="text-org9811309">
+<p>
+Ώστε να προσδιορίσουμε κατάλληλα τον ελεγκτή k
+</p>
+
+<ol class="org-ol">
+<li>Μηδενική υπερύψψση για τις στροφές \(\omega(t),\Omega(s)\)</li>
+</ol>
+<p>
+2 Σφάλμα μόνιμης κατάστασης θέσης μηδενικό για το ΣΚΒ:. 
+</p>
+\begin{equation}
+\label{eq:3}
+e_{ss} = 0, \omega_{\delta,ss} = V
+\end{equation}
+<ol class="org-ol">
+<li>Χρόνος ανόδου \(t_a \leq 160ms\)</li>
+<li>Τάση διέγερσης \(v_a(t) \leq 350V\)</li>
+<li>\(V=150V\)</li>
+<li>\(\omega_{\delta,max} = 200rad/sec\)</li>
+</ol>
+</div>
+
+<div id="outline-container-orgd5e5bb3" class="outline-3">
+<h3 id="orgd5e5bb3"><a href="#orgd5e5bb3">Προδιαγραφή του \(v_a\)</a></h3>
+<div class="outline-text-3" id="text-orgd5e5bb3">
+<p>
+Πρέπει ανεξαρτήτως εισόδου \(v_a \leq 350V\)
+</p>
+
+\begin{equation}
+\label{eq:4}
+v_a = (v-\omega)*k = e_{max}*k \Rightarrow \cdots k\leq 1.75
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org46699e5" class="outline-2">
+<h2 id="org46699e5"><a href="#org46699e5">Συνάρτηση μεταφοράς κλειστού βρόχου</a></h2>
+<div class="outline-text-2" id="text-org46699e5">
+<p>
+Από την αρχή της επαλληλίας, παίρνοντας $T<sub>L</sub> = 0$$
+</p>
+
+\begin{equation}
+\HV_k(s) = \frac{18.69k}{s + (12.064 + 18.69k)}
+\end{equation} 
+
+<p>
+Οπότε παρατηρούμε πως ο πόλος του closed loop μετακινείται προς τα αριστερα. Δεν
+ μένει δηλαδή στο -12. Είναι καλό αυτό (γιατί?). Βέβαια δεν μπορεί να πάει πολύ
+ πιο αριστερά λόγω των προδιαγραφών.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2ecbdc3" class="outline-2">
+<h2 id="org2ecbdc3"><a href="#org2ecbdc3">Σφάλμα Θέσης</a></h2>
+<div class="outline-text-2" id="text-org2ecbdc3">
+<p>
+Από την θεωρία γνωρίζουμε πως:
+</p>
+
+\begin{equation}
+\e_{ssp} = \frac{1}{1+k_p} = \frac{12.064}{12.064+128.69k} \neq 0
+\end{equation}
+
+<p>
+Επομένως, όσο αυξάνει το κέρδος μειώνεται το σφάλμα στην μόνιμη
+κατάσταση.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgd58825c" class="outline-2">
+<h2 id="orgd58825c"><a href="#orgd58825c">Μελέτη με \(k=1.5\)</a></h2>
+<div class="outline-text-2" id="text-orgd58825c">
+<p>
+Γιατί όμως πήραμε 1.5 και όχι 1.75?
+</p>
+
+<div class="org-src-container">
+<pre class="src src-matlab">k = 1.5;
+nHVK = [18.69*k];
+dHVK = [1 12.064+18.69*k];
+
+HVk = tf(nHVK,dHVK)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7656d17" class="outline-2">
+<h2 id="org7656d17"><a href="#org7656d17">Closed Loop TF για το \(T\)</a></h2>
+<div class="outline-text-2" id="text-org7656d17">
+<p>
+Οι πράξεις εδώ δεν έγιναν θεωρήθηκε δεδομένο
+</p>
+
+<div class="org-src-container">
+<pre class="src src-matlab">nHTK = -1*[2.92 2.92*440];
+dHTK = [1 40.1];
+
+HTk = tf(nHTK,dHTK)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org93804f5" class="outline-2">
+<h2 id="org93804f5"><a href="#org93804f5">Ανάλυση των ΣΜΚΒ</a></h2>
+<div class="outline-text-2" id="text-org93804f5">
+<p>
+Ο πόλος μας πήγε στο -40, ενώ έχουμε ακόμα ένα μηδενικό&#x2026;
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgaba1c3d" class="outline-2">
+<h2 id="orgaba1c3d"><a href="#orgaba1c3d">Στροφές κινητήρα</a></h2>
+<div class="outline-text-2" id="text-orgaba1c3d">
+<p>
+Απολύτως αναμενόμενα βάση της θεωρίας:
+</p>
+
+\begin{equation}
+\Omega(s) = HV_k(s)V(s) + HT_k(s)T_L(s)
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org2cb1679" class="outline-2">
+<h2 id="org2cb1679"><a href="#org2cb1679">Υπολογισμός DC Gains</a></h2>
+<div class="outline-text-2" id="text-org2cb1679">
+<p>
+Θυμίσου από θεωρία dcgain = Tf(0)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-matlab">HVk0 = dcgain(HVk)
+HTk0 = dcgain(HTk)
+essp = 12.064/( 12.064+18.69*k )
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org26345fd" class="outline-2">
+<h2 id="org26345fd"><a href="#org26345fd">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></h2>
+<div class="outline-text-2" id="text-org26345fd">
+<p>
+Παρατηρούμε πως τα dcgain έχουν και στις0δύο περιπτώσεις μεωθεί,
+οδηγώντας σε μια μεγαλύτερη μείωση του σφάλματος με είσοδο μοναδιαία
+βηματική συνάρτηση.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4239413" class="outline-2">
+<h2 id="org4239413"><a href="#org4239413">Στροφές σε steady state</a></h2>
+<div class="outline-text-2" id="text-org4239413">
+<p>
+Από FVT:
+</p>
+
+\begin{equation}
+\omega_{\delta,ss} = \lim_{s\to0}s*\Omega(s) = \cdots
+\end{equation}
+
+<p>
+Στην διαφάνεια 6 φανερώνεται η σύγκριση για ανοιχτό και κλειστό βρόχο.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6d636f4" class="outline-2">
+<h2 id="org6d636f4"><a href="#org6d636f4">Ανάλυση σε matlab</a></h2>
+<div class="outline-text-2" id="text-org6d636f4">
+<div class="org-src-container">
+<pre class="src src-matlab">figure(3)
+step(150*HV)
+hold on
+step(150*HVk)
+</pre>
+</div>
+
+<div id="org88eb0bb" class="figure">
+<p><img src="course_sae1_images/lab2_01.png" alt="lab2_01.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5911ff2" class="outline-2">
+<h2 id="org5911ff2"><a href="#org5911ff2">Σύγκριση προδιαγραφών OL, CL</a></h2>
+<div class="outline-text-2" id="text-org5911ff2">
+<ul class="org-ul">
+<li>Rise time -&gt; πτώση από τα 180+ στα 54, υπερκαλύπτοντας τις προδιαγραφες</li>
+<li>Settle Time -&gt; από 324+ στα 97</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgbf97c21" class="outline-2">
+<h2 id="orgbf97c21"><a href="#orgbf97c21">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></h2>
+<div class="outline-text-2" id="text-orgbf97c21">
+<p>
+Το γράφω μόνο για ορολογία
+Δειγματοληψία του χρόνου απο 0 εως 30 με 10ms sampling time
+</p>
+
+<div class="org-src-container">
+<pre class="src src-matlab">figure(4);
+t = 0 : 0.01 : 30;
+uV = 150 * stepfun(t,0);
+yV = lsim(HVk, uV, t);
+
+uT = 0.5 * stepfun(t,0) + 0.5 * stepfun(t, 8) + -0.5 * stepfun(t, 22);
+yT = lsim(HTk, uT, t);
+
+y = yV + yT;
+plot(t, y, t, 20*uT)
+</pre>
+</div>
+
+<div id="orgd9183ad" class="figure">
+<p><img src="course_sae1_images/lab2_03.png" alt="lab2_03.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org766a304" class="outline-2">
+<h2 id="org766a304"><a href="#org766a304">Bode HV</a></h2>
+<div class="outline-text-2" id="text-org766a304">
+<div class="org-src-container">
+<pre class="src src-matlab">figure(5)
+bode(HV)
+hold on;
+bode(HVk)
+</pre>
+</div>
+
+
+<div id="orga548c72" class="figure">
+<p><img src="course_sae1_images/lab2_04.png" alt="lab2_04.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org6e49cb8" class="outline-2">
+<h2 id="org6e49cb8"><a href="#org6e49cb8">Bode HT</a></h2>
+<div class="outline-text-2" id="text-org6e49cb8">
+<div class="org-src-container">
+<pre class="src src-matlab">figure(6)
+bode(HT)
+hold on;
+bode(HTk)
+</pre>
+</div>
+
+
+<div id="orgc3d5f5b" class="figure">
+<p><img src="course_sae1_images/lab2_05.png" alt="lab2_05.png" />
+</p>
+</div>
+
+
+<div id="org0c764a5" class="figure">
+<p><img src="course_sae1_images/lab2_01.png" alt="lab2_01.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-11-24 Thu 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη: Σήματα και διανύσματα (?)</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη: Σήματα και διανύσματα (?)</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgedb6d51">Επανάληψη επί της αλγεβρικής θεωρίας</a></li>
+<li><a href="#orge8d4f0b">Σήματα και διανύσματα - μια αναλογία (και γενικότερη επανάλψη στα σήματα.)</a></li>
+<li><a href="#orgcf32e98">Αστερισμοί - Constellations</a>
+<ul>
+<li><a href="#org7e7beba">Απόσταση, Ενέργεια και Πιθανότητα Σφάλματος.</a></li>
+<li><a href="#org9d6ca52">Παραδείγματα αστερισμών:</a>
+<ul>
+<li><a href="#orga6b9cf2">APSK:</a></li>
+<li><a href="#org6eb6d30">QAM</a></li>
+<li><a href="#org72951a4">HQAM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<ul class="org-ul">
+<li>Αναπαράσταση σημάτων ως διανυσμάτων με την αντιστοίχιση τους (κάπου 1960ς)
+<ul class="org-ul">
+<li>από τους Jacobs, Wozencraft</li>
+</ul></li>
+
+<li>Προφανής σύνδεση με διανυσματική άλγεβρα και βάσεις του συστήματος για
+καλύτερη κατανόηση και <i>εικονοποίηση</i> των όσων λέγονται.</li>
+
+<li>Και πως αυτό ουσιαστικά εξελίσσεται στην <i>δημιουργία</i> αστερισμών.
+<ul class="org-ul">
+<li>Αστερισμοί: συνοπτικά σύνολο σημάτων/διανυσμάτων</li>
+<li>Οι δύο έννοιες σημάτων και διανυσμάτων θεωρούνται απολύτως <i>όμοιες</i> εδώ.</li>
+</ul></li>
+</ul>
+
+<div id="outline-container-orgedb6d51" class="outline-2">
+<h2 id="orgedb6d51"><a href="#orgedb6d51">Επανάληψη επί της αλγεβρικής θεωρίας</a></h2>
+<div class="outline-text-2" id="text-orgedb6d51">
+<ul class="org-ul">
+<li>Cauchy/Schwarz</li>
+<li>Μέτρα</li>
+<li>Ανεξαρτητοποίηση</li>
+<li>Ορθογωνοποίηση Gram-Schmidt.
+<ul class="org-ul">
+<li>Δες 18.06</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge8d4f0b" class="outline-2">
+<h2 id="orge8d4f0b"><a href="#orge8d4f0b">Σήματα και διανύσματα - μια αναλογία (και γενικότερη επανάλψη στα σήματα.)</a></h2>
+<div class="outline-text-2" id="text-orge8d4f0b">
+<ul class="org-ul">
+<li>Σύνολο πράξεων</li>
+<li>Θεμελιώδη σήματα/διανύσματα -&gt; βάσεις</li>
+<li>Γραμμική ανεξαρτησία και κατάλληλες πράξεις σε σήματα/διανύσματα.</li>
+</ul>
+
+<p>
+Συνέχισαν οι κατάλληλοι ορισμοί των διανυσματικών πράξεων (νορμα και εσωτερικό
+γινόμενο) σε σήματα.
+</p>
+
+<ul class="org-ul">
+<li>Συσχέτιση, προβολή, ορθογωνικότητα, ευκλείδεια απόσταση.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcf32e98" class="outline-2">
+<h2 id="orgcf32e98"><a href="#orgcf32e98">Αστερισμοί - Constellations</a></h2>
+<div class="outline-text-2" id="text-orgcf32e98">
+<ul class="org-ul">
+<li>Κάθε σήμα ένα σημείο</li>
+<li>Μέση ενέργεια:</li>
+</ul>
+
+\begin{equation}
+\label{eq:1}
+\textsl{E}_s = \sum_{i=1}^M ||s_i||^2 Pr(s_i)
+\end{equation}
+
+<p>
+μας ενδιαφέρει γιατί ουσιαστικά ταυτίζεται με την μέση κατανάλωση ενέργειας όταν
+αναφερόμαστε σε χρήση του εκάστοτε αστερισμού.
+</p>
+
+
+<pre class="example" id="org704f475">
+- Διαφάνεια 23.
+- Η μόνη ερώτηση που θα έκανα εκεί θα ήταν περί της κανονικότητας των βάσεων, καθώς θα μας οφελούσε πολύ να είχαμε πάρει σαν βάσεις μόνο τα:
+- $A\cos{\left(2\pi f_ct\right)}$ αντί να έχουμε και τις ρίζες.
+</pre>
+</div>
+
+
+<div id="outline-container-org7e7beba" class="outline-3">
+<h3 id="org7e7beba"><a href="#org7e7beba">Απόσταση, Ενέργεια και Πιθανότητα Σφάλματος.</a></h3>
+<div class="outline-text-3" id="text-org7e7beba">
+<p>
+Απόσταση από την αρχή των αξόνων συνεπάγεται μεγαλύτερη η μικρότερη ενέργεια και
+εξ&rsquo; αυτού υψηλότερη κατανάλωση.
+</p>
+
+<p>
+Την ίδια στιγμή εξαιρετικά μικρότερη κατανάλωση συνεπάγεται μεγαλύτερη
+πιθανότητα σφάλματος.
+</p>
+
+<p>
+Συνεδεμένο με αυτό το <b>SPHERE PACING</b>. Δες μάλλον βιβλιογραφία ως προς αυτό.
+Κλασσικά συνδέεται με Shannon.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9d6ca52" class="outline-3">
+<h3 id="org9d6ca52"><a href="#org9d6ca52">Παραδείγματα αστερισμών:</a></h3>
+<div class="outline-text-3" id="text-org9d6ca52">
+</div>
+<div id="outline-container-orga6b9cf2" class="outline-4">
+<h4 id="orga6b9cf2"><a href="#orga6b9cf2">APSK:</a></h4>
+<div class="outline-text-4" id="text-orga6b9cf2">
+<p>
+Amplitude Phase Shift Keying
+</p>
+<div class="note" id="org88bc52a">
+<p>
+Συνοπτικά πρόκειται για σύνολο ομοαξονικών κύκλων σταθερής ενέργειας και
+διαμοιρασμός των διακριτών σημάτων σε αυτούς τους κύκλους.
+</p>
+
+</div>
+
+<ul class="org-ul">
+<li>APSK: 16-2 (16 είναι το πλήθος των στοιχείων και το 2 είναι το πλήθος των
+ενεργειακών σταθμών που υπάρχουν στον αστερισμό)</li>
+<li>Με το ίδιο παράδειγμα στο 16-4 APSK τα 16 σήματα είναι διανεμημένα σε 4
+<i>ομο-ενεργειακούς</i> κύκλους.</li>
+<li>Δόθηκε το 16-8.</li>
+<li>APSK: 64-16
+όπως και το 1024-23 δείχνουν πως πυκώνουν αυτές οι διαμορφώσεις και μπορούν να
+προκαλέσουν τυχόν σφάλματα λόγω θορύβου.</li>
+
+<li><p>
+<b>Μεγαλύτερης τάξης αστερισμοί</b> χρησιμοποιούνται όταν:
+</p>
+<ul class="org-ul">
+<li>SNR είναι ψηλό</li>
+<li>(ισοδύναμα) το  κανάλι μας είναι καλό.</li>
+</ul>
+<p>
+Αυτό εδώ αναφέρθηκε ξανά και ξανά και στα επόμενα τμήματα της διάλεξης.
+</p></li>
+</ul>
+
+
+<p>
+Κατόπιν ερώτησης αναφορικά με την κατάλληλη επιλογή διανυσμάτων/σημείων, ούτως
+ώστε τα πιο <i>σημαντικά</i> μας στοιχεία του μηνύματος να έχουν την μικρότερη
+πιθανότητα επηρεασμού από τον θόρυβο, τονίστηκε πως δεν ενδιαφερόμαστε σε αυτή
+την φάση για κωδικοποιημένη διαμόρφωση.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6eb6d30" class="outline-4">
+<h4 id="org6eb6d30"><a href="#org6eb6d30">QAM</a></h4>
+<div class="outline-text-4" id="text-org6eb6d30">
+<div class="note" id="orgd046521">
+<p>
+Ουσιαστικά το επικρατέστερο πρότυπο ψηφιακής διαμόρφωσης σύμφωνα με όσα ειπώθηκαν.
+</p>
+
+</div>
+
+<p>
+Quadrature amplitude modulation (QAM)
+</p>
+<ul class="org-ul">
+<li>Χρησιμοποιούνται κατα κόρον (αναφέρθηκε πλήθος εφαρμογών. eg 5G)</li>
+<li>Υψηλότερης τάξης 1024 χρησιμοποιείται μεταξύ άλλων και στο Wifi 7 ()</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org72951a4" class="outline-4">
+<h4 id="org72951a4"><a href="#org72951a4">HQAM</a></h4>
+<div class="outline-text-4" id="text-org72951a4">
+<div class="note" id="orga284e15">
+<p>
+Ουσιαστικά σχετική με την QAM αλλά έχουμε διαφορετική <i>σύνδεση</i> των συμβόλων
+μεταξύ τους.
+</p>
+
+</div>
+
+<p>
+Έχει πολύ καλύτερη αποδοτικότητα, από το τετράγωνο της SQAM, και λέγεται έτσι
+διότι τα σημεία στο επίπεδο σχηματίζουν μεταξύ τους κανονικά εξάγωνα.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-03-06 Mon 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

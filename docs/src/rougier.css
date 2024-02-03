@@ -1,0 +1,1173 @@
+/*
+ * Cascading stylesheet for GNU Emacs org mode
+ * Nicolas P. Rougier - September 2020
+ * Released under a Creative Commons CC-BY 4.0 licence
+ *
+ * --- Note added by Lamprinos Chatziioannou (chatziiol)
+ * Only slight changes were made
+ * up/home, logo and nav menu
+ */
+
+
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+
+body {
+    font-family: "Roboto Condensed";
+    font-size: 16px;
+    font-weight: 400;
+    color: #353535 ;
+    background: #FFFFFF;
+    line-height: 1.4em;
+    counter-reset: section;
+    counter-reset: toc-section;
+    counter-increment: toc-section;
+}
+
+a, a:visited {
+    text-decoration: none;
+    color: #284B63;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #353535;
+}
+
+.org-bold {
+    font-weight: 400;
+}
+
+
+i, i a {
+    /* color: #3C6E71;  */
+    font-style: italic;
+}
+
+.org-italic, .org-org-meta-line {
+    /* color: #284B63 ; */
+    font-style: italic;
+}
+
+
+/* Blinking cursor when strike-through */
+.custom { animation: blinker 1s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+
+
+/* --- Table of contents --- */
+#table-of-contents {
+    padding-top: 0em;
+    margin-top: 0em;
+    /* text-transform: uppercase; */
+    padding-bottom: 3em;
+}
+
+#table-of-contents ul {
+    padding: 0;
+    font-weight: 400;
+    list-style: none;
+    counter-reset: list 0;
+}
+#table-of-contents ul ul {
+    padding-left:0em;
+    font-weight: 300;
+    font-size: 90%;
+    line-height: 1.5em;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    padding-left: 2em;
+}
+
+#table-of-contents h2:before {
+    content: "";
+    counter-reset: section;
+}
+
+#table-of-contents ul li:before {
+    display: inline-block;
+    counter-increment: list;
+    content: counters(list, ".") ".";
+    text-transform: uppercase;
+    color: #284B63;
+}
+
+#table-of-contents ul li ul,
+#table-of-contents ul li ul li {
+    display: static;
+    width: 100%;
+    padding-left: 0.6em;
+    line-height: 1.35em;
+}
+#table-of-contents ul li ul li:before {
+    content: ""
+}
+#table-of-contents h2 {
+    font-size: 1em;
+    padding-top: 5em;
+}
+#table-of-contents h2:before {
+    content: "⌘";
+}
+
+ul.org-ul {
+    padding-left: 1em;
+}
+
+ul.org-ul li  {
+    list-style-type: none;
+    margin-bottom: .5em;
+}
+
+ul.org-ul li p {
+    display: inline-block;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+ul.org-ul li::before {
+    display: inline-block;
+    content: "— ";
+    color: #3C6E71;
+    width: 1em;
+    margin-left: -1em;
+}
+
+ol.org-ol {
+    padding-left: 1em;
+    margin-left: 2em;
+    list-style: none;
+    counter-reset: li;
+}
+.org-ol li  {
+    counter-increment: li;
+    margin-bottom: .25em;
+}
+.org-ol li::before {
+    content: counter(li) ". ";
+    color:  #3C6E71;
+    display: inline-block;
+    width: 2em;
+    margin-left: -2em;
+}
+
+#content, #postamble {
+    margin: 0 auto;
+    max-width: 720px;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+#postamble {
+/*    border-top: 1px solid #999999; */
+    padding-top: 1.5em;
+}
+
+#postamble p, #postamble a {
+    color: rgb(136 136 136);
+    margin: 0;
+    text-align: center;
+    font-size: small;
+    padding-top: 1em;
+    padding-bottom: 3em;
+}
+
+h1.title {
+    font-size: 1.75em;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+span.subtitle {
+    display: inline-block;
+    margin-top: .25em;
+    font-size: 74.5%;
+    color: #3C6E71;
+}
+
+/* h3 { padding-top: .5em; } */
+h1, h2, h3, h4 {
+    color: #353535;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+/* FIXME σκέψου το λίγο ακόμα αυτό */
+h2 {
+    border: #cac2c2;
+    border-bottom-style: dotted;
+    border-bottom-width: thin;
+    padding-bottom: 0.3em;
+}
+
+h3 { padding-top: 3em; }
+
+body {
+  counter-reset: section;
+}
+h2 {
+    padding-top: 5em;
+    counter-reset: subsection;
+}
+
+/* Fixing befores */
+h2::before, h3::before, h4::before, h5::before {
+    color: #3C6E71;
+    float: left;
+    text-align: right;
+    width: 2.5em;
+    margin-left: -3.0em;
+    counter-increment: subsection;
+    content: "## "
+    /* content: counter(section) "." counter(subsection) " "; */
+}
+
+h2::before {
+    content: "# "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h3::before {
+    content: "## "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h4::before {
+    content: "### "
+}
+
+h5::before {
+    content: "#### "
+    /* content: counter(section) "." counter(subsection) " "; */
+}
+
+code {
+    background-color: #f9f9f9;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+}
+
+/* --- Table --- */
+table { min-width: 100%; }
+table, tbody, td, tr, th, colgroup, thead {
+    border: 0;
+/*    padding: 0;*/
+}
+table {
+    margin-top: 1em;
+}
+thead {
+    border-bottom: 1px dashed #353535;
+}
+th {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 0.25em;
+    padding-bottom: 0.25em;
+}
+td { padding: 0; }
+
+tr:nth-child(even) {background: #f9f9f9;}
+tr:nth-child(odd) {background: #ffffff;}
+
+/* --- Back links in header --- */
+div.back a {
+    float: right;
+    color: #3C6E71;
+    font-variant: small-caps;
+    margin-top: -2.5em;
+}
+
+/* My personal additions */
+div#navigation {
+  top: 0;
+  text-align: center;
+  border-bottom: 1px;
+  padding-bottom: 1em;
+  /* https://stackoverflow.com/questions/1702559/ascii-art-in-html */
+  /* white-space: pre; */
+}
+
+
+div#org-div-home-and-up
+{
+  text-align: right;
+  font-size: 90%;
+  margin-top: 10px;
+  margin-right: 30%;
+}
+
+p {
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+/* width: 50%;*/
+}
+
+
+/* --- Default Parts --- */
+.tag    {
+    background-color: #eee;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    padding: 2px;
+    font-size: 80%;
+}
+
+.timestamp {
+    color: #3C6E71;
+}
+.timestamp-kwd {
+    color: #284B63;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+.org-string {
+    color: #3C6E71 
+    font-style: italic;
+}
+
+pre::before {
+    color: #3C6E71;
+    text-align: right;
+    width: 3.0em;
+    margin: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 2px dotted #3C6E71;
+}
+
+pre {
+    border-left: 2px solid #3C6E71;
+    background-color: #eee;
+    overflow: auto;
+    padding: 3em 0.5em 0.5em;
+    line-height: 1.35em;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    position: relative;
+}
+
+pre.src {
+    overflow: scroll;
+}
+
+pre.src-awk:before { content: 'Awk'; }
+pre.src-authinfo::before { content: 'Authinfo'; }
+pre.src-C:before { content: 'C'; }
+pre.src-css:before { content: 'CSS'; }
+pre.src-elisp:before { content: 'Elisp'; }
+pre.src-gnuplot:before { content: 'gnuplot'; }
+pre.src-java:before { content: 'Java'; }
+pre.src-latex:before { content: 'LaTeX'; }
+pre.src-matlab:before { content: 'MATLAB'; }
+pre.src-octave:before { content: 'Octave'; }
+pre.src-org:before { content: 'Org mode'; }
+pre.src-python:before { content: 'Python'; }
+pre.src-sed:before { content: 'Sed'; }
+pre.src-sh:before { content: 'shell'; }
+pre.src-sql:before { content: 'SQL'; }
+pre.src-sqlite:before { content: 'SQLite'; }
+pre.src-shell:before { content: 'Shell Script'; }
+pre.src-cpp:before  { content: 'C++'; }
+pre.src-c:before  { content: 'C'; }
+pre.src-bash:before  { content: 'bash'; }
+pre.example:before  { content: 'example'; }
+pre.src-asm:before { content: 'Assembler'; }
+pre.src-html:before { content: 'HTML'; }
+pre.src-tex:before { content: 'TeX'; }
+pre.src-conf:before { content: 'Configuration File'; }
+
+/*--------------------------------------------------*/
+/* Captions
+/*--------------------------------------------------*/
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+
+/*--------------------------------------------------*/
+/* Footnotes
+/*--------------------------------------------------*/
+
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+
+
+/*--------------------------------------------------*/
+/* Equations
+/*--------------------------------------------------*/
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+  vertical-align: middle;
+}
+.equation-label {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
+
+
+/*--------------------------------------------------*/
+/* My /classes/
+/*--------------------------------------------------*/
+
+/* Quotes */
+.quote {
+    font-size: 14px;
+    color:  rgba(51, 51, 51, 1.00);
+    background: #3C6E71;
+    line-height: 1.4em;
+}
+
+
+.quote::before {
+    color: #3C6E71;
+    float: left;
+    text-align: right;
+    width: 7.5em;
+    margin-left: -8.0em;
+    content: "Quote ";
+}
+
+
+.note::before {
+    content: "Note";
+    text-decoration-line: underline;
+}
+
+.note {
+    background: #04626882;
+    padding: 1em;
+    float: left;
+    font-size: .85em;
+    line-height: 1.25em;
+    /* This was needed to ensure that notes didn't go on top of text-body*/
+    margin-left: -30em;
+    width: 20em;
+}
+
+
+/*--------------------------------------------------*/
+/* Miscellaneous - to bundle with the rest
+/*--------------------------------------------------*/
+.outline-3{
+    padding-left: 2em;}
+
+.outline-4{
+    padding-left: 4em;}
+
+div.paradeigma {
+    background: #FFFFFF;
+    border: 2px solid #3b9ebe;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 2em;
+}
+
+h1 {
+    counter-reset: example;
+}
+
+/* Lectures specific specific */
+div.paradeigma::before {
+    counter-increment: example;
+    content: "Παράδειγμα " counter(section) "." counter(example) " ";
+    background: #3b9ebe;
+    border-radius: 0.2em;
+    padding: 0.5em;
+    /* margin-top: 2em; */
+    /* text-emphasis: revert; */
+    color: #FFFFFF;
+}
+
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+
+.org-keyword {
+    color: red;
+}
+
+.org-constant {
+    font-style: italic;
+}
+
+.org-variable-name, .org-type, .org-function-name{
+    color: blue;
+}
+
+.org-builtin{
+    color: purple;
+}
+
+.org-comment {
+    font-style: italic;
+}
+
+.org-string {
+    color: #3C6E71;
+    font-style: italic;
+}
+
+/*--------------------------------------------------*/
+/* Org-static-blog 
+/*--------------------------------------------------*/
+div#archive {
+    padding-top: 5em;
+    border-top: black;
+    border-bottom: black;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    margin-top: 10em;
+    padding-bottom: 5em;
+    margin-bottom: 10em;
+}
+
+/*--------------------------------------------------*/
+/* Previous Next navigation buttons
+/*--------------------------------------------------*/
+
+
+.series-navigation-div{
+  height: 4em; /* 3 lines */
+  padding: 4em;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button:hover {
+    border: black;
+    border-style: solid;
+}
+
+.nav-button{
+    width: 50%;
+}
+
+.previous-nav-button,
+.next-nav-button{
+  flex: 1;
+  text-align: center;
+}
+
+
+/*--------------------------------------------------*/
+/* Homepage image css
+/*--------------------------------------------------*/
+
+.nav-image-container {
+    max-width: 100%;
+    max-height: 12em;
+    text-align: center;
+    padding: 1em;
+    white-space: revert;
+}
+
+.nav-image {
+    width: 100%;
+    height: 10em;
+    overflow: hidden;
+    display: block;
+    padding: 0em;
+    border: 10px solid #284b63;
+}
+
+a:hover {
+    text-decoration: underline;
+    color: #353535;
+}
+
+.org-bold {
+    font-weight: 400;
+}
+
+
+i, i a {
+    /* color: #3C6E71;  */
+    font-style: italic;
+}
+
+.org-italic, .org-org-meta-line {
+    /* color: #284B63 ; */
+    font-style: italic;
+}
+
+
+/* Blinking cursor when strike-through */
+.custom { animation: blinker 1s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+
+
+/* --- Table of contents --- */
+#table-of-contents {
+    padding-top: 0em;
+    margin-top: 0em;
+    /* text-transform: uppercase; */
+    padding-bottom: 3em;
+}
+
+#table-of-contents ul {
+    padding: 0;
+    font-weight: 400;
+    list-style: none;
+    counter-reset: list 0;
+}
+#table-of-contents ul ul {
+    padding-left:0em;
+    font-weight: 300;
+    font-size: 90%;
+    line-height: 1.5em;
+    margin-top: 0em;
+    margin-bottom: 1em;
+    padding-left: 2em;
+}
+
+#table-of-contents h2:before {
+    content: "";
+    counter-reset: section;
+}
+
+#table-of-contents ul li:before {
+    display: inline-block;
+    counter-increment: list;
+    content: counters(list, ".") ".";
+    text-transform: uppercase;
+    color: #284B63;
+}
+
+#table-of-contents ul li ul,
+#table-of-contents ul li ul li {
+    display: static;
+    width: 100%;
+    padding-left: 0.6em;
+    line-height: 1.35em;
+}
+#table-of-contents ul li ul li:before {
+    content: ""
+}
+#table-of-contents h2 {
+    font-size: 1em;
+    padding-top: 5em;
+}
+#table-of-contents h2:before {
+    content: "⌘";
+}
+
+ul.org-ul {
+    padding-left: 1em;
+}
+
+ul.org-ul li  {
+    list-style-type: none;
+    margin-bottom: .5em;
+}
+
+ul.org-ul li p {
+    display: inline-block;
+    margin-top: 0em;
+    margin-bottom: 0em;
+}
+
+ul.org-ul li::before {
+    display: inline-block;
+    content: "— ";
+    color: #3C6E71;
+    width: 1em;
+    margin-left: -1em;
+}
+
+ol.org-ol {
+    padding-left: 1em;
+    margin-left: 2em;
+    list-style: none;
+    counter-reset: li;
+}
+.org-ol li  {
+    counter-increment: li;
+    margin-bottom: .25em;
+}
+.org-ol li::before {
+    content: counter(li) ". ";
+    color:  #3C6E71;
+    display: inline-block;
+    width: 2em;
+    margin-left: -2em;
+}
+
+#content, #postamble {
+    margin: 0 auto;
+    max-width: 720px;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+}
+
+#postamble {
+/*    border-top: 1px solid #999999; */
+    padding-top: 1.5em;
+}
+
+#postamble p, #postamble a {
+    color: rgb(136 136 136);
+    margin: 0;
+    text-align: center;
+    font-size: small;
+    padding-top: 1em;
+    padding-bottom: 3em;
+}
+
+h1.title {
+    font-size: 1.75em;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+span.subtitle {
+    display: inline-block;
+    margin-top: .25em;
+    font-size: 74.5%;
+    color: #3C6E71;
+}
+
+/* h3 { padding-top: .5em; } */
+h1, h2, h3, h4 {
+    color: #353535;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+/* FIXME σκέψου το λίγο ακόμα αυτό */
+h2 {
+    border: #cac2c2;
+    border-bottom-style: dotted;
+    border-bottom-width: thin;
+    padding-bottom: 0.3em;
+}
+
+h3 { padding-top: 3em; }
+
+body {
+  counter-reset: section;
+}
+h2 {
+    padding-top: 5em;
+    counter-reset: subsection;
+}
+
+/* Fixing befores */
+h2::before, h3::before, h4::before, h5::before {
+    color: #3C6E71;
+    float: left;
+    text-align: right;
+    width: 2.5em;
+    margin-left: -3.0em;
+    counter-increment: subsection;
+    content: "## "
+    /* content: counter(section) "." counter(subsection) " "; */
+}
+
+h2::before {
+    content: "# "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h3::before {
+    content: "## "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h4::before {
+    content: "### "
+}
+
+h5::before {
+    content: "#### "
+    /* content: counter(section) "." counter(subsection) " "; */
+}
+
+code {
+    background-color: #f9f9f9;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+}
+
+/* --- Table --- */
+table { min-width: 100%; }
+table, tbody, td, tr, th, colgroup, thead {
+    border: 0;
+/*    padding: 0;*/
+}
+table {
+    margin-top: 1em;
+}
+thead {
+    border-bottom: 1px dashed #353535;
+}
+th {
+    text-align: left;
+    padding: 0;
+    margin-bottom: 0.25em;
+    padding-bottom: 0.25em;
+}
+td { padding: 0; }
+
+tr:nth-child(even) {background: #f9f9f9;}
+tr:nth-child(odd) {background: #ffffff;}
+
+/* --- Back links in header --- */
+div.back a {
+    float: right;
+    color: #3C6E71;
+    font-variant: small-caps;
+    margin-top: -2.5em;
+}
+
+/* My personal additions */
+div#navigation {
+  top: 0;
+  text-align: center;
+  border-bottom: 1px;
+  padding-bottom: 1em;
+  /* https://stackoverflow.com/questions/1702559/ascii-art-in-html */
+  /* white-space: pre; */
+}
+
+
+div#org-div-home-and-up
+{
+  text-align: right;
+  font-size: 90%;
+  margin-top: 10px;
+  margin-right: 30%;
+}
+
+p {
+    text-align: justify;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+/* width: 50%;*/
+}
+
+
+/* --- Default Parts --- */
+.tag    {
+    background-color: #eee;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    padding: 2px;
+    font-size: 80%;
+}
+
+.timestamp {
+    color: #3C6E71;
+}
+.timestamp-kwd {
+    color: #284B63;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+.org-string {
+    color: #3C6E71 
+    font-style: italic;
+}
+
+pre::before {
+    color: #3C6E71;
+    text-align: right;
+    width: 3.0em;
+    margin: 0.5em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-bottom: 2px dotted #3C6E71;
+}
+
+pre {
+    border-left: 2px solid #3C6E71;
+    background-color: #eee;
+    overflow: auto;
+    padding: 3em 0.5em 0.5em;
+    line-height: 1.35em;
+    font-family: "Roboto Mono";
+    font-size: 14px;
+    position: relative;
+}
+
+pre.src {
+    overflow: scroll;
+}
+
+pre.src-awk:before { content: 'Awk'; }
+pre.src-authinfo::before { content: 'Authinfo'; }
+pre.src-C:before { content: 'C'; }
+pre.src-css:before { content: 'CSS'; }
+pre.src-elisp:before { content: 'Elisp'; }
+pre.src-gnuplot:before { content: 'gnuplot'; }
+pre.src-java:before { content: 'Java'; }
+pre.src-latex:before { content: 'LaTeX'; }
+pre.src-matlab:before { content: 'MATLAB'; }
+pre.src-octave:before { content: 'Octave'; }
+pre.src-org:before { content: 'Org mode'; }
+pre.src-python:before { content: 'Python'; }
+pre.src-sed:before { content: 'Sed'; }
+pre.src-sh:before { content: 'shell'; }
+pre.src-sql:before { content: 'SQL'; }
+pre.src-sqlite:before { content: 'SQLite'; }
+pre.src-shell:before { content: 'Shell Script'; }
+pre.src-cpp:before  { content: 'C++'; }
+pre.src-c:before  { content: 'C'; }
+pre.src-bash:before  { content: 'bash'; }
+pre.example:before  { content: 'example'; }
+pre.src-asm:before { content: 'Assembler'; }
+pre.src-html:before { content: 'HTML'; }
+pre.src-tex:before { content: 'TeX'; }
+pre.src-conf:before { content: 'Configuration File'; }
+
+/*--------------------------------------------------*/
+/* Captions
+/*--------------------------------------------------*/
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+
+/*--------------------------------------------------*/
+/* Footnotes
+/*--------------------------------------------------*/
+
+.footpara { display: inline; }
+.footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; }
+.figure p { text-align: center; }
+
+
+/*--------------------------------------------------*/
+/* Equations
+/*--------------------------------------------------*/
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+  vertical-align: middle;
+}
+.equation-label {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
+
+
+/*--------------------------------------------------*/
+/* My /classes/
+/*--------------------------------------------------*/
+
+/* Quotes */
+.quote {
+    font-size: 14px;
+    color:  rgba(51, 51, 51, 1.00);
+    background: #3C6E71;
+    line-height: 1.4em;
+}
+
+
+.quote::before {
+    color: #3C6E71;
+    float: left;
+    text-align: right;
+    width: 7.5em;
+    margin-left: -8.0em;
+    content: "Quote ";
+}
+
+
+.note::before {
+    content: "Note";
+    text-decoration-line: underline;
+}
+
+.note {
+    background: #04626882;
+    padding: 1em;
+    float: left;
+    font-size: .85em;
+    line-height: 1.25em;
+    /* This was needed to ensure that notes didn't go on top of text-body*/
+    margin-left: -30em;
+    width: 20em;
+}
+
+
+/*--------------------------------------------------*/
+/* Miscellaneous - to bundle with the rest
+/*--------------------------------------------------*/
+.outline-3{
+    padding-left: 2em;}
+
+.outline-4{
+    padding-left: 4em;}
+
+div.paradeigma {
+    background: #FFFFFF;
+    border: 2px solid #3b9ebe;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 2em;
+}
+
+h1 {
+    counter-reset: example;
+}
+
+/* Lectures specific specific */
+div.paradeigma::before {
+    counter-increment: example;
+    content: "Παράδειγμα " counter(section) "." counter(example) " ";
+    background: #3b9ebe;
+    border-radius: 0.2em;
+    padding: 0.5em;
+    /* margin-top: 2em; */
+    /* text-emphasis: revert; */
+    color: #FFFFFF;
+}
+
+/*--------------------------------------------------*/
+/* Code Coloring
+/*--------------------------------------------------*/
+
+.org-keyword {
+    color: red;
+}
+
+.org-constant {
+    font-style: italic;
+}
+
+.org-variable-name, .org-type, .org-function-name{
+    color: blue;
+}
+
+.org-builtin{
+    color: purple;
+}
+
+.org-comment {
+    font-style: italic;
+}
+
+.org-string {
+    color: #3C6E71;
+    font-style: italic;
+}
+
+/*--------------------------------------------------*/
+/* Org-static-blog 
+/*--------------------------------------------------*/
+div#archive {
+    padding-top: 5em;
+    border-top: black;
+    border-bottom: black;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    margin-top: 10em;
+    padding-bottom: 5em;
+    margin-bottom: 10em;
+}
+
+/*--------------------------------------------------*/
+/* Previous Next navigation buttons
+/*--------------------------------------------------*/
+
+
+.series-navigation-div{
+  height: 4em; /* 3 lines */
+  padding: 4em;
+  background-color: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-button:hover {
+    border: black;
+    border-style: solid;
+}
+
+.nav-button{
+    width: 50%;
+}
+
+.previous-nav-button,
+.next-nav-button{
+  flex: 1;
+  text-align: center;
+}
+
+
+/*--------------------------------------------------*/
+/* Homepage image css
+/*--------------------------------------------------*/
+
+.nav-image-container {
+    max-width: 100%;
+    max-height: 12em;
+    text-align: center;
+    padding: 1em;
+    white-space: revert;
+}
+
+.nav-image {
+    width: 100%;
+    height: 10em;
+    overflow: hidden;
+    display: block;
+    padding: 0em;
+    border: 10px solid #284b63;
+}
+
+.small {
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+}
+
+.small {
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}

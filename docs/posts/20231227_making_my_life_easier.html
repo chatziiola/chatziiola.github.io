@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Make-ing my life easier</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Notes on how I migrated to Make for this website, so that I can easily preview my posts before publishing" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Make-ing my life easier</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org759d2d8">Introduction</a></li>
+<li><a href="#org895bdfa">Goal</a></li>
+<li><a href="#orga953e52">Execution</a></li>
+<li><a href="#org723522a">Completion</a></li>
+<li><a href="#orgbe00e00">Some extra thoughts</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org759d2d8" class="outline-2">
+<h2 id="org759d2d8"><a href="#org759d2d8">Introduction</a></h2>
+<div class="outline-text-2" id="text-org759d2d8">
+<p>
+At the time of writing my blog directory surely is cluttered, and I
+<b>really</b> do not want this. It prevents me from easily checking my
+website (not sure if the clutter caused my lack of proper at times
+documentation or the other way round), but it has to change. Here I
+expect to document the next 10 minutes briefly for me, so that it all
+makes sense
+</p>
+</div>
+</div>
+
+<div id="outline-container-org895bdfa" class="outline-2">
+<h2 id="org895bdfa"><a href="#org895bdfa">Goal</a></h2>
+<div class="outline-text-2" id="text-org895bdfa">
+<p>
+What I expect to do here is quickly create a makefile, with a <code>local</code>
+set of instructions, that will:
+</p>
+<ol class="org-ol">
+<li>Create a <code>public</code> directory and populate it</li>
+<li>Launch a python server</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-orga953e52" class="outline-2">
+<h2 id="orga953e52"><a href="#orga953e52">Execution</a></h2>
+<div class="outline-text-2" id="text-orga953e52">
+<p>
+Using the <code>local-build.sh</code> script, I knew this would not take too much.
+Being an open source file and not really bothered by the
+confidentiality of its contents, I uploaded it to ChatGPT asking for
+it to be refactored and documented into a Makefile:
+</p>
+<pre class="example" id="org6333ba4">
+# Makefile for building and publishing a site
+# Directories
+PUBLIC_DIR := public
+POSTS_DIR := $(PUBLIC_DIR)/posts
+
+# Targets
+.DEFAULT_GOAL := local
+
+# Remove local directory
+clean:
+	@if [ -d $(PUBLIC_DIR) ]; then \
+		rm -rf $(PUBLIC_DIR) &amp;&amp; echo "Local directory deleted"; \
+	fi
+
+# Build the site using Emacs
+build: clean
+	emacs -Q --script build-site.el
+
+# Add latest posts to /index.html
+add_latest_posts:
+	echo "Adding mini archive on /index.html"
+	echo '&lt;ul class="org-ul indexul"&gt;' &gt; /tmp/index
+	grep "^&lt;li&gt;" $(PUBLIC_DIR)/posts/recents.html | head -5 &gt;&gt; /tmp/index
+	echo '&lt;/ul&gt;' &gt;&gt; /tmp/index
+	sed -i -e '/Latest Articles&lt;\/a&gt;&lt;\/h2&gt;/r /tmp/index' $(PUBLIC_DIR)/index.html
+
+# Copy /index.html to /posts/index.html
+copy_index_to_posts:
+	echo "Copying /index to /posts/index"
+	cp $(PUBLIC_DIR)/index.html $(POSTS_DIR)/index.html
+
+# Build the site locally
+local: build add_latest_posts copy_index_to_posts
+</pre>
+
+<p>
+It did a good job, which I suppose can also be attributed to the
+proper yet by no means extensive commenting on the shell script.
+</p>
+
+<p>
+Adding a new target and updating local does the job:
+</p>
+<pre class="example" id="orge94af6d">
+# Serve the public directory on localhost using Python
+serve_local:
+	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org723522a" class="outline-2">
+<h2 id="org723522a"><a href="#org723522a">Completion</a></h2>
+<div class="outline-text-2" id="text-org723522a">
+<p>
+At this point everything is perfect, and well documented enough that I
+could refactor the whole blog, where spaghetti code is not only
+dominant but visible in its basic structure and organization as well,
+making it more manageable. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbe00e00" class="outline-2">
+<h2 id="orgbe00e00"><a href="#orgbe00e00">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-orgbe00e00">
+<p>
+It is truly fascinating that I managed within <b>much less</b> than fifteen
+minutes to:
+</p>
+<ul class="org-ul">
+<li>make a shell script obsolete</li>
+<li>make another shell script obsolete (further reducing the mess that I
+had embraced and my discomfort)</li>
+<li>Better streamline the whole publish sequence by creating a central
+file to use (makefile)</li>
+<li>write this simple article</li>
+</ul>
+
+<p>
+With <b>minimal</b> experience in using and creating Makefiles. In fact,
+I thought I could try my hand at creating this manually and googled
+<b>Makefile templates</b> before realizing what a waste of time this would
+be. Ah, what a wonderful and yet peculiar time to be alive!
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-12-27 Wed 12:25 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

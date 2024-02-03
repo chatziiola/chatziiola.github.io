@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 4: Ολοκλήρωση AM: Εναλλακτικές AM διαμορφώσεις.</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 4: Ολοκλήρωση AM: Εναλλακτικές AM διαμορφώσεις.</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org52bcb0e">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a>
+<ul>
+<li><a href="#org9bfdec5">Αναλογικό PLL</a></li>
+</ul>
+</li>
+<li><a href="#orgee55625">Άλλες μορφές διαμορφώσεων πλάτους</a>
+<ul>
+<li><a href="#org1719227">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a>
+<ul>
+<li><a href="#org5fc8a8f">Σύγκριση με DSBAMTC</a></li>
+<li><a href="#org94d10bf">Διαφορά στο πεδίο της συχνότητας</a></li>
+<li><a href="#org64a48bd">Ισχύς</a></li>
+<li><a href="#org73fe152">(Σύμφωνη) Αποδιαμόρφωση</a></li>
+</ul>
+</li>
+<li><a href="#org8c9d59c">SSB-AM: Single Sideband AM</a>
+<ul>
+<li><a href="#org7837abf">Μειονεκτήματα:</a></li>
+</ul>
+</li>
+<li><a href="#org2c9a1a9">VSB-AM: Vestigial Side Band AM</a></li>
+</ul>
+</li>
+<li><a href="#orgbd207e0">Σύνοψη διαμορφώσεων πλάτους.</a></li>
+</ul>
+</div>
+</div>
+<p>
+<b>Αποδιαμόρφωση:</b> η διαδικασία με την οποία από το ληφθέν σήμα \(x(t)\) μπορούμε να
+<i>πάρουμε</i> το αρχικό σήμα ( σήμα πληροφορίας ) \(m(t)\)
+</p>
+
+<div id="outline-container-org52bcb0e" class="outline-2">
+<h2 id="org52bcb0e"><a href="#org52bcb0e">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a></h2>
+<div class="outline-text-2" id="text-org52bcb0e">
+
+<div id="org8dff524" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_symfonosapodiamorfotis.png" alt="tlp1_lec4_symfonosapodiamorfotis.png" />
+</p>
+</div>
+
+<p>
+Συνεχίζοντας από το τέλος της <a href="lec_TLP1_20221010_διαλεξη.html">προηγούμενης διάλεξης</a> εδώ αναλύονται καλύτερα οι
+σύμφωνοι αποδιαμορφωτές.
+</p>
+
+<p>
+<i>Coherent demodulators</i> (σύμφωνους αποδιαμορφωτές) ονομάζουμε εκείνους που έχουν
+<i>κάποια</i> γνώση τον στοιχείων του πομπού για να αποδιαμορφώσουν το σήμα εισόδου.
+Συγκεκριμένα, πρέπει να γνωρίζουν την <b>συχνότητα και την φάση</b>. Λόγω, όμως, της
+σχέσης που συνδέει τα δύο αυτά μεγέθη και τα δύο βρίσκονται από το PLL 
+</p>
+
+<div class="note" id="orge96bc50">
+<p>
+Πρακτικά βρίσκει πρώτα την φάση και μετά την συχνότητα.
+</p>
+
+</div>
+</div>
+
+<div id="outline-container-org9bfdec5" class="outline-3">
+<h3 id="org9bfdec5"><a href="#org9bfdec5">Αναλογικό PLL</a></h3>
+<div class="outline-text-3" id="text-org9bfdec5">
+<p>
+<b>Συνοπτικά</b>: Το PLL αποτελεί σύστημα ελέγχου που επιτρέπει σε ταλαντωτή να
+ταυτιστεί/ μιμηθεί έναν άλλον.
+</p>
+
+
+<div id="orgba8fa7b" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_pll.png" alt="tlp1_lec4_pll.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Απλό μοντέλο (εσωτερικό) του PLL, για κατανόηση του τρόπου λειτουργίας.</p>
+</div>
+
+
+<p>
+Λίγο αναλυτικότερα, για σήμα εισόδου της μορφής:
+</p>
+\begin{equation}
+\label{eq:8}
+r(t) = A_r\cos{2\pi f_ct + \theta(t)}\\
+\end{equation}
+<p>
+κλασσικό δηλαδή σήμα διαμορφωτή ΑΜ, το PLL βγάζει σήμα της μορφής:
+</p>
+\begin{equation}
+\label{eq:4}
+v(t) = A_y\cos{\left(2\pi f_ct + \phi(t)\right)}
+\end{equation}
+<p>
+όπου, οταν το PLL <i>συμπίπτει</i> ισχύει: 
+</p>
+\begin{equation}
+\label{eq:9}
+\phi(t) - \theta(t) = 0
+\end{equation}
+
+<ul class="org-ul">
+<li>Το PLL είναι αναγκαίο σε τηλεπικοινωνιακά συστήματα, καθώς είναι κριτικής
+σημασίας ο συγχρονισμός πομπού δέκτη.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgee55625" class="outline-2">
+<h2 id="orgee55625"><a href="#orgee55625">Άλλες μορφές διαμορφώσεων πλάτους</a></h2>
+<div class="outline-text-2" id="text-orgee55625">
+<p>
+Στην <a href="lec_TLP1_20221012.html#org5330eff">δεύτερη διάλεξη</a> είδαμε συνοπτικά πως υπάρχουν 4 είδη ΑΜ διαμόρφωσης. Μέχρι
+στιγμής έχει εξεταστεί το βασικότερο: <b>Double Sided Band-AM Total Carrier</b>, όμως
+σε αυτή την διάλεξη, ολοκληρώνοντας το θεωρητικό κομμάτι της διαμόρφωσης
+πλάτους θα αναφερθούμε και στα υπόλοιπα
+</p>
+<ul class="org-ul">
+<li><a href="#org1719227">DSB-AM-SC</a></li>
+<li><a href="#org8c9d59c">SSB-AM</a></li>
+<li><a href="#org2c9a1a9">VSB-AM</a></li>
+</ul>
+</div>
+
+<div id="outline-container-org1719227" class="outline-3">
+<h3 id="org1719227"><a href="#org1719227">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a></h3>
+<div class="outline-text-3" id="text-org1719227">
+<p>
+Τα αρχικά της διαμόρφωσης, σε πλήρη αναλογία με την ελληνική ονομασία σημαίνουν:
+<b>Double Sided Band-AM-Suppressed Carrier</b>
+</p>
+
+
+<div id="orgca01dd7" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_dsamtc-dsamsc-differences.png" alt="tlp1_lec4_dsamtc-dsamsc-differences.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Σύγκριση απλού, συνημιτονοειδούς σήματος πληροφορίας, με τις αντοίστιχες διαμορφώσεις πλάτους TC, SC.</p>
+</div>
+
+
+<p>
+Ενώ στην DSB-AM-TC το διαμορφωμένο σήμα έχει την μορφή:
+</p>
+\begin{equation}
+\label{eq:1}
+x(t) = [A_C + m(t)]\cos{2\pi f_ct}
+\end{equation}
+<p>
+Εδώ έχουμε:
+</p>
+\begin{equation}
+\label{eq:2}
+x(t) = A_Cm(t)\cos{2\pi f_ct}
+\end{equation}
+<p>
+με αυτή την μορφή να έχει αρκετά προτερήματα επί της κλασσικής διαμόρφωσης
+πλάτους, με κυριότερο εξ εκείνων, την ευκολότερη ρύθμιση της ισχύος του
+διαμορφωμένου σήματος και την αποδοτικότητα του.
+</p>
+</div>
+
+
+
+<div id="outline-container-org5fc8a8f" class="outline-4">
+<h4 id="org5fc8a8f"><a href="#org5fc8a8f">Σύγκριση με DSBAMTC</a></h4>
+<div class="outline-text-4" id="text-org5fc8a8f">
+<p>
+<i>Στην DSBAMTC</i> το φέρον προστίθεται για να μπορούμε να κάνουμε ασύμφωνη
+αποδιαμόρφωση, χαρακτηριστική της TC, καθώς δεν είναι υλοποιήσιμη στην SC. Αυτό
+ήταν αρχικά σημαντικό λόγω του υψηλού κόστους κατασκευής των κυκλωμάτων για το
+PLL, που καθιστούσε την σύμφωνη αποδιαμόρφωση εξαιρετικά ακριβή και άρα
+απαγορευμένη. Με τα χρόνια, όμως, αυτό το κόστος έχει ελαχιστοποιηθεί,
+επιτρέποντάς μας να περάσουμε από την ασύμφωνη στην σύμφωνη αποδιαμόρφωση.
+</p>
+
+
+<div id="org1b83e99" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_dsamtc-dsamsc-differences-split.png" alt="tlp1_lec4_dsamtc-dsamsc-differences-split.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Σύγκριση των δυο διαμορφώσεων, σε ξεχωριστά διαγράμματα.</p>
+</div>
+
+<ul class="org-ul">
+<li><b>Διαφορά στο πεδίο του χρόνου</b>
+Η γραφική παράσταση του \(x(t)\) αλλάζει σημαντικά μεταξύ των μορφών συνολικού
+και κατηργημένου φέροντος, όπως άλλωστε φαίνεται και από τα διαγράμματα. Το
+πλάτος του διαμορφωμένου κατά TC σήματος φαίνεται ουσιαστικά να μην διαχωρίζει
+ελάχιστο από μέγιστο, ενώ αντίθετα, στο SC το πλάτος των επιμέρους
+ταλαντώσεων, είναι ανάλογο του \(m(t)\), με αποτέλεσμα να είναι εμφανής ο
+<i>συγχρονισμός</i> του διαμορφωμένου σήματος και του σήματος πληροφορίας.</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org94d10bf" class="outline-4">
+<h4 id="org94d10bf"><a href="#org94d10bf">Διαφορά στο πεδίο της συχνότητας</a></h4>
+<div class="outline-text-4" id="text-org94d10bf">
+<p>
+Όπως φαίνεται και από τις παρακάτω εξισώσεις, το φασματικό περιεχόμενο της SC
+παρουσιάζει πολλές ομοιότητες με εκείνο της TC<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, λείπουν, όμως, οι ώσεις που
+οφείλονται στην DC συνιστώσα. Έχουμε ουσιαστικά μόνο μετατοπίσεις του φάσματος
+του μηνύματος, ενισχυμένες (καθώς πολλαπλασιάζεται με \(A_c\)). Αυτό είναι εμφανές
+από τις παρακάτω εξισώσεις:
+</p>
+
+\begin{align}
+\label{eq:10}
+X(f) &= \frac{1}{2}A_c[\delta(f-f_c)+\delta(f+f_c)] + \frac{1}{2}[M(f-f_c)+M(f+f_c)] &\text{DSBAMTC}\\
+X(f) &= \frac{1}{2}A_c[M(f-f_c)+M(f+{f_c})]&\text{DSBAMSC}
+\end{align}
+</div>
+</div>
+
+
+<div id="outline-container-org64a48bd" class="outline-4">
+<h4 id="org64a48bd"><a href="#org64a48bd">Ισχύς</a></h4>
+<div class="outline-text-4" id="text-org64a48bd">
+<p>
+Ακόμα, ένας παράγοντας που όσο περνάνε τα χρόνια αποκτά αυξανόμενη σημασία
+είναι το ενεργειακό κόστος το οποίο, όπως μπορούμε να δούμε, είναι πιο εύκολα
+χειριζόμενο στην περίπτωση της DSBAMSC διαμόρφωσης
+</p>
+
+\begin{equation}
+\label{eq:14}
+P_{DSBAMSC} = 
+\frac{1}{2}A_c^2P_{m}
+\end{equation}
+
+
+<p>
+Από όπου φαίνεται, ακόμα πως η ισχύς του φέροντος δεν αναλώνεται σε συνιστώσα
+άσχετη με εκείνη του σήματος πληροφορίας, όπως δείχνει η:
+</p>
+\begin{equation}
+\label{eq:15}
+P_{DSBAMTC} = \frac{1}{2}A_c^2 + \frac{1}{2}P_{m}
+\end{equation}
+</div>
+</div>
+<div id="outline-container-org73fe152" class="outline-4">
+<h4 id="org73fe152"><a href="#org73fe152">(Σύμφωνη) Αποδιαμόρφωση</a></h4>
+<div class="outline-text-4" id="text-org73fe152">
+
+<div id="org7cb0496" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_dsbamsc-apodiamorfotis.png" alt="tlp1_lec4_dsbamsc-apodiamorfotis.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Απλός SC αποδιαμορφωτής, με την χρήση PLL</p>
+</div>
+
+<p>
+Στις παρακάτω εξισωεις, δείχνουμε την διαδικασία της αποδιαμόρφωσης μέσα από τον
+παραπάνω σύμφωνο αποδιαμορφωτή, <span class="underline">όταν, όμως, δεν έχουμε πλήρη ταύτιση της φάσης
+του PLL και του σήματος εισόδου</span>.
+</p>
+
+\begin{align}
+\label{eq:13}
+x(t) &= A_cm(t)\cos{\left(2\pi f_ct + \phi_c\right)}\\
+\stackrel{*\cos{\left(2\pi f_ct+ \phi\right)}}{\Rightarrow} x'(t) &= A_cm(t)\cos{\left(2\pi f_ct + \phi\right)}\cos{\left(2\pi f_ct + \phi_c\right)}\\
+ x'(t) &= \frac{1}{2}A_cm(t)[\cos{\left(\phi_c - \phi\right)} + \cos{\left(4\pi f_ct + \phi + \phi_c\right)}]\\
+\stackrel{LPF}{\Rightarrow} y(t) &= \frac{1}{2}A_cm(t)\cos{\left(\phi_c-\phi\right)}
+\end{align}
+
+<p>
+Στην περίπτωση όπου \(\phi_c = \phi\), οπότε \(\cos{\left(\phi_c-\phi\right)}=1\),
+προφανώς έχουμε:
+</p>
+\begin{equation}
+\label{eq:3}
+y(t) = 1/2 A_cm(t)
+\end{equation}
+</div>
+</div>
+</div>
+<div id="outline-container-org8c9d59c" class="outline-3">
+<h3 id="org8c9d59c"><a href="#org8c9d59c">SSB-AM: Single Sideband AM</a></h3>
+<div class="outline-text-3" id="text-org8c9d59c">
+<div class="note" id="orgb715491">
+<p>
+Τόσο το SSB-AM, όσο και το VSB-AM αποτελούν πλέον παρωχημένες τεχνολογίες.
+Αναφέρθηκαν μόνο για σφαιρική γνώση και τονίστηκε πως δεν χρειάζεται εμβάθυνση
+σε αυτές τις δύο. Πιο συγκεκριμένα η VSB-AM, βελτίωση της SSB-AM,
+χρησιμοποιούνταν σε κάποια φάση στις τηλεοράσεις πριν μεταβούμε στο ψηφιακό σήμα
+τηλεόρασης.  
+</p>
+
+</div>
+
+<p>
+Στις περιπτώσεις που εξετάστηκαν μέχρι στιγμής στέλναμε ουσιαστικά το ίδιο σήμα
+(του οποίου το περιεχόμενο χωρίζεται όπως είδαμε σε προηγούμενη διάλεξη σε άνω
+και κάτω πλευρικές ζώνες) σε δύο διαφορετικές συχνότητες: \(\pm f_c\).
+</p>
+
+
+<div id="orgca6266d" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_ssb-am-deixnontas-dipli-pliroforia.png" alt="tlp1_lec4_ssb-am-deixnontas-dipli-pliroforia.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Ανάδειξη της κάτω και άνω πλευρικής ζώνης κατά την DSBAMSC διαμόρφωση.</p>
+</div>
+
+
+<p>
+Αντί να στέλνει, κανείς, και τις δύο πλευρικές ζώνες, γίνεται να μεταφέρει την
+ίδια πληροφορία, εξοικονομώντας εύρος ζώνης (από 2W σε W) και ισχύ στέλνοντας
+μόνο μια εκ των δύο. Ανάλογα με το ποια από τις δύο ζώνες εν τέλη στέλνεται λέμε
+ότι έχουμε και την αντίστοιχη <i>μορφή</i> SSB-AM:
+</p>
+<ul class="org-ul">
+<li>USSB <i>(Upper - SSB)</i></li>
+<li>LSSB <i>(Lower - SSB)</i></li>
+</ul>
+</div>
+
+<div id="outline-container-org7837abf" class="outline-4">
+<h4 id="org7837abf"><a href="#org7837abf">Μειονεκτήματα:</a></h4>
+<div class="outline-text-4" id="text-org7837abf">
+<p>
+<b>Παρόλο που γλυτώνουν εύρος ζώνης δεν χρησιμοποιούνται λόγω θορύβου:</b>
+</p>
+<ul class="org-ul">
+<li>Χρειάζεται φίλτρα μεγάλης ακριβείας, καθώς αν το \(M(f)\) έχει ισχύ κοντά στο
+\(0\) (και συνεπώς κατά την μετατόπιση και στο \(+f_c, -f_c\)), τότε είναι
+εξαιρετικά πιθανό τα φίλτρα είτε να κόβουν πληροφορία από την επιλεγμένη
+προς <i>προώθηση</i> πλευρική ζώνη, είτε να αφήνουν να περάσει και μέρος της ζώνης
+που θέλαμε να κόψουμε, <b>παραμορφώνοντας το τελικό μας σήμα.</b><sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></li>
+<li>Καθώς η ισχύς του αποστελλόμενου σήματος είναι χαμηλότερη από ότι στην
+κλασσική αντίστοιχη διαμόρφωση (το SSB λειτουργεί κυρίως επί SC
+διαμόρφωσης), το SNR είναι μικρότερο, που δείχνει οτι <b>είναι πιο ευάλωτη
+διαμόρφωση στον θόρυβο</b></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org2c9a1a9" class="outline-3">
+<h3 id="org2c9a1a9"><a href="#org2c9a1a9">VSB-AM: Vestigial Side Band AM</a></h3>
+<div class="outline-text-3" id="text-org2c9a1a9">
+<div class="note" id="org99bac02">
+<p>
+Στις εξετάσεις μπορεί να βρίσκεται μόνο σε ερωτήσεις ΣΛ με σύντομη αιτιολόγηση.
+</p>
+
+</div>
+
+<ul class="org-ul">
+<li>Ουσιαστικά βελτίωση του SSB AM γιατί αίρει τον περιορισμό περί <b>ακρίβειας</b> των
+εμπλεκόμενων φίλτρων.</li>
+<li>Χρησιμοποιούνταν παλαιότερα στην αναλογική τηλεόραση</li>
+<li>Πλέον έχει χάσει το ενδιαφέρον του.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbd207e0" class="outline-2">
+<h2 id="orgbd207e0"><a href="#orgbd207e0">Σύνοψη διαμορφώσεων πλάτους.</a></h2>
+<div class="outline-text-2" id="text-orgbd207e0">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Χαρακτηριστικό Διαμόρφωσης - Διαμόρφωση</td>
+<td class="org-left">DSBAMTC</td>
+<td class="org-left">DSBAMSC</td>
+<td class="org-left">SSBAM</td>
+<td class="org-left">VSBAM</td>
+</tr>
+
+<tr>
+<td class="org-left">\(x_i\)</td>
+<td class="org-left">\(A_c+m(t)\)</td>
+<td class="org-left">\(A_{c} m(t)\)</td>
+<td class="org-left">\(A_{c} m(t)\)</td>
+<td class="org-left">\(A_{c} m(t)\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Εύρος Ζώνης</td>
+<td class="org-left">\(2W\)</td>
+<td class="org-left">\(2W\)</td>
+<td class="org-left">\(W\)</td>
+<td class="org-left">\(W + \frac{W}{K}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">Αποδιαμόρφωση</td>
+<td class="org-left">Ασύμφωνη</td>
+<td class="org-left">Σύμφωνη</td>
+<td class="org-left">Σύμφωνη</td>
+<td class="org-left">Σύμφωνη</td>
+</tr>
+
+<tr>
+<td class="org-left">Ισχύς</td>
+<td class="org-left">\(\frac{A_c^2}{2} + \frac{1}{2}mathcal{P}_m\)</td>
+<td class="org-left">\(\frac{A_c^2}{2} \mathcal{P}_m\)</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left">Πολυπλοκότητα δέκτη</td>
+<td class="org-left">μικρή</td>
+<td class="org-left">μεγάλη</td>
+<td class="org-left">μεγάλη</td>
+<td class="org-left">μεγάλη</td>
+</tr>
+
+<tr>
+<td class="org-left">Κόστος δέκτη</td>
+<td class="org-left">χαμηλό</td>
+<td class="org-left">υψηλό</td>
+<td class="org-left">υψηλό</td>
+<td class="org-left">υψηλό</td>
+</tr>
+
+<tr>
+<td class="org-left">Αποδοτικότητα ισχύος</td>
+<td class="org-left">μικρή</td>
+<td class="org-left">μέγιστη</td>
+<td class="org-left">μέγιστη</td>
+<td class="org-left">μέγιστη</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Το <a href="lec_TLP1_20221012.html">φασματικό περιεχόμενο της DSBAMTC που εξετάστηκε στην δεύτερη διάλεξη</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Στην πραγματικότητα είναι δύσκολο να γίνει κατανοητό με τον τρόπο της
+<i>ισχύος</i> στο 0. Είναι πιο εύκολο να γίνει κατανοητό γραφικά. Τα ζωνοπερατά φίλτρα,
+αν και ιδανικά θα λειτουργούσαν ακριβώς στο \((f_c,f_c + W)\) (ή σε οποιαδήποτε
+περιοχή έπρεπε να λειτουργήσουν), δεν λειτουργούν έτσι. Η ακρίβεια τους είναι
+περιορισμένη. Λόγω αυτού, μπορεί μέρος της κάτω πλευρικής ζώνης (ή της άνω),
+ανάλογα με την μορφή της SSB διαμόρφωσης που κάνουμε, να περάσει παραμορφώνοντας
+την έξοδο μας.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-11 Tue 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

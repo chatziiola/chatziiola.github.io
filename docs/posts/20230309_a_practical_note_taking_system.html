@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>A practical note taking system</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="An introduction to my note taking framework" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">A practical note taking system</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org009f1d5">Before we begin</a></li>
+<li><a href="#org8f5d546">Introduction to note types</a></li>
+<li><a href="#org8c18565">Working Notes</a></li>
+<li><a href="#org4ee71bd">Lecture Notes</a></li>
+<li><a href="#org22804f0">Book Notes</a></li>
+<li><a href="#org9e56165">Permanent Notes</a>
+<ul>
+<li><a href="#org0cd1e23">KIS(S)</a></li>
+<li><a href="#org8655b46">KIS(S)</a></li>
+</ul>
+</li>
+<li><a href="#orgb828b1b">References</a></li>
+</ul>
+</div>
+</div>
+<p>
+My notetaking system has been a long on-going project. It started with
+(<a href="#org42974b9">Castel 2023</a>), and has since been through a lot.
+</p>
+
+<div class="org-center">
+<p>
+From vim to emacs.
+</p>
+
+
+<p>
+From \(\LaTeX\) to Org Mode.
+</p>
+
+
+<p>
+From text only to inline images and complementary handwriting parts.
+</p>
+</div>
+
+<p>
+It evolved along with me, as I better understood my way to function, not solely
+within an academic framework, but in general, and in this article, I will try to
+properly describe its current form through my workflow.
+</p>
+
+<p>
+Like most people that have lost enough time around note management and creation,
+I got into this to improve an aspect of my workflow that I believed would be
+worth optimizing. It was. Judging from my experience, though, falling into the
+note taking rabbit hole is not for the faint of heart; if you start tinkering,
+it will take some time to get back to writing without thinking about the process.
+</p>
+
+<p>
+If you, however, have decided to not pay attention to this warning&#x2026; Prepare
+yourselves!
+</p>
+
+
+<div class="note" id="org88d8098">
+<p>
+If this article feels like its promoting my <i>note taking</i> stack, this was not
+intended. My goal is to expose my process so that your feedback (supposing it
+exists :P ) will allow me to see its problems(<a href="#orge7aae21">Ahrens 2022</a>).
+</p>
+
+</div>
+
+<div id="outline-container-org009f1d5" class="outline-2">
+<h2 id="org009f1d5"><a href="#org009f1d5">Before we begin</a></h2>
+<div class="outline-text-2" id="text-org009f1d5">
+<p>
+This article tries to avoid getting into the specifics of any of the well-known
+note taking systems or configurations I may or may not have been inspired from.
+I have tried to include many links, throughout this article, so that you can
+begin your own journey
+</p>
+
+<p>
+If it becomes too technical at times, I am sorry, but it was intended, with a
+goal of achieving the same level of attention to detail as Castel. A goal that
+is beyond my reach I suppose, yet &#x2026; I hope there is truth in the <i>aim for the
+moon, even if you fail you&rsquo;ll be among the stars</i> mentality.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8f5d546" class="outline-2">
+<h2 id="org8f5d546"><a href="#org8f5d546">Introduction to note types</a></h2>
+<div class="outline-text-2" id="text-org8f5d546">
+<p>
+<b>Not all notes are the same.</b>
+</p>
+
+<p>
+Notes should be created with a purpose in mind, and with a clear context in
+which they would be accessed. Notes that you will read again and again because
+they have a great detail of information on a difficult theoretical subject, and
+help in research and in solidifying one&rsquo;s understanding are significantly
+different to notes that aim to simplify that subject and the distinction becomes
+even more apparent with notes that are supposed to be glanced at and help you
+use a certain piece of software or methodology.
+</p>
+
+<p>
+In my configuration there exist four distinct types of notes:
+</p>
+<ol class="org-ol">
+<li><a href="#org8c18565">Working Notes</a></li>
+<li><a href="#org4ee71bd">Lecture Notes</a></li>
+<li><a href="#org22804f0">Book Notes</a></li>
+<li><a href="#org9e56165">Permanent Notes</a></li>
+</ol>
+
+<p>
+Each one of them would need a rather extensive article on the many phases that  
+</p>
+
+<div class="note" id="org4f1da13">
+<p>
+I feel that it is important to state that I also rely heavily on <code>org-capture</code> for
+quick notes or <i>fleeting notes</i> as described in Zettelkasten
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8c18565" class="outline-2">
+<h2 id="org8c18565"><a href="#org8c18565">Working Notes</a></h2>
+<div class="outline-text-2" id="text-org8c18565">
+<p>
+Working notes are, essentially, small chunks of important methodologies, tips
+and commands I develop around a topic and keep within a keystrokes&rsquo; reach for
+when I have trouble in that specific context.
+</p>
+
+
+<div id="org1037cfa" class="figure">
+<p><img src="images/230309_1019_working-notes.png" alt="230309_1019_working-notes.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Here you can see some sample working notes on certain tools, managed by KLP</p>
+</div>
+
+<p>
+Unlike the other types, working notes do not have a role in the learning
+process. If anything, they are one of its handy products.
+</p>
+
+<p>
+They are, however, indispensable in practicality. Building a little bit
+on this, working notes, as a whole, are any user&rsquo;s <b>ideal</b> handbook. They can be
+cheat sheets with a little bit of information, they can (and should) point to
+resources you&rsquo;ll need when viewing that note, they can offer some simple
+methodology tips, and much more, tailored specifically to you..
+</p>
+
+<p>
+I have implemented working notes with my very first package, <a href="https://github.com/chatziiola/klp">KLP</a>. Using the
+following configuration, everything works smoothly allowing me to access and
+create working notes instantly.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> <span class="org-constant">klp</span>
+  <span class="org-builtin">:straight</span>
+  (<span class="org-builtin">:host</span> github <span class="org-builtin">:repo</span> <span class="org-string">"chatziiola/klp"</span>)
+
+  <span class="org-builtin">:config</span>
+  (<span class="org-keyword">setq</span> klp/static-notes-dir <span class="org-string">"~/my/path"</span>)
+
+  <span class="org-builtin">:general</span>
+  (lc/leader-keys
+    <span class="org-string">"ln"</span> '(klp/open-note                   <span class="org-builtin">:which-keys</span> <span class="org-string">"Open tools cate"</span>)
+    <span class="org-string">"lt"</span> '(chatziiola/open-thm-room        <span class="org-builtin">:which-keys</span> <span class="org-string">"Open thm categ"</span>)
+    <span class="org-string">"lT"</span> '(chatziiola/open-tools           <span class="org-builtin">:which-keys</span> <span class="org-string">"Open tools cate"</span>))
+  )
+</pre>
+</div>
+
+<p>
+To get a better understanding of how to use KLP, if you go that way, see the
+following personalized functions:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/open-tools</span> ()
+<span class="org-doc">"Macro to use `</span><span class="org-doc"><span class="org-constant">klp/open-note</span></span><span class="org-doc">' to open all `</span><span class="org-doc"><span class="org-constant">notes_tool_title.org</span></span><span class="org-doc">' files."</span>
+  (<span class="org-keyword">interactive</span>)
+  (klp/open-note <span class="org-string">"tool"</span> '(<span class="org-string">"TITLE"</span>)))
+
+(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/open-thm-room</span> ()
+<span class="org-doc">"Macro to use `</span><span class="org-doc"><span class="org-constant">klp/open-note</span></span><span class="org-doc">' to open all `</span><span class="org-doc"><span class="org-constant">notes_thm_title.org</span></span><span class="org-doc">' files."</span>
+  (<span class="org-keyword">interactive</span>)
+  (klp/open-note <span class="org-string">"thm"</span> '(<span class="org-string">"DATE"</span> <span class="org-string">"TITLE"</span>)))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4ee71bd" class="outline-2">
+<h2 id="org4ee71bd"><a href="#org4ee71bd">Lecture Notes</a></h2>
+<div class="outline-text-2" id="text-org4ee71bd">
+<div class="note" id="org546f5db">
+<p>
+After having completed this article I noticed that I did not write about
+<code>cdlatex</code>. If you use org heavily and would like to have inline \LaTeX, completion
+and much more give it a shot.
+</p>
+
+</div>
+
+<p>
+I am a university undergrad, so quality lecture notes are of quite some
+importance to me. In this context one cares about <i>quickly and efficiently</i>
+jotting down what the professor(s) said, along with their fleeting thoughts, so
+that they can be revised at a later time, allowing them to gain a deeper
+understanding on the subject.
+</p>
+
+<p>
+Unlike Castel, I have decided against spending time to configure a viable
+solution for plotting while in lectures, even though I know such a system can be
+impressively beneficial and quick. Instead what I have found to be a good, even
+though not so classy approach, to this is using the inline-images functionality
+that Org Mode offers to add photos from my phone, the Internet and from my own
+handwritten sketches. This means that my lecture notes are initially image free
+till I revisit them, but this is acceptable by me.
+</p>
+
+<p>
+Examples of such images you can see in my published <a href="lectures/index.html">lectures/index.html</a>
+</p>
+
+<p>
+Furthermore, lecture notes are almost identical to <a href="#org22804f0">book notes</a>, in their core.
+The reason why there is a clear distinction between them in my configuration, is
+a purely practical one. They do not work the same way, one uses <code>org-lectures</code>
+while the other one uses <code>org-noter</code>, and they are used under different
+circumstances. In lecture notes I strive for speed and completeness, so that I
+can properly study on my own, while book notes do not have such strict time
+constraints. In them, I want to be as thorough as possible, so that I can
+distill the important information and gain a deep understanding of the subject.
+</p>
+
+
+<p>
+As I described in the previous paragraph, for lecture notes I use my newly
+published <a href="https://github.com/chatziiola/org-lectures">org-lectures</a> package, with the following simple configuration<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> <span class="org-constant">org-lectures</span>
+  <span class="org-builtin">:straight</span>
+  (<span class="org-builtin">:host</span> github <span class="org-builtin">:repo</span> <span class="org-string">"chatziiola/org-lectures"</span>)
+  <span class="org-builtin">:config</span>
+  (<span class="org-keyword">setq</span> org-lectures-dir (expand-file-name <span class="org-string">"/my/path"</span>))
+  (<span class="org-keyword">setq</span> org-lectures-static-course-files-dir  <span class="org-string">"/my/path"</span>)
+  (<span class="org-keyword">setq</span> org-lectures-roam-id-integration  t)
+  (<span class="org-keyword">setq</span> org-lectures-current-semester <span class="org-string">"6"</span>)
+  <span class="org-builtin">:general</span>
+  (lc/leader-keys
+    <span class="org-string">"ll"</span> '(org-lectures-find-course             <span class="org-builtin">:which-keys</span> <span class="org-string">"lecture"</span>)
+    <span class="org-string">"lF"</span> '(org-lectures-dired-course-folder     <span class="org-builtin">:which-keys</span> <span class="org-string">"Open course's folder"</span>))
+  )
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org22804f0" class="outline-2">
+<h2 id="org22804f0"><a href="#org22804f0">Book Notes</a></h2>
+<div class="outline-text-2" id="text-org22804f0">
+<p>
+When reading a book, an article or even watching a video or a course, new ideas
+will, naturally, emerge. These ideas can be simply fleeting notes, as they are
+yours and only through development and elaboration can they be transformed
+adequately to reside in your slip box, helping you in your research, however,
+they can also be literature notes.
+</p>
+
+
+<p>
+Zettelkasten method with the <i>keywords</i> <code>book</code> <code>article</code> <code>video</code>, contains ideas
+expressed in that medium, obviously rephrased and handled according to Luhman&rsquo;s
+technique.
+</p>
+
+<p>
+TODO hint at bibliography and zotero
+TODO hint at ebooks
+</p>
+
+<p>
+Even though in the past I was a firm believer that regular books were superior
+to ebooks and could not even be remotely compared, I have started, since I was
+forced to study in electronic format for my university courses, to find many
+areas in which ebooks have more to offer, without <i>practically</i> any drawback:
+</p>
+<ul class="org-ul">
+<li>Easy references</li>
+<li>Always with you</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9e56165" class="outline-2">
+<h2 id="org9e56165"><a href="#org9e56165">Permanent Notes</a></h2>
+<div class="outline-text-2" id="text-org9e56165">
+<p>
+These notes are stored as if they were to be published.  They are independent,
+and thus do not rely on other notes to have meaning.
+</p>
+
+<p>
+To be frank, I do not have much to say on my permanent notes. I use the
+wonderful <code>org-roam</code> package, and I try to work along the lines of
+(<a href="#org6cdc3f6">“Org-Roam User Manual” 2023</a>), (<a href="#orga8ea3f1">Jethro 2023</a>), (<a href="#org42974b9">“Capturing Notes Efficiently with Org Roam - System Crafters” 2023</a>).
+</p>
+
+<p>
+After attending a lecture, reading an article or a book, or when trying to
+connect some concepts I have trouble with together, I start breaking everything
+down to smaller notes. Through this process (and <code>org-roam-ui</code> helps), I often get
+a much better view of the section I am studying at the time, understanding the
+relationship between different pieces of theory and connecting them to real life
+practices or material that has been previously studied. It is not perfect, but
+it is helpful.
+</p>
+
+
+<p>
+This gif perfectly illustrates the relationship between book, lecture
+notes(left) and permanent notes(right)
+Summing permanent notes up, through a lot of trial and error I have come to
+believe that they should follow these policies.
+</p>
+</div>
+
+<div id="outline-container-org0cd1e23" class="outline-3">
+<h3 id="org0cd1e23"><a href="#org0cd1e23">KIS(S)</a></h3>
+<div class="outline-text-3" id="text-org0cd1e23">
+<p>
+Keep it Small. I&rsquo;m trying really hard not to sum this section up as: &ldquo;Size
+matters&rdquo;. My sense of humor, though, prevents me.
+</p>
+
+<p>
+I have a principle of trying to keep my note files as small and as consistent as
+possible. So far I am not doing a <i>great</i> job on the second, but I try really hard
+on the first one: If my notes are not of bibliographic nature, I try to limit
+them so that they can be fully contained in my computer screen. <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+
+<p>
+And funnily enough, with these we have actually covered all of the <i>theory</i> around my workflow.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8655b46" class="outline-3">
+<h3 id="org8655b46"><a href="#org8655b46">KIS(S)</a></h3>
+<div class="outline-text-3" id="text-org8655b46">
+<p>
+Keep It Simple. Try to avoid overthinking or over engineering stuff. You should
+focus on the material you are at the time studying or working on. Focusing on
+the practice of note taking (even though, as (<a href="#orge7aae21">Ahrens 2022</a>)
+suggest is beneficial due to its deliberate character), is from my experience
+problematic and hinders the process in the long term, by decreasing your
+performance and willingness to take notes.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb828b1b" class="outline-2">
+<h2 id="orgb828b1b"><a href="#orgb828b1b">References</a></h2>
+<div class="outline-text-2" id="text-orgb828b1b">
+<p>
+<a id="org0582833"></a>
+</p>
+
+
+<p>
+<a id="orgd9438b7"></a> <a id="orge7aae21"></a>Ahrens, Sönke. 2022. <i>How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking</i>. 2nd edition, revised and expanded edition. Hamburg, Germany: Sönke Ahrens.
+</p>
+
+<p>
+<a id="org42974b9"></a>Castel, Gilles. 2023. “Castel.Dev.” Accessed March 8. <a href="https://castel.dev/">https://castel.dev/</a>.
+</p>
+
+<p>
+<a id="orga8ea3f1"></a>Jethro, Kuan. 2023. “How I Take Notes with Org-roam.” Accessed January 20. <a href="https://jethrokuan.github.io/org-roam-guide/">https://jethrokuan.github.io/org-roam-guide/</a>.
+</p>
+
+<p>
+<a id="orgd16d17d"></a>“Capturing Notes Efficiently with Org Roam - System Crafters.” 2023. Accessed March 9. <a href="https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/">https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/</a>.
+</p>
+
+<p>
+<a id="org6cdc3f6"></a>“Org-Roam User Manual.” 2023. Accessed March 9. <a href="https://www.orgroam.com/manual.html">https://www.orgroam.com/manual.html</a>.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I will try to write package specific workflow articles in the upcoming
+months, but this sadly has no priority for me.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Mind you, I&rsquo;m using <code>auto-fill-mode</code>, greatly limiting the width of my
+files so the height limitation is quite apparent at times.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-03-09 Thu 11:47 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

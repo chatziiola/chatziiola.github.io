@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 3: AM: Διαμορφωτές και ασύμφωνοι αποδιαμορφωτές</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 3: AM: Διαμορφωτές και ασύμφωνοι αποδιαμορφωτές</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgded0cc5">Προαπαιτούμενες γνώσεις</a></li>
+<li><a href="#org8fe734b">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></li>
+</ul>
+</li>
+<li><a href="#org734a44a">Παρουσίαση GNU-Radio</a></li>
+<li><a href="#orgb5b5789">Διαμορφωτής AM διόδου</a></li>
+<li><a href="#org0bb0c38">Αποδιαμορφωτές AM</a>
+<ul>
+<li><a href="#orgd64f378">Ασύμφωνοι αποδιαμορφωτές</a>
+<ul>
+<li><a href="#org638363c">Λειτουργία</a></li>
+<li><a href="#org53e3af2">Υπερδιαμόρφωση</a></li>
+</ul>
+</li>
+<li><a href="#org5f83cd5">Σύμφωνοι Αποδιαμορφωτές</a>
+<ul>
+<li><a href="#orgd632eae">Υποβάθμιση σήματος.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgded0cc5" class="outline-3">
+<h3 id="orgded0cc5"><a href="#orgded0cc5">Προαπαιτούμενες γνώσεις</a></h3>
+<div class="outline-text-3" id="text-orgded0cc5">
+<p>
+Για την πλήρη κατανόηση της διάλεξης είναι <i>απαραίτητη</i> η κατανόηση των δύο αυτών
+εννοιών:
+</p>
+<ul class="org-ul">
+<li>Περιβάλλουσα
+<ul class="org-ul">
+<li><a href="lec_TLP1_20221012.html">Αναλύθηκε στην προηγούμενη διάλεξη</a></li>
+</ul></li>
+<li>Ισχύς και συντελεστής απόδοσης ισχύος.
+<ul class="org-ul">
+<li><a href="lec_TLP1_20221012.html">Αναλύθηκε στην προηγούμενη διάλεξη</a></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8fe734b" class="outline-3">
+<h3 id="org8fe734b"><a href="#org8fe734b">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></h3>
+<div class="outline-text-3" id="text-org8fe734b">
+<div class="note" id="org0a4f1e7">
+<p>
+Αυτή η υποπαράγραφος, η οποία έγινε ύπο την μορφή παραδείγματος στην τάξη
+αποτελεί ουσιαστικά την εισαγωγή στο δεύτερο κομμάτι του μαθήματος, την
+μετατροπή του αναλογικού σήματος σε ψηφιακό.
+</p>
+
+</div>
+
+<p>
+Στις ψηφιακές επικοινωνίες (αρχικά) μας ενδιέφερε η μεταφορά μόνο δύο
+καταστάσεων, (0,1), ενώ προφανώς σταδιακά, προκειμένου να μπορούμε να
+μεταφέρουμε μεγαλύτερο όγκο πληροφοριών, με πιο απαιτητικές ταχύτητες
+αρχίσαμε να ενδιαφερόμαστε για μεγαλύτερες δυνάμεις του δύο.
+</p>
+
+<p>
+Για να μετατρέψουμε ένα σήμα το οποίο έχει υποστεί διαμόρφωση πλάτους σε
+ψηφιακό, χρειάζεται να ορίσουμε μια διαδικασία (συνάρτηση) κατά την οποία,
+λαμβάνοντας δείγματα θα τα αντιστοιχούμε σε αντίστοιχες καταστάσεις. Αν έχουμε
+μόνο 1 bit, αυτές οι καταστάσεις θα είναι το 0 και το 1 αλλιώς, όπως εύκολα
+γίνεται ξεκάθαρο, αυτές θα είναι πολλαπλάσιες.
+</p>
+
+
+<p>
+Η λογική αυτή επεκτείνεται και για ταυτόχρονη μετάδοση περισσότερων bit και bytes.
+Με την κατάλληλη διαμόρφωση πλάτους ( χρήση καταλλήλως ορισμένου αριθμού πλατών )
+μπορούμε να αναθέσουμε ένα πλάτος στην κάθε κατάσταση, να αυξήσουμε, δηλαδή, τον
+αριθμό των καταστάσεων που μπορούμε να μεταδόσουμε .
+</p>
+
+<p>
+Αυξάνοντας το bitrate αυξάνουμε, κατ&rsquo; αυτόν τον τρόπο και την ταχύτητα:
+</p>
+<ul class="org-ul">
+<li>Μεγαλύτερης τάξης διαμόρφωση τόσο μεγαλύτερη είναι η ταχύτητα.</li>
+<li>Τάξη n-οστου βαθμού<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> συνεπάγεται \(2^n\)</li>
+<li><b>Μεγαλύτερη τάξη συνεπάγεται μεγαλύτερη πιθανότητα σφάλματος:</b> Οι καταστάσεις
+είναι πιο κοντά μεταξύ τους με αποτέλεσμα καθιστώντας τον θόρυβο ολοένα και
+μεγαλύτερο πρόβλημα.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org734a44a" class="outline-2">
+<h2 id="org734a44a"><a href="#org734a44a">Παρουσίαση GNU-Radio</a></h2>
+<div class="outline-text-2" id="text-org734a44a">
+<ul class="org-ul">
+<li>έγινε μια παρουσίαση FM με την χρήση του παραπάνω πακέτου λογισμικού.</li>
+<li>Συνοπτικά απλά ενδεικτικό των ραδιοφωνικών σταθμών στις διάφορες συχνότητες
+και ιδιαίτερη έμφαση στην μέτρηση της ισχύος με την dbm κλιμακα</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-orgb5b5789" class="outline-2">
+<h2 id="orgb5b5789"><a href="#orgb5b5789">Διαμορφωτής AM διόδου</a></h2>
+<div class="outline-text-2" id="text-orgb5b5789">
+<div class="note" id="org35a4b9c">
+<p>
+Ο διαμορφωτής ( και ο πομπός ) AM, είναι ένας φθηνός και απλός διαμορφωτής.
+Πλέον, όμως, έχει περιορισμένες εφαρμογές. Ακόμα η διάταξη δεν φαίνεται να
+υπάρχει στο βιβλίο των Καραγιαννίδη,Παπή, επομένως θεωρώ πως είναι μικρής
+σημασίας για τους διδάσκοντες.
+</p>
+
+</div>
+
+<p>
+Έχοντας δει τον τύπο της κλασσικής DSBAM-TC διαμόρφωσης (στην οποία αναφέρονται
+οι σημειώσεις και ως AM απλά, αν δεν υπάρχει άλλη διευκρίνηση), θέλουμε μια
+διάταξη η οποία να μπορεί, δοθέντος σήματος πληροφορίας να εξάγει σήμα της
+μορφής:
+</p>
+
+\begin{equation}
+\label{eq:2}
+V_{out} = [A_c + m(t)]\cos{\left(2\pi f_ct\right)}
+\end{equation}
+
+<p>
+Αυτό είναι επιτεύξιμό με την διάταξη του σήματος:
+</p>
+
+<div id="org69816d0" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_diamorfotis.png" alt="tlp1_lec4_diamorfotis.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Η απλή διάταξη ενός AM διαμορφωτή, με χρήση διόδου και αντίστασης.</p>
+</div>
+
+<p>
+Αναλυτικότερα, με σήμα εισόδου \(V_{in} = A_C\cos{2\pi f_ct} + m(t)\), η παραπάνω
+διάταξη θα δώσει έξοδο της μορφής:
+</p>
+
+\begin{align}
+\label{eq:4}
+V_{out} = \sum_{i=1}^{\infty} d_iV_{in}^{i}
+\end{align}
+
+<p>
+Όπου για \(i>2\) οι τιμές των \(d_i\) είναι επαρκώς μικρές ώστε να τις θεωρήσουμε
+ασήμαντες και να τις αγνοήσουμε. Έτσι προκύπτει η σχέση:
+</p>
+
+\begin{equation}
+\label{eq:5}
+V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + \frac{d_2A_c^2}{2}(1 + \cos{4\pi f_ct})
+\end{equation}
+
+<p>
+Τοποθετόντας και ένα ζωνοπερατό φίλτρο επί της συχνότητας \(f_c\), πλάτους \(2W\),
+αποκτάμε απόκριση της επιθυμητής μορφής.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org0bb0c38" class="outline-2">
+<h2 id="org0bb0c38"><a href="#org0bb0c38">Αποδιαμορφωτές AM</a></h2>
+<div class="outline-text-2" id="text-org0bb0c38">
+<p>
+Χωρίζονται σε δύο κατηγορίες, στους ασύμφωνους και τους σύμφωνους
+αποδιαμορφωτές, με τους πρώτους να είναι πιο απλοί, και ιστορικά πρώτοι να
+χρησιμοποιηθούν, λόγω της φθηνής διάταξης τους και της δυνατότητας τους να
+λειτουργήσουν δίχως άλλη πληροφορία (πέραν του διαμορφωμένου σήματος εισόδου)
+</p>
+</div>
+
+<div id="outline-container-orgd64f378" class="outline-3">
+<h3 id="orgd64f378"><a href="#orgd64f378">Ασύμφωνοι αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-orgd64f378">
+
+<div id="orgc029d46" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis.png" alt="tlp1_lec4_asymfonosapodiamorfotis.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Ασύμφωνος αποδιαμορφωτής με δίοδο, μία διάταξη εμφανώς όμοια με τον διαμορφωτή με δίοδο, μόνο που στην έξοδο της έχει τοποθετηθεί παράλληλα πυκνωτής.</p>
+</div>
+</div>
+
+<div id="outline-container-org638363c" class="outline-4">
+<h4 id="org638363c"><a href="#org638363c">Λειτουργία</a></h4>
+<div class="outline-text-4" id="text-org638363c">
+<p>
+Κατά το τμήμα της περιόδου όπου η τάση έχει θετική τιμή, η δίοδος είναι
+κατάλληλα πολωμένη, άγει και κατ&rsquo; επέκταση φορτίζεται ο πυκνωτής. Όταν όμως, η
+τάση λαμβάνει αρνητικές τιμές, η τάση δεν άγει και ο πυκνωτής εκφορτίζεται με
+ρυθμό \(RC=\tau\). Αυτό επαναλαμβάνεται σε κάθε περίοδο.
+</p>
+
+<p>
+Αποτέλεσμα αυτού είναι η <i>οδοντωτή</i> αποτύπωση της περιβάλλουσας
+</p>
+
+<p>
+Ιδανικά εδώ θέλουμε η τιμή της RC να είναι κατάλληλα ρυθμισμένη ούτως ώστε να
+είναι όσο το δυνατόν πιο κοντά στην περιβάλλουσα.
+</p>
+
+
+<div id="orgba6257d" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png" alt="tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Άστοχη προσπάθεια του συγγραφέα να δείξει την προσέγγιση της περιβάλλουσας από το περιγραφόμενο κύκλωμα.</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org53e3af2" class="outline-4">
+<h4 id="org53e3af2"><a href="#org53e3af2">Υπερδιαμόρφωση</a></h4>
+<div class="outline-text-4" id="text-org53e3af2">
+<p>
+Η υπερδιαμόρφωση, όταν προκύπτει, ουσιαστικά <i>εισάγει</i> στο σήμα εξόδου μια
+παραμόρφωση στην μορφή ημιτελούς περιόδου.
+</p>
+<ul class="org-ul">
+<li>Δείκτης διαμόρφωσης.
+<ul class="org-ul">
+<li><a href="lec_TLP1_20221003_Î´Î¹Î±Î»ÎµÎ¾Î·.html">όπως αναλύθηκε στις σημειώσεις της προηγούμενης διάλεξης</a></li>
+</ul></li>
+<li>Αποφυγή με VOGAD</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5f83cd5" class="outline-3">
+<h3 id="org5f83cd5"><a href="#org5f83cd5">Σύμφωνοι Αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-org5f83cd5">
+
+<div id="orgbafd8eb" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec4_symfonosapodiamorfotis.png" alt="tlp1_lec4_symfonosapodiamorfotis.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Συνοπτικό διάγραμμα ασύμφωνου αποδιαμορφωτή, με την χρήση ταλαντωτή (PLL).</p>
+</div>
+
+<p>
+Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε ώστε να βγάζει συνημιτονοειδή
+έξοδο στην συχνότητα που θέλουμε (\(f_c\)). Αυτό το θέλουμε καθώς κατα αυτό τον
+τρόπο, ο πολλαπλασιασμός των σημάτων \(x(t),c(t)\) μας δίνει σήματα εύκολα
+διαχωρίσιμα με χαμηλοπερατό φίλτρο. (Αν γίνουν οι πράξεις, ή ακόμα και με το
+μυαλό, είναι εμφανές πως ο πολλαπλασιασμός θα έχει έναν όρο χωρίς συνημίτονο,
+και έναν όρο με συνημίτονο στην συχνότητα \(2f_c\)).
+</p>
+
+
+<p>
+Στην συνέχεια, φιλτράρεις εκείνα με το LPF και <i>γλυτώνεις</i> από την DC συνιστώσα με
+τον πυκνωτή.
+</p>
+
+<p>
+Έτσι, τελικά, μπορεί να προκύψει το \(\frac{1}{2} m(t)\), το σήμα πληροφοριών που θέλουμε
+</p>
+</div>
+
+
+<div id="outline-container-orgd632eae" class="outline-4">
+<h4 id="orgd632eae"><a href="#orgd632eae">Υποβάθμιση σήματος.</a></h4>
+<div class="outline-text-4" id="text-orgd632eae">
+<p>
+Παρόλα αυτά, υπο συνθήκες το PLL δεν <i>κλειδώνει</i>. Σε εκείνες τις περιπτώσεις, λόγω
+της μικρής διαφοράς φάσης σε είσοδο και \(c(t)\) (<i>έξοδο του PLL</i>) η τελική έξοδος
+του αποδιαμορφωτή ισούται με:
+</p>
+
+\begin{equation}
+\label{eq:1}
+\frac{1}{2}[A_c+m(t)]\cos{\phi}
+\end{equation}
+<p>
+όπου \(\phi\) η <i>αστοχία φάσης</i>
+</p>
+
+<div class="note" id="org478e205">
+<p>
+Ανάλυση των σύμφωνων αποδιαμορφωτών, σε μεγαλύτερο βάθος, γίνεται και στην
+επόμενη διάλεξη: <a href="lec_TLP1_20221011.html">Διάλεξη 4</a>
+</p>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Εδώ είχα σημείωση για σύνδεση με την τάξη διαμόρφωσης πλάτους, για την
+οποία δεν έχω άλλη αναφορά στις σημειώσεις μου.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-10 Mon 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

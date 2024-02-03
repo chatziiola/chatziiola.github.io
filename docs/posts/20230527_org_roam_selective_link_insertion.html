@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org-roam selective link insertion</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Org-roam selective link insertion</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1ea88c2">Disclaimer</a></li>
+<li><a href="#org9bf0146">Problem at hand</a></li>
+<li><a href="#org64459d8">Solution</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org1ea88c2" class="outline-2">
+<h2 id="org1ea88c2"><a href="#org1ea88c2">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-org1ea88c2">
+<p>
+This article does not cover how to use <code>org-roam</code>. It is simply a step by step
+analysis of a potentially sketchy solution to overcome a niche problem. 
+</p>
+
+<p>
+If anyone wants to write their own <code>org-roam</code> configuration, I would suggest
+that they visit <a href="https://github.com/jethrokuan/dots">Jethro&rsquo;s dotfiles</a>.
+</p>
+
+<p>
+While most mortals are still learning how to use it efficiently, occasionally
+falling in the trap of overthinking stuff, while trying to practice Zettelkasten
+as a means to get better in our pursuits, he seems to have all this figured out.
+After all he is the creator of the package.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org9bf0146" class="outline-2">
+<h2 id="org9bf0146"><a href="#org9bf0146">Problem at hand</a></h2>
+<div class="outline-text-2" id="text-org9bf0146">
+<p>
+If there is something I always wanted to tackle in <code>org-roam</code>, is that I quite
+often, when revisiting older nodes, encounter phrases and/or topics I have built
+on since then. Manually fixing these <i>missing links</i> has been quite a burden.
+</p>
+
+<p>
+That functionality, was not very difficult to achieve.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org64459d8" class="outline-2">
+<h2 id="org64459d8"><a href="#org64459d8">Solution</a></h2>
+<div class="outline-text-2" id="text-org64459d8">
+<p>
+The solution consists of two parts:
+</p>
+<ul class="org-ul">
+<li>The function that does everything</li>
+<li>The keybinding to use :P</li>
+</ul>
+
+<p>
+Focusing on the hard stuff first: the function. Since I am an <a href="https://github.com/emacs-evil/evil">evil user</a>, I use
+<code>visual mode</code> quite a lot, and it feels like the perfect tool for this job.
+Whenever I find a snippet I want to replace with a link to the related node, I
+can easily press <code>v</code>, select the appropriate text and then call the function.
+</p>
+
+<div class="note" id="org0ef61a5">
+<p>
+If you do not use evil, you can still use the function (after commenting out the
+last line). The usage will necessarily be different though.
+</p>
+
+</div>
+
+<p>
+Upon selection of text in emacs the text&rsquo;s starting and ending points are marked with
+<code>(region-beginning)</code> and <code>(region-end)</code>, respectively. Knowing just those two we can
+easily select the desired string: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="org305f481">(buffer-substring-no-properties (region-beginning) (region-end))
+</pre>
+</div>
+
+<p>
+Normally, that would be all, but to make my life a little bit easier, due to my
+<i>bad</i> (?) habit of using solely the <code>w</code> and not the <code>e</code> motion, I wanted to
+automatically strip the selected string of any undesired whitespace.
+This step improves the accuracy of the subsequent processing
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="org0ef70aa">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
+</pre>
+</div>
+
+<p>
+Having the selected text in the proper form, we then want to search our <code>org-roam</code>
+database for the proper node. If such a node exists, we want to get it&rsquo;s <code>id</code> so
+that we can then insert the link in our starting file.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="orgadda22a">(<span class="org-keyword">progn</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Open a node-find prompt with the selected-text as initial input</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">If a node is found/created open it on a different window</span>
+  (org-roam-node-find t selected-text)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">If the previous part runs as it is supposed</span>
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">get the id of the file we want to link to</span>
+  (org-roam-node-id (org-roam-node-at-point)))
+</pre>
+</div>
+
+<div class="note" id="org562b48c">
+<p>
+Interestingly, the node need not actually match that selected text - we can clear it all in the
+<code>org-roam-node-find</code> prompt, and simply insert a link for the node we want
+</p>
+
+</div>
+
+<p>
+We&rsquo;re getting there. So far, we have both selected the text, properly formatted
+it, and then found/created the node we want the text to point to. The only thing
+left here is to replace the plain text with a link to our <i>target node</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="org3f80644">(<span class="org-keyword">with-current-buffer</span> current-buffer
+            (<span class="org-keyword">progn</span>
+              (goto-char re-start)
+              (delete-region re-start (search-forward selected-text))
+              (insert (concat <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[ID:"</span> id <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">["</span> selected-text <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]"</span>))
+              (evil-force-normal-state)
+              ))
+</pre>
+</div>
+
+
+<p>
+Now, let&rsquo;s put it all together. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="orgf3f5257">(<span class="org-keyword">defun</span> <span class="org-function-name">my-org-roam-node-find-selected-text</span> ()
+  <span class="org-doc">"Open org-roam-node-find with selected text as initial input</span>
+<span class="org-doc">and replace with org-roam link if node is selected or created."</span>
+  (<span class="org-keyword">interactive</span>)
+    (<span class="org-keyword">let*</span> ((re-start (region-beginning))
+           (selected-text (string-trim-whitespace (buffer-substring-no-properties re-start (region-end))))
+           (current-buffer (current-buffer))
+           (id (<span class="org-keyword">progn</span>
+                 (org-roam-node-find t selected-text)
+                 (org-roam-node-id (org-roam-node-at-point)))))
+      (<span class="org-keyword">if</span>  (not (eq current-buffer (current-buffer)))
+          (<span class="org-keyword">with-current-buffer</span> current-buffer
+            (<span class="org-keyword">progn</span>
+              (goto-char re-start)
+              (delete-region re-start (search-forward selected-text))
+              (insert (concat <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[ID:"</span> id <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">["</span> selected-text <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]"</span>))
+              (evil-force-normal-state)
+              ))
+      )
+    )
+  )
+</pre>
+</div>
+
+
+<p>
+Now as far as the keybinding itself is concerned, there is no reason to analyze
+it. <code>R</code> (for Roam) in visual mode points to a command I do not remember myself ever using
+(and frankly, of little use I suppose), so I can safely change it to something
+much more helpful. 
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp" id="orgeaa8666">(define-key evil-visual-state-map (kbd <span class="org-string">"R"</span>) 'my-org-roam-node-find-selected-text) 
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-05-27 Sat 22:35 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

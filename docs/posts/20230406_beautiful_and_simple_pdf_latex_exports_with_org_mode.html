@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Beautiful and simple pdf-latex exports with org mode</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="C'est la vie" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Beautiful and simple pdf-latex exports with org mode</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org37b5410">A trip down memory lane</a></li>
+<li><a href="#org03bb669">Introduction: An Org vs LaTeX comparison</a></li>
+<li><a href="#orge46648e">Configuring Emacs</a></li>
+<li><a href="#orgcef591a">Writing in Org</a></li>
+<li><a href="#org3fb9ab8">The LaTeX part</a>
+<ul>
+<li><a href="#org2cf2867">The LaTeX template: <code>sample.tex</code></a></li>
+</ul>
+</li>
+<li><a href="#org10db265">Exporting</a></li>
+<li><a href="#org8a6e27f">Further reading:</a></li>
+</ul>
+</div>
+</div>
+<div class="note" id="org82bc080">
+<p>
+Cringineer will surely like this one :P
+</p>
+
+</div>
+
+<p>
+If you also find yourself writing a lot of essays and assignments in org-mode,
+taking advantage of its nearly natural syntax, but the end result, when
+exporting to PDF, disappoints you, this article is for you.
+</p>
+
+<div id="outline-container-org37b5410" class="outline-2">
+<h2 id="org37b5410"><a href="#org37b5410">A trip down memory lane</a></h2>
+<div class="outline-text-2" id="text-org37b5410">
+<p>
+Historically, there were many different many different solutions to producing a
+scientific paper, or publishing any kind of digital document, for that matter.
+</p>
+
+<p>
+Initially what mattered most was the document&rsquo;s final appearance on paper,
+making programs such as <a href="https://en.wikipedia.org/wiki/Roff_(software)">roff</a>, quite popular. I mean, I remember like yesterday
+studying the legendary book duo of <i>The Unix Programming Environment</i> and <i>The C
+Programming Language</i>, which were (if I&rsquo;m not mistaken) using a roff derivative.
+Aren&rsquo;t they beautiful?
+</p>
+
+<p>
+However, roff and its derivatives had their limitations. In a <a href="https://www.youtube.com/watch?v=82TxNejKsng">computerphile
+youtube video</a>, some time in the past I remember professor Brailsford taking
+about the sheer difficulty of working with mathematics in that environment<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+Another alternative was Donald Knuth&rsquo;s TeX. Being too young for that, I have
+only played around with its only(?) still usable derivative: LaTeX. That
+system is so powerful, you can create presentations, papers, cvs, all in a very
+smooth and straightforward manner.
+</p>
+
+<p>
+I sincerely believe it to be the most versatile way of writing any type of
+documents, however, it has a relatively steep learning curve.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org03bb669" class="outline-2">
+<h2 id="org03bb669"><a href="#org03bb669">Introduction: An Org vs LaTeX comparison</a></h2>
+<div class="outline-text-2" id="text-org03bb669">
+<p>
+LaTeX might be more than simply wonderful as a publication backend, with
+templates being freely available on the Internet, but it is not so <i>easy</i> to write
+in<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> - mainly because for most of us, LaTeX will most probably be used only
+once in a while and that will force us to <i>revise</i> or search online for stuff that
+we once knew how to do.
+</p>
+
+<p>
+This is where <code>org-mode</code> and <code>org-export</code> comes in.
+</p>
+
+<p>
+The Org ecosystem is a wonderful environment. It is the main feature that keeps
+me using Emacs instead of moving back to my simpler roots. It is a plain text
+format with the simplest syntax I have ever seen out there, many times easier
+and more intuitive than markdown, full of interesting features and constantly
+improved, due to the plethora of experienced Org users out there, through a
+suite of rather helpful complementary packages to make your life even easier.
+</p>
+
+<p>
+From snippets, to inline LaTeX for mathematics, to inline images for more
+difficult subjects, to syncing notes with books&#x2026; I mean, what more is there to
+do??
+</p>
+
+<p>
+<i>(This would be also a good point in the article to say the following: <b>Org is fun
+to work in</b> )</i>
+</p>
+
+<p>
+Back to what I promised, <code>org-mode</code> is not a LaTeX replacement and it was never
+meant to be. Its consistency and standardized format is what makes it so useful
+for producing pretty documents: it can be exported to many different formats:
+LaTeX (and thus PDFs), html (this blog is powered by Org), markdown&#x2026; 
+</p>
+
+<p>
+Let&rsquo;s see what exactly is needed for a seamless LaTeX experience within Org.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge46648e" class="outline-2">
+<h2 id="orge46648e"><a href="#orge46648e">Configuring Emacs</a></h2>
+<div class="outline-text-2" id="text-orge46648e">
+<div class="note" id="org22bced3">
+<p>
+At this point one should have some basic level understanding of customizing
+Emacs. If you use a different way of installing packages, my snippets should be
+modified. The logic behind them, however, remains the same.
+</p>
+
+</div>
+
+<p>
+In general, almost everything I describe here can be achieved on a vanilla Emacs
+installation, since Org ships with Emacs. No need to overcomplicate things.
+</p>
+
+<p>
+There is only one package I only find myself using <i>way too much</i> when writing in
+Org-mode, and that is CDLatex, by the creator of <code>org-mode</code>. I&rsquo;ll try to publish
+an article on it soon, comparing it to snippet managers and providing an
+analysis on how I have integrated it into my more general workflow, allowing for
+seamless LaTeX snippets inside of Org.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> <span class="org-constant">cdlatex</span>
+    <span class="org-builtin">:hook</span> (org-mode . org-cdlatex-mode))
+</pre>
+</div>
+
+<p>
+What it essentially allows us to do is treat the buffer as a mix of LaTeX and
+Org, easily utilizing the first one&rsquo;s math commands (and more detailed at times)
+syntax. For example this
+</p>
+
+<div class="org-src-container">
+<pre class="src src-tex"><span class="org-keyword">\begin</span>{<span class="org-function-name">equation</span>}
+E = mc
+<span class="org-keyword">\end</span>{<span class="org-function-name">equation</span>}
+</pre>
+</div>
+
+<div class="note" id="org045a8cb">
+<p>
+And you could preview that while in buffer with <code>C-c C-x C-l</code>
+</p>
+
+</div>
+
+<p>
+Would give us:
+</p>
+\begin{equation}
+E = mc
+\end{equation}
+</div>
+</div>
+
+
+<div id="outline-container-orgcef591a" class="outline-2">
+<h2 id="orgcef591a"><a href="#orgcef591a">Writing in Org</a></h2>
+<div class="outline-text-2" id="text-orgcef591a">
+<p>
+Now we open an Emacs buffer pointing to an Org file (a plain text file with the
+<code>.org</code> extension).
+</p>
+
+<div class="note" id="org0c648ae">
+<p>
+If you want a refresher on Org syntax, you may like this one <a href="https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/">org-mode cheatsheet</a>
+</p>
+
+</div>
+
+<p>
+You will need to set some headers up top. These provide information for the rest
+of the document, and the most basic ones are the following (these are actually
+the ones used for this article):
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-document-info-keyword">#+TITLE:</span> <span class="org-org-document-title">Beautiful and simple pdf-latex exports with org mode</span>
+<span class="org-org-document-info-keyword">#+DATE:</span> <span class="org-org-document-info">&lt;2023-04-06 15:28&gt;</span>
+<span class="org-org-meta-line">#+DESCRIPTION: C'est la vie ;; feel free to use better decriptions</span>
+<span class="org-org-meta-line">#+FILETAGS: emacs org-mode </span>
+</pre>
+</div>
+
+<p>
+You can find more options to set, such as the following ones, but I generally
+only set these before I export to LaTeX. 
+</p>
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-document-info-keyword">#+SUBTITLE:</span>  <span class="org-org-document-info">dunno</span>
+<span class="org-org-document-info-keyword">#+AUTHOR:</span> <span class="org-org-document-info">chatziiola</span>
+<span class="org-org-meta-line">#+LANGUAGE: el ;; Obviously this one is not needed if you are not writing Greek</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org3fb9ab8" class="outline-2">
+<h2 id="org3fb9ab8"><a href="#org3fb9ab8">The LaTeX part</a></h2>
+<div class="outline-text-2" id="text-org3fb9ab8">
+<p>
+There are more specific options, that essentially modify the behavior (or
+certain aspects) of the export process you choose. In our case, since we are
+interested in LaTeX export, the main options to set are the following:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-org"><span class="org-org-meta-line">#+latex_class_options: [a4paper,11pt]</span>
+<span class="org-org-meta-line">#+latex_compiler: xelatex</span>
+<span class="org-org-meta-line">#+latex_header: \input{/path/to/sample.tex}</span>
+</pre>
+</div>
+
+<p>
+The first one specifies the paper and font size for our LaTeX export and is in
+fact the optional argument that will get passed at the <code>\documentclass{article}</code>
+statement at the beginning of our <i>exported</i> LaTeX buffer.
+</p>
+
+<p>
+The second one, changes the default latex compiler to <code>xelatex</code>, something rather
+unnecessary for most, but really helpful to those of us who regularly use
+characters of more than one language in their documents, since the <code>polyglossia</code>
+package makes it unbelievably easy.<sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>
+</p>
+
+<p>
+The third one, is how you can turn a <i>decent</i> looking PDF (the one that gets
+exported by default) into one that is tailored to your liking.
+</p>
+</div>
+
+<div id="outline-container-org2cf2867" class="outline-3">
+<h3 id="org2cf2867"><a href="#org2cf2867">The LaTeX template: <code>sample.tex</code></a></h3>
+<div class="outline-text-3" id="text-org2cf2867">
+<p>
+<code>sample.tex</code> needs to follow some properties. First of all, unlike any (template)
+LaTeX document you may have worked on, it <b>must not</b> start with <code>\documentclass</code>.
+</p>
+
+<p>
+There will simply be an <code>\input</code> statement in the LaTeX buffer that will get
+created by the export process. That <code>\input</code> statement essentially translates to
+all of <code>sample.tex</code>&rsquo;s contents being merged inside your document at the LaTeX
+compilation stage.
+</p>
+
+<p>
+A very simple such <code>tex</code> file, that not only gets the job done, but results in an
+aesthetically pleasing result is the following. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-tex">
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up document layout</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">geometry</span>}
+<span class="org-keyword">\geometry</span>{
+  margin=1.5cm,
+  includeheadfoot
+}
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up fonts</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">fontspec</span>}
+<span class="org-keyword">\setmainfont</span>{Avenir Next}
+<span class="org-keyword">\setmonofont</span>{Avenir Next}
+<span class="org-keyword">\newfontfamily\greekfont</span>{Avenir Next}
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up colors</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">xcolor</span>}
+<span class="org-keyword">\definecolor</span>{myblue}{RGB}{19,64,140}
+<span class="org-keyword">\definecolor</span>{myblack}{RGB}{0,0,0}
+<span class="org-keyword">\definecolor</span>{linkblue}{RGB}{19,64,140}
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up hyperlinks</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">hyperref</span>}
+<span class="org-keyword">\hypersetup</span>{
+  colorlinks=true,
+  linkcolor=linkblue,
+  filecolor=linkblue,
+  urlcolor=linkblue,
+}
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up headers and footers</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">fancyhdr</span>}
+<span class="org-keyword">\pagestyle</span>{fancy}
+<span class="org-keyword">\fancyhf</span>{}
+<span class="org-keyword">\fancyhead</span>[L]{<span class="org-keyword">\textcolor</span>{myblue}{<span class="org-keyword">\rightmark</span>}}
+<span class="org-keyword">\fancyfoot</span>[C]{<span class="org-keyword">\textcolor</span>{myblack}{<span class="org-keyword">\thepage</span>}}
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up section/subsection/chapter titles</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">titlesec</span>}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\section</span>}
+  {<span class="org-keyword">\normalfont\Large\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\subsection</span>}
+  {<span class="org-keyword">\normalfont\large\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesubsection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\subsubsection</span>}
+  {<span class="org-keyword">\normalfont\normalsize\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesubsubsection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\chapter</span>}[display]
+  {<span class="org-keyword">\normalfont\huge\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\chaptertitlename</span>\ <span class="org-keyword">\thechapter</span>}{20pt}{<span class="org-keyword">\Huge</span>}
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org10db265" class="outline-2">
+<h2 id="org10db265"><a href="#org10db265">Exporting</a></h2>
+<div class="outline-text-2" id="text-org10db265">
+<p>
+At that point, if you have a document that has an appropriately created list of
+header options (<code>#+</code> statements), and a suitable <code>sample.tex</code> file, you are ready to
+create your own beautiful documents:
+</p>
+<ol class="org-ol">
+<li><code>C-c C-e</code> while you are on your document&rsquo;s buffer</li>
+<li><code>l</code> to select the LaTeX submenu</li>
+<li><code>o</code> to export as a PDF file and open it upon completion</li>
+</ol>
+
+<p>
+Your PDF file will be there waiting for you.
+</p>
+
+
+
+<p>
+Feel free to play around the process, modifying the tex file to create a
+template to your liking. If you have any questions or have found some
+inconsistencies and mistakes in the article, feel free to add a comment with
+them. 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8a6e27f" class="outline-2">
+<h2 id="org8a6e27f"><a href="#org8a6e27f">Further reading:</a></h2>
+<div class="outline-text-2" id="text-org8a6e27f">
+<p>
+You may also want to have a look at <a href="20230309_a_practical_note_taking_system.html">my notetaking system</a> setup. I&rsquo;m trying to
+build a detailed analysis of that system before I implement a <i>series</i>
+functionality in this blog. This article will, then, be part of the <i>notetaking
+in emacs</i> series.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+There also exists this <a href="https://www.youtube.com/watch?v=XvwNKpDUkiE">video</a>, which provides a deeper analysis of the
+subject
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Do not get me wrong, for simple texts (the kind that you&rsquo;ll use <code>org-mode</code>
+for) the syntax is straightforward enough. The main advantage to Org is
+consistency, the ability to use the same format to create notes for yourself, to
+write blog posts, to practice literate programming, to produce pdfs and
+presentations&#x2026;
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+You can not understand how difficult this is unless you try it.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-04-06 Thu 15:28 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

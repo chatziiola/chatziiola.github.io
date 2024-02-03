@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>6.006 Lec 6: Binary Trees Part I</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">6.006 Lec 6: Binary Trees Part I</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org793fac3">Lecture details</a></li>
+<li><a href="#orga243a5e">Trees, the ultimate data structure</a>
+<ul>
+<li><a href="#orgb6c7a63">Terminology</a>
+<ul>
+<li><a href="#org0473e16">Tree specific attributes</a></li>
+<li><a href="#org031cf59">Node characteristics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org540e84f">Today&rsquo;s analysis</a>
+<ul>
+<li><a href="#org30954ea">Working with an example</a></li>
+<li><a href="#org716ddd2">Traversal order</a></li>
+<li><a href="#orgb71d683">Operations</a></li>
+</ul>
+</li>
+<li><a href="#orgfddae06">Trees and sets</a></li>
+<li><a href="#org85d5c67">Trees and sequences</a>
+<ul>
+<li><a href="#org50aea9f">Data Structure Augmentation</a></li>
+</ul>
+</li>
+<li><a href="#org60dc1ac">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org793fac3" class="outline-2">
+<h2 id="org793fac3"><a href="#org793fac3">Lecture details</a></h2>
+<div class="outline-text-2" id="text-org793fac3">
+<ul class="org-ul">
+<li>Professor: Erik Demain</li>
+<li>Lecture: <a href="https://www.youtube.com/watch?v=76dhtgZt38A&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=9">YouTube Link</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga243a5e" class="outline-2">
+<h2 id="orga243a5e"><a href="#orga243a5e">Trees, the ultimate data structure</a></h2>
+<div class="outline-text-2" id="text-orga243a5e">
+<p>
+From the data structures that we have seen so far in this course, one can make
+the case that we have no data structure <i>to rule them all</i>. They all perform
+reasonably well under certain circumstances, and under certain sets of input but
+their overall performance is, at times, not optimal. Take hash tables for an
+example. They are useful when <code>find(k)</code> and <code>insert(x)</code> are often used, but
+absolutely ridiculous when we also want to <code>find_next(),find_previous()</code>
+</p>
+</div>
+
+<div id="outline-container-orgb6c7a63" class="outline-3">
+<h3 id="orgb6c7a63"><a href="#orgb6c7a63">Terminology</a></h3>
+<div class="outline-text-3" id="text-orgb6c7a63">
+<p>
+Since binary trees are a linked-based data structure, utilizing pointers, much
+of the terminology is know from our experience with Linked Lists:
+</p>
+<ul class="org-ul">
+<li>Nodes</li>
+<li>Links</li>
+</ul>
+</div>
+
+<div id="outline-container-org0473e16" class="outline-4">
+<h4 id="org0473e16"><a href="#org0473e16">Tree specific attributes</a></h4>
+<div class="outline-text-4" id="text-org0473e16">
+<ul class="org-ul">
+<li>Leaf
+Leaves are the nodes that have no children ( because they are the items at the
+<i>end</i> of the data structure, just like the leaves in a normal tree)</li>
+<li><code>parent</code>
+Pointer to the parent node</li>
+<li><code>left</code>
+Pointer to the left child node</li>
+<li><code>right</code>
+Pointer to the right child node</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org031cf59" class="outline-4">
+<h4 id="org031cf59"><a href="#org031cf59">Node characteristics</a></h4>
+<div class="outline-text-4" id="text-org031cf59">
+<ul class="org-ul">
+<li><code>subtree(X)</code> = X and its defendants
+so if X is the root node, then the subtree is the whole node</li>
+<li><code>depth(X)</code>
+Number of ancestors or, equally, edges in path from node X to root</li>
+<li><code>height(X)</code>
+Number of edges in the longest downward path, max depth of a node in subtree(X)
+<ul class="org-ul">
+<li>height(X)= max(left.height,right.height)+1</li>
+<li>height(tree) = height(root Node)</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org540e84f" class="outline-2">
+<h2 id="org540e84f"><a href="#org540e84f">Today&rsquo;s analysis</a></h2>
+<div class="outline-text-2" id="text-org540e84f">
+<p>
+We focus on getting to a point where tree operations perform in \(O(h)\), with h
+being <code>height</code> of the tree.  Then in the next lecture, we will show that if the
+tree is balanced then:  \(O(h)=O(\lg{n})\)
+</p>
+</div>
+
+<div id="outline-container-org30954ea" class="outline-3">
+<h3 id="org30954ea"><a href="#org30954ea">Working with an example</a></h3>
+<div class="outline-text-3" id="text-org30954ea">
+<p>
+To further clarify the properties we talked about above before we continue:
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">property value\node</th>
+<th scope="col" class="org-left">A</th>
+<th scope="col" class="org-left">B</th>
+<th scope="col" class="org-left">C</th>
+<th scope="col" class="org-left">D</th>
+<th scope="col" class="org-left">E</th>
+<th scope="col" class="org-left">F</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">item</td>
+<td class="org-left">A</td>
+<td class="org-left">B</td>
+<td class="org-left">C</td>
+<td class="org-left">D</td>
+<td class="org-left">E</td>
+<td class="org-left">F</td>
+</tr>
+
+<tr>
+<td class="org-left">parent</td>
+<td class="org-left">/</td>
+<td class="org-left">A</td>
+<td class="org-left">A</td>
+<td class="org-left">B</td>
+<td class="org-left">B</td>
+<td class="org-left">D</td>
+</tr>
+
+<tr>
+<td class="org-left">left</td>
+<td class="org-left">B</td>
+<td class="org-left">D</td>
+<td class="org-left">/</td>
+<td class="org-left">F</td>
+<td class="org-left">/</td>
+<td class="org-left">/</td>
+</tr>
+
+<tr>
+<td class="org-left">right</td>
+<td class="org-left">C</td>
+<td class="org-left">E</td>
+<td class="org-left">/</td>
+<td class="org-left">/</td>
+<td class="org-left">/</td>
+<td class="org-left">/</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org716ddd2" class="outline-3">
+<h3 id="org716ddd2"><a href="#org716ddd2">Traversal order</a></h3>
+<div class="outline-text-3" id="text-org716ddd2">
+<p>
+The traversal order ( as explained in this course ), is the <i>inorder</i> traversal.
+More specifically, the nodes in a tree are recursively iterated in this order:
+</p>
+<blockquote>
+<p>
+for every node X
+Nodes in .left before X, in .right after X
+</p>
+</blockquote>
+<p>
+Thus, the traversal order in the example tree is \(FDBEAC\)
+</p>
+
+<p>
+Theoritically, what follows could be a legitimate function
+</p>
+<div class="org-src-container">
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">traverseSubtreeWithRootX</span>(<span class="org-type">Node</span> <span class="org-variable-name">X</span>)
+{
+    <span class="org-keyword">if</span> ( X.left != <span class="org-constant">null</span> )
+        iterate(X.left);
+    System.out.println(X);
+    <span class="org-keyword">if</span> ( X.right != <span class="org-constant">null</span> )
+        iterate(X.right);
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb71d683" class="outline-3">
+<h3 id="orgb71d683"><a href="#orgb71d683">Operations</a></h3>
+<div class="outline-text-3" id="text-orgb71d683">
+<ul class="org-ul">
+<li><code>subtree_first(Node X)</code>
+return the leftmost node in the subtree of X ( in our example that would be \(F\) )</li>
+<li><code>successor(Node X)</code>
+return the next node in traversal order
+<ul class="org-ul">
+<li>if <code>node.right</code>: <code>subtree_first(X.right)</code></li>
+<li>else walk up until we go up a left branch <code>node.parent.left == node</code></li>
+</ul></li>
+<li><code>predecessor(Node X)</code>
+return the previous node in traversal order
+<ul class="org-ul">
+<li>Directly linked to <code>successor(X)</code></li>
+</ul></li>
+<li><code>subtree_insert_after(Node X, Node new)</code>
+<ul class="org-ul">
+<li>if no <code>X.right</code>: put the new node there</li>
+<li>else <code>successor.subtree_first().left</code></li>
+</ul></li>
+<li><code>subtree_insert_before(...)</code>
+<ul class="org-ul">
+<li>In a similar fashion to the previous fashion</li>
+<li>if no <code>X.left</code>: put the new node there</li>
+</ul></li>
+<li><code>subtree_delete(node)</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+<ul class="org-ul">
+<li>if it is a leaf, simply delete it and delete the pointer in parent</li>
+<li>else if <code>node.left</code>: <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+<ol class="org-ol">
+<li>swap <code>node.item</code> with <code>predecessor(node).item</code>
+<i>No need to change the nodes themselves</i></li>
+<li><code>subtree_delete(predecessor(node))</code></li>
+</ol></li>
+<li>else if <code>node.right</code>
+<ol class="org-ol">
+<li>swap <code>node.item</code> with <code>successor(node).item</code></li>
+<li><p>
+<code>subtree_delete(successor(node))</code>
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">Performance\Function</td>
+<td class="org-left">subtree<sub>first</sub>()</td>
+<td class="org-left">successor()</td>
+<td class="org-left">subtree<sub>insert</sub><sub>after</sub>()</td>
+<td class="org-left">subtree<sub>delete</sub>()</td>
+</tr>
+
+<tr>
+<td class="org-left">Binary Tree</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+</tr>
+</tbody>
+</table></li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfddae06" class="outline-2">
+<h2 id="orgfddae06"><a href="#orgfddae06">Trees and sets</a></h2>
+<div class="outline-text-2" id="text-orgfddae06">
+<p>
+We have outlined our binary tree&rsquo;s functions, but we do not know yet, where they
+could be useful. The set interface, with which we have worked in previous
+lectures can be implemented with a tree!
+</p>
+
+<p>
+More specifically, due to the fact that binary trees have the <span class="underline">binary search
+tree property</span><sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup>, we can ensure that <code>find(k)</code> performs in \(O(h)\), with
+insertion, deletion in \(O(h)\) as well.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org85d5c67" class="outline-2">
+<h2 id="org85d5c67"><a href="#org85d5c67">Trees and sequences</a></h2>
+<div class="outline-text-2" id="text-org85d5c67">
+<p>
+The sequence interface can also be effectively implemented by a binary tree. In
+that case the sequence order will match the tree&rsquo;s traversal order. However, we
+do not know yet how to implement one of the core sequence functions:
+<code>subtree_at(i)</code>, to get the item in the \(i^{th}\) position.
+</p>
+
+<p>
+Of course, we could iterate through the tree, and when we reach that position
+return that item, but this algorithm runs in \(O(n)\) and obviously is not
+efficient. What can we do to solve it?
+</p>
+
+<p>
+We will ues the <code>size</code> property of the subtree. In that case the algorithm is:
+</p>
+<ol class="org-ol">
+<li>Get the size \(n_{l}\) of the left subtree</li>
+<li>if \(i<n_l\), then recurse on the left subtree</li>
+<li>else if \(i>n_l\), then <code>i-=nl+1</code> and recurse on the right subtree</li>
+<li>else you have \(i=n_l\) and you have found your node</li>
+</ol>
+
+<p>
+Let&rsquo;s check the performance of this last algorithm. If <code>size</code> can be computed in
+constant time then the algorithm runs in \(O(h)\)!
+</p>
+</div>
+
+<div id="outline-container-org50aea9f" class="outline-3">
+<h3 id="org50aea9f"><a href="#org50aea9f">Data Structure Augmentation</a></h3>
+<div class="outline-text-3" id="text-org50aea9f">
+<p>
+By adding a <code>size</code> property in each node,  since size is a <span class="underline">subtree property</span>:
+</p>
+<div class="org-src-container">
+<pre class="src src-python">node.<span class="org-variable-name">size</span> <span class="org-operator">=</span> left.size <span class="org-operator">+</span> right.size <span class="org-operator">+</span> 1
+</pre>
+</div>
+<p>
+We only add a \(O(h)\) operation for maintainance (when adding or removing a
+node one should update the size for all ancestors) in return for constant time
+in the size operation.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org60dc1ac" class="outline-2">
+<h2 id="org60dc1ac"><a href="#org60dc1ac">Summary</a></h2>
+<div class="outline-text-2" id="text-org60dc1ac">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">set data structure</th>
+<th scope="col" class="org-left">build()</th>
+<th scope="col" class="org-left">find()</th>
+<th scope="col" class="org-left">insert/delete</th>
+<th scope="col" class="org-left">find min/max</th>
+<th scope="col" class="org-left">find prev/next</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Binary Search Tree</td>
+<td class="org-left">O(nlogn)</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+<td class="org-left">O(h)</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">sequence data structure</th>
+<th scope="col" class="org-left">build()</th>
+<th scope="col" class="org-left">get<sub>at</sub>(),set<sub>at</sub>()</th>
+<th scope="col" class="org-left">insert/delete first</th>
+<th scope="col" class="org-left">inset/delete last</th>
+<th scope="col" class="org-left">insert/delete at</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Binary Tree</td>
+<td class="org-left">O(n)</td>
+<td class="org-left">h</td>
+<td class="org-left">h</td>
+<td class="org-left">h</td>
+<td class="org-left">h</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Are they actually linked to <code>rotateLeft(X)</code>, <code>rotateRight(X)</code>?
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+We do not care about balance right now.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Every key in left subtree \(\leq\) node.key \(\leq\) every key in right subtree
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-02-19 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

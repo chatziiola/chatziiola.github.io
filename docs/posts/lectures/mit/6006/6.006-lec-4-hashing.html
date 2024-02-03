@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>6.006 Lec 4: Hashing</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">6.006 Lec 4: Hashing</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0f29c48">Lecture notes:</a></li>
+<li><a href="#org9aa0f9d">Set vs Sequence</a></li>
+<li><a href="#org487ba4f">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a>
+<ul>
+<li><a href="#orge2f0161">The comparison model</a></li>
+<li><a href="#orgbef6063">The decision tree</a></li>
+</ul>
+</li>
+<li><a href="#org206c551"><code>find()</code> at \(0(1)\)</a>
+<ul>
+<li><a href="#org34edc6a">Static array</a></li>
+<li><a href="#org3ecb43b">Drawbacks</a>
+<ul>
+<li><a href="#orgeef0739">What if we deal with huge key values</a></li>
+<li><a href="#org7dcd8c3">Limitation regarding the key values that can be stored</a></li>
+<li><a href="#orgf50803e">Same keys?</a></li>
+</ul>
+</li>
+<li><a href="#orgd48ff2b">Improving on that model</a>
+<ul>
+<li><a href="#org1324add">Using less space</a></li>
+<li><a href="#org640f35a">Solving the duplicate keys problem</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1c35d63">Picking the <i>right</i> hash function</a>
+<ul>
+<li><a href="#orgbb33e3d">The divmod method</a>
+<ul>
+<li><a href="#orgbb7aff5">Additional methods</a></li>
+</ul>
+</li>
+<li><a href="#org8f43c0f">The Universal Hashing Function</a></li>
+</ul>
+</li>
+<li><a href="#orgcc87e89">Dynamic allocation</a></li>
+<li><a href="#orgf1b90bb">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0f29c48" class="outline-2">
+<h2 id="org0f29c48"><a href="#org0f29c48">Lecture notes:</a></h2>
+<div class="outline-text-2" id="text-org0f29c48">
+<ul class="org-ul">
+<li>Professor: Jason Ku</li>
+<li>Lecture: <a href="https://www.youtube.com/watch?v=Nu8YGneFCWE&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=5">YouTube Link</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org9aa0f9d" class="outline-2">
+<h2 id="org9aa0f9d"><a href="#org9aa0f9d">Set vs Sequence</a></h2>
+<div class="outline-text-2" id="text-org9aa0f9d">
+<p>
+<i>Linking to the previous lecture</i>
+</p>
+
+<p>
+ It is interesting to note a core difference between sets and sequences. In
+sequences, we design the data structure to include extra information regarding
+the order in which the elements will be (an extrinsic property). This is more
+obvious since functions like <code>get_at(i),set_at(i)</code>, are quite common. However,
+in sets the order is an intrinsic property of the object getting stored (the
+key)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org487ba4f" class="outline-2">
+<h2 id="org487ba4f"><a href="#org487ba4f">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a></h2>
+<div class="outline-text-2" id="text-org487ba4f">
+<p>
+In the <a href="6.006-lec-3:-sorting.html">last lecture</a>, we managed to reduce the time needed to find an element in
+our data structure from \(O(n)\) to \(O(\lg{n})\)<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, by implementing a sorted array.
+Is it somehow possible to make this operation any faster?
+</p>
+
+<p>
+Well yes&#x2026; but actually, no!<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+
+<p>
+Let&rsquo;s see it in greater detail
+</p>
+</div>
+<div id="outline-container-orge2f0161" class="outline-3">
+<h3 id="orge2f0161"><a href="#orge2f0161">The comparison model</a></h3>
+<div class="outline-text-3" id="text-orge2f0161">
+<p>
+In the comparison model, the items themselves do not matter ( their value ), but
+we use only comparison operations on them to differentiate them ( and sort them
+)
+</p>
+
+<p>
+Every single one of the algorithms found in lecture 3 were following that model.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbef6063" class="outline-3">
+<h3 id="orgbef6063"><a href="#orgbef6063">The decision tree</a></h3>
+<div class="outline-text-3" id="text-orgbef6063">
+<p>
+The decision tree is a binary tree, with each node representing a comparison
+operation and creating a branch for each of the possible outcomes of the comparison.
+</p>
+
+<p>
+In the decision tree, the leaves are the possible output values of the function,
+which in our case, since we <i>search</i> for a value in a \(n\) sized array, are
+\(n+1\), representing each value stored in the array and <code>null</code> for when the value
+we search for does not exist in the data structure.
+</p>
+
+<p>
+We can easily visualize <i>( take a tree with 1 comparison, count leaves, move on
+to a tree with 3 comparisons etc )</i> that for the binary tree to have \(n+1\)
+different leaves it needs to have a <i>minimum length</i><sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup> of at least
+\(\lg{n+1}\), which means that the shortest path that one can take from the root
+to a leaf is \(\lg{n+1}\) and thus we have \(\Theta(\lg{n})\)
+</p>
+
+<p>
+Sadly, that means that a faster than \(O(\lg{n})\) algorithm can not exist in the
+comparison model.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org206c551" class="outline-2">
+<h2 id="org206c551"><a href="#org206c551"><code>find()</code> at \(0(1)\)</a></h2>
+<div class="outline-text-2" id="text-org206c551">
+<p>
+What if we want to perform <code>find()</code> faster, though?
+</p>
+
+<p>
+Thinking about the previous section, it is kind of obvious that in order to
+achieve that, we will have to do something different than the comparison model;
+we will gain advantage of the actual value, using it as a white-box instead.
+</p>
+</div>
+
+<div id="outline-container-org34edc6a" class="outline-3">
+<h3 id="org34edc6a"><a href="#org34edc6a">Static array</a></h3>
+<div class="outline-text-3" id="text-org34edc6a">
+<p>
+<i>In this course this technique is often referred to as Direct Access Array</i>
+</p>
+
+<p>
+We know from the RAM model that access to any specific index in a static array
+takes constant time ( O(1) ). If, when dealing with sets, we create an array in
+which every item with key \(k\) gets stored at \(x[k]\), <code>find(k)</code> will work at \(O(1)\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3ecb43b" class="outline-3">
+<h3 id="org3ecb43b"><a href="#org3ecb43b">Drawbacks</a></h3>
+<div class="outline-text-3" id="text-org3ecb43b">
+<p>
+With relatively no extra work we have managed to implement <code>find(k)</code> at
+\(0(1)\)&#x2026; But at what cost?
+</p>
+</div>
+
+<div id="outline-container-orgeef0739" class="outline-4">
+<h4 id="orgeef0739"><a href="#orgeef0739">What if we deal with huge key values</a></h4>
+<div class="outline-text-4" id="text-orgeef0739">
+<p>
+Not talking about \(n\) but about the keys. The array we create to store our
+data needs to have at least so many indeces as the highest key value, meaning
+that if we were dealing with a key value of \(h=123122412341234134\), the array
+would have to have space for \(h\) elements ! That is even if \(n\) was 5, meaning
+that we would also have to deal with many empty entries.
+</p>
+
+<p>
+<i>An example of that would be linking telephone numbers(key) to users</i>
+</p>
+
+<p>
+Mapping each telephone number to the user might seem very easy with this
+technique. We would easily be able to access <code>catalogue[phoneNo]</code> and get the
+user, however there is a small catch: since phone numbers have 10 digits the
+array would need to be of size O(10<sup>10</sup>)!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org7dcd8c3" class="outline-4">
+<h4 id="org7dcd8c3"><a href="#org7dcd8c3">Limitation regarding the key values that can be stored</a></h4>
+<div class="outline-text-4" id="text-org7dcd8c3">
+<p>
+Think of the registers of size w, so we can use \(2^w\) number of addresses<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf50803e" class="outline-4">
+<h4 id="orgf50803e"><a href="#orgf50803e">Same keys?</a></h4>
+<div class="outline-text-4" id="text-orgf50803e">
+<p>
+We assume that all of our keys are unique. In this implementation there is no
+way to deal with collisions.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd48ff2b" class="outline-3">
+<h3 id="orgd48ff2b"><a href="#orgd48ff2b">Improving on that model</a></h3>
+<div class="outline-text-3" id="text-orgd48ff2b">
+</div>
+<div id="outline-container-org1324add" class="outline-4">
+<h4 id="org1324add"><a href="#org1324add">Using less space</a></h4>
+<div class="outline-text-4" id="text-org1324add">
+<p>
+Since most of our problems with the previous structure are associated with its
+enormous size, it is vital to reduce the space needed for it. To do that we will
+need a function \(h\), that is to map our keys (belonging to a range of
+\(\{1,2,\cdots,u-1\}\)) to a smaller range \(\{0,1,2,\cdots,m-1\}\).
+</p>
+
+\begin{equation}
+h:\{1,2,\cdots,u-1\}to \{0,1,2,\cdots,m-1\}
+\end{equation}
+
+<p>
+The array that is the result of this operation is called <span class="underline">the hash table</span>
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org2a9f5b0"></a><a href="#org2a9f5b0">The pigeonhole principle</a><br />
+<div class="outline-text-5" id="text-org2a9f5b0">
+<p>
+That seems fantastic, dealing effectively with our unused space problem. Another
+problem arises, though. Depending on the number \(m\) that we choose, the
+possibility of a collision arises, and <i>obviously</i> becomes a certainty if
+\(m\leq n\)
+</p>
+
+
+<p>
+The possibility of collisions, also varies with the hashing function, making the
+usage of a right hashing method imperative for our model to function.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org640f35a" class="outline-4">
+<h4 id="org640f35a"><a href="#org640f35a">Solving the duplicate keys problem</a></h4>
+<div class="outline-text-4" id="text-org640f35a">
+<p>
+Two solutions:
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org1505c17"></a><a href="#org1505c17">Open addressing</a><br />
+<div class="outline-text-5" id="text-org1505c17">
+<p>
+<i>notoriously difficult to analyze</i>
+</p>
+</div>
+</li>
+<li><a id="org45bfda0"></a><a href="#org45bfda0">The chaining idea</a><br />
+<div class="outline-text-5" id="text-org45bfda0">
+<p>
+At collision, add a pointer to another data structure (presumably a linked
+list), effectively mapping each key \(x[k]\to\) a structure containing all
+elements with that key. It is vital that these data structures are kept sort,
+otherwise we will not benefit from the \(O(1)\) access.
+</p>
+
+<p>
+If collisions are optimally distributed amongst the indeces (which is what
+the hash function must perform), then the length of the <i>chain</i> data
+structure will be given by:
+</p>
+
+\begin{equation}
+l = \frac{n}{m} = \frac{n}{\Omega{n}} = O(1)
+\end{equation}
+
+<p>
+And if that is true, then we can access every index in \(O(1)\) time.
+</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1c35d63" class="outline-2">
+<h2 id="org1c35d63"><a href="#org1c35d63">Picking the <i>right</i> hash function</a></h2>
+<div class="outline-text-2" id="text-org1c35d63">
+<p>
+Collisions are <i>in general</i> unavoidable. The only thing that one can do to get
+away is to select \(m\) and the hashing function appropriately
+</p>
+</div>
+
+<div id="outline-container-orgbb33e3d" class="outline-3">
+<h3 id="orgbb33e3d"><a href="#orgbb33e3d">The divmod method</a></h3>
+<div class="outline-text-3" id="text-orgbb33e3d">
+<p>
+An example of a hash function is the following:
+</p>
+\begin{equation}
+h(k) = k\mod{m}
+\end{equation}
+
+<p>
+This is the <span class="underline">deterministic</span> approach to hashing, because the function is already
+hard coded and there will, unfortunately, be a certain type of input for which
+the function will not perform well
+</p>
+</div>
+
+<div id="outline-container-orgbb7aff5" class="outline-4">
+<h4 id="orgbb7aff5"><a href="#orgbb7aff5">Additional methods</a></h4>
+<div class="outline-text-4" id="text-orgbb7aff5">
+<p>
+<i>These are not discussed in the lecture, taken from A.U.Th course</i>
+</p>
+<ul class="org-ul">
+<li>Midsquare
+Compute the square of the key and get the \(m\) middle digits</li>
+<li>Digit Extraction
+<i>Needs careful examination, may not be useful under certain
+circumstances</i> Given an \(m\) number of digits (\(m_{1},m_2,\cdots\)) return the
+keys digits at these places</li>
+<li>Folding
+<ul class="org-ul">
+<li>Shift Fold</li>
+<li>Mirror Fold</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8f43c0f" class="outline-3">
+<h3 id="org8f43c0f"><a href="#org8f43c0f">The Universal Hashing Functio<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>n</a></h3>
+<div class="outline-text-3" id="text-org8f43c0f">
+<p>
+Instead of using a single function, it is possible to fix a family of them,
+something that  we refer to as a UHF<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup>, to avoid the error presented above:
+having a predefined particular set of inputs that breaks our program.
+</p>
+
+<p>
+For \(a,b\in \{0,\cdots,p-1\}\), an <i>improved</i> hashing function would be:
+</p>
+\begin{equation}
+h_{ab}(k)=(((ak+b)\mod{p})\mod{m})
+\end{equation}
+
+<p>
+And the family that we could use would be:
+</p>
+\begin{equation}
+H(p,m)=\{h_{ab}(k)|a,b\in\{0,\cdots,p-1\}, a\neq0\}
+\end{equation}
+
+<p>
+The <i>universal</i> part means that the collision probability is reduced and
+therefore, the chain lengths are kept sort. More specifically, if we use the
+<i>boolean</i> \(X_{ij}\) to inform us whether \(h(k_{i})=h(k_{j})\), the expected chain
+length will be given by, and \(X_{i}\) to be the length of the chain:
+</p>
+\begin{align}
+Pr_{h\in H}\{h(k_i)&=h(k_j)\} \leq \frac{1}{m} \forall k_i\neq k_j\\
+E_{h\in{H}}\{X_{i}\} &= E_{h\in{H}}\sum_{j=0}^{n-1}X_{ij} = \cdots \leq 1+\frac{n-1}{m}
+\end{align}
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgcc87e89" class="outline-2">
+<h2 id="orgcc87e89"><a href="#orgcc87e89">Dynamic allocation</a></h2>
+<div class="outline-text-2" id="text-orgcc87e89">
+<p>
+Combining that with what we discussed in previous lectures about dynamic arrays,
+we can optimize it for quick insertions/deletions, and low unused space. This
+way, cost can be <span class="underline">amortized</span>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf1b90bb" class="outline-2">
+<h2 id="orgf1b90bb"><a href="#orgf1b90bb">Summary</a></h2>
+<div class="outline-text-2" id="text-orgf1b90bb">
+<p>
+Hashing is a technique, used to organize the input data, getting large integers
+and mapping them to smaller ones to save space, or getting other types of keys
+(Strings for example) and mapping them to integers, so that a hash table can be
+used.
+</p>
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">data structure</th>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">build(X)</th>
+<th scope="col" class="org-left">find(k)</th>
+<th scope="col" class="org-left">insert(x), delete(k)</th>
+<th scope="col" class="org-left">find<sub>min</sub>/max()</th>
+<th scope="col" class="org-left">find<sub>prev</sub>/next(k)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Array</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">n</td>
+<td class="org-left">n</td>
+<td class="org-left">n</td>
+<td class="org-left">n</td>
+<td class="org-left">n</td>
+</tr>
+
+<tr>
+<td class="org-left">Sorted Array</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">nlogn</td>
+<td class="org-left">logn</td>
+<td class="org-left">n</td>
+<td class="org-left">1</td>
+<td class="org-left">1</td>
+</tr>
+
+<tr>
+<td class="org-left">Direct Access Array</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">u</td>
+<td class="org-left">1<sub>ea</sub></td>
+<td class="org-left">1</td>
+<td class="org-left">u</td>
+<td class="org-left">u</td>
+</tr>
+
+<tr>
+<td class="org-left">Hash Table</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">n<sub>e</sub></td>
+<td class="org-left">1<sub>ae</sub></td>
+<td class="org-left">1<sub>ae</sub></td>
+<td class="org-left">n</td>
+<td class="org-left">n</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+There a \(O(\lg{\lg{n}})\) algorithm.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I&rsquo;m sorry
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+The terminology might not be exactly right
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+This, interestingly, links to <a href="https://www.amazon.com/gp/product/B00G4N7I2K/ref=dbs_a_def_rwt_bibl_vppi_i0">Patterson,Henessy2013</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.5" class="footnum" href="#fnr.5" role="doc-backlink">5</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Can also be found as uniform hashing function, since the keys are equally
+distributed among the hash table slots
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.6" class="footnum" href="#fnr.6" role="doc-backlink">6</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Universal is a descriptor here not <span class="underline">the universal</span>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-02-18 Fri 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

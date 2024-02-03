@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Creating inspirational wallpapers from the comfort of your terminal</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Because, who does not want that!" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Creating inspirational wallpapers from the comfort of your terminal</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga71dcfb">The process</a></li>
+<li><a href="#org00fa5de">My way</a>
+<ul>
+<li><a href="#org38d1b88">Schwarzenegger quotes</a></li>
+<li><a href="#org3c0cc75">Feynman quotes</a></li>
+<li><a href="#orgeffac00">Gates quotes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+The first two months of the year are always somewhat difficult if you are an
+undergraduate in Greece, since the final exams of the Fall Semester take place
+and&#x2026; you have to <a href="https://www.youtube.com/watch?v=M6JRD-ubxR4&amp;ab_channel=asasyn151">ruuuuuuun</a>. Yet, we must press on, no matter how easily one may
+feel demotivated.
+</p>
+
+<p>
+What I, personally, find most difficult, is taking a step back and relaxing. No
+matter how many hours I put in, or how I push myself, university exams for some
+reason mess with my well being. It most probably is a direct result of the first
+year being through Zoom calls, making it difficult to participate and cultivate
+a genuine interest in my courses. I&rsquo;m working on it.
+</p>
+
+<p>
+Since I spend most of my time studying on my computer (a process which I would I
+will explore in a later post), I decided to create some inspirational
+wallpapers.
+</p>
+
+<p>
+Not so obviously, a graphical interface will not be necessary for this task.
+</p>
+
+<div id="outline-container-orga71dcfb" class="outline-2">
+<h2 id="orga71dcfb"><a href="#orga71dcfb">The process</a></h2>
+<div class="outline-text-2" id="text-orga71dcfb">
+<ol class="org-ol">
+<li><p>
+Make sure that you have the proper package installed
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">sudo apt install imagemagick <span class="org-comment-delimiter"># </span><span class="org-comment">Good ol' linux</span>
+brew install imagemagick     <span class="org-comment-delimiter"># </span><span class="org-comment">Well, what can I say here</span>
+</pre>
+</div></li>
+<li>Find the images you want. Ideally
+<ul class="org-ul">
+<li>High resolution. I had a major problem here and this is the main reason I&rsquo;m
+posting today. I may need to come back here when I eventually spend some
+more time to find quality pictures</li>
+<li>I like the black and white style due to minimalism and simplicity</li>
+<li>You may want to use google dorking, even though it was not really helpful
+in the end</li>
+</ul></li>
+<li>Find the quotes you want
+<ul class="org-ul">
+<li>Try using smaller quotes</li>
+<li>If you settle on quotes that you see that exceed the boundaries of your
+image use &ldquo;\n&rdquo; to break the quote in lines</li>
+</ul></li>
+<li><p>
+Copy the following command to your terminal
+</p>
+<div class="org-src-container">
+<pre class="src src-bash">convert &lt;input image&gt; -font Iosevka -pointsize 24 -gravity Center -interline-spacing 26 -fill white -annotate 0 <span class="org-string">"&lt;quote&gt;"</span> &lt;output image&gt;
+</pre>
+</div>
+<p>
+Explaining the options used here:
+</p>
+<ul class="org-ul">
+<li><code>&lt;input image&gt;</code> self-descriptive</li>
+<li><code>-font</code> self-descriptive</li>
+<li><code>-pointsize</code> the size of the letters of your font</li>
+<li><code>-gravity</code> the location in which the text will be placed
+<ul class="org-ul">
+<li>Center, South, West, North, East</li>
+</ul></li>
+<li><code>-interline-spacing</code>, the space between the lines</li>
+<li><code>-fill</code>, font color</li>
+<li><code>-annotate</code>, essentially the function we want to perform: adding the quote
+on top of the image</li>
+<li><code>&lt;output image&gt;</code>
+There are some other options I have explored yet did not work the way I</li>
+</ul>
+<p>
+wanted:
+</p></li>
+<li><code>-warp</code>, not supported by my <code>magick</code> version, even though it should be
+<ul class="org-ul">
+<li><code>-split</code>, It inserts a solid color part in the image, effectively ruining the
+images we have selected in 2.</li>
+</ul></li>
+<li>Then, for every image:
+<ul class="org-ul">
+<li>Substitute input, output and quote. Following the tips in quotes above may
+be necessary to customize your output wallpapers</li>
+<li>If you are kind lazy and want to put many quotes on the same images you
+could modify what</li>
+</ul></li>
+<li>It&rsquo;s done.</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org00fa5de" class="outline-2">
+<h2 id="org00fa5de"><a href="#org00fa5de">My way</a></h2>
+<div class="outline-text-2" id="text-org00fa5de">
+<p>
+It&rsquo;s not perfect but&#x2026;
+</p>
+
+<p>
+Also, <b>DISCLAIMER</b>:
+I have found most of these quotes online on goodreads or elsewhere. They may or
+may not have been said by the people I attribute them to. Even if they were not,
+their purpose to me is inspiration and hopefully, getting some wisdom out of them.
+</p>
+</div>
+<div id="outline-container-org38d1b88" class="outline-3">
+<h3 id="org38d1b88"><a href="#org38d1b88">Schwarzenegger quotes</a></h3>
+<div class="outline-text-3" id="text-org38d1b88">
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-builtin">cd</span> ~/Downloads
+<span class="org-comment-delimiter"># </span><span class="org-comment">Notice how I have '\n' inside of my quotes</span>
+<span class="org-keyword">for</span> quote<span class="org-keyword"> in</span> <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"The resistance that you fight in life can only build a strong character."</span><span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"If you don&#8217;t find the time ,\n if you don&#8217;t do the work,\n you don&#8217;t get the results."</span><span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"Failure is not an option"</span><span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"You can&#8217;t climb the ladder of success with your hands in your pockets."</span><span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"Life may be full of pain but that&#8217;s not an excuse to give up."</span>
+<span class="org-keyword">do</span>
+     <span class="org-comment-delimiter"># </span><span class="org-comment">Modify the field used to be a more descriptive filename. It obviously is not perfect, but it is usable</span>
+    <span class="org-variable-name">output_filename</span>=wallpapers_withquote/wallpaper_scharzi-$(<span class="org-builtin">echo</span> $<span class="org-variable-name">quote</span> | awk <span class="org-string">'{print $5}'</span>).png
+    convert wallpapers_prequote/schwarzi.png -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 <span class="org-string">"$quote"</span> <span class="org-string">"$output_filename"</span>
+     <span class="org-comment-delimiter"># </span><span class="org-comment">Useful for previewing the files right after creation</span>
+    open $<span class="org-variable-name">output_filename</span>
+  <span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org3c0cc75" class="outline-3">
+<h3 id="org3c0cc75"><a href="#org3c0cc75">Feynman quotes</a></h3>
+<div class="outline-text-3" id="text-org3c0cc75">
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-builtin">cd</span> ~/Downloads
+<span class="org-comment-delimiter"># </span><span class="org-comment">Notice how I have '\n' inside of my quotes</span>
+<span class="org-keyword">for</span> quote<span class="org-keyword"> in</span> <span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"The first principle is that you must not fool yourself and you are the easiest person to fool"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"I learned very early the difference between knowing the name of something and knowing something"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"I would rather have questions that can't be answered than answers that can't be questioned."</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"Physics isn't the most important thing. Love is"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"We are trying to prove ourselves wrong as quickly as possible, because only in that way can we find progress"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"I think it's much more interesting to live not knowing than to have answers which might be wrong"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"All the time you're saying to yourself, 'I could do that, but I won't,' &#8212; which is just another way of saying that you can't"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"For a successful technology, reality must take precedence over public relations, for nature cannot be fooled"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"What I cannot create, I do not understand."</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"&#8220;What Do You Care What Other People Think?&#8221;"</span>
+<span class="org-keyword">do</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Maybe this is a better approach than the previous one, however the filenames are pretty long </span>
+    <span class="org-variable-name">output_filename</span>=<span class="org-string">"wallpapers_withquote/wallpaper_feynman-$quote.jpg"</span>
+    convert wallpapers_prequote/feynman-wide.jpg -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 <span class="org-string">"$quote"</span> <span class="org-string">"$output_filename"</span>
+     <span class="org-comment-delimiter"># </span><span class="org-comment">Useful for previewing the files right after creation</span>
+    open <span class="org-string">"$output_filename"</span>
+  <span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgeffac00" class="outline-3">
+<h3 id="orgeffac00"><a href="#orgeffac00">Gates quotes</a></h3>
+<div class="outline-text-3" id="text-orgeffac00">
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-builtin">cd</span> ~/Downloads
+<span class="org-comment-delimiter"># </span><span class="org-comment">Notice how I have '\n' inside of my quotes</span>
+<span class="org-keyword">for</span> quote<span class="org-keyword"> in</span> <span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"Most people overestimate what they can do in one year and underestimate what they can do in ten years"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"Success is a lousy teacher. It seduces smart people into thinking they can't lose"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"Measuring programming progress by lines of code is like measuring aircraft building progress by weight"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"It's fine to celebrate success but it is more important to heed the lessons of failure"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"Power comes not from knowledge kept but from knowledge shared"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"I believe that if you show people the problems and you show them the solutions they will be moved to act"</span><span class="org-sh-escaped-newline">\</span>
+ <span class="org-string">"But I hope you&#8217;ll spend more time and energy supporting whatever you&#8217;re in favor of than opposing whatever you&#8217;re against."</span>
+<span class="org-keyword">do</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Maybe this is a better approach than the previous one, however the filenames are pretty long </span>
+    <span class="org-variable-name">output_filename</span>=<span class="org-string">"wallpapers_withquote/wallpaper_gates-$quote.jpg"</span>
+    convert wallpapers_prequote/gates.jpg -font Iosevka -pointsize 30 -gravity Center -interline-spacing 31 -fill white -annotate 0 <span class="org-string">"$quote"</span> <span class="org-string">"$output_filename"</span>
+     <span class="org-comment-delimiter"># </span><span class="org-comment">Useful for previewing the files right after creation</span>
+    open <span class="org-string">"$output_filename"</span>
+  <span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-01-05 Thu 13:25 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

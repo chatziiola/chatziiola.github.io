@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Βασικά θεωρήματα και αξιώματα πιθανοτήτων</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Βασικά θεωρήματα και αξιώματα πιθανοτήτων</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc446134">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org506cb5f">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></li>
+<li><a href="#org9f63190">Με διάταξη και επανάθεση</a></li>
+<li><a href="#orge7ef1cb">Με διάταξη χωρίς επανάθεση</a></li>
+<li><a href="#org376e460">Χωρις διάταξη, με επανάθεση</a></li>
+<li><a href="#orgc73640b">Χωρίς διάταξη, χωρίς επανάθεση</a></li>
+</ul>
+</li>
+<li><a href="#orga2267ab">Ταυτότητες</a></li>
+<li><a href="#orgfea3f2f">Παραδείγματα</a>
+<ul>
+<li><a href="#orgf13bce9">Ρίψεις νομίσματος ( Bose-Einstein )</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgc992079">Εννοια της πιθανότητας</a>
+<ul>
+<li>
+<ul>
+<li><a href="#orgf856612">Παράδειγμα:</a></li>
+</ul>
+</li>
+<li><a href="#org4fbb4e3">Πρόβλημα γενεθλίων</a></li>
+<li><a href="#orgf2e9a7b">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></li>
+<li><a href="#orgb4fb9c3">Βασικά θεωρήματα πιθανότητας</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc446134" class="outline-2">
+<h2 id="orgc446134"><a href="#orgc446134">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a></h2>
+<div class="outline-text-2" id="text-orgc446134">
+<p>
+Στις παρουσιάσεις του μαθήματος φαίνονται οι συγκεκριμένοι τύποι,
+χαρακτηριζόμενοι από το αν η σειρά έχει σημασία και από το κατα πόσο είναι
+<i>αποδεκτή</i> η επανεμφάνιση κάποιου στοιχείου. Ας τους δούμε περισσότερο
+</p>
+\begin{align}
+n^k\\
+\binom{n}{k}\\
+\frac{n!}{(n-k)!k!}\\
+\binom{n+k-1}{k}
+\end{align}
+
+<p>
+Έστω ότι έχουμε 4 κάρτες ( ξεχωριστές ) και θέλουμε να δούμε με πόσους
+διαφορετικούς τρόπους μπορούμε να τις μοιράσουμε ( αν δεν ενδιαφερόμαστε για την
+σειρά τους)
+</p>
+</div>
+
+<div id="outline-container-org506cb5f" class="outline-4">
+<h4 id="org506cb5f"><a href="#org506cb5f">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></h4>
+<div class="outline-text-4" id="text-org506cb5f">
+<p>
+Αυτό θα ήταν το δυναμοσύνολο που συναντήσαμε στην προηγούμενη διάλεξη άρα
+\(2^n=2^4=16\) πιθανές διαφορετικές μορφές.
+</p>
+
+<p>
+Εστιάζουμε όμως, για να φανεί η χρησιμότητα των παραπάνω τύπων, στις πιθανές
+τριάδες που μπορούν να σχηματιστούν:
+</p>
+</div>
+</div>
+<div id="outline-container-org9f63190" class="outline-4">
+<h4 id="org9f63190"><a href="#org9f63190">Με διάταξη και επανάθεση</a></h4>
+<div class="outline-text-4" id="text-org9f63190">
+<p>
+Αν στις τριάδες που θα φτιάξουμε μπορούμε να έχουμε την ίδια κάρτα σε δύο θέσεις
+( μάλλον άστοχη η επιλογή του παραδείγματος, μα και πάλι ), οι πιθανοί
+συνδυασμοί που μπορούν να προκύψουν είναι:
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">2</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">&#x2026;</td>
+<td class="org-right">&#x2026;</td>
+<td class="org-right">&#x2026;</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+<td class="org-right">4</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+Το πλήθος των οποίων δίνεται από την:
+</p>
+\begin{equation}
+n^k
+\end{equation}
+</div>
+
+<ul class="org-ul">
+<li><a id="org866eb7d"></a><a href="#org866eb7d">Παρατήρηση:</a><br />
+<div class="outline-text-5" id="text-org866eb7d">
+<p>
+Το συγκεκριμένο είναι εύκολο να <i>προκύψει</i> και από κάποιον που έχει έστω βασικές
+γνώσεις προγραμματισμού και μέσω της πολυπλοκότητας nested loops, καθώς
+υπολογίζεις <b>κάθε πιθανή μορφή</b> - brute-forcing.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orge7ef1cb" class="outline-4">
+<h4 id="orge7ef1cb"><a href="#orge7ef1cb">Με διάταξη χωρίς επανάθεση</a></h4>
+<div class="outline-text-4" id="text-orge7ef1cb">
+<p>
+Αν όμως δεν μπορούμε να χρησιμοποιήσουμε μια κάρτα παραπάνω από μια φορές τότε
+αλλάζει εντελώς ο τύπος. Αυτό είναι εύκολα κατανοητό. Στις \(n\) κάρτες, μπορούμε
+να επιλέξουμε \(n\), ενώ αφαιρώντας μια, την επόμενη θέση μπορούν να πάρουν \(n-1\),
+\(n-2\), &#x2026;, \(n-k+1\) κάρτες. Εξού και ο τύπος:
+</p>
+\begin{equation}
+n(n-1)(n-2)(n-\cdots)(n-k+1)
+\end{equation}
+</div>
+
+<ul class="org-ul">
+<li><a id="org788af76"></a><a href="#org788af76">Παράδειγμα: Πρόεδρος, ταμίας γραμματέας</a><br />
+<div class="outline-text-5" id="text-org788af76">
+<p>
+Επιλέγω τον πρόεδρο και κατόπιν επιλέγω τα υπόλοιπα μέλη του συμβουλίου:
+Είναι \(k = 3, n = 25\), όπου \(n\) ο υποτιθέμενος αριθμός των υποψηφίων:
+</p>
+
+<p>
+Οι περιπτώσεις δίνονται από την:
+</p>
+\begin{equation}
+25(25-1)(25-2) = 25\cdot 24 \cdot 23 = 13800
+\end{equation}
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org376e460" class="outline-4">
+<h4 id="org376e460"><a href="#org376e460">Χωρις διάταξη, με επανάθεση</a></h4>
+<div class="outline-text-4" id="text-org376e460">
+<p>
+Δεν το έχω ξεκαθαρίσει αρκετά στο μυαλό μου - με κάποιο παράδειγμα: Είναι απλά
+ένας τύπος.
+</p>
+\begin{equation}
+\binom{n+k-1}{k}
+\end{equation}
+</div>
+
+<ul class="org-ul">
+<li><a id="orgca9ef26"></a><a href="#orgca9ef26">Ισοδύναμη έκφραση</a><br />
+<div class="outline-text-5" id="text-orgca9ef26">
+<p>
+Με πόσους τρόπους μπορούμε να βάλουμε \(k\) πανομοιότυπα στοιχεία σε \(n\) κουτία
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-orgc73640b" class="outline-4">
+<h4 id="orgc73640b"><a href="#orgc73640b">Χωρίς διάταξη, χωρίς επανάθεση</a></h4>
+<div class="outline-text-4" id="text-orgc73640b">
+<p>
+Να χωρίσουμε τα \(n\) στοιχεία ανά \(k\) στοιχεία. Η σειρά δεν μας νοιάζει, μα
+προφανώς, δεν μπορούμε να τα επαναχρησιμοποιήσουμε.
+</p>
+\begin{equation}
+\binom{n}{k}
+\end{equation}
+</div>
+
+<ul class="org-ul">
+<li><a id="org0727c03"></a><a href="#org0727c03">Κάρτες και full house</a><br />
+<div class="outline-text-5" id="text-org0727c03">
+<p>
+Θέλουμε να υπολογίσουμε τις πιθανότητες κάποιος να έχει full house.
+</p>
+
+<p>
+Χωρίζουμε τις επιμέρους έννοιες:
+</p>
+<ul class="org-ul">
+<li>Έστω αρχικά οι πιθανοί συνδυασμοί έτσι ώστε να καταλήξουμε με μια τριάδα εκ
+των ίδιων φύλλων: \(\binom{4}{3}\)
+Αυτό συμβαίνει γιατί για κάθε τύπο φύλλου ( άσσους, δυάρια, τριάρια κτλ )
+θέλουμε όλους τους τρόπους <span class="underline">χωρίς επανάθεση</span> που μπορεί να υπάρξει τριάδα
+Έτσι οι περιπτώσεις να αποκτήσουμε τριάδα δίνονταί από την</li>
+</ul>
+\begin{equation}
+A = \text{triplet} = 13 * \binom{4}{3}
+\end{equation}
+<ul class="org-ul">
+<li>Τώρα θέλουμε να υπολογίσουμε την πιθανότητα να έχουμε και δυάδα από κάποιο εκ
+των υπολοιπόμενων φύλλων: \(( 13 - 1  = 12 )\)
+Άρα το δεύτερο συμβάν που θέλουμε να λάβει χώρα είναι το \(B\), το οποίο δίνεται
+<i>περιγράφεται</i> από την:</li>
+</ul>
+\begin{equation}
+B = \text{pair} = 12 \binom{4}{2}
+\end{equation}
+
+<p>
+Το επόμενο λογικό βήμα είναι να υπολογίσουμε τις πιθανότητες να συμβούν τα \(A,B\)
+<b>ταυτόχρονα</b>, το οποίο είναι άλλωστε και το ζητούμενο:
+</p>
+\begin{align*}
+\prod = \frac{A\times B}{\binom{52}{5}} = \frac{13\binom{4}{3}\times12\binom{4}{2}}{\binom{52}{5}}
+\end{align*}
+</div>
+</li>
+</ul>
+</div>
+
+
+<div id="outline-container-orga2267ab" class="outline-3">
+<h3 id="orga2267ab"><a href="#orga2267ab">Ταυτότητες</a></h3>
+<div class="outline-text-3" id="text-orga2267ab">
+\begin{align*}
+\binom{n}{k} &= \binom{n}{n-k} = \frac{n!}{(n-k)!k!}\\
+n\binom{n-1}{k-1} &= k\binom{n}{k} \\
+\binom{m+n}{k} &= \sum_{j=0}^k\binom{m}{j}\binom{n}{k-j} &\text{Vandermonde}
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgfea3f2f" class="outline-3">
+<h3 id="orgfea3f2f"><a href="#orgfea3f2f">Παραδείγματα</a></h3>
+<div class="outline-text-3" id="text-orgfea3f2f">
+</div>
+<div id="outline-container-orgf13bce9" class="outline-4">
+<h4 id="orgf13bce9"><a href="#orgf13bce9">Ρίψεις νομίσματος ( Bose-Einstein )</a></h4>
+<div class="outline-text-4" id="text-orgf13bce9">
+<p>
+Έστω ότι ρίχνουμε το ίδιο νόμισμα δύο φορές. Οπότε έχουμε \(A= \text{2 coin
+flips}\).
+</p>
+<ul class="org-ul">
+<li><p>
+Ο τύπος \(n^k\) μας δίνει \(4\) καθώς έχουμε
+</p>
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">K</td>
+<td class="org-left">K</td>
+</tr>
+
+<tr>
+<td class="org-left">Γ</td>
+<td class="org-left">Γ</td>
+</tr>
+
+<tr>
+<td class="org-left">Κ</td>
+<td class="org-left">Γ</td>
+</tr>
+
+<tr>
+<td class="org-left">Γ</td>
+<td class="org-left">Κ</td>
+</tr>
+</tbody>
+</table></li>
+<li>Όμως, αν δεν ξεχωρίζουμε μεταξύ των ΚΓ και ΓΚ, ο τύπος \(\binom{n+k-1}{k}\)
+είναι προφανώς καλύτερος, αφού συμπυκνώνει εκείνες τις δύο πιθανότητες σε μία,
+δίνοντας μας 3.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc992079" class="outline-2">
+<h2 id="orgc992079"><a href="#orgc992079">Εννοια της πιθανότητας</a></h2>
+<div class="outline-text-2" id="text-orgc992079">
+<p>
+Στην προηγούμενη ενότητα είδαμε την έννοια του δειγματοχώρου ( sample space ),
+\(S\). Έστω τώρα ένα σύνολο γεγονότων (δειγματοσημείων) που θέλουμε να συμβούν
+\(A\). Ορίζουμε την πιθανότητα να συμβεί το \(A\) ως το πηλίκο του πλήθους των
+στοιχείων του \(A\) με το πλήθος δυνατών δειγματοσημείων.
+</p>
+\begin{equation}
+P(A) = \frac{\text{number of desired sample points}}{\text{number of possible sample points}}
+\end{equation}
+</div>
+<div id="outline-container-orgf856612" class="outline-4">
+<h4 id="orgf856612"><a href="#orgf856612">Παράδειγμα:</a></h4>
+<div class="outline-text-4" id="text-orgf856612">
+<p>
+Έστω σε μία μάντρα αυτοκινήτων 8 χαλασμένα αυτοκίνητα, στα 20 συνολικά.
+Επιλέγονται τυχαία 4 για έλεγχο. Ποια είναι η πιθανότητα να επιλεγεί μόνο 1
+ελαττωματικό:
+Ορίζω ως \(A = \text{only one faulty car}\)
+</p>
+\begin{align*}
+P(A) = \frac{\binom{8}{1}\binom{12}{3}}{\binom{20}{4}} = \cdots = \frac{220}{4845} =  0.0454 \approx 4.5%
+\end{align*}
+
+<p>
+Πως το υπολογίσαμε:
+</p>
+<ol class="org-ol">
+<li>Βρήκαμε το πλήθος των περιπτώσεων που μας έδιναν μόνο ένα χαλασμένο
+αυτοκίνητο, χωρίζοντας το στην <i>συλλογή</i> από τα δύο ξεχωριστά υποσύνολα
+αυτοκινήτων ( εκείνα που λειτουργούσαν και εκείνα που δεν λειτουργούσαν ).</li>
+<li>Βρήκαμε το πλήθος όλων των περιπτώσεων επιλογής 4 αυτοκινήτων</li>
+<li>Εφαρμόσαμε των τύπο της πιθανότητας</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org4fbb4e3" class="outline-3">
+<h3 id="org4fbb4e3"><a href="#org4fbb4e3">Πρόβλημα γενεθλίων</a></h3>
+<div class="outline-text-3" id="text-org4fbb4e3">
+<p>
+Επανερχόμαστε στο πρόβλημα των γενεθλίων που αναφέρθηκε και στις σημειώσεις της
+πρώτης διάλεξης. Ποια είναι η πιθανότητα από τα \(n\) άτομα να υπάρχουν
+τουλάχιστον 2 άτομα που να έχουν γενέθλια την ίδια μέρα.
+</p>
+
+<p>
+Αρχικά, θα χρειαστεί να <i>επαναπροσδιορίσουμε</i> το πρόβλημα, θέτοντας μερικούς κανόνες:
+</p>
+<ol class="org-ol">
+<li><i>Βγάζουμε</i> την 29η Φεβροθαρίου</li>
+<li><i>Ανεξαρτησία γενεθλίων</i>
+Τα γενέθλια όλων είναι ανεξάρτητα μεταξύ τους</li>
+</ol>
+
+<p>
+\(A = \{ \text{2 out of K have birthday on the same day} \}\)
+</p>
+
+<p>
+Είναι δύσκολο να προσεγγίσουμε το πρόβλημα ως προς το \(A\). Αντ&rsquo; αυτού μπορούμε
+να το προσεγγίσουμε ως προς \(\bar{A}\) και κατόπιν να εφαρμόσουμε την \(1 = P(A) +
+P(\bar{A})\):
+</p>
+
+<p>
+Επομένως:
+</p>
+\begin{equation}
+P(\bar{A}) = \frac{365\cdot364\cdots (366-k)}{365^k}
+\end{equation}
+
+<p>
+Αναλύοντας λίγο περισσότερο αυτόν τον τύπο:
+</p>
+<ul class="org-ul">
+<li>Αριθμητής:
+Πλήθος υποσυνόλων \(k\) εκ των \(365\) στοιχείων, χωρίς επανάθεση, μα με διάταξη.
+Η αλήθεια είναι πως δεν καταλαβαίνω γιατί χρησιμοποιήθηκε το συγκεκριμένο
+παρόλο που από μαθηματικής άποψης βγάζει νόημα. Το <i>με διάταξη</i> με χαλάει.</li>
+<li>Παρονομαστής:
+Όλες οι πιθανές, με διάταξη και επανάθεση περιπτώσεις:</li>
+</ul>
+
+<p>
+Καθώς, όπως άλλωστε αναφέρθηκε και προηγουμένως, \(P(A) = 1 - P(\bar{A})\) έχουμε:
+</p>
+\begin{equation}
+P(A) =
+\begin{cases}
+50.7\% &k=23\\
+97\% &k=50\\
+99.99\% &k=100
+\end{cases}
+\end{equation}
+
+<p>
+Το οποίο δείχνει ότι ήδη για \(k \geq 23\) είναι πιο πιθανό να συμπίπτουν τα
+γενέθλια μελών του κοινού από ότι το να μη συμβαίνει.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf2e9a7b" class="outline-3">
+<h3 id="orgf2e9a7b"><a href="#orgf2e9a7b">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></h3>
+<div class="outline-text-3" id="text-orgf2e9a7b">
+<p>
+Ο χώρος πιθανοτήτων αποτελείται από τον δειγματοχώρο \(S\) και την συνάρτηση \(P: A
+\subseteq S\), για την οποία ισχύουν τα παρακάτω:
+</p>
+<ol class="org-ol">
+<li>\(0\leq P(A)\leq 1\)</li>
+<li>\(P(S) = 1\)</li>
+<li>Αν \(A,B\) ξένα μεταξύ τους: \(P(A\cup B) = P(A)+P(B)\)</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-orgb4fb9c3" class="outline-3">
+<h3 id="orgb4fb9c3"><a href="#orgb4fb9c3">Βασικά θεωρήματα πιθανότητας</a></h3>
+<div class="outline-text-3" id="text-orgb4fb9c3">
+<ol class="org-ol">
+<li>\(P(\emptyset)=0\)</li>
+<li>\(P(A)=1-P(\bar{A})\)</li>
+<li>\(A\subseteq B \Rightarrow P(A)\leq P(B)\)</li>
+<li>\(P(B-A) = P(B) - P(A\cap B)\)</li>
+<li>\(P(B\cup A) = P(A)+P(B) -P(A\cap B)\)</li>
+</ol>
+<p>
+They have been added twice, one could think of it in the same way as
+</p>
+\begin{equation}
+\cos{x} = \frac{e^{\jmath x}+e^{-\jmath x}}{2}
+\end{equation}
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-03-11 Fri 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

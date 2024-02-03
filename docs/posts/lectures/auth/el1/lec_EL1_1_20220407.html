@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Η δίοδος</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Η δίοδος</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6f26025">Εφαρμογές της διόδου</a></li>
+<li><a href="#orgf29808d">Χαρακτηριστική ρεύματος-τάσης</a>
+<ul>
+<li><a href="#org7bc6728">Θετική τάση</a></li>
+<li><a href="#orgc666a6f">Αρνητική τάση</a></li>
+</ul>
+</li>
+<li><a href="#org6996c75">Ιδανικά Μοντέλα:</a>
+<ul>
+<li><a href="#orga9eccc4">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></li>
+</ul>
+</li>
+<li><a href="#org618d7b7">Εξίσωση ρεύματος εισόδου - εξόδου</a>
+<ul>
+<li><a href="#org4365880">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></li>
+</ul>
+</li>
+<li><a href="#org4f254ae">Ισοδύναμα Κυκλώματα:</a></li>
+<li><a href="#org0b419b9">Αναλυτική Λύση</a></li>
+<li><a href="#orgf48031a">Πόλωση διόδου:</a></li>
+<li><a href="#org907bf0a">Δυναμική αντίσταση διόδου</a></li>
+<li><a href="#org73dd691">Ισχύς διόδου - Μέγιστο ρεύμα;</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6f26025" class="outline-2">
+<h2 id="org6f26025"><a href="#org6f26025">Εφαρμογές της διόδου</a></h2>
+<div class="outline-text-2" id="text-org6f26025">
+<ul class="org-ul">
+<li>Διακόπτες ( ανορθωτές ρεύματος - rectifier)</li>
+<li>Σταθεροποιητές ( δίοδος Zener )</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf29808d" class="outline-2">
+<h2 id="orgf29808d"><a href="#orgf29808d">Χαρακτηριστική ρεύματος-τάσης</a></h2>
+<div class="outline-text-2" id="text-orgf29808d">
+<p>
+Η δίοδος είναι πολωμένο στοιχείο, γεγονός που σημαίνει ότι έχει <i>ιδιαίτερη</i>
+σημασία η θετική ( ή αντίστοιχα η αρνητική ) πόλωση. Πιο συγκεκριμένα:
+</p>
+
+
+<div id="orgfcf4987" class="figure">
+<p><img src="../../../../images/EL1/el1_lec_1_diode.png" alt="el1_lec_1_diode.png" />
+</p>
+</div>
+<p>
+Η δίοδος άγει μόνο με θετική τάση στα άκρα της, ενώ λειτουργεί <i>πρακτικά</i> σαν
+ανοιχτοκύκλωμα με αρνητική τάση. Εφόσον φτάσει την τάση στην οποία άγει, δεν θα
+εμφανιστεί μεγαλύτερη τάση στα άκρα της. Αν εφαρμοστεί εξαιρετικά μεγάλη
+αρνητική τάση στα άκρα της μπορεί να φτάσει στο καταστροφικό σημείο.
+</p>
+</div>
+
+<div id="outline-container-org7bc6728" class="outline-3">
+<h3 id="org7bc6728"><a href="#org7bc6728">Θετική τάση</a></h3>
+<div class="outline-text-3" id="text-org7bc6728">
+<ul class="org-ul">
+<li>Αρχίζει να άγει από περίπου 0.5V</li>
+<li>Σε αυτή την περίπτωση μιλάμε για: <b>Θετική/Forward Πόλωση της διόδου</b></li>
+<li>Δεν εφαρμόζεται νόμος του Ωμ, άρα δεν αποτελεί ( προφανώς, άλλωστε ) Ωμικό
+στοιχείο: Δεν τίθεται περιορισμός του ρεύματος ( παρα μόνο από την ισχύ της
+διόδου ( προφανώς ))</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc666a6f" class="outline-3">
+<h3 id="orgc666a6f"><a href="#orgc666a6f">Αρνητική τάση</a></h3>
+<div class="outline-text-3" id="text-orgc666a6f">
+<ul class="org-ul">
+<li>Γενικά, μπορεί να θεωρηθεί πως με αρνητική τάση η δίοδος διαρρέεται από το
+αμελητέο <b>Ρεύμα διαρροής</b>:
+<ul class="org-ul">
+<li>Λαμβάνεται υπόψη ανάλογα με την ακρίβεια των μετρήσεων που θέλουμε</li>
+<li>Είναι της τάξης των \(nA\)
+<ul class="org-ul">
+<li>Από τα παραπάνω καταλαβαίνουμε πως σε <b>πολλά</b> προβλήματα δεν μας ενδιαφέρει.</li>
+</ul></li>
+</ul></li>
+<li>Αν δεν θέλω να πηγαίνει καθόλου ρεύμα?
+<ul class="org-ul">
+<li><p>
+Σε πολλές περιπτώσεις το ρεύμα της τάξης των \(nA\) θεωρείται μηδενικό ρεύμα,
+εξού και η αναφορά σε ανορθωτές ρεύματος. Εφόσον το πλάτος είσόδου είναι
+περιορισμένο ( και η δίοδος δεν φτάνει στο <b>καταστροφικό σημείο</b> ), η όποια
+αρνητική τάση θα <i>αφήνει</i> πολύ λίγο ρεύμα να διαρρεέι, πρακτικά
+δημιουργώντας συνεχές ( και όχι σταθερό ) ρεύμα.
+</p>
+
+
+<div id="org20bd46c" class="figure">
+<p><img src="../../../../images/EL1/el1_lec_1_anorthosi.png" alt="el1_lec_1_anorthosi.png" />
+</p>
+</div></li>
+</ul></li>
+
+<li><b>Breakdown point/ Καταστροφικό σημείο</b>: Το σημείο της <i>αρνητικής</i> τάσης, πέραν
+της οποίας η δίοδος παύει να περιορίζει το ρεύμα αλλά λειτουργεί <i>σαν
+βραχυκύκλωμα</i>.
+<ul class="org-ul">
+<li>Εξαίρεση η δίοδος Zener, η οποία κατασκευάζεται για λειτουργία και σε
+εκείνες τις περιοχές.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6996c75" class="outline-2">
+<h2 id="org6996c75"><a href="#org6996c75">Ιδανικά Μοντέλα:</a></h2>
+<div class="outline-text-2" id="text-org6996c75">
+<p>
+Προηγουμένως αναφέρθηκε ότι η δίοδος αρχίζει να άγει από \(V_D\approx 0.5V\). Όπου
+το \(D\) προέρχεται από το αγγλικό Drain. Σε πολλά μοντέλα θεωρείται λογικό \(V_D =
+0\), με αποτέλεσμα η παραμικρή θετική τάση να συνεπάγεται διαρροή της διόδου από
+ρεύμα. Αυτό όμως δεν είναι συμβατό με την πραγματικότητα όπου ανάλογα με το
+υλικό κατασκευής της διόδου ( πυρίτιο ή γερμάνιο ) \(V_D = 0.6V\) ή \(V_D = 0.7V\)
+</p>
+</div>
+
+<div id="outline-container-orga9eccc4" class="outline-3">
+<h3 id="orga9eccc4"><a href="#orga9eccc4">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></h3>
+<div class="outline-text-3" id="text-orga9eccc4">
+<p>
+Όταν τα \(0.6V\) έχουν κάποια λογική να μπουν στις εξισώσεις. Αν δηλαδή εξετάζουμε
+τάσεις της τάξης των \(6V\) αξίζει, ενώ στα \(220V\) είναι προφανές πως κάτι τέτοιο
+δεν είναι λογικό.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org618d7b7" class="outline-2">
+<h2 id="org618d7b7"><a href="#org618d7b7">Εξίσωση ρεύματος εισόδου - εξόδου</a></h2>
+<div class="outline-text-2" id="text-org618d7b7">
+\begin{equation}
+I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
+\end{equation}
+<p>
+Έχουμε πως:
+</p>
+<ol class="org-ol">
+<li>\(I_S\) ανάστροφο ρεύμα κόρου, εξαρτάται από την θερμοκρασία. Διπλασιάζεται
+κάθε 10 βαθμούς κελσίου</li>
+<li>\(V_T = \frac{kT}{q} = 26mV (T=300K)\), ονομάζεται θερμική τάση</li>
+<li>\(n= \begin{cases} 1 & \text{germanium}\\ 2& \text{silicon} \end{cases}\)
+Είναι σταθερά για το υλικό, ιδιότητα του , και θα δίνεται.</li>
+</ol>
+</div>
+
+<div id="outline-container-org4365880" class="outline-3">
+<h3 id="org4365880"><a href="#org4365880">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></h3>
+<div class="outline-text-3" id="text-org4365880">
+<p>
+Όσο αυξάνεται η θερμοκρασία για την ίδια τιμή τάσης θα έχουμε μεγαλύτερο ρεύμα.
+Και δημιουργεί προβλήματα ( εύλογο, καθώς το κύκλωμα δεν θα μείνει στις ίδιες
+συνθήκες θερμοκρασίας καθ&rsquo;όλη την λειτουργία του )
+</p>
+<blockquote>
+<p>
+Ο μεγαλύτερος πονοκέφαλος στην σχεδίαση κυκλωμάτων
+</p>
+</blockquote>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4f254ae" class="outline-2">
+<h2 id="org4f254ae"><a href="#org4f254ae">Ισοδύναμα Κυκλώματα:</a></h2>
+<div class="outline-text-2" id="text-org4f254ae">
+<p>
+Τα ισοδύναμα κυκλώματα δεν είναι ίδια για καθε τύπο ρεύματος που τα διαρρέι:
+</p>
+<ul class="org-ul">
+<li>Συνεχούς</li>
+<li>Εναλασσόμενου
+<ul class="org-ul">
+<li>Χαμηλών συχνοτήτων</li>
+<li>Μέσων συχνοτήτων</li>
+<li>Υψηλών συχνοτήτων</li>
+</ul></li>
+</ul>
+
+<p>
+Υπάρχει, βέβαια και το γενικό ισοδύναμο. Αυτό το μάθημα επικεντρώνεται κυρίως
+στην λειτουργία στις μέσες συχνότητες.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b419b9" class="outline-2">
+<h2 id="org0b419b9"><a href="#org0b419b9">Αναλυτική Λύση</a></h2>
+<div class="outline-text-2" id="text-org0b419b9">
+<p>
+Κανείς δεν κάνει αναλυτική λύση με το χέρι. Είναι σημαντικό να γίνει αυτή η
+διαφοροποίηση: μαθαίνουμε να <i>κατανοούμε</i> το κύκλωμα, οι παράμετροι θα
+υπολογίζονται με κάποιο πακέτο λογισμικού
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf48031a" class="outline-2">
+<h2 id="orgf48031a"><a href="#orgf48031a">Πόλωση διόδου:</a></h2>
+<div class="outline-text-2" id="text-orgf48031a">
+<p>
+Ονομάζουμε το συνεχές ρεύμα που θα χρησιμοποιήσουμε για να θέσουμε την δίοδο μας
+σε συγκεκριμένες συνθήκες λειτουργίας. Πιο συγκεκριμένα, αναφερόμενοι στην
+χαρακτηριστική εξίσωση που προηγείται, είναι προφανές πως ανάλογα με το πλάτος
+της εισόδου και την συνεχή συνιστώσα της θα υπάρχει ( ή όχι ) η αντίστοιχη
+παραμόρφωση.
+</p>
+
+<p>
+Προκειμένου, λοιπόν, να δουλέψουμε σε ένα κατα το δυνατόν γραμμικό μέρος της
+χαρακτηριστικής εισόδου εξόδου της διόδου, είναι συχνό να εφαρμόζουμε συνεχή
+τάση ( συνάρτηση της εισόδου που θα παρέχουμε στο κύκλωμα ) έτσι ώστε να
+περιορίσουμε την παραμορφωση, λειτουργώντας στην <i>γραμμική</i> περιοχή της διόδου.
+</p>
+
+<p>
+<i>(Αυτού του είδους η μελέτη και σχεδιασμός είναι ιδαίτερα χρήσιμος όταν έχουμε
+να κάνουμε μελέτη μικρού σήματος)</i>
+</p>
+
+<p>
+Το <b>Σημείο ηρεμίας ή λειτουργίας</b> ονομάζεται σημείο \(Q\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org907bf0a" class="outline-2">
+<h2 id="org907bf0a"><a href="#org907bf0a">Δυναμική αντίσταση διόδου</a></h2>
+<div class="outline-text-2" id="text-org907bf0a">
+<p>
+Αναφερόμενοι στην χαρακτηριστική εξίσωση της διόδου, με παραγώγιση προκύπτει:
+</p>
+\begin{equation}
+g_d = \frac{d{I_D}}{d{V}} = \frac{1}{V_T}I_Se^{\frac{V_D}{nV_T}}\approx \frac{I_D}{nV_T}
+\end{equation}
+<p>
+Και καθώς η αγωγιμοτητα το αντίστροφο της αντίστασης έχουμε τελικά:
+</p>
+\begin{equation}
+r_d = \frac{1}{g_d} = \frac{nV_T}{I_D}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org73dd691" class="outline-2">
+<h2 id="org73dd691"><a href="#org73dd691">Ισχύς διόδου - Μέγιστο ρεύμα;</a></h2>
+<div class="outline-text-2" id="text-org73dd691">
+<p>
+Όταν η δίοδος άγει εφαρμόζεται στα άκρα της ταση \(0.7 V\)<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, η οποία δεν
+μεταβάλλεται ( δεν μπορεί να λάβει μεγαλύτερες τιμές ), οπότε προφανώς:
+</p>
+\begin{align*}
+P&=IV \Rightarrow \\
+\Rightarrow $max(I) = \frac{P}{0.7}$
+\end{align*}
+
+<p>
+Με την ισχύ να είναι χαρακτηριστική της διόδου που χρησιμοποιούμε και δίνεται
+από τον κατασκευαστή.
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Η τιμή μπορεί να διαφέρει ανά υλικό κατασκευής της διόδου, έχει μείνει
+έτσι για το παράδειγμα.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-04-07 Thu 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>THM: Bounty Hacker</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">THM: Bounty Hacker</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc5026ad">Recon</a></li>
+<li><a href="#org98923f6">The Website</a></li>
+<li><a href="#orgb60b188">The FTP server</a></li>
+<li><a href="#orge28cf27">The SSH server</a></li>
+<li><a href="#orgd0c9295">Privilege Escalation</a></li>
+<li><a href="#org3509460">Conclusion</a></li>
+</ul>
+</div>
+</div>
+<p>
+Ever since the last room I published here, every time that I logged in
+TryHackMe I would only complete <i>tutorial</i> rooms (except for the Net Sec
+Challenge, that was not much of a challenge), revising stuff I had
+already learned mainly, and that got to a point that it was tedious.
+On the one hand, I want to complete the suggested paths, making sure
+that I have the right tools (and mindset) to take on more difficult
+CTFs (and eventually take part in a hackathon or two), but &#x2026; it gets
+boring at times.
+</p>
+
+
+<p>
+That&rsquo;s the reason why I now am here (even though I suppose that taking
+on a medium difficulty room instead of an easy one would be better)!
+</p>
+
+
+<div id="outline-container-orgc5026ad" class="outline-2">
+<h2 id="orgc5026ad"><a href="#orgc5026ad">Recon</a></h2>
+<div class="outline-text-2" id="text-orgc5026ad">
+<p>
+Like always: a quick <code>nmap</code> scan
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org9a2c1e4"><span class="org-variable-name">IP</span>=10.10.61.63
+nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+
+<p>
+That informs us of three open ports:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> 21: ftp, allowing for anonymous login</li>
+<li class="off"><code>[&#xa0;]</code> 22: ssh</li>
+<li class="off"><code>[&#xa0;]</code> 80: http, an apache web server</li>
+</ul>
+
+<p>
+After putting on a complete port scan to see if our initial scan
+missed anything, we visit the website.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org7d82e2e">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org98923f6" class="outline-2">
+<h2 id="org98923f6"><a href="#org98923f6">The Website</a></h2>
+<div class="outline-text-2" id="text-org98923f6">
+<p>
+First things first, after visiting the website it looks like its a
+simple static website, comprised of just one html page, in which
+Avatar (the airbender) characters seem to be assigning the task of
+getting into the target system to us. Nothing is hidden in the html.
+</p>
+
+<p>
+Gobuster also did not reveal any promising files.
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org6427517">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb60b188" class="outline-2">
+<h2 id="orgb60b188"><a href="#orgb60b188">The FTP server</a></h2>
+<div class="outline-text-2" id="text-orgb60b188">
+<p>
+Using the standard command we can visit the ftp server as <code>anonymous</code>.
+</p>
+
+<p>
+If performing any commands returns:
+</p>
+<pre class="example" id="org8f95ce7">
+530 Please login with USER and PASS.
+</pre>
+<p>
+make sure that you did not actually press <code>Enter</code> when logging in
+because that would make you enter as <code>root</code> and thereby not be
+authenticated on the server. Not proud of that :P.
+</p>
+
+<p>
+Running <code>ls</code> there we gain knowledge of two files:
+</p>
+<ul class="org-ul">
+<li><code>locks.txt</code>, which turns out to be a wordlist, hinting at a possible
+bruteforce attack on the ssh server</li>
+<li><code>task.txt</code>, containing two Avatar-related (?) tasks, and giving a
+small <i>flag</i></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orge28cf27" class="outline-2">
+<h2 id="orge28cf27"><a href="#orge28cf27">The SSH server</a></h2>
+<div class="outline-text-2" id="text-orge28cf27">
+<p>
+Trying our luck with the wordlist found above, eventually gives us the
+password for the user <code>lin</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="orgf20af9b">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
+</pre>
+</div>
+
+<p>
+At this point we have successfully gained access to the target
+machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgd0c9295" class="outline-2">
+<h2 id="orgd0c9295"><a href="#orgd0c9295">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-orgd0c9295">
+<p>
+Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
+</p>
+
+<p>
+Obviously, we go to <a href="https://gtfobins.github.io/#at">GTFObins</a> and following the steps we get root
+privileges in no time:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org41589c7">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org3509460" class="outline-2">
+<h2 id="org3509460"><a href="#org3509460">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org3509460">
+<p>
+It was a nice room, arguably a wrong choice for me, but a good place
+to start I suppose, covering a little bit of the basics. 
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-11-05 Sun 21:54 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διαφορικές εξισώσεις πρώτης τάξης</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Πιο συγκεκριμένα η επίλυση τους" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διαφορικές εξισώσεις πρώτης τάξης</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org94f8f4b">Γραμμικές</a>
+<ul>
+<li><a href="#org92cd7ee">Σημαντική υποσημείωση</a></li>
+</ul>
+</li>
+<li><a href="#org331f6e2">Ricatti</a>
+<ul>
+<li><a href="#org7aec3f9">Επίλυση</a></li>
+</ul>
+</li>
+<li><a href="#orgc48c63e">Bernoulli</a>
+<ul>
+<li><a href="#org425d1b7">Επίλυση</a></li>
+</ul>
+</li>
+<li><a href="#org0ff64d7">Ομογενείς ΔΕ</a>
+<ul>
+<li><a href="#org705f09d">Επίλυση</a></li>
+<li><a href="#org36e82c1">Υποπεριπτώσεις</a>
+<ul>
+<li><a href="#org049d66a">Επίλυση συστήματος</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org549ba40">ΔΕ χωριζόμενων μεταβλητών</a></li>
+<li><a href="#orgea81857">Πλήρεις ΔΕ</a>
+<ul>
+<li><a href="#orgf8a0fa9">Παρατήρηση</a></li>
+<li><a href="#org5b50e9a">Ολοκληρωτικός Παράγοντας</a></li>
+<li><a href="#orgc31d3b9">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a>
+<ul>
+<li><a href="#org53a076d">Παρατηρήσεις</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org81b23c4">Μη γραμμικές ως προς την παράγωγο</a></li>
+</ul>
+</div>
+</div>
+<p>
+Οι Διαφορικές εξισώσεις (από εδώ και στο εξής αναφερόμενες ως ΔΕ) χωρίζονται σε
+κατηγορίες ανάλογα με τη μορφή και τις ιδιότητες τους. Συγκεκριμένα σημαντικό
+ρόλο παίζουν η <b>τάξη</b> ( η μεγαλύτερη παράγωγος της ζητούμενης συνάρτησης που
+εμφανίζεται και ο <b>βαθμός</b> ( δηλαδή η μεγαλύτερη δύναμη της μεγαλύτερης
+παραγώγου).
+</p>
+
+<div id="outline-container-org94f8f4b" class="outline-2">
+<h2 id="org94f8f4b"><a href="#org94f8f4b">Γραμμικές</a></h2>
+<div class="outline-text-2" id="text-org94f8f4b">
+<p>
+Ονομάζονται όλες οι εξισώσεις της μορφής:
+</p>
+\begin{equation}
+\frac{d{y}}{d{x}} + p(x)y=q(x)
+\end{equation}
+<p>
+και η γενική τους λύση είναι η:
+</p>
+\begin{equation}
+y = e^{-\int p(x)dx}\int e^{\int p(x)dx}q(x)dx
+\end{equation}
+<p>
+η οποία προκύπτει κατά τον πολλαπλασιασμό και των δύο μερών της αρχικής εξίσωσης
+με τον όρο \(e^{\int p(x)dx}\)
+</p>
+</div>
+
+<div id="outline-container-org92cd7ee" class="outline-3">
+<h3 id="org92cd7ee"><a href="#org92cd7ee">Σημαντική υποσημείωση</a></h3>
+<div class="outline-text-3" id="text-org92cd7ee">
+<p>
+Στην επίλυση της εξίσωσης είναι σημαντικό να μην ξεχαστεί η σταθερά ολοκλήρωσης:
+</p>
+\begin{equation}
+y = \cdots [ \int\cdots dx + c ]
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org331f6e2" class="outline-2">
+<h2 id="org331f6e2"><a href="#org331f6e2">Ricatti</a></h2>
+<div class="outline-text-2" id="text-org331f6e2">
+<p>
+Ονομάζουμε Δ.Ε. Ricatti κάθε ΔΕ πρώτης τάξης της μορφής:
+</p>
+\begin{equation}
+\frac{d{y}}{d{x}}+f(x)y^2+g(x)y+h(x)=0
+\end{equation}
+</div>
+
+<div id="outline-container-org7aec3f9" class="outline-3">
+<h3 id="org7aec3f9"><a href="#org7aec3f9">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org7aec3f9">
+<p>
+Για την επίλυση μιας τέτοιας διαφορικής εξίσωσης χρειάζεται κανεις να ξέρει την
+πρώτη εκ των δύο ριζών \(y_1(x)\). Γνωρίζοντας την θέτεις \(y = y_1 + \frac{1}{u}\)
+όπου \(u\) καταλλήλως ορισμένη συνάρτηση.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc48c63e" class="outline-2">
+<h2 id="orgc48c63e"><a href="#orgc48c63e">Bernoulli</a></h2>
+<div class="outline-text-2" id="text-orgc48c63e">
+<p>
+Της μορφής:
+</p>
+\begin{equation}
+\frac{d{y}}{d{x}} + g(x)y = f(x)y^n
+\end{equation}
+</div>
+
+<div id="outline-container-org425d1b7" class="outline-3">
+<h3 id="org425d1b7"><a href="#org425d1b7">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org425d1b7">
+<ol class="org-ol">
+<li>Διαίρεση με \(y^n\)
+Είναι προφανές πως θέλουμε να την φέρουμε σε μια μορφή πιο κοντά σε εκείνες
+που γνωρίζουμε, για αυτό και διαιρούμε με \(y^n\) έτσι ώστε στο δεύτερο μέρος
+να μείνει μόνο η \(f(x)\).</li>
+<li>Θέσιμο \(u = y^{1-n}\) και αναγωγή σε γραμμική ΔΕ
+Με αυτό τον τρόπο οι <i>παράξενοι όροι</i> που περιλαμβάνουν αρνητικές δυνάμεις
+του \(y\) <i>εξαφανίζονται</i> και απομένει μόνο μια γραμμική ΔΕ πρώτης τάξης με
+άγνωστη συνάρτηση την \(u(x)\)</li>
+<li>Επίλυση της γραμμικής και αντικατάσταση
+Λύνοντας την γραμμική με τον γνωστό τρόπο βρίσκουμε τον τύπο της \(u(x)\) και
+αντικαθιστώντας \(u = y^{1-n}\) έχουμε την πλεγμένη μορφή της λύσης(?)</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0ff64d7" class="outline-2">
+<h2 id="org0ff64d7"><a href="#org0ff64d7">Ομογενείς ΔΕ</a></h2>
+<div class="outline-text-2" id="text-org0ff64d7">
+<p>
+Αυτή η κατηγορία ΔΕ μπορεί να περιγραφεί από την
+</p>
+
+\begin{equation}
+\frac{d{y}}{d{x}} = F(\frac{y}{x})
+\end{equation}
+
+<p>
+<i>Κάτι πάει λάθος με τους διαφορετικούς ορισμούς σε πηγές</i>
+</p>
+</div>
+<div id="outline-container-org705f09d" class="outline-3">
+<h3 id="org705f09d"><a href="#org705f09d">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org705f09d">
+<ol class="org-ol">
+<li>Θέτουμε \(y = ux\) όπου \(u\) μια καταλλήλως ορισμένη συνάρτηση</li>
+<li>Αντικαθιστούμε στην εξίσωση, μετατρέποντας την στην πιο απλή κατηγορία ΔΕ</li>
+<li>Αντικαθιστούμε \(u = \frac{y}{x}\)</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-org36e82c1" class="outline-3">
+<h3 id="org36e82c1"><a href="#org36e82c1">Υποπεριπτώσεις</a></h3>
+<div class="outline-text-3" id="text-org36e82c1">
+</div>
+<div id="outline-container-org049d66a" class="outline-4">
+<h4 id="org049d66a"><a href="#org049d66a">Επίλυση συστήματος</a></h4>
+<div class="outline-text-4" id="text-org049d66a">
+<p>
+Αν δεν έχουμε την <i>αρχική</i> μορφή ομογενούς ΔΕ αλλά:
+</p>
+\begin{equation}
+\frac{d{y}}{d{x}}=f(\frac{a_1x+b_1y+c_1}{a_2x+b_2y+c_2})
+\end{equation}
+<p>
+<span class="underline">και</span> το σύστημα των δυο εξισώσεων:
+</p>
+\begin{align*}
+\begin{cases}
+a_1x+b_1y+c_1 &= 0\\
+a_2x+b_2y+c_2 &= 0
+\end{cases} \Rightarrow
+\begin{cases}
+x = x_0\\
+y = y_{0}
+\end{cases}
+\end{align*}
+<p>
+τότε η ΔΕ λύνεται με αντικατάσταση \(X=x-x_0\), \(Y=y-y_0\), στο οποίο στάδιο εκείνη
+ανάγεται σε ΔΕ χωριζόμενων μεταβλητών.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org549ba40" class="outline-2">
+<h2 id="org549ba40"><a href="#org549ba40">ΔΕ χωριζόμενων μεταβλητών</a></h2>
+<div class="outline-text-2" id="text-org549ba40">
+<p>
+Ονομάζονται οι ΔΕ πρώτης τάξης της μορφής:
+</p>
+\begin{equation}
+\frac{d{y}}{d{x}} = p(x)q(y)
+\end{equation}
+
+<p>
+Διότι, προφανώς εύκολα μετασχηματίζονται σε
+</p>
+\begin{equation}
+\frac{dy}{q(y)}=p(x)dx
+\end{equation}
+<p>
+όπου, ουσιαστικά, οι μεταβλητές είναι απομονωμένες στα διαφορετικά μέρη της
+εξίσωσης και η λύση έρχεται με απλή ολοκλήρωση.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgea81857" class="outline-2">
+<h2 id="orgea81857"><a href="#orgea81857">Πλήρεις ΔΕ</a></h2>
+<div class="outline-text-2" id="text-orgea81857">
+<p>
+Αποτελούν μια ιδιαίτερη <i>κατηγοριοποίηση</i> ΔΕ πρώτης τάξης της μορφής:
+</p>
+\begin{equation}
+P(x,y)dx + Q(x,y)dy = 0
+\end{equation}
+
+<p>
+<b>ΑΝ</b> ισχύει: \(\frac{\partial{P}}{\partial{y}}= \frac{\partial{Q}}{\partial{x}}\)
+</p>
+
+<p>
+Σε αυτή την περίπτωση η λύση δίνεται από την:
+</p>
+\begin{equation}
+\int_a^x P(t,y)dt + \int Q(a,y)dy = c\in \mathbb{R}
+\end{equation}
+</div>
+
+<div id="outline-container-orgf8a0fa9" class="outline-3">
+<h3 id="orgf8a0fa9"><a href="#orgf8a0fa9">Παρατήρηση</a></h3>
+<div class="outline-text-3" id="text-orgf8a0fa9">
+<p>
+Στο ολοκλήρωμα η επιλογή της μεταβλητής \(a\) πρέπει να είναι καταλλήλως ορισμένη
+<span class="underline">και</span> ιδανικά να βοηθάει με τις πράξεις ( συχνά καλή επιλογή αποτελεί το \(0\) )
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5b50e9a" class="outline-3">
+<h3 id="org5b50e9a"><a href="#org5b50e9a">Ολοκληρωτικός Παράγοντας</a></h3>
+<div class="outline-text-3" id="text-org5b50e9a">
+<p>
+Υπο ορισμένες συνθήκες είναι δυνατός ο πολλαπλασιασμός της <span class="underline">μη πλήρους</span>
+διαφορικής εξίσωσης με συνάρτηση \(R\) καταλλήλως ορισμένη έτσι ώστε η τελική
+εξίσωση:
+</p>
+\begin{equation}
+P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
+\end{equation}
+<p>
+Να είναι πλήρης και να μπορεί να επιλυθεί με τον γνωστό τρόπο.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc31d3b9" class="outline-3">
+<h3 id="orgc31d3b9"><a href="#orgc31d3b9">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a></h3>
+<div class="outline-text-3" id="text-orgc31d3b9">
+<p>
+Υπάρχουν ορισμένες περιπτώσεις στις οποίες ο ολοκληρωτικός παράγοντας προκύπτει
+<i>τυποποιημένα</i>:
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org20c26e0"></a><a href="#org20c26e0">Απλή περίπτωση</a><br />
+<div class="outline-text-5" id="text-org20c26e0">
+<p>
+Συνήθως, μάλιστα, είναι εύκολο αν είναι κανεις προσεκτικός να παρατηρήσει αυτή
+την περίπτωση.
+</p>
+<ol class="org-ol">
+<li>\(\frac{1}{Q}(\frac{\partial{P}}{\partial{y}}-\frac{\partial{Q}}{\partial{x}})
+   = F(x)\)
+Σε αυτή την περίπτωση \(R(x) = e^{\int F(x)dx}\)</li>
+<li>\(\frac{1}{P}(\frac{\partial{Q}}{\partial{x}}-\frac{\partial{P}}{\partial{y}})
+   = F(y)\)
+όπου \(R(y) = e^{\int F(y)dy}\)</li>
+</ol>
+</div>
+</li>
+<li><a id="orgdc640ae"></a><a href="#orgdc640ae">Σύνθετη</a><br />
+<div class="outline-text-5" id="text-orgdc640ae">
+<ol class="org-ol">
+<li>\(\frac{1}{P-Q}(\frac{\partial{Q}}{\partial{x}}-\frac{\partial{P}}{\partial{y}})
+   = F(x+y)\)
+Τότε, για \(z=(x+y)\) ο ολοκληρωτικός παράγοντας είναι:
+ \[
+    R(z) = e^{\int F(z)dz}
+    \]</li>
+<li>\(\frac{1}{-(P+Q)}(\frac{\partial{Q}}{\partial{x}}-\frac{\partial{P}}{\partial{y}})
+   = F(x-y)\)
+Τότε, για \(z=(x-y)\) ο ολοκληρωτικός παράγοντας είναι:
+ \[
+    R(z) = e^{\int F(z)dz}
+    \]</li>
+</ol>
+</div>
+</li>
+</ul>
+
+<div id="outline-container-org53a076d" class="outline-4">
+<h4 id="org53a076d"><a href="#org53a076d">Παρατηρήσεις</a></h4>
+<div class="outline-text-4" id="text-org53a076d">
+</div>
+<ul class="org-ul">
+<li><a id="org0df0fda"></a><a href="#org0df0fda">Προσοχή στο πρόσημο!</a><br />
+<div class="outline-text-5" id="text-org0df0fda">
+<p>
+Είναι πολύ εύκολο να κάνει κανείς λάθος στο πρόσημο σε κάποιο από τα στάδια
+αναγωγής διαφορικής σε πλήρη ΔΕ, και το αποτέλεσμα να μην έχει καμία σχέση με το
+σωστό.
+</p>
+</div>
+<ul class="org-ul">
+<li><a id="org4263820"></a><a href="#org4263820">Κανόνας για τον <i>ελεγχο</i> υποπεριπτώσεων:</a><br />
+<div class="outline-text-6" id="text-org4263820">
+<p>
+Γενικά η συνάρτηση που βρίσκεται στον παρονομαστή πολλαπλασιαζόμενη με την
+μερική παράγωγο της πρέπει να έχει αρνητικό πρόσημο ( δες περιπτώσεις ). Τώρα,
+εξαίρεση αποτελεί η δεύτερη <i>σύνθετη</i> περίπτωση, στην οποία μπορείς να σκέφτεσαι
+ότι <i>προηγείται</i> το αρνητικό πρόσημο του \(Q\).
+</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org81b23c4" class="outline-2">
+<h2 id="org81b23c4"><a href="#org81b23c4">Μη γραμμικές ως προς την παράγωγο</a></h2>
+<div class="outline-text-2" id="text-org81b23c4">
+<p>
+Μία ΔΕ η οποία μπορεί να μετασχηματιστεί στην μορφή<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
+</p>
+\begin{equation}
+(\frac{d{y}}{d{x}}-f_1(x,y))(\frac{d{y}}{d{x}}-f_2(x,y))=0
+\end{equation}
+
+<p>
+Τότε, θεωρώντας πως
+</p>
+\begin{align}
+y'=f_1\Rightarrow& g_1(x,y,c) = 0, c\in \mathbb{R}\\
+y'=f_2\Rightarrow& g_2(x,y,c) = 0, c\in \mathbb{R}
+\end{align}
+
+<p>
+Λύση της αρχικής εξίσωσης, σε πλεγμένη μορφή μπορεί να θεωρηθεί η:
+</p>
+\begin{equation}
+g_1\cdot g_2=0
+\end{equation}
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Μπορεί, με διαφορετικό βαθμό της ΔΕ να προκύψουν περισσότερες
+<i>παραγοντοποιήσεις</i> και <i>υποεξισώσεις</i>. Τα παραπάνω παραμένουν αληθή.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-03-26 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

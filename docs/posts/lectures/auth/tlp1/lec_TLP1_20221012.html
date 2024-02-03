@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 2: ΑΜ: Σημειώσεις επί των διαφανειών.</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 2: ΑΜ: Σημειώσεις επί των διαφανειών.</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org3ed143c">Βασικές έννοιες.</a>
+<ul>
+<li><a href="#org754ac80">Φίλτρα</a>
+<ul>
+<li><a href="#org7adb186">LPF - Χαμηλοπερατό Φίλτρο</a></li>
+<li><a href="#org090335d">HPF - Υψηλοπερατό Φίλτρο</a></li>
+<li><a href="#orgcfb80b5">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></li>
+<li><a href="#org6cf4de9">BSF - Band Stop Filter</a></li>
+</ul>
+</li>
+<li><a href="#org198be53">Ζωνοπερατά σήματα</a>
+<ul>
+<li><a href="#org461931a">Παρατηρήσεις επι αυτού</a></li>
+</ul>
+</li>
+<li><a href="#orgeb9534a">Περιβάλλουσα</a></li>
+<li><a href="#orgc538cc3">Διαμόρφωση</a></li>
+</ul>
+</li>
+<li><a href="#org5330eff">ΑΜ: Amplitude Modulation</a>
+<ul>
+<li><a href="#orge4d9fb4">Δείκτης Διαμόρφωσης</a></li>
+<li><a href="#org2e57bb5">Φασματικό Περιεχόμενο</a></li>
+<li><a href="#org25f208a">Ισχύς</a></li>
+<li><a href="#orgc23508b">Επιπλέον: Φέρον και DC Συνιστώσα.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+Αναλογικά σήματα:
+</p>
+<ul class="org-ul">
+<li>Διαμόρφωση πλάτους:
+<ul class="org-ul">
+<li>Αντικείμενο των διαλέξεων (2),3,4</li>
+</ul></li>
+<li>Διαμόρφωση γωνίας
+<ul class="org-ul">
+<li>Μετά φαντάζομαι</li>
+</ul></li>
+</ul>
+
+<p>
+Το γενικό concept για την μεταφορά σήματος στις αναλογικές επικοινωνίες:
+<img src="course_tlp1_images/course_tlp1_basics_signal-in-am.png" alt="course_tlp1_basics_signal-in-am.png" />
+</p>
+
+<div id="outline-container-org3ed143c" class="outline-2">
+<h2 id="org3ed143c"><a href="#org3ed143c">Βασικές έννοιες.</a></h2>
+<div class="outline-text-2" id="text-org3ed143c">
+</div>
+<div id="outline-container-org754ac80" class="outline-3">
+<h3 id="org754ac80"><a href="#org754ac80">Φίλτρα</a></h3>
+<div class="outline-text-3" id="text-org754ac80">
+</div>
+
+<div id="outline-container-org7adb186" class="outline-4">
+<h4 id="org7adb186"><a href="#org7adb186">LPF - Χαμηλοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-org7adb186">
+<p>
+Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο μικρότερες ορισμένης
+συχνότητας \(f_1\)
+<img src="course_tlp1_images/course_tlp1_basic-filters_lpf.png" alt="course_tlp1_basic-filters_lpf.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org090335d" class="outline-4">
+<h4 id="org090335d"><a href="#org090335d">HPF - Υψηλοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-org090335d">
+<p>
+Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο μεγαλύτερες ορισμένης
+συχνότητας \(f_1\)
+<img src="course_tlp1_images/course_tlp1_basic-filters_hpf.png" alt="course_tlp1_basic-filters_hpf.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-orgcfb80b5" class="outline-4">
+<h4 id="orgcfb80b5"><a href="#orgcfb80b5">BPF - Band Pass Filter, Ζωνοπερατό Φίλτρο</a></h4>
+<div class="outline-text-4" id="text-orgcfb80b5">
+<p>
+Ονομάζουμε το φίλτρο το οποίο επιτρέπει συχνότητες μόνο εντός μιας ζώνης
+συχνοτήτων, δηλαδή συχνότητες οι οποίες βρίσκονται μεταξύ των
+ορισμένων \(f_1\) και \(f_2\)
+<img src="course_tlp1_images/course_tlp1_basic-filters_bpf.png" alt="course_tlp1_basic-filters_bpf.png" />
+</p>
+</div>
+</div>
+<div id="outline-container-org6cf4de9" class="outline-4">
+<h4 id="org6cf4de9"><a href="#org6cf4de9">BSF - Band Stop Filter</a></h4>
+<div class="outline-text-4" id="text-org6cf4de9">
+<p>
+Ονομάζουμε το φίλτρο το οποίο <i>κόβει</i> συχνότητες μόνο εντός μιας ζώνης συχνοτήτων,
+δηλαδή συχνότητες οι οποίες βρίσκονται μεταξύ των ορισμένων \(f_1\) και \(f_2\)
+<img src="course_tlp1_images/course_tlp1_basic-filters_bsf.png" alt="course_tlp1_basic-filters_bsf.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org198be53" class="outline-3">
+<h3 id="org198be53"><a href="#org198be53">Ζωνοπερατά σήματα</a></h3>
+<div class="outline-text-3" id="text-org198be53">
+<p>
+Δοθείσης συχνότητας \(f_c\) μπορούμε να αναλύσουμε ένα σήμα (εκείνης της
+συχνότητας) σε inphase και quadrature συνιστώσα:
+</p>
+\begin{equation}
+\label{eq:5}
+x(t) = x_i(t)\cos{2\pi f_c t} - x_q(t)\sin{2\pi f_c t}
+\end{equation}
+</div>
+
+<div id="outline-container-org461931a" class="outline-4">
+<h4 id="org461931a"><a href="#org461931a">Παρατηρήσεις επι αυτού</a></h4>
+<div class="outline-text-4" id="text-org461931a">
+<ul class="org-ul">
+<li>Inphase όταν είναι το ήδη γνωστό σήμα πολλαπλασιζόμενο
+από συνημίτονο στην κατάλληλη συχνότητα</li>
+<li>Κάθετο αντίστοιχα όταν έχει ημίτονο ( λογικό, διαφορά \(\frac{\pi}{2}\) )</li>
+<li><b>Τα δύο σήματα είναι μεταξύ τους ορθογώνια</b></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeb9534a" class="outline-3">
+<h3 id="orgeb9534a"><a href="#orgeb9534a">Περιβάλλουσα</a></h3>
+<div class="outline-text-3" id="text-orgeb9534a">
+<p>
+Με αυτόν τον τρόπο (ανάλυση σε συμφασική και κάθετη συνιστώσα) είναι εύκολος ο
+προσδιορισμός της περιβάλλουσας (δηλαδή της καμπύλης που πρακτικά περικλείει την
+γραφική παράσταση του αποστελλόμενου σήματος \(x(t)\)):
+</p>
+\begin{equation}
+\label{eq:7}
+V(t) = \sqrt{x_I^2(t) + x_Q^2(t)}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orgc538cc3" class="outline-3">
+<h3 id="orgc538cc3"><a href="#orgc538cc3">Διαμόρφωση</a></h3>
+<div class="outline-text-3" id="text-orgc538cc3">
+<p>
+Μετασχηματισμός του σήματος πληροφορίας ούτως ώστε να μπορεί να μεταδοθεί και να
+απομονωθεί με την χρήση ζωνοπερατού φίλτρου.
+</p>
+
+<p>
+Μεταβάλλουμε κατάλληλα το σήμα πληροφοριών έτσι
+ώστε να μπορούμε να το μεταδώσουμε επι <i>κοινόχρηστου</i> μέσου:
+</p>
+
+<p>
+Τι κερδίζεται με την διαμόρφωση:
+</p>
+<ul class="org-ul">
+<li>Πομποί και δέκτες χαμηλής πολυπλοκότητας</li>
+<li>Πολυπλεξία ( δυνατότητα πολλών εκπομπών, ταυτόχρονων, επί του ίδιου μέσου )</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5330eff" class="outline-2">
+<h2 id="org5330eff"><a href="#org5330eff">ΑΜ: Amplitude Modulation</a></h2>
+<div class="outline-text-2" id="text-org5330eff">
+<p>
+Διαμόρφωση πλάτους στον χρόνο.
+Είδη διαμόρφωσης πλάτους (κατηγορίες):
+</p>
+<ol class="org-ol">
+<li>DSB-AM-TC: Double Side Band-Amplitude Modulation-Total Carrier
+<i>(Εξετάζεται σε αυτές τις σημειώσεις και συνεχίζει)</i></li>
+<li>DSB-AM-SC: Double Side Band-Amplitude Modulation-Suppressed Carrier
+<i>(Επόμενες διαλέξεις, όπως και όσα ακολουθούν)</i>. Αντί να προστίθεται το φέρον
+ουσιαστικά έρχεται με την μορφή ενίσχυσης ούτως ώστε να μπορεί να μεταβληθεί
+η ισχύς του σήματος.</li>
+<li>SSB-AM: Single Sideband AM
+Μετάδοση μόνο μιας εκ των δύο πλευρικών ζωνών: <a href="#org2e57bb5">Φασματικό Περιεχόμενο</a>.</li>
+<li>VSB-AM: Vestigial Side Band AM
+Χρησιμοποιούνταν παλιότερα ακόμα και στις τηλεοράσεις, ουσιαστικά βελτίωση
+του SSB-AM ως προς τον απαιτούμενο εξοπλισμό.</li>
+</ol>
+
+<p>
+Αναλυτικότερα αν \(m(t)\) το σήμα πληροφορίας και \(x(t)\) το σήμα όπως εκπέμπεται: 
+</p>
+
+\begin{align}
+m(t) &= 0.8\sin{\frac{\pi}{4}t}\\
+x(t) &= [A_C+m(t)]\cos{2\pi f_c t}
+\end{align}
+</div>
+
+<div id="outline-container-orge4d9fb4" class="outline-3">
+<h3 id="orge4d9fb4"><a href="#orge4d9fb4">Δείκτης Διαμόρφωσης</a></h3>
+<div class="outline-text-3" id="text-orge4d9fb4">
+<p>
+Ορίζουμε μέγεθος \(\mu\), τέτοιο ώστε:
+</p>
+\begin{equation}
+\label{eq:6}
+\mu = \frac{|\min m(t)|}{A_c}
+\end{equation}
+<p>
+Το οποίο και ονομάζουμε δείκτη διαμόρφωσης.
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Τι μας δείχνει</li>
+<li class="off"><code>[&#xa0;]</code> Γιατί αν \(\mu>1\) έχουμε υπερδιαμόρφωση? Σε αυτή την περίπτωση η DC
+συνιστώσα στο DSB-AM-TC ( αυτό αλλάζει στις άλλες κατηγορίες AM ), θα είναι
+μικρότερη του&#x2026;
+<ul class="org-ul">
+<li>Σε αυτή την περίπτωση, παρατηρείται σημαντική διαφορά μεταξύ της τελικής και
+της αρχικής κυματομορφής, ΠΡΕΠΕΙ ΝΑ ΕΞΗΓΗΘΕΙ ΚΑΛΥΤΕΡΑ.</li>
+</ul></li>
+<li>Αποφεύγοντας την υπερδιαμόρφωση:
+<ul class="org-ul">
+<li>VOGAD</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2e57bb5" class="outline-3">
+<h3 id="org2e57bb5"><a href="#org2e57bb5">Φασματικό Περιεχόμενο</a></h3>
+<div class="outline-text-3" id="text-org2e57bb5">
+<p>
+Όπως ήδη είδαμε σε EM1: ο μετασχηματισμός Fourier βοηθά στην μετάβαση από το
+πεδίο του χρόνου, στο πεδίο της συχνότητας. Επομένως, με Fourier στο
+αποστελλόμενο (?) σήμα:
+</p>
+\begin{equation}
+\label{eq:1}
+X(f) = \mathcal{F}[x(t)] = \cdots = \frac{1}{2}[M(f-f_c)+M(f+f_c)] + \frac{1}{2}A_C [\delta(f-f_c) + \delta(f+f_c)]
+\end{equation}
+
+<p>
+Από τον πρώτο ώρο φαίνεται ότι πλέον <i>εμφανίζουμε</i> το σήμα πληροφοριών σε δύο
+διαφορετικές ζώνες συχνοτήτων:
+</p>
+<ul class="org-ul">
+<li>Άνω πλευρική ζώνη, όταν \(|f|>f_c\), δηλαδή ουσιαστικά εξωτερικά των αξόνων
+\(x=-f_c, x=f_c\)</li>
+<li>Κάτω πλευρική ζώνη, όταν \(|f| < f_c\), εσωτερικά των ανωτέρω αξόνων.</li>
+
+<li>Απεικονίζει την \(M(f)\) ως αποτελούμενη από δύο ζώνες, μήκους W η κάθε μία,
+συμμετρικές. Είναι όλα αυτά προαπαιτούμενα?
+<ul class="org-ul">
+<li>Οπότε λέμε γενικότερο εύρος ζώνης 2W</li>
+<li><p>
+Οι διαμορφώσεις, μετατοπισμένες τόσο στο \(-f_c\) όσο και στο \(+f_c\) έχουν
+ίδιο εύρος ζώνης και μισό πλάτος.
+</p>
+
+
+<div id="orgefe323a" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec2_plevrikeszones.png" alt="tlp1_lec2_plevrikeszones.png" />
+</p>
+</div></li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org25f208a" class="outline-3">
+<h3 id="org25f208a"><a href="#org25f208a">Ισχύς</a></h3>
+<div class="outline-text-3" id="text-org25f208a">
+<p>
+Ουσιαστικά το αποστελλόμενο σήμα είναι της μορφής:
+</p>
+\begin{equation*}
+x(t) = [A_c+m(t)]\cos{(\cdots)} = V(t)\cos{(\cdots)}
+\end{equation*}
+<p>
+Η ισχύς της ΑΜ διαμόρφωσής μας δίνεται, λοιπόν, από την:
+</p>
+\begin{equation}
+\label{eq:3}
+P_{AM} = \frac{1}{2}A_c^2 + \frac{1}{2} P_{m(t)}
+\end{equation}
+
+
+<p>
+Ορίζουμε κατόπιν και τον <b>συντελεστή απόδοσης ισχύος</b>:
+</p>
+
+\begin{equation}
+\label{eq:4}
+\eta = \frac{\frac{1}{2}P_m}{P_c + \frac{1}{2}P_m} = \frac{P_m}{A_c^2 + P_m}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orgc23508b" class="outline-3">
+<h3 id="orgc23508b"><a href="#orgc23508b">Επιπλέον: Φέρον και DC Συνιστώσα.</a></h3>
+<div class="outline-text-3" id="text-orgc23508b">
+<p>
+Το φέρον είναι το σήμα το οποίο προσθέτουμε κατά την διαμόρφωση έτσι ώστε να
+βοηθήσουμε στην αποδιαμόρφωση του σήματος. Στην περίπτωση της <i>κλασικής</i> AM
+διαμόρφωσης το φέρον έχει την μορφή DC συνιστώσας, όποτε και μπορούμε να πούμε
+ότι τα δύο ταυτίζονται. Βέβαια αυτό δεν ισχύει σε όλες τις AM διαμορφώσεις.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-12 Wed 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

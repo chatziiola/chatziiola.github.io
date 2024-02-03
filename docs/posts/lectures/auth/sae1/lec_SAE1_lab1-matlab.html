@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>1ο Εργαστήριο</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">1ο Εργαστήριο</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgcf8b44a">Το σύστημα</a></li>
+<li><a href="#org1e3aaef">Θέσιμο παραμέτρων</a></li>
+<li><a href="#org04840e8">Ευστάθεια συστήματος</a></li>
+<li><a href="#org112c6a0">DC Gain</a></li>
+<li><a href="#orgadf32df">Plotting με step function</a>
+<ul>
+<li><a href="#orgbb34a3d">Θεωρητικά σχόλια</a></li>
+</ul>
+</li>
+<li><a href="#orgc1d46ed">Προσέγγιση</a></li>
+<li><a href="#orgef2706b">LSIN</a></li>
+<li><a href="#orgd72a5fe">Επίδραση φορτίου στην απόκριση στροφών</a></li>
+</ul>
+</div>
+</div>
+<p>
+Μερικά γενικά tips από το εργαστήριο:
+</p>
+<ul class="org-ul">
+<li>Βάζοντας semicolon (;) στο τέλος ενός statement το output του δεν φαίνεται στο
+cli του Matlab</li>
+<li>Αυτό το εργαστήριο είνα μελέτη (αποκλειστικά) open loop. Στο επόμενο θα
+<i>κλείσουμε</i> τον βρόχο και θα μοντελοποιήσουμε/προσθέσουμε ελεγκτές και
+συγκριτές, θέτοντας παράλληλα και προδιαγραφές</li>
+</ul>
+
+<div class="note" id="org50cba77">
+<p>
+Σε όλες τις σημειώσεις έχω χρησιμοποιήσει source blocks του octave γιατί εκείνο
+τρέχω/έχω εγκατεστημένο στο workstation μου. Προφανώς το εργαστήριο
+πραγματοποιήθηκε σε Matlab.
+</p>
+
+<p>
+Ακόμα στην πραγματικότητα ο κώδικας εδώ δεν θα δούλευε σε octave λόγω
+προβλήματος με τα εμπλεκόμενα packages.
+</p>
+
+</div>
+
+
+<div id="outline-container-orgcf8b44a" class="outline-2">
+<h2 id="orgcf8b44a"><a href="#orgcf8b44a">Το σύστημα</a></h2>
+<div class="outline-text-2" id="text-orgcf8b44a">
+<p>
+Η μοντελοποίηση του συστήματος είναι της μορφής:
+<img src="course_sae1_images/221207_0858_sae1_lab1_system.png" alt="221207_0858_sae1_lab1_system.png" />
+</p>
+
+<p>
+όπου αφαιρετικά η μία είσοδος είναι η τάση και αποτελεί την <b>είσοδο ελέγχου</b> ενώ η
+δεύτερη είσοδος, απόρροια της φύσης του κινητήρα, είναι στην πραγματικότητα η ροπή.
+</p>
+
+<p>
+Οι τύποι των δύο συναρτήσεων μεταφοράς \(H_v,H_t\) είναι
+</p>
+\begin{align}
+\label{eq:1}
+H_v&= 
+\frac{K_m}{(R_a+sL_a)(sJ+B)+KK_m}=
+\frac{8000}{s^2+440.1s+5164}\\
+H_t&= 
+\frac{-(R_a+sL_a)}{(R_a+sL_a)(sJ+B)+KK_m} =
+\frac{-1250(s+440)}{s^2+440.1s+5164}
+\end{align}
+
+<p>
+Στην ανάλυση που θα πραγματοποιήσουμε θέλουμε να αναπαραστήσουμε γραφικά
+την έξοδο του συστήματος με διάφορες τιμές εισόδων, δίνοντας μας μια καλύτερη
+εικόνα για την συμπεριφορά του.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1e3aaef" class="outline-2">
+<h2 id="org1e3aaef"><a href="#org1e3aaef">Θέσιμο παραμέτρων</a></h2>
+<div class="outline-text-2" id="text-org1e3aaef">
+<p>
+Οταν φτιάχνεις array με συντελεστές πολυωνύμου προσέχεις να εισάγεις <b>όλους</b> τους
+όρους, ακόμα και εκείνους που <i>φαινομενικά</i> παραλείπονται.
+</p>
+
+<p>
+Αρχικά φτιάχνουμε την συνάρτηση μεταφοράς της \(V\). Το <code>o</code> είναι εκεί για original,
+αποκτά σημασία πιο κάτω.
+</p>
+<div class="org-src-container">
+<pre class="src src-octave">nVo <span class="org-builtin">=</span> 8000<span class="org-builtin">;</span>
+dVo <span class="org-builtin">=</span> [ 1 440.1 5164]<span class="org-builtin">;</span>
+
+<span class="org-comment-delimiter">% </span><span class="org-comment">tf &gt; construct transfer func</span>
+HVo <span class="org-builtin">=</span> tf(nVo<span class="org-builtin">,</span>dVo)<span class="org-builtin">;</span>
+</pre>
+</div>
+
+<p>
+Με τον ίδιο τρόπο την συνάρτηση μεταφοράς της \(T\)
+</p>
+<div class="org-src-container">
+<pre class="src src-octave">
+nTo <span class="org-builtin">=</span> [1250 440<span class="org-builtin">*</span>(<span class="org-builtin">-</span>1250)]<span class="org-builtin">;</span>
+dTo <span class="org-builtin">=</span> dVo<span class="org-builtin">;</span>
+HTo <span class="org-builtin">=</span> tf(nTo<span class="org-builtin">,</span>dTo)<span class="org-builtin">;</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org04840e8" class="outline-2">
+<h2 id="org04840e8"><a href="#org04840e8">Ευστάθεια συστήματος</a></h2>
+<div class="outline-text-2" id="text-org04840e8">
+<p>
+Με την παρακάτω συνάρτηση μπορούμε να πάρουμε τις ρίζες ενός πολυωνύμου
+</p>
+<div class="org-src-container">
+<pre class="src src-octave"><span class="org-comment-delimiter">% </span><span class="org-comment">roots -&gt; rizes polyonymou</span>
+p <span class="org-builtin">=</span> roots(dVo)<span class="org-builtin">;</span>
+</pre>
+</div>
+
+<p>
+το οποίο στην προκειμένη μας δείχνει οτι το σύστημα ευσταθές, με δύο αρνητικούς
+και πραγματικούς πόλους<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>. Ο ένας (κοντά στο 0) λέγεται <b>αργός</b> πόλος και
+καθορίζει την συμπεριφορά της συνάρτησης μεταφοράς μακροπρόθεσμα, ενώ ο δεύτερος
+είναι <i>υπεύθυνος</i> για την γρήγορη/μεταβατική απόκριση
+</p>
+</div>
+</div>
+
+<div id="outline-container-org112c6a0" class="outline-2">
+<h2 id="org112c6a0"><a href="#org112c6a0">DC Gain</a></h2>
+<div class="outline-text-2" id="text-org112c6a0">
+<p>
+Για την ενίσχυση στο Steady State (δηλαδή το dc-gain) ισχύει:
+</p>
+
+\begin{equation}
+\label{eq:2}
+\text{DCGain} = H(0)
+\end{equation}
+
+<div class="org-src-container">
+<pre class="src src-octave">
+dcHVo <span class="org-builtin">=</span> dcgain(HVo)<span class="org-builtin">;</span>
+<span class="org-comment-delimiter">% </span><span class="org-comment">to arnitiko htan leei anamenomeno logo ths fysews tou TL kinitira</span>
+dcTVo <span class="org-builtin">=</span> dcgain(HTo)<span class="org-builtin">;</span>
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgadf32df" class="outline-2">
+<h2 id="orgadf32df"><a href="#orgadf32df">Plotting με step function</a></h2>
+<div class="outline-text-2" id="text-orgadf32df">
+<p>
+Μπορούμε να δούμε την απόκριση του συστήματος μας αν για είσοδο είχε ένα step
+function μέσω των παρακάτω εντολών:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-octave">
+step(HVo)
+step(HTo)
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbb34a3d" class="outline-3">
+<h3 id="orgbb34a3d"><a href="#orgbb34a3d">Θεωρητικά σχόλια</a></h3>
+<div class="outline-text-3" id="text-orgbb34a3d">
+<ul class="org-ul">
+<li>Παρατηρούμε πως το unit step (κατά την διάρκεια του) μας επιτρέπει να φτάσουμε
+την ss κατάσταση του συστήματος</li>
+<li>Από το γράφημα που προκύπτει:
+<ul class="org-ul">
+<li>Μπορείς να βάλεις να δεις τα <code>rise time</code>, <code>settle time</code></li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc1d46ed" class="outline-2">
+<h2 id="orgc1d46ed"><a href="#orgc1d46ed">Προσέγγιση</a></h2>
+<div class="outline-text-2" id="text-orgc1d46ed">
+<p>
+Μπορούμε να προσεγγίσουμε την συμπεριφορά του συστήματος αφαιρώντας τον πόλο μα
+<i>κρατώντας</i> την θέση του (αυτό οφείλεται στο οτι το μεταβατικό φεύγει γρήγορα)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-octave">
+HV <span class="org-builtin">=</span> tf(18.69<span class="org-builtin">,</span> [1 12.064])<span class="org-builtin">;</span>
+HT <span class="org-builtin">=</span> tf([<span class="org-builtin">-</span>2.92 <span class="org-builtin">-</span>2.92<span class="org-builtin">*</span>440]<span class="org-builtin">,</span> [1 12.064])<span class="org-builtin">;</span>
+
+</pre>
+</div>
+
+<p>
+Και μπορούμε να δούμε πάλι την προσέγγιση
+</p>
+<div class="org-src-container">
+<pre class="src src-octave">
+step(HV)
+
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgef2706b" class="outline-2">
+<h2 id="orgef2706b"><a href="#orgef2706b">LSIN</a></h2>
+<div class="outline-text-2" id="text-orgef2706b">
+<div class="org-src-container">
+<pre class="src src-octave">t <span class="org-builtin">=</span> 0 <span class="org-builtin">:</span> 0.001 <span class="org-builtin">:</span> 0.7<span class="org-builtin">;</span>
+uV <span class="org-builtin">=</span> 150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
+
+yV1 <span class="org-builtin">=</span> lsim(HVo<span class="org-builtin">,</span>uV<span class="org-builtin">,</span>t)<span class="org-builtin">;</span>
+yV2 <span class="org-builtin">=</span> lsim(HV<span class="org-builtin">,</span>uV<span class="org-builtin">,</span>t)<span class="org-builtin">;</span>
+
+<span class="org-comment-delimiter">%</span><span class="org-comment">step(HVo)</span>
+plot(t<span class="org-builtin">,</span>yV1<span class="org-builtin">,</span>t<span class="org-builtin">,</span>yV2)<span class="org-builtin">;</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd72a5fe" class="outline-2">
+<h2 id="orgd72a5fe"><a href="#orgd72a5fe">Επίδραση φορτίου στην απόκριση στροφών</a></h2>
+<div class="outline-text-2" id="text-orgd72a5fe">
+<div class="org-src-container">
+<pre class="src src-octave">uV<span class="org-builtin">=</span>150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
+uT1<span class="org-builtin">=</span>0.5<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
+uT2<span class="org-builtin">=</span>1.0<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
+uT3<span class="org-builtin">=</span>1.5<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
+yV<span class="org-builtin">=</span>lsim(HV<span class="org-builtin">,</span> uV<span class="org-builtin">,</span> t)<span class="org-builtin">;</span>
+yT1<span class="org-builtin">=</span>lsim(HT<span class="org-builtin">,</span> uT1<span class="org-builtin">,</span> t)<span class="org-builtin">;</span>
+yT2<span class="org-builtin">=</span>lsim(HT<span class="org-builtin">,</span> uT2<span class="org-builtin">,</span> t)<span class="org-builtin">;</span>
+yT3<span class="org-builtin">=</span>lsim(HT<span class="org-builtin">,</span> uT3<span class="org-builtin">,</span> t)<span class="org-builtin">;</span>
+y1<span class="org-builtin">=</span>yV<span class="org-builtin">+</span>yT1<span class="org-builtin">;</span>
+y2<span class="org-builtin">=</span>yV<span class="org-builtin">+</span>yT2<span class="org-builtin">;</span>
+y3<span class="org-builtin">=</span>yV<span class="org-builtin">+</span>yT3<span class="org-builtin">;</span>
+plot(t<span class="org-builtin">,</span> y1<span class="org-builtin">,</span> t<span class="org-builtin">,</span>y2<span class="org-builtin">,</span> t<span class="org-builtin">,</span> y3)
+</pre>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Δηλώθηκε οτι αυτό ήταν αναμενόμενο καθώς εξετάζαμε RL, παθητικό κύκλωμα,
+μα σε αυτή την φάση δεν μπορώ να το εξηγήσω περισσότερο. 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-11-24 Thu 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

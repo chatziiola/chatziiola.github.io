@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="el" xml:lang="el">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη: 1 Εισαγωγικά</title>
+<meta name="author" content="Λαμπρινός Χατζηιωάννου" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη: 1 Εισαγωγικά</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org1d323d2">Ανασκόπηση</a>
+<ul>
+<li><a href="#orgfa2738c">Τύποι:</a></li>
+</ul>
+</li>
+<li><a href="#org2cdadd2">Στοχαστικό σήμα</a>
+<ul>
+<li><a href="#org9cd265f">Παραδείγματα στοχαστικών σημάτων</a></li>
+</ul>
+</li>
+<li><a href="#org7278564">Προσέγγιση του μαθήματος</a></li>
+<li><a href="#org6ba1aee">Θεωρία Πιθανοτήτων</a>
+<ul>
+<li><a href="#org8bcf4e8">Πιθανοτικό μοντέλο</a></li>
+<li><a href="#orgcf4176d">Ορισμοί πιθανότητας</a>
+<ul>
+<li><a href="#org2eec1ec">Laplacian</a></li>
+<li><a href="#orga0027b9">Σχετικής συχνότητας</a></li>
+<li><a href="#orgb15473f">Αξιωματικός</a></li>
+<li><a href="#org71cc062">Πιθανοτικός χώρος πραγματικών αριθμών.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org1d323d2" class="outline-2">
+<h2 id="org1d323d2"><a href="#org1d323d2">Ανασκόπηση</a></h2>
+<div class="outline-text-2" id="text-org1d323d2">
+<p>
+Στο μάθημα των Σημάτων Συστημάτων εξετάστηκαν:
+</p>
+<ul class="org-ul">
+<li>Νομοτελειακά συστήματα</li>
+<li>Μετασχηματισμοί Fourier και  Laplace</li>
+<li>Είσοδος έξοδος γραμμικού και χρονοαμετάβλητου συστήμ.</li>
+</ul>
+</div>
+
+<div id="outline-container-orgfa2738c" class="outline-3">
+<h3 id="orgfa2738c"><a href="#orgfa2738c">Τύποι:</a></h3>
+<div class="outline-text-3" id="text-orgfa2738c">
+<ul class="org-ul">
+<li>Οι γνωστοι τύποι, δεν τους έγραψα γιατί με φάνηκαν υπερβολικά γνωστοί:</li>
+<li>Έγραψα μόνο την συνέλιξη, σαν παράδειγμα τέτοιου τύπου:</li>
+</ul>
+\begin{align}
+\label{eq:1}
+y(t) = x(t) * h(t) = \int_{-\infty}^{\infty}x(\tau)h(t-\tau)d\tau
+\end{align}
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2cdadd2" class="outline-2">
+<h2 id="org2cdadd2"><a href="#org2cdadd2">Στοχαστικό σήμα</a></h2>
+<div class="outline-text-2" id="text-org2cdadd2">
+<p>
+Στα στοχαστικά σήματα έχουμε την μετάβαση από τις αυστηρές μαθηματικές εκφράσεις
+στις πιθανότητες και στην έκφραση του σήματος με την χρήση πιθανοτήτων και
+ιδιοτήτων πιθανοτήτων
+</p>
+
+<div class="definition" id="org386372e">
+<p>
+Σήμα για το οποίο δεν υφίσταται νομοτελειακή (κλειστή) έκφραση για την περιγραφή του.
+</p>
+
+</div>
+
+<p>
+Ουσιαστικά πρόκειται για σήμα που επηρεάζεται από διάφορους χρονικά μεταβλητούς
+  και αγνώστης φύσεως παράγοντες με αποτέλεσμα να μην μπορούμε να βγάλουμε
+  <i>απόλυτη</i> έκφραση.
+</p>
+</div>
+
+<div id="outline-container-org9cd265f" class="outline-3">
+<h3 id="org9cd265f"><a href="#org9cd265f">Παραδείγματα στοχαστικών σημάτων</a></h3>
+<div class="outline-text-3" id="text-org9cd265f">
+<ul class="org-ul">
+<li>Σήμα που λαμβάνεται στον δεκτη ενός τηλεπ συστήματος.
+<ul class="org-ul">
+<li>Είναι στοχαστικό λόγω του θορύβου. Δεν είναι δυνατόν να προσδιοριστεί
+επακριβώς ( παρα μόνο στις συνθήκες του απόλυτου μηδενός που δεν μας
+ενδιαφέρουν ). Αυτό συμβαίνει καθώς προκαλείται από την κίνηση ηλεκτρονίων.</li>
+</ul></li>
+<li>Έξοδος μικροφώνου
+<ul class="org-ul">
+<li>Πάλι πολλοί τέτοιοι παράγοντες, είναι αδύνατο να προσδιορίσεις σε ενιαίο
+τύπο την φωνή του ομιλητή ποσο μάλλον όταν σε αυτή εμπλέκεται και ο θόρυβος
+του μικροφώνου <i>( πιθανά αμφισβητήσιμη ερμηνεία )</i></li>
+</ul></li>
+<li>Είσοδος έξοδος πελατών σε ουρά αναμονής
+<ul class="org-ul">
+<li><b>Θεωρία ουρών αναμονής</b></li>
+<li>Εφαρμόσιμη σε <b>δίκτυα</b>.</li>
+</ul></li>
+<li>τιμή μετοχής σε χρονική περίοδο</li>
+<li>Αριθμός ηλεκτρονίων σε φωτοδίοδο.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7278564" class="outline-2">
+<h2 id="org7278564"><a href="#org7278564">Προσέγγιση του μαθήματος</a></h2>
+<div class="outline-text-2" id="text-org7278564">
+<p>
+Το πρώτο κομμάτι του μαθήματος είναι <i>αποκλειστικά</i> επανάληψη στην θεωρία
+πιθανοτήτων και αργότερα επέκταση με μερικές έννοιες που δεν εξετάστηκαν εκεί,
+πριν προχωρήσουμε στην ανάλυση, στοχαστικών σημάτων.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6ba1aee" class="outline-2">
+<h2 id="org6ba1aee"><a href="#org6ba1aee">Θεωρία Πιθανοτήτων</a></h2>
+<div class="outline-text-2" id="text-org6ba1aee">
+<p>
+Οπότε ναι&#x2026; Έχουμε αυτά εδώ:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Θεωρία Συνόλων&#x2026;
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> ιδιοτητες &#x2026;</li>
+</ul></li>
+</ul>
+</div>
+
+<div id="outline-container-org8bcf4e8" class="outline-3">
+<h3 id="org8bcf4e8"><a href="#org8bcf4e8">Πιθανοτικό μοντέλο</a></h3>
+<div class="outline-text-3" id="text-org8bcf4e8">
+<p>
+Πείραμα -&gt; Δειγμ χώρος -&gt; Κανόνας πιθαν.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcf4176d" class="outline-3">
+<h3 id="orgcf4176d"><a href="#orgcf4176d">Ορισμοί πιθανότητας</a></h3>
+<div class="outline-text-3" id="text-orgcf4176d">
+</div>
+<div id="outline-container-org2eec1ec" class="outline-4">
+<h4 id="org2eec1ec"><a href="#org2eec1ec">Laplacian</a></h4>
+<div class="outline-text-4" id="text-org2eec1ec">
+\begin{equation}
+\label{eq:2}
+P\{A\} = \frac{N_A}{N}
+\end{equation}
+<p>
+όπου \(N_A\) το πλήθος των γεγονότων του \(A\) και \(N\) το πλήθος στοιχείων του δειγματοχώρου.
+</p>
+<ul class="org-ul">
+<li>Δεν χρειάζεται να εκτελέσω το πείραμα ούτε μια φορά.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orga0027b9" class="outline-4">
+<h4 id="orga0027b9"><a href="#orga0027b9">Σχετικής συχνότητας</a></h4>
+<div class="outline-text-4" id="text-orga0027b9">
+\begin{equation}
+\label{eq:3}
+P\{A\} = \lim_{N\to \infty}\frac{N_A}{N}
+\end{equation}
+<ul class="org-ul">
+<li>Προϋποθέτει τόσο την ύπαρξη του ορίου όσο και την εκτέλεση του πειράματος
+άπειρες (επαρκώς πολλές) φορές.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb15473f" class="outline-4">
+<h4 id="orgb15473f"><a href="#orgb15473f">Αξιωματικός</a></h4>
+<div class="outline-text-4" id="text-orgb15473f">
+<p>
+Αυτός είναι ο πιο <i>μαθηματικός</i> ορισμός: Βλέπε τα τρία βασικά αξιώματα θεωρίας
+πιθανοτήτων: Θεωρήματα Kolmogorov.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org71cc062" class="outline-4">
+<h4 id="org71cc062"><a href="#org71cc062">Πιθανοτικός χώρος πραγματικών αριθμών.</a></h4>
+<div class="outline-text-4" id="text-org71cc062">
+<p>
+Πρακτικά AΣΚ, ΣΠΠ όπως τις συναντήσαμε στις πιθανότητες.
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-03 Mon 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

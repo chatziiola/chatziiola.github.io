@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 7: Πολυπλεξία και Υπερετερόδυνος Δέκτης.</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 7: Πολυπλεξία και Υπερετερόδυνος Δέκτης.</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org368a1fc">Πολυπλεξία</a>
+<ul>
+<li><a href="#orgdd8f36f">Πολυπλεξία στην συχνότητα</a></li>
+</ul>
+</li>
+<li><a href="#orgb49493c">Δέκτες</a>
+<ul>
+<li><a href="#orgf939867">Ομόδυνος δέκτης</a></li>
+<li><a href="#org48ee2f1">Υπερετερόδυνος Δέκτης:</a>
+<ul>
+<li><a href="#orgb934307">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></li>
+<li><a href="#orge086efa">Up and Down Conversion</a></li>
+<li><a href="#orgf42c574">Low and High Side Injection</a></li>
+<li><a href="#org5336ac7">Εικονικό σήμα</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org368a1fc" class="outline-2">
+<h2 id="org368a1fc"><a href="#org368a1fc">Πολυπλεξία</a></h2>
+<div class="outline-text-2" id="text-org368a1fc">
+<div class="note" id="org18ee26c">
+<p>
+Θα ήταν καλό, όποιος βλέπει αυτές τις σημειώσεις, να ανατρέξει και στην σελίδα
+233 των Καραγιαννίδη, Παππή, καθώς το περιεχόμενο αυτής της ενότητας, αν και
+όπως αναφέρθηκε στην διάλεξη, φαίνεται να μην καλύπτει τα ίδια με το βιβλίο.
+</p>
+
+</div>
+
+<p>
+Με τον όρο πολυπλεξία αναφερόμαστε στην διαδικασία κατα την οποία, πάνω από ένα
+κοινόχρηστο μέσο, μοιράζουμε ορισμένες ιδιότητες μεταξύ διαφόρων μηνυμάτων,
+ούτως ώστε να μπορούν να μεταφερθούν όλα επί εκείνου, φαινομενικά ταυτόχρονα.
+</p>
+
+<p>
+Υπάρχουν τρεις κυρίαρχες τεχνικές επί τούτου:
+</p>
+<ul class="org-ul">
+<li><b>FDMA</b> (Freq Division Multiple Access): <i>Μοιράζουμε</i> το διαθέσιμο φάσμα συχνοτήτων
+σε \(n\) κομμάτια (όπου \(n\) ας πούμε πως είναι τα μηνύματα που θέλουμε να
+στείλουμε - προφανώς αυτό είναι ιδανική περίπτωση, καθώς το διαθέσιμο φάσμα
+συχνοτήτων είναι περιορισμένο), ούτως ώστε αυτά τα \(n\) κομμάτια πλάτους \(W\) να
+μην επικαλύπτονται μεταξύ τους. Έτσι, κατά την διαμόρφωση των μηνυμάτων,
+φροντίζουμε, με την κατάλληλη χρήση φέροντων, να αντιστοιχίσουμε τα μηνύματα
+με τα frequency slots που έχουμε δημιουργήσει. Παράδειγμα FDMA, προφανώς,
+αποτελούν οι ραδιοφωνικοί σταθμοί.</li>
+<li><b>TDMA</b> (Time Division Multiple Access): Αντί να μοιράζουμε το φάσμα συχνοτήτων,
+μοιράζουμε τον χρόνο κατα τον οποίο μεταδίδεται το κάθε μήνυμα. Εύκολα αυτό
+μπορεί να οπτικοποιηθεί σκεπτόμενοι πως το access point μπορεί να εξυπηρετεί
+ταυτόχρονα τόσες συσκευές</li>
+<li><b>CDMA</b> (Code Division Multiple Access - <i>Δεν καλύφθηκε</i> απλή αναφορά)</li>
+</ul>
+
+<p>
+Οι δύο τελευταίες τεχνολογίες περιορίζονται, αποκλειστικά, σε ψηφιακά συστήματα.
+</p>
+</div>
+
+<div id="outline-container-orgdd8f36f" class="outline-3">
+<h3 id="orgdd8f36f"><a href="#orgdd8f36f">Πολυπλεξία στην συχνότητα</a></h3>
+<div class="outline-text-3" id="text-orgdd8f36f">
+<p>
+Γενικά κινούμαστε μεταξύ των 
+</p>
+<ul class="org-ul">
+<li>AM: 535-1605KHz</li>
+<li>FM: 88-108MHz</li>
+<li><i>Μετά τα 108MHz -&gt; ILS (instrument landing system)</i></li>
+</ul>
+
+<p>
+Σε καθ&rsquo;ένα από αυτά τα διαστήματα, έχουμε μικρότερα διαστήματα&#x2026;
+</p>
+
+
+<div id="orga8bc9d7" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec7_radiospectrum-transportationgov.png" alt="tlp1_lec7_radiospectrum-transportationgov.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Photo retrieved from <a href="https://www.transportation.gov/pnt/what-radio-spectrum">the U.S. Department of Transportation</a> on <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-04 Sun&gt;</span></span></p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb49493c" class="outline-2">
+<h2 id="orgb49493c"><a href="#orgb49493c">Δέκτες</a></h2>
+<div class="outline-text-2" id="text-orgb49493c">
+<p>
+Στις προηγούμενες διαλέξεις έχουμε δει το κομμάτι των αποδιαμορφωτών και
+διαμορφωτών, αλλά δεν είναι <b>όλες</b> οι τηλεπικοινωνίες. Αγνοήσαμε ένα πολύ
+σημαντικό κομμάτι αυτό του πομπού και του δέκτη, μέρος του οποίου αποτελεί το
+αντικείμενο της συγκεκριμένης διάλεξης:
+</p>
+</div>
+
+<div id="outline-container-orgf939867" class="outline-3">
+<h3 id="orgf939867"><a href="#orgf939867">Ομόδυνος δέκτης</a></h3>
+<div class="outline-text-3" id="text-orgf939867">
+<p>
+Αποτελεί, ιστορικά, την πρώτη μορφή δέκτη, η οποία παραγκωνίσθηκε από τον
+υπερετερόδυνο δέκτη. Έχει αρχίσει να χρησιμοποιείται ευρέως ξανά, με την άνοδο
+του software radio. Είναι εδώ καθαρά εγκυκλοπαιδικά, έμφαση αποκλειστικά στον
+SHTR.
+</p>
+<ul class="org-ul">
+<li>Αλλιώς λέγεται και <b>zero-if receiver</b>, <b>direct-conversion receiver</b></li>
+</ul>
+
+
+<div id="org8d3d634" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec7_homodyne-amp.png" alt="tlp1_lec7_homodyne-amp.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Μια <b>πολύ</b> απλουστευμένη μορφή του ομόδυνου δέκτη, με ενισχυτή και φίλτρα narrow-band</p>
+</div>
+
+<p>
+Αυτά που ίσχυαν παλιά είναι:
+</p>
+<ul class="org-ul">
+<li>Δουλεύει σε μόνο μία συχνότητα, με πολύ εξειδικευμένο <b>narrow-band</b> φίλτρο και
+ενισχυτή (Αυτό μπορεί να αναιρεθεί με την χρήση εν σειρά συντονισμένων
+κυκλωμάτων(;)).</li>
+<li>Δυσκολία προσδιορισμού/κατασκευής του φίλτρου ωστε να προσεγγιστεί η επιθυμητή
+συνάρτηση.</li>
+<li>Στις αρχές τουλάχιστον - παραμένει όμως, συγκριτικά με τα φίλτρα και τους
+ενισχυτές που δουλεύουν σε πιο χαμηλές συχνότητες (σαν αυτούς που
+χρησιμοποιούνται στο HSI SHTR), πιο ακριβή κατασκευή.</li>
+<li>Αντικαταστάθηκε από τον υπερετερόδυνο δέκτη</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org48ee2f1" class="outline-3">
+<h3 id="org48ee2f1"><a href="#org48ee2f1">Υπερετερόδυνος Δέκτης:</a></h3>
+<div class="outline-text-3" id="text-org48ee2f1">
+<p>
+Ο <i>τύπος</i> δέκτη που μας ενδιαφέρει (SHTR: Super Heterodyne Receiver), λειτουργεί
+μετατοπίζοντας το σήμα εισόδου σε μία ενδιάμεση συχνότητα \(f_{if}\), συνήθως
+χαμηλή για ευκολότερη κατασκευή φίλτρων και μεγαλύτερη αποδοτικότητα.
+</p>
+
+<p>
+Στην αρχή το σήμα εισόδου <i>φιλτράρεται</i> μέσα από τον RF ενισχυτή, επιτρέποντας ένα
+<i>σχετικά</i> γενναιόδωρο φάσμα γύρω από την \(f_c\). Το σήμα σε αυτό το στάδιο 
+πολλαπλασιάζεται με την έξοδο τοπικού ταλαντωτή ώστε να προκύψει σήμα στην
+συχνότητα \(f_{if}\) (παράλληλα προκύπτει σήμα σε διαφορετική συχνότητα το οποίο
+όμως εύκολα <i>φιλτράρεται</i> από τον IF ενισχυτή μας). Τελικά προκύπτει το σήμα σε
+κατάλληλη μορφή ώστε να δοθεί σαν είσοδος σε αποδιαμορφωτή.
+</p>
+
+<p>
+Βάση της σχέσης \(f_c,f_{if}\) αλλά και της μορφής της \(f_l\), ο υπερετερόδυνος
+δείκτης λέμε πως πραγματοποιεί άνω ή κάτω μετατροπή και έγχυση υψηλής ή χαμηλής
+ζώνης αντίστοιχα.
+</p>
+
+
+<div id="orga497512" class="figure">
+<p><img src="course_tlp1_images/tlp1_lec7_shtr.png" alt="tlp1_lec7_shtr.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Διάταξη υπερετερόδυνου δέκτη, περιλαμβάνοντας όλες τις <i>κρίσιμες</i> έννοιες</p>
+</div>
+</div>
+
+<div id="outline-container-orgb934307" class="outline-4">
+<h4 id="orgb934307"><a href="#orgb934307">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></h4>
+<div class="outline-text-4" id="text-orgb934307">
+<div class="note" id="orgb997023">
+<p>
+Ό,τι σημειώνεται για ΑΜ προφανώς ισχύει και για FM, αν και <i>ενδεχομένως</i> με
+κάποιες αλλαγές.
+</p>
+
+</div>
+
+<p>
+Δοθέντος ενός σήματος πληροφορίας \(m(t)\), διαμορφωμένου κατά DSBAM-TC, το οποίο
+έρχεται σαν είσοδος από τον RF ενισχυτή μας:
+</p>
+\begin{equation}
+\label{eq:1}
+x(t) = [A_c + m(t)]\cos{2\pi f_ct}
+\end{equation}
+
+<p>
+Πολλαπλασιάζεται με το σήμα του τοπικού ταλαντωτή (στην πραγματικότητα εδώ, για
+χάρη απλότητας, φαίνεται μόνο η μία από τις δύο περιπτώσεις. Αναλυτικότερα δες <a href="#orgf42c574">LSI,HSI</a>, \(\ref{eq:4}\)):
+</p>
+
+\begin{align}
+\label{eq:2}
+y(t) &= [A_c + m(t)]\cos{2\pi f_ct}\cos{2\pi f_lt}\\
+&= [A_c + m(t)][\cos{2\pi (f_c+f_l)t}+\cos{2\pi (f_c-f_l)t}]
+\end{align}
+
+<p>
+Σε αυτή την φάση ο όρος \(\cos{2\pi (f_c-f_l)t}\) μπορούμε να θεωρήσουμε πως είναι
+της μορφής \(\cos{2\pi f_{if}t}\), επομένως είναι της κατάλληλης μορφής για να
+επιτραπεί από το IF φίλτρο:
+</p>
+
+\begin{equation}
+\label{eq:3}
+z(t) = [A_c + m(t)]cos{2\pi f_{if}t}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orge086efa" class="outline-4">
+<h4 id="orge086efa"><a href="#orge086efa">Up and Down Conversion</a></h4>
+<div class="outline-text-4" id="text-orge086efa">
+<p>
+Η άνω ή κάτω μετατροπή <i>αποφασίζεται</i> βάση της σχέσης μεταξύ των \(f_{if},f_c\).
+</p>
+
+<p>
+Ειδικότερα αν \(f_{if}<f_{c}\) , τότε λέμε πως πρόκειται για κάτω μετατροπή ενώ στην
+αντίθετη περίπτωση λέμε οτι έχουμε άνω μετατροπή.
+</p>
+
+<p>
+Καθώς ο <i>τελικός</i> ενισχυτής και το φίλτρο ακριβείας είναι στην συχνότητα \(f_{if}\),
+και γνωρίζουμε πως η αποδοτικότητα αυτών των εξαρτημάτων είναι μεγαλύτερη στις
+χαμηλές συχνότητες, <b>συνήθως προτιμάται η κάτω μετατροπή</b>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf42c574" class="outline-4">
+<h4 id="orgf42c574"><a href="#orgf42c574">Low and High Side Injection</a></h4>
+<div class="outline-text-4" id="text-orgf42c574">
+<div class="note" id="org948a5fa">
+<p>
+Ένας εύκολος τρόπος να θυμάσαι up/down conversion και LSI/HSI:
+</p>
+<ul class="org-ul">
+<li>Το up/down conversion σχετίζεται με το αν η ενδιάμεση συχνότητα \(f_{if}\) είναι
+πάνω ή κάτω από την συχνότητα διαμόρφωσης</li>
+<li>Η LSI/HSI σχετίζεται με το αν η συχνότητα του ταλαντωτή είναι πάνω ή κάτω από
+την συχνότητα διαμόρφωσης</li>
+</ul>
+
+</div>
+
+<p>
+Έγχυση υψηλής ή χαμηλής ζώνης έχουμε όταν \(f_l= f_c+f_{if}\) ή \(f_l= f_c-f_{if}\)
+αντίστοιχα. Σε αυτές τις περιπτώσεις, επομένως, η εξίσωση \(\eqref{eq:2}\) γίνεται:
+</p>
+
+\begin{equation}
+\label{eq:4}
+y(t) =
+\begin{cases}
+[A_c + m(t)][\cos{2\pi f_{if}t}+\cos{2\pi (2f_c+f_{if})t}] &\text{HSI}\\
+[A_c + m(t)][\cos{2\pi f_{if}t}+\cos{2\pi (2f_c-f_{if})t}] &\text{LSI}
+\end{cases}
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org5336ac7" class="outline-4">
+<h4 id="org5336ac7"><a href="#org5336ac7">Εικονικό σήμα</a></h4>
+<div class="outline-text-4" id="text-org5336ac7">
+<p>
+Αν το φίλτρο RF δεν είναι ρυθμισμένο κατάλληλα, και περάσουν συχνότητες πέραν
+του επιθυμητού εύρους ( δηλαδή γύρω από την \(f_c\) που θέλουμε) μπορεί στο βήμα
+της \(\eqref{eq:2}\) να εμφανιστούν παρεμβολές στην συχνότητα \(f_{if}\) με
+αποτέλεσμα να έχουμε παραμόρφωση του μηνύματος
+</p>
+
+<p>
+Εύκολο παράδειγμα για αυτό είναι αν περάσει η συχνότητα \(2f_{if}+f_c\) με HSI:
+</p>
+\begin{equation}
+\label{eq:5}
+x(t) = [A_c+m_1(t)]\cos{2\pi f_ct} + m_2(t)\cos{2\pi (f_c+2f_{if})t}
+\end{equation}
+<p>
+τότε, μετά τον πολλαπλασιασμό των σημάτων
+</p>
+\begin{equation}
+\label{eq:6}
+y(t) = [A_c + m_1(t)][\cos{2\pi f_{if}t}+\cos{2\pi (2f_c+f_{if})t}] + m_{2}(t)[\cos{2\pi f_{if}t}+\cos{2\pi (2f_c+3f_{if})t}] 
+\end{equation}
+
+<p>
+όπου φαίνεται πως, με την κατάλληλη παραγοντοποίηση εμφανίζεται ο όρος
+\(\cos{2\pi f_{if}t}[A_c+m_1(t)+m_2(t)]\), που σημαίνει πως έχουμε παραμόρφωση του
+σήματος πληροφορίας.
+</p>
+
+<p>
+Η ίδια ανάλυση μπορεί να γίνει και για LSI. Λύνεται με ρύθμιση του εύρους του
+\(B_{RF}\) ούτως ώστε να είναι αρκετά μικρό και να μην <i>πιάνει</i> αυτές τις
+συχνότητες:
+</p>
+\begin{equation}
+\label{eq:7}
+f_c + \frac{B_{RF}}{2} < 2f_{if}+f_c\iff \cdots \iff B_{RF} < 4f_{if}
+\end{equation}
+
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">&#xa0;</td>
+<td class="org-left">Προβληματική συχνότητα</td>
+<td class="org-left">Άνω όριο \(B_{RF}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">HSI</td>
+<td class="org-left">\(f_c+2f_i\)</td>
+<td class="org-left">\(4f_{if}\)</td>
+</tr>
+
+<tr>
+<td class="org-left">LSI</td>
+<td class="org-left">\(abs[f_c-2f_i]\)</td>
+<td class="org-left">\(4abs[f_{if}-f_c]\)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-11-07 Mon 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

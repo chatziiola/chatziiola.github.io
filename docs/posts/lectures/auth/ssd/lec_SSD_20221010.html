@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 2: Τυχαίες μεταβλητές</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 2: Τυχαίες μεταβλητές</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org241f342">Τυχαίες μεταβλητές</a>
+<ul>
+<li><a href="#orgf6aa671">Τύποι</a></li>
+</ul>
+</li>
+<li><a href="#org052bf3a">Συνάρτηση Κατανομής πιθανότητας (CDF)</a>
+<ul>
+<li><a href="#org3f0a741">Κλιμακωτή συνάρτηση κατανομής</a></li>
+<li><a href="#org0b7c822">Ιδιότητες συν καταν</a></li>
+<li><a href="#org7d0dfe4">Προσεγγίζοντας την πιθανότητα σε σημείο</a></li>
+<li><a href="#org18d81c3">Παραδείγματα.</a>
+<ul>
+<li><a href="#org6a3c2a0">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></li>
+<li><a href="#org2ec652a">Παράδειγμα με <i>ράμπα</i></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgd0146f5">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></li>
+<li><a href="#orgc49964b">Μορφή συναρτήσεων ΔΤΜ</a></li>
+<li><a href="#org86a3303">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a>
+<ul>
+<li><a href="#orgd6a55ff">Χτίζοντας πιο σύνθετες πιθανότητες</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org241f342" class="outline-2">
+<h2 id="org241f342"><a href="#org241f342">Τυχαίες μεταβλητές</a></h2>
+<div class="outline-text-2" id="text-org241f342">
+<p>
+Μετάβαση από τα αορίστως ορισμένα γεγονότα σε καλύτερα ορισμένα.
+</p>
+
+<p>
+Δόθηκε ιδιαίτερη έμφαση στο <i>να θυμάται κανείς ότι η τιμή της τμ δεν είναι
+αριθμός αλλά σύνολο γεγονότων</i>
+</p>
+</div>
+
+<div id="outline-container-orgf6aa671" class="outline-3">
+<h3 id="orgf6aa671"><a href="#orgf6aa671">Τύποι</a></h3>
+<div class="outline-text-3" id="text-orgf6aa671">
+<p>
+Κλασσικά:
+</p>
+<ol class="org-ol">
+<li>Συνεχείς (παράδειγμα: γωνία στον τροχό της τύχης)</li>
+<li>Διακριτές (παράδειγμα: &#x2026; κορώνα γράμματα)</li>
+<li>Μεικτού τύπου</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org052bf3a" class="outline-2">
+<h2 id="org052bf3a"><a href="#org052bf3a">Συνάρτηση Κατανομής πιθανότητας (CDF)</a></h2>
+<div class="outline-text-2" id="text-org052bf3a">
+</div>
+
+<div id="outline-container-org3f0a741" class="outline-3">
+<h3 id="org3f0a741"><a href="#org3f0a741">Κλιμακωτή συνάρτηση κατανομής</a></h3>
+<div class="outline-text-3" id="text-org3f0a741">
+<p>
+Όταν βλέπεις κλιμακωτή συνάρτηση κατανομής γνωρίζεις πως εκείνη σχετίζεται με
+διακριτή τμ.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b7c822" class="outline-3">
+<h3 id="org0b7c822"><a href="#org0b7c822">Ιδιότητες συν καταν</a></h3>
+<div class="outline-text-3" id="text-org0b7c822">
+<p>
+Οι κλασσικές ιδιότητες της ΑΣΚ:
+</p>
+\begin{align*}
+F_X(-\infty) &= 0\\
+F_X(\infty) &= 1\\
+\end{align*}
+<p>
+ενώ ακόμα:
+</p>
+<ul class="org-ul">
+<li>η \(F_X\) αύξουσα</li>
+<li>Συνεχής εκ δεξιών</li>
+<li>\(1-F_X\), συχνά ορισμένη ως <b>συμπληρωματική</b> (complementary) συνάρτηση της \(F_X\),
+και συμβολίζεται ως \(F^{C}_X\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7d0dfe4" class="outline-3">
+<h3 id="org7d0dfe4"><a href="#org7d0dfe4">Προσεγγίζοντας την πιθανότητα σε σημείο</a></h3>
+<div class="outline-text-3" id="text-org7d0dfe4">
+<p>
+Αυτό είναι για όταν μπλέκουμε με την πιθανότητα:
+</p>
+\begin{equation}
+\label{eq:1}
+Pr\{ x_1 \leq X \leq x_2 \}
+\end{equation}
+
+<p>
+Υπο αυτές τις συνθήκες, γνωρίζοντας ήδη από την ΑΣΚ:
+\(Pr\{\cdots\} = F(x_2) - F(x_1)\):
+</p>
+
+<p>
+Έχουμε: \(x_2= x, x_1 = x-\epsilon, \epsilon\to0\), εκ του οποίου:
+</p>
+\begin{equation}
+\label{eq:2}
+Pr\{\cdots\} = F(x) - F(x^{-})
+\end{equation}
+<p>
+Όπου προφανώς \(x^-\) είναι η εκ δεξιάς προσέγγιση του \(x\)
+</p>
+
+<p>
+Με βάση την \(F_x\), ακόμα μπορούμε να διακρίνουμε τις τμ.
+</p>
+<ul class="org-ul">
+<li>\(F_X\) συνεχής, τότε η τμ συνεχούς τύπου</li>
+<li>\(F_X\) κλιμακωτή, τότε η τμ διακριτού τύπου</li>
+<li>\(F_X\) συνδυασμός των παραπάνω, τότε η τμ μεικτού τύπου</li>
+</ul>
+
+
+<p>
+Στην περίπτωση, λοιπόν, της συνεχούς (τουλάχιστον στα εμπλεκόμενα σημεία) τμ,
+η πιθανότητα ισούται με το 0. Δεν υπάρχει ασυνέχεια, ούτε και ουσιαστική
+πιθανότητα να συμβεί ένα εκ των απείρων γεγονότων.
+</p>
+
+<p>
+Αυτό, όμως, αλλάζει όταν έχουμε ασυνέχεια. Ισχύει δηλαδή πως <b>αυτή η πιθανότητα
+  είναι ίση με το πλάτος της ασυνέχειας που παρουσιάζεται σε εκείνο το σημείο</b>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org18d81c3" class="outline-3">
+<h3 id="org18d81c3"><a href="#org18d81c3">Παραδείγματα.</a></h3>
+<div class="outline-text-3" id="text-org18d81c3">
+<p>
+Λύθηκαν, από τις διαφάνειες, μερικά απλά παραδείγματα ( για αυτό και δεν
+σημειώθηκαν ).
+</p>
+</div>
+
+<div id="outline-container-org6a3c2a0" class="outline-4">
+<h4 id="org6a3c2a0"><a href="#org6a3c2a0">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></h4>
+<div class="outline-text-4" id="text-org6a3c2a0">
+<ul class="org-ul">
+<li>Σε αυτό το παράδειγμα, η συνάρτηση δεν ήταν ΑΣΚ καθώς δεν ήταν συνεχής απο
+δεξιά. (Το μόνο που κάνεις είναι: ελέγχεις τις ιδιότητες)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org2ec652a" class="outline-4">
+<h4 id="org2ec652a"><a href="#org2ec652a">Παράδειγμα με <i>ράμπα</i></a></h4>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd0146f5" class="outline-2">
+<h2 id="orgd0146f5"><a href="#orgd0146f5">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></h2>
+<div class="outline-text-2" id="text-orgd0146f5">
+<p>
+Εφεξής ΣΠΠ.
+</p>
+
+<p>
+Ορίζεται, κατά τον Νέστορα, βάση της ΑΣΚ:
+</p>
+\begin{equation}
+\label{eq:3}
+f_X = \frac{dF_X}{dt}
+\end{equation}
+
+<p>
+Και οι ιδιότητες της είναι οι κλασσικές:
+</p>
+\begin{align*}
+f_X(x) &\geq 0, \forall x\\
+\int_{-\infty}^{\infty}f_Xdx &= 1\\
+F_X &= \int_{\infty}^tf_Xdx\\
+Pr\{x_1 < X \leq x_2\} &= \int_{x^{+}_1}^{x^{ +}_2}f(x)dx\\
+Pr\{x_1 \leq X \leq x_2\} &= \int_{x^{-}_1}^{x^{ +}_2}f(x)dx\\
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-orgc49964b" class="outline-2">
+<h2 id="orgc49964b"><a href="#orgc49964b">Μορφή συναρτήσεων ΔΤΜ</a></h2>
+<div class="outline-text-2" id="text-orgc49964b">
+<p>
+Προφανώς ΔΤΜ: Διακριτή τυχαία μεταβλητή.
+</p>
+
+<p>
+Όπως είπαμε προηγουμένως <a href="#org3f0a741">στην κλιμακωτή συνάρτηση κατανομής</a>, όταν δουλεύουμε
+με ΑΣΚ η γραφική παράσταση της \(F_X\) διακριτής τμ είναι κλιμακωτή, ενώ
+(χτίζοντας επί εκείνου) η ΣΜΠ (<i>συνάρτηση μάζας πιθανότητας</i> - pmf) έχει την
+μορφή αθροίσματος συναρτήσεων \(\delta\) (δέλτα)
+</p>
+
+<p>
+Ισχύει δηλαδή
+</p>
+\begin{equation}
+\label{eq:4}
+f_X(x) = \sum_{i=1}^np_i\delta(x-x_i)
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org86a3303" class="outline-2">
+<h2 id="org86a3303"><a href="#org86a3303">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a></h2>
+<div class="outline-text-2" id="text-org86a3303">
+\begin{equation}
+\label{eq:5}
+Pr\{X\leq x | B\} = \frac{Pr\{X\leq x,B\}}{Pr\{B\}}
+\end{equation}
+
+<p>
+Συμβολίζουμε τις ΑΣΚ και ΣΠΠ των δεσμευμένων, έτσι, πιθανοτήτων ως εξής:
+</p>
+<ul class="org-ul">
+<li>ΑΣΚ: \(F_{X|A}\)</li>
+<li>ΣΠΠ: \(f_{X|A}\)</li>
+</ul>
+
+<p>
+Ακόμα έχουμε:
+Αν το γεγονός \(A=\{X\leq \alpha\}\)
+</p>
+
+\begin{align}
+\label{eq:6}
+F_{X|A} =& 
+\begin{cases}
+1 & x\geq \alpha\\
+\frac{Pr\{X\leq x\}}{Pr\{X\leq \alpha\}} & x\geq \alpha\\
+\end{cases} \\
+f_{X|A} =& 
+\begin{cases}
+1 & x\geq \alpha\\
+\frac{Pr\{X\leq x\}}{Pr\{X\leq \alpha\}} & x\geq \alpha\\
+\end{cases} 
+\end{align}
+
+\begin{align*}
+\label{eq:9}
+f_x &= \frac{d{F_X}}{d{x}}\\
+F_X(\alpha) &= \int_{-\infty}^{\alpha} f_xdx
+\end{align*}
+</div>
+
+<div id="outline-container-orgd6a55ff" class="outline-3">
+<h3 id="orgd6a55ff"><a href="#orgd6a55ff">Χτίζοντας πιο σύνθετες πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-orgd6a55ff">
+<p>
+Αν, πάλι, το \(B=\{a < X \leq b\}\)
+έχουμε:
+</p>
+\begin{equation}
+\label{eq:7}
+F_{X|B}(x) = \frac{Pr\{X\leq x, a< X \leq b\}}{Pr\{ a < X \leq b\}}
+\end{equation}
+
+<p>
+το οποίο μπορούμε να το αναλύσουμε με τις εξής συνθήκες:
+</p>
+<ul class="org-ul">
+<li>\(x\leq a\)</li>
+<li>\(x\geq b\)</li>
+<li>\(x\in (a,b)\)</li>
+</ul>
+
+<p>
+Έτσι καταλήγουμε:
+</p>
+\begin{equation}
+\label{eq:10}
+F_{X|B}(x) =
+\begin{cases}
+0 & x\leq a\\
+1 & x\geq b\\
+\frac{F_X(x) - F_X(\alpha)}{F_X(b) - F_X(\alpha)} & x\leq a
+\end{cases}
+\end{equation}
+
+<p>
+Οι πρώτες δύο σχέσεις είναι αυτονόητες, ενώ η τρίτη προκύπτει από το γεγονός οτι
+για \(x\in (\alpha,b)\), \(Pr\{X\leq x, \alpha < X\leq b\}\) γίνεται \(Pr\{\alpha< X\leq x\}\)
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-10-10 Mon 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

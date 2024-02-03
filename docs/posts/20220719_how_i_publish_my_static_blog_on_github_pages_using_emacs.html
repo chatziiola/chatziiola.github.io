@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>How i publish my static blog on Github pages using Emacs</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Automating the tricky org mode to html process was never easier" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">How i publish my static blog on Github pages using Emacs</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org6740bbf">Introduction</a>
+<ul>
+<li><a href="#orgc438c1a">Notice</a></li>
+</ul>
+</li>
+<li><a href="#orgeddab6b">Why Emacs and Org Mode? A personal story</a></li>
+<li><a href="#orge98ead5">Piece of wisdom: Write small scripts</a></li>
+<li><a href="#org65d2f11">The Process</a>
+<ul>
+<li>
+<ul>
+<li><a href="#org5d7ac4f">Dealing with the Emacs Back End:</a></li>
+</ul>
+</li>
+<li><a href="#orgd741171">Bash</a></li>
+<li><a href="#orgba8517d">Publishing on Github</a></li>
+</ul>
+</li>
+<li><a href="#orgf126169">Notes:</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org6740bbf" class="outline-2">
+<h2 id="org6740bbf"><a href="#org6740bbf">Introduction</a></h2>
+<div class="outline-text-2" id="text-org6740bbf">
+<p>
+Almost everyone nowadays agrees that having a personal website is a virtue. That
+consists of two parts<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>: The technical and the writing one.
+</p>
+
+<p>
+Of course, I would not try to tell you how to write.
+</p>
+
+<p>
+This article aims to <i>fill</i> a very niche gap on the first aspect of personal
+blogs: to show how one can use Emacs and Org Mode to create the website they
+want <b>and</b> how to host it on GitHub Pages.
+</p>
+</div>
+
+<div id="outline-container-orgc438c1a" class="outline-3">
+<h3 id="orgc438c1a"><a href="#orgc438c1a">Notice</a></h3>
+<div class="outline-text-3" id="text-orgc438c1a">
+<p>
+I wrote this article in a form of rubber duck debugging of my own publishing
+progress. As such it will remain a work-in-progress even after its publication.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeddab6b" class="outline-2">
+<h2 id="orgeddab6b"><a href="#orgeddab6b">Why Emacs and Org Mode? A personal story</a></h2>
+<div class="outline-text-2" id="text-orgeddab6b">
+<div class="note" id="org80a396b">
+<p>
+If you have found a setup you like and feel comfortable working in, then there&rsquo;s
+no need to listen to me or anyone else about moving to a different editor. 
+</p>
+
+</div>
+
+<p>
+The answer for me was pretty simple. I moved to Emacs almost a year from now
+(<span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-06 Tue&gt;</span></span>), having used <code>vim</code> for something less than 5 years, on a daily,
+almost, basis.
+</p>
+
+<p>
+I love plain text.
+</p>
+
+<p>
+However, when I had to publish something I was writing mainly in \(\LaTeX\), and
+even with my good ol&rsquo; snippets, it felt far from natural<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.Somehow,
+somewhere I read about Org Mode and decided to give it a shot; it did not
+disappoint.
+</p>
+
+<p>
+Its syntax is very similar to markdown but, it has <b>numerous</b> benefits and extra
+capabilities (if you are an Emacs user that is).
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge98ead5" class="outline-2">
+<h2 id="orge98ead5"><a href="#orge98ead5">Piece of wisdom: Write small scripts</a></h2>
+<div class="outline-text-2" id="text-orge98ead5">
+<blockquote>
+<p>
+Do not think of coding projects as <b>major ones</b>
+</p>
+</blockquote>
+
+<p>
+It was only during the last year of using <code>vim</code> that I realized the power of
+writing scripts for myself, instead of searching for plugins, extensions and
+other <i>pre-made</i> scripts. Do not get me wrong: <b>If they exist, use them</b>. Follow
+the path of least resistance and be ruthless to the things that do not matter.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org65d2f11" class="outline-2">
+<h2 id="org65d2f11"><a href="#org65d2f11">The Process</a></h2>
+<div class="outline-text-2" id="text-org65d2f11">
+<p>
+Publishing with Emacs is relatively simple as long as you follow some basic
+principles:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> You need to create your files yourself and give them the proper attributes
+(such as a title, filetags, a date and or a description)</li>
+<li class="off"><code>[&#xa0;]</code> You need to keep your <i>content</i> directory clean and organized because your
+website&rsquo;s hierarchy will mimic your working one.</li>
+<li class="off"><code>[&#xa0;]</code> You understand how it functions:
+<ol class="org-ol">
+<li>You write in org inside your git repo</li>
+<li>You commit the changes</li>
+<li>You push the changes to your GitHub repo (effectively making them public)</li>
+<li>GitHub actions takes over and launches a VM on which it installs Emacs</li>
+<li>Emacs is called within that VM through your <code>bash</code> script and performs
+<code>org-publish</code></li>
+<li>The files that <code>org-publish</code> creates do not litter your working branch, but
+they reside on a different one, pages</li>
+<li>A web server then runs on that branch, letting you visit these files just
+like any other website.</li>
+</ol></li>
+</ul>
+</div>
+
+<div id="outline-container-org5d7ac4f" class="outline-4">
+<h4 id="org5d7ac4f"><a href="#org5d7ac4f">Dealing with the Emacs Back End:</a></h4>
+<div class="outline-text-4" id="text-org5d7ac4f">
+<div class="note" id="org6aee1f8">
+<p>
+Writing in <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-06 Tue&gt;</span></span>, this configuration file is actually outdated due to
+the fact that I did not remember publishing it. <i><b>sigh</b></i>. It will be fixed in the
+future, but the <code>.el</code> version can always be found in my blog repo.
+</p>
+
+</div>
+
+<p>
+I have published my <a href="20221228_elisp-org-publish-blog-configuration.html">elisp script</a>, largely based on the one SystemCrafters&rsquo; David
+Wilson (<a href="https://www.youtube.com/c/SystemCrafters">channel</a>) shared elisp configuration.
+</p>
+</div>
+</div>
+<div id="outline-container-orgd741171" class="outline-3">
+<h3 id="orgd741171"><a href="#orgd741171">Bash</a></h3>
+<div class="outline-text-3" id="text-orgd741171">
+<p>
+One liner - not really much to say here
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgba8517d" class="outline-3">
+<h3 id="orgba8517d"><a href="#orgba8517d">Publishing on Github</a></h3>
+<div class="outline-text-3" id="text-orgba8517d">
+<p>
+In order for Github to function as described above a file called <code>publish.yml</code> in
+<code>.github/workflows/</code> is needed 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">name: Publish to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v1
+
+      - name: Install Emacs
+        run: sudo apt install emacs-nox --yes
+
+      - name: Build the site
+        run: ./build.sh
+
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.0.8
+        with:
+          args: --verbose --no-progress ./public/**/*.html
+
+      - name: Publish generated content to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: public
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf126169" class="outline-2">
+<h2 id="orgf126169"><a href="#orgf126169">Notes:</a></h2>
+<div class="outline-text-2" id="text-orgf126169">
+<ul class="org-ul">
+<li>To see these in action feel free to browse this blog&rsquo;s <a href="https://github.com/chatziiola/chatziiola.github.io">source</a></li>
+<li>Of course you can run the bash script locally, maybe with Emacs&rsquo; <code>httpd</code> mini
+webserver or with your python oneliner to preview it before publishing. After
+all, a problem for me often is that a problem in the <code>publish.yml</code> execution may
+result in my website taken offline.</li>
+</ul>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+&#x2026;and, if you navigate around mine, I think it will be pretty obvious
+which one could use a little bit of work:
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<a href="https://castel.dev">The best resource out there for notetaking with vim and latex</a>.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-07-19 Tue 19:26 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

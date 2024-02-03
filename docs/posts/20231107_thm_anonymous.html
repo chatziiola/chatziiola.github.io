@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>THM: Anonymous</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">THM: Anonymous</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org161a986">Recon</a>
+<ul>
+<li><a href="#org7555121">FTP Server</a></li>
+</ul>
+</li>
+<li><a href="#org7541787">Privilege escalation</a></li>
+<li><a href="#org4f204fd">Conclusion</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org161a986" class="outline-2">
+<h2 id="org161a986"><a href="#org161a986">Recon</a></h2>
+<div class="outline-text-2" id="text-org161a986">
+<ul class="org-ul">
+<li>adding to <code>/etc/hosts</code></li>
+</ul>
+
+
+<p>
+We start by doing a quick scan on the target machine:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org9fae4f1">nmap -sV -sC -oN nmap.initial anonymous.thm
+</pre>
+</div>
+
+<p>
+There are some interesting findings:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> Port 21: FTP: allowing for anonymous login</li>
+<li class="off"><code>[&#xa0;]</code> Port 22: SSH: probably going to utilize that later</li>
+<li class="off"><code>[&#xa0;]</code> Ports 139/445: Samba file server</li>
+</ul>
+
+<p>
+Before going further with the file servers, starting a complete scan
+to make sure no port gets &rsquo;lost&rsquo;
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-variable-name">IP</span>=anonymous.thm
+nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org7555121" class="outline-3">
+<h3 id="org7555121"><a href="#org7555121">FTP Server</a></h3>
+<div class="outline-text-3" id="text-org7555121">
+<p>
+Visiting the ftp server (and in <code>nmap</code>&rsquo;s output), we see that there is a
+directory <code>scripts</code>, whose contents may be useful to us:
+</p>
+<ul class="org-ul">
+<li><code>ftp anonymous.thm</code></li>
+<li>logging in as <code>anonymous</code>, successfully</li>
+<li>getting the files back to our local machine with <code>get</code></li>
+</ul>
+
+<p>
+These files are:
+</p>
+<ul class="org-ul">
+<li><code>clean.sh</code>, a simple (and at the same time actually non-working)
+shell script</li>
+<li>A log file, for clean.sh</li>
+<li>A <code>todo.txt</code>, which simply states that &ldquo;<i>anonymous login is not safe</i>&rdquo;</li>
+</ul>
+
+<p>
+Since I&rsquo;m writing this article while completing the room, I did not
+have to wait much before getting the log file again and comparing it
+with the older version:
+</p>
+<pre class="example" id="org9b1536e">
+root@ip-10-10-121-199:~# cat removed_files.log | wc -l
+28
+# Here I went back to the ftp server got the file again
+root@ip-10-10-121-199:~# cat removed_files.log | wc -l
+33
+</pre>
+
+<p>
+It is obvious, then, that <code>clean.sh</code>, that populates the log file,
+must be connected to a cronjob. This should be an easy point of entry
+for us!
+</p>
+
+<p>
+Just by adding a simple netcat reverse shell in <code>clean.sh</code>, gives as
+access to the machine!
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7541787" class="outline-2">
+<h2 id="org7541787"><a href="#org7541787">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org7541787">
+<p>
+After making our terminal a little more usable with <code>python</code>&rsquo;s pty module, we see that we are logged in as <code>namelessone</code>, who is part of
+many groups, however, since we do not know the user&rsquo;s password <code>sudo -l</code>
+is unusable.
+</p>
+<pre class="example" id="org2ed705b">
+namelessone@anonymous:~$ id
+id
+uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd)
+</pre>
+
+
+<p>
+Searching for files with <code>SUID</code>, we <code>find</code> (pun intended), that <code>env</code> is
+improperly configured, allowing for an easy privilege escalation:
+</p>
+<pre class="example" id="orgad32032">
+namelessone@anonymous:~$ env /bin/sh -p
+env /bin/sh -p
+# whoami
+whoami
+root
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org4f204fd" class="outline-2">
+<h2 id="org4f204fd"><a href="#org4f204fd">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org4f204fd">
+<p>
+I do not know why this room was marked as being one of medium
+difficulty, but I liked being able to complete it really easily and
+quickly :P.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-11-07 Tue 09:50 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

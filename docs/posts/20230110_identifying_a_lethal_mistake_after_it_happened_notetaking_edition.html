@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Identifying a lethal mistake - after it happened: Notetaking Edition</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="How I lost a lecture (twice) and put the blame on me (human error) instead of pointing at the faulty part of my code." />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Identifying a lethal mistake - after it happened: Notetaking Edition</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org46c31dc">The story</a></li>
+<li><a href="#orge52f917">The Doombringer</a></li>
+<li><a href="#org170c3eb">Understanding my mistake</a></li>
+<li><a href="#org0b97ec8">Implementing solutions</a>
+<ul>
+<li><a href="#orgd5eef25">Impossible filename approach</a></li>
+<li><a href="#org33b7ef2">Check for file approach</a></li>
+<li><a href="#org4e27b3c">Selecting the proper one</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+For a while now I use my own implementation of a <i>notetaking</i> system to quickly
+and efficiently create lecture notes, ready to be published, exported and
+reviewed. All within Emacs.
+</p>
+
+<p>
+This solution worked perfectly and I took huge pride in it. It allowed me to
+focus on the lecture, utilizing only muscle memory to jot what was being taught
+down and, since my touch-typing skills are on point, ensuring that I would have
+quality material I could later study from.
+</p>
+
+<p>
+It really worked.
+Until it failed.
+</p>
+
+<p>
+And today it failed again.
+</p>
+
+<div id="outline-container-org46c31dc" class="outline-2">
+<h2 id="org46c31dc"><a href="#org46c31dc">The story</a></h2>
+<div class="outline-text-2" id="text-org46c31dc">
+<div class="note" id="org56d9069">
+<p>
+While writing the draft for this article I realized that this might have never
+happened if I had published my configuration earlier. Anyone seeing the code
+(even though I&rsquo;m not proud of its quality), might have seen this mistake&#x2026;
+Moral of the story: I should write about my notetaking setup, detailing the
+faulty parts and asking for criticism maybe&#x2026;
+</p>
+
+</div>
+
+<p>
+Sometime this Fall Semester (on a Monday), I was at my university, attending a
+lecture on Stochastic Signals (you can see more about the course <a href="lectures/auth/ssd/index.html">here</a>) when
+suddenly my working file was corrupted and I lost everything I had written
+till that point. Even my automatically generated backup files (which I had kept
+active in my configuration for moments like these) could not help me. Something
+mysterious had happened.
+</p>
+
+<p>
+I could not understand what, but since the lecture was still going, I focused on
+writing down what was left of it. Later, when it was over, I added as much as I
+could remember, completing it (even though its quality could not be compared to
+the original one).
+</p>
+
+<p>
+Since I believed it was my error, I did not waste any time into trying to see
+what went on. After all, the file was not corrupted in a way I could understand:
+an empty file was just written on top of it, giving me the blank template I have
+before adding content to a lecture.
+</p>
+
+<p>
+Today, as I was watching Strang&rsquo;s wonderful <a href="https://www.youtube.com/watch?v=cdZnhQjJu4I&amp;ab_channel=MITOpenCourseWare">lecture on eigenvalues and
+eigenvectors</a>, I stopped to go back to a previous one: I had forgotten how to
+calculate the null space. I decided to create a reference for that lecture as
+well, to avoid spending more time in the future to revisit the lecture: I can
+visit my notes in a much more timely fashion. However, instead of visiting a new
+file I &#x2026; lost my lecture notes at the blink of an eye.
+</p>
+
+<p>
+And that is when I saw how naive I was when I wrote this little part of the code.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge52f917" class="outline-2">
+<h2 id="orge52f917"><a href="#orge52f917">The Doombringer</a></h2>
+<div class="outline-text-2" id="text-orge52f917">
+<p>
+This is the function that I had originally created (and used till this day)
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org"</span>
+  (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d"</span>(current-time)) <span class="org-string">".org"</span>))
+</pre>
+</div>
+
+<p>
+The description was:
+</p>
+<blockquote>
+<p>
+Set the lecture&rsquo;s filename. I have experimented for a long time with this
+function but i think that the &rsquo;lec_&lt;course&gt;_&lt;date&gt;.org&rsquo; is an ideal format.
+</p>
+</blockquote>
+
+<p>
+If you did not see what became so painfully apparent to me today: I do not check
+whether this file exists (nor does the function the calls this one). I just
+assume&#x2026; a lot of things.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org170c3eb" class="outline-2">
+<h2 id="org170c3eb"><a href="#org170c3eb">Understanding my mistake</a></h2>
+<div class="outline-text-2" id="text-org170c3eb">
+<p>
+Back when I created this function I hoped my files would get named like that :
+ <code>lec_course_lecnumber_title.org</code>.
+</p>
+
+<p>
+The thought that the <code>title</code> was unknown at the beginning of the lecture (at least
+for the non-recorded ones) had not come to my mind and the <code>lecnumber</code>
+implementation was equally problematic: I did not want to spend any more time in
+designing the script, I wanted it to be functional and use it. However, my
+implementations of <code>lecnumber</code> were at that point unacceptable, forcing me to
+settle on a much simpler format: <code>lec_course_simpledate.org</code>
+</p>
+
+<p>
+The only drawback with this format would be apparent only when I manually
+visited the lectures directory, which was more than acceptable since I would
+solely visit these files through my set of custom functions. Furthermore, since
+my lecture files are plain-text even a simple bash snippet such as this one
+could do the job:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash"><span class="org-keyword">for</span> i<span class="org-keyword"> in</span> lec_SSD*; <span class="org-keyword">do </span><span class="org-builtin">echo</span> $<span class="org-variable-name">i</span>; head -10 $<span class="org-variable-name">i</span> | grep <span class="org-string">'TITLE'</span>; <span class="org-keyword">done</span> 
+</pre>
+</div>
+
+<p>
+Additionally, I just that only one lecture per course would be created per day,
+so it is completely unnecessary to implement checks, or add more information in
+the file title to separate lecture files it from each other. After all, I wanted
+to keep it minimal.
+</p>
+
+<div class="note" id="orgbd61ff1">
+<p>
+<b>Free tip:</b> When you reach a point, even in scripts as simple as my notetaking
+ones, where you can spend 5 minutes implementing a check, please do it, no
+matter how silly it feels at the moment. I had it as a rule for myself, but
+thought that, in this occasion, I could do without it. Look at me now: Writing
+this article, after losing my notes.
+</p>
+
+</div>
+
+<p>
+It all becomes clear now: I either need to make it impossible for a lecture to
+have the same filename as another lecture <b>or</b> to make sure that I check whether
+the file exists.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b97ec8" class="outline-2">
+<h2 id="org0b97ec8"><a href="#org0b97ec8">Implementing solutions</a></h2>
+<div class="outline-text-2" id="text-org0b97ec8">
+</div>
+<div id="outline-container-orgd5eef25" class="outline-3">
+<h3 id="orgd5eef25"><a href="#orgd5eef25">Impossible filename approach</a></h3>
+<div class="outline-text-3" id="text-orgd5eef25">
+<p>
+Extremely safe yet against my <i>simple-filenames</i> policy (keeping filenames as
+simple and organized as possible to reduce visual clutter when manually visiting
+these dirs)
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">start a second lecture for the same course on the same day without</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">overwriting the initial lecture</span>
+    (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d_%H%M%S"</span>(current-time)) <span class="org-string">".org"</span>))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org33b7ef2" class="outline-3">
+<h3 id="org33b7ef2"><a href="#org33b7ef2">Check for file approach</a></h3>
+<div class="outline-text-3" id="text-org33b7ef2">
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">start a second lecture for the same course on the same day without</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">overwriting the initial lecture</span>
+    (<span class="org-keyword">let*</span> ((filename (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d"</span>(current-time)) <span class="org-string">".org"</span>))
+            (lecpath (expand-file-name filename (expand-file-name (concat <span class="org-string">"course_"</span> course) chatziiola/lectures-dir))))
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">If the file already exists</span>
+        (<span class="org-keyword">if</span> (file-exists-p lecpath)
+            (<span class="org-keyword">setq-local</span> filename (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d_%H%M%S"</span>(current-time)) <span class="org-string">"_"</span>
+            <span class="org-comment-delimiter">;; </span><span class="org-comment">I use or so that I can always press enter there :P</span>
+                (<span class="org-keyword">or</span> 
+                    (read-string <span class="org-string">"A lecture already existed with this filename. Enter complementary information (empty appends hourminutesecond): "</span>)
+                    (format-time-string <span class="org-string">"%H%M%S"</span>(current-time)))
+                <span class="org-string">".org"</span>)))
+    filename))
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4e27b3c" class="outline-3">
+<h3 id="org4e27b3c"><a href="#org4e27b3c">Selecting the proper one</a></h3>
+<div class="outline-text-3" id="text-org4e27b3c">
+<p>
+I will keep the second one, mainly because of the fact that rarely will I need
+the extra information that exists on the filename.
+</p>
+
+<p>
+If anyone has a better solution though, I am always open to suggestions.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-01-10 Tue 20:41 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,646 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 5(1): Θεωρήματα Lyapunov</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 5(1): Θεωρήματα Lyapunov</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org90786d0">Εισαγωγή</a></li>
+<li><a href="#org150ceee">Ειδικές περιπτώσεις πίνακα \(A\)</a>
+<ul>
+<li><a href="#org9ee808c">Διαγώνιος ή τριγωνικός</a></li>
+<li><a href="#orgaae80eb"><i>Μπλοκ</i> πίνακας</a></li>
+</ul>
+</li>
+<li><a href="#org4f48dc1">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org688a0ef">Θεωρήματα Lyapunov</a>
+<ul>
+<li><a href="#orge2c2d08">Έμμεση μέθοδος ευστάθειας</a>
+<ul>
+<li><a href="#orgfb33187">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+</ul>
+</li>
+<li><a href="#org0cee9f6">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a>
+<ul>
+<li><a href="#orgc836d6e">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+</ul>
+</li>
+<li><a href="#org9e3ea14">Άμεση μέθοδος ευστάθειας</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="note" id="orga8e66d2">
+<p>
+Το συγκεκριμένο μάθημα απο εδώ και στο εξής θα ακολουθήσει την αρίθμηση 1,2,3
+(κλασσική), όμως το 5 εδώ δείχνει πως ουσιαστικά <i>πρέπει</i> να έγιναν 4 διαλέξεις
+στις οποίες δεν μπόρεσα να παω τις πρώτες βδομάδες
+</p>
+
+</div>
+
+<div id="outline-container-org90786d0" class="outline-2">
+<h2 id="org90786d0"><a href="#org90786d0">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org90786d0">
+<p>
+Περιορισμός του αντικειμένου του μαθήματος σε γραμμικά συστήματα, δηλαδή σε
+συστήματα που περιγράφονται από εξισώσεις της μορφής:
+</p>
+
+\begin{equation}
+\label{eq:1}
+{\dot x} = F(x) \Rightarrow {\dot x} = Ax
+\end{equation}
+
+<p>
+όπου \(x\) το διάνυσμα καταστάσεων, και \(A\) matrix, όπου:
+</p>
+<ul class="org-ul">
+<li>\(A\) τετραγωνικός πίνακας, όπου αν \(det(A)=0\), από ΓΑ: \(Ax=0\Rightarrow x=0\)</li>
+<li>\(x^{*}\): Σημείο ισορροπίας του συστήματος.</li>
+</ul>
+
+<p>
+Η ευστάθεια υπολογίζεται από τις ιδιοτιμές του πίνακα \(A\):
+</p>
+<ul class="org-ul">
+<li>Αρνητικό πραγματικό μέρος σε <b>όλες</b> τις ιδιοτιμές ενός συστήματος -&gt; ασυμπτωτικά ευσταθές</li>
+<li>Αν έστω και μία ιδιοτιμή έχει θετικό πραγματικό μέρος -&gt; ασταθές.</li>
+
+<li>Η ευστάθεια είναι χαρακτηριστικό του συστήματος.
+<ul class="org-ul">
+<li>Μόνο για γραμμικά</li>
+<li>Μιλάμε για ευστάθεια συστήματος και όχι σημείου ισορροπίας</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org150ceee" class="outline-2">
+<h2 id="org150ceee"><a href="#org150ceee">Ειδικές περιπτώσεις πίνακα \(A\)</a></h2>
+<div class="outline-text-2" id="text-org150ceee">
+</div>
+<div id="outline-container-org9ee808c" class="outline-3">
+<h3 id="org9ee808c"><a href="#org9ee808c">Διαγώνιος ή τριγωνικός</a></h3>
+<div class="outline-text-3" id="text-org9ee808c">
+<p>
+Αν ο \(A\) διαγώνιος ή τριγωνικός, ως γνωστόν τα στοιχεία της διαγωνίου είναι οι
+ιδιοτιμές:
+</p>
+<ul class="org-ul">
+<li>Σε αυτή την περίπτωση προφανώς καθώς:<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup></li>
+</ul>
+\begin{equation}
+\label{eq:3}
+{\dot x}_j = \lambda_jx_j \Rightarrow \cdots \Rightarrow x_j(t) = x_j(0)e^{\lambda_jt}
+\end{equation}
+
+<ul class="org-ul">
+<li>Μηδενική ορίζουσα</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgaae80eb" class="outline-3">
+<h3 id="orgaae80eb"><a href="#orgaae80eb"><i>Μπλοκ</i> πίνακας</a></h3>
+<div class="outline-text-3" id="text-orgaae80eb">
+\begin{equation}
+\label{eq:4}
+\begin{bmatrix}
+\begin{bmatrix}
+\sigma_1 & \omega_1\\
+- \omega_1 & \sigma_1\\
+\end{bmatrix} & \cdots & 0\\
+\vdots & \ddots & \vdots\\
+0 & \cdots &
+\begin{bmatrix}
+\sigma_n & \omega_n\\
+- \omega_n & \sigma_n\\
+\end{bmatrix} 
+\end{bmatrix}
+\end{equation}
+
+<p>
+Αρχικά έχουμε μιγαδικές ιδιοτιμές της μορφής:
+</p>
+\begin{equation}
+\label{eq:6}
+\lambda_j = \sigma_j \pm \jmath \omega_j
+\end{equation}
+
+<p>
+Ενώ οι ίδιες οι ρίζες του συστήματος:
+</p>
+\begin{equation}
+\label{eq:7}
+x_{2j-1}(t) = e^{\sigma_jt}(x_{2j-1}(0)\cos{\left(\omega_jt\right)}+x_{2j}(0)\sin{\left(\omega_jt\right)})
+\end{equation}
+
+<p>
+Φαίνεται ότι έχουμε ταλάντωση, και πάλι ο εκθετικός όρος είναι ενδεικτικός της
+κρισιμότητς του αρνητικού πραγματικού μέρους ως <b>αναγκαστικό</b> στοιχείο για την
+ευστάθεια του συστήματος.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4f48dc1" class="outline-2">
+<h2 id="org4f48dc1"><a href="#org4f48dc1">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-org4f48dc1">
+<p>
+Έχουμε σύστημα της μορφής:
+</p>
+\begin{equation}
+\label{eq:8}
+{\dot x} = 
+\begin{bmatrix}
+-k_0 -k_1 & k_1\\
+k_2 & -k_2
+\end{bmatrix}x + 
+\begin{bmatrix}
+b_0\\0
+\end{bmatrix}u
+\end{equation}
+
+<p>
+Θέλουμε να σχεδιάσουμε ελεγκτή ο οποίος να εξαρτάται μόνο από την έξοδο και να
+εξασφαλίζει ότι εκείνη θα οδηγείται στο 0.
+</p>
+
+<p>
+Θέλουμε να χρησιμοποιήσουμε ένα γενικό ελεγκτή της μορφής:
+</p>
+\begin{equation}
+\label{eq:9}
+u = -kx_2
+\end{equation}
+
+<div class="note" id="orgef4e857">
+<p>
+Γραμμική ανάδραση <i>μεταβολής</i> 
+</p>
+
+</div>
+
+<p>
+Αντικαθιστώντας στην \(\ref{eq:8}\), έχουμε:
+</p>
+\begin{equation}
+\label{eq:10}
+{\dot x} = 
+\begin{bmatrix}
+-k_0 -k_1 & k_1\\
+k_2 & -k_2
+\end{bmatrix}x + 
+\begin{bmatrix}
+-b_0kx_{2}\\0
+\end{bmatrix}
+\end{equation}
+
+
+<p>
+Και όμορφα, συνδυάζοντας τα σε έναν μόνο πίνακα:
+</p>
+\begin{equation}
+\label{eq:11}
+{\dot x} = 
+\begin{bmatrix}
+-k_0 -k_1 & k_1-kb_0\\
+k_2 & -k_2
+\end{bmatrix}x \Rightarrow
+{\dot x} = Ax
+\end{equation}
+
+
+<p>
+Καθώς όλα τα στοιχεία μεγαλύτερα του 0 (\(k_i >0\)):
+</p>
+\begin{equation}
+\label{eq:12}
+det(A) = \cdots > 0
+\end{equation}
+
+<p>
+Που σημαίνει ότι ο πίνακας \(A\) έχει βαθμό 2, οπότε και συνεχίζουμε υπολογίζοντας
+τις ιδιοτιμές:
+</p>
+\begin{equation}
+\label{eq:13}
+det(sI - A) = 0 \Rightarrow \cdots \Rightarrow  s^2+ (k_0+k_1+k_2)s + k_2(b_0k+k_0) = 0
+\end{equation}
+
+<p>
+Η ευστάθεια σε αυτό το σημείο μπορεί να εκτιμηθεί με 2 τρόπους:
+</p>
+<ul class="org-ul">
+<li>Τρόπος 1: Κλασσικός με διακρίνουσα.
+Λύνεις την εξίσωση και βγάζεις τις ιδιοτιμές συναρτήσει των \(k_{i}, b_0\). Σε
+αυτή την φάση, απλά ενδιαφερόμαστε για να έχουν αρνητικό πραγματικό μέρος,
+οπότε περιορίζεις τις επιλογές αντίστοιχα</li>
+<li>Τρόπος 2: Κριτήριο Routh.
+Αντί να παιδεύεσαι να λύνεις εξισώσεις, που μπορεί (αρκετά συχνά) να είναι πιο
+δύσκολες από αυτές που εξετάζονται σε αυτό το παράδειγμα, εφαρμόζεις το
+κριτήριο Routh, όπως αυτό έχει <i>καλυφθεί</i> στα ΣΑΕ1 (δεν υπάρχει στο υλικό που
+είναι ανεβασμένο, υπάρχει όμως λινκ για τις σημειώσειες Κανναβούρα).
+<ul class="org-ul">
+<li>Αρκεί (μόνο για 2ο βάθμια συστήματα): να είναι όλοι οι όροι ομόσημοι του
+μεγιστοβάθμιου.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org688a0ef" class="outline-2">
+<h2 id="org688a0ef"><a href="#org688a0ef">Θεωρήματα Lyapunov</a></h2>
+<div class="outline-text-2" id="text-org688a0ef">
+<p>
+Στα μη γραμμικά συστήματα η ανάλυση ευστάθειας γίνεται με δύο κυρίως τρόπους:
+</p>
+</div>
+
+<div id="outline-container-orge2c2d08" class="outline-3">
+<h3 id="orge2c2d08"><a href="#orge2c2d08">Έμμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-orge2c2d08">
+<div class="note" id="org8a18ba4">
+<p>
+Επί του θεωρήματος. Με το εξεταζόμενο θεώρημα (πρώτο θεώρημα του
+<a href="https://en.wikipedia.org/wiki/Aleksandr_Lyapunov">Lyapunov</a>) ελέγχουμε μόνο
+κοντά σε εκείνη την περιοχή
+</p>
+
+</div>
+<p>
+Ισοδύναμα, το πρώτο θεώρημα του Lyapunov.
+</p>
+
+<p>
+Δοθέντος συστήματος που περιγράφεται από την:
+</p>
+\begin{equation}
+\label{eq:14}
+{\dot x} = F(x)
+\end{equation}
+
+<p>
+Αν ένα σημείο ισορροπίας είναι το \(x^{*}\):
+</p>
+\begin{equation}
+\label{eq:15}
+{\dot x} = F(x^{*}) + \frac{\partial{F}}{\partial{x}}(x-x^{*})+ R(|x-x^{*}|)
+\end{equation}
+
+<p>
+Αν το \(x^{*}\), επαρκώς κοντά στο \(x\), τότε οι τελευταίοι πίνακες εξαφανίζονται
+καθώς αποκτούν απειροελάχιστη τιμή τελικά έχουμε:
+</p>
+
+\begin{equation}
+\label{eq:16}
+{\dot x} = A (x-x^{*}) \Rightarrow {\dot x} = Az
+\end{equation}
+
+<p>
+Αλλάζω μεταβλητή ώστε να είναι στην μορφή που έχουμε συνηθίσει να μελετάμε τα
+συστήματα. Για την καινούρια μεταβλητή ισχύει:
+</p>
+
+\begin{equation}
+\label{eq:17}
+z^{\cdot} = {\dot x}
+\end{equation}
+</div>
+
+<div id="outline-container-orgfb33187" class="outline-4">
+<h4 id="orgfb33187"><a href="#orgfb33187">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-orgfb33187">
+\begin{equation}
+\label{eq:19}
+{\dot x} = 
+\begin{bmatrix}
+x_2 \\ \sin{\left(x_1\right)} - \gamma x_2
+\end{bmatrix}
+, \gamma>0
+\end{equation}
+
+<p>
+Τα σημεία ισορροπίας έχουν βρεθεί σε προηγούμενη άσκηση:
+</p>
+\begin{equation}
+\label{eq:20}
+(0,0), (\pi,0)
+\end{equation}
+
+<p>
+(Μπορούν εύκολα να βγουν βέβαια και από την λογική μας αντίληψη. Το εκκρεμές
+έχει ένα σημείο ισορροπίας στην κορυφή, το οποίο όμως είναι ασταθές, και ένα που
+είναι ευσταθές στο κατώτερο σημείο της τροχιάς του.)
+</p>
+
+<p>
+Πρέπει να βγάλουμε ξεχωριστή μελέτη για κάθε σημείο ισορροπίας. Προκειμένου να
+είναι ευσταθές το σύστημα, θα πρέπει να είναι ευσταθές σε κάθε σημείο
+ισορροπίας(?).
+</p>
+</div>
+
+<ul class="org-ul">
+<li><a id="org8f3c95d"></a><a href="#org8f3c95d">Εξετάζοντας το πρώτο σημείο</a><br />
+<div class="outline-text-5" id="text-org8f3c95d">
+<ul class="org-ul">
+<li>Για μικρές γωνίες: \(\sin{\left(x_1\right)}\approx x_1\), οπότε και να κάνω την
+αντικατάσταση επί του πίνακα:</li>
+</ul>
+
+\begin{equation}
+\label{eq:21}
+{\dot x} = 
+\begin{bmatrix}
+x_2 \\ x_1 - \gamma x_2
+\end{bmatrix}
+\end{equation}
+
+<p>
+Το οποίο φέρνοντας το στην κατάλληλη μορφή \({\dot x} = A x\):
+</p>
+
+\begin{equation}
+\label{eq:22}
+{\dot x} = 
+\begin{bmatrix}
+0 & 1\\ 1 & -\gamma
+\end{bmatrix}
+x
+\end{equation}
+
+<p>
+Είναι προφανές ότι :
+</p>
+\begin{equation}
+\label{eq:23}
+\det(sI - A) = 0 \Rightarrow s^2 + \gamma s -1 = 0
+\end{equation}
+
+<p>
+Από <a href="#org4f48dc1">το σχόλιο για την εφαρμογή του Routh σε δευτεροβάθμια εξίσωση</a> το σύστημα δεν
+είναι ευσταθές σε αυτό το σημείο ισορροπίας.
+</p>
+</div>
+</li>
+
+<li><a id="orgfd85301"></a><a href="#orgfd85301">Εξετάζοντας το δεύτερο σημείο</a><br />
+<div class="outline-text-5" id="text-orgfd85301">
+<div class="note" id="org57f9c09">
+<p>
+Αν το σημείο ισορροπίας είναι το 0, καλώς. Αν όχι χρειάζεται να κάνουμε αλλαγή
+μεταβλητής της μεταβλητής: \(z = x- x^{*}\). Αυτό είναι επιτρεπτό χωρίς βλάβη της γενικότητας.
+</p>
+
+</div>
+<p>
+Για το δεύτερο σημείο, προκειμένου να κάνω την ίδια ανάλυση, <b>χρειάζεται να θέσω
+μεταβλητή</b> ώστε το εξεταζόμενο σημείο ισορροπίας (στην καινούρια μεταβλητή) να
+είναι το 0.
+</p>
+
+\begin{equation}
+\label{eq:24}
+z = 
+\begin{bmatrix}
+z_1\\z_2
+\end{bmatrix} = 
+\begin{cases}
+z_1 &=  x_1 - \pi\\
+z_2 &= x_2\\
+\end{cases}
+\end{equation}
+
+<p>
+Οπότε, όπως δείχνει η \(\ref{eq:22}\)
+</p>
+\begin{equation}
+\label{eq:69}
+{\dot z} =
+\begin{bmatrix}
+z_2 & 0 \\
+ \sin{\left(z_1+\pi\right)} &-\gamma z_2
+\end{bmatrix}
+\end{equation}
+
+<p>
+(Θέλουμε πάλι να κάνουμε προσέγγιση):
+</p>
+\begin{equation}
+\label{eq:26}
+\sin{\left(z_1+\pi\right)} = - \sin{\left(z_1\right)} \stackrel{\text{around } 0}{\approx} - z_{1}
+\end{equation}
+
+<p>
+Έτσι:
+</p>
+\begin{equation}
+\label{eq:25}
+{\dot z} = 
+\begin{bmatrix}
+0 & 1\\ -1 & -\gamma
+\end{bmatrix}z
+\end{equation}
+
+<p>
+Και, με την ίδια διαδικασία καταλήγουμε:
+</p>
+
+\begin{equation}
+\label{eq:27}
+\det(sI - A) = 0 \Rightarrow s^2 +\gamma s +1 = 0
+\end{equation}
+
+<p>
+οπότε το συγκεκριμένο σημείο ισορροπίας είναι ευσταθές.
+</p>
+
+<p>
+Το σύστημα, όμως, γενικά δεν είναι ευσταθές (?) - Δεν θα έπρεπε να είναι?.
+</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org0cee9f6" class="outline-3">
+<h3 id="org0cee9f6"><a href="#org0cee9f6">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a></h3>
+<div class="outline-text-3" id="text-org0cee9f6">
+<p>
+Οριζουμε συνάρτηση: \(V: {\mathbb R}^n \to {\mathbb R}\). Εκείνη ονομάζεται θετικά
+ορισμένη αν και μόνο αν:
+</p>
+\begin{equation}
+\label{eq:29}
+V(x) > 0 \forall x\neq 0
+\end{equation}
+<p>
+ΚΑΙ
+</p>
+\begin{equation}
+\label{eq:30}
+V(0) = 0
+\end{equation}
+
+<p>
+Αντίστοιχα, αρνητικά ορισμένη αν αντιστρέφεται η πρώτη σχέση \(\ref{eq:29}\):
+</p>
+\begin{equation}
+\label{eq:18}
+V(x)<0 \forall x \neq 0
+\end{equation}
+</div>
+
+
+<div id="outline-container-orgc836d6e" class="outline-4">
+<h4 id="orgc836d6e"><a href="#orgc836d6e">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-orgc836d6e">
+<p>
+Έστω ότι έχουμε αυτές τις δύο συναρτήσεις, και θέλουμε
+</p>
+\begin{align*}
+\label{eq:31}
+V_1(x_1,x_2) &= x_1^2 + x_2^2\\
+V_2(x_1,x_2) &= x_1^{2}
+\end{align*}
+<p>
+Απο αυτές τις δύο ποιά είναι θετικά ορισμένη?
+</p>
+
+<p>
+Μόνο η \(V_1\).
+Η \(V_2\) είναι θετικά <b>ήμι</b> ορισμένη&#x2026;
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9e3ea14" class="outline-3">
+<h3 id="org9e3ea14"><a href="#org9e3ea14">Άμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-org9e3ea14">
+<p>
+Δεύτερο θεώρημα του Lyapunov.
+</p>
+<div class="note" id="orgaabcb5f">
+<p>
+Πηγή: <a href="https://helit.org/ece-notes/sae2.pdf">https://helit.org/ece-notes/sae2.pdf</a>, σελίδα 27.
+</p>
+
+</div>
+
+<p>
+Έστω <i>κλασσικά</i> σύστημα της μορφής:
+</p>
+\begin{equation}
+\label{eq:28}
+{\dot x} = F(x)
+\end{equation}
+<p>
+και σημείο ισορροπίας \(x^{*}\)
+</p>
+
+<p>
+Έστω θετικά ορισμένη συνάρτηση, την οποία και ονομάζουμε συνάρτηση Lyapunov 
+</p>
+\begin{equation}
+\label{eq:33}
+V(x) >0
+\end{equation}
+
+<p>
+Αν δείξουμε ότι εντός της σφαίρας:
+</p>
+\begin{equation}
+\label{eq:34}
+B_r(0) = \left\{ x\in {\mathbb R}^n : |x| < r\right\}
+\end{equation}
+
+<p>
+Η συνάρτηση
+</p>
+\begin{equation}
+\label{eq:32}
+{\dot V} = \frac{\partial{V}}{\partial{x}}^T {\dot x} = \frac{\partial{V}}{\partial{x}}^T F(x) 
+\end{equation}
+
+<ul class="org-ul">
+<li>Αρνητικά ημιορισμένη: το \(x=0\) ευσταθές σημείο ισορροπίας</li>
+<li>Αρνητικά ορισμένη: το \(x=0\) είναι τοπικά ασυμπτωτικά ευσταθές</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Άρα εδώ φαίνεται ότι δεν έχουμε μόνο ασυμπτωτική αλλά και εκθετική
+ευστάθεια/αστάθεια - ανάλογα με το πρόσημο του \(\lambda_j\), όπως άλλωστε
+φαίνεται και από την εξίσωση \(\ref{eq:3}\). 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-03-17 Fri 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgc4bb959">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
+<ul>
+<li><a href="#org319120d">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
+<li><a href="#org94b9306">Για ν τυχαίες μεταβλητές</a></li>
+</ul>
+</li>
+<li><a href="#org34104d4">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
+<ul>
+<li><a href="#orgfab258b">Μετασχηματισμός JCDF</a></li>
+<li><a href="#orgd08acda">Μετασχηματισμός JPDF</a></li>
+<li><a href="#org8570605">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
+</ul>
+</li>
+<li><a href="#org9719e0d">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
+</ul>
+</div>
+</div>
+<p>
+Έχασα την προηγούμενη διάλεξη. Σε περίπτωση που τα διαβάζει κανείς σε σειρά ίσως
+υπάρξουν κενά.Έχω προσπαθήσει να το καλύψω με προσωπική μελέτη, μα είναι
+εξαιρετικά πιθανό να λείπουν σημαντικές λεπτομέρειες.
+</p>
+
+<p>
+Συγκεκριμένα η πρώτη ενότητα (<a href="#orgc4bb959">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
+αποκλειστικότητα για συμπλήρωση των υπολοίπων.
+</p>
+
+<div id="outline-container-orgc4bb959" class="outline-2">
+<h2 id="orgc4bb959"><a href="#orgc4bb959">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
+<div class="outline-text-2" id="text-orgc4bb959">
+<div class="note" id="org0b1fd17">
+<p>
+&rsquo;Έξυπνη&rsquo; η μελέτη από Πανά:
+</p>
+<ul class="org-ul">
+<li>pg 36-40</li>
+<li>pg 72-77</li>
+</ul>
+
+</div>
+
+<p>
+Μελετήσαμε και είδαμε τι γίνεται αν το αποτέλεσμα ενός πειράματος μπορεί να
+περιγραφεί από μία τυχαία μεταβλητή, ορίζοντας έτσι κατάλληλα τις CDF, PDF.
+Πολλά όμως πειράματα χρειάζονται περισσότερες τμ για την περιγραφή τους,
+καθιστώντας την μέχρι τώρα μελέτη κάπως ανεπαρκή.
+</p>
+
+<p>
+Χαρακτηριστικά, το στοχαστικό σήμα <i>χρειάζεται/εκμεταλλέυεται</i> άπειρες τμ.
+</p>
+</div>
+
+<div id="outline-container-org319120d" class="outline-3">
+<h3 id="org319120d"><a href="#org319120d">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-org319120d">
+<p>
+Έστω λοιπόν ότι οι μεταβλητές \(X,Y\) συνδέονται με το αποτέλεσμα του πειράματος
+και χρειαζόμαστε την πιθανότητα:
+</p>
+\begin{equation}
+\label{eq:6}
+\text{Pr}\left[X\leq x, Y\leq y\right]
+\end{equation}
+
+<p>
+Τότε, βάση όσων έχουμε δει \(\text{Pr}\left[X\leq x\right] = F_x(x)\), αναμενόμενα
+θέλουμε την <span class="underline">κοινή</span> cdf των δύο τμ, η οποία λέγεται και <b>JCDF</b> (joint CDF):
+</p>
+
+\begin{equation}
+\label{eq:7}
+\text{Pr}\left[X\leq x, Y\leq y\right] = F_{XY}(x,y) 
+\end{equation}
+
+<p>
+Για την οποία ισχύουν οι αναμενόμενες από την απλή CDF ιδιότητες.
+</p>
+
+<div class="note" id="org92c0761">
+<p>
+Τόσο η JCDF όσο και η JPDF μπορούν εύκολα να γίνουν εικόνα ως <i>τομές</i> υποχώρων.
+</p>
+
+</div>
+
+<p>
+Με παρόμοιο τρόπο ορίζεται και η <b>JPDF</b> (joint PDF):
+</p>
+\begin{equation}
+\label{eq:8}
+f_x(x) = \frac{d{F_x}}{d{x}} \stackrel{JPDF}{\Rightarrow} f_{XY}(x,y) = \frac{\partial^2{F_{XY}}}{\partial{x}\partial{x}}
+\end{equation}
+<p>
+ή αντίστροφα:
+</p>
+\begin{equation}
+\label{eq:9}
+F_{XY}(x,y) = \int_{-\infty}^x\int_{-\infty}^y f_{XY}(x,y)dydx
+\end{equation}
+
+<p>
+Όπως και για την JCDF, οι ιδιότητες της JPDF είναι πλήρως αναμενόμενες από την
+μελέτη της απλής CDF, όπως για παράδειγμα η:
+</p>
+
+\begin{equation}
+\label{eq:10}
+\text{Pr}\left[ x_1 < X\leq x_2, y_1< Y\leq y_2\right] = \int_{x_1^+}^{x_2}\int_{y_1+}^{y_2} f_{XY}(x,y)dydx
+\end{equation}
+</div>
+
+<ul class="org-ul">
+<li><a id="org94194f1"></a><a href="#org94194f1">Ροπές</a><br />
+<div class="outline-text-5" id="text-org94194f1">
+<p>
+Παράλληλα, όπως αλλάζουν οι CDF, PDF, είναι αναμενόμενο πως θα χρειαστεί να
+ορίσουμε με διαφορετικό τρόπο και τις ροπές.
+</p>
+
+<p>
+Η ροπή $n$οστής τάξης στο μοντέλο 2 τυχαίων μεταβλητών ορίζεται ως εξής:
+</p>
+\begin{equation}
+\label{eq:11}
+m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY}(x,y)dxdy
+\end{equation}
+
+<p>
+όπου η τάξη της ροπής ισούται με το άθροισμα \(n\) των εκθετών (\(n=k,r\))
+Αντίστοιχα οι κεντρικές ροπές ορίζονται μέσω της:
+</p>
+\begin{equation}
+\label{eq:12}
+\mu_{kr} = E[(X-\bar{X})^k(Y-{\bar Y})^r] = \int_{-\infty}^{\infty}\int_{-\infty}^{\infty} (x-\bar{X})^k(y-{\bar Y})^rdxdy
+\end{equation}
+
+<p>
+Όπως εύκολα αποδεικνύεται \(m_{10}= {\bar X}\), \(m_{01} = {\bar Y}\)
+</p>
+</div>
+</li>
+
+<li><a id="org756980d"></a><a href="#org756980d">Συσχέτιση και συντελεστής συσχέτισης.</a><br />
+<div class="outline-text-5" id="text-org756980d">
+<p>
+Εκ των ροπών όμως είναι μερικές που /ξεχωρίζουν:οι \(m_{11}\),\(\mu_{11}\), αλλιώς
+<b>συσχέτιση και συμμεταβλητότητα</b>.
+</p>
+<ul class="org-ul">
+<li>Η συσχέτιση αποτελεί δείκτη αλληλοεξάρτησης των \(X,Y\), όπως άλλωστε και η
+συμμεταβλητότητα (της αλληλοεξάρτησης των \(X,Y\) κατόπιν της αφαίρεσης της
+μέσης τιμής)</li>
+<li>Αν \(m_{11}=0\) ή \(\mu_{11}=0\) τότε ισχύει \(m_{11}= \mu_{11} =0\)</li>
+</ul>
+
+<p>
+Σε αυτό το πλαίσιο μπορούμε να ορίσουμε τον συντελεστή συσχέτισης (ή αλλιώς
+<i>κανονικοποιημένη συμμεταβλητότητα</i>)
+</p>
+\begin{equation}
+\label{eq:13}
+\rho = E[\frac{X-{\bar X}}{\sigma_x}, \frac{Y-{\bar Y}}{\sigma_y}] = E[Z\Theta]
+\end{equation}
+
+<p>
+Εναλλακτικά μπορεί να γραφεί ως:
+</p>
+\begin{equation}
+\label{eq:14}
+\rho \stackrel{\text{cov = covariance}}{=} \frac{\text{cov}[x,y]}{\sigma_{x}\sigma_{y}} = 
+\frac{E[(X-{\bar X})(Y-{\bar Y})]}{\sqrt{Var[X]Var[Y]}}
+\end{equation}
+<p>
+ενώ ακόμα παρατίθονται οι:
+</p>
+\begin{align}
+\label{eq:15}
+-1\leq \rho \leq 1\\
+\frac{m_{11}^2}{m_x^2-m_y^2} \leq 1
+\end{align}
+</div>
+</li>
+
+<li><a id="orgb4f3157"></a><a href="#orgb4f3157">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br />
+<div class="outline-text-5" id="text-orgb4f3157">
+\begin{equation}
+\label{eq:16}
+\Phi_{X}(\omega) = E[e^{j\omega x}] = \int_{-\infty}^{\infty} e^{j\omega x}f_x(x)dx \stackrel{JPDF}{\Rightarrow} \Phi_{XY}(\omega_1,\omega_2) = E[e^{j(\omega_1x+\omega_2y)}] = \cdots
+\end{equation}
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org94b9306" class="outline-3">
+<h3 id="org94b9306"><a href="#org94b9306">Για ν τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-org94b9306">
+<p>
+Τα παραπάνω εύκολα ανάγονται για οποιονδήποτε αριθμό τυχαίων μεταβλητών.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org34104d4" class="outline-2">
+<h2 id="org34104d4"><a href="#org34104d4">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
+<div class="outline-text-2" id="text-org34104d4">
+<p>
+Δοθείσης της τμ \(Z=g(X,Y)\), και του μοντέλου \((X,Y,f_{XY}(x,y))\) ζητείται να
+βρουμε ποιο είναι το μοντέλο \((Z,f_Z)\):
+</p>
+</div>
+
+<div id="outline-container-orgfab258b" class="outline-3">
+<h3 id="orgfab258b"><a href="#orgfab258b">Μετασχηματισμός JCDF</a></h3>
+<div class="outline-text-3" id="text-orgfab258b">
+<p>
+Την \(F_z(z)\) μπορούμε να την βρούμε σχετικά εύκολα μέσω της:
+</p>
+\begin{equation}
+\label{eq:17}
+F_z(z)=
+\text{Pr}\left[Z\leq z\right] = 
+\text{Pr}\left[g(X,Y) \leq z\right] =
+\text{Pr}\left[(X,Y) \in  D_z\right] = \iint_{(x,y)\in D_z}f_{xy}(x,y)dxdy
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-orgd08acda" class="outline-3">
+<h3 id="orgd08acda"><a href="#orgd08acda">Μετασχηματισμός JPDF</a></h3>
+<div class="outline-text-3" id="text-orgd08acda">
+<p>
+Για την \(f_z(z)\), όμως, χρειάζεται να ακολουθήσουμε διαφορετική προσέγγιση:
+</p>
+
+<p>
+Θέτουμε \(W=h(X,Y)\) νέα τυχαία μεταβλητή (συχνά βολεύει \(W=X\) ή \(W=Y\)) ώστε να
+υπολογίσουμε την \(f_{ZW}(z,w)\) και μετά να <i>γυρίσουμε</i> στην \(f_z\) μέσω της
+ιδιότητας:
+</p>
+\begin{equation}
+\label{eq:18}
+f_x(x) = \int_{-\infty}^{\infty}f_{xy}(x,y)dy
+\end{equation}
+
+<p>
+Έχουμε:
+</p>
+\begin{equation}
+\label{eq:19}
+f_{ZW}(z,w) = \sum_{i=1}^n \frac{f_{XY(x,y)}}{|J(x,y)|}|_{x=x_i,y=y_i}
+\end{equation}
+
+<p>
+με \(J(x,y)\), την ιακωβιανή ορίζουσα:
+</p>
+\begin{equation}
+\label{eq:20}
+J(x,y) = 
+\begin{vmatrix}
+\frac{\partial{g}}{\partial{x}} && \frac{\partial{g}}{\partial{y}}\\
+\frac{\partial{h}}{\partial{x}} && \frac{\partial{h}}{\partial{y}}\\
+\end{vmatrix}
+\end{equation}
+
+<div class="note" id="org0f2f9fe">
+<p>
+Προφανώς αυτό πρόκειται για υποπερίπτωση, του να θέλεις να πας από το
+\((X,Y,f_{XY})\to (Z,\Theta,f_{z\theta})\), όπου \(Z=g(X,Y),\Theta=h(X,Y)\)
+</p>
+
+</div>
+
+<div class="paradeigma" id="orgf8cb902">
+<p>
+Έστω ότι μας δίνεται η παρακάτω \(f\) και θέλουμε να πάμε από \((X,Y,f_{XY})\to(Z,W,f_{ZW})\)
+</p>
+\begin{align}
+\label{eq:1}
+f_{xy} = \begin{cases}
+1 & 0\leq x,y \leq 1\\
+0
+\end{cases}
+\end{align}
+
+<ul class="org-ul">
+<li>Πρόσεξε ότι δεν πρόκειται για κύκλο στο επίπεδο (βιάστηκα όταν το είχα δει
+βιαστικά). Είναι οτι και καλά \(x,y\) ανεξάρτητες και ακολουθούν ομοιομορφη
+κατανομή στο \([0,1]\)</li>
+</ul>
+
+<p>
+Ενώ παράλληλα δίνεται:
+</p>
+\begin{align}
+\label{eq:2}
+Z &= g(X,Y) = \sqrt{-2\ln{x}}\cos{2\pi Y}\\
+W &= h(X,Y) = \sqrt{-2\ln{x}}\sin{2\pi Y}
+\end{align}
+
+<p>
+Οπότε για να το υπολογίσουμε χρειάζεται:
+</p>
+<ol class="org-ol">
+<li>Υπολογισμός των X,Y συναρτήσει των νέων μεταβλητών</li>
+</ol>
+\begin{align*}
+X &= \cdots = e^{- \frac{z^2+w^2}{2}}\\
+Y &= \cdots = \frac{1}{2\pi} \arctan{\frac{w}{2}}
+\end{align*}
+
+<ol class="org-ol">
+<li>Υπολογισμός της Ιακωβιανής ορίζουσας</li>
+</ol>
+
+\begin{equation}
+\label{eq:4}
+J(x,y)=
+\begin{vmatrix}
+\frac{\cos{2\pi Y}}{X\sqrt{-2\ln{X}}}& -2\pi\sqrt{-2\ln{X}}\sin{2\pi Y}\\
+\frac{\sin{2\pi Y}}{X\sqrt{-2\ln{X}}}& 2\pi\sqrt{-2\ln{X}}\cos{2\pi Y}\\
+\end{vmatrix} = \cdots =
+\frac{-2\pi}{X}
+\end{equation}
+
+<ol class="org-ol">
+<li>Εφαρμογή του θεωρήματος επί της CDF, zw:</li>
+</ol>
+
+
+\begin{equation}
+\label{eq:5}
+f_{ZW} = 
+\frac{f_{xy}(x,y)}{|J(x,y)|}|_{x=\cdots, y=\cdots} = 
+\frac{e^{- \frac{z^2+w^2}{2}}}{2\pi}
+\end{equation}
+
+<p>
+Αυτός ο μετασχηματισμός <b>(Box-Mueller)</b>, δείχνει πως απο τυχαίες μεταβλητές που
+ακολουθούν ομοιόμορφη κατανομή να παράξω εξαρτημένες που ακολουθούν Gauss
+</p>
+
+</div>
+
+<div class="paradeigma" id="org2071136">
+<p>
+Γνωρίζουμε το μοντέλο \((X,Y,f_{XY})\), και θέλουμε να πάμε στο \((Z,f_z)\) όπου ισχύει:
+\(Z = X+Y\)
+</p>
+<ol class="org-ol">
+<li>Θέτουμε δεύτερη μεταβλητή \(W=X\)</li>
+<li>Εκφράζουμε \(X,Y\) συναρτήσει των \(Z,W\) (\(X=W,Y=Z-W\))</li>
+<li>Υπολογίζουμε την Ιακωβιανή ορίζουσα \(J_{ZW} = -1\)</li>
+<li>Υπολογίζουμε την \(f_{ZW}\) με τον γνωστό τύπο \(\eqref{eq:19}\)</li>
+</ol>
+\begin{equation*}
+f_{ZW}(z,w) = \frac{f_{XY}}{|J_{ZW}|}|_{x=w,y=z-w}
+\end{equation*}
+<ol class="org-ol">
+<li>Δεδομένου ότι \(f_{XY}=f_Xf_Y\) αντικαθιστούμε στην παραπάνω εξίσωση και τελικά προκύπτει από την \(\eqref{eq:18}\):</li>
+</ol>
+\begin{equation}
+\label{eq:21}
+f_Z(z) = f_X(z)*f_Y(z)
+\end{equation}
+
+</div>
+
+
+<div class="paradeigma" id="org6af2277">
+<p>
+Για \(Z=max(X,Y)\)
+</p>
+\begin{equation}
+\label{eq:22}
+F_Z(z) = 
+\text{Pr}\left[max(X,Y) \leq z\right] =
+\text{Pr}\left[X \leq z, Y\leq z\right] =
+\text{Pr}\left[X \leq z\right] \text{Pr}\left[Y \leq z\right] = F_X(z)F_Y(z)
+\end{equation}
+
+</div>
+
+
+<div class="paradeigma" id="org9ec35c4">
+<p>
+Για \(Z=min(X,Y)\)
+</p>
+\begin{equation}
+\label{eq:23}
+F_Z(z) = 
+\text{Pr}\left[min(X,Y)\leq z\right]=
+\text{Pr}\left[(X\leq z)\cup (Y\leq z)\right] =
+\text{Pr}\left[X\leq z\right] +
+\text{Pr}\left[Y\leq z\right] -
+\text{Pr}\left[(X\leq z)\cap (Y\leq z)\right] =
+F_X(z) + F_Y(z)
+\end{equation}
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8570605" class="outline-3">
+<h3 id="org8570605"><a href="#org8570605">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-org8570605">
+<ul class="org-ul">
+<li>Ιδιαίτερα χρήσιμος όταν είσαι με πολλαπλασιασμό. Θέτεις την μία εκ των δύο
+τυχαίων μεταβλητών σε σταθερά. Έστω δηλαδή</li>
+</ul>
+
+
+\begin{align*}
+Z =& XY\\
+X = x &\longrightarrow Z = xY.
+\end{align*}
+
+<p>
+Έτσι ανάγεις τον μετασχηματισμό 2 τμ σε μετασχηματισμό μόνο μίας. Χρησιμοποιείς
+τον παλιό ήδη γνωστό τύπο. 
+Έτσι μπλέκεις με δεσμευμένες πιθανότητες
+</p>
+
+\begin{equation}
+\label{eq:3}
+f_{Z|X}(Z|X=x) = \frac{f_{Y|X}(Y|x)}{|x|}|_{y= \frac{Z}{x}}
+\end{equation}
+
+<p>
+Και κατόπιν ολοκληρώνεις ως προς όλες τις τιμές που μπορεί να λάβει το \(x\)
+</p>
+
+\begin{equation}
+\label{eq:24}
+f_z(z) = \int_{-\infty}^{\infty}f_{Z|X}(z|X=x)f_X(x)dx
+\end{equation}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org9719e0d" class="outline-2">
+<h2 id="org9719e0d"><a href="#org9719e0d">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
+<div class="outline-text-2" id="text-org9719e0d">
+<p>
+Η ανάλυση που κάναμε μέχρι στιγμές επεκτείνεται <b>με την χρήση διανυσμάτων</b> για \(n\)
+τυχαίες μεταβλητές. 
+</p>
+
+<p>
+Η διάλεξη σταμάτησε εδώ.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-11-02 Wed 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>6.006 Lec 2: Data Structures and Dynamic Arrays</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">6.006 Lec 2: Data Structures and Dynamic Arrays</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgd68ce0f">Difference between an interface and a data structure</a>
+<ul>
+<li><a href="#orge0a3d68">The main interfaces</a></li>
+<li><a href="#orgd93ef37">DS approaches</a></li>
+</ul>
+</li>
+<li><a href="#org89ff739">Analyzing static sequences</a>
+<ul>
+<li><a href="#org42c6c05">Interface functions</a></li>
+<li><a href="#orgf55fdb7">Word RAM model of computation</a></li>
+<li><a href="#org6567c1e">Reality and memory</a></li>
+</ul>
+</li>
+<li><a href="#orgab51090">Analyzing dynamic sequences</a>
+<ul>
+<li><a href="#org18e236e">Interface functions</a></li>
+<li><a href="#org86bb9fc">Linked List</a></li>
+</ul>
+</li>
+<li><a href="#orgb6f16b1">Dynamic arrays</a></li>
+<li><a href="#org8c091a6">Summary: Comparing operations</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd68ce0f" class="outline-2">
+<h2 id="orgd68ce0f"><a href="#orgd68ce0f">Difference between an interface and a data structure</a></h2>
+<div class="outline-text-2" id="text-orgd68ce0f">
+<p>
+The interface can also be called <i>ADT or API</i>.
+</p>
+
+<p>
+The interface, often called <i>ADT or API</i>, offers the general specifications on
+solving the problem; it describes what operations the data structure must
+perform and what they will be <i>achieving</i> while the data structures is the
+<b>actual</b> implementation of these functions. It consists of all the commands
+(algorithm), describing how the interface operations will be implemented and
+function.
+</p>
+</div>
+
+<div id="outline-container-orge0a3d68" class="outline-3">
+<h3 id="orge0a3d68"><a href="#orge0a3d68">The main interfaces</a></h3>
+<div class="outline-text-3" id="text-orge0a3d68">
+<p>
+There are two main interfaces:
+</p>
+<ul class="org-ul">
+<li>set</li>
+<li>sequence</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgd93ef37" class="outline-3">
+<h3 id="orgd93ef37"><a href="#orgd93ef37">DS approaches</a></h3>
+<div class="outline-text-3" id="text-orgd93ef37">
+<p>
+Additionally there are two schools of thought:
+</p>
+<ol class="org-ol">
+<li><a href="#org89ff739"><i>static</i> arrays</a>
+Their size is predefined and difficult to change</li>
+<li><a href="#orgab51090">dynamic structures</a>
+Focusing on variable length and easy addition/deletion operations.</li>
+</ol>
+
+<p>
+Now, we will combine these two together, focusing on sequences.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org89ff739" class="outline-2">
+<h2 id="org89ff739"><a href="#org89ff739">Analyzing static sequences</a></h2>
+<div class="outline-text-2" id="text-org89ff739">
+<p>
+Static sequences are to be used when dealing with data in which the order is
+important, however the volume of it does not change often.
+</p>
+</div>
+
+<div id="outline-container-org42c6c05" class="outline-3">
+<h3 id="org42c6c05"><a href="#org42c6c05">Interface functions</a></h3>
+<div class="outline-text-3" id="text-org42c6c05">
+<p>
+<i>The methods that static data structures need to implement efficiently</i>
+</p>
+<ul class="org-ul">
+<li><code>build()</code>, O(n)
+The creation of a new array, runs in linear time, due to the fact that the
+computer needs to <code>malloc()</code> space for n elements and initialize <b>all</b> of
+their elements</li>
+<li><code>length()</code>, O(1)
+Returns n, no matter how many elements are used inside the array</li>
+<li><code>iter_seq()</code>, O(n)
+Visit every element from the beginning of the array to the end of the array</li>
+<li><code>get_at(i)</code>, O(1)</li>
+<li><code>set_at(i,x)</code>, O(1)
+These two functions take constant time as explained in <a href="#orgf55fdb7">the word RAM model</a></li>
+</ul>
+
+<p>
+The natural solution to this <i>problem</i> is the static array.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf55fdb7" class="outline-3">
+<h3 id="orgf55fdb7"><a href="#orgf55fdb7">Word RAM model of computation</a></h3>
+<div class="outline-text-3" id="text-orgf55fdb7">
+<p>
+RAM stands out for Random Access Memory, meaning that the computer (CPU) can
+access every element in it in constant time. This differentiates data structures
+that follow this model to ones that focus on other operations.
+</p>
+
+<p>
+Practically, this means that all items are stored in a continuous location in
+memory, where the ith field  consists of x<sub>i</sub>
+</p>
+<div class="source" id="org8790a09">
+<p>
+x[i] = x<sub>i</sub>
+</p>
+
+</div>
+</div>
+</div>
+
+<div id="outline-container-org6567c1e" class="outline-3">
+<h3 id="org6567c1e"><a href="#org6567c1e">Reality and memory</a></h3>
+<div class="outline-text-3" id="text-org6567c1e">
+<p>
+<i>I must have misunderstood something here, cause I can not explain it clearly</i>
+</p>
+
+<p>
+This is more of a <i>theoretical</i> warning at this point but, in order for the
+static data structures to be implemented it is crucial that the memory increases
+at least as fast as the \(\lg{n}\). Meaning that if you have less space than the
+\(\lg{n}\) you can not store all the values that you want, therefore you can not
+use the data structure.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgab51090" class="outline-2">
+<h2 id="orgab51090"><a href="#orgab51090">Analyzing dynamic sequences</a></h2>
+<div class="outline-text-2" id="text-orgab51090">
+<p>
+Dynamic sequences are to be used when we care more about quick insertion and
+sorting and not so much about random access speeds
+</p>
+</div>
+
+<div id="outline-container-org18e236e" class="outline-3">
+<h3 id="org18e236e"><a href="#org18e236e">Interface functions</a></h3>
+<div class="outline-text-3" id="text-org18e236e">
+<p>
+Analyzing the previous statement a little bit more, we use dynamic sequences
+when we find ourselves dealing with the following operations<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
+</p>
+<ul class="org-ul">
+<li><code>insert/delete_first(i,x)</code>, O(1)
+We do not need to allocate more space <b>and</b> copy every element in our array to
+another location in memory, like in ds, but we just need to create a new node
+make it point to <code>head</code> and set it up as the new head. Thus, constant running
+time.</li>
+<li><code>insert/delete_last()</code>, O(n) or O(1)
+Normaly O(n), due to the fact that you need to follow the pointers of each
+node in the list to reach the last node <span class="underline">but</span> O(1) is achievable through <i>data
+structure augmentation</i>; inserting a new field for our data structure ( a
+pointer to the <code>tail</code> node ), to have instant access to the last element.</li>
+<li><code>insert_at(i,x),delete_at(i)</code>, O(n)
+Even though it takes 0(1) when you have reached the previous node, you can not
+perform the operation at 0(1), because you need to iterate through (worst case
+scenario) the entire array</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org86bb9fc" class="outline-3">
+<h3 id="org86bb9fc"><a href="#org86bb9fc">Linked List</a></h3>
+<div class="outline-text-3" id="text-org86bb9fc">
+<p>
+The linked list is a data structure based on the Dynamic Sequence ADT. It is a
+sequence of nodes, each one with a <code>value</code> and a <code>next</code> field, pointing to the
+next node.
+</p>
+
+<p>
+Unlike arrays, linked lists are not stored in a consecutive chunk of memory;
+they are found in random positions in ram. This is the reason why you need
+pointers in each node, and why RAM operations do not work efficiently
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb6f16b1" class="outline-2">
+<h2 id="orgb6f16b1"><a href="#orgb6f16b1">Dynamic arrays</a></h2>
+<div class="outline-text-2" id="text-orgb6f16b1">
+<p>
+<i>In Python: lists</i>
+</p>
+
+<p>
+Let&rsquo;s try to create an improved data structure, kind of combining dynamic and
+static data structures to get the best out of both worlds.
+</p>
+
+<p>
+The main constraint that we have with simple arrays, is that for every time that
+you want to add an element you have to <b>resize the whole array</b>. That translates
+into allocating a n+1 chunk of memory, copying all of the arrays elements and
+then adding the new one. To address that, we could create a larger array of size
+<i>rougly</i> n. Then, whenever it gets big enough, resize it but not by expanding it
+by a constant. Instead, by doubling (multiplying by \(c>1\)) the existing size.
+</p>
+
+
+<p>
+This simple change would lead to:
+<code>insert_last()</code>: O(n)-&gt;O(1) <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+It actually is not <b>always</b> correct, but most of the time. There will be times
+when the size of the array will no longer suffice and it will have to resize
+</p>
+<ul class="org-ul">
+<li>Fewer <code>malloc</code> calls and copying values around in memory, thus increased performance.</li>
+<li>To visualize, think of performing n <code>insert_last()</code> in a row and compare the
+efficiency of static array to dynamic array</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8c091a6" class="outline-2">
+<h2 id="org8c091a6"><a href="#org8c091a6">Summary: Comparing operations</a></h2>
+<div class="outline-text-2" id="text-org8c091a6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">operation</th>
+<th scope="col" class="org-right">static array</th>
+<th scope="col" class="org-left">linked list</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">insert/delete<sub>at</sub></td>
+<td class="org-right">0(n)</td>
+<td class="org-left">0(1)</td>
+</tr>
+
+<tr>
+<td class="org-left">get/set<sub>at</sub></td>
+<td class="org-right">0(1)</td>
+<td class="org-left">0(n)</td>
+</tr>
+
+<tr>
+<td class="org-left">get/set<sub>last</sub></td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">0(n)/O(1)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+We can always use the static functions as well, yet not so efficiently
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+We use amortization: operation takes T(n) amortized time if any k operations take \(\geq k T(n)\)
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-02-16 Wed 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

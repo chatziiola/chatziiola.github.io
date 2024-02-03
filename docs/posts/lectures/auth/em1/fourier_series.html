@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Σειρές Fourier</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Σειρές Fourier</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orge513af7">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></li>
+<li><a href="#org887003a">Τύποι</a>
+<ul>
+<li><a href="#orged94728">Σχόλιο για τους συντελεστές</a></li>
+</ul>
+</li>
+<li><a href="#org8b5d145">Συνθήκες Dirichlet</a></li>
+<li><a href="#org784d8bb">Συμμετρία και συντελεστές</a>
+<ul>
+<li><a href="#org304bd42">Είδη συμμετρίας και σχέση με τους συντελεστές.</a>
+<ul>
+<li><a href="#orgeab50f7">Αν η \(f\) άρτια συμμετρική</a></li>
+<li><a href="#org019a6eb">Αν η \(f\) περιττά συμμετρική</a></li>
+<li><a href="#orgeef3c12">Συμμετρία μισού μήκους</a></li>
+<li><a href="#org581429e">Συμμετρία τετάρτου μήκους</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgf381bbf">Ενέργεια και ισχύς σειρών Fourier</a></li>
+<li><a href="#org7db9092">Resources:</a></li>
+</ul>
+</div>
+</div>
+<p>
+Οι σειρές Fourier βρίσκουν εφαρμογή σε πολλούς διαφορετικούς τομείς. Ο
+κρισιμότερος (από ότι φαίνεται) για τους μηχανικούς είναι η σχέση που έχουν με
+τον μετασχηματισμό Fourier, επιτρέποντας μας να πάμε από το πεδίο του χρόνου
+στο πεδίο της συχνότητας.
+</p>
+
+<div id="outline-container-orge513af7" class="outline-2">
+<h2 id="orge513af7"><a href="#orge513af7">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></h2>
+<div class="outline-text-2" id="text-orge513af7">
+<p>
+Είναι σημαντικό να καταλάβουμε πως οι σειρές Fourier είναι κάτι παραπάνω από την
+ανάλυση μίας συνάρτησης σε άθροισμα επιμέρους συναρτήσεων (τριγωνικής ή
+εκθετικής) μορφής.
+</p>
+
+<p>
+Αποτελεί, στην πραγματικότητα, την ανάλυση της συνάρτησης σε άθροισμα των <b>βάσεων</b>
+του εξεταζόμενου χώρου, σε ορθογώνιες, δηλαδή, μεταξύ τους συνιστώσες.
+</p>
+
+<p>
+Αποδεικνύεται πως βάσεις στον πραγματικό και τον μιγαδικό χώρο αντίστοιχα
+αποτελούν οι συναρτήσεις:
+</p>
+\begin{align}
+\label{eq:4}
+\frac{\sqrt{2}}{T}\cos{\left(n\omega_0t\right)}\\
+\frac{\sqrt{2}}{T}\sin{\left(n\omega_0t\right)}\\
+\frac{\sqrt{1}}{T}e^{jn\omega_0t}
+\end{align}
+</div>
+</div>
+
+<div id="outline-container-org887003a" class="outline-2">
+<h2 id="org887003a"><a href="#org887003a">Τύποι</a></h2>
+<div class="outline-text-2" id="text-org887003a">
+<p>
+Καθώς είδαμε στις  \(~(\eqref{eq:4})\) τις <i>βάσεις</i> του μιγαδικού και του πραγματικού
+χώρου αντίστοιχα είναι αναμενόμενο το να μπορούμε να εκφράσουμε μία τυχαία
+συνάρτηση ως άθροισμα αυτών ( με κατάλληλους συντελεστές ). Και αυτό συμβαίνει
+<span class="underline">σχεδόν</span> σε όλες τις περιπτώσεις (<a href="#org8b5d145">Συνθήκες Dirichlet</a>).
+</p>
+<ol class="org-ol">
+<li>Τριγωνομετρική (Trigonometric):</li>
+</ol>
+\begin{align}
+\label{eq:1}
+\hat{f} &= 
+\frac{a_0}{2}+ \sum_{n=1}^{\infty}a_n \cos{\left(n\omega_0t\right)}+
+\sum_{n=1}^{\infty}b_n \cos{\left(n\omega_0t\right)}&\text{type A}\\
+\label{eq:2}
+\hat{f} &= 
+\frac{A_0}{2}+ \sum_{n=1}^{\infty}A_n \cos{\left( n\omega_0t \right) + \phi_{n}}&\text{type B}
+\end{align}
+<ol class="org-ol">
+<li>Εκθετική (Complex Exponential)</li>
+</ol>
+\begin{equation}
+\label{eq:3}
+\hat{f} = \sum_{n=-\infty}^{\infty}f_n \cos{\left(n\omega_0t\right)}
+\end{equation}
+</div>
+
+<div id="outline-container-orged94728" class="outline-3">
+<h3 id="orged94728"><a href="#orged94728">Σχόλιο για τους συντελεστές</a></h3>
+<div class="outline-text-3" id="text-orged94728">
+<div class="note" id="orgc8ec664">
+<p>
+Ο όρος μπροστά αποτελεί κανονικοποίηση και προκύπτει από τον ορισμό εν τέλη των
+βάσεων ( Το \(\cos{\left(n\omega_0t\right)}\) δεν αποτελεί βάση αλλά το
+\(\sqrt{\frac{2}{T}}\cos{\left(n\omega_0t\right)}\) είναι)
+</p>
+
+</div>
+
+<p>
+Οι συντελεστές των βάσεων στις παραπάνω εξισώσεις
+(\(\eqref{eq:1},~(\eqref{eq:2}),~(\eqref{eq:3})\)), δεν είναι παρά οι προβολές 
+της συνάρτησης επί των αντίστοιχων βάσεων:
+</p>
+\begin{align}
+\label{eq:6}
+a_n &= \frac{2}{T}\int_{t_1}^{t_1+T} f(t)\cos{\left(n\omega_0t\right)}dt\\
+b_n &= \frac{2}{T}\int_{t_1}^{t_1+T} f(t)\sin{\left(n\omega_0t\right)}dt\\
+F_n &= \frac{1}{T}\int_{t_1}^{t_1+T} f(t)e^{-\jmath\omega_0nt}dt
+\end{align}
+
+<p>
+ενώ για τον τριγωνομετρικό τύπο Β (που δεν είναι παρα μία εναλλακτική /αποτύπωση
+του Α):
+</p>
+
+\begin{align}
+\label{eq:12}
+A_0 &= \frac{a_0}{2}\\
+A_n &= \sqrt{a_n^2+b_n^2}\\
+\phi_n &= \arctan{\left(\frac{b_n}{a_n}\right)}
+\end{align}
+
+<p>
+Ακόμα, αν και δεν είναι <i>τόσο</i> σημαντικό, ενδιαφέρουσα είναι και η σχέση μεταξύ
+του τριγωνομετρικού τύπου Β και του εκθετικού:
+</p>
+\begin{align*}
+A_n &= 2|F_n|\\
+\phi_{n} &= args{F_{n}}
+\end{align*}
+
+<p>
+Ενώ ακόμα εύκολα αποδεικνύεται
+</p>
+\begin{align}
+F_0 &= \frac{a_0}{2}\\
+F_n &= \frac{1}{2}(a_n-\jmath b_n)
+\end{align}
+</div>
+</div>
+</div>
+
+<div id="outline-container-org8b5d145" class="outline-2">
+<h2 id="org8b5d145"><a href="#org8b5d145">Συνθήκες Dirichlet</a></h2>
+<div class="outline-text-2" id="text-org8b5d145">
+<p>
+Για να μπορεί μια συνάρτηση να αναπτυχθεί ως σειρά Fourier πρέπει:
+</p>
+<ol class="org-ol">
+<li>Να έχει πεπερασμένο αριθμό μεγίστων και ελαχίστων σε πεπερασμένο διάστημα</li>
+<li>Να έχει πεπερασμένο αριθμό ασυνεχειών.</li>
+<li>Να είναι απολύτως ολοκληρώσιμη.</li>
+</ol>
+\begin{equation}
+\label{eq:13}
+\int_{-\infty}^{\infty} |f(t)|dt < \infty
+\end{equation}
+</div>
+</div>
+
+<div id="outline-container-org784d8bb" class="outline-2">
+<h2 id="org784d8bb"><a href="#org784d8bb">Συμμετρία και συντελεστές</a></h2>
+<div class="outline-text-2" id="text-org784d8bb">
+<p>
+Γενικά ισχύει πως κάθε συνάρτηση μπορεί να εκφραστεί ως άθροισμα δύο <i>επιμέρους</i>
+συναρτήσεων: Μιας άρτιας και μίας περιττής, ούτως ώστε:
+</p>
+\begin{equation}
+\label{eq:14}
+f(t) = f_o(t) + f_e(t)
+\end{equation}
+<p>
+Γεγονός που καθίσταται ιδιαίτερα εμφανές με τις σειρές Fourier, καθώς:
+</p>
+\begin{align*}
+f_o(t) &= \sum_{n=1}^{\infty} b_n\sin{\left(n\omega_0t\right)}\\
+f_e(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty} a_n\cos{\left(n\omega_0t\right)}\\
+\end{align*}
+
+<p>
+Αυτό με την σειρά του δημιουργεί τις προϋποθέςσεις για τις παρακάτω ιδιότητες:
+</p>
+</div>
+<div id="outline-container-org304bd42" class="outline-3">
+<h3 id="org304bd42"><a href="#org304bd42">Είδη συμμετρίας και σχέση με τους συντελεστές.</a></h3>
+<div class="outline-text-3" id="text-org304bd42">
+</div>
+<div id="outline-container-orgeab50f7" class="outline-4">
+<h4 id="orgeab50f7"><a href="#orgeab50f7">Αν η \(f\) άρτια συμμετρική</a></h4>
+<div class="outline-text-4" id="text-orgeab50f7">
+<p>
+Τότε θα είναι \(f(t) = f_e(t) \Rightarrow b_n = 0\)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org019a6eb" class="outline-4">
+<h4 id="org019a6eb"><a href="#org019a6eb">Αν η \(f\) περιττά συμμετρική</a></h4>
+<div class="outline-text-4" id="text-org019a6eb">
+<ul class="org-ul">
+<li>\(f(t) = f_o(t)\Rightarrow a_n = 0\)</li>
+<li>\(\text{avg} = 0 \Rightarrow a_{0} = 0\)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgeef3c12" class="outline-4">
+<h4 id="orgeef3c12"><a href="#orgeef3c12">Συμμετρία μισού μήκους</a></h4>
+<div class="outline-text-4" id="text-orgeef3c12">
+<p>
+Συμμετρία μισού μήκους υφίσταται όταν για το περιοδικό σήμα \(x(t)\) ικανοποιείται
+η:
+</p>
+\begin{equation}
+\label{eq:15}
+x(t) = -x(t+ \frac{T}{2})
+\end{equation}
+
+<p>
+Σε αυτή την περίπτωση θα υπάρχουν μόνο <i>περιττές</i> αρμονικές: \(n=2\kappa+1, \kappa\in {\mathbb R}\):
+</p>
+\begin{align*}
+a_n,b_n =
+\begin{cases}
+0, n = 2\kappa\\
+(\eqref{eq:6}), n = 2\kappa+1\\
+\end{cases}
+\end{align*}
+</div>
+</div>
+
+<div id="outline-container-org581429e" class="outline-4">
+<h4 id="org581429e"><a href="#org581429e">Συμμετρία τετάρτου μήκους</a></h4>
+<div class="outline-text-4" id="text-org581429e">
+<p>
+Ουσιαστικά αποτελεί συνδυασμό συμμετρίας μισού μήκους και άρτιας/περιττής. Οπότε
+έχουμε μόνο περιττές αρμονικές, και μόνο \(a_n\) (άρτια συμμετρία) ή μόνο \(b_n\)
+(περιττή συμμετρία)
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf381bbf" class="outline-2">
+<h2 id="orgf381bbf"><a href="#orgf381bbf">Ενέργεια και ισχύς σειρών Fourier</a></h2>
+<div class="outline-text-2" id="text-orgf381bbf">
+<p>
+Από τον ορισμό της μέσης ισχύος έχουμε:
+</p>
+\begin{equation}
+\label{eq:18}
+{\bar P} = \frac{1}{T}\int_{t_1}^{t_1+T}f^2(t)dt
+\end{equation}
+
+<p>
+Το οποίο κατα την έκφραση των περιοδικών συναρτήσεων με Fourier series, μπορεί
+να γραφεί ως εξής:
+</p>
+\begin{align}
+\label{eq:17}
+{\bar P} &= \frac{a_0^2}{4} + \frac{1}{2}\sum_{n=1}^{\infty}(a_n^2+b_n^2) &\text{type A}\\
+{\bar P} &= \frac{A_0^2}{2} + \frac{1}{2}\sum_{n=1}^{\infty}A_n^2 &\text{type B}\\
+{\bar P} &= \sum^{\infty}_{n=\infty} |F_{n}|^2
+\end{align}
+</div>
+</div>
+
+<div id="outline-container-org7db9092" class="outline-2">
+<h2 id="org7db9092"><a href="#org7db9092">Resources:</a></h2>
+<div class="outline-text-2" id="text-org7db9092">
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=9R3-0-Xg_Ro&amp;list=PLBlnK6fEyqRiikSSOMCdErAdxvmGpzFQq">Fourier Series Neso Academy</a></li>
+<li>Πανάς (εξαιρετικές σημειώσεις και αξίζει)</li>
+<li><a href="https://www.youtube.com/watch?v=28oKg7GMbvI&amp;list=PLX2gX-ftPVXVScC8Hz8nmcZTAMXTluTIn">Michel Van Biezen</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-12-17 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

