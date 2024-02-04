@@ -55,21 +55,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0c26e70">A trip down memory lane</a></li>
-<li><a href="#org3df3cac">Introduction: An Org vs LaTeX comparison</a></li>
-<li><a href="#org85f3378">Configuring Emacs</a></li>
-<li><a href="#org1e89326">Writing in Org</a></li>
-<li><a href="#orgbc0dd4e">The LaTeX part</a>
+<li><a href="#orgd7b2e79">Disclaimer</a></li>
+<li><a href="#orgbb8d77e">A trip down memory lane</a></li>
+<li><a href="#orgc2b454b">Introduction: An Org vs LaTeX comparison</a></li>
+<li><a href="#orga750568">Configuring Emacs</a></li>
+<li><a href="#orgf25837d">Writing in Org</a></li>
+<li><a href="#org97743f0">The LaTeX part</a>
 <ul>
-<li><a href="#orge56e04a">The LaTeX template: <code>sample.tex</code></a></li>
+<li><a href="#orgfdd3f46">The LaTeX template: <code>sample.tex</code></a></li>
 </ul>
 </li>
-<li><a href="#org1060057">Exporting</a></li>
-<li><a href="#orge121b33">Further reading:</a></li>
+<li><a href="#orge6f82dd">Exporting</a></li>
+<li><a href="#org482399c">Further reading:</a></li>
 </ul>
 </div>
 </div>
-<div class="note" id="orgb0af1fd">
+<div id="outline-container-orgd7b2e79" class="outline-2">
+<h2 id="orgd7b2e79"><a href="#orgd7b2e79">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-orgd7b2e79">
+<div class="note" id="org6de3ade">
 <p>
 Cringineer will surely like this one :P
 </p>
@@ -81,10 +85,12 @@ If you also find yourself writing a lot of essays and assignments in org-mode,
 taking advantage of its nearly natural syntax, but the end result, when
 exporting to PDF, disappoints you, this article is for you.
 </p>
+</div>
+</div>
 
-<div id="outline-container-org0c26e70" class="outline-2">
-<h2 id="org0c26e70"><a href="#org0c26e70">A trip down memory lane</a></h2>
-<div class="outline-text-2" id="text-org0c26e70">
+<div id="outline-container-orgbb8d77e" class="outline-2">
+<h2 id="orgbb8d77e"><a href="#orgbb8d77e">A trip down memory lane</a></h2>
+<div class="outline-text-2" id="text-orgbb8d77e">
 <p>
 Historically, there were many different many different solutions to producing a
 scientific paper, or publishing any kind of digital document, for that matter.
@@ -118,9 +124,9 @@ documents, however, it has a relatively steep learning curve.
 </div>
 </div>
 
-<div id="outline-container-org3df3cac" class="outline-2">
-<h2 id="org3df3cac"><a href="#org3df3cac">Introduction: An Org vs LaTeX comparison</a></h2>
-<div class="outline-text-2" id="text-org3df3cac">
+<div id="outline-container-orgc2b454b" class="outline-2">
+<h2 id="orgc2b454b"><a href="#orgc2b454b">Introduction: An Org vs LaTeX comparison</a></h2>
+<div class="outline-text-2" id="text-orgc2b454b">
 <p>
 LaTeX might be more than simply wonderful as a publication backend, with
 templates being freely available on the Internet, but it is not so <i>easy</i> to write
@@ -166,10 +172,10 @@ Let&rsquo;s see what exactly is needed for a seamless LaTeX experience within Or
 </div>
 </div>
 
-<div id="outline-container-org85f3378" class="outline-2">
-<h2 id="org85f3378"><a href="#org85f3378">Configuring Emacs</a></h2>
-<div class="outline-text-2" id="text-org85f3378">
-<div class="note" id="org3ca3fbd">
+<div id="outline-container-orga750568" class="outline-2">
+<h2 id="orga750568"><a href="#orga750568">Configuring Emacs</a></h2>
+<div class="outline-text-2" id="text-orga750568">
+<div class="note" id="org8a0a774">
 <p>
 At this point one should have some basic level understanding of customizing
 Emacs. If you use a different way of installing packages, my snippets should be
@@ -210,7 +216,7 @@ E = mc
 </pre>
 </div>
 
-<div class="note" id="org8cfeb59">
+<div class="note" id="org9302a50">
 <p>
 And you could preview that while in buffer with <code>C-c C-x C-l</code>
 </p>
@@ -227,15 +233,15 @@ E = mc
 </div>
 
 
-<div id="outline-container-org1e89326" class="outline-2">
-<h2 id="org1e89326"><a href="#org1e89326">Writing in Org</a></h2>
-<div class="outline-text-2" id="text-org1e89326">
+<div id="outline-container-orgf25837d" class="outline-2">
+<h2 id="orgf25837d"><a href="#orgf25837d">Writing in Org</a></h2>
+<div class="outline-text-2" id="text-orgf25837d">
 <p>
 Now we open an Emacs buffer pointing to an Org file (a plain text file with the
 <code>.org</code> extension).
 </p>
 
-<div class="note" id="org12a8454">
+<div class="note" id="orgd739d1d">
 <p>
 If you want a refresher on Org syntax, you may like this one <a href="https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/">org-mode cheatsheet</a>
 </p>
@@ -268,9 +274,9 @@ only set these before I export to LaTeX.
 </div>
 </div>
 
-<div id="outline-container-orgbc0dd4e" class="outline-2">
-<h2 id="orgbc0dd4e"><a href="#orgbc0dd4e">The LaTeX part</a></h2>
-<div class="outline-text-2" id="text-orgbc0dd4e">
+<div id="outline-container-org97743f0" class="outline-2">
+<h2 id="org97743f0"><a href="#org97743f0">The LaTeX part</a></h2>
+<div class="outline-text-2" id="text-org97743f0">
 <p>
 There are more specific options, that essentially modify the behavior (or
 certain aspects) of the export process you choose. In our case, since we are
@@ -303,9 +309,9 @@ exported by default) into one that is tailored to your liking.
 </p>
 </div>
 
-<div id="outline-container-orge56e04a" class="outline-3">
-<h3 id="orge56e04a"><a href="#orge56e04a">The LaTeX template: <code>sample.tex</code></a></h3>
-<div class="outline-text-3" id="text-orge56e04a">
+<div id="outline-container-orgfdd3f46" class="outline-3">
+<h3 id="orgfdd3f46"><a href="#orgfdd3f46">The LaTeX template: <code>sample.tex</code></a></h3>
+<div class="outline-text-3" id="text-orgfdd3f46">
 <p>
 <code>sample.tex</code> needs to follow some properties. First of all, unlike any (template)
 LaTeX document you may have worked on, it <b>must not</b> start with <code>\documentclass</code>.
@@ -376,9 +382,9 @@ aesthetically pleasing result is the following.
 </div>
 </div>
 
-<div id="outline-container-org1060057" class="outline-2">
-<h2 id="org1060057"><a href="#org1060057">Exporting</a></h2>
-<div class="outline-text-2" id="text-org1060057">
+<div id="outline-container-orge6f82dd" class="outline-2">
+<h2 id="orge6f82dd"><a href="#orge6f82dd">Exporting</a></h2>
+<div class="outline-text-2" id="text-orge6f82dd">
 <p>
 At that point, if you have a document that has an appropriately created list of
 header options (<code>#+</code> statements), and a suitable <code>sample.tex</code> file, you are ready to
@@ -405,9 +411,9 @@ them.
 </div>
 </div>
 
-<div id="outline-container-orge121b33" class="outline-2">
-<h2 id="orge121b33"><a href="#orge121b33">Further reading:</a></h2>
-<div class="outline-text-2" id="text-orge121b33">
+<div id="outline-container-org482399c" class="outline-2">
+<h2 id="org482399c"><a href="#org482399c">Further reading:</a></h2>
+<div class="outline-text-2" id="text-org482399c">
 <p>
 You may also want to have a look at <a href="20230309_a_practical_note_taking_system.html">my notetaking system</a> setup. I&rsquo;m trying to
 build a detailed analysis of that system before I implement a <i>series</i>

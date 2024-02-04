@@ -3,11 +3,10 @@
 #+DESCRIPTION: Late night thought collection on improving ones relationship with  small scripts
 #+FILETAGS: scripting sysad
 
-
+* Introduction
 #+begin_note
 God, do I miss the non-exam period.
 #+end_note
-
 You know, we are often in the position of having to perform tedious tasks
 repeatedly, yet fearing that by trying to automate we will lose more time, we...
 do the boring stuff.
@@ -21,10 +20,13 @@ well as I'd like the previous day, I gave this a shot. To my surprise, not only
 did it work, but it was also (if I remember correctly) way more efficient, than
 if I had done that by hand.
 
-The script simple, I just needed to replace a property that was wrongly set in
-my notes. The fact that it is less than 10 lines, is a consequence of the
-library of small scripts and functions, which even though they may not be
-beautifully written, have tremendous practical value.
+* In practice
+
+The script is as simple as it gets, I just needed to replace a
+property that was wrongly set in my notes. The fact that it is less
+than 10 lines, is a consequence of the library of small scripts and
+functions, which even though they may not be beautifully written, have
+tremendous practical value.
 
 #+begin_src elisp
 
@@ -67,6 +69,8 @@ is not set, replace current value with the default one"
   )
 #+end_src
 
+* Pretentiously offering suggestions
+
 I have to make a couple of points here:
 1. *You do not always save time by writing a script.* You have to pick your
    battles. If writing the script is sure to take some time and will not be used
@@ -89,6 +93,7 @@ I have to make a couple of points here:
    first place, but in the long run it is definitely worth it.
 
 
+* Summary
 Summing up, the thing is, that /Rome was not built in a day/. From my experience,
 one needs to start building their script arsenal, keeping track of the problems
 they have solved and in time, they will find that being able to utilize previous

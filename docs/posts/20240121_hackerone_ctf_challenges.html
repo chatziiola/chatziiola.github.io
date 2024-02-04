@@ -22,18 +22,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf6d012d">Introduction</a></li>
-<li><a href="#orgfd05a39">Testing</a></li>
-<li><a href="#org9f8b90f">XSS</a></li>
-<li><a href="#orgb1a0e95">Getting access to the forbidden file</a></li>
-<li><a href="#orge75d299">Not-so-good SQLi</a></li>
+<li><a href="#orge4239fa">Introduction</a></li>
+<li><a href="#orga440fd3">Testing</a></li>
+<li><a href="#orgb032154">XSS</a></li>
+<li><a href="#orgf20b17f">Getting access to the forbidden file</a></li>
+<li><a href="#org3a5a87c">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf6d012d" class="outline-2">
-<h2 id="orgf6d012d"><a href="#orgf6d012d">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgf6d012d">
+<div id="outline-container-orge4239fa" class="outline-2">
+<h2 id="orge4239fa"><a href="#orge4239fa">Introduction</a></h2>
+<div class="outline-text-2" id="text-orge4239fa">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -60,9 +60,9 @@ have since completed.
 </div>
 </div>
 
-<div id="outline-container-orgfd05a39" class="outline-2">
-<h2 id="orgfd05a39"><a href="#orgfd05a39">Testing</a></h2>
-<div class="outline-text-2" id="text-orgfd05a39">
+<div id="outline-container-orga440fd3" class="outline-2">
+<h2 id="orga440fd3"><a href="#orga440fd3">Testing</a></h2>
+<div class="outline-text-2" id="text-orga440fd3">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -80,7 +80,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="org4b89cbb">
+<div class="note" id="orgd2aa7d3">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -102,7 +102,7 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org1049414"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
+<pre class="src src-python" id="orgf35c781"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
 <span class="org-keyword">import</span> webbrowser
 
@@ -117,7 +117,7 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="orgb8c91f1"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
+<pre class="src src-python" id="org61e331d"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
 
 <span class="org-keyword">import</span> requests
@@ -142,7 +142,7 @@ stored within Burp Suite as well:
 </pre>
 </div>
 
-<pre class="example" id="orge78de16">
+<pre class="example" id="orga414af6">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -155,7 +155,7 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="orgc408a08" class="figure">
+<div id="org4699bc9" class="figure">
 <p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
@@ -163,9 +163,9 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 </div>
 </div>
 
-<div id="outline-container-org9f8b90f" class="outline-2">
-<h2 id="org9f8b90f"><a href="#org9f8b90f">XSS</a></h2>
-<div class="outline-text-2" id="text-org9f8b90f">
+<div id="outline-container-orgb032154" class="outline-2">
+<h2 id="orgb032154"><a href="#orgb032154">XSS</a></h2>
+<div class="outline-text-2" id="text-orgb032154">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -194,9 +194,9 @@ At this point we have flags 2,3, searching for 1,2.
 </div>
 </div>
 
-<div id="outline-container-orgb1a0e95" class="outline-2">
-<h2 id="orgb1a0e95"><a href="#orgb1a0e95">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-orgb1a0e95">
+<div id="outline-container-orgf20b17f" class="outline-2">
+<h2 id="orgf20b17f"><a href="#orgf20b17f">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-orgf20b17f">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -206,9 +206,9 @@ want to <i>wrap</i> this mini challenge.
 </div>
 </div>
 
-<div id="outline-container-orge75d299" class="outline-2">
-<h2 id="orge75d299"><a href="#orge75d299">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-orge75d299">
+<div id="outline-container-org3a5a87c" class="outline-2">
+<h2 id="org3a5a87c"><a href="#org3a5a87c">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-org3a5a87c">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall
