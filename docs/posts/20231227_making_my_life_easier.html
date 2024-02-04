@@ -23,19 +23,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc518af9">Introduction</a></li>
-<li><a href="#org587e7df">Goal</a></li>
-<li><a href="#org9f79fc3">Execution</a></li>
-<li><a href="#org11cd93c">Completion</a></li>
-<li><a href="#org739fa3e">Some extra thoughts</a></li>
+<li><a href="#orga555fde">Introduction</a></li>
+<li><a href="#orge0de8fe">Goal</a></li>
+<li><a href="#orgf87036a">Execution</a></li>
+<li><a href="#orgde7e77d">Completion</a></li>
+<li><a href="#org4dac8e1">Some extra thoughts</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgc518af9" class="outline-2">
-<h2 id="orgc518af9"><a href="#orgc518af9">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgc518af9">
+<div id="outline-container-orga555fde" class="outline-2">
+<h2 id="orga555fde"><a href="#orga555fde">Introduction</a></h2>
+<div class="outline-text-2" id="text-orga555fde">
 <p>
 At the time of writing my blog directory surely is cluttered, and I
 <b>really</b> do not want this. It prevents me from easily checking my
@@ -47,9 +47,9 @@ makes sense
 </div>
 </div>
 
-<div id="outline-container-org587e7df" class="outline-2">
-<h2 id="org587e7df"><a href="#org587e7df">Goal</a></h2>
-<div class="outline-text-2" id="text-org587e7df">
+<div id="outline-container-orge0de8fe" class="outline-2">
+<h2 id="orge0de8fe"><a href="#orge0de8fe">Goal</a></h2>
+<div class="outline-text-2" id="text-orge0de8fe">
 <p>
 What I expect to do here is quickly create a makefile, with a <code>local</code>
 set of instructions, that will:
@@ -61,16 +61,16 @@ set of instructions, that will:
 </div>
 </div>
 
-<div id="outline-container-org9f79fc3" class="outline-2">
-<h2 id="org9f79fc3"><a href="#org9f79fc3">Execution</a></h2>
-<div class="outline-text-2" id="text-org9f79fc3">
+<div id="outline-container-orgf87036a" class="outline-2">
+<h2 id="orgf87036a"><a href="#orgf87036a">Execution</a></h2>
+<div class="outline-text-2" id="text-orgf87036a">
 <p>
 Using the <code>local-build.sh</code> script, I knew this would not take too much.
 Being an open source file and not really bothered by the
 confidentiality of its contents, I uploaded it to ChatGPT asking for
 it to be refactored and documented into a Makefile:
 </p>
-<pre class="example" id="orgb38eb6c">
+<pre class="example" id="org991cbf5">
 # Makefile for building and publishing a site
 # Directories
 PUBLIC_DIR := public
@@ -114,7 +114,7 @@ proper yet by no means extensive commenting on the shell script.
 <p>
 Adding a new target and updating local does the job:
 </p>
-<pre class="example" id="org495b495">
+<pre class="example" id="org915ce02">
 # Serve the public directory on localhost using Python
 serve_local:
 	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server
@@ -122,9 +122,9 @@ serve_local:
 </div>
 </div>
 
-<div id="outline-container-org11cd93c" class="outline-2">
-<h2 id="org11cd93c"><a href="#org11cd93c">Completion</a></h2>
-<div class="outline-text-2" id="text-org11cd93c">
+<div id="outline-container-orgde7e77d" class="outline-2">
+<h2 id="orgde7e77d"><a href="#orgde7e77d">Completion</a></h2>
+<div class="outline-text-2" id="text-orgde7e77d">
 <p>
 At this point everything is perfect, and well documented enough that I
 could refactor the whole blog, where spaghetti code is not only
@@ -134,9 +134,9 @@ making it more manageable.
 </div>
 </div>
 
-<div id="outline-container-org739fa3e" class="outline-2">
-<h2 id="org739fa3e"><a href="#org739fa3e">Some extra thoughts</a></h2>
-<div class="outline-text-2" id="text-org739fa3e">
+<div id="outline-container-org4dac8e1" class="outline-2">
+<h2 id="org4dac8e1"><a href="#org4dac8e1">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-org4dac8e1">
 <p>
 It is truly fascinating that I managed within <b>much less</b> than fifteen
 minutes to:
