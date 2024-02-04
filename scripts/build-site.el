@@ -25,7 +25,7 @@
 (load (expand-file-name "config.el" (file-name-directory load-file-name)))
 
 ;; Index-generator is responsible only for the last function in this document :p
-(load (expand-file-name "index-generator.el" (file-name-directory load-file-name)))
+;; (load (expand-file-name "index-generator.el" (file-name-directory load-file-name)))
 
 ;; EVALUATE NEED FOR SEPARATE PACKAGE SYSTEM
 (setq make-backup-files nil
@@ -184,5 +184,5 @@ pictures using imagemagick. Return output file name."
 
 (org-publish-all t)
 
-(chatziiola/org-static-blog-assemble-index-no-content)
+;; (chatziiola/org-static-blog-assemble-index-no-content)
 ;;; build-site.el ends here.

@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Check if jq is installed
-if ! command -v jq &> /dev/null; then
-    echo "jq not found. Please install jq before running this script."
-    exit 1
-fi
 
 
 # Function to remove the prefix / avoiding sed
@@ -13,7 +8,7 @@ fi
 get_data() {
     local type="$1"
     local file="$2"
-    grep -E "^#\+$type:" "$file" | head -n 1| sed -e  "s/^#+$type:[[:space:]]*//" -e 's/[[:space:]]*$//'
+    grep -Ei "^#\+$type:" "$file" | head -n 1| sed -e  "s/^#+$type:[[:space:]]*//" -e 's/[[:space:]]*$//'
 }
 
 
@@ -58,4 +53,4 @@ result_file="$2"
 
 # Process the directory and print JSON entries
 process_directory "$directory" | tee /tmp/myjson |  jq -s '.'  > $result_file 
-python3 fixtags.py $result_file
+python3 scripts/fixtags.py $result_file

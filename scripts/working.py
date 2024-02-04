@@ -15,6 +15,10 @@ __version__ = "0.0.1"
 import json
 import sys,os
 import configparser
+import re
+
+from datetime import datetime
+from blogjson import *
 
 # value = config.get('section', 'value')
 def setup_config():
@@ -24,35 +28,110 @@ def setup_config():
 
 
 # get list of json.objects with filepath    
-def get_posts_with_tag(TAG):
+def getAllPosts(jsonFilename):
     with open(jsonFilename, 'r') as file:
         data = json.load(file)
+    return data
+    
+# get list of json.objects with a certain filetag    
+def getPostsWithTag(TAG,jsonFilename):
     files = []
-    for obj in data:
+    for obj in getAllPosts(jsonFilename):
         if TAG in obj.get("filetags"):
             files.append(obj)
     return files
 
-# get a list of all different tags
-def get_tag_list():
+# get a list of all different tags, in alphabetical order
+def getAllTags(jsonFilename):
     with open(jsonFilename, 'r') as file:
         data = json.load(file)
-    return set(value for obj in data for value in obj.get("filetags", []))
-# Example of reading values
-config = setup_config()
-jsonFilename = config.get('JSON','filename')
-# print(get_posts_with_tag("blog"))
+    return sorted(list(set(value for obj in data for value in obj.get("filetags", []))))
 
-
-def fix_full_tag_index():
+def createTagsIndexOrg(jsonFilename):
     os.makedirs("content/tags",exist_ok=True)
     with open("content/tags/index.org",'w') as indexFile:
         indexFile.write(f"#+TITLE: Tags Collection\n")
         indexFile.write(f"#+DESCRIPTION: Collection of all posts, based on tags\n")
-        for tag in get_tag_list():
+        for tag in getAllTags(jsonFilename):
             indexFile.write(f"* {tag}  :{tag}:\n")
-            for post in get_posts_with_tag(tag):
+            for post in getPostsWithTag(tag,jsonFilename):
                 publicPath = post.get('filepath')
-                indexFile.write(f"- [[../{publicPath[len('content'):]}][{post.get('title')}]]\n")
+                indexFile.write(f"- [[..{publicPath[len('content'):]}][{post.get('title')}]]\n")
 
-fix_full_tag_index()
+def orgDottedLink(path, title, date):
+    return f"- {date}: [[{path}][{title}]]"
+    # return f"- [[{path}][{title}]]".ljust(80+len(linkpath),'.')+date
+
+def createRecentsIndexOrg(jsonFile):
+    data = sorted(getAllPosts(jsonFile), key=lambda x: x['date'])
+    # Newest to oldest
+    recents = "\n\n"
+    # TODO add number of posts to config.ini
+    # TODO add starting/end strings to config.ini
+    start="# posts start"
+    end="# posts end"
+    for post in reversed(data):
+        if re.search(r"index.org$",post['filepath']) or re.search(r"recents.org$", post['filepath']):
+            continue
+        linkpath = f"..{post['filepath'][len('content'):]}"
+        recents += orgDottedLink(linkpath,post['title'],post['date'])+'\n'
+    overwriteBetwenAandBinFile(recents, start, end, "content/posts/recents.org")
+    # print(recents)
+
+def addRecentsToIndex(jsonFile):
+    data = sorted(getAllPosts(jsonFile), key=lambda x: x['date'])
+    # Newest to oldest
+    recents = "\n\n"
+    # TODO add number of posts to config.ini
+    # TODO add starting/end strings to config.ini
+    start="# recents start"
+    end="# recents end"
+    for post in reversed(data[-5:]):
+        if re.search(r"index.org$",post['filepath']):
+            continue
+        linkpath = f"..{post['filepath'][len('content'):]}"
+        recents += orgDottedLink(linkpath,post['title'],post['date'])+'\n'
+    overwriteBetwenAandBinFile(recents, start, end, "content/index.org")
+    # print(recents)
+    
+
+def overwriteBetwenAandBinFile(newText, stringA, stringB, filePath):
+    try:
+        with open(filePath, 'r') as file:
+            content = file.read()
+
+        start_index = content.find(stringA)
+        end_index = content.find(stringB)
+
+        if start_index != -1 and end_index != -1 and start_index < end_index:
+            updated_content = content[:start_index + len(stringA)] + newText + content[end_index:]
+            
+            with open(filePath, 'w') as file:
+                file.write(updated_content)
+
+            print(f"Text between '{stringA}' and '{stringB}' replaced successfully.")
+        else:
+            print(f"Error: Couldn't find '{stringA}' and '{stringB}' in the file or the order is incorrect.")
+
+    except FileNotFoundError:
+        print(f"Error: File '{filePath}' not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+
+# Example of reading values
+config = setup_config()
+myjson = config.get('JSON','filename')
+blogdirectory = "content"
+
+createBlogJson(blogdirectory, myjson)
+
+# data = sorted(getAllPosts(myjson), key=lambda x: x['date'])
+# for post in data[-5:]:
+#     print(f"{post['title']}:\n\t {post['date']}")
+
+
+print(getAllTags(myjson))
+createTagsIndexOrg(myjson)
+createRecentsIndexOrg(myjson)
+addRecentsToIndex(myjson)

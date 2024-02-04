@@ -21,7 +21,7 @@ add_cname:
 # Build the site using Emacs
 build: clean
 	echo "Building the site"
-	emacs -Q --script scripts/build-site.el
+	emacs -Q --script scripts/build-site.el >/dev/null
 
 copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
@@ -48,4 +48,4 @@ serve_local:
 	cd $(PUBLIC_DIR) && python3 -m http.server
 
 # Build the site locally
-local: build add_latest_posts copy_index_to_posts copy_static serve_local add_cname
+local: build copy_index_to_posts copy_static add_cname serve_local 
