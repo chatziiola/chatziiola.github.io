@@ -54,18 +54,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga392a16">Το σύστημα</a></li>
-<li><a href="#org23a0fb9">Θέσιμο παραμέτρων</a></li>
-<li><a href="#org2ff6dd4">Ευστάθεια συστήματος</a></li>
-<li><a href="#orgcb3010c">DC Gain</a></li>
-<li><a href="#org883fc12">Plotting με step function</a>
+<li><a href="#orgc6add7f">Το σύστημα</a></li>
+<li><a href="#org1f20a5e">Θέσιμο παραμέτρων</a></li>
+<li><a href="#orge0030ee">Ευστάθεια συστήματος</a></li>
+<li><a href="#orgb5dd90e">DC Gain</a></li>
+<li><a href="#orge0bf0be">Plotting με step function</a>
 <ul>
-<li><a href="#org21fe409">Θεωρητικά σχόλια</a></li>
+<li><a href="#orgcca5b55">Θεωρητικά σχόλια</a></li>
 </ul>
 </li>
-<li><a href="#orgab0c0b1">Προσέγγιση</a></li>
-<li><a href="#orgad1f3e2">LSIN</a></li>
-<li><a href="#orgd65f49e">Επίδραση φορτίου στην απόκριση στροφών</a></li>
+<li><a href="#org1f0c04b">Προσέγγιση</a></li>
+<li><a href="#orgf78205d">LSIN</a></li>
+<li><a href="#org381a7c4">Επίδραση φορτίου στην απόκριση στροφών</a></li>
 </ul>
 </div>
 </div>
@@ -80,7 +80,7 @@ cli του Matlab</li>
 συγκριτές, θέτοντας παράλληλα και προδιαγραφές</li>
 </ul>
 
-<div class="note" id="org3dbf623">
+<div class="note" id="orgaf354c0">
 <p>
 Σε όλες τις σημειώσεις έχω χρησιμοποιήσει source blocks του octave γιατί εκείνο
 τρέχω/έχω εγκατεστημένο στο workstation μου. Προφανώς το εργαστήριο
@@ -95,9 +95,9 @@ cli του Matlab</li>
 </div>
 
 
-<div id="outline-container-orga392a16" class="outline-2">
-<h2 id="orga392a16"><a href="#orga392a16">Το σύστημα</a></h2>
-<div class="outline-text-2" id="text-orga392a16">
+<div id="outline-container-orgc6add7f" class="outline-2">
+<h2 id="orgc6add7f"><a href="#orgc6add7f">Το σύστημα</a></h2>
+<div class="outline-text-2" id="text-orgc6add7f">
 <p>
 Η μοντελοποίηση του συστήματος είναι της μορφής:
 <img src="course_sae1_images/221207_0858_sae1_lab1_system.png" alt="221207_0858_sae1_lab1_system.png" />
@@ -129,9 +129,9 @@ H_t&=
 </div>
 </div>
 
-<div id="outline-container-org23a0fb9" class="outline-2">
-<h2 id="org23a0fb9"><a href="#org23a0fb9">Θέσιμο παραμέτρων</a></h2>
-<div class="outline-text-2" id="text-org23a0fb9">
+<div id="outline-container-org1f20a5e" class="outline-2">
+<h2 id="org1f20a5e"><a href="#org1f20a5e">Θέσιμο παραμέτρων</a></h2>
+<div class="outline-text-2" id="text-org1f20a5e">
 <p>
 Οταν φτιάχνεις array με συντελεστές πολυωνύμου προσέχεις να εισάγεις <b>όλους</b> τους
 όρους, ακόμα και εκείνους που <i>φαινομενικά</i> παραλείπονται.
@@ -164,9 +164,9 @@ HTo <span class="org-builtin">=</span> tf(nTo<span class="org-builtin">,</span>d
 </div>
 </div>
 
-<div id="outline-container-org2ff6dd4" class="outline-2">
-<h2 id="org2ff6dd4"><a href="#org2ff6dd4">Ευστάθεια συστήματος</a></h2>
-<div class="outline-text-2" id="text-org2ff6dd4">
+<div id="outline-container-orge0030ee" class="outline-2">
+<h2 id="orge0030ee"><a href="#orge0030ee">Ευστάθεια συστήματος</a></h2>
+<div class="outline-text-2" id="text-orge0030ee">
 <p>
 Με την παρακάτω συνάρτηση μπορούμε να πάρουμε τις ρίζες ενός πολυωνύμου
 </p>
@@ -185,9 +185,9 @@ p <span class="org-builtin">=</span> roots(dVo)<span class="org-builtin">;</span
 </div>
 </div>
 
-<div id="outline-container-orgcb3010c" class="outline-2">
-<h2 id="orgcb3010c"><a href="#orgcb3010c">DC Gain</a></h2>
-<div class="outline-text-2" id="text-orgcb3010c">
+<div id="outline-container-orgb5dd90e" class="outline-2">
+<h2 id="orgb5dd90e"><a href="#orgb5dd90e">DC Gain</a></h2>
+<div class="outline-text-2" id="text-orgb5dd90e">
 <p>
 Για την ενίσχυση στο Steady State (δηλαδή το dc-gain) ισχύει:
 </p>
@@ -208,9 +208,9 @@ dcTVo <span class="org-builtin">=</span> dcgain(HTo)<span class="org-builtin">;<
 </div>
 </div>
 
-<div id="outline-container-org883fc12" class="outline-2">
-<h2 id="org883fc12"><a href="#org883fc12">Plotting με step function</a></h2>
-<div class="outline-text-2" id="text-org883fc12">
+<div id="outline-container-orge0bf0be" class="outline-2">
+<h2 id="orge0bf0be"><a href="#orge0bf0be">Plotting με step function</a></h2>
+<div class="outline-text-2" id="text-orge0bf0be">
 <p>
 Μπορούμε να δούμε την απόκριση του συστήματος μας αν για είσοδο είχε ένα step
 function μέσω των παρακάτω εντολών:
@@ -225,9 +225,9 @@ step(HTo)
 </div>
 </div>
 
-<div id="outline-container-org21fe409" class="outline-3">
-<h3 id="org21fe409"><a href="#org21fe409">Θεωρητικά σχόλια</a></h3>
-<div class="outline-text-3" id="text-org21fe409">
+<div id="outline-container-orgcca5b55" class="outline-3">
+<h3 id="orgcca5b55"><a href="#orgcca5b55">Θεωρητικά σχόλια</a></h3>
+<div class="outline-text-3" id="text-orgcca5b55">
 <ul class="org-ul">
 <li>Παρατηρούμε πως το unit step (κατά την διάρκεια του) μας επιτρέπει να φτάσουμε
 την ss κατάσταση του συστήματος</li>
@@ -240,9 +240,9 @@ step(HTo)
 </div>
 </div>
 
-<div id="outline-container-orgab0c0b1" class="outline-2">
-<h2 id="orgab0c0b1"><a href="#orgab0c0b1">Προσέγγιση</a></h2>
-<div class="outline-text-2" id="text-orgab0c0b1">
+<div id="outline-container-org1f0c04b" class="outline-2">
+<h2 id="org1f0c04b"><a href="#org1f0c04b">Προσέγγιση</a></h2>
+<div class="outline-text-2" id="text-org1f0c04b">
 <p>
 Μπορούμε να προσεγγίσουμε την συμπεριφορά του συστήματος αφαιρώντας τον πόλο μα
 <i>κρατώντας</i> την θέση του (αυτό οφείλεται στο οτι το μεταβατικό φεύγει γρήγορα)
@@ -268,9 +268,9 @@ step(HV)
 </div>
 </div>
 
-<div id="outline-container-orgad1f3e2" class="outline-2">
-<h2 id="orgad1f3e2"><a href="#orgad1f3e2">LSIN</a></h2>
-<div class="outline-text-2" id="text-orgad1f3e2">
+<div id="outline-container-orgf78205d" class="outline-2">
+<h2 id="orgf78205d"><a href="#orgf78205d">LSIN</a></h2>
+<div class="outline-text-2" id="text-orgf78205d">
 <div class="org-src-container">
 <pre class="src src-octave">t <span class="org-builtin">=</span> 0 <span class="org-builtin">:</span> 0.001 <span class="org-builtin">:</span> 0.7<span class="org-builtin">;</span>
 uV <span class="org-builtin">=</span> 150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
@@ -285,9 +285,9 @@ plot(t<span class="org-builtin">,</span>yV1<span class="org-builtin">,</span>t<s
 </div>
 </div>
 
-<div id="outline-container-orgd65f49e" class="outline-2">
-<h2 id="orgd65f49e"><a href="#orgd65f49e">Επίδραση φορτίου στην απόκριση στροφών</a></h2>
-<div class="outline-text-2" id="text-orgd65f49e">
+<div id="outline-container-org381a7c4" class="outline-2">
+<h2 id="org381a7c4"><a href="#org381a7c4">Επίδραση φορτίου στην απόκριση στροφών</a></h2>
+<div class="outline-text-2" id="text-org381a7c4">
 <div class="org-src-container">
 <pre class="src src-octave">uV<span class="org-builtin">=</span>150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
 uT1<span class="org-builtin">=</span>0.5<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>

