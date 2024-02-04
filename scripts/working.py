@@ -54,7 +54,7 @@ def createTagsIndexOrg(jsonFilename):
         indexFile.write(f"#+DESCRIPTION: Collection of all posts, based on tags\n")
         for tag in getAllTags(jsonFilename):
             indexFile.write(f"* {tag}  :{tag}:\n")
-            for post in getPostsWithTag(tag,jsonFilename):
+            for post in sorted(getPostsWithTag(tag,jsonFilename), key=lambda x:x['date'], reverse=True):
                 publicPath = post.get('filepath')
                 indexFile.write(f"- [[..{publicPath[len('content'):]}][{post.get('title')}]]\n")
 

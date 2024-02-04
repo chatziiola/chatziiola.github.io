@@ -54,51 +54,51 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5f91837">Lecture notes:</a></li>
-<li><a href="#orgebde705">Set vs Sequence</a></li>
-<li><a href="#orgb255ac4">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a>
+<li><a href="#orgc46a31b">Lecture notes:</a></li>
+<li><a href="#orgb66000c">Set vs Sequence</a></li>
+<li><a href="#org96fa5f7">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a>
 <ul>
-<li><a href="#orga8de610">The comparison model</a></li>
-<li><a href="#org8018e1b">The decision tree</a></li>
+<li><a href="#org5e333af">The comparison model</a></li>
+<li><a href="#org282fddd">The decision tree</a></li>
 </ul>
 </li>
-<li><a href="#org65b75ef"><code>find()</code> at \(0(1)\)</a>
+<li><a href="#org74f7bdb"><code>find()</code> at \(0(1)\)</a>
 <ul>
-<li><a href="#orgd99fb48">Static array</a></li>
-<li><a href="#org6ff65e1">Drawbacks</a>
+<li><a href="#orge781af3">Static array</a></li>
+<li><a href="#org4b871b6">Drawbacks</a>
 <ul>
-<li><a href="#org4c285bc">What if we deal with huge key values</a></li>
-<li><a href="#org6f12745">Limitation regarding the key values that can be stored</a></li>
-<li><a href="#orgf58fa75">Same keys?</a></li>
+<li><a href="#org3740998">What if we deal with huge key values</a></li>
+<li><a href="#orga86f9ec">Limitation regarding the key values that can be stored</a></li>
+<li><a href="#orgaf57df1">Same keys?</a></li>
 </ul>
 </li>
-<li><a href="#org948f07a">Improving on that model</a>
+<li><a href="#orgda13c0c">Improving on that model</a>
 <ul>
-<li><a href="#orgd1eb04f">Using less space</a></li>
-<li><a href="#org820f552">Solving the duplicate keys problem</a></li>
+<li><a href="#org329cb41">Using less space</a></li>
+<li><a href="#orgc0fde6b">Solving the duplicate keys problem</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9a29dc5">Picking the <i>right</i> hash function</a>
+<li><a href="#orge2b3d21">Picking the <i>right</i> hash function</a>
 <ul>
-<li><a href="#org5d069cf">The divmod method</a>
+<li><a href="#org90d12f6">The divmod method</a>
 <ul>
-<li><a href="#org8e8cf40">Additional methods</a></li>
+<li><a href="#org140b835">Additional methods</a></li>
 </ul>
 </li>
-<li><a href="#orga024981">The Universal Hashing Function</a></li>
+<li><a href="#orgef3d6ae">The Universal Hashing Function</a></li>
 </ul>
 </li>
-<li><a href="#org7f3d190">Dynamic allocation</a></li>
-<li><a href="#org351eb3f">Summary</a></li>
+<li><a href="#org1721946">Dynamic allocation</a></li>
+<li><a href="#org019bb44">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5f91837" class="outline-2">
-<h2 id="org5f91837"><a href="#org5f91837">Lecture notes:</a></h2>
-<div class="outline-text-2" id="text-org5f91837">
+<div id="outline-container-orgc46a31b" class="outline-2">
+<h2 id="orgc46a31b"><a href="#orgc46a31b">Lecture notes:</a></h2>
+<div class="outline-text-2" id="text-orgc46a31b">
 <ul class="org-ul">
 <li>Professor: Jason Ku</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=Nu8YGneFCWE&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=5">YouTube Link</a></li>
@@ -106,9 +106,9 @@
 </div>
 </div>
 
-<div id="outline-container-orgebde705" class="outline-2">
-<h2 id="orgebde705"><a href="#orgebde705">Set vs Sequence</a></h2>
-<div class="outline-text-2" id="text-orgebde705">
+<div id="outline-container-orgb66000c" class="outline-2">
+<h2 id="orgb66000c"><a href="#orgb66000c">Set vs Sequence</a></h2>
+<div class="outline-text-2" id="text-orgb66000c">
 <p>
 <i>Linking to the previous lecture</i>
 </p>
@@ -124,9 +124,9 @@ key)
 </div>
 </div>
 
-<div id="outline-container-orgb255ac4" class="outline-2">
-<h2 id="orgb255ac4"><a href="#orgb255ac4">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a></h2>
-<div class="outline-text-2" id="text-orgb255ac4">
+<div id="outline-container-org96fa5f7" class="outline-2">
+<h2 id="org96fa5f7"><a href="#org96fa5f7">Prove that <code>find()</code> can not be faster than \(O(\lg{n})\)</a></h2>
+<div class="outline-text-2" id="text-org96fa5f7">
 <p>
 In the <a href="6.006-lec-3:-sorting.html">last lecture</a>, we managed to reduce the time needed to find an element in
 our data structure from \(O(n)\) to \(O(\lg{n})\)<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, by implementing a sorted array.
@@ -141,9 +141,9 @@ Well yes&#x2026; but actually, no!<sup><a id="fnr.2" class="footref" href="#fn.2
 Let&rsquo;s see it in greater detail
 </p>
 </div>
-<div id="outline-container-orga8de610" class="outline-3">
-<h3 id="orga8de610"><a href="#orga8de610">The comparison model</a></h3>
-<div class="outline-text-3" id="text-orga8de610">
+<div id="outline-container-org5e333af" class="outline-3">
+<h3 id="org5e333af"><a href="#org5e333af">The comparison model</a></h3>
+<div class="outline-text-3" id="text-org5e333af">
 <p>
 In the comparison model, the items themselves do not matter ( their value ), but
 we use only comparison operations on them to differentiate them ( and sort them
@@ -156,9 +156,9 @@ Every single one of the algorithms found in lecture 3 were following that model.
 </div>
 </div>
 
-<div id="outline-container-org8018e1b" class="outline-3">
-<h3 id="org8018e1b"><a href="#org8018e1b">The decision tree</a></h3>
-<div class="outline-text-3" id="text-org8018e1b">
+<div id="outline-container-org282fddd" class="outline-3">
+<h3 id="org282fddd"><a href="#org282fddd">The decision tree</a></h3>
+<div class="outline-text-3" id="text-org282fddd">
 <p>
 The decision tree is a binary tree, with each node representing a comparison
 operation and creating a branch for each of the possible outcomes of the comparison.
@@ -187,9 +187,9 @@ comparison model.
 </div>
 </div>
 
-<div id="outline-container-org65b75ef" class="outline-2">
-<h2 id="org65b75ef"><a href="#org65b75ef"><code>find()</code> at \(0(1)\)</a></h2>
-<div class="outline-text-2" id="text-org65b75ef">
+<div id="outline-container-org74f7bdb" class="outline-2">
+<h2 id="org74f7bdb"><a href="#org74f7bdb"><code>find()</code> at \(0(1)\)</a></h2>
+<div class="outline-text-2" id="text-org74f7bdb">
 <p>
 What if we want to perform <code>find()</code> faster, though?
 </p>
@@ -201,9 +201,9 @@ we will gain advantage of the actual value, using it as a white-box instead.
 </p>
 </div>
 
-<div id="outline-container-orgd99fb48" class="outline-3">
-<h3 id="orgd99fb48"><a href="#orgd99fb48">Static array</a></h3>
-<div class="outline-text-3" id="text-orgd99fb48">
+<div id="outline-container-orge781af3" class="outline-3">
+<h3 id="orge781af3"><a href="#orge781af3">Static array</a></h3>
+<div class="outline-text-3" id="text-orge781af3">
 <p>
 <i>In this course this technique is often referred to as Direct Access Array</i>
 </p>
@@ -216,18 +216,18 @@ which every item with key \(k\) gets stored at \(x[k]\), <code>find(k)</code> wi
 </div>
 </div>
 
-<div id="outline-container-org6ff65e1" class="outline-3">
-<h3 id="org6ff65e1"><a href="#org6ff65e1">Drawbacks</a></h3>
-<div class="outline-text-3" id="text-org6ff65e1">
+<div id="outline-container-org4b871b6" class="outline-3">
+<h3 id="org4b871b6"><a href="#org4b871b6">Drawbacks</a></h3>
+<div class="outline-text-3" id="text-org4b871b6">
 <p>
 With relatively no extra work we have managed to implement <code>find(k)</code> at
 \(0(1)\)&#x2026; But at what cost?
 </p>
 </div>
 
-<div id="outline-container-org4c285bc" class="outline-4">
-<h4 id="org4c285bc"><a href="#org4c285bc">What if we deal with huge key values</a></h4>
-<div class="outline-text-4" id="text-org4c285bc">
+<div id="outline-container-org3740998" class="outline-4">
+<h4 id="org3740998"><a href="#org3740998">What if we deal with huge key values</a></h4>
+<div class="outline-text-4" id="text-org3740998">
 <p>
 Not talking about \(n\) but about the keys. The array we create to store our
 data needs to have at least so many indeces as the highest key value, meaning
@@ -249,18 +249,18 @@ array would need to be of size O(10<sup>10</sup>)!
 </div>
 </div>
 
-<div id="outline-container-org6f12745" class="outline-4">
-<h4 id="org6f12745"><a href="#org6f12745">Limitation regarding the key values that can be stored</a></h4>
-<div class="outline-text-4" id="text-org6f12745">
+<div id="outline-container-orga86f9ec" class="outline-4">
+<h4 id="orga86f9ec"><a href="#orga86f9ec">Limitation regarding the key values that can be stored</a></h4>
+<div class="outline-text-4" id="text-orga86f9ec">
 <p>
 Think of the registers of size w, so we can use \(2^w\) number of addresses<sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf58fa75" class="outline-4">
-<h4 id="orgf58fa75"><a href="#orgf58fa75">Same keys?</a></h4>
-<div class="outline-text-4" id="text-orgf58fa75">
+<div id="outline-container-orgaf57df1" class="outline-4">
+<h4 id="orgaf57df1"><a href="#orgaf57df1">Same keys?</a></h4>
+<div class="outline-text-4" id="text-orgaf57df1">
 <p>
 We assume that all of our keys are unique. In this implementation there is no
 way to deal with collisions.
@@ -269,13 +269,13 @@ way to deal with collisions.
 </div>
 </div>
 
-<div id="outline-container-org948f07a" class="outline-3">
-<h3 id="org948f07a"><a href="#org948f07a">Improving on that model</a></h3>
-<div class="outline-text-3" id="text-org948f07a">
+<div id="outline-container-orgda13c0c" class="outline-3">
+<h3 id="orgda13c0c"><a href="#orgda13c0c">Improving on that model</a></h3>
+<div class="outline-text-3" id="text-orgda13c0c">
 </div>
-<div id="outline-container-orgd1eb04f" class="outline-4">
-<h4 id="orgd1eb04f"><a href="#orgd1eb04f">Using less space</a></h4>
-<div class="outline-text-4" id="text-orgd1eb04f">
+<div id="outline-container-org329cb41" class="outline-4">
+<h4 id="org329cb41"><a href="#org329cb41">Using less space</a></h4>
+<div class="outline-text-4" id="text-org329cb41">
 <p>
 Since most of our problems with the previous structure are associated with its
 enormous size, it is vital to reduce the space needed for it. To do that we will
@@ -292,8 +292,8 @@ The array that is the result of this operation is called <span class="underline"
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org73ab9f4"></a><a href="#org73ab9f4">The pigeonhole principle</a><br />
-<div class="outline-text-5" id="text-org73ab9f4">
+<li><a id="orgc30bb85"></a><a href="#orgc30bb85">The pigeonhole principle</a><br />
+<div class="outline-text-5" id="text-orgc30bb85">
 <p>
 That seems fantastic, dealing effectively with our unused space problem. Another
 problem arises, though. Depending on the number \(m\) that we choose, the
@@ -311,23 +311,23 @@ usage of a right hashing method imperative for our model to function.
 </ul>
 </div>
 
-<div id="outline-container-org820f552" class="outline-4">
-<h4 id="org820f552"><a href="#org820f552">Solving the duplicate keys problem</a></h4>
-<div class="outline-text-4" id="text-org820f552">
+<div id="outline-container-orgc0fde6b" class="outline-4">
+<h4 id="orgc0fde6b"><a href="#orgc0fde6b">Solving the duplicate keys problem</a></h4>
+<div class="outline-text-4" id="text-orgc0fde6b">
 <p>
 Two solutions:
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org13139b3"></a><a href="#org13139b3">Open addressing</a><br />
-<div class="outline-text-5" id="text-org13139b3">
+<li><a id="org9b4c845"></a><a href="#org9b4c845">Open addressing</a><br />
+<div class="outline-text-5" id="text-org9b4c845">
 <p>
 <i>notoriously difficult to analyze</i>
 </p>
 </div>
 </li>
-<li><a id="orga4c464d"></a><a href="#orga4c464d">The chaining idea</a><br />
-<div class="outline-text-5" id="text-orga4c464d">
+<li><a id="org63a82db"></a><a href="#org63a82db">The chaining idea</a><br />
+<div class="outline-text-5" id="text-org63a82db">
 <p>
 At collision, add a pointer to another data structure (presumably a linked
 list), effectively mapping each key \(x[k]\to\) a structure containing all
@@ -355,18 +355,18 @@ And if that is true, then we can access every index in \(O(1)\) time.
 </div>
 </div>
 
-<div id="outline-container-org9a29dc5" class="outline-2">
-<h2 id="org9a29dc5"><a href="#org9a29dc5">Picking the <i>right</i> hash function</a></h2>
-<div class="outline-text-2" id="text-org9a29dc5">
+<div id="outline-container-orge2b3d21" class="outline-2">
+<h2 id="orge2b3d21"><a href="#orge2b3d21">Picking the <i>right</i> hash function</a></h2>
+<div class="outline-text-2" id="text-orge2b3d21">
 <p>
 Collisions are <i>in general</i> unavoidable. The only thing that one can do to get
 away is to select \(m\) and the hashing function appropriately
 </p>
 </div>
 
-<div id="outline-container-org5d069cf" class="outline-3">
-<h3 id="org5d069cf"><a href="#org5d069cf">The divmod method</a></h3>
-<div class="outline-text-3" id="text-org5d069cf">
+<div id="outline-container-org90d12f6" class="outline-3">
+<h3 id="org90d12f6"><a href="#org90d12f6">The divmod method</a></h3>
+<div class="outline-text-3" id="text-org90d12f6">
 <p>
 An example of a hash function is the following:
 </p>
@@ -381,9 +381,9 @@ the function will not perform well
 </p>
 </div>
 
-<div id="outline-container-org8e8cf40" class="outline-4">
-<h4 id="org8e8cf40"><a href="#org8e8cf40">Additional methods</a></h4>
-<div class="outline-text-4" id="text-org8e8cf40">
+<div id="outline-container-org140b835" class="outline-4">
+<h4 id="org140b835"><a href="#org140b835">Additional methods</a></h4>
+<div class="outline-text-4" id="text-org140b835">
 <p>
 <i>These are not discussed in the lecture, taken from A.U.Th course</i>
 </p>
@@ -404,9 +404,9 @@ keys digits at these places</li>
 </div>
 </div>
 
-<div id="outline-container-orga024981" class="outline-3">
-<h3 id="orga024981"><a href="#orga024981">The Universal Hashing Functio<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>n</a></h3>
-<div class="outline-text-3" id="text-orga024981">
+<div id="outline-container-orgef3d6ae" class="outline-3">
+<h3 id="orgef3d6ae"><a href="#orgef3d6ae">The Universal Hashing Functio<sup><a id="fnr.5" class="footref" href="#fn.5" role="doc-backlink">5</a></sup>n</a></h3>
+<div class="outline-text-3" id="text-orgef3d6ae">
 <p>
 Instead of using a single function, it is possible to fix a family of them,
 something that  we refer to as a UHF<sup><a id="fnr.6" class="footref" href="#fn.6" role="doc-backlink">6</a></sup>, to avoid the error presented above:
@@ -442,9 +442,9 @@ E_{h\in{H}}\{X_{i}\} &= E_{h\in{H}}\sum_{j=0}^{n-1}X_{ij} = \cdots \leq 1+\frac{
 </div>
 
 
-<div id="outline-container-org7f3d190" class="outline-2">
-<h2 id="org7f3d190"><a href="#org7f3d190">Dynamic allocation</a></h2>
-<div class="outline-text-2" id="text-org7f3d190">
+<div id="outline-container-org1721946" class="outline-2">
+<h2 id="org1721946"><a href="#org1721946">Dynamic allocation</a></h2>
+<div class="outline-text-2" id="text-org1721946">
 <p>
 Combining that with what we discussed in previous lectures about dynamic arrays,
 we can optimize it for quick insertions/deletions, and low unused space. This
@@ -453,9 +453,9 @@ way, cost can be <span class="underline">amortized</span>.
 </div>
 </div>
 
-<div id="outline-container-org351eb3f" class="outline-2">
-<h2 id="org351eb3f"><a href="#org351eb3f">Summary</a></h2>
-<div class="outline-text-2" id="text-org351eb3f">
+<div id="outline-container-org019bb44" class="outline-2">
+<h2 id="org019bb44"><a href="#org019bb44">Summary</a></h2>
+<div class="outline-text-2" id="text-org019bb44">
 <p>
 Hashing is a technique, used to organize the input data, getting large integers
 and mapping them to smaller ones to save space, or getting other types of keys

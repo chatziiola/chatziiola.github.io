@@ -22,34 +22,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6772b8d">Commentary</a></li>
-<li><a href="#org68651e0">Εισαγωγή</a></li>
-<li><a href="#org54138ce">Writing code</a>
+<li><a href="#orgf8ac1da">Commentary</a></li>
+<li><a href="#org864b52c">Εισαγωγή</a></li>
+<li><a href="#org04a61dd">Writing code</a>
 <ul>
-<li><a href="#orga96bd62">Code and Results</a></li>
-<li><a href="#orgf898d91">Example Only</a></li>
+<li><a href="#org88486b1">Code and Results</a></li>
+<li><a href="#orgc0dc94c">Example Only</a></li>
 </ul>
 </li>
-<li><a href="#org4cef008">Setting directory in which the code is to run</a>
+<li><a href="#org6b05ade">Setting directory in which the code is to run</a>
 <ul>
-<li><a href="#orga48f371">Modifying the directory var to run on a server</a></li>
+<li><a href="#orgba6b483">Modifying the directory var to run on a server</a></li>
 </ul>
 </li>
-<li><a href="#orgbd63540">Setting Variables</a>
+<li><a href="#org111ddb0">Setting Variables</a>
 <ul>
-<li><a href="#org6a4b24d">Setting variables up so that they are used in all source blocks</a></li>
+<li><a href="#orgeb6797c">Setting variables up so that they are used in all source blocks</a></li>
 </ul>
 </li>
-<li><a href="#org9efe47c">Tangle</a></li>
-<li><a href="#org9266e95">Exporting</a></li>
+<li><a href="#org06c7df2">Tangle</a></li>
+<li><a href="#org212591e">Exporting</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org6772b8d" class="outline-2">
-<h2 id="org6772b8d"><a href="#org6772b8d">Commentary</a></h2>
-<div class="outline-text-2" id="text-org6772b8d">
+<div id="outline-container-orgf8ac1da" class="outline-2">
+<h2 id="orgf8ac1da"><a href="#orgf8ac1da">Commentary</a></h2>
+<div class="outline-text-2" id="text-orgf8ac1da">
 <p>
 This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>.
 </p>
@@ -77,9 +77,9 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </div>
 </div>
 
-<div id="outline-container-org68651e0" class="outline-2">
-<h2 id="org68651e0"><a href="#org68651e0">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-org68651e0">
+<div id="outline-container-org864b52c" class="outline-2">
+<h2 id="org864b52c"><a href="#org864b52c">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org864b52c">
 <p>
 Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
 στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
@@ -119,9 +119,9 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </div>
 </div>
 
-<div id="outline-container-org54138ce" class="outline-2">
-<h2 id="org54138ce"><a href="#org54138ce">Writing code</a></h2>
-<div class="outline-text-2" id="text-org54138ce">
+<div id="outline-container-org04a61dd" class="outline-2">
+<h2 id="org04a61dd"><a href="#org04a61dd">Writing code</a></h2>
+<div class="outline-text-2" id="text-org04a61dd">
 <p>
 Τα βασικά είναι:
 </p>
@@ -130,7 +130,7 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
 βάλεις εύκολα χρησιμοποιώντας το <code>C-c C-,</code>:
 </p>
-<pre class="example" id="orge4f01bc">
+<pre class="example" id="org1956cd7">
 #+begin_src sh
 #+end_src
 </pre></li>
@@ -138,13 +138,13 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </ol>
 </div>
 
-<div id="outline-container-orga96bd62" class="outline-3">
-<h3 id="orga96bd62"><a href="#orga96bd62">Code and Results</a></h3>
-<div class="outline-text-3" id="text-orga96bd62">
+<div id="outline-container-org88486b1" class="outline-3">
+<h3 id="org88486b1"><a href="#org88486b1">Code and Results</a></h3>
+<div class="outline-text-3" id="text-org88486b1">
 <p>
 This shows both input 
 </p>
-<pre class="example" id="org0be65a3">
+<pre class="example" id="org8a361ee">
 #+begin_src sh :exports both
 #+end_src
 </pre>
@@ -160,13 +160,13 @@ This shows both input
 </div>
 
 
-<div id="outline-container-orgf898d91" class="outline-3">
-<h3 id="orgf898d91"><a href="#orgf898d91">Example Only</a></h3>
-<div class="outline-text-3" id="text-orgf898d91">
+<div id="outline-container-orgc0dc94c" class="outline-3">
+<h3 id="orgc0dc94c"><a href="#orgc0dc94c">Example Only</a></h3>
+<div class="outline-text-3" id="text-orgc0dc94c">
 <p>
 Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
 </p>
-<pre class="example" id="orga629f0a">
+<pre class="example" id="orge982eed">
 #+begin_src sh :exports code
 #+end_src
 </pre>
@@ -181,10 +181,10 @@ pip install --upgrade flake
 </div>
 </div>
 
-<div id="outline-container-org4cef008" class="outline-2">
-<h2 id="org4cef008"><a href="#org4cef008">Setting directory in which the code is to run</a></h2>
-<div class="outline-text-2" id="text-org4cef008">
-<pre class="example" id="org81ed5ab">
+<div id="outline-container-org6b05ade" class="outline-2">
+<h2 id="org6b05ade"><a href="#org6b05ade">Setting directory in which the code is to run</a></h2>
+<div class="outline-text-2" id="text-org6b05ade">
+<pre class="example" id="org264933c">
 #+begin_src sh :dir ~
 #+end_src
 </pre>
@@ -198,10 +198,10 @@ pip install --upgrade flake
 </div>
 </div>
 
-<div id="outline-container-orga48f371" class="outline-3">
-<h3 id="orga48f371"><a href="#orga48f371">Modifying the directory var to run on a server</a></h3>
-<div class="outline-text-3" id="text-orga48f371">
-<pre class="example" id="org522eeb7">
+<div id="outline-container-orgba6b483" class="outline-3">
+<h3 id="orgba6b483"><a href="#orgba6b483">Modifying the directory var to run on a server</a></h3>
+<div class="outline-text-3" id="text-orgba6b483">
+<pre class="example" id="orgb8e053f">
 #:PROPERTIES:
 #:dir:  /&lt;server-dns&gt;:
 #:END:
@@ -214,10 +214,10 @@ I am not sure how this works though.
 </div>
 </div>
 
-<div id="outline-container-orgbd63540" class="outline-2">
-<h2 id="orgbd63540"><a href="#orgbd63540">Setting Variables</a></h2>
-<div class="outline-text-2" id="text-orgbd63540">
-<pre class="example" id="org9916b8c">
+<div id="outline-container-org111ddb0" class="outline-2">
+<h2 id="org111ddb0"><a href="#org111ddb0">Setting Variables</a></h2>
+<div class="outline-text-2" id="text-org111ddb0">
+<pre class="example" id="org8732d35">
 #+begin_src sh :var varname=varvalue
 #+end_src
 </pre>
@@ -229,10 +229,10 @@ I am not sure how this works though.
 </div>
 
 
-<div id="outline-container-org6a4b24d" class="outline-3">
-<h3 id="org6a4b24d"><a href="#org6a4b24d">Setting variables up so that they are used in all source blocks</a></h3>
-<div class="outline-text-3" id="text-org6a4b24d">
-<pre class="example" id="org50629b5">
+<div id="outline-container-orgeb6797c" class="outline-3">
+<h3 id="orgeb6797c"><a href="#orgeb6797c">Setting variables up so that they are used in all source blocks</a></h3>
+<div class="outline-text-3" id="text-orgeb6797c">
+<pre class="example" id="org2e09569">
 #:PROPERTIES:
 #:dir:  /Users/sickvm
 #:END:
@@ -249,25 +249,25 @@ Nah this does not seem to be working - I do not know why though.
 </div>
 </div>
 
-<div id="outline-container-org9efe47c" class="outline-2">
-<h2 id="org9efe47c"><a href="#org9efe47c">Tangle</a></h2>
-<div class="outline-text-2" id="text-org9efe47c">
+<div id="outline-container-org06c7df2" class="outline-2">
+<h2 id="org06c7df2"><a href="#org06c7df2">Tangle</a></h2>
+<div class="outline-text-2" id="text-org06c7df2">
 <p>
 Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
 <i>κλασσικού</i> προγραμματισμού, μέσα από ένα αρχείο literate programming:
 <code>org-babel-tangle</code>
 </p>
 
-<pre class="example" id="org0ef48e8">
+<pre class="example" id="org75ea546">
 #+begin_src sh :tangle &lt;filename&gt;
 #+end_src
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org9266e95" class="outline-2">
-<h2 id="org9266e95"><a href="#org9266e95">Exporting</a></h2>
-<div class="outline-text-2" id="text-org9266e95">
+<div id="outline-container-org212591e" class="outline-2">
+<h2 id="org212591e"><a href="#org212591e">Exporting</a></h2>
+<div class="outline-text-2" id="text-org212591e">
 <p>
 Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το <code>C-c C-e</code> δουλέυει
 και απο μόνο του.

