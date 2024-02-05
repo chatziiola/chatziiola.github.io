@@ -8,8 +8,7 @@
 <title>1ο Εργαστήριο</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -54,18 +53,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc6add7f">Το σύστημα</a></li>
-<li><a href="#org1f20a5e">Θέσιμο παραμέτρων</a></li>
-<li><a href="#orge0030ee">Ευστάθεια συστήματος</a></li>
-<li><a href="#orgb5dd90e">DC Gain</a></li>
-<li><a href="#orge0bf0be">Plotting με step function</a>
+<li><a href="#org520b98d">Το σύστημα</a></li>
+<li><a href="#org29a905e">Θέσιμο παραμέτρων</a></li>
+<li><a href="#org4d11a26">Ευστάθεια συστήματος</a></li>
+<li><a href="#org0515a1f">DC Gain</a></li>
+<li><a href="#org1f6b581">Plotting με step function</a>
 <ul>
-<li><a href="#orgcca5b55">Θεωρητικά σχόλια</a></li>
+<li><a href="#orge15d2aa">Θεωρητικά σχόλια</a></li>
 </ul>
 </li>
-<li><a href="#org1f0c04b">Προσέγγιση</a></li>
-<li><a href="#orgf78205d">LSIN</a></li>
-<li><a href="#org381a7c4">Επίδραση φορτίου στην απόκριση στροφών</a></li>
+<li><a href="#org7c61f89">Προσέγγιση</a></li>
+<li><a href="#orgd0e1587">LSIN</a></li>
+<li><a href="#org9c64286">Επίδραση φορτίου στην απόκριση στροφών</a></li>
 </ul>
 </div>
 </div>
@@ -80,7 +79,7 @@ cli του Matlab</li>
 συγκριτές, θέτοντας παράλληλα και προδιαγραφές</li>
 </ul>
 
-<div class="note" id="orgaf354c0">
+<div class="note" id="orgab91683">
 <p>
 Σε όλες τις σημειώσεις έχω χρησιμοποιήσει source blocks του octave γιατί εκείνο
 τρέχω/έχω εγκατεστημένο στο workstation μου. Προφανώς το εργαστήριο
@@ -95,9 +94,9 @@ cli του Matlab</li>
 </div>
 
 
-<div id="outline-container-orgc6add7f" class="outline-2">
-<h2 id="orgc6add7f"><a href="#orgc6add7f">Το σύστημα</a></h2>
-<div class="outline-text-2" id="text-orgc6add7f">
+<div id="outline-container-org520b98d" class="outline-2">
+<h2 id="org520b98d"><a href="#org520b98d">Το σύστημα</a></h2>
+<div class="outline-text-2" id="text-org520b98d">
 <p>
 Η μοντελοποίηση του συστήματος είναι της μορφής:
 <img src="course_sae1_images/221207_0858_sae1_lab1_system.png" alt="221207_0858_sae1_lab1_system.png" />
@@ -129,9 +128,9 @@ H_t&=
 </div>
 </div>
 
-<div id="outline-container-org1f20a5e" class="outline-2">
-<h2 id="org1f20a5e"><a href="#org1f20a5e">Θέσιμο παραμέτρων</a></h2>
-<div class="outline-text-2" id="text-org1f20a5e">
+<div id="outline-container-org29a905e" class="outline-2">
+<h2 id="org29a905e"><a href="#org29a905e">Θέσιμο παραμέτρων</a></h2>
+<div class="outline-text-2" id="text-org29a905e">
 <p>
 Οταν φτιάχνεις array με συντελεστές πολυωνύμου προσέχεις να εισάγεις <b>όλους</b> τους
 όρους, ακόμα και εκείνους που <i>φαινομενικά</i> παραλείπονται.
@@ -164,9 +163,9 @@ HTo <span class="org-builtin">=</span> tf(nTo<span class="org-builtin">,</span>d
 </div>
 </div>
 
-<div id="outline-container-orge0030ee" class="outline-2">
-<h2 id="orge0030ee"><a href="#orge0030ee">Ευστάθεια συστήματος</a></h2>
-<div class="outline-text-2" id="text-orge0030ee">
+<div id="outline-container-org4d11a26" class="outline-2">
+<h2 id="org4d11a26"><a href="#org4d11a26">Ευστάθεια συστήματος</a></h2>
+<div class="outline-text-2" id="text-org4d11a26">
 <p>
 Με την παρακάτω συνάρτηση μπορούμε να πάρουμε τις ρίζες ενός πολυωνύμου
 </p>
@@ -185,9 +184,9 @@ p <span class="org-builtin">=</span> roots(dVo)<span class="org-builtin">;</span
 </div>
 </div>
 
-<div id="outline-container-orgb5dd90e" class="outline-2">
-<h2 id="orgb5dd90e"><a href="#orgb5dd90e">DC Gain</a></h2>
-<div class="outline-text-2" id="text-orgb5dd90e">
+<div id="outline-container-org0515a1f" class="outline-2">
+<h2 id="org0515a1f"><a href="#org0515a1f">DC Gain</a></h2>
+<div class="outline-text-2" id="text-org0515a1f">
 <p>
 Για την ενίσχυση στο Steady State (δηλαδή το dc-gain) ισχύει:
 </p>
@@ -208,9 +207,9 @@ dcTVo <span class="org-builtin">=</span> dcgain(HTo)<span class="org-builtin">;<
 </div>
 </div>
 
-<div id="outline-container-orge0bf0be" class="outline-2">
-<h2 id="orge0bf0be"><a href="#orge0bf0be">Plotting με step function</a></h2>
-<div class="outline-text-2" id="text-orge0bf0be">
+<div id="outline-container-org1f6b581" class="outline-2">
+<h2 id="org1f6b581"><a href="#org1f6b581">Plotting με step function</a></h2>
+<div class="outline-text-2" id="text-org1f6b581">
 <p>
 Μπορούμε να δούμε την απόκριση του συστήματος μας αν για είσοδο είχε ένα step
 function μέσω των παρακάτω εντολών:
@@ -225,9 +224,9 @@ step(HTo)
 </div>
 </div>
 
-<div id="outline-container-orgcca5b55" class="outline-3">
-<h3 id="orgcca5b55"><a href="#orgcca5b55">Θεωρητικά σχόλια</a></h3>
-<div class="outline-text-3" id="text-orgcca5b55">
+<div id="outline-container-orge15d2aa" class="outline-3">
+<h3 id="orge15d2aa"><a href="#orge15d2aa">Θεωρητικά σχόλια</a></h3>
+<div class="outline-text-3" id="text-orge15d2aa">
 <ul class="org-ul">
 <li>Παρατηρούμε πως το unit step (κατά την διάρκεια του) μας επιτρέπει να φτάσουμε
 την ss κατάσταση του συστήματος</li>
@@ -240,9 +239,9 @@ step(HTo)
 </div>
 </div>
 
-<div id="outline-container-org1f0c04b" class="outline-2">
-<h2 id="org1f0c04b"><a href="#org1f0c04b">Προσέγγιση</a></h2>
-<div class="outline-text-2" id="text-org1f0c04b">
+<div id="outline-container-org7c61f89" class="outline-2">
+<h2 id="org7c61f89"><a href="#org7c61f89">Προσέγγιση</a></h2>
+<div class="outline-text-2" id="text-org7c61f89">
 <p>
 Μπορούμε να προσεγγίσουμε την συμπεριφορά του συστήματος αφαιρώντας τον πόλο μα
 <i>κρατώντας</i> την θέση του (αυτό οφείλεται στο οτι το μεταβατικό φεύγει γρήγορα)
@@ -268,9 +267,9 @@ step(HV)
 </div>
 </div>
 
-<div id="outline-container-orgf78205d" class="outline-2">
-<h2 id="orgf78205d"><a href="#orgf78205d">LSIN</a></h2>
-<div class="outline-text-2" id="text-orgf78205d">
+<div id="outline-container-orgd0e1587" class="outline-2">
+<h2 id="orgd0e1587"><a href="#orgd0e1587">LSIN</a></h2>
+<div class="outline-text-2" id="text-orgd0e1587">
 <div class="org-src-container">
 <pre class="src src-octave">t <span class="org-builtin">=</span> 0 <span class="org-builtin">:</span> 0.001 <span class="org-builtin">:</span> 0.7<span class="org-builtin">;</span>
 uV <span class="org-builtin">=</span> 150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
@@ -285,9 +284,9 @@ plot(t<span class="org-builtin">,</span>yV1<span class="org-builtin">,</span>t<s
 </div>
 </div>
 
-<div id="outline-container-org381a7c4" class="outline-2">
-<h2 id="org381a7c4"><a href="#org381a7c4">Επίδραση φορτίου στην απόκριση στροφών</a></h2>
-<div class="outline-text-2" id="text-org381a7c4">
+<div id="outline-container-org9c64286" class="outline-2">
+<h2 id="org9c64286"><a href="#org9c64286">Επίδραση φορτίου στην απόκριση στροφών</a></h2>
+<div class="outline-text-2" id="text-org9c64286">
 <div class="org-src-container">
 <pre class="src src-octave">uV<span class="org-builtin">=</span>150<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
 uT1<span class="org-builtin">=</span>0.5<span class="org-builtin">*</span>stepfun(t<span class="org-builtin">,</span>0)<span class="org-builtin">;</span>
@@ -318,7 +317,7 @@ plot(t<span class="org-builtin">,</span> y1<span class="org-builtin">,</span> t<
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-11-24 Thu 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

@@ -8,8 +8,7 @@
 <title>6.006 Lec 5: Linear Sorting</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -54,40 +53,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org08e2f82">Lecture details:</a>
+<li><a href="#orgad18c60">Lecture details:</a>
 <ul>
-<li><a href="#org897519e">Note</a></li>
+<li><a href="#org02857c1">Note</a></li>
 </ul>
 </li>
-<li><a href="#orgb520fbd">Introduction</a></li>
-<li><a href="#orgb426915">Sorting</a>
+<li><a href="#org0637dea">Introduction</a></li>
+<li><a href="#org6a2ff7e">Sorting</a>
 <ul>
-<li><a href="#org4704662">Direct Access Array Sort</a></li>
-<li><a href="#orgae55d5b">Tuple sort</a>
+<li><a href="#org7a46a3a">Direct Access Array Sort</a></li>
+<li><a href="#orga7c4d0c">Tuple sort</a>
 <ul>
-<li><a href="#org576ca2f">Counting sort</a></li>
-<li><a href="#orgd1f3ca0">Why is that faster?</a></li>
+<li><a href="#org49f4dc4">Counting sort</a></li>
+<li><a href="#orgf785128">Why is that faster?</a></li>
 </ul>
 </li>
-<li><a href="#org4a6c590">Radix Sort</a></li>
+<li><a href="#orgb9f1f2f">Radix Sort</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org08e2f82" class="outline-2">
-<h2 id="org08e2f82"><a href="#org08e2f82">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org08e2f82">
+<div id="outline-container-orgad18c60" class="outline-2">
+<h2 id="orgad18c60"><a href="#orgad18c60">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-orgad18c60">
 <ul class="org-ul">
 <li>Professor: Jason Kun</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=yndgIDO0zQQ&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=7">YouTube Link</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org897519e" class="outline-3">
-<h3 id="org897519e"><a href="#org897519e">Note</a></h3>
-<div class="outline-text-3" id="text-org897519e">
+<div id="outline-container-org02857c1" class="outline-3">
+<h3 id="org02857c1"><a href="#org02857c1">Note</a></h3>
+<div class="outline-text-3" id="text-org02857c1">
 <p>
 This lecture seemed full of gaps to me. Only through the lecture and rescitation
 notes did I understand the topics discussed.
@@ -96,9 +95,9 @@ notes did I understand the topics discussed.
 </div>
 </div>
 
-<div id="outline-container-orgb520fbd" class="outline-2">
-<h2 id="orgb520fbd"><a href="#orgb520fbd">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgb520fbd">
+<div id="outline-container-org0637dea" class="outline-2">
+<h2 id="org0637dea"><a href="#org0637dea">Introduction</a></h2>
+<div class="outline-text-2" id="text-org0637dea">
 <p>
 In lecture 3, we discussed sorting algorithms based on the comparison model. We
 saw however, that using similar-to-hash functions we can move from the comparison to the
@@ -107,9 +106,9 @@ word RAM model and take advantage of \(O(1)\) access.
 </div>
 </div>
 
-<div id="outline-container-orgb426915" class="outline-2">
-<h2 id="orgb426915"><a href="#orgb426915">Sorting</a></h2>
-<div class="outline-text-2" id="text-orgb426915">
+<div id="outline-container-org6a2ff7e" class="outline-2">
+<h2 id="org6a2ff7e"><a href="#org6a2ff7e">Sorting</a></h2>
+<div class="outline-text-2" id="text-org6a2ff7e">
 <p>
 In the comparison model, the <code>find(k)</code> operation has \(n+1\) possible output
 items while the <code>sort()</code> function has \(n!\) possible outputs, the \(n!\)
@@ -127,9 +126,9 @@ O(\lg{n!}) \to \Omega(n\lg{n})
 \end{align}
 </div>
 
-<div id="outline-container-org4704662" class="outline-3">
-<h3 id="org4704662"><a href="#org4704662">Direct Access Array Sort</a></h3>
-<div class="outline-text-3" id="text-org4704662">
+<div id="outline-container-org7a46a3a" class="outline-3">
+<h3 id="org7a46a3a"><a href="#org7a46a3a">Direct Access Array Sort</a></h3>
+<div class="outline-text-3" id="text-org7a46a3a">
 <p>
 Instantiante a big access array and store every item <code>x</code> in the <code>x.key</code> slot.
 Then walk down the array (iterate through it), returning the items in their
@@ -175,9 +174,9 @@ that, the running time can be \(O(n)\) if \(u = O(n)\), however, it can also bec
 </div>
 </div>
 
-<div id="outline-container-orgae55d5b" class="outline-3">
-<h3 id="orgae55d5b"><a href="#orgae55d5b">Tuple sort</a></h3>
-<div class="outline-text-3" id="text-orgae55d5b">
+<div id="outline-container-orga7c4d0c" class="outline-3">
+<h3 id="orga7c4d0c"><a href="#orga7c4d0c">Tuple sort</a></h3>
+<div class="outline-text-3" id="text-orga7c4d0c">
 <p>
 What if we <i>split</i> the key values though?
 </p>
@@ -206,9 +205,9 @@ not <i>differentiate</i> between two items, the order that the items have in inp
 </p>
 </div>
 
-<div id="outline-container-org576ca2f" class="outline-4">
-<h4 id="org576ca2f"><a href="#org576ca2f">Counting sort</a></h4>
-<div class="outline-text-4" id="text-org576ca2f">
+<div id="outline-container-org49f4dc4" class="outline-4">
+<h4 id="org49f4dc4"><a href="#org49f4dc4">Counting sort</a></h4>
+<div class="outline-text-4" id="text-org49f4dc4">
 <p>
 In this <b>stable</b> algorithm, given an array \(A\) we put every item in \(x\in A\) in a
 dynamic structure at <code>B[x.key]</code>. Then we iterate through \(B\), returning the
@@ -232,11 +231,11 @@ items in a <i>FIFO</i> order.
 </div>
 </div>
 
-<div id="outline-container-orgd1f3ca0" class="outline-4">
-<h4 id="orgd1f3ca0"><a href="#orgd1f3ca0">Why is that faster?</a></h4>
-<div class="outline-text-4" id="text-orgd1f3ca0">
+<div id="outline-container-orgf785128" class="outline-4">
+<h4 id="orgf785128"><a href="#orgf785128">Why is that faster?</a></h4>
+<div class="outline-text-4" id="text-orgf785128">
 <p>
-Even though it does not look much different to <a href="#org4704662">DAA Sort</a>, counting sort handles
+Even though it does not look much different to <a href="#org7a46a3a">DAA Sort</a>, counting sort handles
 collisions, meaning that we have now no problem dealing with sets containing
 duplicate keys.
 </p>
@@ -250,9 +249,9 @@ implementation of tuple sort is called:
 </div>
 </div>
 
-<div id="outline-container-org4a6c590" class="outline-3">
-<h3 id="org4a6c590"><a href="#org4a6c590">Radix Sort</a></h3>
-<div class="outline-text-3" id="text-org4a6c590">
+<div id="outline-container-orgb9f1f2f" class="outline-3">
+<h3 id="orgb9f1f2f"><a href="#orgb9f1f2f">Radix Sort</a></h3>
+<div class="outline-text-3" id="text-orgb9f1f2f">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">radix_sort</span>(A):
     <span class="org-doc">"Sort A assuming items have non-negative keys"</span>
@@ -297,7 +296,7 @@ constant calls to the tuple sort function will need to be called
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-02-19 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

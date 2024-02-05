@@ -8,8 +8,7 @@
 <title>Σειρές Fourier</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -54,27 +53,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4527cac">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></li>
-<li><a href="#org6742432">Τύποι</a>
+<li><a href="#org26d3035">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></li>
+<li><a href="#org7dc233f">Τύποι</a>
 <ul>
-<li><a href="#orga6f26b5">Σχόλιο για τους συντελεστές</a></li>
+<li><a href="#orga1985dc">Σχόλιο για τους συντελεστές</a></li>
 </ul>
 </li>
-<li><a href="#orgfc39cd3">Συνθήκες Dirichlet</a></li>
-<li><a href="#org4e78a30">Συμμετρία και συντελεστές</a>
+<li><a href="#org6ece844">Συνθήκες Dirichlet</a></li>
+<li><a href="#org096050c">Συμμετρία και συντελεστές</a>
 <ul>
-<li><a href="#org84ca86c">Είδη συμμετρίας και σχέση με τους συντελεστές.</a>
+<li><a href="#orgae54bbf">Είδη συμμετρίας και σχέση με τους συντελεστές.</a>
 <ul>
-<li><a href="#org71a994a">Αν η \(f\) άρτια συμμετρική</a></li>
-<li><a href="#org3448ed7">Αν η \(f\) περιττά συμμετρική</a></li>
-<li><a href="#orgd25dfd4">Συμμετρία μισού μήκους</a></li>
-<li><a href="#org2d3d399">Συμμετρία τετάρτου μήκους</a></li>
+<li><a href="#org3029bd3">Αν η \(f\) άρτια συμμετρική</a></li>
+<li><a href="#orgb2cabf4">Αν η \(f\) περιττά συμμετρική</a></li>
+<li><a href="#org0490cbb">Συμμετρία μισού μήκους</a></li>
+<li><a href="#orgca999c7">Συμμετρία τετάρτου μήκους</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org47ec3af">Ενέργεια και ισχύς σειρών Fourier</a></li>
-<li><a href="#orgf404a35">Resources:</a></li>
+<li><a href="#org332d019">Ενέργεια και ισχύς σειρών Fourier</a></li>
+<li><a href="#org3f370ab">Resources:</a></li>
 </ul>
 </div>
 </div>
@@ -85,9 +84,9 @@
 στο πεδίο της συχνότητας.
 </p>
 
-<div id="outline-container-org4527cac" class="outline-2">
-<h2 id="org4527cac"><a href="#org4527cac">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></h2>
-<div class="outline-text-2" id="text-org4527cac">
+<div id="outline-container-org26d3035" class="outline-2">
+<h2 id="org26d3035"><a href="#org26d3035">Fourier και διατύπωση συνάρτησης με την χρήση βάσεων</a></h2>
+<div class="outline-text-2" id="text-org26d3035">
 <p>
 Είναι σημαντικό να καταλάβουμε πως οι σειρές Fourier είναι κάτι παραπάνω από την
 ανάλυση μίας συνάρτησης σε άθροισμα επιμέρους συναρτήσεων (τριγωνικής ή
@@ -112,14 +111,14 @@
 </div>
 </div>
 
-<div id="outline-container-org6742432" class="outline-2">
-<h2 id="org6742432"><a href="#org6742432">Τύποι</a></h2>
-<div class="outline-text-2" id="text-org6742432">
+<div id="outline-container-org7dc233f" class="outline-2">
+<h2 id="org7dc233f"><a href="#org7dc233f">Τύποι</a></h2>
+<div class="outline-text-2" id="text-org7dc233f">
 <p>
 Καθώς είδαμε στις  \(~(\eqref{eq:4})\) τις <i>βάσεις</i> του μιγαδικού και του πραγματικού
 χώρου αντίστοιχα είναι αναμενόμενο το να μπορούμε να εκφράσουμε μία τυχαία
 συνάρτηση ως άθροισμα αυτών ( με κατάλληλους συντελεστές ). Και αυτό συμβαίνει
-<span class="underline">σχεδόν</span> σε όλες τις περιπτώσεις (<a href="#orgfc39cd3">Συνθήκες Dirichlet</a>).
+<span class="underline">σχεδόν</span> σε όλες τις περιπτώσεις (<a href="#org6ece844">Συνθήκες Dirichlet</a>).
 </p>
 <ol class="org-ol">
 <li>Τριγωνομετρική (Trigonometric):</li>
@@ -142,10 +141,10 @@
 \end{equation}
 </div>
 
-<div id="outline-container-orga6f26b5" class="outline-3">
-<h3 id="orga6f26b5"><a href="#orga6f26b5">Σχόλιο για τους συντελεστές</a></h3>
-<div class="outline-text-3" id="text-orga6f26b5">
-<div class="note" id="org9d2bb03">
+<div id="outline-container-orga1985dc" class="outline-3">
+<h3 id="orga1985dc"><a href="#orga1985dc">Σχόλιο για τους συντελεστές</a></h3>
+<div class="outline-text-3" id="text-orga1985dc">
+<div class="note" id="orga1d8bf2">
 <p>
 Ο όρος μπροστά αποτελεί κανονικοποίηση και προκύπτει από τον ορισμό εν τέλη των
 βάσεων ( Το \(\cos{\left(n\omega_0t\right)}\) δεν αποτελεί βάση αλλά το
@@ -198,9 +197,9 @@ F_n &= \frac{1}{2}(a_n-\jmath b_n)
 </div>
 </div>
 
-<div id="outline-container-orgfc39cd3" class="outline-2">
-<h2 id="orgfc39cd3"><a href="#orgfc39cd3">Συνθήκες Dirichlet</a></h2>
-<div class="outline-text-2" id="text-orgfc39cd3">
+<div id="outline-container-org6ece844" class="outline-2">
+<h2 id="org6ece844"><a href="#org6ece844">Συνθήκες Dirichlet</a></h2>
+<div class="outline-text-2" id="text-org6ece844">
 <p>
 Για να μπορεί μια συνάρτηση να αναπτυχθεί ως σειρά Fourier πρέπει:
 </p>
@@ -216,9 +215,9 @@ F_n &= \frac{1}{2}(a_n-\jmath b_n)
 </div>
 </div>
 
-<div id="outline-container-org4e78a30" class="outline-2">
-<h2 id="org4e78a30"><a href="#org4e78a30">Συμμετρία και συντελεστές</a></h2>
-<div class="outline-text-2" id="text-org4e78a30">
+<div id="outline-container-org096050c" class="outline-2">
+<h2 id="org096050c"><a href="#org096050c">Συμμετρία και συντελεστές</a></h2>
+<div class="outline-text-2" id="text-org096050c">
 <p>
 Γενικά ισχύει πως κάθε συνάρτηση μπορεί να εκφραστεί ως άθροισμα δύο <i>επιμέρους</i>
 συναρτήσεων: Μιας άρτιας και μίας περιττής, ούτως ώστε:
@@ -239,22 +238,22 @@ f_e(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty} a_n\cos{\left(n\omega_0t\right)}\\
 Αυτό με την σειρά του δημιουργεί τις προϋποθέςσεις για τις παρακάτω ιδιότητες:
 </p>
 </div>
-<div id="outline-container-org84ca86c" class="outline-3">
-<h3 id="org84ca86c"><a href="#org84ca86c">Είδη συμμετρίας και σχέση με τους συντελεστές.</a></h3>
-<div class="outline-text-3" id="text-org84ca86c">
+<div id="outline-container-orgae54bbf" class="outline-3">
+<h3 id="orgae54bbf"><a href="#orgae54bbf">Είδη συμμετρίας και σχέση με τους συντελεστές.</a></h3>
+<div class="outline-text-3" id="text-orgae54bbf">
 </div>
-<div id="outline-container-org71a994a" class="outline-4">
-<h4 id="org71a994a"><a href="#org71a994a">Αν η \(f\) άρτια συμμετρική</a></h4>
-<div class="outline-text-4" id="text-org71a994a">
+<div id="outline-container-org3029bd3" class="outline-4">
+<h4 id="org3029bd3"><a href="#org3029bd3">Αν η \(f\) άρτια συμμετρική</a></h4>
+<div class="outline-text-4" id="text-org3029bd3">
 <p>
 Τότε θα είναι \(f(t) = f_e(t) \Rightarrow b_n = 0\)
 </p>
 </div>
 </div>
 
-<div id="outline-container-org3448ed7" class="outline-4">
-<h4 id="org3448ed7"><a href="#org3448ed7">Αν η \(f\) περιττά συμμετρική</a></h4>
-<div class="outline-text-4" id="text-org3448ed7">
+<div id="outline-container-orgb2cabf4" class="outline-4">
+<h4 id="orgb2cabf4"><a href="#orgb2cabf4">Αν η \(f\) περιττά συμμετρική</a></h4>
+<div class="outline-text-4" id="text-orgb2cabf4">
 <ul class="org-ul">
 <li>\(f(t) = f_o(t)\Rightarrow a_n = 0\)</li>
 <li>\(\text{avg} = 0 \Rightarrow a_{0} = 0\)</li>
@@ -262,9 +261,9 @@ f_e(t) &= \frac{a_0}{2}+\sum_{n=1}^{\infty} a_n\cos{\left(n\omega_0t\right)}\\
 </div>
 </div>
 
-<div id="outline-container-orgd25dfd4" class="outline-4">
-<h4 id="orgd25dfd4"><a href="#orgd25dfd4">Συμμετρία μισού μήκους</a></h4>
-<div class="outline-text-4" id="text-orgd25dfd4">
+<div id="outline-container-org0490cbb" class="outline-4">
+<h4 id="org0490cbb"><a href="#org0490cbb">Συμμετρία μισού μήκους</a></h4>
+<div class="outline-text-4" id="text-org0490cbb">
 <p>
 Συμμετρία μισού μήκους υφίσταται όταν για το περιοδικό σήμα \(x(t)\) ικανοποιείται
 η:
@@ -287,9 +286,9 @@ a_n,b_n =
 </div>
 </div>
 
-<div id="outline-container-org2d3d399" class="outline-4">
-<h4 id="org2d3d399"><a href="#org2d3d399">Συμμετρία τετάρτου μήκους</a></h4>
-<div class="outline-text-4" id="text-org2d3d399">
+<div id="outline-container-orgca999c7" class="outline-4">
+<h4 id="orgca999c7"><a href="#orgca999c7">Συμμετρία τετάρτου μήκους</a></h4>
+<div class="outline-text-4" id="text-orgca999c7">
 <p>
 Ουσιαστικά αποτελεί συνδυασμό συμμετρίας μισού μήκους και άρτιας/περιττής. Οπότε
 έχουμε μόνο περιττές αρμονικές, και μόνο \(a_n\) (άρτια συμμετρία) ή μόνο \(b_n\)
@@ -300,9 +299,9 @@ a_n,b_n =
 </div>
 </div>
 
-<div id="outline-container-org47ec3af" class="outline-2">
-<h2 id="org47ec3af"><a href="#org47ec3af">Ενέργεια και ισχύς σειρών Fourier</a></h2>
-<div class="outline-text-2" id="text-org47ec3af">
+<div id="outline-container-org332d019" class="outline-2">
+<h2 id="org332d019"><a href="#org332d019">Ενέργεια και ισχύς σειρών Fourier</a></h2>
+<div class="outline-text-2" id="text-org332d019">
 <p>
 Από τον ορισμό της μέσης ισχύος έχουμε:
 </p>
@@ -324,9 +323,9 @@ a_n,b_n =
 </div>
 </div>
 
-<div id="outline-container-orgf404a35" class="outline-2">
-<h2 id="orgf404a35"><a href="#orgf404a35">Resources:</a></h2>
-<div class="outline-text-2" id="text-orgf404a35">
+<div id="outline-container-org3f370ab" class="outline-2">
+<h2 id="org3f370ab"><a href="#org3f370ab">Resources:</a></h2>
+<div class="outline-text-2" id="text-org3f370ab">
 <ul class="org-ul">
 <li><a href="https://www.youtube.com/watch?v=9R3-0-Xg_Ro&amp;list=PLBlnK6fEyqRiikSSOMCdErAdxvmGpzFQq">Fourier Series Neso Academy</a></li>
 <li>Πανάς (εξαιρετικές σημειώσεις και αξίζει)</li>
@@ -336,7 +335,7 @@ a_n,b_n =
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-12-17 Sat 00:00 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

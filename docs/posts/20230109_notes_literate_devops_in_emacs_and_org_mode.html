@@ -8,8 +8,7 @@
 <title>Literate DevOps in Emacs and Org Mode</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,34 +21,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org21fdc3a">Commentary</a></li>
-<li><a href="#orge59e431">Εισαγωγή</a></li>
-<li><a href="#org1df2153">Writing code</a>
+<li><a href="#org81d6b76">Commentary</a></li>
+<li><a href="#org12021d2">Εισαγωγή</a></li>
+<li><a href="#orga974149">Writing code</a>
 <ul>
-<li><a href="#orgda0dd7e">Code and Results</a></li>
-<li><a href="#org23cd77e">Example Only</a></li>
+<li><a href="#org4a9fe7e">Code and Results</a></li>
+<li><a href="#org5078f8f">Example Only</a></li>
 </ul>
 </li>
-<li><a href="#org6e0a4ff">Setting directory in which the code is to run</a>
+<li><a href="#org43aa20d">Setting directory in which the code is to run</a>
 <ul>
-<li><a href="#org757f119">Modifying the directory var to run on a server</a></li>
+<li><a href="#orgf92fec9">Modifying the directory var to run on a server</a></li>
 </ul>
 </li>
-<li><a href="#org7fdf9f4">Setting Variables</a>
+<li><a href="#org102fa9e">Setting Variables</a>
 <ul>
-<li><a href="#org126b495">Setting variables up so that they are used in all source blocks</a></li>
+<li><a href="#org6513774">Setting variables up so that they are used in all source blocks</a></li>
 </ul>
 </li>
-<li><a href="#orgbb7600d">Tangle</a></li>
-<li><a href="#org013ea7f">Exporting</a></li>
+<li><a href="#org81b33b7">Tangle</a></li>
+<li><a href="#org082b9c7">Exporting</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org21fdc3a" class="outline-2">
-<h2 id="org21fdc3a"><a href="#org21fdc3a">Commentary</a></h2>
-<div class="outline-text-2" id="text-org21fdc3a">
+<div id="outline-container-org81d6b76" class="outline-2">
+<h2 id="org81d6b76"><a href="#org81d6b76">Commentary</a></h2>
+<div class="outline-text-2" id="text-org81d6b76">
 <p>
 This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>.
 </p>
@@ -77,9 +76,9 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </div>
 </div>
 
-<div id="outline-container-orge59e431" class="outline-2">
-<h2 id="orge59e431"><a href="#orge59e431">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-orge59e431">
+<div id="outline-container-org12021d2" class="outline-2">
+<h2 id="org12021d2"><a href="#org12021d2">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org12021d2">
 <p>
 Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
 στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
@@ -119,9 +118,9 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </div>
 </div>
 
-<div id="outline-container-org1df2153" class="outline-2">
-<h2 id="org1df2153"><a href="#org1df2153">Writing code</a></h2>
-<div class="outline-text-2" id="text-org1df2153">
+<div id="outline-container-orga974149" class="outline-2">
+<h2 id="orga974149"><a href="#orga974149">Writing code</a></h2>
+<div class="outline-text-2" id="text-orga974149">
 <p>
 Τα βασικά είναι:
 </p>
@@ -130,7 +129,7 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
 βάλεις εύκολα χρησιμοποιώντας το <code>C-c C-,</code>:
 </p>
-<pre class="example" id="org2e5bb30">
+<pre class="example" id="org5cd137a">
 #+begin_src sh
 #+end_src
 </pre></li>
@@ -138,13 +137,13 @@ This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&a
 </ol>
 </div>
 
-<div id="outline-container-orgda0dd7e" class="outline-3">
-<h3 id="orgda0dd7e"><a href="#orgda0dd7e">Code and Results</a></h3>
-<div class="outline-text-3" id="text-orgda0dd7e">
+<div id="outline-container-org4a9fe7e" class="outline-3">
+<h3 id="org4a9fe7e"><a href="#org4a9fe7e">Code and Results</a></h3>
+<div class="outline-text-3" id="text-org4a9fe7e">
 <p>
 This shows both input 
 </p>
-<pre class="example" id="org375f054">
+<pre class="example" id="orgf3f5e5f">
 #+begin_src sh :exports both
 #+end_src
 </pre>
@@ -160,13 +159,13 @@ This shows both input
 </div>
 
 
-<div id="outline-container-org23cd77e" class="outline-3">
-<h3 id="org23cd77e"><a href="#org23cd77e">Example Only</a></h3>
-<div class="outline-text-3" id="text-org23cd77e">
+<div id="outline-container-org5078f8f" class="outline-3">
+<h3 id="org5078f8f"><a href="#org5078f8f">Example Only</a></h3>
+<div class="outline-text-3" id="text-org5078f8f">
 <p>
 Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
 </p>
-<pre class="example" id="org3869445">
+<pre class="example" id="org68929b1">
 #+begin_src sh :exports code
 #+end_src
 </pre>
@@ -181,10 +180,10 @@ pip install --upgrade flake
 </div>
 </div>
 
-<div id="outline-container-org6e0a4ff" class="outline-2">
-<h2 id="org6e0a4ff"><a href="#org6e0a4ff">Setting directory in which the code is to run</a></h2>
-<div class="outline-text-2" id="text-org6e0a4ff">
-<pre class="example" id="org06a6478">
+<div id="outline-container-org43aa20d" class="outline-2">
+<h2 id="org43aa20d"><a href="#org43aa20d">Setting directory in which the code is to run</a></h2>
+<div class="outline-text-2" id="text-org43aa20d">
+<pre class="example" id="org8a15f12">
 #+begin_src sh :dir ~
 #+end_src
 </pre>
@@ -198,10 +197,10 @@ pip install --upgrade flake
 </div>
 </div>
 
-<div id="outline-container-org757f119" class="outline-3">
-<h3 id="org757f119"><a href="#org757f119">Modifying the directory var to run on a server</a></h3>
-<div class="outline-text-3" id="text-org757f119">
-<pre class="example" id="org6ec8608">
+<div id="outline-container-orgf92fec9" class="outline-3">
+<h3 id="orgf92fec9"><a href="#orgf92fec9">Modifying the directory var to run on a server</a></h3>
+<div class="outline-text-3" id="text-orgf92fec9">
+<pre class="example" id="org091e2a9">
 #:PROPERTIES:
 #:dir:  /&lt;server-dns&gt;:
 #:END:
@@ -214,10 +213,10 @@ I am not sure how this works though.
 </div>
 </div>
 
-<div id="outline-container-org7fdf9f4" class="outline-2">
-<h2 id="org7fdf9f4"><a href="#org7fdf9f4">Setting Variables</a></h2>
-<div class="outline-text-2" id="text-org7fdf9f4">
-<pre class="example" id="orge2a9d00">
+<div id="outline-container-org102fa9e" class="outline-2">
+<h2 id="org102fa9e"><a href="#org102fa9e">Setting Variables</a></h2>
+<div class="outline-text-2" id="text-org102fa9e">
+<pre class="example" id="orgaf2e7b9">
 #+begin_src sh :var varname=varvalue
 #+end_src
 </pre>
@@ -229,10 +228,10 @@ I am not sure how this works though.
 </div>
 
 
-<div id="outline-container-org126b495" class="outline-3">
-<h3 id="org126b495"><a href="#org126b495">Setting variables up so that they are used in all source blocks</a></h3>
-<div class="outline-text-3" id="text-org126b495">
-<pre class="example" id="orgf0f47d2">
+<div id="outline-container-org6513774" class="outline-3">
+<h3 id="org6513774"><a href="#org6513774">Setting variables up so that they are used in all source blocks</a></h3>
+<div class="outline-text-3" id="text-org6513774">
+<pre class="example" id="orga86de83">
 #:PROPERTIES:
 #:dir:  /Users/sickvm
 #:END:
@@ -249,25 +248,25 @@ Nah this does not seem to be working - I do not know why though.
 </div>
 </div>
 
-<div id="outline-container-orgbb7600d" class="outline-2">
-<h2 id="orgbb7600d"><a href="#orgbb7600d">Tangle</a></h2>
-<div class="outline-text-2" id="text-orgbb7600d">
+<div id="outline-container-org81b33b7" class="outline-2">
+<h2 id="org81b33b7"><a href="#org81b33b7">Tangle</a></h2>
+<div class="outline-text-2" id="text-org81b33b7">
 <p>
 Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
 <i>κλασσικού</i> προγραμματισμού, μέσα από ένα αρχείο literate programming:
 <code>org-babel-tangle</code>
 </p>
 
-<pre class="example" id="org58338d9">
+<pre class="example" id="org582062d">
 #+begin_src sh :tangle &lt;filename&gt;
 #+end_src
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org013ea7f" class="outline-2">
-<h2 id="org013ea7f"><a href="#org013ea7f">Exporting</a></h2>
-<div class="outline-text-2" id="text-org013ea7f">
+<div id="outline-container-org082b9c7" class="outline-2">
+<h2 id="org082b9c7"><a href="#org082b9c7">Exporting</a></h2>
+<div class="outline-text-2" id="text-org082b9c7">
 <p>
 Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το <code>C-c C-e</code> δουλέυει
 και απο μόνο του.
@@ -276,7 +275,7 @@ Nah this does not seem to be working - I do not know why though.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-01-09 Mon 11:34 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

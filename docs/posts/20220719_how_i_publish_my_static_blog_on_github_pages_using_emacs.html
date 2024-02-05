@@ -9,8 +9,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Automating the tricky org mode to html process was never easier" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -55,32 +54,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7544a74">Introduction</a>
+<li><a href="#org6226410">Introduction</a>
 <ul>
-<li><a href="#orga2fefb1">Notice</a></li>
+<li><a href="#org2acedbe">Notice</a></li>
 </ul>
 </li>
-<li><a href="#org6297583">Why Emacs and Org Mode? A personal story</a></li>
-<li><a href="#orgab6bb87">Piece of wisdom: Write small scripts</a></li>
-<li><a href="#org030ea02">The Process</a>
+<li><a href="#org973421a">Why Emacs and Org Mode? A personal story</a></li>
+<li><a href="#org4b0c042">Piece of wisdom: Write small scripts</a></li>
+<li><a href="#orgc259c5e">The Process</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org3af7f4b">Dealing with the Emacs Back End:</a></li>
+<li><a href="#org9b59c14">Dealing with the Emacs Back End:</a></li>
 </ul>
 </li>
-<li><a href="#orgdac0327">Bash</a></li>
-<li><a href="#orga824dca">Publishing on Github</a></li>
+<li><a href="#orge841965">Bash</a></li>
+<li><a href="#org677b4fb">Publishing on Github</a></li>
 </ul>
 </li>
-<li><a href="#orgfd2acfa">Notes:</a></li>
+<li><a href="#org158d733">Notes:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7544a74" class="outline-2">
-<h2 id="org7544a74"><a href="#org7544a74">Introduction</a></h2>
-<div class="outline-text-2" id="text-org7544a74">
+<div id="outline-container-org6226410" class="outline-2">
+<h2 id="org6226410"><a href="#org6226410">Introduction</a></h2>
+<div class="outline-text-2" id="text-org6226410">
 <p>
 Almost everyone nowadays agrees that having a personal website is a virtue. That
 consists of two parts<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>: The technical and the writing one.
@@ -97,9 +96,9 @@ want <b>and</b> how to host it on GitHub Pages.
 </p>
 </div>
 
-<div id="outline-container-orga2fefb1" class="outline-3">
-<h3 id="orga2fefb1"><a href="#orga2fefb1">Notice</a></h3>
-<div class="outline-text-3" id="text-orga2fefb1">
+<div id="outline-container-org2acedbe" class="outline-3">
+<h3 id="org2acedbe"><a href="#org2acedbe">Notice</a></h3>
+<div class="outline-text-3" id="text-org2acedbe">
 <p>
 I wrote this article in a form of rubber duck debugging of my own publishing
 progress. As such it will remain a work-in-progress even after its publication.
@@ -108,10 +107,10 @@ progress. As such it will remain a work-in-progress even after its publication.
 </div>
 </div>
 
-<div id="outline-container-org6297583" class="outline-2">
-<h2 id="org6297583"><a href="#org6297583">Why Emacs and Org Mode? A personal story</a></h2>
-<div class="outline-text-2" id="text-org6297583">
-<div class="note" id="orga38b513">
+<div id="outline-container-org973421a" class="outline-2">
+<h2 id="org973421a"><a href="#org973421a">Why Emacs and Org Mode? A personal story</a></h2>
+<div class="outline-text-2" id="text-org973421a">
+<div class="note" id="orgcf0877f">
 <p>
 If you have found a setup you like and feel comfortable working in, then there&rsquo;s
 no need to listen to me or anyone else about moving to a different editor. 
@@ -143,9 +142,9 @@ capabilities (if you are an Emacs user that is).
 </div>
 </div>
 
-<div id="outline-container-orgab6bb87" class="outline-2">
-<h2 id="orgab6bb87"><a href="#orgab6bb87">Piece of wisdom: Write small scripts</a></h2>
-<div class="outline-text-2" id="text-orgab6bb87">
+<div id="outline-container-org4b0c042" class="outline-2">
+<h2 id="org4b0c042"><a href="#org4b0c042">Piece of wisdom: Write small scripts</a></h2>
+<div class="outline-text-2" id="text-org4b0c042">
 <blockquote>
 <p>
 Do not think of coding projects as <b>major ones</b>
@@ -161,9 +160,9 @@ the path of least resistance and be ruthless to the things that do not matter.
 </div>
 </div>
 
-<div id="outline-container-org030ea02" class="outline-2">
-<h2 id="org030ea02"><a href="#org030ea02">The Process</a></h2>
-<div class="outline-text-2" id="text-org030ea02">
+<div id="outline-container-orgc259c5e" class="outline-2">
+<h2 id="orgc259c5e"><a href="#orgc259c5e">The Process</a></h2>
+<div class="outline-text-2" id="text-orgc259c5e">
 <p>
 Publishing with Emacs is relatively simple as long as you follow some basic
 principles:
@@ -189,10 +188,10 @@ like any other website.</li>
 </ul>
 </div>
 
-<div id="outline-container-org3af7f4b" class="outline-4">
-<h4 id="org3af7f4b"><a href="#org3af7f4b">Dealing with the Emacs Back End:</a></h4>
-<div class="outline-text-4" id="text-org3af7f4b">
-<div class="note" id="org12c0b19">
+<div id="outline-container-org9b59c14" class="outline-4">
+<h4 id="org9b59c14"><a href="#org9b59c14">Dealing with the Emacs Back End:</a></h4>
+<div class="outline-text-4" id="text-org9b59c14">
+<div class="note" id="org0069b89">
 <p>
 Writing in <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-06 Tue&gt;</span></span>, this configuration file is actually outdated due to
 the fact that I did not remember publishing it. <i><b>sigh</b></i>. It will be fixed in the
@@ -207,18 +206,18 @@ Wilson (<a href="https://www.youtube.com/c/SystemCrafters">channel</a>) shared e
 </p>
 </div>
 </div>
-<div id="outline-container-orgdac0327" class="outline-3">
-<h3 id="orgdac0327"><a href="#orgdac0327">Bash</a></h3>
-<div class="outline-text-3" id="text-orgdac0327">
+<div id="outline-container-orge841965" class="outline-3">
+<h3 id="orge841965"><a href="#orge841965">Bash</a></h3>
+<div class="outline-text-3" id="text-orge841965">
 <p>
 One liner - not really much to say here
 </p>
 </div>
 </div>
 
-<div id="outline-container-orga824dca" class="outline-3">
-<h3 id="orga824dca"><a href="#orga824dca">Publishing on Github</a></h3>
-<div class="outline-text-3" id="text-orga824dca">
+<div id="outline-container-org677b4fb" class="outline-3">
+<h3 id="org677b4fb"><a href="#org677b4fb">Publishing on Github</a></h3>
+<div class="outline-text-3" id="text-org677b4fb">
 <p>
 In order for Github to function as described above a file called <code>publish.yml</code> in
 <code>.github/workflows/</code> is needed 
@@ -261,9 +260,9 @@ jobs:
 </div>
 </div>
 
-<div id="outline-container-orgfd2acfa" class="outline-2">
-<h2 id="orgfd2acfa"><a href="#orgfd2acfa">Notes:</a></h2>
-<div class="outline-text-2" id="text-orgfd2acfa">
+<div id="outline-container-org158d733" class="outline-2">
+<h2 id="org158d733"><a href="#org158d733">Notes:</a></h2>
+<div class="outline-text-2" id="text-org158d733">
 <ul class="org-ul">
 <li>To see these in action feel free to browse this blog&rsquo;s <a href="https://github.com/chatziiola/chatziiola.github.io">source</a></li>
 <li>Of course you can run the bash script locally, maybe with Emacs&rsquo; <code>httpd</code> mini
@@ -290,7 +289,7 @@ which one could use a little bit of work:
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2022-07-19 Tue 19:26 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

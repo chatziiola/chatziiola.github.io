@@ -8,8 +8,7 @@
 <title>THM: Bounty Hacker</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap"rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap"rel="stylesheet"><script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script><link rel="stylesheet" href="/src/rougier.css" />
-    <link rel="icon" type="image/x-icon" href="/src/favicon.ico"><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,12 +21,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge48442b">Recon</a></li>
-<li><a href="#orgba91b5d">The Website</a></li>
-<li><a href="#org9f620df">The FTP server</a></li>
-<li><a href="#orgc4eb289">The SSH server</a></li>
-<li><a href="#org7a3105e">Privilege Escalation</a></li>
-<li><a href="#org0eb826f">Conclusion</a></li>
+<li><a href="#org820f81a">Recon</a></li>
+<li><a href="#org0be6366">The Website</a></li>
+<li><a href="#org1df6ddf">The FTP server</a></li>
+<li><a href="#org5549ec3">The SSH server</a></li>
+<li><a href="#orgf5ac8ea">Privilege Escalation</a></li>
+<li><a href="#org017efa5">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -49,14 +48,14 @@ on a medium difficulty room instead of an easy one would be better)!
 </p>
 
 
-<div id="outline-container-orge48442b" class="outline-2">
-<h2 id="orge48442b"><a href="#orge48442b">Recon</a></h2>
-<div class="outline-text-2" id="text-orge48442b">
+<div id="outline-container-org820f81a" class="outline-2">
+<h2 id="org820f81a"><a href="#org820f81a">Recon</a></h2>
+<div class="outline-text-2" id="text-org820f81a">
 <p>
 Like always: a quick <code>nmap</code> scan
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org9536422"><span class="org-variable-name">IP</span>=10.10.61.63
+<pre class="src src-bash" id="org1ae028d"><span class="org-variable-name">IP</span>=10.10.61.63
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -76,15 +75,15 @@ missed anything, we visit the website.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgfc742c1">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="orgbcd85d2">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgba91b5d" class="outline-2">
-<h2 id="orgba91b5d"><a href="#orgba91b5d">The Website</a></h2>
-<div class="outline-text-2" id="text-orgba91b5d">
+<div id="outline-container-org0be6366" class="outline-2">
+<h2 id="org0be6366"><a href="#org0be6366">The Website</a></h2>
+<div class="outline-text-2" id="text-org0be6366">
 <p>
 First things first, after visiting the website it looks like its a
 simple static website, comprised of just one html page, in which
@@ -96,16 +95,16 @@ getting into the target system to us. Nothing is hidden in the html.
 Gobuster also did not reveal any promising files.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgf96f6b6">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+<pre class="src src-bash" id="orgf9e223b">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org9f620df" class="outline-2">
-<h2 id="org9f620df"><a href="#org9f620df">The FTP server</a></h2>
-<div class="outline-text-2" id="text-org9f620df">
+<div id="outline-container-org1df6ddf" class="outline-2">
+<h2 id="org1df6ddf"><a href="#org1df6ddf">The FTP server</a></h2>
+<div class="outline-text-2" id="text-org1df6ddf">
 <p>
 Using the standard command we can visit the ftp server as <code>anonymous</code>.
 </p>
@@ -113,7 +112,7 @@ Using the standard command we can visit the ftp server as <code>anonymous</code>
 <p>
 If performing any commands returns:
 </p>
-<pre class="example" id="orge717ff2">
+<pre class="example" id="org1e34e5e">
 530 Please login with USER and PASS.
 </pre>
 <p>
@@ -134,15 +133,15 @@ small <i>flag</i></li>
 </div>
 </div>
 
-<div id="outline-container-orgc4eb289" class="outline-2">
-<h2 id="orgc4eb289"><a href="#orgc4eb289">The SSH server</a></h2>
-<div class="outline-text-2" id="text-orgc4eb289">
+<div id="outline-container-org5549ec3" class="outline-2">
+<h2 id="org5549ec3"><a href="#org5549ec3">The SSH server</a></h2>
+<div class="outline-text-2" id="text-org5549ec3">
 <p>
 Trying our luck with the wordlist found above, eventually gives us the
 password for the user <code>lin</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org0573d42">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
+<pre class="src src-bash" id="orgb26d4c6">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
 </pre>
 </div>
 
@@ -154,9 +153,9 @@ machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
 </div>
 
 
-<div id="outline-container-org7a3105e" class="outline-2">
-<h2 id="org7a3105e"><a href="#org7a3105e">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org7a3105e">
+<div id="outline-container-orgf5ac8ea" class="outline-2">
+<h2 id="orgf5ac8ea"><a href="#orgf5ac8ea">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-orgf5ac8ea">
 <p>
 Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
 </p>
@@ -167,16 +166,16 @@ privileges in no time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orge8ba606">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
+<pre class="src src-bash" id="org930ea22">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org0eb826f" class="outline-2">
-<h2 id="org0eb826f"><a href="#org0eb826f">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org0eb826f">
+<div id="outline-container-org017efa5" class="outline-2">
+<h2 id="org017efa5"><a href="#org017efa5">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org017efa5">
 <p>
 It was a nice room, arguably a wrong choice for me, but a good place
 to start I suppose, covering a little bit of the basics. 
@@ -185,7 +184,7 @@ to start I suppose, covering a little bit of the basics.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id="R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="date footer"> Originally created on 2023-11-05 Sun 21:54 </p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
 </div>
 </body>
 </html>

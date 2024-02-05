@@ -101,7 +101,7 @@
 (defun ini/get-value-from-file (section key file)
   "Get the value associated with SECTION and KEY in the given FILE."
   (let ((alist (ini/open-file file)))
-    (ini/get-value-from-alist alist)))
+    (ini/get-value-from-alist section key alist)))
 
 (provide 'ini)
 ;;; ini.el ends here
