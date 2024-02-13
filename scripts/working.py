@@ -109,7 +109,7 @@ def overwriteBetwenAandBinFile(newText, stringA, stringB, filePath):
             with open(filePath, 'w') as file:
                 file.write(updated_content)
 
-            print(f"Text between '{stringA}' and '{stringB}' replaced successfully.")
+            # print(f"Text between '{stringA}' and '{stringB}' replaced successfully.")
         else:
             print(f"Error: Couldn't find '{stringA}' and '{stringB}' in the file or the order is incorrect.")
 
@@ -131,7 +131,7 @@ createBlogJson(blogdirectory, myjson)
 #     print(f"{post['title']}:\n\t {post['date']}")
 
 
-print(getAllTags(myjson))
+# print(getAllTags(myjson))
 createTagsIndexOrg(myjson)
 createRecentsIndexOrg(myjson)
 addRecentsToIndex(myjson)

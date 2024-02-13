@@ -14,9 +14,8 @@
 ;; DO BA DO BA DI
 
 (load (expand-file-name "ini.el" (file-name-directory load-file-name)))
-
-;; Leaving this here
-;; (ini/get-value-from-file "section" "property" "config.ini")
+; (load (expand-file-name "ini.el" ))
+; (defvar configini (expand-file-name "config.ini" ) "Path to the configuration .ini file.")
 
 (defvar configini (expand-file-name "config.ini" (file-name-directory load-file-name))
   "Path to the configuration .ini file.")
@@ -25,28 +24,28 @@
 (defvar domainname (ini/get-value-from-file  "Site" "DomainName" configini)
   "Self-Descriptive. It is the address for which we build our site")
 
-(defvar base-dir (ini/get-value-from-file  "Paths" "BaseDir" configini)
+(defvar base-dir (ini/get-value-from-file  "Site" "BaseDir" configini)
   "The content directory.")
 
-(defvar public-dir (ini/get-value-from-file  "Paths" "PublicDir" configini)
+(defvar public-dir (ini/get-value-from-file  "Site" "PublicDir" configini)
   "The root directory of our webserver.")
 
-(defvar drafts-dir (ini/get-value-from-file  "Paths" "DraftsDir" configini)
+(defvar drafts-dir (ini/get-value-from-file  "Site" "DraftsDir" configini)
   "To be ignored when publishing.")
 
-(defvar posts-dir (expand-file-name (ini/get-value-from-file  "Paths" "PostsDir" configini) base-dir)
+(defvar posts-dir (expand-file-name (ini/get-value-from-file  "Site" "PostsDir" configini) base-dir)
   "Subfolder of content where posts lie.")
 
-(defvar posts-public-dir (ini/get-value-from-file  "Paths" "PostsPublicDir" configini)
+(defvar posts-public-dir (ini/get-value-from-file  "Site" "PostsPublicDir" configini)
   "The public subfolder in which posts will be published.")
 
-(defvar src-dir (ini/get-value-from-file  "Paths" "SrcDir" configini)
+(defvar src-dir (ini/get-value-from-file  "Site" "SrcDir" configini)
   "Self-descriptive.")
 
-(defvar src-public-dir (ini/get-value-from-file  "Paths" "SrcPublicDir" configini)
+(defvar src-public-dir (ini/get-value-from-file  "Site" "SrcPublicDir" configini)
   "Self-descriptive.")
 
-(defvar css-path (ini/get-value-from-file  "Paths" "CssPath" configini)
+(defvar css-path (ini/get-value-from-file  "Site" "CssPath" configini)
   "Self-descriptive.")
 
 (defvar org-blog-head (ini/get-value-from-file  "HTML" "OrgBlogHead" configini)

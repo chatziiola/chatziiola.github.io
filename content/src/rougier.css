@@ -1163,11 +1163,27 @@ div#archive {
     padding: 0;
     text-align: center;
 }
+
+/* // Add this CSS to your stylesheet or in a <style> tag in the HTML head */
+/* // This CSS class applies the magnification effect and any focusing styles you want */
+/* // Adjust the transform scale value and other properties as needed */
+.magnify-image {
+    transform: scale(2); /* Double the size */
+    transition: transform 0.3s ease; /* Smooth transition for magnification */
+    z-index: 1000; /* Ensure the image is above other content */
+    position: relative; /* Required for z-index to take effect */
+    cursor: zoom-out; /* Change cursor to indicate the image can be clicked to reduce size */
 }
 
-.small {
-    font-size: 0.8em;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+/* Think its obvious this one */
+.copy-button {
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    background-color: #284B63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
