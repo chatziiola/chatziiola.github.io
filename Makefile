@@ -28,15 +28,8 @@ build: runPy
 	emacs -Q --script scripts/build-site.el >/dev/null
 
 copy_static:
+	cp $(PUBLIC_DIR)/index.html $(POSTS_PUBLIC_DIR)
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
-
-# Add latest posts to /index.html
-add_latest_posts:
-	echo "Adding latest posts (archive) on /index.html"
-	echo '<ul class="org-ul indexul">' > /tmp/index
-	grep "^<li>" $(POSTS_PUBLIC_DIR)/recents.html | head -5 >> /tmp/index
-	echo '</ul>' >> /tmp/index
-	sed -i -e '/Latest Articles<\/a><\/h2>/r /tmp/index' $(PUBLIC_DIR)/index.html
 
 # Serve the public directory on localhost using Python
 serve_local:
