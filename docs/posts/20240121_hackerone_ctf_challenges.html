@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HackerOne: CTF: Micro-CMS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -21,18 +19,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org950d608">Introduction</a></li>
-<li><a href="#org9f0472a">Testing</a></li>
-<li><a href="#orgb1e956a">XSS</a></li>
-<li><a href="#orga9604f4">Getting access to the forbidden file</a></li>
-<li><a href="#orgf9070fb">Not-so-good SQLi</a></li>
+<li><a href="#orgfeff12c">Introduction</a></li>
+<li><a href="#orgcf87861">Testing</a></li>
+<li><a href="#org10fd2db">XSS</a></li>
+<li><a href="#orgba4e6a5">Getting access to the forbidden file</a></li>
+<li><a href="#org1c0ca0c">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org950d608" class="outline-2">
-<h2 id="org950d608"><a href="#org950d608">Introduction</a></h2>
-<div class="outline-text-2" id="text-org950d608">
+<div id="outline-container-orgfeff12c" class="outline-2">
+<h2 id="orgfeff12c"><a href="#orgfeff12c">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgfeff12c">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -59,9 +57,9 @@ have since completed.
 </div>
 </div>
 
-<div id="outline-container-org9f0472a" class="outline-2">
-<h2 id="org9f0472a"><a href="#org9f0472a">Testing</a></h2>
-<div class="outline-text-2" id="text-org9f0472a">
+<div id="outline-container-orgcf87861" class="outline-2">
+<h2 id="orgcf87861"><a href="#orgcf87861">Testing</a></h2>
+<div class="outline-text-2" id="text-orgcf87861">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -79,7 +77,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="orgfa3a315">
+<div class="note" id="orgf90df74">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -101,12 +99,12 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orga91befa"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
-<span class="org-keyword">import</span> webbrowser
+<pre class="src src-python" id="org9c58491"># Snippet to open all pages in my browser
+# Verdict: Inefficient and illogical, I only want to get the interesting pages
+import webbrowser
 
-<span class="org-keyword">for</span> article <span class="org-keyword">in</span> <span class="org-builtin">range</span>(1,10):
-    webbrowser.<span class="org-builtin">open</span>(<span class="org-string">'placeholder-link'</span> <span class="org-operator">+</span><span class="org-builtin">str</span>(article))
+for article in range(1,10):
+    webbrowser.open('placeholder-link' +str(article))
 
 </pre>
 </div>
@@ -116,32 +114,32 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="orga52b10a"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
+<pre class="src src-python" id="org7ecc985"># Snippet to open all pages virtually in python, utilizing burp at the same time
+# Verdict: The way to go, quickly getting the results I want without messing with GUI
 
-<span class="org-keyword">import</span> requests
+import requests
 
-<span class="org-variable-name">result</span> <span class="org-operator">=</span> []
-<span class="org-variable-name">proxy</span><span class="org-operator">=</span>{<span class="org-string">'https'</span>: <span class="org-string">'127.0.0.1:8080'</span>}
-<span class="org-variable-name">mylink</span><span class="org-operator">=</span><span class="org-string">'placeholder'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">For easier modification</span>
+result = []
+proxy={'https': '127.0.0.1:8080'}
+mylink='placeholder' # For easier modification
 
-<span class="org-keyword">for</span> article <span class="org-keyword">in</span> <span class="org-builtin">range</span>(1,10):
-    <span class="org-keyword">try</span>:
-        <span class="org-variable-name">resp</span> <span class="org-operator">=</span> requests.get(mylink<span class="org-operator">+</span><span class="org-builtin">str</span>(article),
-                            verify<span class="org-operator">=</span><span class="org-constant">False</span>, <span class="org-comment-delimiter"># </span><span class="org-comment">Avoid self-signed certificate errors</span>
-                            proxies<span class="org-operator">=</span>proxy,
-                            allow_redirects<span class="org-operator">=</span><span class="org-constant">True</span>,)
-        <span class="org-keyword">if</span> resp.status_code <span class="org-operator">!=</span> 404:
-            <span class="org-comment-delimiter"># </span><span class="org-comment">We do not care about 404s</span>
-            result.append(f<span class="org-string">"Intersting! </span>{resp.status_code}<span class="org-string">: Article </span>{article}<span class="org-constant">\n</span><span class="org-string">"</span>)
-    <span class="org-keyword">except</span> <span class="org-type">Exception</span> <span class="org-keyword">as</span> e:
-        <span class="org-keyword">return</span>(<span class="org-string">"Noice:"</span>, e)
+for article in range(1,10):
+    try:
+        resp = requests.get(mylink+str(article),
+                            verify=False, # Avoid self-signed certificate errors
+                            proxies=proxy,
+                            allow_redirects=True,)
+        if resp.status_code != 404:
+            # We do not care about 404s
+            result.append(f"Intersting! {resp.status_code}: Article {article}\n")
+    except Exception as e:
+        return("Noice:", e)
 
-<span class="org-keyword">return</span> result
+return result
 </pre>
 </div>
 
-<pre class="example" id="org18c8da8">
+<pre class="example" id="org77ec3d6">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -154,17 +152,17 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="orgd4acf7d" class="figure">
-<p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png" />
+<div id="orgc74ceca" class="figure">
+<p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb1e956a" class="outline-2">
-<h2 id="orgb1e956a"><a href="#orgb1e956a">XSS</a></h2>
-<div class="outline-text-2" id="text-orgb1e956a">
+<div id="outline-container-org10fd2db" class="outline-2">
+<h2 id="org10fd2db"><a href="#org10fd2db">XSS</a></h2>
+<div class="outline-text-2" id="text-org10fd2db">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -187,15 +185,15 @@ At this point we have flags 2,3, searching for 1,2.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html">&lt;<span class="org-function-name">IMG</span> SRC=/ <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;&lt;/<span class="org-function-name">img</span>&gt;
+<pre class="src src-html">&lt;IMG SRC=/ onerror="alert(1)"&gt;&lt;/img&gt;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga9604f4" class="outline-2">
-<h2 id="orga9604f4"><a href="#orga9604f4">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-orga9604f4">
+<div id="outline-container-orgba4e6a5" class="outline-2">
+<h2 id="orgba4e6a5"><a href="#orgba4e6a5">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-orgba4e6a5">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -205,9 +203,9 @@ want to <i>wrap</i> this mini challenge.
 </div>
 </div>
 
-<div id="outline-container-orgf9070fb" class="outline-2">
-<h2 id="orgf9070fb"><a href="#orgf9070fb">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-orgf9070fb">
+<div id="outline-container-org1c0ca0c" class="outline-2">
+<h2 id="org1c0ca0c"><a href="#org1c0ca0c">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-org1c0ca0c">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall
@@ -238,7 +236,7 @@ getting fully caught up with ECE.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-01-21 Sun 20:38</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

@@ -1,14 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Org-roam selective link insertion</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -21,17 +19,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9835423">Disclaimer</a></li>
-<li><a href="#orgbc7bfd2">Problem at hand</a></li>
-<li><a href="#org387c958">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></li>
+<li><a href="#orgdc4cd2f">Disclaimer</a></li>
+<li><a href="#org9821719">Problem at hand</a></li>
+<li><a href="#orgd32be93">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org9835423" class="outline-2">
-<h2 id="org9835423"><a href="#org9835423">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-org9835423">
+<div id="outline-container-orgdc4cd2f" class="outline-2">
+<h2 id="orgdc4cd2f"><a href="#orgdc4cd2f">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-orgdc4cd2f">
 <p>
 This article does not cover how to use <code>org-roam</code>. It is simply a step by step
 analysis of a potentially sketchy solution to overcome a niche problem. 
@@ -51,9 +49,9 @@ After all he is the creator of the package.
 </div>
 </div>
 
-<div id="outline-container-orgbc7bfd2" class="outline-2">
-<h2 id="orgbc7bfd2"><a href="#orgbc7bfd2">Problem at hand</a></h2>
-<div class="outline-text-2" id="text-orgbc7bfd2">
+<div id="outline-container-org9821719" class="outline-2">
+<h2 id="org9821719"><a href="#org9821719">Problem at hand</a></h2>
+<div class="outline-text-2" id="text-org9821719">
 <p>
 If there is something I always wanted to tackle in <code>org-roam</code>, is that I quite
 often, when revisiting older nodes, encounter phrases and/or topics I have built
@@ -66,9 +64,9 @@ That functionality, was not very difficult to achieve.
 </div>
 </div>
 
-<div id="outline-container-org387c958" class="outline-2">
-<h2 id="org387c958"><a href="#org387c958">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></h2>
-<div class="outline-text-2" id="text-org387c958">
+<div id="outline-container-orgd32be93" class="outline-2">
+<h2 id="orgd32be93"><a href="#orgd32be93">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></h2>
+<div class="outline-text-2" id="text-orgd32be93">
 <p>
 The solution consists of two parts:
 </p>
@@ -84,7 +82,7 @@ Whenever I find a snippet I want to replace with a link to the related node, I
 can easily press <code>v</code>, select the appropriate text and then call the function.
 </p>
 
-<div class="note" id="orge203253">
+<div class="note" id="orgb49efb8">
 <p>
 If you do not use evil, you can still use the function (after commenting out the
 last line). The usage will necessarily be different though.
@@ -99,7 +97,7 @@ easily select the desired string:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org0cca6b8">(buffer-substring-no-properties (region-beginning) (region-end))
+<pre class="src src-elisp" id="orga32e2e7">(buffer-substring-no-properties (region-beginning) (region-end))
 </pre>
 </div>
 
@@ -111,7 +109,7 @@ This step improves the accuracy of the subsequent processing
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org751b964">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
+<pre class="src src-elisp" id="orgda754a3">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
 </pre>
 </div>
 
@@ -122,17 +120,17 @@ that we can then insert the link in our starting file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org606d631">(<span class="org-keyword">progn</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">Open a node-find prompt with the selected-text as initial input</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">If a node is found/created open it on a different window</span>
+<pre class="src src-elisp" id="orgeeb917e">(progn
+  ;; Open a node-find prompt with the selected-text as initial input
+  ;; If a node is found/created open it on a different window
   (org-roam-node-find t selected-text)
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">If the previous part runs as it is supposed</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">get the id of the file we want to link to</span>
+  ;; If the previous part runs as it is supposed
+  ;; get the id of the file we want to link to
   (org-roam-node-id (org-roam-node-at-point)))
 </pre>
 </div>
 
-<div class="note" id="org60834b1">
+<div class="note" id="org5f2cd56">
 <p>
 Interestingly, the node need not actually match that selected text - we can clear it all in the
 <code>org-roam-node-find</code> prompt, and simply insert a link for the node we want
@@ -147,11 +145,11 @@ left here is to replace the plain text with a link to our <i>target node</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org641fba8">(<span class="org-keyword">with-current-buffer</span> current-buffer
-            (<span class="org-keyword">progn</span>
+<pre class="src src-elisp" id="orge2f0746">(with-current-buffer current-buffer
+            (progn
               (goto-char re-start)
               (delete-region re-start (search-forward selected-text))
-              (insert (concat <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[ID:"</span> id <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">["</span> selected-text <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]"</span>))
+              (insert (concat "\[\[ID:" id "\]\[" selected-text "\]\]"))
               (evil-force-normal-state)
               ))
 </pre>
@@ -163,22 +161,22 @@ Now, let&rsquo;s put it all together.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgfc20319">(<span class="org-keyword">defun</span> <span class="org-function-name">my-org-roam-node-find-selected-text</span> ()
-  <span class="org-doc">"Open org-roam-node-find with selected text as initial input</span>
-<span class="org-doc">and replace with org-roam link if node is selected or created."</span>
-  (<span class="org-keyword">interactive</span>)
-    (<span class="org-keyword">let*</span> ((re-start (region-beginning))
+<pre class="src src-elisp" id="org918bde4">(defun my-org-roam-node-find-selected-text ()
+  "Open org-roam-node-find with selected text as initial input
+and replace with org-roam link if node is selected or created."
+  (interactive)
+    (let* ((re-start (region-beginning))
            (selected-text (string-trim-whitespace (buffer-substring-no-properties re-start (region-end))))
            (current-buffer (current-buffer))
-           (id (<span class="org-keyword">progn</span>
+           (id (progn
                  (org-roam-node-find t selected-text)
                  (org-roam-node-id (org-roam-node-at-point)))))
-      (<span class="org-keyword">if</span>  (not (eq current-buffer (current-buffer)))
-          (<span class="org-keyword">with-current-buffer</span> current-buffer
-            (<span class="org-keyword">progn</span>
+      (if  (not (eq current-buffer (current-buffer)))
+          (with-current-buffer current-buffer
+            (progn
               (goto-char re-start)
               (delete-region re-start (search-forward selected-text))
-              (insert (concat <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">[ID:"</span> id <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">["</span> selected-text <span class="org-string">"</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]</span><span class="org-string"><span class="org-warning">\</span></span><span class="org-string">]"</span>))
+              (insert (concat "\[\[ID:" id "\]\[" selected-text "\]\]"))
               (evil-force-normal-state)
               ))
       )
@@ -195,14 +193,14 @@ it. <code>R</code> (for Roam) in visual mode points to a command I do not rememb
 much more helpful. 
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgec6fd60">(define-key evil-visual-state-map (kbd <span class="org-string">"R"</span>) 'my-org-roam-node-find-selected-text) 
+<pre class="src src-elisp" id="org6d91b17">(define-key evil-visual-state-map (kbd "R") 'my-org-roam-node-find-selected-text) 
 </pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-05-27 Sat 22:35</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

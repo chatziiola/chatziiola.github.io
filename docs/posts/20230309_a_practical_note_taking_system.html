@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>A practical note taking system</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="An introduction to my note taking framework" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -54,29 +52,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org75c4f52">Introduction</a></li>
-<li><a href="#orgb9d529d">Before we begin</a></li>
-<li><a href="#orgd772178">Introduction to note types</a></li>
-<li><a href="#orgde45434">Working Notes</a></li>
-<li><a href="#orgc2ed14c">Lecture Notes</a></li>
-<li><a href="#orgdc1166b">Book Notes</a></li>
-<li><a href="#orgdc72abf">Permanent Notes</a>
+<li><a href="#orgb526393">Introduction</a></li>
+<li><a href="#orgde64c72">Before we begin</a></li>
+<li><a href="#orgc5634c7">Introduction to note types</a></li>
+<li><a href="#orgd538b1c">Working Notes</a></li>
+<li><a href="#org18fa7bd">Lecture Notes</a></li>
+<li><a href="#orga2f0cf4">Book Notes</a></li>
+<li><a href="#orgc9763e5">Permanent Notes</a>
 <ul>
-<li><a href="#org12a248c">KIS(S)</a></li>
-<li><a href="#org6bddca8">KIS(S)</a></li>
+<li><a href="#org8b937fe">KIS(S)</a></li>
+<li><a href="#orgc3ae02f">KIS(S)</a></li>
 </ul>
 </li>
-<li><a href="#org7c21293">References</a></li>
+<li><a href="#org86efc59">References</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org75c4f52" class="outline-2">
-<h2 id="org75c4f52"><a href="#org75c4f52">Introduction</a></h2>
-<div class="outline-text-2" id="text-org75c4f52">
+<div id="outline-container-orgb526393" class="outline-2">
+<h2 id="orgb526393"><a href="#orgb526393">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgb526393">
 <p>
 My notetaking system has been a long on-going project. It started with
-(<a href="#orgae1d4e8">Castel 2023</a>), and has since been through a lot.
+(<a href="#orgf6bc7a6">Castel 2023</a>), and has since been through a lot.
 </p>
 
 <div class="org-center">
@@ -115,20 +113,20 @@ yourselves!
 </p>
 
 
-<div class="note" id="orgf7d08ce">
+<div class="note" id="org6dc88a6">
 <p>
 If this article feels like its promoting my <i>note taking</i> stack, this was not
 intended. My goal is to expose my process so that your feedback (supposing it
-exists :P ) will allow me to see its problems(<a href="#orgf5e4758">Ahrens 2022</a>).
+exists :P ) will allow me to see its problems(<a href="#orgb9bf90f">Ahrens 2022</a>).
 </p>
 
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgb9d529d" class="outline-2">
-<h2 id="orgb9d529d"><a href="#orgb9d529d">Before we begin</a></h2>
-<div class="outline-text-2" id="text-orgb9d529d">
+<div id="outline-container-orgde64c72" class="outline-2">
+<h2 id="orgde64c72"><a href="#orgde64c72">Before we begin</a></h2>
+<div class="outline-text-2" id="text-orgde64c72">
 <p>
 This article tries to avoid getting into the specifics of any of the well-known
 note taking systems or configurations I may or may not have been inspired from.
@@ -145,9 +143,9 @@ moon, even if you fail you&rsquo;ll be among the stars</i> mentality.
 </div>
 </div>
 
-<div id="outline-container-orgd772178" class="outline-2">
-<h2 id="orgd772178"><a href="#orgd772178">Introduction to note types</a></h2>
-<div class="outline-text-2" id="text-orgd772178">
+<div id="outline-container-orgc5634c7" class="outline-2">
+<h2 id="orgc5634c7"><a href="#orgc5634c7">Introduction to note types</a></h2>
+<div class="outline-text-2" id="text-orgc5634c7">
 <p>
 <b>Not all notes are the same.</b>
 </p>
@@ -166,17 +164,17 @@ use a certain piece of software or methodology.
 In my configuration there exist four distinct types of notes:
 </p>
 <ol class="org-ol">
-<li><a href="#orgde45434">Working Notes</a></li>
-<li><a href="#orgc2ed14c">Lecture Notes</a></li>
-<li><a href="#orgdc1166b">Book Notes</a></li>
-<li><a href="#orgdc72abf">Permanent Notes</a></li>
+<li><a href="#orgd538b1c">Working Notes</a></li>
+<li><a href="#org18fa7bd">Lecture Notes</a></li>
+<li><a href="#orga2f0cf4">Book Notes</a></li>
+<li><a href="#orgc9763e5">Permanent Notes</a></li>
 </ol>
 
 <p>
 Each one of them would need a rather extensive article on the many phases that  
 </p>
 
-<div class="note" id="org308968d">
+<div class="note" id="orga5fb3bd">
 <p>
 I feel that it is important to state that I also rely heavily on <code>org-capture</code> for
 quick notes or <i>fleeting notes</i> as described in Zettelkasten
@@ -186,9 +184,9 @@ quick notes or <i>fleeting notes</i> as described in Zettelkasten
 </div>
 </div>
 
-<div id="outline-container-orgde45434" class="outline-2">
-<h2 id="orgde45434"><a href="#orgde45434">Working Notes</a></h2>
-<div class="outline-text-2" id="text-orgde45434">
+<div id="outline-container-orgd538b1c" class="outline-2">
+<h2 id="orgd538b1c"><a href="#orgd538b1c">Working Notes</a></h2>
+<div class="outline-text-2" id="text-orgd538b1c">
 <p>
 Working notes are, essentially, small chunks of important methodologies, tips
 and commands I develop around a topic and keep within a keystrokes&rsquo; reach for
@@ -196,8 +194,8 @@ when I have trouble in that specific context.
 </p>
 
 
-<div id="orgff22e27" class="figure">
-<p><img src="images/230309_1019_working-notes.png" alt="230309_1019_working-notes.png" />
+<div id="orgd616cb5" class="figure">
+<p><img src="images/230309_1019_working-notes.png" alt="230309_1019_working-notes.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Here you can see some sample working notes on certain tools, managed by KLP</p>
 </div>
@@ -223,18 +221,18 @@ create working notes instantly.
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(<span class="org-keyword">use-package</span> <span class="org-constant">klp</span>
-  <span class="org-builtin">:straight</span>
-  (<span class="org-builtin">:host</span> github <span class="org-builtin">:repo</span> <span class="org-string">"chatziiola/klp"</span>)
+(use-package klp
+  :straight
+  (:host github :repo "chatziiola/klp")
 
-  <span class="org-builtin">:config</span>
-  (<span class="org-keyword">setq</span> klp/static-notes-dir <span class="org-string">"~/my/path"</span>)
+  :config
+  (setq klp/static-notes-dir "~/my/path")
 
-  <span class="org-builtin">:general</span>
+  :general
   (lc/leader-keys
-    <span class="org-string">"ln"</span> '(klp/open-note                   <span class="org-builtin">:which-keys</span> <span class="org-string">"Open tools cate"</span>)
-    <span class="org-string">"lt"</span> '(chatziiola/open-thm-room        <span class="org-builtin">:which-keys</span> <span class="org-string">"Open thm categ"</span>)
-    <span class="org-string">"lT"</span> '(chatziiola/open-tools           <span class="org-builtin">:which-keys</span> <span class="org-string">"Open tools cate"</span>))
+    "ln" '(klp/open-note                   :which-keys "Open tools cate")
+    "lt" '(chatziiola/open-thm-room        :which-keys "Open thm categ")
+    "lT" '(chatziiola/open-tools           :which-keys "Open tools cate"))
   )
 </pre>
 </div>
@@ -244,24 +242,24 @@ To get a better understanding of how to use KLP, if you go that way, see the
 following personalized functions:
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/open-tools</span> ()
-<span class="org-doc">"Macro to use `</span><span class="org-doc"><span class="org-constant">klp/open-note</span></span><span class="org-doc">' to open all `</span><span class="org-doc"><span class="org-constant">notes_tool_title.org</span></span><span class="org-doc">' files."</span>
-  (<span class="org-keyword">interactive</span>)
-  (klp/open-note <span class="org-string">"tool"</span> '(<span class="org-string">"TITLE"</span>)))
+<pre class="src src-elisp">(defun chatziiola/open-tools ()
+"Macro to use `klp/open-note' to open all `notes_tool_title.org' files."
+  (interactive)
+  (klp/open-note "tool" '("TITLE")))
 
-(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/open-thm-room</span> ()
-<span class="org-doc">"Macro to use `</span><span class="org-doc"><span class="org-constant">klp/open-note</span></span><span class="org-doc">' to open all `</span><span class="org-doc"><span class="org-constant">notes_thm_title.org</span></span><span class="org-doc">' files."</span>
-  (<span class="org-keyword">interactive</span>)
-  (klp/open-note <span class="org-string">"thm"</span> '(<span class="org-string">"DATE"</span> <span class="org-string">"TITLE"</span>)))
+(defun chatziiola/open-thm-room ()
+"Macro to use `klp/open-note' to open all `notes_thm_title.org' files."
+  (interactive)
+  (klp/open-note "thm" '("DATE" "TITLE")))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgc2ed14c" class="outline-2">
-<h2 id="orgc2ed14c"><a href="#orgc2ed14c">Lecture Notes</a></h2>
-<div class="outline-text-2" id="text-orgc2ed14c">
-<div class="note" id="org991196e">
+<div id="outline-container-org18fa7bd" class="outline-2">
+<h2 id="org18fa7bd"><a href="#org18fa7bd">Lecture Notes</a></h2>
+<div class="outline-text-2" id="text-org18fa7bd">
+<div class="note" id="orgad8c973">
 <p>
 After having completed this article I noticed that I did not write about
 <code>cdlatex</code>. If you use org heavily and would like to have inline \LaTeX, completion
@@ -293,7 +291,7 @@ Examples of such images you can see in my published <a href="lectures/index.html
 </p>
 
 <p>
-Furthermore, lecture notes are almost identical to <a href="#orgdc1166b">book notes</a>, in their core.
+Furthermore, lecture notes are almost identical to <a href="#orga2f0cf4">book notes</a>, in their core.
 The reason why there is a clear distinction between them in my configuration, is
 a purely practical one. They do not work the same way, one uses <code>org-lectures</code>
 while the other one uses <code>org-noter</code>, and they are used under different
@@ -311,27 +309,27 @@ published <a href="https://github.com/chatziiola/org-lectures">org-lectures</a> 
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(<span class="org-keyword">use-package</span> <span class="org-constant">org-lectures</span>
-  <span class="org-builtin">:straight</span>
-  (<span class="org-builtin">:host</span> github <span class="org-builtin">:repo</span> <span class="org-string">"chatziiola/org-lectures"</span>)
-  <span class="org-builtin">:config</span>
-  (<span class="org-keyword">setq</span> org-lectures-dir (expand-file-name <span class="org-string">"/my/path"</span>))
-  (<span class="org-keyword">setq</span> org-lectures-static-course-files-dir  <span class="org-string">"/my/path"</span>)
-  (<span class="org-keyword">setq</span> org-lectures-roam-id-integration  t)
-  (<span class="org-keyword">setq</span> org-lectures-current-semester <span class="org-string">"6"</span>)
-  <span class="org-builtin">:general</span>
+(use-package org-lectures
+  :straight
+  (:host github :repo "chatziiola/org-lectures")
+  :config
+  (setq org-lectures-dir (expand-file-name "/my/path"))
+  (setq org-lectures-static-course-files-dir  "/my/path")
+  (setq org-lectures-roam-id-integration  t)
+  (setq org-lectures-current-semester "6")
+  :general
   (lc/leader-keys
-    <span class="org-string">"ll"</span> '(org-lectures-find-course             <span class="org-builtin">:which-keys</span> <span class="org-string">"lecture"</span>)
-    <span class="org-string">"lF"</span> '(org-lectures-dired-course-folder     <span class="org-builtin">:which-keys</span> <span class="org-string">"Open course's folder"</span>))
+    "ll" '(org-lectures-find-course		:which-keys "lecture")
+    "lF" '(org-lectures-dired-course-folder	:which-keys "Open course's folder"))
   )
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdc1166b" class="outline-2">
-<h2 id="orgdc1166b"><a href="#orgdc1166b">Book Notes</a></h2>
-<div class="outline-text-2" id="text-orgdc1166b">
+<div id="outline-container-orga2f0cf4" class="outline-2">
+<h2 id="orga2f0cf4"><a href="#orga2f0cf4">Book Notes</a></h2>
+<div class="outline-text-2" id="text-orga2f0cf4">
 <p>
 When reading a book, an article or even watching a video or a course, new ideas
 will, naturally, emerge. These ideas can be simply fleeting notes, as they are
@@ -365,9 +363,9 @@ areas in which ebooks have more to offer, without <i>practically</i> any drawbac
 </div>
 </div>
 
-<div id="outline-container-orgdc72abf" class="outline-2">
-<h2 id="orgdc72abf"><a href="#orgdc72abf">Permanent Notes</a></h2>
-<div class="outline-text-2" id="text-orgdc72abf">
+<div id="outline-container-orgc9763e5" class="outline-2">
+<h2 id="orgc9763e5"><a href="#orgc9763e5">Permanent Notes</a></h2>
+<div class="outline-text-2" id="text-orgc9763e5">
 <p>
 These notes are stored as if they were to be published.  They are independent,
 and thus do not rely on other notes to have meaning.
@@ -376,7 +374,7 @@ and thus do not rely on other notes to have meaning.
 <p>
 To be frank, I do not have much to say on my permanent notes. I use the
 wonderful <code>org-roam</code> package, and I try to work along the lines of
-(<a href="#orgf589d0b">“Org-Roam User Manual” 2023</a>), (<a href="#org0c78860">Jethro 2023</a>), (<a href="#orgae1d4e8">“Capturing Notes Efficiently with Org Roam - System Crafters” 2023</a>).
+(<a href="#orgd200c2f">“Org-Roam User Manual” 2023</a>), (<a href="#orgfa6dd38">Jethro 2023</a>), (<a href="#orgf6bc7a6">“Capturing Notes Efficiently with Org Roam - System Crafters” 2023</a>).
 </p>
 
 <p>
@@ -398,9 +396,9 @@ believe that they should follow these policies.
 </p>
 </div>
 
-<div id="outline-container-org12a248c" class="outline-3">
-<h3 id="org12a248c"><a href="#org12a248c">KIS(S)</a></h3>
-<div class="outline-text-3" id="text-org12a248c">
+<div id="outline-container-org8b937fe" class="outline-3">
+<h3 id="org8b937fe"><a href="#org8b937fe">KIS(S)</a></h3>
+<div class="outline-text-3" id="text-org8b937fe">
 <p>
 Keep it Small. I&rsquo;m trying really hard not to sum this section up as: &ldquo;Size
 matters&rdquo;. My sense of humor, though, prevents me.
@@ -419,13 +417,13 @@ And funnily enough, with these we have actually covered all of the <i>theory</i>
 </div>
 </div>
 
-<div id="outline-container-org6bddca8" class="outline-3">
-<h3 id="org6bddca8"><a href="#org6bddca8">KIS(S)</a></h3>
-<div class="outline-text-3" id="text-org6bddca8">
+<div id="outline-container-orgc3ae02f" class="outline-3">
+<h3 id="orgc3ae02f"><a href="#orgc3ae02f">KIS(S)</a></h3>
+<div class="outline-text-3" id="text-orgc3ae02f">
 <p>
 Keep It Simple. Try to avoid overthinking or over engineering stuff. You should
 focus on the material you are at the time studying or working on. Focusing on
-the practice of note taking (even though, as (<a href="#orgf5e4758">Ahrens 2022</a>)
+the practice of note taking (even though, as (<a href="#orgb9bf90f">Ahrens 2022</a>)
 suggest is beneficial due to its deliberate character), is from my experience
 problematic and hinders the process in the long term, by decreasing your
 performance and willingness to take notes.
@@ -435,32 +433,32 @@ performance and willingness to take notes.
 </div>
 
 
-<div id="outline-container-org7c21293" class="outline-2">
-<h2 id="org7c21293"><a href="#org7c21293">References</a></h2>
-<div class="outline-text-2" id="text-org7c21293">
+<div id="outline-container-org86efc59" class="outline-2">
+<h2 id="org86efc59"><a href="#org86efc59">References</a></h2>
+<div class="outline-text-2" id="text-org86efc59">
 <p>
-<a id="orgd139a2b"></a>
+<a id="org0a5ce1d"></a>
 </p>
 
 
 <p>
-<a id="org086da42"></a> <a id="orgf5e4758"></a>Ahrens, Sönke. 2022. <i>How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking</i>. 2nd edition, revised and expanded edition. Hamburg, Germany: Sönke Ahrens.
+<a id="org3ea4d3b"></a> <a id="orgb9bf90f"></a>Ahrens, Sönke. 2022. <i>How to Take Smart Notes: One Simple Technique to Boost Writing, Learning and Thinking</i>. 2nd edition, revised and expanded edition. Hamburg, Germany: Sönke Ahrens.
 </p>
 
 <p>
-<a id="orgae1d4e8"></a>Castel, Gilles. 2023. “Castel.Dev.” Accessed March 8. <a href="https://castel.dev/">https://castel.dev/</a>.
+<a id="orgf6bc7a6"></a>Castel, Gilles. 2023. “Castel.Dev.” Accessed March 8. <a href="https://castel.dev/">https://castel.dev/</a>.
 </p>
 
 <p>
-<a id="org0c78860"></a>Jethro, Kuan. 2023. “How I Take Notes with Org-roam.” Accessed January 20. <a href="https://jethrokuan.github.io/org-roam-guide/">https://jethrokuan.github.io/org-roam-guide/</a>.
+<a id="orgfa6dd38"></a>Jethro, Kuan. 2023. “How I Take Notes with Org-roam.” Accessed January 20. <a href="https://jethrokuan.github.io/org-roam-guide/">https://jethrokuan.github.io/org-roam-guide/</a>.
 </p>
 
 <p>
-<a id="org2f761bb"></a>“Capturing Notes Efficiently with Org Roam - System Crafters.” 2023. Accessed March 9. <a href="https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/">https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/</a>.
+<a id="orgd3c70b4"></a>“Capturing Notes Efficiently with Org Roam - System Crafters.” 2023. Accessed March 9. <a href="https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/">https://systemcrafters.net/build-a-second-brain-in-emacs/capturing-notes-efficiently/</a>.
 </p>
 
 <p>
-<a id="orgf589d0b"></a>“Org-Roam User Manual.” 2023. Accessed March 9. <a href="https://www.orgroam.com/manual.html">https://www.orgroam.com/manual.html</a>.
+<a id="orgd200c2f"></a>“Org-Roam User Manual.” 2023. Accessed March 9. <a href="https://www.orgroam.com/manual.html">https://www.orgroam.com/manual.html</a>.
 </p>
 </div>
 </div>
@@ -482,7 +480,7 @@ files so the height limitation is quite apparent at times.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-03-09 Thu 11:47</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

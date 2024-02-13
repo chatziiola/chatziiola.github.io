@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>How i publish my static blog on Github pages using Emacs</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Automating the tricky org mode to html process was never easier" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -54,32 +52,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6226410">Introduction</a>
+<li><a href="#org349fb7d">Introduction</a>
 <ul>
-<li><a href="#org2acedbe">Notice</a></li>
+<li><a href="#org5a9a173">Notice</a></li>
 </ul>
 </li>
-<li><a href="#org973421a">Why Emacs and Org Mode? A personal story</a></li>
-<li><a href="#org4b0c042">Piece of wisdom: Write small scripts</a></li>
-<li><a href="#orgc259c5e">The Process</a>
+<li><a href="#orgbc3b70d">Why Emacs and Org Mode? A personal story</a></li>
+<li><a href="#orgf073aef">Piece of wisdom: Write small scripts</a></li>
+<li><a href="#org1c9c8cc">The Process</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org9b59c14">Dealing with the Emacs Back End:</a></li>
+<li><a href="#orgc26475d">Dealing with the Emacs Back End:</a></li>
 </ul>
 </li>
-<li><a href="#orge841965">Bash</a></li>
-<li><a href="#org677b4fb">Publishing on Github</a></li>
+<li><a href="#orgdc1df7d">Bash</a></li>
+<li><a href="#org6e004ed">Publishing on Github</a></li>
 </ul>
 </li>
-<li><a href="#org158d733">Notes:</a></li>
+<li><a href="#orgbbd81ff">Notes:</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org6226410" class="outline-2">
-<h2 id="org6226410"><a href="#org6226410">Introduction</a></h2>
-<div class="outline-text-2" id="text-org6226410">
+<div id="outline-container-org349fb7d" class="outline-2">
+<h2 id="org349fb7d"><a href="#org349fb7d">Introduction</a></h2>
+<div class="outline-text-2" id="text-org349fb7d">
 <p>
 Almost everyone nowadays agrees that having a personal website is a virtue. That
 consists of two parts<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>: The technical and the writing one.
@@ -96,9 +94,9 @@ want <b>and</b> how to host it on GitHub Pages.
 </p>
 </div>
 
-<div id="outline-container-org2acedbe" class="outline-3">
-<h3 id="org2acedbe"><a href="#org2acedbe">Notice</a></h3>
-<div class="outline-text-3" id="text-org2acedbe">
+<div id="outline-container-org5a9a173" class="outline-3">
+<h3 id="org5a9a173"><a href="#org5a9a173">Notice</a></h3>
+<div class="outline-text-3" id="text-org5a9a173">
 <p>
 I wrote this article in a form of rubber duck debugging of my own publishing
 progress. As such it will remain a work-in-progress even after its publication.
@@ -107,10 +105,10 @@ progress. As such it will remain a work-in-progress even after its publication.
 </div>
 </div>
 
-<div id="outline-container-org973421a" class="outline-2">
-<h2 id="org973421a"><a href="#org973421a">Why Emacs and Org Mode? A personal story</a></h2>
-<div class="outline-text-2" id="text-org973421a">
-<div class="note" id="orgcf0877f">
+<div id="outline-container-orgbc3b70d" class="outline-2">
+<h2 id="orgbc3b70d"><a href="#orgbc3b70d">Why Emacs and Org Mode? A personal story</a></h2>
+<div class="outline-text-2" id="text-orgbc3b70d">
+<div class="note" id="orgd095bb5">
 <p>
 If you have found a setup you like and feel comfortable working in, then there&rsquo;s
 no need to listen to me or anyone else about moving to a different editor. 
@@ -142,9 +140,9 @@ capabilities (if you are an Emacs user that is).
 </div>
 </div>
 
-<div id="outline-container-org4b0c042" class="outline-2">
-<h2 id="org4b0c042"><a href="#org4b0c042">Piece of wisdom: Write small scripts</a></h2>
-<div class="outline-text-2" id="text-org4b0c042">
+<div id="outline-container-orgf073aef" class="outline-2">
+<h2 id="orgf073aef"><a href="#orgf073aef">Piece of wisdom: Write small scripts</a></h2>
+<div class="outline-text-2" id="text-orgf073aef">
 <blockquote>
 <p>
 Do not think of coding projects as <b>major ones</b>
@@ -160,9 +158,9 @@ the path of least resistance and be ruthless to the things that do not matter.
 </div>
 </div>
 
-<div id="outline-container-orgc259c5e" class="outline-2">
-<h2 id="orgc259c5e"><a href="#orgc259c5e">The Process</a></h2>
-<div class="outline-text-2" id="text-orgc259c5e">
+<div id="outline-container-org1c9c8cc" class="outline-2">
+<h2 id="org1c9c8cc"><a href="#org1c9c8cc">The Process</a></h2>
+<div class="outline-text-2" id="text-org1c9c8cc">
 <p>
 Publishing with Emacs is relatively simple as long as you follow some basic
 principles:
@@ -188,10 +186,10 @@ like any other website.</li>
 </ul>
 </div>
 
-<div id="outline-container-org9b59c14" class="outline-4">
-<h4 id="org9b59c14"><a href="#org9b59c14">Dealing with the Emacs Back End:</a></h4>
-<div class="outline-text-4" id="text-org9b59c14">
-<div class="note" id="org0069b89">
+<div id="outline-container-orgc26475d" class="outline-4">
+<h4 id="orgc26475d"><a href="#orgc26475d">Dealing with the Emacs Back End:</a></h4>
+<div class="outline-text-4" id="text-orgc26475d">
+<div class="note" id="org7d9cf85">
 <p>
 Writing in <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-06 Tue&gt;</span></span>, this configuration file is actually outdated due to
 the fact that I did not remember publishing it. <i><b>sigh</b></i>. It will be fixed in the
@@ -206,18 +204,18 @@ Wilson (<a href="https://www.youtube.com/c/SystemCrafters">channel</a>) shared e
 </p>
 </div>
 </div>
-<div id="outline-container-orge841965" class="outline-3">
-<h3 id="orge841965"><a href="#orge841965">Bash</a></h3>
-<div class="outline-text-3" id="text-orge841965">
+<div id="outline-container-orgdc1df7d" class="outline-3">
+<h3 id="orgdc1df7d"><a href="#orgdc1df7d">Bash</a></h3>
+<div class="outline-text-3" id="text-orgdc1df7d">
 <p>
 One liner - not really much to say here
 </p>
 </div>
 </div>
 
-<div id="outline-container-org677b4fb" class="outline-3">
-<h3 id="org677b4fb"><a href="#org677b4fb">Publishing on Github</a></h3>
-<div class="outline-text-3" id="text-org677b4fb">
+<div id="outline-container-org6e004ed" class="outline-3">
+<h3 id="org6e004ed"><a href="#org6e004ed">Publishing on Github</a></h3>
+<div class="outline-text-3" id="text-org6e004ed">
 <p>
 In order for Github to function as described above a file called <code>publish.yml</code> in
 <code>.github/workflows/</code> is needed 
@@ -260,9 +258,9 @@ jobs:
 </div>
 </div>
 
-<div id="outline-container-org158d733" class="outline-2">
-<h2 id="org158d733"><a href="#org158d733">Notes:</a></h2>
-<div class="outline-text-2" id="text-org158d733">
+<div id="outline-container-orgbbd81ff" class="outline-2">
+<h2 id="orgbbd81ff"><a href="#orgbbd81ff">Notes:</a></h2>
+<div class="outline-text-2" id="text-orgbbd81ff">
 <ul class="org-ul">
 <li>To see these in action feel free to browse this blog&rsquo;s <a href="https://github.com/chatziiola/chatziiola.github.io">source</a></li>
 <li>Of course you can run the bash script locally, maybe with Emacs&rsquo; <code>httpd</code> mini
@@ -289,7 +287,7 @@ which one could use a little bit of work:
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-07-19 Tue 19:26</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>

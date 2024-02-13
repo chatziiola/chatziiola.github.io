@@ -1,15 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Literate Configuration Management with vanilla Emacs</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Creating an easy way to review configs" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -22,30 +20,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org07df855">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
-<li><a href="#orge79bb67">Introduction</a></li>
-<li><a href="#org8e51eb4">Building the script</a>
+<li><a href="#org9a438f5">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
+<li><a href="#orgde89721">Introduction</a></li>
+<li><a href="#org141b05a">Building the script</a>
 <ul>
-<li><a href="#org44ff688">Dealing with too many org files</a></li>
-<li><a href="#org60db771">Getting the titles</a></li>
-<li><a href="#org4d739f0">Presenting Them To The User</a></li>
-<li><a href="#org2e268cb">Integrating rougier&rsquo;s scripts</a>
+<li><a href="#orgecb1426">Dealing with too many org files</a></li>
+<li><a href="#org14d6d58">Getting the titles</a></li>
+<li><a href="#orgbcb21cf">Presenting Them To The User</a></li>
+<li><a href="#orgc3eefd6">Integrating rougier&rsquo;s scripts</a>
 <ul>
-<li><a href="#org967158f">@rougier functions</a></li>
-<li><a href="#orgcf1a3da">Merging them with our funcs</a></li>
+<li><a href="#org18e400e">@rougier functions</a></li>
+<li><a href="#orgd52b50b">Merging them with our funcs</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org3a47feb">Making it usable</a></li>
-<li><a href="#orgbb21969">Summing Up ( some extra details )</a></li>
+<li><a href="#org67879bf">Making it usable</a></li>
+<li><a href="#org74c01f3">Summing Up ( some extra details )</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org07df855" class="outline-2">
-<h2 id="org07df855"><a href="#org07df855">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
-<div class="outline-text-2" id="text-org07df855">
+<div id="outline-container-org9a438f5" class="outline-2">
+<h2 id="org9a438f5"><a href="#org9a438f5">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
+<div class="outline-text-2" id="text-org9a438f5">
 <p>
 This is all completely unnecessary. It turns out that you can practically
 achieve the same functionality with <code>imenu-list</code>, without it being so slow.
@@ -53,9 +51,9 @@ achieve the same functionality with <code>imenu-list</code>, without it being so
 </div>
 </div>
 
-<div id="outline-container-orge79bb67" class="outline-2">
-<h2 id="orge79bb67"><a href="#orge79bb67">Introduction</a></h2>
-<div class="outline-text-2" id="text-orge79bb67">
+<div id="outline-container-orgde89721" class="outline-2">
+<h2 id="orgde89721"><a href="#orgde89721">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgde89721">
 <p>
 I manage my dotfiles using GNU Stow. This means that I have a git directory
 <a href="../../">dotfiles</a>, which contains the configuration files for the applications I have
@@ -70,9 +68,9 @@ in the past couple days
 </div>
 </div>
 
-<div id="outline-container-org8e51eb4" class="outline-2">
-<h2 id="org8e51eb4"><a href="#org8e51eb4">Building the script</a></h2>
-<div class="outline-text-2" id="text-org8e51eb4">
+<div id="outline-container-org141b05a" class="outline-2">
+<h2 id="org141b05a"><a href="#org141b05a">Building the script</a></h2>
+<div class="outline-text-2" id="text-org141b05a">
 <p>
 The following folder hierarchy shows part of the general dotfiles problem:
 </p>
@@ -128,15 +126,15 @@ want to recursively search our directory for <code>.org</code> files.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/emacs"</span>)
-(directory-files-recursively chatziiola/dot-dir <span class="org-string">"org$"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/emacs")
+(directory-files-recursively chatziiola/dot-dir "org$")
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org44ff688" class="outline-3">
-<h3 id="org44ff688"><a href="#org44ff688">Dealing with too many org files</a></h3>
-<div class="outline-text-3" id="text-org44ff688">
+<div id="outline-container-orgecb1426" class="outline-3">
+<h3 id="orgecb1426"><a href="#orgecb1426">Dealing with too many org files</a></h3>
+<div class="outline-text-3" id="text-orgecb1426">
 <p>
 A problem arises: Too many files within the emacs directory, almost all of which
 from the <code>straight</code> subdirectory <i>(this is what hapenned to me, it may be different
@@ -165,57 +163,57 @@ their &ldquo;TITLE&rdquo; property
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
-(directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
+(directory-files-recursively chatziiola/dot-dir "^config.org$")
 </pre>
 </div></li>
 </ol>
 </div>
 </div>
 
-<div id="outline-container-org60db771" class="outline-3">
-<h3 id="org60db771"><a href="#org60db771">Getting the titles</a></h3>
-<div class="outline-text-3" id="text-org60db771">
+<div id="outline-container-org14d6d58" class="outline-3">
+<h3 id="org14d6d58"><a href="#org14d6d58">Getting the titles</a></h3>
+<div class="outline-text-3" id="text-org14d6d58">
 <p>
 Make sure that we get the title of our configuration files:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
-(<span class="org-keyword">dolist</span> (file (directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>))
-        (<span class="org-keyword">unless</span> (stringp (chatziiola/get-keyword-value <span class="org-string">"TITLE"</span> file))
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
+(dolist (file (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+        (unless (stringp (chatziiola/get-keyword-value "TITLE" file))
                  (print file)))
 </pre>
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org7531d91"></a><a href="#org7531d91">Complementary functions</a><br />
-<div class="outline-text-5" id="text-org7531d91">
+<li><a id="org4da896b"></a><a href="#org4da896b">Complementary functions</a><br>
+<div class="outline-text-5" id="text-org4da896b">
 <p>
 These functions were found online (albeit the second one has been changed) when
 I was building my lecture notetaking scripts
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp"><span class="org-comment-delimiter">; </span><span class="org-comment">This and the next func ( even though slightly modified ):</span>
-<span class="org-comment-delimiter">; </span><span class="org-comment">src: https://stackoverflow.com/questions/66574715/how-to-get-org-mode-file-title-and-other-file-level-properties-from-an-arbitra</span>
-(<span class="org-keyword">defun</span> <span class="org-function-name">ndk/get-keyword-key-value</span> (kwd)
-  <span class="org-doc">"This function was found on stackoverflow - google or see config.org for more. \n It should only be used by ~chatziiola/get-keyword-value~"</span>
-  (<span class="org-keyword">let</span> ((data (cadr kwd)))
-    (list (plist-get data <span class="org-builtin">:key</span>)
-          (plist-get data <span class="org-builtin">:value</span>))))
+<pre class="src src-elisp">; This and the next func ( even though slightly modified ):
+; src: https://stackoverflow.com/questions/66574715/how-to-get-org-mode-file-title-and-other-file-level-properties-from-an-arbitra
+(defun ndk/get-keyword-key-value (kwd)
+  "This function was found on stackoverflow - google or see config.org for more. \n It should only be used by ~chatziiola/get-keyword-value~"
+  (let ((data (cadr kwd)))
+    (list (plist-get data :key)
+          (plist-get data :value))))
 
-(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/get-keyword-value</span> (key <span class="org-type">&amp;optional</span> file)
-  <span class="org-doc">"Return the actual value associated with key '</span><span class="org-doc"><span class="org-constant">myString</span></span><span class="org-doc">' of the current org buffer\n For example: (chatziiola/get-keyword-value \"TITLE\") should return the title of that org file."</span>
-        <span class="org-comment-delimiter">; </span><span class="org-comment">Return the nth element of the list</span>
-  <span class="org-comment-delimiter">;; </span><span class="org-comment">TODO better documentation</span>
-  (<span class="org-keyword">let</span> ((file (<span class="org-keyword">or</span> file <span class="org-string">""</span>)))
-    (<span class="org-keyword">cond</span>
+(defun chatziiola/get-keyword-value (key &amp;optional file)
+  "Return the actual value associated with key 'myString' of the current org buffer\n For example: (chatziiola/get-keyword-value \"TITLE\") should return the title of that org file."
+        ; Return the nth element of the list
+  ;; TODO better documentation
+  (let ((file (or file "")))
+    (cond
      ((not (string-blank-p file))
-      (<span class="org-keyword">with-current-buffer</span> (find-file-noselect file) (chatziiola/get-keyword-value key)))
-     <span class="org-comment-delimiter">;; </span><span class="org-comment">In that case key is a list of keys actually</span>
+      (with-current-buffer (find-file-noselect file) (chatziiola/get-keyword-value key)))
+     ;; In that case key is a list of keys actually
      ((proper-list-p key)
-      (<span class="org-keyword">let</span> ((keyVals '()))
-        (<span class="org-keyword">cl-loop</span> for title in key
+      (let ((keyVals '()))
+        (cl-loop for title in key
               do (add-to-list 'keyVals (chatziiola/get-keyword-value title) t))
         keyVals)
       )
@@ -228,9 +226,9 @@ I was building my lecture notetaking scripts
 </ul>
 </div>
 
-<div id="outline-container-org4d739f0" class="outline-3">
-<h3 id="org4d739f0"><a href="#org4d739f0">Presenting Them To The User</a></h3>
-<div class="outline-text-3" id="text-org4d739f0">
+<div id="outline-container-orgbcb21cf" class="outline-3">
+<h3 id="orgbcb21cf"><a href="#orgbcb21cf">Presenting Them To The User</a></h3>
+<div class="outline-text-3" id="text-orgbcb21cf">
 <p>
 Create a dictionary in the form of <code>"TITLE":"FILE"</code>:
 </p>
@@ -241,10 +239,10 @@ We do not call it a directory but rather a <i>prompt-list</i>
 </blockquote>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
-(<span class="org-keyword">let*</span> ((config-files (directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>))
-       (prompt-list (seq-map (<span class="org-keyword">lambda</span> (e) (list (format <span class="org-string">"%-20s %-25s"</span> (chatziiola/get-keyword-value <span class="org-string">"TITLE"</span> e) e) e)) config-files)))
+(let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+       (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files)))
 prompt-list)
 </pre>
 </div>
@@ -254,12 +252,12 @@ prompt-list)
 Prompt the user to select and get the file to be edited
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
-(<span class="org-keyword">let*</span> ((config-files (directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>))
-       (prompt-list (seq-map (<span class="org-keyword">lambda</span> (e) (list (format <span class="org-string">"%-20s %-25s"</span> (chatziiola/get-keyword-value <span class="org-string">"TITLE"</span> e) e) e)) config-files))
-       (prompt-answer (completing-read <span class="org-string">"Select configuration file: "</span> prompt-list)))
-<span class="org-comment-delimiter">; </span><span class="org-comment">Prompt an</span>
+(let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+       (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+       (prompt-answer (completing-read "Select configuration file: " prompt-list)))
+; Prompt an
 (car (last (assoc prompt-answer prompt-list))))
 </pre>
 </div>
@@ -269,22 +267,22 @@ Script building is over: Just open the file
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
 (find-file
-       (<span class="org-keyword">let*</span> ((config-files (directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>))
-              (prompt-list (seq-map (<span class="org-keyword">lambda</span> (e) (list (format <span class="org-string">"%-20s %-25s"</span> (chatziiola/get-keyword-value <span class="org-string">"TITLE"</span> e) e) e)) config-files))
-              (prompt-answer (completing-read <span class="org-string">"Select configuration file: "</span> prompt-list)))
-       <span class="org-comment-delimiter">; </span><span class="org-comment">Prompt an</span>
+       (let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+              (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+              (prompt-answer (completing-read "Select configuration file: " prompt-list)))
+       ; Prompt an
        (car (last (assoc prompt-answer prompt-list)))))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org2e268cb" class="outline-3">
-<h3 id="org2e268cb"><a href="#org2e268cb">Integrating rougier&rsquo;s scripts</a></h3>
-<div class="outline-text-3" id="text-org2e268cb">
+<div id="outline-container-orgc3eefd6" class="outline-3">
+<h3 id="orgc3eefd6"><a href="#orgc3eefd6">Integrating rougier&rsquo;s scripts</a></h3>
+<div class="outline-text-3" id="text-orgc3eefd6">
 <p>
 With the steps above with have achieved a <i>basic level</i> of ease when dealing with
 dotfiles. What is missing?
@@ -296,62 +294,62 @@ dotfiles. What is missing?
 </ol>
 </div>
 
-<div id="outline-container-org967158f" class="outline-4">
-<h4 id="org967158f"><a href="#org967158f">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
-<div class="outline-text-4" id="text-org967158f">
+<div id="outline-container-org18e400e" class="outline-4">
+<h4 id="org18e400e"><a href="#org18e400e">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
+<div class="outline-text-4" id="text-org18e400e">
 <p>
 <code>rougier</code> implemented these wonderful functions ( that inspired me to work on
 this ):
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">my/config</span> ()
-  <span class="org-doc">"Create a new for editing configuration"</span>
+<pre class="src src-elisp">(defun my/config ()
+  "Create a new for editing configuration"
 
-  (<span class="org-keyword">interactive</span>)
-  (select-frame (make-frame '((name . <span class="org-string">"my/config"</span>)
+  (interactive)
+  (select-frame (make-frame '((name . "my/config")
                               (width . 150)
                               (height . 45))))
-  (find-file <span class="org-string">"~/.emacs.d/config.org"</span>)
+  (find-file "~/.emacs.d/config.org")
   (my/org-sidebar-toggle))
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org8ad9f06">
-(<span class="org-keyword">require</span> '<span class="org-constant">imenu</span>)
-(<span class="org-keyword">require</span> '<span class="org-constant">imenu-list</span>)
+<pre class="src src-elisp" id="org3f88784">
+(require 'imenu)
+(require 'imenu-list)
 
-(<span class="org-keyword">defun</span> <span class="org-function-name">my/org-tree-to-indirect-buffer</span> ()
-  <span class="org-doc">"Create indirect buffer, narrow it to current subtree and unfold blocks"</span>
+(defun my/org-tree-to-indirect-buffer ()
+  "Create indirect buffer, narrow it to current subtree and unfold blocks"
 
   (org-tree-to-indirect-buffer)
   (org-show-block-all)
-  (<span class="org-keyword">setq-local</span> my/org-blocks-hidden nil))
+  (setq-local my/org-blocks-hidden nil))
 
-(<span class="org-keyword">defun</span> <span class="org-function-name">my/org-sidebar</span> ()
-  <span class="org-doc">"Open an imenu list on the left that allow navigation."</span>
+(defun my/org-sidebar ()
+  "Open an imenu list on the left that allow navigation."
 
-  (<span class="org-keyword">interactive</span>)
-  (<span class="org-keyword">setq</span> imenu-list-after-jump-hook #'my/org-tree-to-indirect-buffer
+  (interactive)
+  (setq imenu-list-after-jump-hook #'my/org-tree-to-indirect-buffer
         imenu-list-position 'left
         imenu-list-size 36
         imenu-list-focus-after-activation t)
 
-  (<span class="org-keyword">let</span> ((heading (substring-no-properties (<span class="org-keyword">or</span> (org-get-heading t t t t) <span class="org-string">""</span>))))
-    (<span class="org-keyword">when</span> (buffer-base-buffer)
+  (let ((heading (substring-no-properties (or (org-get-heading t t t t) ""))))
+    (when (buffer-base-buffer)
       (switch-to-buffer (buffer-base-buffer)))
     (imenu-list-minor-mode)
     (imenu-list-stop-timer)
     (hl-line-mode)
-    (face-remap-add-relative 'hl-line <span class="org-builtin">:inherit</span> 'nano-subtle)
-    (<span class="org-keyword">setq</span> header-line-format
-          '(<span class="org-builtin">:eval</span>
+    (face-remap-add-relative 'hl-line :inherit 'nano-subtle)
+    (setq header-line-format
+          '(:eval
             (nano-modeline-render nil
                                   (buffer-name imenu-list--displayed-buffer)
-                                  <span class="org-string">"(outline)"</span>
-                                  <span class="org-string">""</span>)))
-    (<span class="org-keyword">setq-local</span> cursor-type nil)
-    (<span class="org-keyword">when</span> (&gt; (length heading) 0)
+                                  "(outline)"
+                                  "")))
+    (setq-local cursor-type nil)
+    (when (&gt; (length heading) 0)
       (goto-char (point-min))
       (search-forward heading)
       (imenu-list-display-dwim))))
@@ -360,13 +358,13 @@ this ):
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">my/org-sidebar-toggle</span> ()
-  <span class="org-doc">"Toggle the org-sidebar"</span>
+<pre class="src src-elisp">(defun my/org-sidebar-toggle ()
+  "Toggle the org-sidebar"
 
-  (<span class="org-keyword">interactive</span>)
-  (<span class="org-keyword">if</span> (get-buffer-window <span class="org-string">"*Ilist*"</span>)
-      (<span class="org-keyword">progn</span>
-        (quit-window nil (get-buffer-window <span class="org-string">"*Ilist*"</span>))
+  (interactive)
+  (if (get-buffer-window "*Ilist*")
+      (progn
+        (quit-window nil (get-buffer-window "*Ilist*"))
         (switch-to-buffer (buffer-base-buffer)))
     (my/org-sidebar)))
 </pre>
@@ -379,22 +377,22 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </p>
 </div>
 </div>
-<div id="outline-container-orgcf1a3da" class="outline-4">
-<h4 id="orgcf1a3da"><a href="#orgcf1a3da">Merging them with our funcs</a></h4>
-<div class="outline-text-4" id="text-orgcf1a3da">
+<div id="outline-container-orgd52b50b" class="outline-4">
+<h4 id="orgd52b50b"><a href="#orgd52b50b">Merging them with our funcs</a></h4>
+<div class="outline-text-4" id="text-orgd52b50b">
 <div class="org-src-container">
-<pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
+<pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
 
-(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/open-conf</span> ()
-     <span class="org-doc">"Finds all ~config.org~ files within chatziiola/dot-dir and opens them up for you"</span>
+(defun chatziiola/open-conf ()
+     "Finds all ~config.org~ files within chatziiola/dot-dir and opens them up for you"
 
-  (<span class="org-keyword">interactive</span>)
-  (<span class="org-keyword">let*</span> ((config-files (directory-files-recursively chatziiola/dot-dir <span class="org-string">"^config.org$"</span>))
-         (prompt-list (seq-map (<span class="org-keyword">lambda</span> (e) (list (format <span class="org-string">"%-20s %-25s"</span> (chatziiola/get-keyword-value <span class="org-string">"TITLE"</span> e) e) e)) config-files))
-         (prompt-answer (completing-read <span class="org-string">"Select configuration file: "</span> prompt-list))
+  (interactive)
+  (let* ((config-files (directory-files-recursively chatziiola/dot-dir "^config.org$"))
+         (prompt-list (seq-map (lambda (e) (list (format "%-20s %-25s" (chatziiola/get-keyword-value "TITLE" e) e) e)) config-files))
+         (prompt-answer (completing-read "Select configuration file: " prompt-list))
          (cur-conf-file (car (last (assoc prompt-answer prompt-list)))))
-      (select-frame (make-frame '((name . <span class="org-string">"my/config"</span>)
+      (select-frame (make-frame '((name . "my/config")
                                   (width . 150)
                                   (height . 45))))
       (find-file cur-conf-file))
@@ -407,9 +405,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </div>
 </div>
 
-<div id="outline-container-org3a47feb" class="outline-2">
-<h2 id="org3a47feb"><a href="#org3a47feb">Making it usable</a></h2>
-<div class="outline-text-2" id="text-org3a47feb">
+<div id="outline-container-org67879bf" class="outline-2">
+<h2 id="org67879bf"><a href="#org67879bf">Making it usable</a></h2>
+<div class="outline-text-2" id="text-org67879bf">
 <p>
 Autoload the configuration function ( so that it is always available ), <i>stolen</i>
 from <code>rougier</code>, once again.
@@ -418,25 +416,25 @@ from <code>rougier</code>, once again.
 <div class="org-src-container">
 <pre class="src src-elisp">
 (autoload 'chatziiola/open-conf
-  (expand-file-name <span class="org-string">"init.el"</span> user-emacs-directory)
-  <span class="org-doc">"Autoloaded my/config command."</span>
+  (expand-file-name "init.el" user-emacs-directory)
+  "Autoloaded my/config command."
   t)
 
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">For those of you that don't use evil, you better start :P</span>
-(evil-define-key 'normal 'global (kbd <span class="org-string">"&lt;leader&gt;fp"</span>) 'chatziiola/open-conf)
+<pre class="src src-elisp">;; For those of you that don't use evil, you better start :P
+(evil-define-key 'normal 'global (kbd "&lt;leader&gt;fp") 'chatziiola/open-conf)
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-orgbb21969" class="outline-2">
-<h2 id="orgbb21969"><a href="#orgbb21969">Summing Up ( some extra details )</a></h2>
-<div class="outline-text-2" id="text-orgbb21969">
+<div id="outline-container-org74c01f3" class="outline-2">
+<h2 id="org74c01f3"><a href="#org74c01f3">Summing Up ( some extra details )</a></h2>
+<div class="outline-text-2" id="text-org74c01f3">
 <p>
 This article took for granted that one has some prior experience with org mode,
 though I understand that this is not always the case. To gain advantage of the
@@ -445,8 +443,8 @@ of your <code>config.org</code> files:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org"><span class="org-org-document-info-keyword">#+TITLE:</span> <span class="org-org-document-title">&lt;yourtitle&gt;</span>
-<span class="org-org-meta-line">#+PROPERTY: header-args :tangle &lt;path-to-your-file&gt;</span>
+<pre class="src src-org">#+TITLE: &lt;yourtitle&gt;
+#+PROPERTY: header-args :tangle &lt;path-to-your-file&gt;
 </pre>
 </div>
 
@@ -460,7 +458,7 @@ Lastly: Do not forget to add <code>config.org</code> to .stow-local-ignore to av
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>If you liked my work (and want more :P), consider <a href="https://www.buymeacoffee.com/chatziiolef">buying me a coffee</a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-09-03 Sat 23:56</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
 </div>
 </body>
 </html>
