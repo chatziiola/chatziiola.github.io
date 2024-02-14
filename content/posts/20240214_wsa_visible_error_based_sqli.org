@@ -1,0 +1,129 @@
+#+TITLE: WSA: Visible Error-Based SQLi
+#+DATE: <2024-02-14 22:12>
+#+DESCRIPTION: Walkthrough of the already mentioned WSA lab by PortSwigger
+#+FILETAGS: wsa sqli
+
+
+* Introduction
+We are given this task:
+#+begin_quote
+The database contains a different table called users, with columns
+called username and password. To solve the lab, find a way to leak the
+password for the administrator user, then log in to their account.
+#+end_quote
+
+Just like in my [[file:20240213_wsa_blind_sql_injection_with_conditional_errors.org][previous article]], before we go on we need to get some
+basic information.
+
+* Getting in position
+
+** SQL Injection Point 
+It is trivial, once again, to see that modifying the value of the
+cookie results in an error code, thus signaling that the cookie's
+value is the point our payload should be inserted at.
+
+#+caption: SQL error through injection in the cookie field
+[[file:images/Getting_in_position/20240214_221538_screenshot.png]]
+
+By taking a better look at that response, however, we see that it
+gives us some more information regarding the error that was produced:
+
+#+begin_example
+<h4>Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char</h4>
+<p class=is-warning>Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char</p>
+#+end_example
+
+This behavior, despite providing extremely simple data in this
+example, might somehow be exploited.
+
+** DBMS enumeration
+Trying a ~SELECT null~ statement in our payload, without a ~FROM~ part,
+resulted in ~200 OK~, which means that our target DBMS surely is not
+Oracle. 
+
+* He protec he atac he gets the data bac
+After that, we just have to see what to do there. Having completed the
+blind version of that room some days before (or was it just
+yesterday), I went ahead and dug the following payload from my notes:
+
+#+begin_example
+UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
+#+end_example
+
+It needs to be properly tinkered with, to match with our DBMS, but
+that is not so difficult. Using the Burp SQLi cheatsheet once again:
+
+#+begin_example
+UNION SELECT CASE WHEN ('b'='a') THEN 1/0 ELSE null END--  
+UNION SELECT CASE WHEN ('b'='a') THEN 1/(SELECT 0) ELSE null END--  
+UNION SELECT IF('b'='a',1/0,null)--
+#+end_example
+
+1. Returns 500, +ruling out Microsoft DBMS+
+2. Returns 500, +ruling out PostgreSQL+
+3. Returns 500, (in output function ~if~ is shown to be unrecognized),
+   ruling out MySQL
+
+I had not been paying attention to the error message, but after
+repeating the process (with just a little bit more attention now) the
+problem was obvious: The input string gets truncated.
+
+#+caption: Truncation POC
+[[file:images/He_protec_he_atac_he_gets_the_data_bac/20240214_223053_screenshot.png]]
+
+
+Not gonna lie: This is the first time I find myself against that.
+Deleting the contents of cookie (so that only ~'~ is left) makes no
+change. The string is too long to be accepted. I need to use shorter
+payloads *or* find a way to overcome that truncation.
+
+** Trying some stuff out
+To get a better understanding of the tools in our hands, I started
+testing payloads, so that I get more information from the visible
+error. One such helpful payload was the following, making a strong
+case for why our DBMS is Postgresql (simply: the function ~PG_SLEEP~
+gets recognized, even though it does not run due to the wrong syntax)
+
+#+NAME: Postgresql dbms
+#+begin_src sql
+TrackingId=TwPUGarplaH8g4da' UNION SELECT PG_SLEEP(1)--;
+#+end_src
+
+** Searching for shorter payloads
+Heading back to the cheatsheet it has a nice suggestion for exploiting
+visible errors, using typecasting.
+
+I already know where to look at so:
+#+NAME: getting the first user
+#+begin_src sql
+TrackingId=' AND CAST((SELECT username from users limit 1)as int)<0--
+#+end_src
+
+returns
+#+begin_example
+ERROR: invalid input syntax for type integer: "administrator"
+#+end_example
+
+Which means that the first entry in ~users~, is the one of
+~administrator~. Substituting ~username~ with ~password~ reveals the
+password directly in the response (visible error)!
+
+* Summary
+The way I decided to initially tackle the lab was problematic. Was not
+my input length limited, it could have worked, but it would have been
+a way more time-consuming process than the one that I finally found.
+Visible Errors are a tremendous tool for the tester, since they allow
+to easily /debug/ payloads, and fix them accordingly. Taking advantage
+of type-casting to conveniently exfiltrate data is certainly
+impressive too!
+
+Still, this lab got me thinking: I used a payload I consider minimal
+yet, had ~administrator~ been second (or third or...) in the table, I
+would not have gotten their password.[fn:1] Obviously, a different path
+could be possible but it feels like strange, depending so much on
+luck.
+
+* Footnotes
+
+[fn:1] What if the input was shortened by just some characters more? Four
+or five would be more than enough.
