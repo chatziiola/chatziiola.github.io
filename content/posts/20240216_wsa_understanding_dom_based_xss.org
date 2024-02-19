@@ -1,0 +1,188 @@
+#+TITLE: WSA: Apprentice DOM Based XSS
+#+DATE: <2024-02-16 11:27>
+#+DESCRIPTION: collection of solution to 4 dom based xss labs on Web Security Academy by PortSwigger
+#+FILETAGS: xss wsa
+
+* Introduction
+If you have played around CTFs it is highly likely[fn:1] that you have
+encountered one of the common forms of cross-site scripting (XSS):
+- Reflected
+- Stored
+And for good reason, since they are (in these scenarios) easy to spot
+and can usually be bundled with other techniques for /more damage/.
+
+One other technique, the overlooked one as stated [[http://www.webappsec.org/projects/articles/071105.shtml][here]], is DOM Based
+XSS, which occurs without any extra client-server interaction. In
+fact, DOM Based XSS takes advantage of the code that is included in
+the web page, and relies on user input to produce a certain outcome.
+The code does not (need to?) contact the web server, but manipulates
+the page's contents based on a query.
+
+In the [[*In ~document.write~][first example]], taken from Web Security Academy by PortSwigger,
+that query is a search field, but it could be a parameter, or ... a
+hashchange as shown in the last lab. Feel free to make any
+corrections/suggestions in the comment section.
+
+* In ~document.write~ :lab:
+
+#+NAME: Vulnerable code
+#+begin_src js
+function trackSearch(query) {
+    document.write('<img src="/resources/images/tracker.gif?searchTerms='+query+'">');
+}
+var query = (new URLSearchParams(window.location.search)).get('search');
+if(query) {
+    trackSearch(query);
+}
+#+end_src
+
+#+begin_example
+" onload="alert()
+<img src="/resources/images/tracker.gif?searchTerms=" onload="alert()">
+#+end_example
+
+* In ~inner.html~ :lab:
+After navigating the site just a little bit we see that in the search
+page there is this embedded script snippet:
+#+NAME: Innerhtml code
+#+begin_src js
+function doSearchQuery(query) {
+    document.getElementById('searchMessage').innerHTML = query;
+}
+var query = (new URLSearchParams(window.location.search)).get('search');
+if(query) {
+    doSearchQuery(query);
+}
+#+end_src
+We see that it takes the parameter ~search~, and adds its contents
+(should they exist) in the ~innerHTML~ (namely contents) of an element
+with id ~searchMessage~. Seeing the response more carefully: 
+
+#+NAME: HTML contents
+#+begin_src html
+<h1><span>0 search results for
+'</span><span id="searchMessage"></span><span>'</span></h1>
+#+end_src
+
+Testing this payload should be more than enough
+#+NAME: html script payload
+#+begin_src html
+<script>alert()</script>
+#+end_src
+
+While it gets inserted into the page it does not get executed --
+another payload should be used. And truly, this second one resulted in
+a /solved lab/.
+
+#+NAME: html script payload
+#+begin_src html
+<img src="fail" onerror="alert(1)">
+#+end_src
+
+** Why did not the first payload work?
+
+* In jQuery anchor href :lab:
+#+NAME: Vulnerable code
+#+begin_src js
+$(function() {
+    $('#backLink').attr("href", (new URLSearchParams(window.location.search)).get('returnPath'));
+});
+#+end_src
+
+This occupies an ~<a>~ element's ~href~, found by an ~id="backLink"~.
+The thing is that the function being used ~attr()~ seems to do a better
+sanitization than what we have already seen, escaping ", and ', not
+allowing with a plain payload to work
+#+begin_example
+#does not work
+testaki'> <script>alert()</script>  
+#produced result
+<a id="backLink" href="/testaki'> <script>alert()</script>">Back</a> 
+#+end_example
+
+Just a little bit of searching (honestly, it was the first
+stackoverflow post for me), reminded me of a type of link I had
+forgotten: ~javascript:~
+
+#+begin_example
+javascript:alert(1);
+#produced result
+<a id="backLink" href="javascript:alert(1);">Back</a> 
+#+end_example
+
+This, when clicking the button causes the ~alert()~ popup window and
+successfully marks the lab as solved.
+
+* In jQuery selector sink using a hashchange event :lab:
+#+begin_note
+First time on a room with a ~Go to exploit server~ button.
+#+end_note
+
+In the website's home page there is this interesting js snippet:
+#+NAME: Vulnerable code
+#+begin_src js
+$(window).on('hashchange', function(){
+    var post = $('section.blog-list h2:contains(' + decodeURIComponent(window.location.hash.slice(1)) + ')');
+    if (post) post.get(0).scrollIntoView();
+});
+#+end_src
+
+Not knowing JavaScript, but barely understanding through transferring
+whatever I could from other languages, this snippet had some work for
+me:
+- What is a ~hashchange~ event:
+  - If you have ever seen anchors in urls (the snippets starting with
+    ~#~ - feel free to click on a section title in this post and check
+    the url) you know the entry point
+  - A ~hashchange~ event occurs when that /parameter/ changes
+- What is ~$()~ in general? It is a selector ([[https://stackoverflow.com/questions/2167544/what-does-the-function-do-in-javascript][source]])
+  - Searching in [[https://stackoverflow.com/questions/9501886/jquery-javascript-selector-or][StackOverflow]], we see that we can add a , to use
+    multiple selectors (even though I am not sure how this could help
+    for the time being, since it will only get fed into a ~scrollIntoView()~)
+- What exactly does ~slice(1)~ do? It returns the string from index 1 to
+  the end, effectively removing ~#~.
+
+
+Getting back to the lab: using links of the following form allows to
+find the post with that word, and move the screen to that.
+#+begin_example
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Reverse
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Watching
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Speak
+#+end_example
+
+Now that we know what it does, how can we escape from it? My naive payload
+does not work, since ~decodeURIComponent~ obviously returns a string and
+does not just make a substitution.
+#+begin_example
+# what I inserted
+/#')');alert(1); //
+# what I hoped for
+var post = $('section.blog-list h2:contains(' + ')'); alert(1)// + ')');
+#+end_example
+
+Searching for ~hashchange XSS~ seems to only include results related to
+this lab ... :(
+
+
+Maybe take advantage of the available web server, so that it calls
+that one instead?
+
+After tinkering for some time, I viewed the solution. It seems silly
+to me, because I can not understand how this would not work on any
+website. I mean, as far as I can see it does not take advantage of
+~hashchange~ at all, just inserts faulty code at the end of the web
+page.
+
+
+** Update after: [[https://www.youtube.com/watch?v=JgiX3kyK8ME][Intigrity explanaation video]]
+
+
+* Summary
+I think I'm missing something so, that's enough labs for today, time
+for some research and theory. 
+
+
+* Footnotes
+
+[fn:1] όπως γνωστός κοσμήτορας ανέφερε τις προηγούμενες ημέρες... 

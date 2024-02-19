@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA Rest of apprentice XSS labs</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Complementary writeup for three WSA labs on XSS" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA Rest of apprentice XSS labs</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf6d056c">Introduction</a></li>
+<li><a href="#orgc626377">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></li>
+<li><a href="#orga69ff51">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></li>
+<li><a href="#org20e09e2">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></li>
+<li><a href="#org72de4fa">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf6d056c" class="outline-2">
+<h2 id="orgf6d056c"><a href="#orgf6d056c">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgf6d056c">
+<p>
+Here we are, yet again. Little less than one hour (ideally) before
+turning this computer off, starting to work on WSA labs (hoping to
+tick some more off today).<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-orgc626377" class="outline-2">
+<h2 id="orgc626377"><a href="#orgc626377">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></h2>
+<div class="outline-text-2" id="text-orgc626377">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-attribute-angle-brackets-html-encoded">here</a>
+</p>
+
+<p>
+Quickly we can see that the search field is where we should focus our
+attention. Checking the source code after some attempts, it becomes
+apparent that we can modify our input so that it adds a parameter and
+<code>onmouseover</code> just does the job
+</p>
+
+
+<div id="orgb0a2286" class="figure">
+<p><img src="images/Lab_1:_Reflected_XSS_into_attribute_with_angle_brackets_HTML-encoded/20240219_092926_screenshot.png" alt="20240219_092926_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>Solving it</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+<div id="outline-container-orga69ff51" class="outline-2">
+<h2 id="orga69ff51"><a href="#orga69ff51">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></h2>
+<div class="outline-text-2" id="text-orga69ff51">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-href-attribute-double-quotes-html-encoded">here</a>
+</p>
+
+<p>
+This one is fairly easy. Heading to the comment section we can see
+that there are some input fields that are available to us. The only
+thing that <b>needs attention</b> here is to <b>use all available parameters</b>.
+This one took some more time than I would like to admit, because of my
+tendency to supply as little info as possible: I had not entered
+nothing in the website field, which is critical for this lab.
+</p>
+
+<p>
+Plain old JavaScript links do the job:
+</p>
+<pre class="example" id="org8f53387">
+javascript:alert(1)
+</pre>
+
+
+<div id="org8b05efb" class="figure">
+<p><img src="images/Lab_2:_Stored_XSS_into_anchor_href_attribute_with_double_quotes_HTML-encoded/20240219_093544_screenshot.png" alt="20240219_093544_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 2: </span>Now, old comment section</p>
+</div>
+</div>
+</div>
+
+
+
+<div id="outline-container-org20e09e2" class="outline-2">
+<h2 id="org20e09e2"><a href="#org20e09e2">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></h2>
+<div class="outline-text-2" id="text-org20e09e2">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-javascript-string-angle-brackets-html-encoded">here</a>
+</p>
+
+<p>
+Checking out the website&rsquo;s source code we see that there exists this
+snippet, which is of interest since it handles our input:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="org11c2d40">var searchTerms = '" test';
+document.write('&lt;img src="/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'"&gt;');
+</pre>
+</div>
+
+<p>
+I&rsquo;m seeking of a payload in the following form:<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
+</p>
+<pre class="example" id="orgd9a36ad">
+' onerror="alert(1)" '
+</pre>
+
+<p>
+The thing, is though, that:
+</p>
+<ol class="org-ol">
+<li>This invalidates the <code>var</code> assignment</li>
+<li>The usage of <code>encodeURIComponent</code>, really messes up our input.</li>
+</ol>
+
+
+<p>
+There I was, thinking of a possible solution to overcome those two
+problems when it finally got to me: the first one is no problem.
+Instead, I can just add <b>as many commands</b> as I want there, separated by
+<code>;</code>. The only thing I need to pay attention to is to comment out the
+last part of the line to avoid the remaining <code>'</code> causing any problems.
+</p>
+
+
+
+<div id="org36bf741" class="figure">
+<p><img src="images/Lab_3:/20240219_110149_screenshot.png" alt="20240219_110149_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 3: </span>Solution</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org72de4fa" class="outline-2">
+<h2 id="org72de4fa"><a href="#org72de4fa">Summary</a></h2>
+<div class="outline-text-2" id="text-org72de4fa">
+<p>
+Last week when I wrote my
+<a href="20240213_wsa_blind_sql_injection_with_conditional_errors.html#org684c2fd">first wsa walkthrough</a> I set a goal of completing
+210 labs in this semester. I am afraid that it might be a little too
+much for someone with a schedule like mine, but I think it is viable.
+Sticking to it.
+</p>
+
+<blockquote>
+<p>
+Stating this here, I aim to complete at least 210 labs (roughly 80% of
+the ones available in the website) by the end of May.
+</p>
+</blockquote>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Long story short &#x2026; things did not exactly go that way. 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Good but newbie, as shown first idea. 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-18 Sun 23:05</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

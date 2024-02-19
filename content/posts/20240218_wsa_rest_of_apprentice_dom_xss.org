@@ -1,0 +1,95 @@
+#+TITLE: WSA Rest of apprentice XSS labs
+#+DATE: <2024-02-18 23:05>
+#+DESCRIPTION: Complementary writeup for three WSA labs on XSS
+#+FILETAGS: xss wsa
+
+* Introduction
+Here we are, yet again. Little less than one hour (ideally) before
+turning this computer off, starting to work on WSA labs (hoping to
+tick some more off today).[fn:1]
+
+
+* Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded
+You can check the lab out: [[https://portswigger.net/web-security/cross-site-scripting/contexts/lab-attribute-angle-brackets-html-encoded][here]]
+
+Quickly we can see that the search field is where we should focus our
+attention. Checking the source code after some attempts, it becomes
+apparent that we can modify our input so that it adds a parameter and
+~onmouseover~ just does the job
+
+#+caption: Solving it
+[[file:images/Lab_1:_Reflected_XSS_into_attribute_with_angle_brackets_HTML-encoded/20240219_092926_screenshot.png]]
+
+
+
+
+
+* Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded 
+You can check the lab out: [[https://portswigger.net/web-security/cross-site-scripting/contexts/lab-href-attribute-double-quotes-html-encoded][here]]
+
+This one is fairly easy. Heading to the comment section we can see
+that there are some input fields that are available to us. The only
+thing that *needs attention* here is to *use all available parameters*.
+This one took some more time than I would like to admit, because of my
+tendency to supply as little info as possible: I had not entered
+nothing in the website field, which is critical for this lab.
+
+Plain old JavaScript links do the job:
+#+begin_example
+javascript:alert(1)
+#+end_example
+
+#+caption: Now, old comment section
+[[file:images/Lab_2:_Stored_XSS_into_anchor_href_attribute_with_double_quotes_HTML-encoded/20240219_093544_screenshot.png]]
+
+
+
+* Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded
+You can check the lab out: [[https://portswigger.net/web-security/cross-site-scripting/contexts/lab-javascript-string-angle-brackets-html-encoded][here]]
+
+Checking out the website's source code we see that there exists this
+snippet, which is of interest since it handles our input:
+#+NAME: Vulnerable snippet
+#+begin_src js
+var searchTerms = '" test';
+document.write('<img src="/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'">');
+#+end_src
+
+I'm seeking of a payload in the following form:[fn:2]
+#+begin_example
+' onerror="alert(1)" '
+#+end_example
+
+The thing, is though, that:
+1. This invalidates the ~var~ assignment
+2. The usage of ~encodeURIComponent~, really messes up our input.
+
+
+There I was, thinking of a possible solution to overcome those two
+problems when it finally got to me: the first one is no problem.
+Instead, I can just add *as many commands* as I want there, separated by
+~;~. The only thing I need to pay attention to is to comment out the
+last part of the line to avoid the remaining ~'~ causing any problems.
+
+
+#+caption: Solution
+[[file:images/Lab_3:/20240219_110149_screenshot.png]]
+
+* Summary
+Last week when I wrote my
+[[file:20240213_wsa_blind_sql_injection_with_conditional_errors.org::*Web
+Security Academy][first wsa walkthrough]] I set a goal of completing
+210 labs in this semester. I am afraid that it might be a little too
+much for someone with a schedule like mine, but I think it is viable.
+Sticking to it.
+
+#+CAPTION: What was i thinking?
+#+begin_quote
+Stating this here, I aim to complete at least 210 labs (roughly 80% of
+the ones available in the website) by the end of May.
+#+end_quote
+
+* Footnotes
+[fn:2] Good but newbie, as shown first idea. 
+
+[fn:1] Long story short ... things did not exactly go that way. 
