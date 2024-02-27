@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Complementary writeup for three WSA labs on XSS" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -20,18 +20,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf6d056c">Introduction</a></li>
-<li><a href="#orgc626377">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></li>
-<li><a href="#orga69ff51">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></li>
-<li><a href="#org20e09e2">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></li>
-<li><a href="#org72de4fa">Summary</a></li>
+<li><a href="#orgf3f0eec">Introduction</a></li>
+<li><a href="#orgfa11d77">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></li>
+<li><a href="#org7d8de44">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></li>
+<li><a href="#org43e8e55">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></li>
+<li><a href="#org670bbd3">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf6d056c" class="outline-2">
-<h2 id="orgf6d056c"><a href="#orgf6d056c">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgf6d056c">
+<div id="outline-container-orgf3f0eec" class="outline-2">
+<h2 id="orgf3f0eec"><a href="#orgf3f0eec">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgf3f0eec">
 <p>
 Here we are, yet again. Little less than one hour (ideally) before
 turning this computer off, starting to work on WSA labs (hoping to
@@ -41,9 +41,9 @@ tick some more off today).<sup><a id="fnr.1" class="footref" href="#fn.1" role="
 </div>
 
 
-<div id="outline-container-orgc626377" class="outline-2">
-<h2 id="orgc626377"><a href="#orgc626377">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></h2>
-<div class="outline-text-2" id="text-orgc626377">
+<div id="outline-container-orgfa11d77" class="outline-2">
+<h2 id="orgfa11d77"><a href="#orgfa11d77">Lab 1: Reflected XSS into attribute with angle brackets HTML-encoded</a></h2>
+<div class="outline-text-2" id="text-orgfa11d77">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-attribute-angle-brackets-html-encoded">here</a>
 </p>
@@ -56,7 +56,7 @@ apparent that we can modify our input so that it adds a parameter and
 </p>
 
 
-<div id="orgb0a2286" class="figure">
+<div id="orgc2a0c62" class="figure">
 <p><img src="images/Lab_1:_Reflected_XSS_into_attribute_with_angle_brackets_HTML-encoded/20240219_092926_screenshot.png" alt="20240219_092926_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Solving it</p>
@@ -68,9 +68,9 @@ apparent that we can modify our input so that it adds a parameter and
 
 
 
-<div id="outline-container-orga69ff51" class="outline-2">
-<h2 id="orga69ff51"><a href="#orga69ff51">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></h2>
-<div class="outline-text-2" id="text-orga69ff51">
+<div id="outline-container-org7d8de44" class="outline-2">
+<h2 id="org7d8de44"><a href="#org7d8de44">Lab 2: Stored XSS into anchor href attribute with double quotes HTML-encoded</a></h2>
+<div class="outline-text-2" id="text-org7d8de44">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-href-attribute-double-quotes-html-encoded">here</a>
 </p>
@@ -87,12 +87,12 @@ nothing in the website field, which is critical for this lab.
 <p>
 Plain old JavaScript links do the job:
 </p>
-<pre class="example" id="org8f53387">
+<pre class="example" id="org0f3e5f7">
 javascript:alert(1)
 </pre>
 
 
-<div id="org8b05efb" class="figure">
+<div id="orgc873a12" class="figure">
 <p><img src="images/Lab_2:_Stored_XSS_into_anchor_href_attribute_with_double_quotes_HTML-encoded/20240219_093544_screenshot.png" alt="20240219_093544_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Now, old comment section</p>
@@ -102,9 +102,9 @@ javascript:alert(1)
 
 
 
-<div id="outline-container-org20e09e2" class="outline-2">
-<h2 id="org20e09e2"><a href="#org20e09e2">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></h2>
-<div class="outline-text-2" id="text-org20e09e2">
+<div id="outline-container-org43e8e55" class="outline-2">
+<h2 id="org43e8e55"><a href="#org43e8e55">Lab 3:  Reflected XSS into a JavaScript string with angle brackets HTML encoded</a></h2>
+<div class="outline-text-2" id="text-org43e8e55">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/contexts/lab-javascript-string-angle-brackets-html-encoded">here</a>
 </p>
@@ -114,7 +114,7 @@ Checking out the website&rsquo;s source code we see that there exists this
 snippet, which is of interest since it handles our input:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org11c2d40">var searchTerms = '" test';
+<pre class="src src-js" id="orgf8429db">var searchTerms = '" test';
 document.write('&lt;img src="/resources/images/tracker.gif?searchTerms='+encodeURIComponent(searchTerms)+'"&gt;');
 </pre>
 </div>
@@ -122,7 +122,7 @@ document.write('&lt;img src="/resources/images/tracker.gif?searchTerms='+encodeU
 <p>
 I&rsquo;m seeking of a payload in the following form:<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
 </p>
-<pre class="example" id="orgd9a36ad">
+<pre class="example" id="org6c91402">
 ' onerror="alert(1)" '
 </pre>
 
@@ -145,7 +145,7 @@ last part of the line to avoid the remaining <code>'</code> causing any problems
 
 
 
-<div id="org36bf741" class="figure">
+<div id="org1e14440" class="figure">
 <p><img src="images/Lab_3:/20240219_110149_screenshot.png" alt="20240219_110149_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Solution</p>
@@ -153,12 +153,12 @@ last part of the line to avoid the remaining <code>'</code> causing any problems
 </div>
 </div>
 
-<div id="outline-container-org72de4fa" class="outline-2">
-<h2 id="org72de4fa"><a href="#org72de4fa">Summary</a></h2>
-<div class="outline-text-2" id="text-org72de4fa">
+<div id="outline-container-org670bbd3" class="outline-2">
+<h2 id="org670bbd3"><a href="#org670bbd3">Summary</a></h2>
+<div class="outline-text-2" id="text-org670bbd3">
 <p>
 Last week when I wrote my
-<a href="20240213_wsa_blind_sql_injection_with_conditional_errors.html#org684c2fd">first wsa walkthrough</a> I set a goal of completing
+<a href="20240213_wsa_blind_sql_injection_with_conditional_errors.html#orgdcac79f">first wsa walkthrough</a> I set a goal of completing
 210 labs in this semester. I am afraid that it might be a little too
 much for someone with a schedule like mine, but I think it is viable.
 Sticking to it.

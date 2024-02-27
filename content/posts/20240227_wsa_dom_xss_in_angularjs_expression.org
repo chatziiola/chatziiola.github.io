@@ -1,0 +1,57 @@
+#+TITLE: WSA: DOM XSS in AngularJS expression 
+#+DATE: <2024-02-27 11:21>
+#+DESCRIPTION: Walkthrough to WSA lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+#+FILETAGS: angularjs wsa xss domxss
+
+* Challenge
+You can check the lab out: [[https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression][here]]
+
+Having to deal with AngularJS, we know that we should pay special
+attention to all elements with a ~ng-sth~ attribute, since that is
+linked to Angular.
+
+There is a search functionality, a good starting place, and the text
+which we supply gets shown in the source code:
+
+#+caption: Sample Input
+[[file:images/Challenge/20240227_112515_screenshot.png]]
+
+
+** Vulnerable part
+We can /verify/ that the website uses angular:
+
+NG-app
+#+begin_src html
+<body ng-app="" class="ng-scope">
+#+end_src
+
+#+NAME: Vulnerable HTML part
+#+begin_src html
+<section class="search">
+  <form action="/" method="GET" class="ng-pristine ng-valid">
+    <input type="text" placeholder="Search the blog..." name="search">
+    <button type="submit" class="button">Search</button>
+  </form>
+</section>
+#+end_src
+
+
+** Solution
+After playing around, testing ~{{alert(1)}}~ and similar naive payloads
+:P, then checking out the documentation for ways to effectively use
+~{{}}~ to our advantage, the solution was given by [[https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS Injection/XSS in Angular.md][PayloadsAllTheThings]].
+
+#+begin_example
+{{constructor.constructor('alert(1)')()}}
+#+end_example
+
+** Note on Angular
+For more info check out:
+1. https://docs.angularjs.org/tutorial/step_02
+2. [[https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md][PayloadsAllTheThings: XSS In AngularJS]]
+
+* Summary
+
+#+begin_export html
+<div class="tenor-gif-embed" data-postid="18768386" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"><a href="https://tenor.com/view/annoyed-alive-annoying-anniversary-ahh-gif-18768386">Annoyed Alive GIF</a>from <a href="https://tenor.com/search/annoyed-gifs">Annoyed GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+#+end_export

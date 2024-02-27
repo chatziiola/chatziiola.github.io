@@ -6,7 +6,7 @@
 <title>Org-roam selective link insertion</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -19,17 +19,17 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgdc4cd2f">Disclaimer</a></li>
-<li><a href="#org9821719">Problem at hand</a></li>
-<li><a href="#orgd32be93">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></li>
+<li><a href="#org6055678">Disclaimer</a></li>
+<li><a href="#org2a1d646">Problem at hand</a></li>
+<li><a href="#orgb3e347c">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-orgdc4cd2f" class="outline-2">
-<h2 id="orgdc4cd2f"><a href="#orgdc4cd2f">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-orgdc4cd2f">
+<div id="outline-container-org6055678" class="outline-2">
+<h2 id="org6055678"><a href="#org6055678">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-org6055678">
 <p>
 This article does not cover how to use <code>org-roam</code>. It is simply a step by step
 analysis of a potentially sketchy solution to overcome a niche problem. 
@@ -49,9 +49,9 @@ After all he is the creator of the package.
 </div>
 </div>
 
-<div id="outline-container-org9821719" class="outline-2">
-<h2 id="org9821719"><a href="#org9821719">Problem at hand</a></h2>
-<div class="outline-text-2" id="text-org9821719">
+<div id="outline-container-org2a1d646" class="outline-2">
+<h2 id="org2a1d646"><a href="#org2a1d646">Problem at hand</a></h2>
+<div class="outline-text-2" id="text-org2a1d646">
 <p>
 If there is something I always wanted to tackle in <code>org-roam</code>, is that I quite
 often, when revisiting older nodes, encounter phrases and/or topics I have built
@@ -64,9 +64,9 @@ That functionality, was not very difficult to achieve.
 </div>
 </div>
 
-<div id="outline-container-orgd32be93" class="outline-2">
-<h2 id="orgd32be93"><a href="#orgd32be93">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></h2>
-<div class="outline-text-2" id="text-orgd32be93">
+<div id="outline-container-orgb3e347c" class="outline-2">
+<h2 id="orgb3e347c"><a href="#orgb3e347c">Solution&#xa0;&#xa0;&#xa0;<span class="tag"><span class="elisp">elisp</span></span></a></h2>
+<div class="outline-text-2" id="text-orgb3e347c">
 <p>
 The solution consists of two parts:
 </p>
@@ -82,7 +82,7 @@ Whenever I find a snippet I want to replace with a link to the related node, I
 can easily press <code>v</code>, select the appropriate text and then call the function.
 </p>
 
-<div class="note" id="orgb49efb8">
+<div class="note" id="orgec56fc5">
 <p>
 If you do not use evil, you can still use the function (after commenting out the
 last line). The usage will necessarily be different though.
@@ -97,7 +97,7 @@ easily select the desired string:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orga32e2e7">(buffer-substring-no-properties (region-beginning) (region-end))
+<pre class="src src-elisp" id="orgfd550d5">(buffer-substring-no-properties (region-beginning) (region-end))
 </pre>
 </div>
 
@@ -109,7 +109,7 @@ This step improves the accuracy of the subsequent processing
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgda754a3">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
+<pre class="src src-elisp" id="orgd5060cd">(string-trim-whitespace (buffer-substring-no-properties (region-beginning) (region-end)))
 </pre>
 </div>
 
@@ -120,7 +120,7 @@ that we can then insert the link in our starting file.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgeeb917e">(progn
+<pre class="src src-elisp" id="org96a2722">(progn
   ;; Open a node-find prompt with the selected-text as initial input
   ;; If a node is found/created open it on a different window
   (org-roam-node-find t selected-text)
@@ -130,7 +130,7 @@ that we can then insert the link in our starting file.
 </pre>
 </div>
 
-<div class="note" id="org5f2cd56">
+<div class="note" id="org0f6e441">
 <p>
 Interestingly, the node need not actually match that selected text - we can clear it all in the
 <code>org-roam-node-find</code> prompt, and simply insert a link for the node we want
@@ -145,7 +145,7 @@ left here is to replace the plain text with a link to our <i>target node</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orge2f0746">(with-current-buffer current-buffer
+<pre class="src src-elisp" id="orgd0b736b">(with-current-buffer current-buffer
             (progn
               (goto-char re-start)
               (delete-region re-start (search-forward selected-text))
@@ -161,7 +161,7 @@ Now, let&rsquo;s put it all together.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org918bde4">(defun my-org-roam-node-find-selected-text ()
+<pre class="src src-elisp" id="orgf4e767a">(defun my-org-roam-node-find-selected-text ()
   "Open org-roam-node-find with selected text as initial input
 and replace with org-roam link if node is selected or created."
   (interactive)
@@ -193,7 +193,7 @@ it. <code>R</code> (for Roam) in visual mode points to a command I do not rememb
 much more helpful. 
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="org6d91b17">(define-key evil-visual-state-map (kbd "R") 'my-org-roam-node-find-selected-text) 
+<pre class="src src-elisp" id="org9eb243c">(define-key evil-visual-state-map (kbd "R") 'my-org-roam-node-find-selected-text) 
 </pre>
 </div>
 </div>

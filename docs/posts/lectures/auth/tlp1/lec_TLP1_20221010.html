@@ -6,7 +6,7 @@
 <title>Διάλεξη 3: AM: Διαμορφωτές και ασύμφωνοι αποδιαμορφωτές</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,32 +51,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3382d32">Προαπαιτούμενες γνώσεις</a></li>
-<li><a href="#orgce7d4ff">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></li>
+<li><a href="#orgd0b7d03">Προαπαιτούμενες γνώσεις</a></li>
+<li><a href="#org15490f8">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></li>
 </ul>
 </li>
-<li><a href="#org7bb9ff6">Παρουσίαση GNU-Radio</a></li>
-<li><a href="#org54f6720">Διαμορφωτής AM διόδου</a></li>
-<li><a href="#org4bbf3ca">Αποδιαμορφωτές AM</a>
+<li><a href="#org714739f">Παρουσίαση GNU-Radio</a></li>
+<li><a href="#org1c3268e">Διαμορφωτής AM διόδου</a></li>
+<li><a href="#org6006f93">Αποδιαμορφωτές AM</a>
 <ul>
-<li><a href="#orge13497a">Ασύμφωνοι αποδιαμορφωτές</a>
+<li><a href="#org896d564">Ασύμφωνοι αποδιαμορφωτές</a>
 <ul>
-<li><a href="#orgaa867e1">Λειτουργία</a></li>
-<li><a href="#org7de78eb">Υπερδιαμόρφωση</a></li>
+<li><a href="#org4eddc9a">Λειτουργία</a></li>
+<li><a href="#orgaf91aaa">Υπερδιαμόρφωση</a></li>
 </ul>
 </li>
-<li><a href="#org79a8154">Σύμφωνοι Αποδιαμορφωτές</a>
+<li><a href="#org84536cc">Σύμφωνοι Αποδιαμορφωτές</a>
 <ul>
-<li><a href="#orgaae19f0">Υποβάθμιση σήματος.</a></li>
+<li><a href="#org7c099ce">Υποβάθμιση σήματος.</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3382d32" class="outline-3">
-<h3 id="org3382d32"><a href="#org3382d32">Προαπαιτούμενες γνώσεις</a></h3>
-<div class="outline-text-3" id="text-org3382d32">
+<div id="outline-container-orgd0b7d03" class="outline-3">
+<h3 id="orgd0b7d03"><a href="#orgd0b7d03">Προαπαιτούμενες γνώσεις</a></h3>
+<div class="outline-text-3" id="text-orgd0b7d03">
 <p>
 Για την πλήρη κατανόηση της διάλεξης είναι <i>απαραίτητη</i> η κατανόηση των δύο αυτών
 εννοιών:
@@ -94,10 +94,10 @@
 </div>
 </div>
 
-<div id="outline-container-orgce7d4ff" class="outline-3">
-<h3 id="orgce7d4ff"><a href="#orgce7d4ff">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></h3>
-<div class="outline-text-3" id="text-orgce7d4ff">
-<div class="note" id="org40b52dd">
+<div id="outline-container-org15490f8" class="outline-3">
+<h3 id="org15490f8"><a href="#org15490f8">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></h3>
+<div class="outline-text-3" id="text-org15490f8">
+<div class="note" id="orgef747c5">
 <p>
 Αυτή η υποπαράγραφος, η οποία έγινε ύπο την μορφή παραδείγματος στην τάξη
 αποτελεί ουσιαστικά την εισαγωγή στο δεύτερο κομμάτι του μαθήματος, την
@@ -142,9 +142,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7bb9ff6" class="outline-2">
-<h2 id="org7bb9ff6"><a href="#org7bb9ff6">Παρουσίαση GNU-Radio</a></h2>
-<div class="outline-text-2" id="text-org7bb9ff6">
+<div id="outline-container-org714739f" class="outline-2">
+<h2 id="org714739f"><a href="#org714739f">Παρουσίαση GNU-Radio</a></h2>
+<div class="outline-text-2" id="text-org714739f">
 <ul class="org-ul">
 <li>έγινε μια παρουσίαση FM με την χρήση του παραπάνω πακέτου λογισμικού.</li>
 <li>Συνοπτικά απλά ενδεικτικό των ραδιοφωνικών σταθμών στις διάφορες συχνότητες
@@ -154,10 +154,10 @@
 </div>
 
 
-<div id="outline-container-org54f6720" class="outline-2">
-<h2 id="org54f6720"><a href="#org54f6720">Διαμορφωτής AM διόδου</a></h2>
-<div class="outline-text-2" id="text-org54f6720">
-<div class="note" id="orgb492709">
+<div id="outline-container-org1c3268e" class="outline-2">
+<h2 id="org1c3268e"><a href="#org1c3268e">Διαμορφωτής AM διόδου</a></h2>
+<div class="outline-text-2" id="text-org1c3268e">
+<div class="note" id="orgf34e107">
 <p>
 Ο διαμορφωτής ( και ο πομπός ) AM, είναι ένας φθηνός και απλός διαμορφωτής.
 Πλέον, όμως, έχει περιορισμένες εφαρμογές. Ακόμα η διάταξη δεν φαίνεται να
@@ -183,7 +183,7 @@ V_{out} = [A_c + m(t)]\cos{\left(2\pi f_ct\right)}
 Αυτό είναι επιτεύξιμό με την διάταξη του σήματος:
 </p>
 
-<div id="org37a3f6b" class="figure">
+<div id="orga0bd1c5" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_diamorfotis.png" alt="tlp1_lec4_diamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Η απλή διάταξη ενός AM διαμορφωτή, με χρήση διόδου και αντίστασης.</p>
@@ -217,9 +217,9 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </div>
 
 
-<div id="outline-container-org4bbf3ca" class="outline-2">
-<h2 id="org4bbf3ca"><a href="#org4bbf3ca">Αποδιαμορφωτές AM</a></h2>
-<div class="outline-text-2" id="text-org4bbf3ca">
+<div id="outline-container-org6006f93" class="outline-2">
+<h2 id="org6006f93"><a href="#org6006f93">Αποδιαμορφωτές AM</a></h2>
+<div class="outline-text-2" id="text-org6006f93">
 <p>
 Χωρίζονται σε δύο κατηγορίες, στους ασύμφωνους και τους σύμφωνους
 αποδιαμορφωτές, με τους πρώτους να είναι πιο απλοί, και ιστορικά πρώτοι να
@@ -228,20 +228,20 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </p>
 </div>
 
-<div id="outline-container-orge13497a" class="outline-3">
-<h3 id="orge13497a"><a href="#orge13497a">Ασύμφωνοι αποδιαμορφωτές</a></h3>
-<div class="outline-text-3" id="text-orge13497a">
+<div id="outline-container-org896d564" class="outline-3">
+<h3 id="org896d564"><a href="#org896d564">Ασύμφωνοι αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-org896d564">
 
-<div id="orgd356a33" class="figure">
+<div id="org704e5d3" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis.png" alt="tlp1_lec4_asymfonosapodiamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Ασύμφωνος αποδιαμορφωτής με δίοδο, μία διάταξη εμφανώς όμοια με τον διαμορφωτή με δίοδο, μόνο που στην έξοδο της έχει τοποθετηθεί παράλληλα πυκνωτής.</p>
 </div>
 </div>
 
-<div id="outline-container-orgaa867e1" class="outline-4">
-<h4 id="orgaa867e1"><a href="#orgaa867e1">Λειτουργία</a></h4>
-<div class="outline-text-4" id="text-orgaa867e1">
+<div id="outline-container-org4eddc9a" class="outline-4">
+<h4 id="org4eddc9a"><a href="#org4eddc9a">Λειτουργία</a></h4>
+<div class="outline-text-4" id="text-org4eddc9a">
 <p>
 Κατά το τμήμα της περιόδου όπου η τάση έχει θετική τιμή, η δίοδος είναι
 κατάλληλα πολωμένη, άγει και κατ&rsquo; επέκταση φορτίζεται ο πυκνωτής. Όταν όμως, η
@@ -259,7 +259,7 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </p>
 
 
-<div id="orgb6a007f" class="figure">
+<div id="orgf776eed" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png" alt="tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Άστοχη προσπάθεια του συγγραφέα να δείξει την προσέγγιση της περιβάλλουσας από το περιγραφόμενο κύκλωμα.</p>
@@ -267,9 +267,9 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </div>
 </div>
 
-<div id="outline-container-org7de78eb" class="outline-4">
-<h4 id="org7de78eb"><a href="#org7de78eb">Υπερδιαμόρφωση</a></h4>
-<div class="outline-text-4" id="text-org7de78eb">
+<div id="outline-container-orgaf91aaa" class="outline-4">
+<h4 id="orgaf91aaa"><a href="#orgaf91aaa">Υπερδιαμόρφωση</a></h4>
+<div class="outline-text-4" id="text-orgaf91aaa">
 <p>
 Η υπερδιαμόρφωση, όταν προκύπτει, ουσιαστικά <i>εισάγει</i> στο σήμα εξόδου μια
 παραμόρφωση στην μορφή ημιτελούς περιόδου.
@@ -285,11 +285,11 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </div>
 </div>
 
-<div id="outline-container-org79a8154" class="outline-3">
-<h3 id="org79a8154"><a href="#org79a8154">Σύμφωνοι Αποδιαμορφωτές</a></h3>
-<div class="outline-text-3" id="text-org79a8154">
+<div id="outline-container-org84536cc" class="outline-3">
+<h3 id="org84536cc"><a href="#org84536cc">Σύμφωνοι Αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-org84536cc">
 
-<div id="orgc3cb86f" class="figure">
+<div id="org301e957" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_symfonosapodiamorfotis.png" alt="tlp1_lec4_symfonosapodiamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Συνοπτικό διάγραμμα ασύμφωνου αποδιαμορφωτή, με την χρήση ταλαντωτή (PLL).</p>
@@ -316,9 +316,9 @@ Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε 
 </div>
 
 
-<div id="outline-container-orgaae19f0" class="outline-4">
-<h4 id="orgaae19f0"><a href="#orgaae19f0">Υποβάθμιση σήματος.</a></h4>
-<div class="outline-text-4" id="text-orgaae19f0">
+<div id="outline-container-org7c099ce" class="outline-4">
+<h4 id="org7c099ce"><a href="#org7c099ce">Υποβάθμιση σήματος.</a></h4>
+<div class="outline-text-4" id="text-org7c099ce">
 <p>
 Παρόλα αυτά, υπο συνθήκες το PLL δεν <i>κλειδώνει</i>. Σε εκείνες τις περιπτώσεις, λόγω
 της μικρής διαφοράς φάσης σε είσοδο και \(c(t)\) (<i>έξοδο του PLL</i>) η τελική έξοδος
@@ -333,7 +333,7 @@ Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε 
 όπου \(\phi\) η <i>αστοχία φάσης</i>
 </p>
 
-<div class="note" id="org6d2a35f">
+<div class="note" id="org4cf8289">
 <p>
 Ανάλυση των σύμφωνων αποδιαμορφωτών, σε μεγαλύτερο βάθος, γίνεται και στην
 επόμενη διάλεξη: <a href="lec_TLP1_20221011.html">Διάλεξη 4</a>

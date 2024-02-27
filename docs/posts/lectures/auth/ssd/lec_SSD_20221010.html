@@ -6,7 +6,7 @@
 <title>Διάλεξη 2: Τυχαίες μεταβλητές</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,38 +51,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org89e0e61">Τυχαίες μεταβλητές</a>
+<li><a href="#org1163ee1">Τυχαίες μεταβλητές</a>
 <ul>
-<li><a href="#org92f581f">Τύποι</a></li>
+<li><a href="#org9e77d23">Τύποι</a></li>
 </ul>
 </li>
-<li><a href="#org63aa859">Συνάρτηση Κατανομής πιθανότητας (CDF)</a>
+<li><a href="#org04d33e8">Συνάρτηση Κατανομής πιθανότητας (CDF)</a>
 <ul>
-<li><a href="#org5186058">Κλιμακωτή συνάρτηση κατανομής</a></li>
-<li><a href="#org7e2e70e">Ιδιότητες συν καταν</a></li>
-<li><a href="#orgf745b6b">Προσεγγίζοντας την πιθανότητα σε σημείο</a></li>
-<li><a href="#org7ce2e46">Παραδείγματα.</a>
+<li><a href="#org367bdfb">Κλιμακωτή συνάρτηση κατανομής</a></li>
+<li><a href="#org9384305">Ιδιότητες συν καταν</a></li>
+<li><a href="#org8ee29a7">Προσεγγίζοντας την πιθανότητα σε σημείο</a></li>
+<li><a href="#orgd36b78a">Παραδείγματα.</a>
 <ul>
-<li><a href="#org958253b">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></li>
-<li><a href="#orgfcfd16e">Παράδειγμα με <i>ράμπα</i></a></li>
+<li><a href="#orgbb32cb7">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></li>
+<li><a href="#org36010cd">Παράδειγμα με <i>ράμπα</i></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9d2be85">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></li>
-<li><a href="#orge172dfd">Μορφή συναρτήσεων ΔΤΜ</a></li>
-<li><a href="#org0519feb">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a>
+<li><a href="#org946840f">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></li>
+<li><a href="#org067c483">Μορφή συναρτήσεων ΔΤΜ</a></li>
+<li><a href="#orga2ad8b3">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a>
 <ul>
-<li><a href="#org736577e">Χτίζοντας πιο σύνθετες πιθανότητες</a></li>
+<li><a href="#org4282dd8">Χτίζοντας πιο σύνθετες πιθανότητες</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org89e0e61" class="outline-2">
-<h2 id="org89e0e61"><a href="#org89e0e61">Τυχαίες μεταβλητές</a></h2>
-<div class="outline-text-2" id="text-org89e0e61">
+<div id="outline-container-org1163ee1" class="outline-2">
+<h2 id="org1163ee1"><a href="#org1163ee1">Τυχαίες μεταβλητές</a></h2>
+<div class="outline-text-2" id="text-org1163ee1">
 <p>
 Μετάβαση από τα αορίστως ορισμένα γεγονότα σε καλύτερα ορισμένα.
 </p>
@@ -93,9 +93,9 @@
 </p>
 </div>
 
-<div id="outline-container-org92f581f" class="outline-3">
-<h3 id="org92f581f"><a href="#org92f581f">Τύποι</a></h3>
-<div class="outline-text-3" id="text-org92f581f">
+<div id="outline-container-org9e77d23" class="outline-3">
+<h3 id="org9e77d23"><a href="#org9e77d23">Τύποι</a></h3>
+<div class="outline-text-3" id="text-org9e77d23">
 <p>
 Κλασσικά:
 </p>
@@ -108,14 +108,14 @@
 </div>
 </div>
 
-<div id="outline-container-org63aa859" class="outline-2">
-<h2 id="org63aa859"><a href="#org63aa859">Συνάρτηση Κατανομής πιθανότητας (CDF)</a></h2>
-<div class="outline-text-2" id="text-org63aa859">
+<div id="outline-container-org04d33e8" class="outline-2">
+<h2 id="org04d33e8"><a href="#org04d33e8">Συνάρτηση Κατανομής πιθανότητας (CDF)</a></h2>
+<div class="outline-text-2" id="text-org04d33e8">
 </div>
 
-<div id="outline-container-org5186058" class="outline-3">
-<h3 id="org5186058"><a href="#org5186058">Κλιμακωτή συνάρτηση κατανομής</a></h3>
-<div class="outline-text-3" id="text-org5186058">
+<div id="outline-container-org367bdfb" class="outline-3">
+<h3 id="org367bdfb"><a href="#org367bdfb">Κλιμακωτή συνάρτηση κατανομής</a></h3>
+<div class="outline-text-3" id="text-org367bdfb">
 <p>
 Όταν βλέπεις κλιμακωτή συνάρτηση κατανομής γνωρίζεις πως εκείνη σχετίζεται με
 διακριτή τμ.
@@ -123,9 +123,9 @@
 </div>
 </div>
 
-<div id="outline-container-org7e2e70e" class="outline-3">
-<h3 id="org7e2e70e"><a href="#org7e2e70e">Ιδιότητες συν καταν</a></h3>
-<div class="outline-text-3" id="text-org7e2e70e">
+<div id="outline-container-org9384305" class="outline-3">
+<h3 id="org9384305"><a href="#org9384305">Ιδιότητες συν καταν</a></h3>
+<div class="outline-text-3" id="text-org9384305">
 <p>
 Οι κλασσικές ιδιότητες της ΑΣΚ:
 </p>
@@ -145,9 +145,9 @@ F_X(\infty) &= 1\\
 </div>
 </div>
 
-<div id="outline-container-orgf745b6b" class="outline-3">
-<h3 id="orgf745b6b"><a href="#orgf745b6b">Προσεγγίζοντας την πιθανότητα σε σημείο</a></h3>
-<div class="outline-text-3" id="text-orgf745b6b">
+<div id="outline-container-org8ee29a7" class="outline-3">
+<h3 id="org8ee29a7"><a href="#org8ee29a7">Προσεγγίζοντας την πιθανότητα σε σημείο</a></h3>
+<div class="outline-text-3" id="text-org8ee29a7">
 <p>
 Αυτό είναι για όταν μπλέκουμε με την πιθανότητα:
 </p>
@@ -195,18 +195,18 @@ Pr\{\cdots\} = F(x) - F(x^{-})
 </div>
 </div>
 
-<div id="outline-container-org7ce2e46" class="outline-3">
-<h3 id="org7ce2e46"><a href="#org7ce2e46">Παραδείγματα.</a></h3>
-<div class="outline-text-3" id="text-org7ce2e46">
+<div id="outline-container-orgd36b78a" class="outline-3">
+<h3 id="orgd36b78a"><a href="#orgd36b78a">Παραδείγματα.</a></h3>
+<div class="outline-text-3" id="text-orgd36b78a">
 <p>
 Λύθηκαν, από τις διαφάνειες, μερικά απλά παραδείγματα ( για αυτό και δεν
 σημειώθηκαν ).
 </p>
 </div>
 
-<div id="outline-container-org958253b" class="outline-4">
-<h4 id="org958253b"><a href="#org958253b">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></h4>
-<div class="outline-text-4" id="text-org958253b">
+<div id="outline-container-orgbb32cb7" class="outline-4">
+<h4 id="orgbb32cb7"><a href="#orgbb32cb7">Παράδειγμα <i>εξέτασης για ΑΣΚ</i></a></h4>
+<div class="outline-text-4" id="text-orgbb32cb7">
 <ul class="org-ul">
 <li>Σε αυτό το παράδειγμα, η συνάρτηση δεν ήταν ΑΣΚ καθώς δεν ήταν συνεχής απο
 δεξιά. (Το μόνο που κάνεις είναι: ελέγχεις τις ιδιότητες)</li>
@@ -214,15 +214,15 @@ Pr\{\cdots\} = F(x) - F(x^{-})
 </div>
 </div>
 
-<div id="outline-container-orgfcfd16e" class="outline-4">
-<h4 id="orgfcfd16e"><a href="#orgfcfd16e">Παράδειγμα με <i>ράμπα</i></a></h4>
+<div id="outline-container-org36010cd" class="outline-4">
+<h4 id="org36010cd"><a href="#org36010cd">Παράδειγμα με <i>ράμπα</i></a></h4>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org9d2be85" class="outline-2">
-<h2 id="org9d2be85"><a href="#org9d2be85">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></h2>
-<div class="outline-text-2" id="text-org9d2be85">
+<div id="outline-container-org946840f" class="outline-2">
+<h2 id="org946840f"><a href="#org946840f">Συνάρτηση πυκνότητας πιθανότητας (PDF)</a></h2>
+<div class="outline-text-2" id="text-org946840f">
 <p>
 Εφεξής ΣΠΠ.
 </p>
@@ -248,15 +248,15 @@ Pr\{x_1 \leq X \leq x_2\} &= \int_{x^{-}_1}^{x^{ +}_2}f(x)dx\\
 </div>
 </div>
 
-<div id="outline-container-orge172dfd" class="outline-2">
-<h2 id="orge172dfd"><a href="#orge172dfd">Μορφή συναρτήσεων ΔΤΜ</a></h2>
-<div class="outline-text-2" id="text-orge172dfd">
+<div id="outline-container-org067c483" class="outline-2">
+<h2 id="org067c483"><a href="#org067c483">Μορφή συναρτήσεων ΔΤΜ</a></h2>
+<div class="outline-text-2" id="text-org067c483">
 <p>
 Προφανώς ΔΤΜ: Διακριτή τυχαία μεταβλητή.
 </p>
 
 <p>
-Όπως είπαμε προηγουμένως <a href="#org5186058">στην κλιμακωτή συνάρτηση κατανομής</a>, όταν δουλεύουμε
+Όπως είπαμε προηγουμένως <a href="#org367bdfb">στην κλιμακωτή συνάρτηση κατανομής</a>, όταν δουλεύουμε
 με ΑΣΚ η γραφική παράσταση της \(F_X\) διακριτής τμ είναι κλιμακωτή, ενώ
 (χτίζοντας επί εκείνου) η ΣΜΠ (<i>συνάρτηση μάζας πιθανότητας</i> - pmf) έχει την
 μορφή αθροίσματος συναρτήσεων \(\delta\) (δέλτα)
@@ -272,9 +272,9 @@ f_X(x) = \sum_{i=1}^np_i\delta(x-x_i)
 </div>
 </div>
 
-<div id="outline-container-org0519feb" class="outline-2">
-<h2 id="org0519feb"><a href="#org0519feb">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a></h2>
-<div class="outline-text-2" id="text-org0519feb">
+<div id="outline-container-orga2ad8b3" class="outline-2">
+<h2 id="orga2ad8b3"><a href="#orga2ad8b3">Δεσμευμένες πιθανότητες ( Πιθανότητες υπό συνθήκη )</a></h2>
+<div class="outline-text-2" id="text-orga2ad8b3">
 \begin{equation}
 \label{eq:5}
 Pr\{X\leq x | B\} = \frac{Pr\{X\leq x,B\}}{Pr\{B\}}
@@ -314,9 +314,9 @@ F_X(\alpha) &= \int_{-\infty}^{\alpha} f_xdx
 \end{align*}
 </div>
 
-<div id="outline-container-org736577e" class="outline-3">
-<h3 id="org736577e"><a href="#org736577e">Χτίζοντας πιο σύνθετες πιθανότητες</a></h3>
-<div class="outline-text-3" id="text-org736577e">
+<div id="outline-container-org4282dd8" class="outline-3">
+<h3 id="org4282dd8"><a href="#org4282dd8">Χτίζοντας πιο σύνθετες πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-org4282dd8">
 <p>
 Αν, πάλι, το \(B=\{a < X \leq b\}\)
 έχουμε:

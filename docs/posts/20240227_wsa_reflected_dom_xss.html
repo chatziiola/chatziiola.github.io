@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>WSA: Reflected DOM XSS</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Walkthrough to WSA Lab: Reflected DOM XSS" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">WSA: Reflected DOM XSS</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org7219821">Introduction</a></li>
+<li><a href="#org0b4396d">Challenge</a>
+<ul>
+<li><a href="#org78c9e29">Search functionality</a></li>
+<li><a href="#org191dbdc">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#org5273a45">Keep Going</a></li>
+<li><a href="#org7a329fb">Back</a></li>
+</ul>
+</li>
+<li><a href="#org941650f">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org7219821" class="outline-2">
+<h2 id="org7219821"><a href="#org7219821">Introduction</a></h2>
+<div class="outline-text-2" id="text-org7219821">
+<p>
+This was the most interesting XSS lab I think I have seen so far. Not
+only did it made me dig a little bit deeper than the others, which
+could have been due to overlooking <code>eval()</code>, but it also had a fun part
+of thinking out of the box: developing a payload, no matter how little
+time it takes, is always satisfying in the end!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0b4396d" class="outline-2">
+<h2 id="org0b4396d"><a href="#org0b4396d">Challenge</a></h2>
+<div class="outline-text-2" id="text-org0b4396d">
+<p>
+You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
+</p>
+
+<blockquote>
+<p>
+This lab demonstrates a reflected DOM vulnerability. Reflected DOM
+vulnerabilities occur when the server-side application processes data
+from a request and echoes the data in the response. A script on the
+page then processes the reflected data in an unsafe way, ultimately
+writing it to a dangerous sink.
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-org78c9e29" class="outline-3">
+<h3 id="org78c9e29"><a href="#org78c9e29">Search functionality</a></h3>
+<div class="outline-text-3" id="text-org78c9e29">
+<p>
+First things first, checking out t
+</p>
+
+<div class="org-src-container">
+<pre class="src src-html" id="org52a659b">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
+&lt;script&gt;search('search-results')&lt;/script&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org191dbdc" class="outline-3">
+<h3 id="org191dbdc"><a href="#org191dbdc">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-org191dbdc">
+<p>
+Plainly: looking at <code>searchResults.js</code>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-js" id="orgf40e83b">function search(path) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState == 4 &amp;&amp; this.status == 200) {
+            eval('var searchResultsObj = ' + this.responseText);
+            displaySearchResults(searchResultsObj);
+        }
+    };
+    xhr.open("GET", path + window.location.search);
+    xhr.send();
+
+    function displaySearchResults(searchResultsObj) {
+        var blogHeader = document.getElementsByClassName("blog-header")[0];
+        var blogList = document.getElementsByClassName("blog-list")[0];
+        var searchTerm = searchResultsObj.searchTerm
+        var searchResults = searchResultsObj.results
+
+        var h1 = document.createElement("h1");
+        h1.innerText = searchResults.length + " search results for '" + searchTerm + "'";
+        blogHeader.appendChild(h1);
+        var hr = document.createElement("hr");
+        blogHeader.appendChild(hr)
+
+        for (var i = 0; i &lt; searchResults.length; ++i)
+        {
+            var searchResult = searchResults[i];
+            if (searchResult.id) {
+                var blogLink = document.createElement("a");
+                blogLink.setAttribute("href", "/post?postId=" + searchResult.id);
+
+                if (searchResult.headerImage) {
+                    var headerImage = document.createElement("img");
+                    headerImage.setAttribute("src", "/image/" + searchResult.headerImage);
+                    blogLink.appendChild(headerImage);
+                }
+
+                blogList.appendChild(blogLink);
+            }
+
+            blogList.innerHTML += "&lt;br/&gt;";
+
+            if (searchResult.title) {
+                var title = document.createElement("h2");
+                title.innerText = searchResult.title;
+                blogList.appendChild(title);
+            }
+
+            if (searchResult.summary) {
+                var summary = document.createElement("p");
+                summary.innerText = searchResult.summary;
+                blogList.appendChild(summary);
+            }
+
+            if (searchResult.id) {
+                var viewPostButton = document.createElement("a");
+                viewPostButton.setAttribute("class", "button is-small");
+                viewPostButton.setAttribute("href", "/post?postId=" + searchResult.id);
+                viewPostButton.innerText = "View post";
+            }
+        }
+
+        var linkback = document.createElement("div");
+        linkback.setAttribute("class", "is-linkback");
+        var backToBlog = document.createElement("a");
+        backToBlog.setAttribute("href", "/");
+        backToBlog.innerText = "Back to Blog";
+        linkback.appendChild(backToBlog);
+        blogList.appendChild(linkback);
+    }
+}
+</pre>
+</div>
+
+<p>
+The script, once <code>search(path)</code> is called evaluates the response that
+came with our search request, as shown in the following picture:
+</p>
+
+
+<div id="org71c2eef" class="figure">
+<p><img src="images/Challenge/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>Search and Response</p>
+</div>
+
+<p>
+Then the function <code>displaySearchResults()</code> is called, which taking the
+information from <code>searchResultsObj</code> (what was returned), populates the
+results page.
+</p>
+
+<p>
+The <code>searchTerm</code> (our input) gets added in <code>h1.innerText</code>, while <b>for every</b>
+<code>searchResult</code> the following process is followed:
+</p>
+<ol class="org-ol">
+<li>If there is an <code>id</code> field:
+<ol class="org-ol">
+<li>Creates a ink element pointing to <code>"/post?postId=" + searchResult.id</code></li>
+<li>If there is a <code>headerImage</code>
+<ul class="org-ul">
+<li>Adds an <code>img</code> with source: <code>"/image/" + searchResult.headerImage</code></li>
+</ul></li>
+</ol></li>
+<li>If there is a <code>title</code> field:
+<ul class="org-ul">
+<li>Creates a <code>&lt;h2&gt;</code> element with <code>innerHTML</code></li>
+</ul></li>
+<li>If there is a <code>summary</code> field
+<ul class="org-ul">
+<li>Creates a <code>&lt;p&gt;</code> element with <code>innerHTML</code></li>
+</ul></li>
+<li>If there is a <code>id</code> field
+<ul class="org-ul">
+<li>Creates a <code>&lt;a&gt;</code>, &ldquo;View Post&rdquo; element: with a link similar to that
+of the first <i>if</i></li>
+</ul></li>
+</ol>
+
+
+<p>
+Finally, some non-directly manipulatable actions insert <code>Back to Blog</code>
+link.
+</p>
+</div>
+</div>
+
+
+<div id="outline-container-org5273a45" class="outline-3">
+<h3 id="org5273a45"><a href="#org5273a45">Keep Going</a></h3>
+<div class="outline-text-3" id="text-org5273a45">
+<p>
+Not going to lie, I felt stuck:
+</p>
+<ul class="org-ul">
+<li><code>innerHTML</code> was tricky in the last lab as well and this time it was
+made even trickier.</li>
+<li>Angle brackets must be encoded: I had avoided that by setting
+parameters, but now, writing inside of an <code>innerHTML</code> property, that
+is not applicable</li>
+<li><b>Taking a hint</b>: the <code>eval()</code> function when handling input</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-org7a329fb" class="outline-3">
+<h3 id="org7a329fb"><a href="#org7a329fb">Back</a></h3>
+<div class="outline-text-3" id="text-org7a329fb">
+<p>
+This is the vulnerable snippet:
+</p>
+<div class="org-src-container">
+<pre class="src src-js" id="org064899a">if (this.readyState == 4 &amp;&amp; this.status == 200) {
+    eval('var searchResultsObj = ' + this.responseText);
+    displaySearchResults(searchResultsObj);
+}
+</pre>
+</div>
+
+
+<p>
+And our search query is included in that. After playing around in
+repeater, I developed a payload that gave me promising results:
+</p>
+
+
+<div id="orge40cd44" class="figure">
+<p><img src="images/Challenge/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 2: </span>Promising Payload</p>
+</div>
+
+<p>
+Using that very same payload in the search field and the lab is marked
+as solved
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org941650f" class="outline-2">
+<h2 id="org941650f"><a href="#org941650f">Summary</a></h2>
+<div class="outline-text-2" id="text-org941650f">
+<p>
+<b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+</div>
+</body>
+</html>

