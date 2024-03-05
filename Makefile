@@ -35,6 +35,11 @@ copy_static:
 serve_local:
 	cd $(PUBLIC_DIR) && python3 -m http.server
 
+publish:
+	eval $(ssh-agent -s)
+	ssh-add ~/.ssh/arya
+	git push gh 
 # Build the site locally
 
 local: build copy_static add_cname serve_local 
+
