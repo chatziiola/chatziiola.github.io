@@ -6,7 +6,7 @@
 <title>THM: Boiler CTF</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -19,31 +19,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfb1c853">Intro</a></li>
-<li><a href="#orge0447fb">Recon</a>
+<li><a href="#orgbcdcdb8">Intro</a></li>
+<li><a href="#org27ece95">Recon</a>
 <ul>
-<li><a href="#org6ef8f45">Enumerating the ftp server</a></li>
-<li><a href="#org1ccadd8">Analyzing the web server</a></li>
-<li><a href="#orga58ef69">Webmin</a></li>
-<li><a href="#org62fb795">Joomla Website</a></li>
+<li><a href="#org162fbe8">Enumerating the ftp server</a></li>
+<li><a href="#org8b4d319">Analyzing the web server</a></li>
+<li><a href="#orgfdadbf7">Webmin</a></li>
+<li><a href="#org7fec04a">Joomla Website</a></li>
 </ul>
 </li>
-<li><a href="#org2ca4db1">Exploiting sar2html</a>
+<li><a href="#org975ddea">Exploiting sar2html</a>
 <ul>
-<li><a href="#org11a868b">Users</a></li>
+<li><a href="#org56a69b0">Users</a></li>
 </ul>
 </li>
-<li><a href="#orga65c1d6">Basterd</a></li>
-<li><a href="#orged93a66">Stoner</a></li>
-<li><a href="#org74b0862">Root</a></li>
-<li><a href="#org65cee7c">Conclusion</a></li>
+<li><a href="#org411bda3">Basterd</a></li>
+<li><a href="#org06f4a96">Stoner</a></li>
+<li><a href="#org376772b">Root</a></li>
+<li><a href="#orgab03490">Conclusion</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgfb1c853" class="outline-2">
-<h2 id="orgfb1c853"><a href="#orgfb1c853">Intro</a></h2>
-<div class="outline-text-2" id="text-orgfb1c853">
+<div id="outline-container-orgbcdcdb8" class="outline-2">
+<h2 id="orgbcdcdb8"><a href="#orgbcdcdb8">Intro</a></h2>
+<div class="outline-text-2" id="text-orgbcdcdb8">
 <p>
 After giving <code>attacktive directory</code> a try, and barely surviving, I went
 back to completing walkthrough rooms, striving to complete the Junior
@@ -58,14 +58,14 @@ has been really helpful!
 </div>
 </div>
 
-<div id="outline-container-orge0447fb" class="outline-2">
-<h2 id="orge0447fb"><a href="#orge0447fb">Recon</a></h2>
-<div class="outline-text-2" id="text-orge0447fb">
+<div id="outline-container-org27ece95" class="outline-2">
+<h2 id="org27ece95"><a href="#org27ece95">Recon</a></h2>
+<div class="outline-text-2" id="text-org27ece95">
 <p>
 The ordinary initial nmap scan gives us some basic starting info:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org169b767">IP=boiler.thm
+<pre class="src src-bash" id="org3cadda2">IP=boiler.thm
 nmap -sV -sC -oN nmap.initial $IP
 </pre>
 </div>
@@ -83,14 +83,14 @@ There are 3 open (tcp) ports, all of which are interesting:
 Before moving on, like always, I started a full scan as well, just to be safe:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgef92221">nmap -p- -oN nmap.full -T4 $IP
+<pre class="src src-bash" id="orgd84268d">nmap -p- -oN nmap.full -T4 $IP
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org6ef8f45" class="outline-3">
-<h3 id="org6ef8f45"><a href="#org6ef8f45">Enumerating the ftp server</a></h3>
-<div class="outline-text-3" id="text-org6ef8f45">
+<div id="outline-container-org162fbe8" class="outline-3">
+<h3 id="org162fbe8"><a href="#org162fbe8">Enumerating the ftp server</a></h3>
+<div class="outline-text-3" id="text-org162fbe8">
 <p>
 After logging in the ftp server as <code>anonymous</code>, I only had to run <code>ls -a</code>,
 (since plain <code>ls</code> did not list any files and <code>pwd</code> told me that I&rsquo;m in <code>/</code>),
@@ -98,7 +98,7 @@ to see a hidden file, which I then moved to my machine and checked
 out:
 </p>
 
-<pre class="example" id="orgc8141a6">
+<pre class="example" id="org8a76074">
 Whfg jnagrq gb frr vs lbh svaq vg. Yby. Erzrzore: Rahzrengvba vf gur xrl!
 </pre>
 
@@ -108,7 +108,7 @@ figured it would not be very difficult to find (it seemed like a 1to1
 map). It was actually the first technique I tried: ROT13
 </p>
 
-<pre class="example" id="org48674a4">
+<pre class="example" id="org7c25326">
 Just wanted to see if you find it. Lol. Remember: Enumeration is the key!
 </pre>
 
@@ -119,16 +119,16 @@ version, I do not think that there is anything else here.
 </div>
 </div>
 
-<div id="outline-container-org1ccadd8" class="outline-3">
-<h3 id="org1ccadd8"><a href="#org1ccadd8">Analyzing the web server</a></h3>
-<div class="outline-text-3" id="text-org1ccadd8">
+<div id="outline-container-org8b4d319" class="outline-3">
+<h3 id="org8b4d319"><a href="#org8b4d319">Analyzing the web server</a></h3>
+<div class="outline-text-3" id="text-org8b4d319">
 <p>
 I am getting pretty comfortable checking webpages out, so I was
 disappointed seeing just the default Apache2 Homepage.
 </p>
 
 
-<div id="org4e5dbcd" class="figure">
+<div id="orgb29b67a" class="figure">
 <p><img src="Recon/20231111_193556_screenshot.png" alt="20231111_193556_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sad</p>
@@ -145,7 +145,7 @@ files/directories did not exist).
 <p>
 There was, a little bit encoded string following, that I had to check. 
 </p>
-<pre class="example" id="org84fb30a">
+<pre class="example" id="orgfc396de">
 079 084 108 105 077 068 089 050 077 071 078 107 079 084 086 104 090 071 086 104 077 122 073 051 089 122 085 048 077 084 103 121 089 109 070 104 078 084 069 049 079 068 081 075
 </pre>
 <p>
@@ -154,7 +154,7 @@ Seeing that everything consisted of 3 digits, all of which lower than
 its ascii characters:
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="orgb597b4b">def convert_to_ascii(input_string):
+<pre class="src src-python" id="org3290c00">def convert_to_ascii(input_string):
     integers = input_string.split()
     ascii_chars = [chr(int(num)) for num in integers]
     return ''.join(ascii_chars)
@@ -169,7 +169,7 @@ print("ASCII representation:", result)
 The output was just barely more promising than what we started with,
 and hash-id does not give me reason to believe its a hash (of any kind)
 </p>
-<pre class="example" id="orga0698b2">
+<pre class="example" id="org64f88f9">
 OTliMDY2MGNkOTVhZGVhMzI3YzU0MTgyYmFhNTE1ODQK
 </pre>
 
@@ -181,7 +181,7 @@ OTliMDY2MGNkOTVhZGVhMzI3YzU0MTgyYmFhNTE1ODQK
 I, then, ran
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org1f79a13">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm -o gobuster.big
+<pre class="src src-bash" id="orgcd4acc6">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm -o gobuster.big
 </pre>
 </div>
 <p>
@@ -189,7 +189,7 @@ giving me a couple of <i>new</i> directories <b>AND</b>, which is more an actual
 </p>
 
 
-<div id="org58208d6" class="figure">
+<div id="org6c898ad" class="figure">
 <p><img src="Recon/20231111_195519_screenshot.png" alt="20231111_195519_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Now we talkin&rsquo;</p>
@@ -203,9 +203,9 @@ to connect to that port (55007), an ssh server also became available :P.
 </div>
 </div>
 
-<div id="outline-container-orga58ef69" class="outline-3">
-<h3 id="orga58ef69"><a href="#orga58ef69">Webmin</a></h3>
-<div class="outline-text-3" id="text-orga58ef69">
+<div id="outline-container-orgfdadbf7" class="outline-3">
+<h3 id="orgfdadbf7"><a href="#orgfdadbf7">Webmin</a></h3>
+<div class="outline-text-3" id="text-orgfdadbf7">
 <p>
 The question &ldquo;Can you exploit the service running on that port?&rdquo; got
 me thinking that I should most probably go there, before keep going
@@ -216,15 +216,15 @@ the answer there, sadly, was &ldquo;nay&rdquo;
 </div>
 </div>
 
-<div id="outline-container-org62fb795" class="outline-3">
-<h3 id="org62fb795"><a href="#org62fb795">Joomla Website</a></h3>
-<div class="outline-text-3" id="text-org62fb795">
+<div id="outline-container-org7fec04a" class="outline-3">
+<h3 id="org7fec04a"><a href="#org7fec04a">Joomla Website</a></h3>
+<div class="outline-text-3" id="text-org7fec04a">
 <p>
 Getting back to the website, I ran another gobuster instance, this
 time aimed at enumerating the <code>joomla</code> subdir:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgc672b16">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm/joomla -o gobuster-joomla.big
+<pre class="src src-bash" id="orgefceafc">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://boiler.thm/joomla -o gobuster-joomla.big
 </pre>
 </div>
 
@@ -239,9 +239,9 @@ There were <b>a lot</b> of entries as well:
 </div>
 </div>
 
-<div id="outline-container-org2ca4db1" class="outline-2">
-<h2 id="org2ca4db1"><a href="#org2ca4db1">Exploiting sar2html</a></h2>
-<div class="outline-text-2" id="text-org2ca4db1">
+<div id="outline-container-org975ddea" class="outline-2">
+<h2 id="org975ddea"><a href="#org975ddea">Exploiting sar2html</a></h2>
+<div class="outline-text-2" id="text-org975ddea">
 <p>
 The path I found in the previous step seemed too good to be true, and
 after searching here and there a little bit I got accross this github repo:
@@ -250,7 +250,7 @@ exploiting sar2html
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org82e7fc1">python3 sar2HTMLshell.py  -ip boiler.thm -pe /joomla/_test
+<pre class="src src-bash" id="orgc9af2c8">python3 sar2HTMLshell.py  -ip boiler.thm -pe /joomla/_test
 </pre>
 </div>
 
@@ -258,7 +258,7 @@ exploiting sar2html
 There, we had access as <code>www-data</code>, in a simple shell, also revealing a
 user and password, for us to use in the ssh server.
 </p>
-<pre class="example" id="org5adce91">
+<pre class="example" id="org937d6b0">
 Aug 20 11:16:35 parrot sshd[2451]: Accepted password for basterd from 10.1.1.1 port 49824 ssh2 #pass: REDACTED
 </pre>
 
@@ -269,9 +269,9 @@ reverse shell, which I then enhanced with python.
 </p>
 </div>
 
-<div id="outline-container-org11a868b" class="outline-3">
-<h3 id="org11a868b"><a href="#org11a868b">Users</a></h3>
-<div class="outline-text-3" id="text-org11a868b">
+<div id="outline-container-org56a69b0" class="outline-3">
+<h3 id="org56a69b0"><a href="#org56a69b0">Users</a></h3>
+<div class="outline-text-3" id="text-org56a69b0">
 <p>
 There are 3 actual users:
 </p>
@@ -285,16 +285,16 @@ There are 3 actual users:
 </div>
 </div>
 
-<div id="outline-container-orga65c1d6" class="outline-2">
-<h2 id="orga65c1d6"><a href="#orga65c1d6">Basterd</a></h2>
-<div class="outline-text-2" id="text-orga65c1d6">
+<div id="outline-container-org411bda3" class="outline-2">
+<h2 id="org411bda3"><a href="#org411bda3">Basterd</a></h2>
+<div class="outline-text-2" id="text-org411bda3">
 <p>
 Yeah, I did not enumerate much I suppose, but seeing that it was a
 limited user, I thought there was no point in losing more time there.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org3910820">ssh basterd@boiler.thm -p55007
+<pre class="src src-bash" id="org3700a16">ssh basterd@boiler.thm -p55007
 </pre>
 </div>
 
@@ -305,16 +305,16 @@ cronjob running from a user <code>backup</code> that I had seen in <code>/etc/pa
 before), contained <code>stoner</code>&rsquo;s password. Not bad
 </p>
 
-<pre class="example" id="org8d08acd">
+<pre class="example" id="org97ac75c">
 USER=stoner
 #REDACTED
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orged93a66" class="outline-2">
-<h2 id="orged93a66"><a href="#orged93a66">Stoner</a></h2>
-<div class="outline-text-2" id="text-orged93a66">
+<div id="outline-container-org06f4a96" class="outline-2">
+<h2 id="org06f4a96"><a href="#org06f4a96">Stoner</a></h2>
+<div class="outline-text-2" id="text-org06f4a96">
 <p>
 Now, this seems to be something we can work with :P.
 </p>
@@ -322,7 +322,7 @@ Now, this seems to be something we can work with :P.
 <p>
 user.txt exists hidden in our home folder, and&#x2026;
 </p>
-<pre class="example" id="org4866fba">
+<pre class="example" id="orgc76611e">
 stoner@Vulnerable:/home$ sudo -l
 User stoner may run the following commands on Vulnerable:
     (root) NOPASSWD: /NotThisTime/MessinWithYa
@@ -336,7 +336,7 @@ Lucky me, the same command I ran to get some more info on the system
 seems to be my way out:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org5a72cfe">find / -perm /4000 2&gt;/dev/null
+<pre class="src src-bash" id="orgc7b9ffa">find / -perm /4000 2&gt;/dev/null
 </pre>
 </div>
 <p>
@@ -344,23 +344,23 @@ revealed that I can execute it as root, so:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org200ef2a">find . -exec /bin/sh -p \; -quit
+<pre class="src src-bash" id="orgda1cbfd">find . -exec /bin/sh -p \; -quit
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org74b0862" class="outline-2">
-<h2 id="org74b0862"><a href="#org74b0862">Root</a></h2>
-<div class="outline-text-2" id="text-org74b0862">
+<div id="outline-container-org376772b" class="outline-2">
+<h2 id="org376772b"><a href="#org376772b">Root</a></h2>
+<div class="outline-text-2" id="text-org376772b">
 <p>
 The flag can be found in <code>/root</code>
 </p>
 </div>
 </div>
 
-<div id="outline-container-org65cee7c" class="outline-2">
-<h2 id="org65cee7c"><a href="#org65cee7c">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org65cee7c">
+<div id="outline-container-orgab03490" class="outline-2">
+<h2 id="orgab03490"><a href="#orgab03490">Conclusion</a></h2>
+<div class="outline-text-2" id="text-orgab03490">
 <p>
 This room was really nice. I agree with the author, it was not that
 difficult, it just took some time to follow the threads. That&rsquo;s it for today.
@@ -380,7 +380,7 @@ output, though.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-11 Sat 19:21</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-11 Sat 19:21</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

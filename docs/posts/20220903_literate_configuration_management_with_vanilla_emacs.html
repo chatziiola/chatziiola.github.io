@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Creating an easy way to review configs" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -20,30 +20,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgce3fa73">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
-<li><a href="#orgb632c9c">Introduction</a></li>
-<li><a href="#orgce5be2d">Building the script</a>
+<li><a href="#org5d09ae7">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
+<li><a href="#orga2acfbb">Introduction</a></li>
+<li><a href="#org683a4bd">Building the script</a>
 <ul>
-<li><a href="#org60752ab">Dealing with too many org files</a></li>
-<li><a href="#org020bdd2">Getting the titles</a></li>
-<li><a href="#org6989102">Presenting Them To The User</a></li>
-<li><a href="#orgf8a4440">Integrating rougier&rsquo;s scripts</a>
+<li><a href="#org8eeb277">Dealing with too many org files</a></li>
+<li><a href="#org1c840f5">Getting the titles</a></li>
+<li><a href="#orgbebb9f0">Presenting Them To The User</a></li>
+<li><a href="#org16434da">Integrating rougier&rsquo;s scripts</a>
 <ul>
-<li><a href="#org930727d">@rougier functions</a></li>
-<li><a href="#org7213e49">Merging them with our funcs</a></li>
+<li><a href="#org6853247">@rougier functions</a></li>
+<li><a href="#orgdf7ae93">Merging them with our funcs</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb8f2723">Making it usable</a></li>
-<li><a href="#org1307340">Summing Up ( some extra details )</a></li>
+<li><a href="#org3e0dca5">Making it usable</a></li>
+<li><a href="#org2e16f65">Summing Up ( some extra details )</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgce3fa73" class="outline-2">
-<h2 id="orgce3fa73"><a href="#orgce3fa73">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
-<div class="outline-text-2" id="text-orgce3fa73">
+<div id="outline-container-org5d09ae7" class="outline-2">
+<h2 id="org5d09ae7"><a href="#org5d09ae7">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
+<div class="outline-text-2" id="text-org5d09ae7">
 <p>
 This is all completely unnecessary. It turns out that you can practically
 achieve the same functionality with <code>imenu-list</code>, without it being so slow.
@@ -51,9 +51,9 @@ achieve the same functionality with <code>imenu-list</code>, without it being so
 </div>
 </div>
 
-<div id="outline-container-orgb632c9c" class="outline-2">
-<h2 id="orgb632c9c"><a href="#orgb632c9c">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgb632c9c">
+<div id="outline-container-orga2acfbb" class="outline-2">
+<h2 id="orga2acfbb"><a href="#orga2acfbb">Introduction</a></h2>
+<div class="outline-text-2" id="text-orga2acfbb">
 <p>
 I manage my dotfiles using GNU Stow. This means that I have a git directory
 <a href="../../">dotfiles</a>, which contains the configuration files for the applications I have
@@ -68,9 +68,9 @@ in the past couple days
 </div>
 </div>
 
-<div id="outline-container-orgce5be2d" class="outline-2">
-<h2 id="orgce5be2d"><a href="#orgce5be2d">Building the script</a></h2>
-<div class="outline-text-2" id="text-orgce5be2d">
+<div id="outline-container-org683a4bd" class="outline-2">
+<h2 id="org683a4bd"><a href="#org683a4bd">Building the script</a></h2>
+<div class="outline-text-2" id="text-org683a4bd">
 <p>
 The following folder hierarchy shows part of the general dotfiles problem:
 </p>
@@ -132,9 +132,9 @@ want to recursively search our directory for <code>.org</code> files.
 </div>
 </div>
 
-<div id="outline-container-org60752ab" class="outline-3">
-<h3 id="org60752ab"><a href="#org60752ab">Dealing with too many org files</a></h3>
-<div class="outline-text-3" id="text-org60752ab">
+<div id="outline-container-org8eeb277" class="outline-3">
+<h3 id="org8eeb277"><a href="#org8eeb277">Dealing with too many org files</a></h3>
+<div class="outline-text-3" id="text-org8eeb277">
 <p>
 A problem arises: Too many files within the emacs directory, almost all of which
 from the <code>straight</code> subdirectory <i>(this is what hapenned to me, it may be different
@@ -171,9 +171,9 @@ their &ldquo;TITLE&rdquo; property
 </div>
 </div>
 
-<div id="outline-container-org020bdd2" class="outline-3">
-<h3 id="org020bdd2"><a href="#org020bdd2">Getting the titles</a></h3>
-<div class="outline-text-3" id="text-org020bdd2">
+<div id="outline-container-org1c840f5" class="outline-3">
+<h3 id="org1c840f5"><a href="#org1c840f5">Getting the titles</a></h3>
+<div class="outline-text-3" id="text-org1c840f5">
 <p>
 Make sure that we get the title of our configuration files:
 </p>
@@ -187,8 +187,8 @@ Make sure that we get the title of our configuration files:
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org1c42bbd"></a><a href="#org1c42bbd">Complementary functions</a><br>
-<div class="outline-text-5" id="text-org1c42bbd">
+<li><a id="org43f274b"></a><a href="#org43f274b">Complementary functions</a><br>
+<div class="outline-text-5" id="text-org43f274b">
 <p>
 These functions were found online (albeit the second one has been changed) when
 I was building my lecture notetaking scripts
@@ -226,9 +226,9 @@ I was building my lecture notetaking scripts
 </ul>
 </div>
 
-<div id="outline-container-org6989102" class="outline-3">
-<h3 id="org6989102"><a href="#org6989102">Presenting Them To The User</a></h3>
-<div class="outline-text-3" id="text-org6989102">
+<div id="outline-container-orgbebb9f0" class="outline-3">
+<h3 id="orgbebb9f0"><a href="#orgbebb9f0">Presenting Them To The User</a></h3>
+<div class="outline-text-3" id="text-orgbebb9f0">
 <p>
 Create a dictionary in the form of <code>"TITLE":"FILE"</code>:
 </p>
@@ -280,9 +280,9 @@ Script building is over: Just open the file
 </div>
 </div>
 
-<div id="outline-container-orgf8a4440" class="outline-3">
-<h3 id="orgf8a4440"><a href="#orgf8a4440">Integrating rougier&rsquo;s scripts</a></h3>
-<div class="outline-text-3" id="text-orgf8a4440">
+<div id="outline-container-org16434da" class="outline-3">
+<h3 id="org16434da"><a href="#org16434da">Integrating rougier&rsquo;s scripts</a></h3>
+<div class="outline-text-3" id="text-org16434da">
 <p>
 With the steps above with have achieved a <i>basic level</i> of ease when dealing with
 dotfiles. What is missing?
@@ -294,9 +294,9 @@ dotfiles. What is missing?
 </ol>
 </div>
 
-<div id="outline-container-org930727d" class="outline-4">
-<h4 id="org930727d"><a href="#org930727d">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
-<div class="outline-text-4" id="text-org930727d">
+<div id="outline-container-org6853247" class="outline-4">
+<h4 id="org6853247"><a href="#org6853247">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
+<div class="outline-text-4" id="text-org6853247">
 <p>
 <code>rougier</code> implemented these wonderful functions ( that inspired me to work on
 this ):
@@ -315,7 +315,7 @@ this ):
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org78618de">
+<pre class="src src-elisp" id="org5e016fc">
 (require 'imenu)
 (require 'imenu-list)
 
@@ -377,9 +377,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </p>
 </div>
 </div>
-<div id="outline-container-org7213e49" class="outline-4">
-<h4 id="org7213e49"><a href="#org7213e49">Merging them with our funcs</a></h4>
-<div class="outline-text-4" id="text-org7213e49">
+<div id="outline-container-orgdf7ae93" class="outline-4">
+<h4 id="orgdf7ae93"><a href="#orgdf7ae93">Merging them with our funcs</a></h4>
+<div class="outline-text-4" id="text-orgdf7ae93">
 <div class="org-src-container">
 <pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
@@ -405,9 +405,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </div>
 </div>
 
-<div id="outline-container-orgb8f2723" class="outline-2">
-<h2 id="orgb8f2723"><a href="#orgb8f2723">Making it usable</a></h2>
-<div class="outline-text-2" id="text-orgb8f2723">
+<div id="outline-container-org3e0dca5" class="outline-2">
+<h2 id="org3e0dca5"><a href="#org3e0dca5">Making it usable</a></h2>
+<div class="outline-text-2" id="text-org3e0dca5">
 <p>
 Autoload the configuration function ( so that it is always available ), <i>stolen</i>
 from <code>rougier</code>, once again.
@@ -432,9 +432,9 @@ from <code>rougier</code>, once again.
 </div>
 
 
-<div id="outline-container-org1307340" class="outline-2">
-<h2 id="org1307340"><a href="#org1307340">Summing Up ( some extra details )</a></h2>
-<div class="outline-text-2" id="text-org1307340">
+<div id="outline-container-org2e16f65" class="outline-2">
+<h2 id="org2e16f65"><a href="#org2e16f65">Summing Up ( some extra details )</a></h2>
+<div class="outline-text-2" id="text-org2e16f65">
 <p>
 This article took for granted that one has some prior experience with org mode,
 though I understand that this is not always the case. To gain advantage of the
@@ -458,7 +458,7 @@ Lastly: Do not forget to add <code>config.org</code> to .stow-local-ignore to av
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-09-03 Sat 23:56</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-09-03 Sat 23:56</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

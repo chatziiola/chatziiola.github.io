@@ -6,7 +6,7 @@
 <title>HackerOne: CTF: Micro-CMS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -19,18 +19,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org72076a9">Introduction</a></li>
-<li><a href="#orgefdfb1b">Testing</a></li>
-<li><a href="#org2fa66e1">XSS</a></li>
-<li><a href="#orgd0d49d5">Getting access to the forbidden file</a></li>
-<li><a href="#orgff8ad98">Not-so-good SQLi</a></li>
+<li><a href="#orgd77d365">Introduction</a></li>
+<li><a href="#orgf425848">Testing</a></li>
+<li><a href="#org026f629">XSS</a></li>
+<li><a href="#orgd04b23d">Getting access to the forbidden file</a></li>
+<li><a href="#orga4e61ae">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org72076a9" class="outline-2">
-<h2 id="org72076a9"><a href="#org72076a9">Introduction</a></h2>
-<div class="outline-text-2" id="text-org72076a9">
+<div id="outline-container-orgd77d365" class="outline-2">
+<h2 id="orgd77d365"><a href="#orgd77d365">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgd77d365">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -57,9 +57,9 @@ have since completed.
 </div>
 </div>
 
-<div id="outline-container-orgefdfb1b" class="outline-2">
-<h2 id="orgefdfb1b"><a href="#orgefdfb1b">Testing</a></h2>
-<div class="outline-text-2" id="text-orgefdfb1b">
+<div id="outline-container-orgf425848" class="outline-2">
+<h2 id="orgf425848"><a href="#orgf425848">Testing</a></h2>
+<div class="outline-text-2" id="text-orgf425848">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -77,7 +77,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="orgb59ed3c">
+<div class="note" id="orgbfb9f84">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -99,7 +99,7 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgf2b5852"># Snippet to open all pages in my browser
+<pre class="src src-python" id="org7725c21"># Snippet to open all pages in my browser
 # Verdict: Inefficient and illogical, I only want to get the interesting pages
 import webbrowser
 
@@ -114,7 +114,7 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="org0bdd07f"># Snippet to open all pages virtually in python, utilizing burp at the same time
+<pre class="src src-python" id="orge9bb0a1"># Snippet to open all pages virtually in python, utilizing burp at the same time
 # Verdict: The way to go, quickly getting the results I want without messing with GUI
 
 import requests
@@ -139,7 +139,7 @@ return result
 </pre>
 </div>
 
-<pre class="example" id="orge68ef62">
+<pre class="example" id="orgd17852c">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -152,7 +152,7 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="orgd859ca0" class="figure">
+<div id="org5d5a4d5" class="figure">
 <p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
@@ -160,9 +160,9 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 </div>
 </div>
 
-<div id="outline-container-org2fa66e1" class="outline-2">
-<h2 id="org2fa66e1"><a href="#org2fa66e1">XSS</a></h2>
-<div class="outline-text-2" id="text-org2fa66e1">
+<div id="outline-container-org026f629" class="outline-2">
+<h2 id="org026f629"><a href="#org026f629">XSS</a></h2>
+<div class="outline-text-2" id="text-org026f629">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -191,9 +191,9 @@ At this point we have flags 2,3, searching for 1,2.
 </div>
 </div>
 
-<div id="outline-container-orgd0d49d5" class="outline-2">
-<h2 id="orgd0d49d5"><a href="#orgd0d49d5">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-orgd0d49d5">
+<div id="outline-container-orgd04b23d" class="outline-2">
+<h2 id="orgd04b23d"><a href="#orgd04b23d">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-orgd04b23d">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -203,9 +203,9 @@ want to <i>wrap</i> this mini challenge.
 </div>
 </div>
 
-<div id="outline-container-orgff8ad98" class="outline-2">
-<h2 id="orgff8ad98"><a href="#orgff8ad98">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-orgff8ad98">
+<div id="outline-container-orga4e61ae" class="outline-2">
+<h2 id="orga4e61ae"><a href="#orga4e61ae">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-orga4e61ae">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall
@@ -236,7 +236,7 @@ getting fully caught up with ECE.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-01-21 Sun 20:38</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-01-21 Sun 20:38</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <title>Διάλεξη 2: Ευστάθεια με διαγωνιοποίηση</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,32 +51,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org64163ed">Εισαγωγή</a></li>
-<li><a href="#orga5af72b">Εξέταση γραμμικής φύσεως συστήματος</a>
+<li><a href="#orgc30f54c">Εισαγωγή</a></li>
+<li><a href="#orgb71097a">Εξέταση γραμμικής φύσεως συστήματος</a>
 <ul>
-<li><a href="#org11c21be">Ιδιότητα 1</a></li>
-<li><a href="#orgf71713f">Ιδιότητα 2</a></li>
-<li><a href="#orgfcb70d4">Ιδιότητα 3</a></li>
+<li><a href="#orgeaffafe">Ιδιότητα 1</a></li>
+<li><a href="#orgab595c1">Ιδιότητα 2</a></li>
+<li><a href="#orgaa44007">Ιδιότητα 3</a></li>
 </ul>
 </li>
-<li><a href="#orgc40a980">Χρονική μεταβλητότητα.</a></li>
-<li><a href="#org3ed3930">Παράδειγμα για λύση εισόδου?</a></li>
-<li><a href="#orgcd533a3">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#orga32645b">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#org3eec036">Μερικές ακόμα ειδικές περιπτώσεις:</a>
+<li><a href="#org881e81e">Χρονική μεταβλητότητα.</a></li>
+<li><a href="#org6bcda4c">Παράδειγμα για λύση εισόδου?</a></li>
+<li><a href="#org07eb6a2">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org5748052">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org1ef65e1">Μερικές ακόμα ειδικές περιπτώσεις:</a>
 <ul>
-<li><a href="#org524df8c">Α διαγώνιος</a></li>
-<li><a href="#orgf524dae">Διαγωνοποίηση συστήματος.</a></li>
-<li><a href="#org41e9148">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></li>
+<li><a href="#org5f47607">Α διαγώνιος</a></li>
+<li><a href="#orga16080b">Διαγωνοποίηση συστήματος.</a></li>
+<li><a href="#org5ec8aec">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org64163ed" class="outline-2">
-<h2 id="org64163ed"><a href="#org64163ed">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-org64163ed">
+<div id="outline-container-orgc30f54c" class="outline-2">
+<h2 id="orgc30f54c"><a href="#orgc30f54c">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-orgc30f54c">
 <ul class="org-ul">
 <li>Γιατί εξετάζουμε γραμμικά συστήματα ενώ όλα τα πραγματικά είναι μη γραμμικά;
 <ol class="org-ol">
@@ -91,11 +91,11 @@
 </div>
 </div>
 
-<div id="outline-container-orga5af72b" class="outline-2">
-<h2 id="orga5af72b"><a href="#orga5af72b">Εξέταση γραμμικής φύσεως συστήματος</a></h2>
-<div class="outline-text-2" id="text-orga5af72b">
+<div id="outline-container-orgb71097a" class="outline-2">
+<h2 id="orgb71097a"><a href="#orgb71097a">Εξέταση γραμμικής φύσεως συστήματος</a></h2>
+<div class="outline-text-2" id="text-orgb71097a">
 
-<div id="orgc3ed2aa" class="figure">
+<div id="orgc51ad90" class="figure">
 <p><img src="course_sae2_images/230329_1408_lec2-sample-system.png" alt="230329_1408_lec2-sample-system.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Βασικό και καλά σχεδιάγραμμα του εξεταζόμενου συστήματος.</p>
@@ -141,15 +141,15 @@ y &= Cx + Du
 </p>
 </div>
 
-<div id="outline-container-org11c21be" class="outline-3">
-<h3 id="org11c21be"><a href="#org11c21be">Ιδιότητα 1</a></h3>
-<div class="outline-text-3" id="text-org11c21be">
+<div id="outline-container-orgeaffafe" class="outline-3">
+<h3 id="orgeaffafe"><a href="#orgeaffafe">Ιδιότητα 1</a></h3>
+<div class="outline-text-3" id="text-orgeaffafe">
 \begin{equation}
 \label{eq:4}
 y(t; ax_1+ bx_2,0) = ay(t;x_1,0) + b y(t; x_2,0)
 \end{equation}
 
-<div class="note" id="org8527309">
+<div class="note" id="orga499e8f">
 <p>
 Όπου ο συμβολισμός που υιοθετείται στις  \(\ref{eq:4}\)  \(\ref{eq:6}\)  \(\ref{eq:7}\)
 </p>
@@ -169,18 +169,18 @@ y(t; x,u)
 </div>
 </div>
 
-<div id="outline-container-orgf71713f" class="outline-3">
-<h3 id="orgf71713f"><a href="#orgf71713f">Ιδιότητα 2</a></h3>
-<div class="outline-text-3" id="text-orgf71713f">
+<div id="outline-container-orgab595c1" class="outline-3">
+<h3 id="orgab595c1"><a href="#orgab595c1">Ιδιότητα 2</a></h3>
+<div class="outline-text-3" id="text-orgab595c1">
 \begin{equation}
 \label{eq:6}
 y(t; ax_0, \gamma u) = a y(t;ax_0,0) + \gamma y(t;0, u)
 \end{equation}
 </div>
 </div>
-<div id="outline-container-orgfcb70d4" class="outline-3">
-<h3 id="orgfcb70d4"><a href="#orgfcb70d4">Ιδιότητα 3</a></h3>
-<div class="outline-text-3" id="text-orgfcb70d4">
+<div id="outline-container-orgaa44007" class="outline-3">
+<h3 id="orgaa44007"><a href="#orgaa44007">Ιδιότητα 3</a></h3>
+<div class="outline-text-3" id="text-orgaa44007">
 \begin{equation}
 \label{eq:7}
 y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
@@ -189,9 +189,9 @@ y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
 </div>
 </div>
 
-<div id="outline-container-orgc40a980" class="outline-2">
-<h2 id="orgc40a980"><a href="#orgc40a980">Χρονική μεταβλητότητα.</a></h2>
-<div class="outline-text-2" id="text-orgc40a980">
+<div id="outline-container-org881e81e" class="outline-2">
+<h2 id="org881e81e"><a href="#org881e81e">Χρονική μεταβλητότητα.</a></h2>
+<div class="outline-text-2" id="text-org881e81e">
 <p>
 Για είσοδο \(u\) την βηματική, στην αρχή \(u(t)\) και κατόπιν \(u(t-t_0)\), ένα
 σύστημα θα λέγεται χρονικά αμετάβλητο αν:
@@ -206,9 +206,9 @@ y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
 </div>
 </div>
 
-<div id="outline-container-org3ed3930" class="outline-2">
-<h2 id="org3ed3930"><a href="#org3ed3930">Παράδειγμα για λύση εισόδου?</a></h2>
-<div class="outline-text-2" id="text-org3ed3930">
+<div id="outline-container-org6bcda4c" class="outline-2">
+<h2 id="org6bcda4c"><a href="#org6bcda4c">Παράδειγμα για λύση εισόδου?</a></h2>
+<div class="outline-text-2" id="text-org6bcda4c">
 <p>
 Θέτοντας \(u=0\) στο σύστημα της \(\ref{eq:3}\):
 </p>
@@ -247,7 +247,7 @@ e^{At} = \cdots = \sum^{\infty}_{k=0}
 \frac{1}{k!} A^kt^k
 \end{equation}
 
-<div class="note" id="org224ec5a">
+<div class="note" id="org6668ccc">
 <p>
 Ο πίνακας \(e^{At}\) ονομάζεται πίνακας μετάβασης και ο υπολογισμός του είναι
 προαπαιτούμενο για την εύρεση της λύσης.
@@ -270,9 +270,9 @@ e^{At} = \cdots = \sum^{\infty}_{k=0}
 </div>
 </div>
 
-<div id="outline-container-orgcd533a3" class="outline-2">
-<h2 id="orgcd533a3"><a href="#orgcd533a3">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-orgcd533a3">
+<div id="outline-container-org07eb6a2" class="outline-2">
+<h2 id="org07eb6a2"><a href="#org07eb6a2">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-org07eb6a2">
 <p>
 Δοθέντος συστήματος:
 </p>
@@ -328,7 +328,7 @@ x_1(0) + tx_2(0)\\x_2(0)
 </p>
 
 
-<div class="note" id="org7a219cf">
+<div class="note" id="org7a9e8c6">
 <p>
 Αυτό το παράδειγμα είναι too good to be true για να είναι εφαρμόσιμο σε μεγαλο
 αριθμό περιπτώσεων. Ο μηδενισμός ορισμένης δύναμης του \(A\), αν και μπορεί να
@@ -339,9 +339,9 @@ x_1(0) + tx_2(0)\\x_2(0)
 </div>
 </div>
 
-<div id="outline-container-orga32645b" class="outline-2">
-<h2 id="orga32645b"><a href="#orga32645b">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-orga32645b">
+<div id="outline-container-org5748052" class="outline-2">
+<h2 id="org5748052"><a href="#org5748052">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-org5748052">
 <p>
 Δουλεύοντας στην \(\ref{eq:9}\)
 </p>
@@ -393,13 +393,13 @@ e^{At} = \mathcal{L}^{-1} \{ (SI -A)^{-1} \} =
 </div>
 
 
-<div id="outline-container-org3eec036" class="outline-2">
-<h2 id="org3eec036"><a href="#org3eec036">Μερικές ακόμα ειδικές περιπτώσεις:</a></h2>
-<div class="outline-text-2" id="text-org3eec036">
+<div id="outline-container-org1ef65e1" class="outline-2">
+<h2 id="org1ef65e1"><a href="#org1ef65e1">Μερικές ακόμα ειδικές περιπτώσεις:</a></h2>
+<div class="outline-text-2" id="text-org1ef65e1">
 </div>
-<div id="outline-container-org524df8c" class="outline-3">
-<h3 id="org524df8c"><a href="#org524df8c">Α διαγώνιος</a></h3>
-<div class="outline-text-3" id="text-org524df8c">
+<div id="outline-container-org5f47607" class="outline-3">
+<h3 id="org5f47607"><a href="#org5f47607">Α διαγώνιος</a></h3>
+<div class="outline-text-3" id="text-org5f47607">
 <p>
 Στην ειδική περίπτωση όπου:
 </p>
@@ -433,9 +433,9 @@ e^{a_1t} &0 &0\\
 </div>
 </div>
 
-<div id="outline-container-orgf524dae" class="outline-3">
-<h3 id="orgf524dae"><a href="#orgf524dae">Διαγωνοποίηση συστήματος.</a></h3>
-<div class="outline-text-3" id="text-orgf524dae">
+<div id="outline-container-orga16080b" class="outline-3">
+<h3 id="orga16080b"><a href="#orga16080b">Διαγωνοποίηση συστήματος.</a></h3>
+<div class="outline-text-3" id="text-orga16080b">
 <p>
 Εστω ότι σύστημα όπως αυτό φαίνεται στην \(\ref{eq:9}\), και \(A\) πίνακας με
 ιδιοτιμές πολλαπλότητας 1.
@@ -483,9 +483,9 @@ x = Tz \Rightarrow z = T^{-1}x
 </div>
 </div>
 
-<div id="outline-container-org41e9148" class="outline-3">
-<h3 id="org41e9148"><a href="#org41e9148">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></h3>
-<div class="outline-text-3" id="text-org41e9148">
+<div id="outline-container-org5ec8aec" class="outline-3">
+<h3 id="org5ec8aec"><a href="#org5ec8aec">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></h3>
+<div class="outline-text-3" id="text-org5ec8aec">
 <p>
 Αν έχουμε:
 </p>
@@ -537,7 +537,7 @@ x(t) = (I + At + A^2t^2 +\cdots) v = \cdots = v(1+\lambda t + \lambda^2 t^2 + \c
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-03-29 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-03-29 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <title>6.006 Lec 3: Sets and Sorting</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,28 +51,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3d3dc3a">Lecture details:</a></li>
-<li><a href="#org3639f73">The set interface</a></li>
-<li><a href="#org539fde5">Understanding and implementing</a>
+<li><a href="#org516c40d">Lecture details:</a></li>
+<li><a href="#org3ccf272">The set interface</a></li>
+<li><a href="#orge484c52">Understanding and implementing</a>
 <ul>
-<li><a href="#org830954a">Using an unordered array</a></li>
-<li><a href="#org5875b3b">Using an sorted array</a></li>
+<li><a href="#org6854c72">Using an unordered array</a></li>
+<li><a href="#org72bb31c">Using an sorted array</a></li>
 </ul>
 </li>
-<li><a href="#orgcd81870">Sorting</a>
+<li><a href="#org8ba97e4">Sorting</a>
 <ul>
-<li><a href="#orgeb73a52">Basic vocabulary</a>
+<li><a href="#org5887ec9">Basic vocabulary</a>
 <ul>
-<li><a href="#orgdf6b76d">Destructive</a></li>
-<li><a href="#org39f4cd7">In place</a></li>
+<li><a href="#orgc6e18bc">Destructive</a></li>
+<li><a href="#org27b84b8">In place</a></li>
 </ul>
 </li>
-<li><a href="#orgae2a82c">Algorithms</a>
+<li><a href="#org88a5d4c">Algorithms</a>
 <ul>
-<li><a href="#org3ef12d3">Permutation sort</a></li>
-<li><a href="#orgb67c250">Selection sort</a></li>
-<li><a href="#orgb2ebdc0">Insertion sort</a></li>
-<li><a href="#org04e4129">Merge sort</a></li>
+<li><a href="#orgdd559a9">Permutation sort</a></li>
+<li><a href="#org155d7aa">Selection sort</a></li>
+<li><a href="#org07d07c4">Insertion sort</a></li>
+<li><a href="#orgd2fcee4">Merge sort</a></li>
 </ul>
 </li>
 </ul>
@@ -81,9 +81,9 @@
 </div>
 </div>
 
-<div id="outline-container-org3d3dc3a" class="outline-2">
-<h2 id="org3d3dc3a"><a href="#org3d3dc3a">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org3d3dc3a">
+<div id="outline-container-org516c40d" class="outline-2">
+<h2 id="org516c40d"><a href="#org516c40d">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org516c40d">
 <ul class="org-ul">
 <li>Instructor: Justin Solomon</li>
 <li>Link: <a href="https://www.youtube.com/watch?v=oS9aPzUNG-s&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=4">YouTube Lecture</a></li>
@@ -97,9 +97,9 @@ Java, all the code snippets here will be written in Java.
 </div>
 </div>
 
-<div id="outline-container-org3639f73" class="outline-2">
-<h2 id="org3639f73"><a href="#org3639f73">The set interface</a></h2>
-<div class="outline-text-2" id="text-org3639f73">
+<div id="outline-container-org3ccf272" class="outline-2">
+<h2 id="org3ccf272"><a href="#org3ccf272">The set interface</a></h2>
+<div class="outline-text-2" id="text-org3ccf272">
 <p>
 Our interface is a container, hosting items and associating them with key
 values. The functions that we want the set implementation to perform are:
@@ -127,17 +127,17 @@ next or previous respectively</li>
 </div>
 </div>
 
-<div id="outline-container-org539fde5" class="outline-2">
-<h2 id="org539fde5"><a href="#org539fde5">Understanding and implementing</a></h2>
-<div class="outline-text-2" id="text-org539fde5">
+<div id="outline-container-orge484c52" class="outline-2">
+<h2 id="orge484c52"><a href="#orge484c52">Understanding and implementing</a></h2>
+<div class="outline-text-2" id="text-orge484c52">
 <p>
 Now that we have outlined the set interface, let&rsquo;s check possible implementations
 </p>
 </div>
 
-<div id="outline-container-org830954a" class="outline-3">
-<h3 id="org830954a"><a href="#org830954a">Using an unordered array</a></h3>
-<div class="outline-text-3" id="text-org830954a">
+<div id="outline-container-org6854c72" class="outline-3">
+<h3 id="org6854c72"><a href="#org6854c72">Using an unordered array</a></h3>
+<div class="outline-text-3" id="text-org6854c72">
 <p>
 This is a <i>generally</i> poorly functioning implementation of the set ADT.
 </p>
@@ -209,9 +209,9 @@ costly.
 </div>
 </div>
 
-<div id="outline-container-org5875b3b" class="outline-3">
-<h3 id="org5875b3b"><a href="#org5875b3b">Using an sorted array</a></h3>
-<div class="outline-text-3" id="text-org5875b3b">
+<div id="outline-container-org72bb31c" class="outline-3">
+<h3 id="org72bb31c"><a href="#org72bb31c">Using an sorted array</a></h3>
+<div class="outline-text-3" id="text-org72bb31c">
 <table>
 
 
@@ -250,22 +250,22 @@ binary search to find the desired key reducing the <code>find(k)</code> complexi
 </div>
 </div>
 
-<div id="outline-container-orgcd81870" class="outline-2">
-<h2 id="orgcd81870"><a href="#orgcd81870">Sorting</a></h2>
-<div class="outline-text-2" id="text-orgcd81870">
+<div id="outline-container-org8ba97e4" class="outline-2">
+<h2 id="org8ba97e4"><a href="#org8ba97e4">Sorting</a></h2>
+<div class="outline-text-2" id="text-org8ba97e4">
 <p>
 In order to have a sorted array, we need to study which algorithms will give us
 one:
 </p>
 </div>
 
-<div id="outline-container-orgeb73a52" class="outline-3">
-<h3 id="orgeb73a52"><a href="#orgeb73a52">Basic vocabulary</a></h3>
-<div class="outline-text-3" id="text-orgeb73a52">
+<div id="outline-container-org5887ec9" class="outline-3">
+<h3 id="org5887ec9"><a href="#org5887ec9">Basic vocabulary</a></h3>
+<div class="outline-text-3" id="text-org5887ec9">
 </div>
-<div id="outline-container-orgdf6b76d" class="outline-4">
-<h4 id="orgdf6b76d"><a href="#orgdf6b76d">Destructive</a></h4>
-<div class="outline-text-4" id="text-orgdf6b76d">
+<div id="outline-container-orgc6e18bc" class="outline-4">
+<h4 id="orgc6e18bc"><a href="#orgc6e18bc">Destructive</a></h4>
+<div class="outline-text-4" id="text-orgc6e18bc">
 <p>
 An algorithm is called destructive when it operates on the input array. More
 specifically, it <i>destroys</i> the input unsorted array, overwriting it with its
@@ -273,9 +273,9 @@ sorted version
 </p>
 </div>
 </div>
-<div id="outline-container-org39f4cd7" class="outline-4">
-<h4 id="org39f4cd7"><a href="#org39f4cd7">In place</a></h4>
-<div class="outline-text-4" id="text-org39f4cd7">
+<div id="outline-container-org27b84b8" class="outline-4">
+<h4 id="org27b84b8"><a href="#org27b84b8">In place</a></h4>
+<div class="outline-text-4" id="text-org27b84b8">
 <p>
 An algorith is called <span class="underline">in place</span> when, being a destructive algorithm, it uses
 constant extra space in memory (\(O(1)\)).
@@ -284,13 +284,13 @@ constant extra space in memory (\(O(1)\)).
 </div>
 </div>
 
-<div id="outline-container-orgae2a82c" class="outline-3">
-<h3 id="orgae2a82c"><a href="#orgae2a82c">Algorithms</a></h3>
-<div class="outline-text-3" id="text-orgae2a82c">
+<div id="outline-container-org88a5d4c" class="outline-3">
+<h3 id="org88a5d4c"><a href="#org88a5d4c">Algorithms</a></h3>
+<div class="outline-text-3" id="text-org88a5d4c">
 </div>
-<div id="outline-container-org3ef12d3" class="outline-4">
-<h4 id="org3ef12d3"><a href="#org3ef12d3">Permutation sort</a></h4>
-<div class="outline-text-4" id="text-org3ef12d3">
+<div id="outline-container-orgdd559a9" class="outline-4">
+<h4 id="orgdd559a9"><a href="#orgdd559a9">Permutation sort</a></h4>
+<div class="outline-text-4" id="text-orgdd559a9">
 <p>
 <i>Analysis</i>:  We have \(\Omega(n!n)\)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
 </p>
@@ -302,9 +302,9 @@ constant extra space in memory (\(O(1)\)).
 </div>
 
 
-<div id="outline-container-orgb67c250" class="outline-4">
-<h4 id="orgb67c250"><a href="#orgb67c250">Selection sort</a></h4>
-<div class="outline-text-4" id="text-orgb67c250">
+<div id="outline-container-org155d7aa" class="outline-4">
+<h4 id="org155d7aa"><a href="#org155d7aa">Selection sort</a></h4>
+<div class="outline-text-4" id="text-org155d7aa">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -327,8 +327,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgd375b49"></a><a href="#orgd375b49">Recursive</a><br>
-<div class="outline-text-5" id="text-orgd375b49">
+<li><a id="org47cbf67"></a><a href="#org47cbf67">Recursive</a><br>
+<div class="outline-text-5" id="text-org47cbf67">
 <div class="org-src-container">
 <pre class="src src-java">void selectionSort(int[] myArray, int lastItem)
 {
@@ -355,8 +355,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </li>
 
 
-<li><a id="org9dbe885"></a><a href="#org9dbe885">Simple Implementation</a><br>
-<div class="outline-text-5" id="text-org9dbe885">
+<li><a id="orgd68b682"></a><a href="#orgd68b682">Simple Implementation</a><br>
+<div class="outline-text-5" id="text-orgd68b682">
 <div class="org-src-container">
 <pre class="src src-java">void selectionSort(int[] myArray)
 {
@@ -388,9 +388,9 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </div>
 
 
-<div id="outline-container-orgb2ebdc0" class="outline-4">
-<h4 id="orgb2ebdc0"><a href="#orgb2ebdc0">Insertion sort</a></h4>
-<div class="outline-text-4" id="text-orgb2ebdc0">
+<div id="outline-container-org07d07c4" class="outline-4">
+<h4 id="org07d07c4"><a href="#org07d07c4">Insertion sort</a></h4>
+<div class="outline-text-4" id="text-org07d07c4">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -440,9 +440,9 @@ it, swapping every element larger than it.
 </div>
 
 
-<div id="outline-container-org04e4129" class="outline-4">
-<h4 id="org04e4129"><a href="#org04e4129">Merge sort</a></h4>
-<div class="outline-text-4" id="text-org04e4129">
+<div id="outline-container-orgd2fcee4" class="outline-4">
+<h4 id="orgd2fcee4"><a href="#orgd2fcee4">Merge sort</a></h4>
+<div class="outline-text-4" id="text-orgd2fcee4">
 <p>
 <i>Analysis</i>: \(O(n\lg{n})\)
 </p>
@@ -456,8 +456,8 @@ size of the array
 </div>
 
 <ul class="org-ul">
-<li><a id="org5ec5e7e"></a><a href="#org5ec5e7e">Implementation</a><br>
-<div class="outline-text-5" id="text-org5ec5e7e">
+<li><a id="org60faf9e"></a><a href="#org60faf9e">Implementation</a><br>
+<div class="outline-text-5" id="text-org60faf9e">
 <div class="org-src-container">
 <pre class="src src-java">static void mergeSort(int[] myArray)
 {
@@ -533,7 +533,7 @@ Nice explanation regarding the reason why \(\Omega\) was chosen
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-17 Thu 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-17 Thu 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

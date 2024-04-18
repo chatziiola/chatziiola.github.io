@@ -6,7 +6,7 @@
 <title>Διάλεξη 4: Μοντέλο Ροπών</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,39 +51,39 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org102cb76">Μοντέλο Ροπών - Μη πλήρες μοντέλο</a>
+<li><a href="#org42c80a4">Μοντέλο Ροπών - Μη πλήρες μοντέλο</a>
 <ul>
-<li><a href="#org0b098cd">Πρώτη ροπή: Μέση τιμή</a>
+<li><a href="#orgc703bff">Πρώτη ροπή: Μέση τιμή</a>
 <ul>
-<li><a href="#org26cbb5e">Ιδιότητες:</a></li>
+<li><a href="#org738d84a">Ιδιότητες:</a></li>
 </ul>
 </li>
-<li><a href="#orgba88b56">Δεύτερη ροπή: Μέση τετραγωνική τιμή τμ.</a></li>
+<li><a href="#org0ce112d">Δεύτερη ροπή: Μέση τετραγωνική τιμή τμ.</a></li>
 </ul>
 </li>
-<li><a href="#org0ba23e5">Κεντρικές ροπές</a>
+<li><a href="#orge1f19f2">Κεντρικές ροπές</a>
 <ul>
-<li><a href="#org116f211">Βασική ανάλυση</a></li>
-<li><a href="#orgcddaa63">Αναλυση επί της δεύτερης κεντρικής ροπής.</a></li>
+<li><a href="#orgd51219d">Βασική ανάλυση</a></li>
+<li><a href="#org0a35a86">Αναλυση επί της δεύτερης κεντρικής ροπής.</a></li>
 </ul>
 </li>
-<li><a href="#orgbe1d2ac">Ροπές υπο συνθήκη</a></li>
-<li><a href="#org94d0a2e">Χαρακτηριστική συνάρτηση τυχαίας μεταβλητής</a>
+<li><a href="#org376a081">Ροπές υπο συνθήκη</a></li>
+<li><a href="#orgf0d37a8">Χαρακτηριστική συνάρτηση τυχαίας μεταβλητής</a>
 <ul>
-<li><a href="#orgf12ca2a">Ιδιότητες</a></li>
+<li><a href="#org0773901">Ιδιότητες</a></li>
 </ul>
 </li>
-<li><a href="#orgb250b49">Ανισότητες Markov Chebychev</a>
+<li><a href="#org055e701">Ανισότητες Markov Chebychev</a>
 <ul>
-<li><a href="#orgeb1c6e7">Markov</a></li>
-<li><a href="#org3587625">Chebychev</a></li>
+<li><a href="#org62344ec">Markov</a></li>
+<li><a href="#org98e3ee8">Chebychev</a></li>
 </ul>
 </li>
-<li><a href="#org67826db">Όρια Chernoff</a></li>
+<li><a href="#org51f2ad4">Όρια Chernoff</a></li>
 </ul>
 </div>
 </div>
-<div class="note" id="org9a827f0">
+<div class="note" id="org830d1b3">
 <p>
 Το μοντέλο που εξετάστηκε στις προηγούμενες περιπτώσεις για τον προσδιορισμό της
 πιθανότητας ορισμένων γεγονότων ονομάζεται <b>πλήρες μοντέλο</b>. Αυτό γιατί μας
@@ -94,10 +94,10 @@
 
 </div>
 
-<div id="outline-container-org102cb76" class="outline-2">
-<h2 id="org102cb76"><a href="#org102cb76">Μοντέλο Ροπών - Μη πλήρες μοντέλο</a></h2>
-<div class="outline-text-2" id="text-org102cb76">
-<div class="note" id="org3add46a">
+<div id="outline-container-org42c80a4" class="outline-2">
+<h2 id="org42c80a4"><a href="#org42c80a4">Μοντέλο Ροπών - Μη πλήρες μοντέλο</a></h2>
+<div class="outline-text-2" id="text-org42c80a4">
+<div class="note" id="org3922f33">
 <p>
 Σελίδα 152
 </p>
@@ -122,9 +122,9 @@ m_k = \int_{-\infty}^{\infty}x^kf_x(x)dx
 \end{equation}
 </div>
 
-<div id="outline-container-org0b098cd" class="outline-3">
-<h3 id="org0b098cd"><a href="#org0b098cd">Πρώτη ροπή: Μέση τιμή</a></h3>
-<div class="outline-text-3" id="text-org0b098cd">
+<div id="outline-container-orgc703bff" class="outline-3">
+<h3 id="orgc703bff"><a href="#orgc703bff">Πρώτη ροπή: Μέση τιμή</a></h3>
+<div class="outline-text-3" id="text-orgc703bff">
 <p>
 Γνωστή ήδη από PTS, <b>στατιστική μέση τιμή</b> ή <b>αναμενόμενη τιμή</b>:
 </p>
@@ -140,7 +140,7 @@ E[X] &= \sum_{i=1}^n x_if_X(x_i)
 </p>
 
 
-<div id="orgb346de3" class="figure">
+<div id="org402715b" class="figure">
 <p><img src="course_ssd_images/ssd_lec4_deuteros-typos-mesis-timis.png" alt="ssd_lec4_deuteros-typos-mesis-timis.png">
 </p>
 </div>
@@ -153,9 +153,9 @@ E[Y] = E[g(X)] = \int_{-\infty}^{\infty}g(x)f_X(x)dx
 \end{equation}
 </div>
 
-<div id="outline-container-org26cbb5e" class="outline-4">
-<h4 id="org26cbb5e"><a href="#org26cbb5e">Ιδιότητες:</a></h4>
-<div class="outline-text-4" id="text-org26cbb5e">
+<div id="outline-container-org738d84a" class="outline-4">
+<h4 id="org738d84a"><a href="#org738d84a">Ιδιότητες:</a></h4>
+<div class="outline-text-4" id="text-org738d84a">
 <ul class="org-ul">
 <li>Αποτελεί γραμμικό τελεστή.</li>
 </ul>
@@ -170,9 +170,9 @@ E[g_1(X) + g_2(X) + \cdots] &= E[g_1(X)] + E[g_2(X)] + \cdots
 </div>
 </div>
 
-<div id="outline-container-orgba88b56" class="outline-3">
-<h3 id="orgba88b56"><a href="#orgba88b56">Δεύτερη ροπή: Μέση τετραγωνική τιμή τμ.</a></h3>
-<div class="outline-text-3" id="text-orgba88b56">
+<div id="outline-container-org0ce112d" class="outline-3">
+<h3 id="org0ce112d"><a href="#org0ce112d">Δεύτερη ροπή: Μέση τετραγωνική τιμή τμ.</a></h3>
+<div class="outline-text-3" id="text-org0ce112d">
 <p>
 Αποτελεί την συνολική ισχύ της στοχαστικής διαδικασίας, προκύπτει από τον γενικό
 τύπο για \(k=2\)
@@ -185,9 +185,9 @@ m_{2}=E[X^2] = \int_{-\infty}^{\infty} x^2f_xdx
 </div>
 </div>
 
-<div id="outline-container-org0ba23e5" class="outline-2">
-<h2 id="org0ba23e5"><a href="#org0ba23e5">Κεντρικές ροπές</a></h2>
-<div class="outline-text-2" id="text-org0ba23e5">
+<div id="outline-container-orge1f19f2" class="outline-2">
+<h2 id="orge1f19f2"><a href="#orge1f19f2">Κεντρικές ροπές</a></h2>
+<div class="outline-text-2" id="text-orge1f19f2">
 <p>
 Αποτελούν ουσιαστικά επεκτάσεις της γενικότερης έννοιας των ροπών. Αυτό γιατί
 αποτελούν τις ροπές της τυχαίας μεταβλητής αν απο εκείνη <i>αφαιρεθεί</i> η αναμενόμενη τιμή<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
@@ -210,9 +210,9 @@ m_{2}=E[X^2] = \int_{-\infty}^{\infty} x^2f_xdx
 </ul>
 </div>
 
-<div id="outline-container-org116f211" class="outline-3">
-<h3 id="org116f211"><a href="#org116f211">Βασική ανάλυση</a></h3>
-<div class="outline-text-3" id="text-org116f211">
+<div id="outline-container-orgd51219d" class="outline-3">
+<h3 id="orgd51219d"><a href="#orgd51219d">Βασική ανάλυση</a></h3>
+<div class="outline-text-3" id="text-orgd51219d">
 \begin{align*}
 \mu_0 &= \cdots = m_{0} = 1\\
 \mu_1 &= \cdots = 0\\
@@ -222,9 +222,9 @@ m_{2}=E[X^2] = \int_{-\infty}^{\infty} x^2f_xdx
 </div>
 </div>
 
-<div id="outline-container-orgcddaa63" class="outline-3">
-<h3 id="orgcddaa63"><a href="#orgcddaa63">Αναλυση επί της δεύτερης κεντρικής ροπής.</a></h3>
-<div class="outline-text-3" id="text-orgcddaa63">
+<div id="outline-container-org0a35a86" class="outline-3">
+<h3 id="org0a35a86"><a href="#org0a35a86">Αναλυση επί της δεύτερης κεντρικής ροπής.</a></h3>
+<div class="outline-text-3" id="text-org0a35a86">
 <ul class="org-ul">
 <li>Όπως είδαμε: \(\sqrt{Var[X]}= \sigma\) <b>τυπική απόκλιση</b>.</li>
 <li>Σημασία αυτού:
@@ -239,9 +239,9 @@ m_{2}=E[X^2] = \int_{-\infty}^{\infty} x^2f_xdx
 </div>
 </div>
 
-<div id="outline-container-orgbe1d2ac" class="outline-2">
-<h2 id="orgbe1d2ac"><a href="#orgbe1d2ac">Ροπές υπο συνθήκη</a></h2>
-<div class="outline-text-2" id="text-orgbe1d2ac">
+<div id="outline-container-org376a081" class="outline-2">
+<h2 id="org376a081"><a href="#org376a081">Ροπές υπο συνθήκη</a></h2>
+<div class="outline-text-2" id="text-org376a081">
 <p>
 Υπο συνθήκη αναμενόμενη τιμή:
 </p>
@@ -256,9 +256,9 @@ E[X|A] = \int_{-\infty}^{\infty} xf_{X|A} (x)dx
 </div>
 </div>
 
-<div id="outline-container-org94d0a2e" class="outline-2">
-<h2 id="org94d0a2e"><a href="#org94d0a2e">Χαρακτηριστική συνάρτηση τυχαίας μεταβλητής</a></h2>
-<div class="outline-text-2" id="text-org94d0a2e">
+<div id="outline-container-orgf0d37a8" class="outline-2">
+<h2 id="orgf0d37a8"><a href="#orgf0d37a8">Χαρακτηριστική συνάρτηση τυχαίας μεταβλητής</a></h2>
+<div class="outline-text-2" id="text-orgf0d37a8">
 <p>
 <del>Έχουμε Fourier της PDF:</del>
 </p>
@@ -285,9 +285,9 @@ E[X|A] = \int_{-\infty}^{\infty} xf_{X|A} (x)dx
 την χρήση των ροπών μπορούμε να <i>προσεγγίσουμε</i> το γενικότερο μοντέλο.
 </p>
 </div>
-<div id="outline-container-orgf12ca2a" class="outline-3">
-<h3 id="orgf12ca2a"><a href="#orgf12ca2a">Ιδιότητες</a></h3>
-<div class="outline-text-3" id="text-orgf12ca2a">
+<div id="outline-container-org0773901" class="outline-3">
+<h3 id="org0773901"><a href="#org0773901">Ιδιότητες</a></h3>
+<div class="outline-text-3" id="text-org0773901">
 \begin{align}
 \label{eq:19}
 \Phi_X(0) &= 1 &\text{by definition}\\
@@ -297,13 +297,13 @@ E[X|A] = \int_{-\infty}^{\infty} xf_{X|A} (x)dx
 </div>
 </div>
 
-<div id="outline-container-orgb250b49" class="outline-2">
-<h2 id="orgb250b49"><a href="#orgb250b49">Ανισότητες Markov Chebychev</a></h2>
-<div class="outline-text-2" id="text-orgb250b49">
+<div id="outline-container-org055e701" class="outline-2">
+<h2 id="org055e701"><a href="#org055e701">Ανισότητες Markov Chebychev</a></h2>
+<div class="outline-text-2" id="text-org055e701">
 </div>
-<div id="outline-container-orgeb1c6e7" class="outline-3">
-<h3 id="orgeb1c6e7"><a href="#orgeb1c6e7">Markov</a></h3>
-<div class="outline-text-3" id="text-orgeb1c6e7">
+<div id="outline-container-org62344ec" class="outline-3">
+<h3 id="org62344ec"><a href="#org62344ec">Markov</a></h3>
+<div class="outline-text-3" id="text-org62344ec">
 <ul class="org-ul">
 <li>Αν \(f_X(x)=0 \forall x<0\) τότε</li>
 </ul>
@@ -326,9 +326,9 @@ E[X] = \int_0^{\infty} xf_Xdx \geq \int_{\alpha}^{\infty}xf_Xdx \geq \alpha\int_
 </p>
 </div>
 </div>
-<div id="outline-container-org3587625" class="outline-3">
-<h3 id="org3587625"><a href="#org3587625">Chebychev</a></h3>
-<div class="outline-text-3" id="text-org3587625">
+<div id="outline-container-org98e3ee8" class="outline-3">
+<h3 id="org98e3ee8"><a href="#org98e3ee8">Chebychev</a></h3>
+<div class="outline-text-3" id="text-org98e3ee8">
 <p>
 <i>Εφαρμόσιμη τόσο για θετικές όσο και για αρνητικές τιμές</i>
 </p>
@@ -348,9 +348,9 @@ Pr\{ |x-\eta| \geq \epsilon\}\leq
 </div>
 </div>
 
-<div id="outline-container-org67826db" class="outline-2">
-<h2 id="org67826db"><a href="#org67826db">Όρια Chernoff</a></h2>
-<div class="outline-text-2" id="text-org67826db">
+<div id="outline-container-org51f2ad4" class="outline-2">
+<h2 id="org51f2ad4"><a href="#org51f2ad4">Όρια Chernoff</a></h2>
+<div class="outline-text-2" id="text-org51f2ad4">
 <p>
 <i>Λεει αν και ευρύτατα μαθηματικά έχουν πολλές εφαρμογές</i>
 Προκύπτουν από την σχέση:
@@ -392,7 +392,7 @@ Expected Value - μέση στατιστική τιμή. Και ο λόγος γ
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-10-17 Mon 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-10-17 Mon 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

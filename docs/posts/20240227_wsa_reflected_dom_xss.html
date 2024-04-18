@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA Lab: Reflected DOM XSS" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -20,23 +20,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7219821">Introduction</a></li>
-<li><a href="#org0b4396d">Challenge</a>
+<li><a href="#org608190c">Introduction</a></li>
+<li><a href="#orgcdbf2c3">Challenge</a>
 <ul>
-<li><a href="#org78c9e29">Search functionality</a></li>
-<li><a href="#org191dbdc">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#org5273a45">Keep Going</a></li>
-<li><a href="#org7a329fb">Back</a></li>
+<li><a href="#orgea917cb">Search functionality</a></li>
+<li><a href="#orgdcc4cc9">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#org5c656ff">Keep Going</a></li>
+<li><a href="#orgb1b9038">Back</a></li>
 </ul>
 </li>
-<li><a href="#org941650f">Summary</a></li>
+<li><a href="#org0c134d7">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7219821" class="outline-2">
-<h2 id="org7219821"><a href="#org7219821">Introduction</a></h2>
-<div class="outline-text-2" id="text-org7219821">
+<div id="outline-container-org608190c" class="outline-2">
+<h2 id="org608190c"><a href="#org608190c">Introduction</a></h2>
+<div class="outline-text-2" id="text-org608190c">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -47,9 +47,9 @@ time it takes, is always satisfying in the end!
 </div>
 </div>
 
-<div id="outline-container-org0b4396d" class="outline-2">
-<h2 id="org0b4396d"><a href="#org0b4396d">Challenge</a></h2>
-<div class="outline-text-2" id="text-org0b4396d">
+<div id="outline-container-orgcdbf2c3" class="outline-2">
+<h2 id="orgcdbf2c3"><a href="#orgcdbf2c3">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgcdbf2c3">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -65,30 +65,30 @@ writing it to a dangerous sink.
 </blockquote>
 </div>
 
-<div id="outline-container-org78c9e29" class="outline-3">
-<h3 id="org78c9e29"><a href="#org78c9e29">Search functionality</a></h3>
-<div class="outline-text-3" id="text-org78c9e29">
+<div id="outline-container-orgea917cb" class="outline-3">
+<h3 id="orgea917cb"><a href="#orgea917cb">Search functionality</a></h3>
+<div class="outline-text-3" id="text-orgea917cb">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org52a659b">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
+<pre class="src src-html" id="org2b07ff8">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
 &lt;script&gt;search('search-results')&lt;/script&gt;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org191dbdc" class="outline-3">
-<h3 id="org191dbdc"><a href="#org191dbdc">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-org191dbdc">
+<div id="outline-container-orgdcc4cc9" class="outline-3">
+<h3 id="orgdcc4cc9"><a href="#orgdcc4cc9">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-orgdcc4cc9">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="orgf40e83b">function search(path) {
+<pre class="src src-js" id="orgf095177">function search(path) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 &amp;&amp; this.status == 200) {
@@ -167,7 +167,7 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="org71c2eef" class="figure">
+<div id="orgba3f6ed" class="figure">
 <p><img src="images/Challenge/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
@@ -216,9 +216,9 @@ link.
 </div>
 
 
-<div id="outline-container-org5273a45" class="outline-3">
-<h3 id="org5273a45"><a href="#org5273a45">Keep Going</a></h3>
-<div class="outline-text-3" id="text-org5273a45">
+<div id="outline-container-org5c656ff" class="outline-3">
+<h3 id="org5c656ff"><a href="#org5c656ff">Keep Going</a></h3>
+<div class="outline-text-3" id="text-org5c656ff">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -234,14 +234,14 @@ is not applicable</li>
 </div>
 
 
-<div id="outline-container-org7a329fb" class="outline-3">
-<h3 id="org7a329fb"><a href="#org7a329fb">Back</a></h3>
-<div class="outline-text-3" id="text-org7a329fb">
+<div id="outline-container-orgb1b9038" class="outline-3">
+<h3 id="orgb1b9038"><a href="#orgb1b9038">Back</a></h3>
+<div class="outline-text-3" id="text-orgb1b9038">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org064899a">if (this.readyState == 4 &amp;&amp; this.status == 200) {
+<pre class="src src-js" id="org0da33b7">if (this.readyState == 4 &amp;&amp; this.status == 200) {
     eval('var searchResultsObj = ' + this.responseText);
     displaySearchResults(searchResultsObj);
 }
@@ -255,7 +255,7 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="orge40cd44" class="figure">
+<div id="orgaba2dd5" class="figure">
 <p><img src="images/Challenge/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
@@ -270,9 +270,9 @@ as solved
 </div>
 
 
-<div id="outline-container-org941650f" class="outline-2">
-<h2 id="org941650f"><a href="#org941650f">Summary</a></h2>
-<div class="outline-text-2" id="text-org941650f">
+<div id="outline-container-org0c134d7" class="outline-2">
+<h2 id="org0c134d7"><a href="#org0c134d7">Summary</a></h2>
+<div class="outline-text-2" id="text-org0c134d7">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>
@@ -280,7 +280,7 @@ as solved
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

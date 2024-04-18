@@ -6,7 +6,7 @@
 <title>6.006 Lec 6: Binary Trees Part I</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,38 +51,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org4b3a31a">Lecture details</a></li>
-<li><a href="#org9497289">Trees, the ultimate data structure</a>
+<li><a href="#org0e86044">Lecture details</a></li>
+<li><a href="#org6cdbc3d">Trees, the ultimate data structure</a>
 <ul>
-<li><a href="#orge8120fd">Terminology</a>
+<li><a href="#org1e12d73">Terminology</a>
 <ul>
-<li><a href="#org89031c5">Tree specific attributes</a></li>
-<li><a href="#orgbff1a14">Node characteristics</a></li>
+<li><a href="#orga6c964e">Tree specific attributes</a></li>
+<li><a href="#org42271a9">Node characteristics</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org76f5767">Today&rsquo;s analysis</a>
+<li><a href="#org1d55582">Today&rsquo;s analysis</a>
 <ul>
-<li><a href="#org5a9ee60">Working with an example</a></li>
-<li><a href="#org4ded445">Traversal order</a></li>
-<li><a href="#org180cdc2">Operations</a></li>
+<li><a href="#org984879e">Working with an example</a></li>
+<li><a href="#orgb1314b6">Traversal order</a></li>
+<li><a href="#orgb4d5e39">Operations</a></li>
 </ul>
 </li>
-<li><a href="#orgddae82b">Trees and sets</a></li>
-<li><a href="#org2ad47d0">Trees and sequences</a>
+<li><a href="#org2650e17">Trees and sets</a></li>
+<li><a href="#orgb673668">Trees and sequences</a>
 <ul>
-<li><a href="#org344e77d">Data Structure Augmentation</a></li>
+<li><a href="#org2613021">Data Structure Augmentation</a></li>
 </ul>
 </li>
-<li><a href="#org448e751">Summary</a></li>
+<li><a href="#orgd58b54b">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org4b3a31a" class="outline-2">
-<h2 id="org4b3a31a"><a href="#org4b3a31a">Lecture details</a></h2>
-<div class="outline-text-2" id="text-org4b3a31a">
+<div id="outline-container-org0e86044" class="outline-2">
+<h2 id="org0e86044"><a href="#org0e86044">Lecture details</a></h2>
+<div class="outline-text-2" id="text-org0e86044">
 <ul class="org-ul">
 <li>Professor: Erik Demain</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=76dhtgZt38A&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=9">YouTube Link</a></li>
@@ -90,9 +90,9 @@
 </div>
 </div>
 
-<div id="outline-container-org9497289" class="outline-2">
-<h2 id="org9497289"><a href="#org9497289">Trees, the ultimate data structure</a></h2>
-<div class="outline-text-2" id="text-org9497289">
+<div id="outline-container-org6cdbc3d" class="outline-2">
+<h2 id="org6cdbc3d"><a href="#org6cdbc3d">Trees, the ultimate data structure</a></h2>
+<div class="outline-text-2" id="text-org6cdbc3d">
 <p>
 From the data structures that we have seen so far in this course, one can make
 the case that we have no data structure <i>to rule them all</i>. They all perform
@@ -103,9 +103,9 @@ absolutely ridiculous when we also want to <code>find_next(),find_previous()</co
 </p>
 </div>
 
-<div id="outline-container-orge8120fd" class="outline-3">
-<h3 id="orge8120fd"><a href="#orge8120fd">Terminology</a></h3>
-<div class="outline-text-3" id="text-orge8120fd">
+<div id="outline-container-org1e12d73" class="outline-3">
+<h3 id="org1e12d73"><a href="#org1e12d73">Terminology</a></h3>
+<div class="outline-text-3" id="text-org1e12d73">
 <p>
 Since binary trees are a linked-based data structure, utilizing pointers, much
 of the terminology is know from our experience with Linked Lists:
@@ -116,9 +116,9 @@ of the terminology is know from our experience with Linked Lists:
 </ul>
 </div>
 
-<div id="outline-container-org89031c5" class="outline-4">
-<h4 id="org89031c5"><a href="#org89031c5">Tree specific attributes</a></h4>
-<div class="outline-text-4" id="text-org89031c5">
+<div id="outline-container-orga6c964e" class="outline-4">
+<h4 id="orga6c964e"><a href="#orga6c964e">Tree specific attributes</a></h4>
+<div class="outline-text-4" id="text-orga6c964e">
 <ul class="org-ul">
 <li>Leaf
 Leaves are the nodes that have no children ( because they are the items at the
@@ -133,9 +133,9 @@ Pointer to the right child node</li>
 </div>
 </div>
 
-<div id="outline-container-orgbff1a14" class="outline-4">
-<h4 id="orgbff1a14"><a href="#orgbff1a14">Node characteristics</a></h4>
-<div class="outline-text-4" id="text-orgbff1a14">
+<div id="outline-container-org42271a9" class="outline-4">
+<h4 id="org42271a9"><a href="#org42271a9">Node characteristics</a></h4>
+<div class="outline-text-4" id="text-org42271a9">
 <ul class="org-ul">
 <li><code>subtree(X)</code> = X and its defendants
 so if X is the root node, then the subtree is the whole node</li>
@@ -153,9 +153,9 @@ Number of edges in the longest downward path, max depth of a node in subtree(X)
 </div>
 </div>
 
-<div id="outline-container-org76f5767" class="outline-2">
-<h2 id="org76f5767"><a href="#org76f5767">Today&rsquo;s analysis</a></h2>
-<div class="outline-text-2" id="text-org76f5767">
+<div id="outline-container-org1d55582" class="outline-2">
+<h2 id="org1d55582"><a href="#org1d55582">Today&rsquo;s analysis</a></h2>
+<div class="outline-text-2" id="text-org1d55582">
 <p>
 We focus on getting to a point where tree operations perform in \(O(h)\), with h
 being <code>height</code> of the tree.  Then in the next lecture, we will show that if the
@@ -163,9 +163,9 @@ tree is balanced then:  \(O(h)=O(\lg{n})\)
 </p>
 </div>
 
-<div id="outline-container-org5a9ee60" class="outline-3">
-<h3 id="org5a9ee60"><a href="#org5a9ee60">Working with an example</a></h3>
-<div class="outline-text-3" id="text-org5a9ee60">
+<div id="outline-container-org984879e" class="outline-3">
+<h3 id="org984879e"><a href="#org984879e">Working with an example</a></h3>
+<div class="outline-text-3" id="text-org984879e">
 <p>
 To further clarify the properties we talked about above before we continue:
 </p>
@@ -244,9 +244,9 @@ To further clarify the properties we talked about above before we continue:
 </div>
 </div>
 
-<div id="outline-container-org4ded445" class="outline-3">
-<h3 id="org4ded445"><a href="#org4ded445">Traversal order</a></h3>
-<div class="outline-text-3" id="text-org4ded445">
+<div id="outline-container-orgb1314b6" class="outline-3">
+<h3 id="orgb1314b6"><a href="#orgb1314b6">Traversal order</a></h3>
+<div class="outline-text-3" id="text-orgb1314b6">
 <p>
 The traversal order ( as explained in this course ), is the <i>inorder</i> traversal.
 More specifically, the nodes in a tree are recursively iterated in this order:
@@ -278,9 +278,9 @@ Theoritically, what follows could be a legitimate function
 </div>
 </div>
 
-<div id="outline-container-org180cdc2" class="outline-3">
-<h3 id="org180cdc2"><a href="#org180cdc2">Operations</a></h3>
-<div class="outline-text-3" id="text-org180cdc2">
+<div id="outline-container-orgb4d5e39" class="outline-3">
+<h3 id="orgb4d5e39"><a href="#orgb4d5e39">Operations</a></h3>
+<div class="outline-text-3" id="text-orgb4d5e39">
 <ul class="org-ul">
 <li><code>subtree_first(Node X)</code>
 return the leftmost node in the subtree of X ( in our example that would be \(F\) )</li>
@@ -360,9 +360,9 @@ return the previous node in traversal order
 </div>
 </div>
 
-<div id="outline-container-orgddae82b" class="outline-2">
-<h2 id="orgddae82b"><a href="#orgddae82b">Trees and sets</a></h2>
-<div class="outline-text-2" id="text-orgddae82b">
+<div id="outline-container-org2650e17" class="outline-2">
+<h2 id="org2650e17"><a href="#org2650e17">Trees and sets</a></h2>
+<div class="outline-text-2" id="text-org2650e17">
 <p>
 We have outlined our binary tree&rsquo;s functions, but we do not know yet, where they
 could be useful. The set interface, with which we have worked in previous
@@ -377,9 +377,9 @@ insertion, deletion in \(O(h)\) as well.
 </div>
 </div>
 
-<div id="outline-container-org2ad47d0" class="outline-2">
-<h2 id="org2ad47d0"><a href="#org2ad47d0">Trees and sequences</a></h2>
-<div class="outline-text-2" id="text-org2ad47d0">
+<div id="outline-container-orgb673668" class="outline-2">
+<h2 id="orgb673668"><a href="#orgb673668">Trees and sequences</a></h2>
+<div class="outline-text-2" id="text-orgb673668">
 <p>
 The sequence interface can also be effectively implemented by a binary tree. In
 that case the sequence order will match the tree&rsquo;s traversal order. However, we
@@ -409,9 +409,9 @@ constant time then the algorithm runs in \(O(h)\)!
 </p>
 </div>
 
-<div id="outline-container-org344e77d" class="outline-3">
-<h3 id="org344e77d"><a href="#org344e77d">Data Structure Augmentation</a></h3>
-<div class="outline-text-3" id="text-org344e77d">
+<div id="outline-container-org2613021" class="outline-3">
+<h3 id="org2613021"><a href="#org2613021">Data Structure Augmentation</a></h3>
+<div class="outline-text-3" id="text-org2613021">
 <p>
 By adding a <code>size</code> property in each node,  since size is a <span class="underline">subtree property</span>:
 </p>
@@ -428,9 +428,9 @@ in the size operation.
 </div>
 </div>
 
-<div id="outline-container-org448e751" class="outline-2">
-<h2 id="org448e751"><a href="#org448e751">Summary</a></h2>
-<div class="outline-text-2" id="text-org448e751">
+<div id="outline-container-orgd58b54b" class="outline-2">
+<h2 id="orgd58b54b"><a href="#orgd58b54b">Summary</a></h2>
+<div class="outline-text-2" id="text-orgd58b54b">
 <table>
 
 
@@ -528,7 +528,7 @@ Every key in left subtree \(\leq\) node.key \(\leq\) every key in right subtree
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-19 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-19 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

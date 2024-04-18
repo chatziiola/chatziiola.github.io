@@ -6,7 +6,7 @@
 <title>6.006 Lec 2: Data Structures and Dynamic Arrays</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -51,34 +51,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5d4d259">Difference between an interface and a data structure</a>
+<li><a href="#org6c343e2">Difference between an interface and a data structure</a>
 <ul>
-<li><a href="#orgecd6718">The main interfaces</a></li>
-<li><a href="#orga120a68">DS approaches</a></li>
+<li><a href="#orga3b91ba">The main interfaces</a></li>
+<li><a href="#org904b765">DS approaches</a></li>
 </ul>
 </li>
-<li><a href="#org6848f83">Analyzing static sequences</a>
+<li><a href="#orgab2bcbd">Analyzing static sequences</a>
 <ul>
-<li><a href="#org227cbb4">Interface functions</a></li>
-<li><a href="#orgc938cff">Word RAM model of computation</a></li>
-<li><a href="#org5aada75">Reality and memory</a></li>
+<li><a href="#orgad5987f">Interface functions</a></li>
+<li><a href="#orgb86f3a8">Word RAM model of computation</a></li>
+<li><a href="#orgbfde1cb">Reality and memory</a></li>
 </ul>
 </li>
-<li><a href="#org1d73631">Analyzing dynamic sequences</a>
+<li><a href="#orgcea9487">Analyzing dynamic sequences</a>
 <ul>
-<li><a href="#orgbd090ac">Interface functions</a></li>
-<li><a href="#org9dbd166">Linked List</a></li>
+<li><a href="#org0d9f38e">Interface functions</a></li>
+<li><a href="#orgca359f1">Linked List</a></li>
 </ul>
 </li>
-<li><a href="#org83e5ce3">Dynamic arrays</a></li>
-<li><a href="#org4402c1b">Summary: Comparing operations</a></li>
+<li><a href="#orgc74263c">Dynamic arrays</a></li>
+<li><a href="#org1a3f801">Summary: Comparing operations</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org5d4d259" class="outline-2">
-<h2 id="org5d4d259"><a href="#org5d4d259">Difference between an interface and a data structure</a></h2>
-<div class="outline-text-2" id="text-org5d4d259">
+<div id="outline-container-org6c343e2" class="outline-2">
+<h2 id="org6c343e2"><a href="#org6c343e2">Difference between an interface and a data structure</a></h2>
+<div class="outline-text-2" id="text-org6c343e2">
 <p>
 The interface can also be called <i>ADT or API</i>.
 </p>
@@ -93,9 +93,9 @@ function.
 </p>
 </div>
 
-<div id="outline-container-orgecd6718" class="outline-3">
-<h3 id="orgecd6718"><a href="#orgecd6718">The main interfaces</a></h3>
-<div class="outline-text-3" id="text-orgecd6718">
+<div id="outline-container-orga3b91ba" class="outline-3">
+<h3 id="orga3b91ba"><a href="#orga3b91ba">The main interfaces</a></h3>
+<div class="outline-text-3" id="text-orga3b91ba">
 <p>
 There are two main interfaces:
 </p>
@@ -106,16 +106,16 @@ There are two main interfaces:
 </div>
 </div>
 
-<div id="outline-container-orga120a68" class="outline-3">
-<h3 id="orga120a68"><a href="#orga120a68">DS approaches</a></h3>
-<div class="outline-text-3" id="text-orga120a68">
+<div id="outline-container-org904b765" class="outline-3">
+<h3 id="org904b765"><a href="#org904b765">DS approaches</a></h3>
+<div class="outline-text-3" id="text-org904b765">
 <p>
 Additionally there are two schools of thought:
 </p>
 <ol class="org-ol">
-<li><a href="#org6848f83"><i>static</i> arrays</a>
+<li><a href="#orgab2bcbd"><i>static</i> arrays</a>
 Their size is predefined and difficult to change</li>
-<li><a href="#org1d73631">dynamic structures</a>
+<li><a href="#orgcea9487">dynamic structures</a>
 Focusing on variable length and easy addition/deletion operations.</li>
 </ol>
 
@@ -126,18 +126,18 @@ Now, we will combine these two together, focusing on sequences.
 </div>
 </div>
 
-<div id="outline-container-org6848f83" class="outline-2">
-<h2 id="org6848f83"><a href="#org6848f83">Analyzing static sequences</a></h2>
-<div class="outline-text-2" id="text-org6848f83">
+<div id="outline-container-orgab2bcbd" class="outline-2">
+<h2 id="orgab2bcbd"><a href="#orgab2bcbd">Analyzing static sequences</a></h2>
+<div class="outline-text-2" id="text-orgab2bcbd">
 <p>
 Static sequences are to be used when dealing with data in which the order is
 important, however the volume of it does not change often.
 </p>
 </div>
 
-<div id="outline-container-org227cbb4" class="outline-3">
-<h3 id="org227cbb4"><a href="#org227cbb4">Interface functions</a></h3>
-<div class="outline-text-3" id="text-org227cbb4">
+<div id="outline-container-orgad5987f" class="outline-3">
+<h3 id="orgad5987f"><a href="#orgad5987f">Interface functions</a></h3>
+<div class="outline-text-3" id="text-orgad5987f">
 <p>
 <i>The methods that static data structures need to implement efficiently</i>
 </p>
@@ -152,7 +152,7 @@ Returns n, no matter how many elements are used inside the array</li>
 Visit every element from the beginning of the array to the end of the array</li>
 <li><code>get_at(i)</code>, O(1)</li>
 <li><code>set_at(i,x)</code>, O(1)
-These two functions take constant time as explained in <a href="#orgc938cff">the word RAM model</a></li>
+These two functions take constant time as explained in <a href="#orgb86f3a8">the word RAM model</a></li>
 </ul>
 
 <p>
@@ -161,9 +161,9 @@ The natural solution to this <i>problem</i> is the static array.
 </div>
 </div>
 
-<div id="outline-container-orgc938cff" class="outline-3">
-<h3 id="orgc938cff"><a href="#orgc938cff">Word RAM model of computation</a></h3>
-<div class="outline-text-3" id="text-orgc938cff">
+<div id="outline-container-orgb86f3a8" class="outline-3">
+<h3 id="orgb86f3a8"><a href="#orgb86f3a8">Word RAM model of computation</a></h3>
+<div class="outline-text-3" id="text-orgb86f3a8">
 <p>
 RAM stands out for Random Access Memory, meaning that the computer (CPU) can
 access every element in it in constant time. This differentiates data structures
@@ -174,7 +174,7 @@ that follow this model to ones that focus on other operations.
 Practically, this means that all items are stored in a continuous location in
 memory, where the ith field  consists of x<sub>i</sub>
 </p>
-<div class="source" id="orgdb0664e">
+<div class="source" id="org9db94d4">
 <p>
 x[i] = x<sub>i</sub>
 </p>
@@ -183,9 +183,9 @@ x[i] = x<sub>i</sub>
 </div>
 </div>
 
-<div id="outline-container-org5aada75" class="outline-3">
-<h3 id="org5aada75"><a href="#org5aada75">Reality and memory</a></h3>
-<div class="outline-text-3" id="text-org5aada75">
+<div id="outline-container-orgbfde1cb" class="outline-3">
+<h3 id="orgbfde1cb"><a href="#orgbfde1cb">Reality and memory</a></h3>
+<div class="outline-text-3" id="text-orgbfde1cb">
 <p>
 <i>I must have misunderstood something here, cause I can not explain it clearly</i>
 </p>
@@ -201,18 +201,18 @@ use the data structure.
 </div>
 </div>
 
-<div id="outline-container-org1d73631" class="outline-2">
-<h2 id="org1d73631"><a href="#org1d73631">Analyzing dynamic sequences</a></h2>
-<div class="outline-text-2" id="text-org1d73631">
+<div id="outline-container-orgcea9487" class="outline-2">
+<h2 id="orgcea9487"><a href="#orgcea9487">Analyzing dynamic sequences</a></h2>
+<div class="outline-text-2" id="text-orgcea9487">
 <p>
 Dynamic sequences are to be used when we care more about quick insertion and
 sorting and not so much about random access speeds
 </p>
 </div>
 
-<div id="outline-container-orgbd090ac" class="outline-3">
-<h3 id="orgbd090ac"><a href="#orgbd090ac">Interface functions</a></h3>
-<div class="outline-text-3" id="text-orgbd090ac">
+<div id="outline-container-org0d9f38e" class="outline-3">
+<h3 id="org0d9f38e"><a href="#org0d9f38e">Interface functions</a></h3>
+<div class="outline-text-3" id="text-org0d9f38e">
 <p>
 Analyzing the previous statement a little bit more, we use dynamic sequences
 when we find ourselves dealing with the following operations<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
@@ -236,9 +236,9 @@ scenario) the entire array</li>
 </div>
 </div>
 
-<div id="outline-container-org9dbd166" class="outline-3">
-<h3 id="org9dbd166"><a href="#org9dbd166">Linked List</a></h3>
-<div class="outline-text-3" id="text-org9dbd166">
+<div id="outline-container-orgca359f1" class="outline-3">
+<h3 id="orgca359f1"><a href="#orgca359f1">Linked List</a></h3>
+<div class="outline-text-3" id="text-orgca359f1">
 <p>
 The linked list is a data structure based on the Dynamic Sequence ADT. It is a
 sequence of nodes, each one with a <code>value</code> and a <code>next</code> field, pointing to the
@@ -254,9 +254,9 @@ pointers in each node, and why RAM operations do not work efficiently
 </div>
 </div>
 
-<div id="outline-container-org83e5ce3" class="outline-2">
-<h2 id="org83e5ce3"><a href="#org83e5ce3">Dynamic arrays</a></h2>
-<div class="outline-text-2" id="text-org83e5ce3">
+<div id="outline-container-orgc74263c" class="outline-2">
+<h2 id="orgc74263c"><a href="#orgc74263c">Dynamic arrays</a></h2>
+<div class="outline-text-2" id="text-orgc74263c">
 <p>
 <i>In Python: lists</i>
 </p>
@@ -290,9 +290,9 @@ efficiency of static array to dynamic array</li>
 </div>
 </div>
 
-<div id="outline-container-org4402c1b" class="outline-2">
-<h2 id="org4402c1b"><a href="#org4402c1b">Summary: Comparing operations</a></h2>
-<div class="outline-text-2" id="text-org4402c1b">
+<div id="outline-container-org1a3f801" class="outline-2">
+<h2 id="org1a3f801"><a href="#org1a3f801">Summary: Comparing operations</a></h2>
+<div class="outline-text-2" id="text-org1a3f801">
 <table>
 
 
@@ -348,7 +348,7 @@ We use amortization: operation takes T(n) amortized time if any k operations tak
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-16 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-16 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>

