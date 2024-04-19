@@ -20,19 +20,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org899ce8e">Introduction</a></li>
-<li><a href="#orgfd79ed8">Goal</a></li>
-<li><a href="#org65cf8e3">Execution</a></li>
-<li><a href="#orgfde8655">Completion</a></li>
-<li><a href="#orgd440578">Some extra thoughts</a></li>
+<li><a href="#org7362af3">Introduction</a></li>
+<li><a href="#org3920893">Goal</a></li>
+<li><a href="#org5e2d270">Execution</a></li>
+<li><a href="#org496604a">Completion</a></li>
+<li><a href="#orgcffac0e">Some extra thoughts</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org899ce8e" class="outline-2">
-<h2 id="org899ce8e"><a href="#org899ce8e">Introduction</a></h2>
-<div class="outline-text-2" id="text-org899ce8e">
+<div id="outline-container-org7362af3" class="outline-2">
+<h2 id="org7362af3"><a href="#org7362af3">Introduction</a></h2>
+<div class="outline-text-2" id="text-org7362af3">
 <p>
 At the time of writing my blog directory surely is cluttered, and I
 <b>really</b> do not want this. It prevents me from easily checking my
@@ -44,9 +44,9 @@ makes sense
 </div>
 </div>
 
-<div id="outline-container-orgfd79ed8" class="outline-2">
-<h2 id="orgfd79ed8"><a href="#orgfd79ed8">Goal</a></h2>
-<div class="outline-text-2" id="text-orgfd79ed8">
+<div id="outline-container-org3920893" class="outline-2">
+<h2 id="org3920893"><a href="#org3920893">Goal</a></h2>
+<div class="outline-text-2" id="text-org3920893">
 <p>
 What I expect to do here is quickly create a makefile, with a <code>local</code>
 set of instructions, that will:
@@ -58,16 +58,16 @@ set of instructions, that will:
 </div>
 </div>
 
-<div id="outline-container-org65cf8e3" class="outline-2">
-<h2 id="org65cf8e3"><a href="#org65cf8e3">Execution</a></h2>
-<div class="outline-text-2" id="text-org65cf8e3">
+<div id="outline-container-org5e2d270" class="outline-2">
+<h2 id="org5e2d270"><a href="#org5e2d270">Execution</a></h2>
+<div class="outline-text-2" id="text-org5e2d270">
 <p>
 Using the <code>local-build.sh</code> script, I knew this would not take too much.
 Being an open source file and not really bothered by the
 confidentiality of its contents, I uploaded it to ChatGPT asking for
 it to be refactored and documented into a Makefile:
 </p>
-<pre class="example" id="org1046856">
+<pre class="example" id="org20bb6ba">
 # Makefile for building and publishing a site
 # Directories
 PUBLIC_DIR := public
@@ -111,7 +111,7 @@ proper yet by no means extensive commenting on the shell script.
 <p>
 Adding a new target and updating local does the job:
 </p>
-<pre class="example" id="orgf16116f">
+<pre class="example" id="org780436d">
 # Serve the public directory on localhost using Python
 serve_local:
 	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server
@@ -119,9 +119,9 @@ serve_local:
 </div>
 </div>
 
-<div id="outline-container-orgfde8655" class="outline-2">
-<h2 id="orgfde8655"><a href="#orgfde8655">Completion</a></h2>
-<div class="outline-text-2" id="text-orgfde8655">
+<div id="outline-container-org496604a" class="outline-2">
+<h2 id="org496604a"><a href="#org496604a">Completion</a></h2>
+<div class="outline-text-2" id="text-org496604a">
 <p>
 At this point everything is perfect, and well documented enough that I
 could refactor the whole blog, where spaghetti code is not only
@@ -131,9 +131,9 @@ making it more manageable.
 </div>
 </div>
 
-<div id="outline-container-orgd440578" class="outline-2">
-<h2 id="orgd440578"><a href="#orgd440578">Some extra thoughts</a></h2>
-<div class="outline-text-2" id="text-orgd440578">
+<div id="outline-container-orgcffac0e" class="outline-2">
+<h2 id="orgcffac0e"><a href="#orgcffac0e">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-orgcffac0e">
 <p>
 It is truly fascinating that I managed within <b>much less</b> than fifteen
 minutes to:
@@ -157,7 +157,7 @@ be. Ah, what a wonderful and yet peculiar time to be alive!
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-12-27 Wed 12:25</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-12-27 Wed 12:25</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
 </div>
 </body>
 </html>

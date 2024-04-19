@@ -20,25 +20,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org516eada">Introduction</a></li>
-<li><a href="#orgf293265">Challenge</a></li>
-<li><a href="#org5edf151">Summary</a></li>
+<li><a href="#org0fab223">Introduction</a></li>
+<li><a href="#org59602d4">Challenge</a></li>
+<li><a href="#org419abeb">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org516eada" class="outline-2">
-<h2 id="org516eada"><a href="#org516eada">Introduction</a></h2>
-<div class="outline-text-2" id="text-org516eada">
+<div id="outline-container-org0fab223" class="outline-2">
+<h2 id="org0fab223"><a href="#org0fab223">Introduction</a></h2>
+<div class="outline-text-2" id="text-org0fab223">
 <p>
 Not much to say here, just glad to have found some time for challenges ;P
 </p>
 </div>
 </div>
 
-<div id="outline-container-orgf293265" class="outline-2">
-<h2 id="orgf293265"><a href="#orgf293265">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgf293265">
+<div id="outline-container-org59602d4" class="outline-2">
+<h2 id="org59602d4"><a href="#org59602d4">Challenge</a></h2>
+<div class="outline-text-2" id="text-org59602d4">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element">here</a>
 </p>
@@ -55,7 +55,7 @@ after previewing the source code, is handled by the following
 javascript snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-javascript" id="orgca6f457">var stores = ["London","Paris","Milan"];
+<pre class="src src-javascript" id="orgfdbbcaf">var stores = ["London","Paris","Milan"];
 var store = (new URLSearchParams(window.location.search)).get('storeId');
 document.write('&lt;select name="storeId"&gt;');
 if(store) {
@@ -74,14 +74,14 @@ document.write('&lt;/select&gt;');
 <p>
 In our request we can see that, the variables can be modified:
 </p>
-<pre class="example" id="orgec6e3b8">
+<pre class="example" id="org4c36015">
 productId=1&amp;storeId=London
 </pre>
 
 <p>
 Sample link that gives us the desired output in console:
 </p>
-<pre class="example" id="org645f861">
+<pre class="example" id="org21facdb">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=asdfasdf
 </pre>
 
@@ -89,16 +89,16 @@ https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?produc
 After that it was tedious: We just had to get out of the existing
 environments and add a script one:
 </p>
-<pre class="example" id="org10ae330">
+<pre class="example" id="orga51fe7e">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=&lt;/option&gt;&lt;/select&gt;&lt;script&gt;alert(1)&lt;/script&gt;
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-org5edf151" class="outline-2">
-<h2 id="org5edf151"><a href="#org5edf151">Summary</a></h2>
-<div class="outline-text-2" id="text-org5edf151">
+<div id="outline-container-org419abeb" class="outline-2">
+<h2 id="org419abeb"><a href="#org419abeb">Summary</a></h2>
+<div class="outline-text-2" id="text-org419abeb">
 <p>
 This was the first challenge I completed for the day, and I think it
 was the perfect way to start it: not too easy, but at the same time
@@ -123,7 +123,7 @@ Not really necessary, knowing that we check for DOM XSS but all is fine.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 10:07</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 10:07</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
 </div>
 </body>
 </html>

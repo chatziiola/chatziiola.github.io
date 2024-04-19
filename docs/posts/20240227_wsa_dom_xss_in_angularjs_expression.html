@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcb52b51">Challenge</a>
+<li><a href="#orgd285464">Challenge</a>
 <ul>
-<li><a href="#org094f6b8">Vulnerable part</a></li>
-<li><a href="#org8c3fc66">Solution</a></li>
-<li><a href="#orgd472b1a">Note on Angular</a></li>
+<li><a href="#orge1a2a72">Vulnerable part</a></li>
+<li><a href="#orgbe5b42d">Solution</a></li>
+<li><a href="#org7622498">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#orgfa2a11b">Summary</a></li>
+<li><a href="#org7d746c2">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgcb52b51" class="outline-2">
-<h2 id="orgcb52b51"><a href="#orgcb52b51">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgcb52b51">
+<div id="outline-container-orgd285464" class="outline-2">
+<h2 id="orgd285464"><a href="#orgd285464">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgd285464">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -51,7 +51,7 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="org41cc7a4" class="figure">
+<div id="org0edd32f" class="figure">
 <p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sample Input</p>
@@ -59,9 +59,9 @@ which we supply gets shown in the source code:
 </div>
 
 
-<div id="outline-container-org094f6b8" class="outline-3">
-<h3 id="org094f6b8"><a href="#org094f6b8">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-org094f6b8">
+<div id="outline-container-orge1a2a72" class="outline-3">
+<h3 id="orge1a2a72"><a href="#orge1a2a72">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-orge1a2a72">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -75,7 +75,7 @@ NG-app
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org98946a3">&lt;section class="search"&gt;
+<pre class="src src-html" id="org59207ad">&lt;section class="search"&gt;
   &lt;form action="/" method="GET" class="ng-pristine ng-valid"&gt;
     &lt;input type="text" placeholder="Search the blog..." name="search"&gt;
     &lt;button type="submit" class="button"&gt;Search&lt;/button&gt;
@@ -87,24 +87,24 @@ NG-app
 </div>
 
 
-<div id="outline-container-org8c3fc66" class="outline-3">
-<h3 id="org8c3fc66"><a href="#org8c3fc66">Solution</a></h3>
-<div class="outline-text-3" id="text-org8c3fc66">
+<div id="outline-container-orgbe5b42d" class="outline-3">
+<h3 id="orgbe5b42d"><a href="#orgbe5b42d">Solution</a></h3>
+<div class="outline-text-3" id="text-orgbe5b42d">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="orgb69271e">
+<pre class="example" id="org4f4e2ea">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgd472b1a" class="outline-3">
-<h3 id="orgd472b1a"><a href="#orgd472b1a">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-orgd472b1a">
+<div id="outline-container-org7622498" class="outline-3">
+<h3 id="org7622498"><a href="#org7622498">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-org7622498">
 <p>
 For more info check out:
 </p>
@@ -116,15 +116,15 @@ For more info check out:
 </div>
 </div>
 
-<div id="outline-container-orgfa2a11b" class="outline-2">
-<h2 id="orgfa2a11b"><a href="#orgfa2a11b">Summary</a></h2>
-<div class="outline-text-2" id="text-orgfa2a11b">
+<div id="outline-container-org7d746c2" class="outline-2">
+<h2 id="org7d746c2"><a href="#org7d746c2">Summary</a></h2>
+<div class="outline-text-2" id="text-org7d746c2">
 <div class="tenor-gif-embed" data-postid="18768386" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"><a href="https://tenor.com/view/annoyed-alive-annoying-anniversary-ahh-gif-18768386">Annoyed Alive GIF</a>from <a href="https://tenor.com/search/annoyed-gifs">Annoyed GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:21</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:21</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
 </div>
 </body>
 </html>
