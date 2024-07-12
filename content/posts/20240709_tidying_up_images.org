@@ -37,13 +37,24 @@ Before we begin we need to make clear the constraints:
 - All ~org~ files exist in one directory. No need to recompute relative paths.
 - All image files are of ~png~ format. Minimal steps have been taken to
   change that in the future if necessary.
+- My org files do not include paths to images outside of links.
   
 * Step 0: Configuring the wrapper
 I like using ~argparse~, to easily add/remove options and manage them in
 a significantly more secure and straightforward manner than if I
 quickly made something from scratch.
 
+* Step 0.5: General Functions
+At this point it is nice to develop some functions that will make the
+rest of the code more readable, maintainable (and robust, avoiding the
+same snippets to be used again and again).
+
+In this "project":
+- fileIsOrg / fileIsImage function
+- fileLinkRegex / imageLinkRegex
+
 * Step 1: Link Checker
+
 ** Links in Files
 Obviously, there are common parts in the functions described above.
 The most apparent one is in /steps/ 3 and 4: There needs to be a
@@ -51,13 +62,31 @@ function to:
 a. Find (file) links
 b. See where they point
 
-** Files With Link
+#+NAME: Image Links
+#+begin_note
+Image links are slightly different than general purpose org links.
+Later in design, to avoid troubleshooting certain regex scenarios, I
+also made a different function to search for image links only
+#+end_note
 
 * Step 2: Move Images 
 
+** The problem with moving images
+It is not just a simple ~mv~. It is a simple ~mv~ *along with* updating all
+the org-files pointing to them: and not messing the paths up is what
+makes it difficult 
+
+** Image specific functions
+Since dealing with filepaths is so much simpler than checking for
+complex pattern
 * Step 3: Check Broken Links
 
 * Step 4: Move articles
+
+
+* Final Script
+TODO
+
 * Summing Up and Criticizing
 
 * Footnotes

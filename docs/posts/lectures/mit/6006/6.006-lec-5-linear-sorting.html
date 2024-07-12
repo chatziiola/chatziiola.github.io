@@ -51,40 +51,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7b0834d">Lecture details:</a>
+<li><a href="#org59dc458">Lecture details:</a>
 <ul>
-<li><a href="#org29b3e87">Note</a></li>
+<li><a href="#org091a073">Note</a></li>
 </ul>
 </li>
-<li><a href="#orgadb748b">Introduction</a></li>
-<li><a href="#org17c926f">Sorting</a>
+<li><a href="#org9db56a0">Introduction</a></li>
+<li><a href="#orgf997c9a">Sorting</a>
 <ul>
-<li><a href="#org4c00310">Direct Access Array Sort</a></li>
-<li><a href="#org59cccc6">Tuple sort</a>
+<li><a href="#org868d727">Direct Access Array Sort</a></li>
+<li><a href="#org2d6ce6c">Tuple sort</a>
 <ul>
-<li><a href="#org52eda37">Counting sort</a></li>
-<li><a href="#org27c4ea0">Why is that faster?</a></li>
+<li><a href="#orga72fe50">Counting sort</a></li>
+<li><a href="#org610b5ec">Why is that faster?</a></li>
 </ul>
 </li>
-<li><a href="#orga0a455b">Radix Sort</a></li>
+<li><a href="#org9fec4ce">Radix Sort</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org7b0834d" class="outline-2">
-<h2 id="org7b0834d"><a href="#org7b0834d">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org7b0834d">
+<div id="outline-container-org59dc458" class="outline-2">
+<h2 id="org59dc458"><a href="#org59dc458">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org59dc458">
 <ul class="org-ul">
 <li>Professor: Jason Kun</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=yndgIDO0zQQ&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=7">YouTube Link</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org29b3e87" class="outline-3">
-<h3 id="org29b3e87"><a href="#org29b3e87">Note</a></h3>
-<div class="outline-text-3" id="text-org29b3e87">
+<div id="outline-container-org091a073" class="outline-3">
+<h3 id="org091a073"><a href="#org091a073">Note</a></h3>
+<div class="outline-text-3" id="text-org091a073">
 <p>
 This lecture seemed full of gaps to me. Only through the lecture and rescitation
 notes did I understand the topics discussed.
@@ -93,9 +93,9 @@ notes did I understand the topics discussed.
 </div>
 </div>
 
-<div id="outline-container-orgadb748b" class="outline-2">
-<h2 id="orgadb748b"><a href="#orgadb748b">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgadb748b">
+<div id="outline-container-org9db56a0" class="outline-2">
+<h2 id="org9db56a0"><a href="#org9db56a0">Introduction</a></h2>
+<div class="outline-text-2" id="text-org9db56a0">
 <p>
 In lecture 3, we discussed sorting algorithms based on the comparison model. We
 saw however, that using similar-to-hash functions we can move from the comparison to the
@@ -104,9 +104,9 @@ word RAM model and take advantage of \(O(1)\) access.
 </div>
 </div>
 
-<div id="outline-container-org17c926f" class="outline-2">
-<h2 id="org17c926f"><a href="#org17c926f">Sorting</a></h2>
-<div class="outline-text-2" id="text-org17c926f">
+<div id="outline-container-orgf997c9a" class="outline-2">
+<h2 id="orgf997c9a"><a href="#orgf997c9a">Sorting</a></h2>
+<div class="outline-text-2" id="text-orgf997c9a">
 <p>
 In the comparison model, the <code>find(k)</code> operation has \(n+1\) possible output
 items while the <code>sort()</code> function has \(n!\) possible outputs, the \(n!\)
@@ -124,9 +124,9 @@ O(\lg{n!}) \to \Omega(n\lg{n})
 \end{align}
 </div>
 
-<div id="outline-container-org4c00310" class="outline-3">
-<h3 id="org4c00310"><a href="#org4c00310">Direct Access Array Sort</a></h3>
-<div class="outline-text-3" id="text-org4c00310">
+<div id="outline-container-org868d727" class="outline-3">
+<h3 id="org868d727"><a href="#org868d727">Direct Access Array Sort</a></h3>
+<div class="outline-text-3" id="text-org868d727">
 <p>
 Instantiante a big access array and store every item <code>x</code> in the <code>x.key</code> slot.
 Then walk down the array (iterate through it), returning the items in their
@@ -172,9 +172,9 @@ that, the running time can be \(O(n)\) if \(u = O(n)\), however, it can also bec
 </div>
 </div>
 
-<div id="outline-container-org59cccc6" class="outline-3">
-<h3 id="org59cccc6"><a href="#org59cccc6">Tuple sort</a></h3>
-<div class="outline-text-3" id="text-org59cccc6">
+<div id="outline-container-org2d6ce6c" class="outline-3">
+<h3 id="org2d6ce6c"><a href="#org2d6ce6c">Tuple sort</a></h3>
+<div class="outline-text-3" id="text-org2d6ce6c">
 <p>
 What if we <i>split</i> the key values though?
 </p>
@@ -203,9 +203,9 @@ not <i>differentiate</i> between two items, the order that the items have in inp
 </p>
 </div>
 
-<div id="outline-container-org52eda37" class="outline-4">
-<h4 id="org52eda37"><a href="#org52eda37">Counting sort</a></h4>
-<div class="outline-text-4" id="text-org52eda37">
+<div id="outline-container-orga72fe50" class="outline-4">
+<h4 id="orga72fe50"><a href="#orga72fe50">Counting sort</a></h4>
+<div class="outline-text-4" id="text-orga72fe50">
 <p>
 In this <b>stable</b> algorithm, given an array \(A\) we put every item in \(x\in A\) in a
 dynamic structure at <code>B[x.key]</code>. Then we iterate through \(B\), returning the
@@ -229,11 +229,11 @@ items in a <i>FIFO</i> order.
 </div>
 </div>
 
-<div id="outline-container-org27c4ea0" class="outline-4">
-<h4 id="org27c4ea0"><a href="#org27c4ea0">Why is that faster?</a></h4>
-<div class="outline-text-4" id="text-org27c4ea0">
+<div id="outline-container-org610b5ec" class="outline-4">
+<h4 id="org610b5ec"><a href="#org610b5ec">Why is that faster?</a></h4>
+<div class="outline-text-4" id="text-org610b5ec">
 <p>
-Even though it does not look much different to <a href="#org4c00310">DAA Sort</a>, counting sort handles
+Even though it does not look much different to <a href="#org868d727">DAA Sort</a>, counting sort handles
 collisions, meaning that we have now no problem dealing with sets containing
 duplicate keys.
 </p>
@@ -247,9 +247,9 @@ implementation of tuple sort is called:
 </div>
 </div>
 
-<div id="outline-container-orga0a455b" class="outline-3">
-<h3 id="orga0a455b"><a href="#orga0a455b">Radix Sort</a></h3>
-<div class="outline-text-3" id="text-orga0a455b">
+<div id="outline-container-org9fec4ce" class="outline-3">
+<h3 id="org9fec4ce"><a href="#org9fec4ce">Radix Sort</a></h3>
+<div class="outline-text-3" id="text-org9fec4ce">
 <div class="org-src-container">
 <pre class="src src-python">def radix_sort(A):
     "Sort A assuming items have non-negative keys"

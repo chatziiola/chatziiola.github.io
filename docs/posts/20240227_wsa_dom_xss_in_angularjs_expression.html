@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd285464">Challenge</a>
+<li><a href="#org1ed35bf">Challenge</a>
 <ul>
-<li><a href="#orge1a2a72">Vulnerable part</a></li>
-<li><a href="#orgbe5b42d">Solution</a></li>
-<li><a href="#org7622498">Note on Angular</a></li>
+<li><a href="#org261f829">Vulnerable part</a></li>
+<li><a href="#org1daadd5">Solution</a></li>
+<li><a href="#orga53b90a">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#org7d746c2">Summary</a></li>
+<li><a href="#org67821c5">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd285464" class="outline-2">
-<h2 id="orgd285464"><a href="#orgd285464">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgd285464">
+<div id="outline-container-org1ed35bf" class="outline-2">
+<h2 id="org1ed35bf"><a href="#org1ed35bf">Challenge</a></h2>
+<div class="outline-text-2" id="text-org1ed35bf">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -51,7 +51,7 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="org0edd32f" class="figure">
+<div id="org99598b9" class="figure">
 <p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sample Input</p>
@@ -59,9 +59,9 @@ which we supply gets shown in the source code:
 </div>
 
 
-<div id="outline-container-orge1a2a72" class="outline-3">
-<h3 id="orge1a2a72"><a href="#orge1a2a72">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-orge1a2a72">
+<div id="outline-container-org261f829" class="outline-3">
+<h3 id="org261f829"><a href="#org261f829">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-org261f829">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -75,7 +75,7 @@ NG-app
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org59207ad">&lt;section class="search"&gt;
+<pre class="src src-html" id="org43a3c2f">&lt;section class="search"&gt;
   &lt;form action="/" method="GET" class="ng-pristine ng-valid"&gt;
     &lt;input type="text" placeholder="Search the blog..." name="search"&gt;
     &lt;button type="submit" class="button"&gt;Search&lt;/button&gt;
@@ -87,24 +87,24 @@ NG-app
 </div>
 
 
-<div id="outline-container-orgbe5b42d" class="outline-3">
-<h3 id="orgbe5b42d"><a href="#orgbe5b42d">Solution</a></h3>
-<div class="outline-text-3" id="text-orgbe5b42d">
+<div id="outline-container-org1daadd5" class="outline-3">
+<h3 id="org1daadd5"><a href="#org1daadd5">Solution</a></h3>
+<div class="outline-text-3" id="text-org1daadd5">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="org4f4e2ea">
+<pre class="example" id="orgcad7bcc">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org7622498" class="outline-3">
-<h3 id="org7622498"><a href="#org7622498">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-org7622498">
+<div id="outline-container-orga53b90a" class="outline-3">
+<h3 id="orga53b90a"><a href="#orga53b90a">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-orga53b90a">
 <p>
 For more info check out:
 </p>
@@ -116,9 +116,9 @@ For more info check out:
 </div>
 </div>
 
-<div id="outline-container-org7d746c2" class="outline-2">
-<h2 id="org7d746c2"><a href="#org7d746c2">Summary</a></h2>
-<div class="outline-text-2" id="text-org7d746c2">
+<div id="outline-container-org67821c5" class="outline-2">
+<h2 id="org67821c5"><a href="#org67821c5">Summary</a></h2>
+<div class="outline-text-2" id="text-org67821c5">
 <div class="tenor-gif-embed" data-postid="18768386" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"><a href="https://tenor.com/view/annoyed-alive-annoying-anniversary-ahh-gif-18768386">Annoyed Alive GIF</a>from <a href="https://tenor.com/search/annoyed-gifs">Annoyed GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 </div>
 </div>

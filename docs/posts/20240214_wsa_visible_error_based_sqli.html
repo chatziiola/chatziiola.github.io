@@ -20,28 +20,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6d6f447">Introduction</a></li>
-<li><a href="#org78c80ec">Getting in position</a>
+<li><a href="#orgdc5c4f3">Introduction</a></li>
+<li><a href="#org1a0c72a">Getting in position</a>
 <ul>
-<li><a href="#org7cfdca7">SQL Injection Point</a></li>
-<li><a href="#org0a1e511">DBMS enumeration</a></li>
+<li><a href="#org701825e">SQL Injection Point</a></li>
+<li><a href="#orge30fa3e">DBMS enumeration</a></li>
 </ul>
 </li>
-<li><a href="#org8a38116">He protec he atac he gets the data bac</a>
+<li><a href="#org4a968be">He protec he atac he gets the data bac</a>
 <ul>
-<li><a href="#org6e4e232">Trying some stuff out</a></li>
-<li><a href="#orga7b6c80">Searching for shorter payloads</a></li>
+<li><a href="#org9105217">Trying some stuff out</a></li>
+<li><a href="#orge60c00d">Searching for shorter payloads</a></li>
 </ul>
 </li>
-<li><a href="#orgd326ef7">Summary</a></li>
+<li><a href="#org99746fb">Summary</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org6d6f447" class="outline-2">
-<h2 id="org6d6f447"><a href="#org6d6f447">Introduction</a></h2>
-<div class="outline-text-2" id="text-org6d6f447">
+<div id="outline-container-orgdc5c4f3" class="outline-2">
+<h2 id="orgdc5c4f3"><a href="#orgdc5c4f3">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgdc5c4f3">
 <p>
 We are given this task:
 </p>
@@ -60,13 +60,13 @@ basic information.
 </div>
 </div>
 
-<div id="outline-container-org78c80ec" class="outline-2">
-<h2 id="org78c80ec"><a href="#org78c80ec">Getting in position</a></h2>
-<div class="outline-text-2" id="text-org78c80ec">
+<div id="outline-container-org1a0c72a" class="outline-2">
+<h2 id="org1a0c72a"><a href="#org1a0c72a">Getting in position</a></h2>
+<div class="outline-text-2" id="text-org1a0c72a">
 </div>
-<div id="outline-container-org7cfdca7" class="outline-3">
-<h3 id="org7cfdca7"><a href="#org7cfdca7">SQL Injection Point</a></h3>
-<div class="outline-text-3" id="text-org7cfdca7">
+<div id="outline-container-org701825e" class="outline-3">
+<h3 id="org701825e"><a href="#org701825e">SQL Injection Point</a></h3>
+<div class="outline-text-3" id="text-org701825e">
 <p>
 It is trivial, once again, to see that modifying the value of the
 cookie results in an error code, thus signaling that the cookie&rsquo;s
@@ -74,7 +74,7 @@ value is the point our payload should be inserted at.
 </p>
 
 
-<div id="org8feb983" class="figure">
+<div id="org43aadc0" class="figure">
 <p><img src="images/Getting_in_position/20240214_221538_screenshot.png" alt="20240214_221538_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>SQL error through injection in the cookie field</p>
@@ -85,7 +85,7 @@ By taking a better look at that response, however, we see that it
 gives us some more information regarding the error that was produced:
 </p>
 
-<pre class="example" id="orgbd52278">
+<pre class="example" id="org8924b30">
 &lt;h4&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/h4&gt;
 &lt;p class=is-warning&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/p&gt;
 </pre>
@@ -97,9 +97,9 @@ example, might somehow be exploited.
 </div>
 </div>
 
-<div id="outline-container-org0a1e511" class="outline-3">
-<h3 id="org0a1e511"><a href="#org0a1e511">DBMS enumeration</a></h3>
-<div class="outline-text-3" id="text-org0a1e511">
+<div id="outline-container-orge30fa3e" class="outline-3">
+<h3 id="orge30fa3e"><a href="#orge30fa3e">DBMS enumeration</a></h3>
+<div class="outline-text-3" id="text-orge30fa3e">
 <p>
 Trying a <code>SELECT null</code> statement in our payload, without a <code>FROM</code> part,
 resulted in <code>200 OK</code>, which means that our target DBMS surely is not
@@ -109,16 +109,16 @@ Oracle.
 </div>
 </div>
 
-<div id="outline-container-org8a38116" class="outline-2">
-<h2 id="org8a38116"><a href="#org8a38116">He protec he atac he gets the data bac</a></h2>
-<div class="outline-text-2" id="text-org8a38116">
+<div id="outline-container-org4a968be" class="outline-2">
+<h2 id="org4a968be"><a href="#org4a968be">He protec he atac he gets the data bac</a></h2>
+<div class="outline-text-2" id="text-org4a968be">
 <p>
 After that, we just have to see what to do there. Having completed the
 blind version of that room some days before (or was it just
 yesterday), I went ahead and dug the following payload from my notes:
 </p>
 
-<pre class="example" id="orgf99719d">
+<pre class="example" id="org8470505">
 UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 </pre>
 
@@ -127,7 +127,7 @@ It needs to be properly tinkered with, to match with our DBMS, but
 that is not so difficult. Using the Burp SQLi cheatsheet once again:
 </p>
 
-<pre class="example" id="org1e3c613">
+<pre class="example" id="org19eef78">
 UNION SELECT CASE WHEN ('b'='a') THEN 1/0 ELSE null END--  
 UNION SELECT CASE WHEN ('b'='a') THEN 1/(SELECT 0) ELSE null END--  
 UNION SELECT IF('b'='a',1/0,null)--
@@ -147,7 +147,7 @@ problem was obvious: The input string gets truncated.
 </p>
 
 
-<div id="org7e18aac" class="figure">
+<div id="orgfa7e7dc" class="figure">
 <p><img src="images/He_protec_he_atac_he_gets_the_data_bac/20240214_223053_screenshot.png" alt="20240214_223053_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Truncation POC</p>
@@ -162,9 +162,9 @@ payloads <b>or</b> find a way to overcome that truncation.
 </p>
 </div>
 
-<div id="outline-container-org6e4e232" class="outline-3">
-<h3 id="org6e4e232"><a href="#org6e4e232">Trying some stuff out</a></h3>
-<div class="outline-text-3" id="text-org6e4e232">
+<div id="outline-container-org9105217" class="outline-3">
+<h3 id="org9105217"><a href="#org9105217">Trying some stuff out</a></h3>
+<div class="outline-text-3" id="text-org9105217">
 <p>
 To get a better understanding of the tools in our hands, I started
 testing payloads, so that I get more information from the visible
@@ -174,15 +174,15 @@ gets recognized, even though it does not run due to the wrong syntax)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql" id="org58e3e11">TrackingId=TwPUGarplaH8g4da' UNION SELECT PG_SLEEP(1)--;
+<pre class="src src-sql" id="org749aaa9">TrackingId=TwPUGarplaH8g4da' UNION SELECT PG_SLEEP(1)--;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orga7b6c80" class="outline-3">
-<h3 id="orga7b6c80"><a href="#orga7b6c80">Searching for shorter payloads</a></h3>
-<div class="outline-text-3" id="text-orga7b6c80">
+<div id="outline-container-orge60c00d" class="outline-3">
+<h3 id="orge60c00d"><a href="#orge60c00d">Searching for shorter payloads</a></h3>
+<div class="outline-text-3" id="text-orge60c00d">
 <p>
 Heading back to the cheatsheet it has a nice suggestion for exploiting
 visible errors, using typecasting.
@@ -192,14 +192,14 @@ visible errors, using typecasting.
 I already know where to look at so:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql" id="orgd95bd27">TrackingId=' AND CAST((SELECT username from users limit 1)as int)&lt;0--
+<pre class="src src-sql" id="orga640c1e">TrackingId=' AND CAST((SELECT username from users limit 1)as int)&lt;0--
 </pre>
 </div>
 
 <p>
 returns
 </p>
-<pre class="example" id="org346fbb4">
+<pre class="example" id="orgba7a86b">
 ERROR: invalid input syntax for type integer: "administrator"
 </pre>
 
@@ -212,9 +212,9 @@ password directly in the response (visible error)!
 </div>
 </div>
 
-<div id="outline-container-orgd326ef7" class="outline-2">
-<h2 id="orgd326ef7"><a href="#orgd326ef7">Summary</a></h2>
-<div class="outline-text-2" id="text-orgd326ef7">
+<div id="outline-container-org99746fb" class="outline-2">
+<h2 id="org99746fb"><a href="#org99746fb">Summary</a></h2>
+<div class="outline-text-2" id="text-org99746fb">
 <p>
 The way I decided to initially tackle the lab was problematic. Was not
 my input length limited, it could have worked, but it would have been

@@ -20,23 +20,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org68c1c38">Introduction</a></li>
-<li><a href="#orgeb4f86e">Challenge</a>
+<li><a href="#orgb608cd3">Introduction</a></li>
+<li><a href="#org20c37c8">Challenge</a>
 <ul>
-<li><a href="#org9cb85e8">Search functionality</a></li>
-<li><a href="#orgdd77627">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#org8da8ba3">Keep Going</a></li>
-<li><a href="#orgd162096">Back</a></li>
+<li><a href="#org570ddce">Search functionality</a></li>
+<li><a href="#orgcedecca">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#org090073b">Keep Going</a></li>
+<li><a href="#org8527ac5">Back</a></li>
 </ul>
 </li>
-<li><a href="#org487fa07">Summary</a></li>
+<li><a href="#orga9c9e40">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org68c1c38" class="outline-2">
-<h2 id="org68c1c38"><a href="#org68c1c38">Introduction</a></h2>
-<div class="outline-text-2" id="text-org68c1c38">
+<div id="outline-container-orgb608cd3" class="outline-2">
+<h2 id="orgb608cd3"><a href="#orgb608cd3">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgb608cd3">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -47,9 +47,9 @@ time it takes, is always satisfying in the end!
 </div>
 </div>
 
-<div id="outline-container-orgeb4f86e" class="outline-2">
-<h2 id="orgeb4f86e"><a href="#orgeb4f86e">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgeb4f86e">
+<div id="outline-container-org20c37c8" class="outline-2">
+<h2 id="org20c37c8"><a href="#org20c37c8">Challenge</a></h2>
+<div class="outline-text-2" id="text-org20c37c8">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -65,30 +65,30 @@ writing it to a dangerous sink.
 </blockquote>
 </div>
 
-<div id="outline-container-org9cb85e8" class="outline-3">
-<h3 id="org9cb85e8"><a href="#org9cb85e8">Search functionality</a></h3>
-<div class="outline-text-3" id="text-org9cb85e8">
+<div id="outline-container-org570ddce" class="outline-3">
+<h3 id="org570ddce"><a href="#org570ddce">Search functionality</a></h3>
+<div class="outline-text-3" id="text-org570ddce">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org77477ca">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
+<pre class="src src-html" id="orgdccfcde">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
 &lt;script&gt;search('search-results')&lt;/script&gt;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgdd77627" class="outline-3">
-<h3 id="orgdd77627"><a href="#orgdd77627">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-orgdd77627">
+<div id="outline-container-orgcedecca" class="outline-3">
+<h3 id="orgcedecca"><a href="#orgcedecca">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-orgcedecca">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="org4bdb707">function search(path) {
+<pre class="src src-js" id="orgdfe3b8d">function search(path) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function() {
         if (this.readyState == 4 &amp;&amp; this.status == 200) {
@@ -167,8 +167,8 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="orgfa52393" class="figure">
-<p><img src="images/Challenge/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
+<div id="org549f92a" class="figure">
+<p><img src="images/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
 </div>
@@ -216,9 +216,9 @@ link.
 </div>
 
 
-<div id="outline-container-org8da8ba3" class="outline-3">
-<h3 id="org8da8ba3"><a href="#org8da8ba3">Keep Going</a></h3>
-<div class="outline-text-3" id="text-org8da8ba3">
+<div id="outline-container-org090073b" class="outline-3">
+<h3 id="org090073b"><a href="#org090073b">Keep Going</a></h3>
+<div class="outline-text-3" id="text-org090073b">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -234,14 +234,14 @@ is not applicable</li>
 </div>
 
 
-<div id="outline-container-orgd162096" class="outline-3">
-<h3 id="orgd162096"><a href="#orgd162096">Back</a></h3>
-<div class="outline-text-3" id="text-orgd162096">
+<div id="outline-container-org8527ac5" class="outline-3">
+<h3 id="org8527ac5"><a href="#org8527ac5">Back</a></h3>
+<div class="outline-text-3" id="text-org8527ac5">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org2235a2a">if (this.readyState == 4 &amp;&amp; this.status == 200) {
+<pre class="src src-js" id="org212e7d6">if (this.readyState == 4 &amp;&amp; this.status == 200) {
     eval('var searchResultsObj = ' + this.responseText);
     displaySearchResults(searchResultsObj);
 }
@@ -255,8 +255,8 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="org2957415" class="figure">
-<p><img src="images/Challenge/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
+<div id="orgb4f1729" class="figure">
+<p><img src="images/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
 </div>
@@ -270,9 +270,9 @@ as solved
 </div>
 
 
-<div id="outline-container-org487fa07" class="outline-2">
-<h2 id="org487fa07"><a href="#org487fa07">Summary</a></h2>
-<div class="outline-text-2" id="text-org487fa07">
+<div id="outline-container-orga9c9e40" class="outline-2">
+<h2 id="orga9c9e40"><a href="#orga9c9e40">Summary</a></h2>
+<div class="outline-text-2" id="text-orga9c9e40">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>
