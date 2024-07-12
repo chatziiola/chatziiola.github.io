@@ -1,0 +1,68 @@
+#+TITLE: Tidying up our blog
+#+DATE: <2024-07-09 13:57>
+#+DESCRIPTION: 
+
+* Introduction
+When I first started using ~org-download~ to have pictures within my
+posts, I had not exactly configured it properly, resulting in numerous
+subdirectories that I was not happy with[fn:1]:
+
+label:Look-at-all-those-image-directories
+#+caption: Look at all those image directories
+[[file:images/Introduction/20240709_140235_screenshot.png]]
+
+Moving on want that mess hidden within ~images/~: The main directory
+should be cleaner.
+
+* The plan
+The plan here is to freshen up my python skills whilst creating a
+script to:
+1. *Move ~org~ files and their related images to another directory* (this
+   is classic maintenance, avoiding to manually move my articles-turned-drafts)
+2. *Move a folder containing images inside of images/*, whilst updating
+   whatever links pointing to those images. If images with no links
+   are found they are printed for manual removal.
+
+Covering the creation process of our tool, the article shows how to:
+1. Develop a python function to check for links in org files pointing
+   to images
+2. Develop a python function to modify the links while also moving the
+   directories inside the ~images~ dir
+3. Develop a python function to check for broken links
+4. Develop a python function to move an article to my draft subdir,
+   along with any photos it may have.
+
+* Assumptions
+Before we begin we need to make clear the constraints:
+- All ~org~ files exist in one directory. No need to recompute relative paths.
+- All image files are of ~png~ format. Minimal steps have been taken to
+  change that in the future if necessary.
+  
+* Step 0: Configuring the wrapper
+I like using ~argparse~, to easily add/remove options and manage them in
+a significantly more secure and straightforward manner than if I
+quickly made something from scratch.
+
+* Step 1: Link Checker
+** Links in Files
+Obviously, there are common parts in the functions described above.
+The most apparent one is in /steps/ 3 and 4: There needs to be a
+function to:
+a. Find (file) links
+b. See where they point
+
+** Files With Link
+
+* Step 2: Move Images 
+
+* Step 3: Check Broken Links
+
+* Step 4: Move articles
+* Summing Up and Criticizing
+
+* Footnotes
+
+[fn:1] There will come a time (maybe) when after spending somem ore
+time on these ~org-download~ will do an even better job, but till then,
+I am happy to just "hide" the clutter of images inside an ~images~
+directory.

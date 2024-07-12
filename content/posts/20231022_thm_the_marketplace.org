@@ -61,7 +61,7 @@ MAC Address: 02:3C:29:73:B9:79 (Unknown)
 I checked for ~robots.txt, security.txt, sitemap.xml~ files, out of
 which only the first existed, without much information available to us:
 #+caption: Robots.txt contents
-[[file:Reconnaisance/20231022_185121_screenshot.png]]
+[[file:images/20231022_185121_screenshot.png]]
 
 Then, I ran ~gobuster~ while manually checking the website out:
 #+NAME: Gobuster
@@ -108,7 +108,7 @@ pages), I created a ~test~ user to see what extra functionality logging
 in offered:
 
 #+caption: Allowing for new listings and messages(!)
-[[file:Reconnaisance/20231022_190304_screenshot.png]]
+[[file:images/20231022_190304_screenshot.png]]
 
 At this point I'm thinking that a Blind XSS might be the way to go.
 
@@ -116,20 +116,20 @@ In the new listings page we get that no file may be uploaded *due to
 security issues*. That's not really a problem
 
 #+caption: New listings page
-[[file:Reconnaisance/20231022_190913_screenshot.png]]
+[[file:images/20231022_190913_screenshot.png]]
 
 
 I then created a listing with a sample XSS payload for proof of
 concept. It worked fine.
 
 #+caption: Creating a new listing
-[[file:Reconnaisance/20231022_191002_screenshot.png]]
+[[file:images/20231022_191002_screenshot.png]]
 
 
 
 
 #+caption: Working XSS ~alert(1)~ payload
-[[file:Reconnaisance/20231022_191112_screenshot.png]]
+[[file:images/20231022_191112_screenshot.png]]
 
 The problem, however, is that this is not enough. Ideally, I would
 have to use an actual payload on a page that would be viewed by the
@@ -137,7 +137,7 @@ admins: These two buttons might be helpful for that, but for the time
 being, checking the website's cookies seems equally promising
 
 #+caption: Way to contact PPL (pun intended)
-[[file:Reconnaisance/20231022_191849_screenshot.png]]
+[[file:images/20231022_191849_screenshot.png]]
 
 The cookie is of the typical form:
 #+begin_example
@@ -166,7 +166,7 @@ for a fact that ~admin~ user does not exists (I tried creating a user
 I first created a listing that would get me the cookie of anyone
 viewing it:
 #+caption: Malicious listing
-[[file:XSS_Exploitation/20231022_193437_screenshot.png]]
+[[file:images/20231022_193437_screenshot.png]]
 
 I, then tested it on myself, and it worked just fine, so I proceeded
 reporting it to the admins and hoping that someone would view it. It
@@ -174,13 +174,13 @@ did not disappoint.
 
 When I got back from my water break, a cookie was waiting for me!!
 #+caption: Admin's cookieeeeeee!
-[[file:XSS_Exploitation/20231022_193832_screenshot.png]]
+[[file:images/20231022_193832_screenshot.png]]
 
 I used it and logged into the ~/admin~ page: The first flag was waiting
 for me there !
 
 #+caption: We're getting somewhere.
-[[file:XSS_Exploitation/20231022_194020_screenshot.png]]
+[[file:images/20231022_194020_screenshot.png]]
 
 We see now that :
 - There are two administrators (users 4 and 5 are my creation :P),
@@ -212,7 +212,7 @@ the website would point us to ~/admin?user=1~, which after testing with
 the old classic ~' OR 1=1;--~, shows an error:
 
 #+caption: SQL Error
-[[file:SQL_Injection/20231022_200202_screenshot.png]]
+[[file:images/20231022_200202_screenshot.png]]
 
 Seeing that an SQLi could be beneficial, I used ~sqlmap~:
 #+NAME: SQLmap, invalid
@@ -246,7 +246,7 @@ most important is hidden in a message there: we get the password for ~jake~
 
 And after logging in we get the second flag:
 #+caption: The second flag
-[[file:SQL_Injection/20231022_205347_screenshot.png]]
+[[file:images/20231022_205347_screenshot.png]]
 
 * Privilege escalation
 Knowing that the last flag is a file called ~root.txt~ I used ~find~
