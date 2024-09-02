@@ -51,28 +51,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org784e6f6">Lecture details:</a></li>
-<li><a href="#org4753b46">The set interface</a></li>
-<li><a href="#orgaa6a55e">Understanding and implementing</a>
+<li><a href="#org12fbc84">Lecture details:</a></li>
+<li><a href="#org7ed439c">The set interface</a></li>
+<li><a href="#org38d785a">Understanding and implementing</a>
 <ul>
-<li><a href="#org2cd4b37">Using an unordered array</a></li>
-<li><a href="#org784a6a4">Using an sorted array</a></li>
+<li><a href="#org0ce4495">Using an unordered array</a></li>
+<li><a href="#orga0a0bdc">Using an sorted array</a></li>
 </ul>
 </li>
-<li><a href="#orgb7ec0bf">Sorting</a>
+<li><a href="#org92d2d7b">Sorting</a>
 <ul>
-<li><a href="#org2c8fff9">Basic vocabulary</a>
+<li><a href="#orgb0b8807">Basic vocabulary</a>
 <ul>
-<li><a href="#org75cb098">Destructive</a></li>
-<li><a href="#orgce66a38">In place</a></li>
+<li><a href="#org88b9c64">Destructive</a></li>
+<li><a href="#org455ffc8">In place</a></li>
 </ul>
 </li>
-<li><a href="#org8e1ee9c">Algorithms</a>
+<li><a href="#org6bfa5f3">Algorithms</a>
 <ul>
-<li><a href="#org2e114a7">Permutation sort</a></li>
-<li><a href="#org21e2fbd">Selection sort</a></li>
-<li><a href="#org906c87c">Insertion sort</a></li>
-<li><a href="#orgb7e798f">Merge sort</a></li>
+<li><a href="#org9066c79">Permutation sort</a></li>
+<li><a href="#org4d1d648">Selection sort</a></li>
+<li><a href="#orgf56ca45">Insertion sort</a></li>
+<li><a href="#orgbc5e800">Merge sort</a></li>
 </ul>
 </li>
 </ul>
@@ -81,9 +81,9 @@
 </div>
 </div>
 
-<div id="outline-container-org784e6f6" class="outline-2">
-<h2 id="org784e6f6"><a href="#org784e6f6">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org784e6f6">
+<div id="outline-container-org12fbc84" class="outline-2">
+<h2 id="org12fbc84"><a href="#org12fbc84">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org12fbc84">
 <ul class="org-ul">
 <li>Instructor: Justin Solomon</li>
 <li>Link: <a href="https://www.youtube.com/watch?v=oS9aPzUNG-s&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=4">YouTube Lecture</a></li>
@@ -97,9 +97,9 @@ Java, all the code snippets here will be written in Java.
 </div>
 </div>
 
-<div id="outline-container-org4753b46" class="outline-2">
-<h2 id="org4753b46"><a href="#org4753b46">The set interface</a></h2>
-<div class="outline-text-2" id="text-org4753b46">
+<div id="outline-container-org7ed439c" class="outline-2">
+<h2 id="org7ed439c"><a href="#org7ed439c">The set interface</a></h2>
+<div class="outline-text-2" id="text-org7ed439c">
 <p>
 Our interface is a container, hosting items and associating them with key
 values. The functions that we want the set implementation to perform are:
@@ -127,17 +127,17 @@ next or previous respectively</li>
 </div>
 </div>
 
-<div id="outline-container-orgaa6a55e" class="outline-2">
-<h2 id="orgaa6a55e"><a href="#orgaa6a55e">Understanding and implementing</a></h2>
-<div class="outline-text-2" id="text-orgaa6a55e">
+<div id="outline-container-org38d785a" class="outline-2">
+<h2 id="org38d785a"><a href="#org38d785a">Understanding and implementing</a></h2>
+<div class="outline-text-2" id="text-org38d785a">
 <p>
 Now that we have outlined the set interface, let&rsquo;s check possible implementations
 </p>
 </div>
 
-<div id="outline-container-org2cd4b37" class="outline-3">
-<h3 id="org2cd4b37"><a href="#org2cd4b37">Using an unordered array</a></h3>
-<div class="outline-text-3" id="text-org2cd4b37">
+<div id="outline-container-org0ce4495" class="outline-3">
+<h3 id="org0ce4495"><a href="#org0ce4495">Using an unordered array</a></h3>
+<div class="outline-text-3" id="text-org0ce4495">
 <p>
 This is a <i>generally</i> poorly functioning implementation of the set ADT.
 </p>
@@ -209,9 +209,9 @@ costly.
 </div>
 </div>
 
-<div id="outline-container-org784a6a4" class="outline-3">
-<h3 id="org784a6a4"><a href="#org784a6a4">Using an sorted array</a></h3>
-<div class="outline-text-3" id="text-org784a6a4">
+<div id="outline-container-orga0a0bdc" class="outline-3">
+<h3 id="orga0a0bdc"><a href="#orga0a0bdc">Using an sorted array</a></h3>
+<div class="outline-text-3" id="text-orga0a0bdc">
 <table>
 
 
@@ -250,22 +250,22 @@ binary search to find the desired key reducing the <code>find(k)</code> complexi
 </div>
 </div>
 
-<div id="outline-container-orgb7ec0bf" class="outline-2">
-<h2 id="orgb7ec0bf"><a href="#orgb7ec0bf">Sorting</a></h2>
-<div class="outline-text-2" id="text-orgb7ec0bf">
+<div id="outline-container-org92d2d7b" class="outline-2">
+<h2 id="org92d2d7b"><a href="#org92d2d7b">Sorting</a></h2>
+<div class="outline-text-2" id="text-org92d2d7b">
 <p>
 In order to have a sorted array, we need to study which algorithms will give us
 one:
 </p>
 </div>
 
-<div id="outline-container-org2c8fff9" class="outline-3">
-<h3 id="org2c8fff9"><a href="#org2c8fff9">Basic vocabulary</a></h3>
-<div class="outline-text-3" id="text-org2c8fff9">
+<div id="outline-container-orgb0b8807" class="outline-3">
+<h3 id="orgb0b8807"><a href="#orgb0b8807">Basic vocabulary</a></h3>
+<div class="outline-text-3" id="text-orgb0b8807">
 </div>
-<div id="outline-container-org75cb098" class="outline-4">
-<h4 id="org75cb098"><a href="#org75cb098">Destructive</a></h4>
-<div class="outline-text-4" id="text-org75cb098">
+<div id="outline-container-org88b9c64" class="outline-4">
+<h4 id="org88b9c64"><a href="#org88b9c64">Destructive</a></h4>
+<div class="outline-text-4" id="text-org88b9c64">
 <p>
 An algorithm is called destructive when it operates on the input array. More
 specifically, it <i>destroys</i> the input unsorted array, overwriting it with its
@@ -273,9 +273,9 @@ sorted version
 </p>
 </div>
 </div>
-<div id="outline-container-orgce66a38" class="outline-4">
-<h4 id="orgce66a38"><a href="#orgce66a38">In place</a></h4>
-<div class="outline-text-4" id="text-orgce66a38">
+<div id="outline-container-org455ffc8" class="outline-4">
+<h4 id="org455ffc8"><a href="#org455ffc8">In place</a></h4>
+<div class="outline-text-4" id="text-org455ffc8">
 <p>
 An algorith is called <span class="underline">in place</span> when, being a destructive algorithm, it uses
 constant extra space in memory (\(O(1)\)).
@@ -284,13 +284,13 @@ constant extra space in memory (\(O(1)\)).
 </div>
 </div>
 
-<div id="outline-container-org8e1ee9c" class="outline-3">
-<h3 id="org8e1ee9c"><a href="#org8e1ee9c">Algorithms</a></h3>
-<div class="outline-text-3" id="text-org8e1ee9c">
+<div id="outline-container-org6bfa5f3" class="outline-3">
+<h3 id="org6bfa5f3"><a href="#org6bfa5f3">Algorithms</a></h3>
+<div class="outline-text-3" id="text-org6bfa5f3">
 </div>
-<div id="outline-container-org2e114a7" class="outline-4">
-<h4 id="org2e114a7"><a href="#org2e114a7">Permutation sort</a></h4>
-<div class="outline-text-4" id="text-org2e114a7">
+<div id="outline-container-org9066c79" class="outline-4">
+<h4 id="org9066c79"><a href="#org9066c79">Permutation sort</a></h4>
+<div class="outline-text-4" id="text-org9066c79">
 <p>
 <i>Analysis</i>:  We have \(\Omega(n!n)\)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
 </p>
@@ -302,9 +302,9 @@ constant extra space in memory (\(O(1)\)).
 </div>
 
 
-<div id="outline-container-org21e2fbd" class="outline-4">
-<h4 id="org21e2fbd"><a href="#org21e2fbd">Selection sort</a></h4>
-<div class="outline-text-4" id="text-org21e2fbd">
+<div id="outline-container-org4d1d648" class="outline-4">
+<h4 id="org4d1d648"><a href="#org4d1d648">Selection sort</a></h4>
+<div class="outline-text-4" id="text-org4d1d648">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -327,8 +327,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org3cdfff2"></a><a href="#org3cdfff2">Recursive</a><br>
-<div class="outline-text-5" id="text-org3cdfff2">
+<li><a id="orgc901c78"></a><a href="#orgc901c78">Recursive</a><br>
+<div class="outline-text-5" id="text-orgc901c78">
 <div class="org-src-container">
 <pre class="src src-java">void selectionSort(int[] myArray, int lastItem)
 {
@@ -355,8 +355,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </li>
 
 
-<li><a id="org5324d40"></a><a href="#org5324d40">Simple Implementation</a><br>
-<div class="outline-text-5" id="text-org5324d40">
+<li><a id="org2a7c48d"></a><a href="#org2a7c48d">Simple Implementation</a><br>
+<div class="outline-text-5" id="text-org2a7c48d">
 <div class="org-src-container">
 <pre class="src src-java">void selectionSort(int[] myArray)
 {
@@ -388,9 +388,9 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </div>
 
 
-<div id="outline-container-org906c87c" class="outline-4">
-<h4 id="org906c87c"><a href="#org906c87c">Insertion sort</a></h4>
-<div class="outline-text-4" id="text-org906c87c">
+<div id="outline-container-orgf56ca45" class="outline-4">
+<h4 id="orgf56ca45"><a href="#orgf56ca45">Insertion sort</a></h4>
+<div class="outline-text-4" id="text-orgf56ca45">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -440,9 +440,9 @@ it, swapping every element larger than it.
 </div>
 
 
-<div id="outline-container-orgb7e798f" class="outline-4">
-<h4 id="orgb7e798f"><a href="#orgb7e798f">Merge sort</a></h4>
-<div class="outline-text-4" id="text-orgb7e798f">
+<div id="outline-container-orgbc5e800" class="outline-4">
+<h4 id="orgbc5e800"><a href="#orgbc5e800">Merge sort</a></h4>
+<div class="outline-text-4" id="text-orgbc5e800">
 <p>
 <i>Analysis</i>: \(O(n\lg{n})\)
 </p>
@@ -456,8 +456,8 @@ size of the array
 </div>
 
 <ul class="org-ul">
-<li><a id="org505b8ee"></a><a href="#org505b8ee">Implementation</a><br>
-<div class="outline-text-5" id="text-org505b8ee">
+<li><a id="orgdd7fc4d"></a><a href="#orgdd7fc4d">Implementation</a><br>
+<div class="outline-text-5" id="text-orgdd7fc4d">
 <div class="org-src-container">
 <pre class="src src-java">static void mergeSort(int[] myArray)
 {

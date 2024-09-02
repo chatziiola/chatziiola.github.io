@@ -51,34 +51,34 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0c6d2b1">Difference between an interface and a data structure</a>
+<li><a href="#org61fa43a">Difference between an interface and a data structure</a>
 <ul>
-<li><a href="#org254cbc5">The main interfaces</a></li>
-<li><a href="#org8eee31a">DS approaches</a></li>
+<li><a href="#org553603f">The main interfaces</a></li>
+<li><a href="#org2b4df98">DS approaches</a></li>
 </ul>
 </li>
-<li><a href="#org6c84a84">Analyzing static sequences</a>
+<li><a href="#orgdfcb714">Analyzing static sequences</a>
 <ul>
-<li><a href="#org3ac9b03">Interface functions</a></li>
-<li><a href="#org77bb1f2">Word RAM model of computation</a></li>
-<li><a href="#org8324741">Reality and memory</a></li>
+<li><a href="#orgcd7e450">Interface functions</a></li>
+<li><a href="#org6278a26">Word RAM model of computation</a></li>
+<li><a href="#org5541cdb">Reality and memory</a></li>
 </ul>
 </li>
-<li><a href="#org0c802a4">Analyzing dynamic sequences</a>
+<li><a href="#orgaefbf19">Analyzing dynamic sequences</a>
 <ul>
-<li><a href="#org9bc504f">Interface functions</a></li>
-<li><a href="#org36f629c">Linked List</a></li>
+<li><a href="#orgbb94bcd">Interface functions</a></li>
+<li><a href="#orge0e4b1d">Linked List</a></li>
 </ul>
 </li>
-<li><a href="#org9fb86f5">Dynamic arrays</a></li>
-<li><a href="#orgef8644f">Summary: Comparing operations</a></li>
+<li><a href="#org5dd8fd5">Dynamic arrays</a></li>
+<li><a href="#orgcf9a9ae">Summary: Comparing operations</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0c6d2b1" class="outline-2">
-<h2 id="org0c6d2b1"><a href="#org0c6d2b1">Difference between an interface and a data structure</a></h2>
-<div class="outline-text-2" id="text-org0c6d2b1">
+<div id="outline-container-org61fa43a" class="outline-2">
+<h2 id="org61fa43a"><a href="#org61fa43a">Difference between an interface and a data structure</a></h2>
+<div class="outline-text-2" id="text-org61fa43a">
 <p>
 The interface can also be called <i>ADT or API</i>.
 </p>
@@ -93,9 +93,9 @@ function.
 </p>
 </div>
 
-<div id="outline-container-org254cbc5" class="outline-3">
-<h3 id="org254cbc5"><a href="#org254cbc5">The main interfaces</a></h3>
-<div class="outline-text-3" id="text-org254cbc5">
+<div id="outline-container-org553603f" class="outline-3">
+<h3 id="org553603f"><a href="#org553603f">The main interfaces</a></h3>
+<div class="outline-text-3" id="text-org553603f">
 <p>
 There are two main interfaces:
 </p>
@@ -106,16 +106,16 @@ There are two main interfaces:
 </div>
 </div>
 
-<div id="outline-container-org8eee31a" class="outline-3">
-<h3 id="org8eee31a"><a href="#org8eee31a">DS approaches</a></h3>
-<div class="outline-text-3" id="text-org8eee31a">
+<div id="outline-container-org2b4df98" class="outline-3">
+<h3 id="org2b4df98"><a href="#org2b4df98">DS approaches</a></h3>
+<div class="outline-text-3" id="text-org2b4df98">
 <p>
 Additionally there are two schools of thought:
 </p>
 <ol class="org-ol">
-<li><a href="#org6c84a84"><i>static</i> arrays</a>
+<li><a href="#orgdfcb714"><i>static</i> arrays</a>
 Their size is predefined and difficult to change</li>
-<li><a href="#org0c802a4">dynamic structures</a>
+<li><a href="#orgaefbf19">dynamic structures</a>
 Focusing on variable length and easy addition/deletion operations.</li>
 </ol>
 
@@ -126,18 +126,18 @@ Now, we will combine these two together, focusing on sequences.
 </div>
 </div>
 
-<div id="outline-container-org6c84a84" class="outline-2">
-<h2 id="org6c84a84"><a href="#org6c84a84">Analyzing static sequences</a></h2>
-<div class="outline-text-2" id="text-org6c84a84">
+<div id="outline-container-orgdfcb714" class="outline-2">
+<h2 id="orgdfcb714"><a href="#orgdfcb714">Analyzing static sequences</a></h2>
+<div class="outline-text-2" id="text-orgdfcb714">
 <p>
 Static sequences are to be used when dealing with data in which the order is
 important, however the volume of it does not change often.
 </p>
 </div>
 
-<div id="outline-container-org3ac9b03" class="outline-3">
-<h3 id="org3ac9b03"><a href="#org3ac9b03">Interface functions</a></h3>
-<div class="outline-text-3" id="text-org3ac9b03">
+<div id="outline-container-orgcd7e450" class="outline-3">
+<h3 id="orgcd7e450"><a href="#orgcd7e450">Interface functions</a></h3>
+<div class="outline-text-3" id="text-orgcd7e450">
 <p>
 <i>The methods that static data structures need to implement efficiently</i>
 </p>
@@ -152,7 +152,7 @@ Returns n, no matter how many elements are used inside the array</li>
 Visit every element from the beginning of the array to the end of the array</li>
 <li><code>get_at(i)</code>, O(1)</li>
 <li><code>set_at(i,x)</code>, O(1)
-These two functions take constant time as explained in <a href="#org77bb1f2">the word RAM model</a></li>
+These two functions take constant time as explained in <a href="#org6278a26">the word RAM model</a></li>
 </ul>
 
 <p>
@@ -161,9 +161,9 @@ The natural solution to this <i>problem</i> is the static array.
 </div>
 </div>
 
-<div id="outline-container-org77bb1f2" class="outline-3">
-<h3 id="org77bb1f2"><a href="#org77bb1f2">Word RAM model of computation</a></h3>
-<div class="outline-text-3" id="text-org77bb1f2">
+<div id="outline-container-org6278a26" class="outline-3">
+<h3 id="org6278a26"><a href="#org6278a26">Word RAM model of computation</a></h3>
+<div class="outline-text-3" id="text-org6278a26">
 <p>
 RAM stands out for Random Access Memory, meaning that the computer (CPU) can
 access every element in it in constant time. This differentiates data structures
@@ -174,7 +174,7 @@ that follow this model to ones that focus on other operations.
 Practically, this means that all items are stored in a continuous location in
 memory, where the ith field  consists of x<sub>i</sub>
 </p>
-<div class="source" id="org662a7c5">
+<div class="source" id="org5693e36">
 <p>
 x[i] = x<sub>i</sub>
 </p>
@@ -183,9 +183,9 @@ x[i] = x<sub>i</sub>
 </div>
 </div>
 
-<div id="outline-container-org8324741" class="outline-3">
-<h3 id="org8324741"><a href="#org8324741">Reality and memory</a></h3>
-<div class="outline-text-3" id="text-org8324741">
+<div id="outline-container-org5541cdb" class="outline-3">
+<h3 id="org5541cdb"><a href="#org5541cdb">Reality and memory</a></h3>
+<div class="outline-text-3" id="text-org5541cdb">
 <p>
 <i>I must have misunderstood something here, cause I can not explain it clearly</i>
 </p>
@@ -201,18 +201,18 @@ use the data structure.
 </div>
 </div>
 
-<div id="outline-container-org0c802a4" class="outline-2">
-<h2 id="org0c802a4"><a href="#org0c802a4">Analyzing dynamic sequences</a></h2>
-<div class="outline-text-2" id="text-org0c802a4">
+<div id="outline-container-orgaefbf19" class="outline-2">
+<h2 id="orgaefbf19"><a href="#orgaefbf19">Analyzing dynamic sequences</a></h2>
+<div class="outline-text-2" id="text-orgaefbf19">
 <p>
 Dynamic sequences are to be used when we care more about quick insertion and
 sorting and not so much about random access speeds
 </p>
 </div>
 
-<div id="outline-container-org9bc504f" class="outline-3">
-<h3 id="org9bc504f"><a href="#org9bc504f">Interface functions</a></h3>
-<div class="outline-text-3" id="text-org9bc504f">
+<div id="outline-container-orgbb94bcd" class="outline-3">
+<h3 id="orgbb94bcd"><a href="#orgbb94bcd">Interface functions</a></h3>
+<div class="outline-text-3" id="text-orgbb94bcd">
 <p>
 Analyzing the previous statement a little bit more, we use dynamic sequences
 when we find ourselves dealing with the following operations<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
@@ -236,9 +236,9 @@ scenario) the entire array</li>
 </div>
 </div>
 
-<div id="outline-container-org36f629c" class="outline-3">
-<h3 id="org36f629c"><a href="#org36f629c">Linked List</a></h3>
-<div class="outline-text-3" id="text-org36f629c">
+<div id="outline-container-orge0e4b1d" class="outline-3">
+<h3 id="orge0e4b1d"><a href="#orge0e4b1d">Linked List</a></h3>
+<div class="outline-text-3" id="text-orge0e4b1d">
 <p>
 The linked list is a data structure based on the Dynamic Sequence ADT. It is a
 sequence of nodes, each one with a <code>value</code> and a <code>next</code> field, pointing to the
@@ -254,9 +254,9 @@ pointers in each node, and why RAM operations do not work efficiently
 </div>
 </div>
 
-<div id="outline-container-org9fb86f5" class="outline-2">
-<h2 id="org9fb86f5"><a href="#org9fb86f5">Dynamic arrays</a></h2>
-<div class="outline-text-2" id="text-org9fb86f5">
+<div id="outline-container-org5dd8fd5" class="outline-2">
+<h2 id="org5dd8fd5"><a href="#org5dd8fd5">Dynamic arrays</a></h2>
+<div class="outline-text-2" id="text-org5dd8fd5">
 <p>
 <i>In Python: lists</i>
 </p>
@@ -290,9 +290,9 @@ efficiency of static array to dynamic array</li>
 </div>
 </div>
 
-<div id="outline-container-orgef8644f" class="outline-2">
-<h2 id="orgef8644f"><a href="#orgef8644f">Summary: Comparing operations</a></h2>
-<div class="outline-text-2" id="text-orgef8644f">
+<div id="outline-container-orgcf9a9ae" class="outline-2">
+<h2 id="orgcf9a9ae"><a href="#orgcf9a9ae">Summary: Comparing operations</a></h2>
+<div class="outline-text-2" id="text-orgcf9a9ae">
 <table>
 
 

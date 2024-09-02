@@ -20,7 +20,7 @@ clean:
 
 # Necessary for publishing purposes
 add_cname:
-	echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
+	#echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
 
 # Build the site using Emacs
 build: runPy

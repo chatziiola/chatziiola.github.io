@@ -20,30 +20,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0d65874">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
-<li><a href="#org27829e2">Introduction</a></li>
-<li><a href="#orgc064cee">Building the script</a>
+<li><a href="#org04b1326">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
+<li><a href="#org5eed0a6">Introduction</a></li>
+<li><a href="#org17ad920">Building the script</a>
 <ul>
-<li><a href="#orgcacc5cb">Dealing with too many org files</a></li>
-<li><a href="#org265ce56">Getting the titles</a></li>
-<li><a href="#org7b313b6">Presenting Them To The User</a></li>
-<li><a href="#orgcca740d">Integrating rougier&rsquo;s scripts</a>
+<li><a href="#org2ee8021">Dealing with too many org files</a></li>
+<li><a href="#orgd0f1b66">Getting the titles</a></li>
+<li><a href="#org66dcef8">Presenting Them To The User</a></li>
+<li><a href="#org74cc4b4">Integrating rougier&rsquo;s scripts</a>
 <ul>
-<li><a href="#org2326027">@rougier functions</a></li>
-<li><a href="#org87d6008">Merging them with our funcs</a></li>
+<li><a href="#orga3e5430">@rougier functions</a></li>
+<li><a href="#org19cf5b5">Merging them with our funcs</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org996da0d">Making it usable</a></li>
-<li><a href="#org8cd632b">Summing Up ( some extra details )</a></li>
+<li><a href="#org5e11b45">Making it usable</a></li>
+<li><a href="#org4b47560">Summing Up ( some extra details )</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org0d65874" class="outline-2">
-<h2 id="org0d65874"><a href="#org0d65874">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
-<div class="outline-text-2" id="text-org0d65874">
+<div id="outline-container-org04b1326" class="outline-2">
+<h2 id="org04b1326"><a href="#org04b1326">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
+<div class="outline-text-2" id="text-org04b1326">
 <p>
 This is all completely unnecessary. It turns out that you can practically
 achieve the same functionality with <code>imenu-list</code>, without it being so slow.
@@ -51,9 +51,9 @@ achieve the same functionality with <code>imenu-list</code>, without it being so
 </div>
 </div>
 
-<div id="outline-container-org27829e2" class="outline-2">
-<h2 id="org27829e2"><a href="#org27829e2">Introduction</a></h2>
-<div class="outline-text-2" id="text-org27829e2">
+<div id="outline-container-org5eed0a6" class="outline-2">
+<h2 id="org5eed0a6"><a href="#org5eed0a6">Introduction</a></h2>
+<div class="outline-text-2" id="text-org5eed0a6">
 <p>
 I manage my dotfiles using GNU Stow. This means that I have a git directory
 <a href="../../">dotfiles</a>, which contains the configuration files for the applications I have
@@ -68,9 +68,9 @@ in the past couple days
 </div>
 </div>
 
-<div id="outline-container-orgc064cee" class="outline-2">
-<h2 id="orgc064cee"><a href="#orgc064cee">Building the script</a></h2>
-<div class="outline-text-2" id="text-orgc064cee">
+<div id="outline-container-org17ad920" class="outline-2">
+<h2 id="org17ad920"><a href="#org17ad920">Building the script</a></h2>
+<div class="outline-text-2" id="text-org17ad920">
 <p>
 The following folder hierarchy shows part of the general dotfiles problem:
 </p>
@@ -132,9 +132,9 @@ want to recursively search our directory for <code>.org</code> files.
 </div>
 </div>
 
-<div id="outline-container-orgcacc5cb" class="outline-3">
-<h3 id="orgcacc5cb"><a href="#orgcacc5cb">Dealing with too many org files</a></h3>
-<div class="outline-text-3" id="text-orgcacc5cb">
+<div id="outline-container-org2ee8021" class="outline-3">
+<h3 id="org2ee8021"><a href="#org2ee8021">Dealing with too many org files</a></h3>
+<div class="outline-text-3" id="text-org2ee8021">
 <p>
 A problem arises: Too many files within the emacs directory, almost all of which
 from the <code>straight</code> subdirectory <i>(this is what hapenned to me, it may be different
@@ -171,9 +171,9 @@ their &ldquo;TITLE&rdquo; property
 </div>
 </div>
 
-<div id="outline-container-org265ce56" class="outline-3">
-<h3 id="org265ce56"><a href="#org265ce56">Getting the titles</a></h3>
-<div class="outline-text-3" id="text-org265ce56">
+<div id="outline-container-orgd0f1b66" class="outline-3">
+<h3 id="orgd0f1b66"><a href="#orgd0f1b66">Getting the titles</a></h3>
+<div class="outline-text-3" id="text-orgd0f1b66">
 <p>
 Make sure that we get the title of our configuration files:
 </p>
@@ -187,8 +187,8 @@ Make sure that we get the title of our configuration files:
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org0879226"></a><a href="#org0879226">Complementary functions</a><br>
-<div class="outline-text-5" id="text-org0879226">
+<li><a id="org9d15924"></a><a href="#org9d15924">Complementary functions</a><br>
+<div class="outline-text-5" id="text-org9d15924">
 <p>
 These functions were found online (albeit the second one has been changed) when
 I was building my lecture notetaking scripts
@@ -226,9 +226,9 @@ I was building my lecture notetaking scripts
 </ul>
 </div>
 
-<div id="outline-container-org7b313b6" class="outline-3">
-<h3 id="org7b313b6"><a href="#org7b313b6">Presenting Them To The User</a></h3>
-<div class="outline-text-3" id="text-org7b313b6">
+<div id="outline-container-org66dcef8" class="outline-3">
+<h3 id="org66dcef8"><a href="#org66dcef8">Presenting Them To The User</a></h3>
+<div class="outline-text-3" id="text-org66dcef8">
 <p>
 Create a dictionary in the form of <code>"TITLE":"FILE"</code>:
 </p>
@@ -280,9 +280,9 @@ Script building is over: Just open the file
 </div>
 </div>
 
-<div id="outline-container-orgcca740d" class="outline-3">
-<h3 id="orgcca740d"><a href="#orgcca740d">Integrating rougier&rsquo;s scripts</a></h3>
-<div class="outline-text-3" id="text-orgcca740d">
+<div id="outline-container-org74cc4b4" class="outline-3">
+<h3 id="org74cc4b4"><a href="#org74cc4b4">Integrating rougier&rsquo;s scripts</a></h3>
+<div class="outline-text-3" id="text-org74cc4b4">
 <p>
 With the steps above with have achieved a <i>basic level</i> of ease when dealing with
 dotfiles. What is missing?
@@ -294,9 +294,9 @@ dotfiles. What is missing?
 </ol>
 </div>
 
-<div id="outline-container-org2326027" class="outline-4">
-<h4 id="org2326027"><a href="#org2326027">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
-<div class="outline-text-4" id="text-org2326027">
+<div id="outline-container-orga3e5430" class="outline-4">
+<h4 id="orga3e5430"><a href="#orga3e5430">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
+<div class="outline-text-4" id="text-orga3e5430">
 <p>
 <code>rougier</code> implemented these wonderful functions ( that inspired me to work on
 this ):
@@ -315,7 +315,7 @@ this ):
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgd6709a7">
+<pre class="src src-elisp" id="orgd181ae2">
 (require 'imenu)
 (require 'imenu-list)
 
@@ -377,9 +377,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </p>
 </div>
 </div>
-<div id="outline-container-org87d6008" class="outline-4">
-<h4 id="org87d6008"><a href="#org87d6008">Merging them with our funcs</a></h4>
-<div class="outline-text-4" id="text-org87d6008">
+<div id="outline-container-org19cf5b5" class="outline-4">
+<h4 id="org19cf5b5"><a href="#org19cf5b5">Merging them with our funcs</a></h4>
+<div class="outline-text-4" id="text-org19cf5b5">
 <div class="org-src-container">
 <pre class="src src-elisp">(setq chatziiola/dot-dir "~/dotfiles/")
 
@@ -405,9 +405,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </div>
 </div>
 
-<div id="outline-container-org996da0d" class="outline-2">
-<h2 id="org996da0d"><a href="#org996da0d">Making it usable</a></h2>
-<div class="outline-text-2" id="text-org996da0d">
+<div id="outline-container-org5e11b45" class="outline-2">
+<h2 id="org5e11b45"><a href="#org5e11b45">Making it usable</a></h2>
+<div class="outline-text-2" id="text-org5e11b45">
 <p>
 Autoload the configuration function ( so that it is always available ), <i>stolen</i>
 from <code>rougier</code>, once again.
@@ -432,9 +432,9 @@ from <code>rougier</code>, once again.
 </div>
 
 
-<div id="outline-container-org8cd632b" class="outline-2">
-<h2 id="org8cd632b"><a href="#org8cd632b">Summing Up ( some extra details )</a></h2>
-<div class="outline-text-2" id="text-org8cd632b">
+<div id="outline-container-org4b47560" class="outline-2">
+<h2 id="org4b47560"><a href="#org4b47560">Summing Up ( some extra details )</a></h2>
+<div class="outline-text-2" id="text-org4b47560">
 <p>
 This article took for granted that one has some prior experience with org mode,
 though I understand that this is not always the case. To gain advantage of the

