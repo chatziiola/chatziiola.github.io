@@ -1,28 +1,40 @@
-#+TITLE: Tidying up our blog
+#+TITLE: Tidying up the blog
 #+DATE: <2024-07-09 13:57>
 #+DESCRIPTION: 
 
 * Introduction
 When I first started using ~org-download~ to have pictures within my
 posts, I had not exactly configured it properly, resulting in numerous
-subdirectories that I was not happy with[fn:1]:
+subdirectories that I was not happy with:
 
 #+label:Look-at-all-those-image-directories
 #+caption: Look at all those image directories
 [[file:images/Introduction/20240709_140235_screenshot.png]]
 
-Moving on want that mess hidden within ~images/~: The main directory
+Moving on, I want that mess hidden within ~images/~: The main directory
 should be cleaner.
+
+#+NAME: TLDR
+#+begin_note
+TLDR: Even though this post started as a form of documentation to the
+code I was writing, in order to tackle it quickly, I foolishly avoided
+taking this kind of notes. This post, therefore, is rather
+incomplete - I will fix it when I find myself in need to improve ~morg~
+:P.
+#+end_note
+
 
 * The plan
 The plan here is to freshen up my python skills whilst creating a
 script to:
+
 1. *Move ~org~ files and their related images to another directory* (this
    is classic maintenance, avoiding to manually move my articles-turned-drafts)
 2. *Move a folder containing images inside of images/*, whilst updating
    whatever links pointing to those images. If images with no links
    are found they are printed for manual removal.
 
+** Subtasks
 Covering the creation process of our tool, the article shows how to:
 1. Develop a python function to check for links in org files pointing
    to images
@@ -100,9 +112,9 @@ I have published this script in [[https://github.com/chatziiola/morg][chatziiola
 please refer to that version since mistakes are surely made and they
 might have already been found.
 
-* Footnotes
-
-[fn:1] There will come a time (maybe) when after spending somem ore
-time on these ~org-download~ will do an even better job, but till then,
-I am happy to just "hide" the clutter of images inside an ~images~
-directory.
+** Yet Another Note 
+There will come a time (maybe) when after spending some more time on
+these that I will do an even better job, preferably fixing my
+~org-download~ configuration in a way that will render this relatively
+useless, but till then, I am happy to just "hide" the clutter of
+images inside an ~images~ directory.

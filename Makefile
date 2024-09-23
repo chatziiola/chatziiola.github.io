@@ -41,5 +41,5 @@ publish:
 	git push gh 
 # Build the site locally
 
-local: build copy_static add_cname serve_local 
+local: build copy_static serve_local 
 

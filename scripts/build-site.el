@@ -13,6 +13,7 @@
 (require 'ox-publish)
 (require 'ox-html)
 (require 'cl-extra)
+(load (expand-file-name "htmlize.el" (file-name-directory load-file-name)))
 
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
