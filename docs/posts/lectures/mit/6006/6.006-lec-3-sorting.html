@@ -51,28 +51,28 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org12fbc84">Lecture details:</a></li>
-<li><a href="#org7ed439c">The set interface</a></li>
-<li><a href="#org38d785a">Understanding and implementing</a>
+<li><a href="#org7d689c9">Lecture details:</a></li>
+<li><a href="#org43bf55b">The set interface</a></li>
+<li><a href="#orgebf69fb">Understanding and implementing</a>
 <ul>
-<li><a href="#org0ce4495">Using an unordered array</a></li>
-<li><a href="#orga0a0bdc">Using an sorted array</a></li>
+<li><a href="#org3770e73">Using an unordered array</a></li>
+<li><a href="#org97460cf">Using an sorted array</a></li>
 </ul>
 </li>
-<li><a href="#org92d2d7b">Sorting</a>
+<li><a href="#org73d79ec">Sorting</a>
 <ul>
-<li><a href="#orgb0b8807">Basic vocabulary</a>
+<li><a href="#org5237990">Basic vocabulary</a>
 <ul>
-<li><a href="#org88b9c64">Destructive</a></li>
-<li><a href="#org455ffc8">In place</a></li>
+<li><a href="#org9dafe04">Destructive</a></li>
+<li><a href="#orgd3b4e0e">In place</a></li>
 </ul>
 </li>
-<li><a href="#org6bfa5f3">Algorithms</a>
+<li><a href="#org9c29ebb">Algorithms</a>
 <ul>
-<li><a href="#org9066c79">Permutation sort</a></li>
-<li><a href="#org4d1d648">Selection sort</a></li>
-<li><a href="#orgf56ca45">Insertion sort</a></li>
-<li><a href="#orgbc5e800">Merge sort</a></li>
+<li><a href="#org2a62e71">Permutation sort</a></li>
+<li><a href="#org963e1f3">Selection sort</a></li>
+<li><a href="#orgaa688d1">Insertion sort</a></li>
+<li><a href="#org5517e2a">Merge sort</a></li>
 </ul>
 </li>
 </ul>
@@ -81,9 +81,9 @@
 </div>
 </div>
 
-<div id="outline-container-org12fbc84" class="outline-2">
-<h2 id="org12fbc84"><a href="#org12fbc84">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org12fbc84">
+<div id="outline-container-org7d689c9" class="outline-2">
+<h2 id="org7d689c9"><a href="#org7d689c9">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org7d689c9">
 <ul class="org-ul">
 <li>Instructor: Justin Solomon</li>
 <li>Link: <a href="https://www.youtube.com/watch?v=oS9aPzUNG-s&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=4">YouTube Lecture</a></li>
@@ -97,9 +97,9 @@ Java, all the code snippets here will be written in Java.
 </div>
 </div>
 
-<div id="outline-container-org7ed439c" class="outline-2">
-<h2 id="org7ed439c"><a href="#org7ed439c">The set interface</a></h2>
-<div class="outline-text-2" id="text-org7ed439c">
+<div id="outline-container-org43bf55b" class="outline-2">
+<h2 id="org43bf55b"><a href="#org43bf55b">The set interface</a></h2>
+<div class="outline-text-2" id="text-org43bf55b">
 <p>
 Our interface is a container, hosting items and associating them with key
 values. The functions that we want the set implementation to perform are:
@@ -127,17 +127,17 @@ next or previous respectively</li>
 </div>
 </div>
 
-<div id="outline-container-org38d785a" class="outline-2">
-<h2 id="org38d785a"><a href="#org38d785a">Understanding and implementing</a></h2>
-<div class="outline-text-2" id="text-org38d785a">
+<div id="outline-container-orgebf69fb" class="outline-2">
+<h2 id="orgebf69fb"><a href="#orgebf69fb">Understanding and implementing</a></h2>
+<div class="outline-text-2" id="text-orgebf69fb">
 <p>
 Now that we have outlined the set interface, let&rsquo;s check possible implementations
 </p>
 </div>
 
-<div id="outline-container-org0ce4495" class="outline-3">
-<h3 id="org0ce4495"><a href="#org0ce4495">Using an unordered array</a></h3>
-<div class="outline-text-3" id="text-org0ce4495">
+<div id="outline-container-org3770e73" class="outline-3">
+<h3 id="org3770e73"><a href="#org3770e73">Using an unordered array</a></h3>
+<div class="outline-text-3" id="text-org3770e73">
 <p>
 This is a <i>generally</i> poorly functioning implementation of the set ADT.
 </p>
@@ -209,9 +209,9 @@ costly.
 </div>
 </div>
 
-<div id="outline-container-orga0a0bdc" class="outline-3">
-<h3 id="orga0a0bdc"><a href="#orga0a0bdc">Using an sorted array</a></h3>
-<div class="outline-text-3" id="text-orga0a0bdc">
+<div id="outline-container-org97460cf" class="outline-3">
+<h3 id="org97460cf"><a href="#org97460cf">Using an sorted array</a></h3>
+<div class="outline-text-3" id="text-org97460cf">
 <table>
 
 
@@ -250,22 +250,22 @@ binary search to find the desired key reducing the <code>find(k)</code> complexi
 </div>
 </div>
 
-<div id="outline-container-org92d2d7b" class="outline-2">
-<h2 id="org92d2d7b"><a href="#org92d2d7b">Sorting</a></h2>
-<div class="outline-text-2" id="text-org92d2d7b">
+<div id="outline-container-org73d79ec" class="outline-2">
+<h2 id="org73d79ec"><a href="#org73d79ec">Sorting</a></h2>
+<div class="outline-text-2" id="text-org73d79ec">
 <p>
 In order to have a sorted array, we need to study which algorithms will give us
 one:
 </p>
 </div>
 
-<div id="outline-container-orgb0b8807" class="outline-3">
-<h3 id="orgb0b8807"><a href="#orgb0b8807">Basic vocabulary</a></h3>
-<div class="outline-text-3" id="text-orgb0b8807">
+<div id="outline-container-org5237990" class="outline-3">
+<h3 id="org5237990"><a href="#org5237990">Basic vocabulary</a></h3>
+<div class="outline-text-3" id="text-org5237990">
 </div>
-<div id="outline-container-org88b9c64" class="outline-4">
-<h4 id="org88b9c64"><a href="#org88b9c64">Destructive</a></h4>
-<div class="outline-text-4" id="text-org88b9c64">
+<div id="outline-container-org9dafe04" class="outline-4">
+<h4 id="org9dafe04"><a href="#org9dafe04">Destructive</a></h4>
+<div class="outline-text-4" id="text-org9dafe04">
 <p>
 An algorithm is called destructive when it operates on the input array. More
 specifically, it <i>destroys</i> the input unsorted array, overwriting it with its
@@ -273,9 +273,9 @@ sorted version
 </p>
 </div>
 </div>
-<div id="outline-container-org455ffc8" class="outline-4">
-<h4 id="org455ffc8"><a href="#org455ffc8">In place</a></h4>
-<div class="outline-text-4" id="text-org455ffc8">
+<div id="outline-container-orgd3b4e0e" class="outline-4">
+<h4 id="orgd3b4e0e"><a href="#orgd3b4e0e">In place</a></h4>
+<div class="outline-text-4" id="text-orgd3b4e0e">
 <p>
 An algorith is called <span class="underline">in place</span> when, being a destructive algorithm, it uses
 constant extra space in memory (\(O(1)\)).
@@ -284,13 +284,13 @@ constant extra space in memory (\(O(1)\)).
 </div>
 </div>
 
-<div id="outline-container-org6bfa5f3" class="outline-3">
-<h3 id="org6bfa5f3"><a href="#org6bfa5f3">Algorithms</a></h3>
-<div class="outline-text-3" id="text-org6bfa5f3">
+<div id="outline-container-org9c29ebb" class="outline-3">
+<h3 id="org9c29ebb"><a href="#org9c29ebb">Algorithms</a></h3>
+<div class="outline-text-3" id="text-org9c29ebb">
 </div>
-<div id="outline-container-org9066c79" class="outline-4">
-<h4 id="org9066c79"><a href="#org9066c79">Permutation sort</a></h4>
-<div class="outline-text-4" id="text-org9066c79">
+<div id="outline-container-org2a62e71" class="outline-4">
+<h4 id="org2a62e71"><a href="#org2a62e71">Permutation sort</a></h4>
+<div class="outline-text-4" id="text-org2a62e71">
 <p>
 <i>Analysis</i>:  We have \(\Omega(n!n)\)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
 </p>
@@ -302,9 +302,9 @@ constant extra space in memory (\(O(1)\)).
 </div>
 
 
-<div id="outline-container-org4d1d648" class="outline-4">
-<h4 id="org4d1d648"><a href="#org4d1d648">Selection sort</a></h4>
-<div class="outline-text-4" id="text-org4d1d648">
+<div id="outline-container-org963e1f3" class="outline-4">
+<h4 id="org963e1f3"><a href="#org963e1f3">Selection sort</a></h4>
+<div class="outline-text-4" id="text-org963e1f3">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -327,26 +327,26 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgc901c78"></a><a href="#orgc901c78">Recursive</a><br>
-<div class="outline-text-5" id="text-orgc901c78">
+<li><a id="org3d40790"></a><a href="#org3d40790">Recursive</a><br>
+<div class="outline-text-5" id="text-org3d40790">
 <div class="org-src-container">
-<pre class="src src-java">void selectionSort(int[] myArray, int lastItem)
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">selectionSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>, <span class="org-type">int</span> <span class="org-variable-name">lastItem</span>)
 {
-    // Initialize the largestInd to the first entry
-    // because it can only be it, or one of the following entries
-    int largestInd = 0;
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Initialize the largestInd to the first entry</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">because it can only be it, or one of the following entries</span>
+    <span class="org-type">int</span> <span class="org-variable-name">largestInd</span> = 0;
 
-    // Find the largest
-    for ( int i = 1; i &lt; lastItem; i++ )
-       if ( myArray[i] &gt; myArray[largestInd] )
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Find the largest</span>
+    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; <span class="org-type">lastItem</span>; i++ )
+       <span class="org-keyword">if</span> ( myArray[i] &gt; myArray[largestInd] )
             largestInd = i;
 
-    // Perform the swap
-    int temp = myArray[lastItem];
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Perform the swap</span>
+    <span class="org-type">int</span> <span class="org-variable-name">temp</span> = myArray[lastItem];
     myArray[lastItem] = myArray[largestInd];
     myArray[largestInd] = temp;
 
-    // At this point every element after the ith element is sorted
+    <span class="org-comment-delimiter">// </span><span class="org-comment">At this point every element after the ith element is sorted</span>
     selectionSort(myArray, lastItem-1)
 }
 </pre>
@@ -355,27 +355,27 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </li>
 
 
-<li><a id="org2a7c48d"></a><a href="#org2a7c48d">Simple Implementation</a><br>
-<div class="outline-text-5" id="text-org2a7c48d">
+<li><a id="org48ed1ee"></a><a href="#org48ed1ee">Simple Implementation</a><br>
+<div class="outline-text-5" id="text-org48ed1ee">
 <div class="org-src-container">
-<pre class="src src-java">void selectionSort(int[] myArray)
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">selectionSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
-    // Declare it here so that we do not initialize n temporary variables
-    int largestInd;
-    // Reduce the size of the unsorted array by one with each repetition
-    // The unsorted array at any given moment in time is 1-lastItem
-    for ( int lastItem = myArray.length; lastItem &gt; 0; lastItem-- )
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Declare it here so that we do not initialize n temporary variables</span>
+    <span class="org-type">int</span> <span class="org-variable-name">largestInd</span>;
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Reduce the size of the unsorted array by one with each repetition</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">The unsorted array at any given moment in time is 1-lastItem</span>
+    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">lastItem</span> = myArray.length; lastItem &gt; 0; lastItem-- )
     {
-        // Initialize the largestInd to the first entry
-        // because it can only be it, or one of the following entries
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Initialize the largestInd to the first entry</span>
+        <span class="org-comment-delimiter">// </span><span class="org-comment">because it can only be it, or one of the following entries</span>
         largestInd = 0;
 
-        // Find the largest
-        for ( int i = 1; i &lt; lastItem; i++ )
-        if ( myArray[i] &gt; myArray[largestInd] )
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Find the largest</span>
+        <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; <span class="org-type">lastItem</span>; i++ )
+        <span class="org-keyword">if</span> ( myArray[i] &gt; myArray[largestInd] )
                 largestInd = i;
-        // Perform the swap
-        int temp = myArray[lastItem];
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Perform the swap</span>
+        <span class="org-type">int</span> <span class="org-variable-name">temp</span> = myArray[lastItem];
         myArray[lastItem] = myArray[largestInd];
         myArray[largestInd] = temp;
     }
@@ -388,9 +388,9 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </div>
 
 
-<div id="outline-container-orgf56ca45" class="outline-4">
-<h4 id="orgf56ca45"><a href="#orgf56ca45">Insertion sort</a></h4>
-<div class="outline-text-4" id="text-orgf56ca45">
+<div id="outline-container-orgaa688d1" class="outline-4">
+<h4 id="orgaa688d1"><a href="#orgaa688d1">Insertion sort</a></h4>
+<div class="outline-text-4" id="text-orgaa688d1">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -410,27 +410,27 @@ it, swapping every element larger than it.
 <li></li>
 </ol>
 <div class="org-src-container">
-<pre class="src src-java">void insertionSort(int[] myArray)
+<pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">insertionSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
-    // Memory usage optimization
-    int temp;
-    // Increase the sorted array size by one for each iteration
-    for ( int i = 1; i &lt; myArray.length; i++ )
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Memory usage optimization</span>
+    <span class="org-type">int</span> <span class="org-variable-name">temp</span>;
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Increase the sorted array size by one for each iteration</span>
+    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; myArray.<span class="org-type">length</span>; i++ )
     {
-        // For every element in the 1-i subarray
-        for ( int l = i; l &gt; 0; l-- )
+        <span class="org-comment-delimiter">// </span><span class="org-comment">For every element in the 1-i subarray</span>
+        <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">l</span> = i; l &gt; 0; l-- )
         {
-            // Swap them if in wrong order
-            if ( myArray[l] &lt; myArray[l-1] )
+            <span class="org-comment-delimiter">// </span><span class="org-comment">Swap them if in wrong order</span>
+            <span class="org-keyword">if</span> ( myArray[l] &lt; myArray[l-1] )
             {
                 temp = myArray[l];
                 myArray[l] = myArray[l-1];
                 myArray[l-1] = temp;
             }
-            else
-                // Because the array is sorted, no need to continue
-                // till index 1
-                break;
+            <span class="org-keyword">else</span>
+                <span class="org-comment-delimiter">// </span><span class="org-comment">Because the array is sorted, no need to continue</span>
+                <span class="org-comment-delimiter">// </span><span class="org-comment">till index 1</span>
+                <span class="org-keyword">break</span>;
         }
     }
 }
@@ -440,9 +440,9 @@ it, swapping every element larger than it.
 </div>
 
 
-<div id="outline-container-orgbc5e800" class="outline-4">
-<h4 id="orgbc5e800"><a href="#orgbc5e800">Merge sort</a></h4>
-<div class="outline-text-4" id="text-orgbc5e800">
+<div id="outline-container-org5517e2a" class="outline-4">
+<h4 id="org5517e2a"><a href="#org5517e2a">Merge sort</a></h4>
+<div class="outline-text-4" id="text-org5517e2a">
 <p>
 <i>Analysis</i>: \(O(n\lg{n})\)
 </p>
@@ -456,58 +456,58 @@ size of the array
 </div>
 
 <ul class="org-ul">
-<li><a id="orgdd7fc4d"></a><a href="#orgdd7fc4d">Implementation</a><br>
-<div class="outline-text-5" id="text-orgdd7fc4d">
+<li><a id="org3fb2bb6"></a><a href="#org3fb2bb6">Implementation</a><br>
+<div class="outline-text-5" id="text-org3fb2bb6">
 <div class="org-src-container">
-<pre class="src src-java">static void mergeSort(int[] myArray)
+<pre class="src src-java"><span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">mergeSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
     mergeSort(0,myArray.length,myArray);
 }
 
-static void mergeSort(int startIndex, int lastIndex, int[] myArray)
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">mergeSort</span>(<span class="org-type">int</span> <span class="org-variable-name">startIndex</span>, <span class="org-type">int</span> <span class="org-variable-name">lastIndex</span>, <span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
 
-    // Only if there are more than 1 elements can the array be unsorted, otherwise it is
-    // by default, sorted
-    if ( lastIndex - startIndex &gt; 1 )
+    <span class="org-comment-delimiter">// </span><span class="org-comment">Only if there are more than 1 elements can the array be unsorted, otherwise it is</span>
+    <span class="org-comment-delimiter">// </span><span class="org-comment">by default, sorted</span>
+    <span class="org-keyword">if</span> ( lastIndex - startIndex &gt; 1 )
     {
-        int middleIndex = ( lastIndex + 1 + startIndex ) / 2;
-        // Sort the first half of the subarray
+        <span class="org-type">int</span> <span class="org-variable-name">middleIndex</span> = ( lastIndex + 1 + startIndex ) / 2;
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Sort the first half of the subarray</span>
         mergeSort(startIndex, middleIndex, myArray);
-        // Sort the second half of the subarray
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Sort the second half of the subarray</span>
         mergeSort(middleIndex, lastIndex, myArray);
-        // Merge sub arrays
-        int A[] = Arrays.copyOfRange(myArray,startIndex,middleIndex);
-        int B[] = Arrays.copyOfRange(myArray,middleIndex,lastIndex);
+        <span class="org-comment-delimiter">// </span><span class="org-comment">Merge sub arrays</span>
+        <span class="org-type">int</span> <span class="org-variable-name">A</span>[] = Arrays.copyOfRange(myArray,startIndex,middleIndex);
+        <span class="org-type">int</span> <span class="org-variable-name">B</span>[] = Arrays.copyOfRange(myArray,middleIndex,lastIndex);
         merge(A,B,myArray, startIndex, lastIndex);
     }
 }
 
-static void merge (int[] firstSubArray, int[] secondSubArray, int[] myArray, int startIndex, int lastIndex)
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">merge</span> (<span class="org-type">int</span>[] <span class="org-variable-name">firstSubArray</span>, <span class="org-type">int</span>[] <span class="org-variable-name">secondSubArray</span>, <span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>, <span class="org-type">int</span> <span class="org-variable-name">startIndex</span>, <span class="org-type">int</span> <span class="org-variable-name">lastIndex</span>)
 {
-    int pointA = firstSubArray.length-1;
-    int pointB = secondSubArray.length-1;
-    int temp = lastIndex;
-    while ( pointA &gt;= 0 || pointB &gt;= 0 )
+    <span class="org-type">int</span> <span class="org-variable-name">pointA</span> = firstSubArray.length-1;
+    <span class="org-type">int</span> <span class="org-variable-name">pointB</span> = secondSubArray.length-1;
+    <span class="org-type">int</span> <span class="org-variable-name">temp</span> = lastIndex;
+    <span class="org-keyword">while</span> ( pointA &gt;= 0 || pointB &gt;= 0 )
     {
-        if ( pointB &lt; 0 || (pointA &gt;= 0 &amp;&amp; firstSubArray[pointA] &gt; secondSubArray[pointB] ))
+        <span class="org-keyword">if</span> ( pointB &lt; 0 || (pointA &gt;= 0 &amp;&amp; firstSubArray[pointA] &gt; secondSubArray[pointB] ))
             myArray[--lastIndex] = firstSubArray[pointA--];
-        else
+        <span class="org-keyword">else</span>
             myArray[--lastIndex] = secondSubArray[pointB--];
     }
     printArray(myArray, startIndex, temp);
 }
 
-static void printArray ( int[] myArray )
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">printArray</span> ( <span class="org-type">int</span>[] <span class="org-variable-name">myArray</span> )
 {
     printArray(myArray,0, myArray.length);
 }
-static void printArray ( int[] myArray, int start, int end )
+<span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">printArray</span> ( <span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>, <span class="org-type">int</span> <span class="org-variable-name">start</span>, <span class="org-type">int</span> <span class="org-variable-name">end</span> )
 {
-    System.out.printf("Start: %d, End: %d\n", start,end);
-    while ( start &lt; end )
-        System.out.printf("%d ", myArray[start++]);
-    System.out.println("");
+    System.out.printf(<span class="org-string">"Start: %d, End: %d\n"</span>, start,end);
+    <span class="org-keyword">while</span> ( start &lt; <span class="org-type">end</span> )
+        System.out.printf(<span class="org-string">"%d "</span>, myArray[start++]);
+    System.out.println(<span class="org-string">""</span>);
 }
 </pre>
 </div>

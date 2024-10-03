@@ -20,24 +20,24 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge2d281a">Introduction</a></li>
-<li><a href="#org69df2fc">The story</a></li>
-<li><a href="#org8b80540">The Doombringer</a></li>
-<li><a href="#org850b316">Understanding my mistake</a></li>
-<li><a href="#orgb859af2">Implementing solutions</a>
+<li><a href="#org8afb084">Introduction</a></li>
+<li><a href="#org73e4081">The story</a></li>
+<li><a href="#org91db991">The Doombringer</a></li>
+<li><a href="#org42100cb">Understanding my mistake</a></li>
+<li><a href="#org535eef7">Implementing solutions</a>
 <ul>
-<li><a href="#orgd560dfa">Impossible filename approach</a></li>
-<li><a href="#org4698c92">Check for file approach</a></li>
-<li><a href="#org6bc21f0">Selecting the proper one</a></li>
+<li><a href="#org480f795">Impossible filename approach</a></li>
+<li><a href="#org4bf6256">Check for file approach</a></li>
+<li><a href="#org4680911">Selecting the proper one</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orge2d281a" class="outline-2">
-<h2 id="orge2d281a"><a href="#orge2d281a">Introduction</a></h2>
-<div class="outline-text-2" id="text-orge2d281a">
+<div id="outline-container-org8afb084" class="outline-2">
+<h2 id="org8afb084"><a href="#org8afb084">Introduction</a></h2>
+<div class="outline-text-2" id="text-org8afb084">
 <p>
 For a while now I use my own implementation of a <i>notetaking</i> system to quickly
 and efficiently create lecture notes, ready to be published, exported and
@@ -62,10 +62,10 @@ And today it failed again.
 </div>
 </div>
 
-<div id="outline-container-org69df2fc" class="outline-2">
-<h2 id="org69df2fc"><a href="#org69df2fc">The story</a></h2>
-<div class="outline-text-2" id="text-org69df2fc">
-<div class="note" id="orgdd01273">
+<div id="outline-container-org73e4081" class="outline-2">
+<h2 id="org73e4081"><a href="#org73e4081">The story</a></h2>
+<div class="outline-text-2" id="text-org73e4081">
+<div class="note" id="org81b252f">
 <p>
 While writing the draft for this article I realized that this might have never
 happened if I had published my configuration earlier. Anyone seeing the code
@@ -114,16 +114,16 @@ And that is when I saw how naive I was when I wrote this little part of the code
 </div>
 </div>
 
-<div id="outline-container-org8b80540" class="outline-2">
-<h2 id="org8b80540"><a href="#org8b80540">The Doombringer</a></h2>
-<div class="outline-text-2" id="text-org8b80540">
+<div id="outline-container-org91db991" class="outline-2">
+<h2 id="org91db991"><a href="#org91db991">The Doombringer</a></h2>
+<div class="outline-text-2" id="text-org91db991">
 <p>
 This is the function that I had originally created (and used till this day)
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">(defun chatziiola/set-lectures-filename(course)
-  "Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org"
-  (concat "lec_" course  "_" (format-time-string "%Y%m%d"(current-time)) ".org"))
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org"</span>
+  (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d"</span>(current-time)) <span class="org-string">".org"</span>))
 </pre>
 </div>
 
@@ -145,9 +145,9 @@ assume&#x2026; a lot of things.
 </div>
 </div>
 
-<div id="outline-container-org850b316" class="outline-2">
-<h2 id="org850b316"><a href="#org850b316">Understanding my mistake</a></h2>
-<div class="outline-text-2" id="text-org850b316">
+<div id="outline-container-org42100cb" class="outline-2">
+<h2 id="org42100cb"><a href="#org42100cb">Understanding my mistake</a></h2>
+<div class="outline-text-2" id="text-org42100cb">
 <p>
 Back when I created this function I hoped my files would get named like that :
  <code>lec_course_lecnumber_title.org</code>.
@@ -170,7 +170,7 @@ my lecture files are plain-text even a simple bash snippet such as this one
 could do the job:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash">for i in lec_SSD*; do echo $i; head -10 $i | grep 'TITLE'; done 
+<pre class="src src-bash"><span class="org-keyword">for</span> i<span class="org-keyword"> in</span> lec_SSD*; <span class="org-keyword">do </span><span class="org-builtin">echo</span> $<span class="org-variable-name">i</span>; head -10 $<span class="org-variable-name">i</span> | grep <span class="org-string">'TITLE'</span>; <span class="org-keyword">done</span> 
 </pre>
 </div>
 
@@ -181,7 +181,7 @@ the file title to separate lecture files it from each other. After all, I wanted
 to keep it minimal.
 </p>
 
-<div class="note" id="orgd2c079d">
+<div class="note" id="org3dd74e5">
 <p>
 <b>Free tip:</b> When you reach a point, even in scripts as simple as my notetaking
 ones, where you can spend 5 minutes implementing a check, please do it, no
@@ -200,58 +200,58 @@ the file exists.
 </div>
 </div>
 
-<div id="outline-container-orgb859af2" class="outline-2">
-<h2 id="orgb859af2"><a href="#orgb859af2">Implementing solutions</a></h2>
-<div class="outline-text-2" id="text-orgb859af2">
+<div id="outline-container-org535eef7" class="outline-2">
+<h2 id="org535eef7"><a href="#org535eef7">Implementing solutions</a></h2>
+<div class="outline-text-2" id="text-org535eef7">
 </div>
-<div id="outline-container-orgd560dfa" class="outline-3">
-<h3 id="orgd560dfa"><a href="#orgd560dfa">Impossible filename approach</a></h3>
-<div class="outline-text-3" id="text-orgd560dfa">
+<div id="outline-container-org480f795" class="outline-3">
+<h3 id="org480f795"><a href="#org480f795">Impossible filename approach</a></h3>
+<div class="outline-text-3" id="text-org480f795">
 <p>
 Extremely safe yet against my <i>simple-filenames</i> policy (keeping filenames as
 simple and organized as possible to reduce visual clutter when manually visiting
 these dirs)
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp">(defun chatziiola/set-lectures-filename(course)
-  "Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "
-    ; This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not
-    ; start a second lecture for the same course on the same day without
-    ; overwriting the initial lecture
-    (concat "lec_" course  "_" (format-time-string "%Y%m%d_%H%M%S"(current-time)) ".org"))
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">start a second lecture for the same course on the same day without</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">overwriting the initial lecture</span>
+    (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d_%H%M%S"</span>(current-time)) <span class="org-string">".org"</span>))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org4698c92" class="outline-3">
-<h3 id="org4698c92"><a href="#org4698c92">Check for file approach</a></h3>
-<div class="outline-text-3" id="text-org4698c92">
+<div id="outline-container-org4bf6256" class="outline-3">
+<h3 id="org4bf6256"><a href="#org4bf6256">Check for file approach</a></h3>
+<div class="outline-text-3" id="text-org4bf6256">
 <div class="org-src-container">
-<pre class="src src-elisp">(defun chatziiola/set-lectures-filename(course)
-  "Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "
-    ; This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not
-    ; start a second lecture for the same course on the same day without
-    ; overwriting the initial lecture
-    (let* ((filename (concat "lec_" course  "_" (format-time-string "%Y%m%d"(current-time)) ".org"))
-            (lecpath (expand-file-name filename (expand-file-name (concat "course_" course) chatziiola/lectures-dir))))
-        ;; If the file already exists
-        (if (file-exists-p lecpath)
-            (setq-local filename (concat "lec_" course  "_" (format-time-string "%Y%m%d_%H%M%S"(current-time)) "_"
-            ;; I use or so that I can always press enter there :P
-                (or 
-                    (read-string "A lecture already existed with this filename. Enter complementary information (empty appends hourminutesecond): ")
-                    (format-time-string "%H%M%S"(current-time)))
-                ".org")))
+<pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
+  <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">This function was modified on &lt;2023-01-10 Tue&gt;, to fix a bug: I could not</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">start a second lecture for the same course on the same day without</span>
+    <span class="org-comment-delimiter">; </span><span class="org-comment">overwriting the initial lecture</span>
+    (<span class="org-keyword">let*</span> ((filename (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d"</span>(current-time)) <span class="org-string">".org"</span>))
+            (lecpath (expand-file-name filename (expand-file-name (concat <span class="org-string">"course_"</span> course) chatziiola/lectures-dir))))
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">If the file already exists</span>
+        (<span class="org-keyword">if</span> (file-exists-p lecpath)
+            (<span class="org-keyword">setq-local</span> filename (concat <span class="org-string">"lec_"</span> course  <span class="org-string">"_"</span> (format-time-string <span class="org-string">"%Y%m%d_%H%M%S"</span>(current-time)) <span class="org-string">"_"</span>
+            <span class="org-comment-delimiter">;; </span><span class="org-comment">I use or so that I can always press enter there :P</span>
+                (<span class="org-keyword">or</span> 
+                    (read-string <span class="org-string">"A lecture already existed with this filename. Enter complementary information (empty appends hourminutesecond): "</span>)
+                    (format-time-string <span class="org-string">"%H%M%S"</span>(current-time)))
+                <span class="org-string">".org"</span>)))
     filename))
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6bc21f0" class="outline-3">
-<h3 id="org6bc21f0"><a href="#org6bc21f0">Selecting the proper one</a></h3>
-<div class="outline-text-3" id="text-org6bc21f0">
+<div id="outline-container-org4680911" class="outline-3">
+<h3 id="org4680911"><a href="#org4680911">Selecting the proper one</a></h3>
+<div class="outline-text-3" id="text-org4680911">
 <p>
 I will keep the second one, mainly because of the fact that rarely will I need
 the extra information that exists on the filename.

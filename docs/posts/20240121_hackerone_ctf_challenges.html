@@ -19,18 +19,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd5bcb34">Introduction</a></li>
-<li><a href="#org2d5b961">Testing</a></li>
-<li><a href="#orgaddfec2">XSS</a></li>
-<li><a href="#org19abc4b">Getting access to the forbidden file</a></li>
-<li><a href="#org8c01765">Not-so-good SQLi</a></li>
+<li><a href="#org33a89ae">Introduction</a></li>
+<li><a href="#org15de99f">Testing</a></li>
+<li><a href="#orgd3a35f5">XSS</a></li>
+<li><a href="#org85abd25">Getting access to the forbidden file</a></li>
+<li><a href="#orgf0c94dc">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd5bcb34" class="outline-2">
-<h2 id="orgd5bcb34"><a href="#orgd5bcb34">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd5bcb34">
+<div id="outline-container-org33a89ae" class="outline-2">
+<h2 id="org33a89ae"><a href="#org33a89ae">Introduction</a></h2>
+<div class="outline-text-2" id="text-org33a89ae">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -57,9 +57,9 @@ have since completed.
 </div>
 </div>
 
-<div id="outline-container-org2d5b961" class="outline-2">
-<h2 id="org2d5b961"><a href="#org2d5b961">Testing</a></h2>
-<div class="outline-text-2" id="text-org2d5b961">
+<div id="outline-container-org15de99f" class="outline-2">
+<h2 id="org15de99f"><a href="#org15de99f">Testing</a></h2>
+<div class="outline-text-2" id="text-org15de99f">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -77,7 +77,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="org417349b">
+<div class="note" id="org96ac413">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -99,12 +99,12 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgd263ade"># Snippet to open all pages in my browser
-# Verdict: Inefficient and illogical, I only want to get the interesting pages
-import webbrowser
+<pre class="src src-python" id="org41224a0"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
+<span class="org-keyword">import</span> webbrowser
 
-for article in range(1,10):
-    webbrowser.open('placeholder-link' +str(article))
+<span class="org-keyword">for</span> article <span class="org-keyword">in</span> <span class="org-builtin">range</span>(1,10):
+    webbrowser.<span class="org-builtin">open</span>(<span class="org-string">'placeholder-link'</span> <span class="org-operator">+</span><span class="org-builtin">str</span>(article))
 
 </pre>
 </div>
@@ -114,32 +114,32 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="org8e1fde4"># Snippet to open all pages virtually in python, utilizing burp at the same time
-# Verdict: The way to go, quickly getting the results I want without messing with GUI
+<pre class="src src-python" id="org81b6a35"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
 
-import requests
+<span class="org-keyword">import</span> requests
 
-result = []
-proxy={'https': '127.0.0.1:8080'}
-mylink='placeholder' # For easier modification
+<span class="org-variable-name">result</span> <span class="org-operator">=</span> []
+<span class="org-variable-name">proxy</span><span class="org-operator">=</span>{<span class="org-string">'https'</span>: <span class="org-string">'127.0.0.1:8080'</span>}
+<span class="org-variable-name">mylink</span><span class="org-operator">=</span><span class="org-string">'placeholder'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">For easier modification</span>
 
-for article in range(1,10):
-    try:
-        resp = requests.get(mylink+str(article),
-                            verify=False, # Avoid self-signed certificate errors
-                            proxies=proxy,
-                            allow_redirects=True,)
-        if resp.status_code != 404:
-            # We do not care about 404s
-            result.append(f"Intersting! {resp.status_code}: Article {article}\n")
-    except Exception as e:
-        return("Noice:", e)
+<span class="org-keyword">for</span> article <span class="org-keyword">in</span> <span class="org-builtin">range</span>(1,10):
+    <span class="org-keyword">try</span>:
+        <span class="org-variable-name">resp</span> <span class="org-operator">=</span> requests.get(mylink<span class="org-operator">+</span><span class="org-builtin">str</span>(article),
+                            verify<span class="org-operator">=</span><span class="org-constant">False</span>, <span class="org-comment-delimiter"># </span><span class="org-comment">Avoid self-signed certificate errors</span>
+                            proxies<span class="org-operator">=</span>proxy,
+                            allow_redirects<span class="org-operator">=</span><span class="org-constant">True</span>,)
+        <span class="org-keyword">if</span> resp.status_code <span class="org-operator">!=</span> 404:
+            <span class="org-comment-delimiter"># </span><span class="org-comment">We do not care about 404s</span>
+            result.append(f<span class="org-string">"Intersting! </span>{resp.status_code}<span class="org-string">: Article </span>{article}<span class="org-constant">\n</span><span class="org-string">"</span>)
+    <span class="org-keyword">except</span> <span class="org-type">Exception</span> <span class="org-keyword">as</span> e:
+        <span class="org-keyword">return</span>(<span class="org-string">"Noice:"</span>, e)
 
-return result
+<span class="org-keyword">return</span> result
 </pre>
 </div>
 
-<pre class="example" id="org39afb88">
+<pre class="example" id="org2336a5c">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -152,7 +152,7 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="org13be33b" class="figure">
+<div id="orgea290bf" class="figure">
 <p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
@@ -160,9 +160,9 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 </div>
 </div>
 
-<div id="outline-container-orgaddfec2" class="outline-2">
-<h2 id="orgaddfec2"><a href="#orgaddfec2">XSS</a></h2>
-<div class="outline-text-2" id="text-orgaddfec2">
+<div id="outline-container-orgd3a35f5" class="outline-2">
+<h2 id="orgd3a35f5"><a href="#orgd3a35f5">XSS</a></h2>
+<div class="outline-text-2" id="text-orgd3a35f5">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -185,15 +185,15 @@ At this point we have flags 2,3, searching for 1,2.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html">&lt;IMG SRC=/ onerror="alert(1)"&gt;&lt;/img&gt;
+<pre class="src src-html">&lt;<span class="org-function-name">IMG</span> SRC=/ <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;&lt;/<span class="org-function-name">img</span>&gt;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org19abc4b" class="outline-2">
-<h2 id="org19abc4b"><a href="#org19abc4b">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-org19abc4b">
+<div id="outline-container-org85abd25" class="outline-2">
+<h2 id="org85abd25"><a href="#org85abd25">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-org85abd25">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -203,9 +203,9 @@ want to <i>wrap</i> this mini challenge.
 </div>
 </div>
 
-<div id="outline-container-org8c01765" class="outline-2">
-<h2 id="org8c01765"><a href="#org8c01765">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-org8c01765">
+<div id="outline-container-orgf0c94dc" class="outline-2">
+<h2 id="orgf0c94dc"><a href="#orgf0c94dc">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-orgf0c94dc">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall

@@ -20,23 +20,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgf71b8f3">Introduction</a></li>
-<li><a href="#org79f4a07">Challenge</a>
+<li><a href="#orge2ce124">Introduction</a></li>
+<li><a href="#org952be37">Challenge</a>
 <ul>
-<li><a href="#orgc9df6ff">Search functionality</a></li>
-<li><a href="#orgd02c56b">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#org327c118">Keep Going</a></li>
-<li><a href="#orgc9349bd">Back</a></li>
+<li><a href="#orgc2c12bc">Search functionality</a></li>
+<li><a href="#org934d0fd">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#orgb4d36db">Keep Going</a></li>
+<li><a href="#org715e1d6">Back</a></li>
 </ul>
 </li>
-<li><a href="#org4ffe772">Summary</a></li>
+<li><a href="#orgd226cf5">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf71b8f3" class="outline-2">
-<h2 id="orgf71b8f3"><a href="#orgf71b8f3">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgf71b8f3">
+<div id="outline-container-orge2ce124" class="outline-2">
+<h2 id="orge2ce124"><a href="#orge2ce124">Introduction</a></h2>
+<div class="outline-text-2" id="text-orge2ce124">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -47,9 +47,9 @@ time it takes, is always satisfying in the end!
 </div>
 </div>
 
-<div id="outline-container-org79f4a07" class="outline-2">
-<h2 id="org79f4a07"><a href="#org79f4a07">Challenge</a></h2>
-<div class="outline-text-2" id="text-org79f4a07">
+<div id="outline-container-org952be37" class="outline-2">
+<h2 id="org952be37"><a href="#org952be37">Challenge</a></h2>
+<div class="outline-text-2" id="text-org952be37">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -65,95 +65,95 @@ writing it to a dangerous sink.
 </blockquote>
 </div>
 
-<div id="outline-container-orgc9df6ff" class="outline-3">
-<h3 id="orgc9df6ff"><a href="#orgc9df6ff">Search functionality</a></h3>
-<div class="outline-text-3" id="text-orgc9df6ff">
+<div id="outline-container-orgc2c12bc" class="outline-3">
+<h3 id="orgc2c12bc"><a href="#orgc2c12bc">Search functionality</a></h3>
+<div class="outline-text-3" id="text-orgc2c12bc">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org439103a">&lt;script src="/resources/js/searchResults.js"&gt;&lt;/script&gt;
-&lt;script&gt;search('search-results')&lt;/script&gt;
+<pre class="src src-html" id="org35892e3">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+&lt;<span class="org-function-name">script</span>&gt;search('search-results')&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-orgd02c56b" class="outline-3">
-<h3 id="orgd02c56b"><a href="#orgd02c56b">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-orgd02c56b">
+<div id="outline-container-org934d0fd" class="outline-3">
+<h3 id="org934d0fd"><a href="#org934d0fd">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-org934d0fd">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="orgcb47763">function search(path) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (this.readyState == 4 &amp;&amp; this.status == 200) {
-            eval('var searchResultsObj = ' + this.responseText);
+<pre class="src src-js" id="org44c9ade"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
+    <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = <span class="org-keyword">new</span> <span class="org-type">XMLHttpRequest</span>();
+    xhr.onreadystatechange = <span class="org-keyword">function</span>() {
+        <span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
+            eval(<span class="org-string">'var searchResultsObj = '</span> + <span class="org-constant">this</span>.responseText);
             displaySearchResults(searchResultsObj);
         }
     };
-    xhr.open("GET", path + window.location.search);
+    xhr.open(<span class="org-string">"GET"</span>, path + window.location.search);
     xhr.send();
 
-    function displaySearchResults(searchResultsObj) {
-        var blogHeader = document.getElementsByClassName("blog-header")[0];
-        var blogList = document.getElementsByClassName("blog-list")[0];
-        var searchTerm = searchResultsObj.searchTerm
-        var searchResults = searchResultsObj.results
+    <span class="org-keyword">function</span> <span class="org-function-name">displaySearchResults</span>(<span class="org-variable-name">searchResultsObj</span>) {
+        <span class="org-keyword">var</span> <span class="org-variable-name">blogHeader</span> = document.getElementsByClassName(<span class="org-string">"blog-header"</span>)[0];
+        <span class="org-keyword">var</span> <span class="org-variable-name">blogList</span> = document.getElementsByClassName(<span class="org-string">"blog-list"</span>)[0];
+        <span class="org-keyword">var</span> <span class="org-variable-name">searchTerm</span> = searchResultsObj.searchTerm
+        <span class="org-keyword">var</span> <span class="org-variable-name">searchResults</span> = searchResultsObj.results
 
-        var h1 = document.createElement("h1");
-        h1.innerText = searchResults.length + " search results for '" + searchTerm + "'";
+        <span class="org-keyword">var</span> <span class="org-variable-name">h1</span> = document.createElement(<span class="org-string">"h1"</span>);
+        h1.innerText = searchResults.length + <span class="org-string">" search results for '"</span> + searchTerm + <span class="org-string">"'"</span>;
         blogHeader.appendChild(h1);
-        var hr = document.createElement("hr");
+        <span class="org-keyword">var</span> <span class="org-variable-name">hr</span> = document.createElement(<span class="org-string">"hr"</span>);
         blogHeader.appendChild(hr)
 
-        for (var i = 0; i &lt; searchResults.length; ++i)
+        <span class="org-keyword">for</span> (<span class="org-keyword">var</span> <span class="org-variable-name">i</span> = 0; i &lt; searchResults.length; ++i)
         {
-            var searchResult = searchResults[i];
-            if (searchResult.id) {
-                var blogLink = document.createElement("a");
-                blogLink.setAttribute("href", "/post?postId=" + searchResult.id);
+            <span class="org-keyword">var</span> <span class="org-variable-name">searchResult</span> = searchResults[i];
+            <span class="org-keyword">if</span> (searchResult.id) {
+                <span class="org-keyword">var</span> <span class="org-variable-name">blogLink</span> = document.createElement(<span class="org-string">"a"</span>);
+                blogLink.setAttribute(<span class="org-string">"href"</span>, <span class="org-string">"/post?postId="</span> + searchResult.id);
 
-                if (searchResult.headerImage) {
-                    var headerImage = document.createElement("img");
-                    headerImage.setAttribute("src", "/image/" + searchResult.headerImage);
+                <span class="org-keyword">if</span> (searchResult.headerImage) {
+                    <span class="org-keyword">var</span> <span class="org-variable-name">headerImage</span> = document.createElement(<span class="org-string">"img"</span>);
+                    headerImage.setAttribute(<span class="org-string">"src"</span>, <span class="org-string">"/image/"</span> + searchResult.headerImage);
                     blogLink.appendChild(headerImage);
                 }
 
                 blogList.appendChild(blogLink);
             }
 
-            blogList.innerHTML += "&lt;br/&gt;";
+            blogList.innerHTML += <span class="org-string">"&lt;br/&gt;"</span>;
 
-            if (searchResult.title) {
-                var title = document.createElement("h2");
+            <span class="org-keyword">if</span> (searchResult.title) {
+                <span class="org-keyword">var</span> <span class="org-variable-name">title</span> = document.createElement(<span class="org-string">"h2"</span>);
                 title.innerText = searchResult.title;
                 blogList.appendChild(title);
             }
 
-            if (searchResult.summary) {
-                var summary = document.createElement("p");
+            <span class="org-keyword">if</span> (searchResult.summary) {
+                <span class="org-keyword">var</span> <span class="org-variable-name">summary</span> = document.createElement(<span class="org-string">"p"</span>);
                 summary.innerText = searchResult.summary;
                 blogList.appendChild(summary);
             }
 
-            if (searchResult.id) {
-                var viewPostButton = document.createElement("a");
-                viewPostButton.setAttribute("class", "button is-small");
-                viewPostButton.setAttribute("href", "/post?postId=" + searchResult.id);
-                viewPostButton.innerText = "View post";
+            <span class="org-keyword">if</span> (searchResult.id) {
+                <span class="org-keyword">var</span> <span class="org-variable-name">viewPostButton</span> = document.createElement(<span class="org-string">"a"</span>);
+                viewPostButton.setAttribute(<span class="org-string">"class"</span>, <span class="org-string">"button is-small"</span>);
+                viewPostButton.setAttribute(<span class="org-string">"href"</span>, <span class="org-string">"/post?postId="</span> + searchResult.id);
+                viewPostButton.innerText = <span class="org-string">"View post"</span>;
             }
         }
 
-        var linkback = document.createElement("div");
-        linkback.setAttribute("class", "is-linkback");
-        var backToBlog = document.createElement("a");
-        backToBlog.setAttribute("href", "/");
-        backToBlog.innerText = "Back to Blog";
+        <span class="org-keyword">var</span> <span class="org-variable-name">linkback</span> = document.createElement(<span class="org-string">"div"</span>);
+        linkback.setAttribute(<span class="org-string">"class"</span>, <span class="org-string">"is-linkback"</span>);
+        <span class="org-keyword">var</span> <span class="org-variable-name">backToBlog</span> = document.createElement(<span class="org-string">"a"</span>);
+        backToBlog.setAttribute(<span class="org-string">"href"</span>, <span class="org-string">"/"</span>);
+        backToBlog.innerText = <span class="org-string">"Back to Blog"</span>;
         linkback.appendChild(backToBlog);
         blogList.appendChild(linkback);
     }
@@ -167,7 +167,7 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="org1e3a8c8" class="figure">
+<div id="org638dc93" class="figure">
 <p><img src="images/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
@@ -216,9 +216,9 @@ link.
 </div>
 
 
-<div id="outline-container-org327c118" class="outline-3">
-<h3 id="org327c118"><a href="#org327c118">Keep Going</a></h3>
-<div class="outline-text-3" id="text-org327c118">
+<div id="outline-container-orgb4d36db" class="outline-3">
+<h3 id="orgb4d36db"><a href="#orgb4d36db">Keep Going</a></h3>
+<div class="outline-text-3" id="text-orgb4d36db">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -234,15 +234,15 @@ is not applicable</li>
 </div>
 
 
-<div id="outline-container-orgc9349bd" class="outline-3">
-<h3 id="orgc9349bd"><a href="#orgc9349bd">Back</a></h3>
-<div class="outline-text-3" id="text-orgc9349bd">
+<div id="outline-container-org715e1d6" class="outline-3">
+<h3 id="org715e1d6"><a href="#org715e1d6">Back</a></h3>
+<div class="outline-text-3" id="text-org715e1d6">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org32d5f40">if (this.readyState == 4 &amp;&amp; this.status == 200) {
-    eval('var searchResultsObj = ' + this.responseText);
+<pre class="src src-js" id="orgcf557dd"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
+    eval(<span class="org-string">'var searchResultsObj = '</span> + <span class="org-constant">this</span>.responseText);
     displaySearchResults(searchResultsObj);
 }
 </pre>
@@ -255,7 +255,7 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="org36993e3" class="figure">
+<div id="org4886751" class="figure">
 <p><img src="images/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
@@ -270,9 +270,9 @@ as solved
 </div>
 
 
-<div id="outline-container-org4ffe772" class="outline-2">
-<h2 id="org4ffe772"><a href="#org4ffe772">Summary</a></h2>
-<div class="outline-text-2" id="text-org4ffe772">
+<div id="outline-container-orgd226cf5" class="outline-2">
+<h2 id="orgd226cf5"><a href="#orgd226cf5">Summary</a></h2>
+<div class="outline-text-2" id="text-orgd226cf5">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>

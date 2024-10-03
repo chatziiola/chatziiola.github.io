@@ -52,25 +52,25 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org52a8477">Disclaimer</a></li>
-<li><a href="#org407cd47">A trip down memory lane</a></li>
-<li><a href="#org774f203">Introduction: An Org vs LaTeX comparison</a></li>
-<li><a href="#orga05094f">Configuring Emacs</a></li>
-<li><a href="#org7347eae">Writing in Org</a></li>
-<li><a href="#org6148794">The LaTeX part</a>
+<li><a href="#org3e014ba">Disclaimer</a></li>
+<li><a href="#orgcc02198">A trip down memory lane</a></li>
+<li><a href="#org125a611">Introduction: An Org vs LaTeX comparison</a></li>
+<li><a href="#orgf6c29b2">Configuring Emacs</a></li>
+<li><a href="#org14e66e4">Writing in Org</a></li>
+<li><a href="#org5df2c66">The LaTeX part</a>
 <ul>
-<li><a href="#org2f44e2c">The LaTeX template: <code>sample.tex</code></a></li>
+<li><a href="#org0ce6a1c">The LaTeX template: <code>sample.tex</code></a></li>
 </ul>
 </li>
-<li><a href="#org3f9e1ba">Exporting</a></li>
-<li><a href="#org4c00c12">Further reading:</a></li>
+<li><a href="#org77c801f">Exporting</a></li>
+<li><a href="#orgc53de25">Further reading:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org52a8477" class="outline-2">
-<h2 id="org52a8477"><a href="#org52a8477">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-org52a8477">
-<div class="note" id="orgdc0f203">
+<div id="outline-container-org3e014ba" class="outline-2">
+<h2 id="org3e014ba"><a href="#org3e014ba">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-org3e014ba">
+<div class="note" id="org999131d">
 <p>
 Cringineer will surely like this one :P
 </p>
@@ -85,9 +85,9 @@ exporting to PDF, disappoints you, this article is for you.
 </div>
 </div>
 
-<div id="outline-container-org407cd47" class="outline-2">
-<h2 id="org407cd47"><a href="#org407cd47">A trip down memory lane</a></h2>
-<div class="outline-text-2" id="text-org407cd47">
+<div id="outline-container-orgcc02198" class="outline-2">
+<h2 id="orgcc02198"><a href="#orgcc02198">A trip down memory lane</a></h2>
+<div class="outline-text-2" id="text-orgcc02198">
 <p>
 Historically, there were many different many different solutions to producing a
 scientific paper, or publishing any kind of digital document, for that matter.
@@ -121,9 +121,9 @@ documents, however, it has a relatively steep learning curve.
 </div>
 </div>
 
-<div id="outline-container-org774f203" class="outline-2">
-<h2 id="org774f203"><a href="#org774f203">Introduction: An Org vs LaTeX comparison</a></h2>
-<div class="outline-text-2" id="text-org774f203">
+<div id="outline-container-org125a611" class="outline-2">
+<h2 id="org125a611"><a href="#org125a611">Introduction: An Org vs LaTeX comparison</a></h2>
+<div class="outline-text-2" id="text-org125a611">
 <p>
 LaTeX might be more than simply wonderful as a publication backend, with
 templates being freely available on the Internet, but it is not so <i>easy</i> to write
@@ -169,10 +169,10 @@ Let&rsquo;s see what exactly is needed for a seamless LaTeX experience within Or
 </div>
 </div>
 
-<div id="outline-container-orga05094f" class="outline-2">
-<h2 id="orga05094f"><a href="#orga05094f">Configuring Emacs</a></h2>
-<div class="outline-text-2" id="text-orga05094f">
-<div class="note" id="org31bbffd">
+<div id="outline-container-orgf6c29b2" class="outline-2">
+<h2 id="orgf6c29b2"><a href="#orgf6c29b2">Configuring Emacs</a></h2>
+<div class="outline-text-2" id="text-orgf6c29b2">
+<div class="note" id="org73cfcae">
 <p>
 At this point one should have some basic level understanding of customizing
 Emacs. If you use a different way of installing packages, my snippets should be
@@ -195,8 +195,8 @@ seamless LaTeX snippets inside of Org.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp">(use-package cdlatex
-    :hook (org-mode . org-cdlatex-mode))
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> cdlatex
+    <span class="org-builtin">:hook</span> (org-mode . org-cdlatex-mode))
 </pre>
 </div>
 
@@ -207,13 +207,13 @@ syntax. For example this
 </p>
 
 <div class="org-src-container">
-<pre class="src src-tex">\begin{equation}
+<pre class="src src-tex"><span class="org-keyword">\begin</span>{<span class="org-function-name">equation</span>}
 E = mc
-\end{equation}
+<span class="org-keyword">\end</span>{<span class="org-function-name">equation</span>}
 </pre>
 </div>
 
-<div class="note" id="orgbf42e9c">
+<div class="note" id="org030edfd">
 <p>
 And you could preview that while in buffer with <code>C-c C-x C-l</code>
 </p>
@@ -230,15 +230,15 @@ E = mc
 </div>
 
 
-<div id="outline-container-org7347eae" class="outline-2">
-<h2 id="org7347eae"><a href="#org7347eae">Writing in Org</a></h2>
-<div class="outline-text-2" id="text-org7347eae">
+<div id="outline-container-org14e66e4" class="outline-2">
+<h2 id="org14e66e4"><a href="#org14e66e4">Writing in Org</a></h2>
+<div class="outline-text-2" id="text-org14e66e4">
 <p>
 Now we open an Emacs buffer pointing to an Org file (a plain text file with the
 <code>.org</code> extension).
 </p>
 
-<div class="note" id="orgf3943a0">
+<div class="note" id="orgcfbc310">
 <p>
 If you want a refresher on Org syntax, you may like this one <a href="https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/">org-mode cheatsheet</a>
 </p>
@@ -251,10 +251,10 @@ of the document, and the most basic ones are the following (these are actually
 the ones used for this article):
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+TITLE: Beautiful and simple pdf-latex exports with org mode
-#+DATE: &lt;2023-04-06 15:28&gt;
-#+DESCRIPTION: C'est la vie ;; feel free to use better decriptions
-#+FILETAGS: emacs org-mode 
+<pre class="src src-org"><span class="org-org-document-info-keyword">#+TITLE:</span> <span class="org-org-document-title">Beautiful and simple pdf-latex exports with org mode</span>
+<span class="org-org-document-info-keyword">#+DATE:</span> <span class="org-org-document-info">&lt;2023-04-06 15:28&gt;</span>
+<span class="org-org-meta-line">#+DESCRIPTION: C'est la vie ;; feel free to use better decriptions</span>
+<span class="org-org-meta-line">#+FILETAGS: emacs org-mode </span>
 </pre>
 </div>
 
@@ -263,17 +263,17 @@ You can find more options to set, such as the following ones, but I generally
 only set these before I export to LaTeX. 
 </p>
 <div class="org-src-container">
-<pre class="src src-org">#+SUBTITLE:  dunno
-#+AUTHOR: chatziiola
-#+LANGUAGE: el ;; Obviously this one is not needed if you are not writing Greek
+<pre class="src src-org"><span class="org-org-document-info-keyword">#+SUBTITLE:</span>  <span class="org-org-document-info">dunno</span>
+<span class="org-org-document-info-keyword">#+AUTHOR:</span> <span class="org-org-document-info">chatziiola</span>
+<span class="org-org-meta-line">#+LANGUAGE: el ;; Obviously this one is not needed if you are not writing Greek</span>
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org6148794" class="outline-2">
-<h2 id="org6148794"><a href="#org6148794">The LaTeX part</a></h2>
-<div class="outline-text-2" id="text-org6148794">
+<div id="outline-container-org5df2c66" class="outline-2">
+<h2 id="org5df2c66"><a href="#org5df2c66">The LaTeX part</a></h2>
+<div class="outline-text-2" id="text-org5df2c66">
 <p>
 There are more specific options, that essentially modify the behavior (or
 certain aspects) of the export process you choose. In our case, since we are
@@ -281,9 +281,9 @@ interested in LaTeX export, the main options to set are the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-org">#+latex_class_options: [a4paper,11pt]
-#+latex_compiler: xelatex
-#+latex_header: \input{/path/to/sample.tex}
+<pre class="src src-org"><span class="org-org-meta-line">#+latex_class_options: [a4paper,11pt]</span>
+<span class="org-org-meta-line">#+latex_compiler: xelatex</span>
+<span class="org-org-meta-line">#+latex_header: \input{/path/to/sample.tex}</span>
 </pre>
 </div>
 
@@ -306,9 +306,9 @@ exported by default) into one that is tailored to your liking.
 </p>
 </div>
 
-<div id="outline-container-org2f44e2c" class="outline-3">
-<h3 id="org2f44e2c"><a href="#org2f44e2c">The LaTeX template: <code>sample.tex</code></a></h3>
-<div class="outline-text-3" id="text-org2f44e2c">
+<div id="outline-container-org0ce6a1c" class="outline-3">
+<h3 id="org0ce6a1c"><a href="#org0ce6a1c">The LaTeX template: <code>sample.tex</code></a></h3>
+<div class="outline-text-3" id="text-org0ce6a1c">
 <p>
 <code>sample.tex</code> needs to follow some properties. First of all, unlike any (template)
 LaTeX document you may have worked on, it <b>must not</b> start with <code>\documentclass</code>.
@@ -328,60 +328,60 @@ aesthetically pleasing result is the following.
 
 <div class="org-src-container">
 <pre class="src src-tex">
-% Set up document layout
-\usepackage{geometry}
-\geometry{
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up document layout</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">geometry</span>}
+<span class="org-keyword">\geometry</span>{
   margin=1.5cm,
   includeheadfoot
 }
 
-% Set up fonts
-\usepackage{fontspec}
-\setmainfont{Avenir Next}
-\setmonofont{Avenir Next}
-\newfontfamily\greekfont{Avenir Next}
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up fonts</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">fontspec</span>}
+<span class="org-keyword">\setmainfont</span>{Avenir Next}
+<span class="org-keyword">\setmonofont</span>{Avenir Next}
+<span class="org-keyword">\newfontfamily\greekfont</span>{Avenir Next}
 
-% Set up colors
-\usepackage{xcolor}
-\definecolor{myblue}{RGB}{19,64,140}
-\definecolor{myblack}{RGB}{0,0,0}
-\definecolor{linkblue}{RGB}{19,64,140}
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up colors</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">xcolor</span>}
+<span class="org-keyword">\definecolor</span>{myblue}{RGB}{19,64,140}
+<span class="org-keyword">\definecolor</span>{myblack}{RGB}{0,0,0}
+<span class="org-keyword">\definecolor</span>{linkblue}{RGB}{19,64,140}
 
-% Set up hyperlinks
-\usepackage{hyperref}
-\hypersetup{
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up hyperlinks</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">hyperref</span>}
+<span class="org-keyword">\hypersetup</span>{
   colorlinks=true,
   linkcolor=linkblue,
   filecolor=linkblue,
   urlcolor=linkblue,
 }
 
-% Set up headers and footers
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\textcolor{myblue}{\rightmark}}
-\fancyfoot[C]{\textcolor{myblack}{\thepage}}
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up headers and footers</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">fancyhdr</span>}
+<span class="org-keyword">\pagestyle</span>{fancy}
+<span class="org-keyword">\fancyhf</span>{}
+<span class="org-keyword">\fancyhead</span>[L]{<span class="org-keyword">\textcolor</span>{myblue}{<span class="org-keyword">\rightmark</span>}}
+<span class="org-keyword">\fancyfoot</span>[C]{<span class="org-keyword">\textcolor</span>{myblack}{<span class="org-keyword">\thepage</span>}}
 
-% Set up section/subsection/chapter titles
-\usepackage{titlesec}
-\titleformat{\section}
-  {\normalfont\Large\bfseries\color{myblue}}{\thesection}{1em}{}
-\titleformat{\subsection}
-  {\normalfont\large\bfseries\color{myblue}}{\thesubsection}{1em}{}
-\titleformat{\subsubsection}
-  {\normalfont\normalsize\bfseries\color{myblue}}{\thesubsubsection}{1em}{}
-\titleformat{\chapter}[display]
-  {\normalfont\huge\bfseries\color{myblue}}{\chaptertitlename\ \thechapter}{20pt}{\Huge}
+<span class="org-comment-delimiter">% </span><span class="org-comment">Set up section/subsection/chapter titles</span>
+<span class="org-keyword">\usepackage</span>{<span class="org-builtin">titlesec</span>}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\section</span>}
+  {<span class="org-keyword">\normalfont\Large\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\subsection</span>}
+  {<span class="org-keyword">\normalfont\large\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesubsection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\subsubsection</span>}
+  {<span class="org-keyword">\normalfont\normalsize\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\thesubsubsection</span>}{1em}{}
+<span class="org-keyword">\titleformat</span>{<span class="org-keyword">\chapter</span>}[display]
+  {<span class="org-keyword">\normalfont\huge\bfseries</span><span class="org-bold"><span class="org-keyword">\color</span></span><span class="org-bold">{myblue}</span>}{<span class="org-keyword">\chaptertitlename</span>\ <span class="org-keyword">\thechapter</span>}{20pt}{<span class="org-keyword">\Huge</span>}
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org3f9e1ba" class="outline-2">
-<h2 id="org3f9e1ba"><a href="#org3f9e1ba">Exporting</a></h2>
-<div class="outline-text-2" id="text-org3f9e1ba">
+<div id="outline-container-org77c801f" class="outline-2">
+<h2 id="org77c801f"><a href="#org77c801f">Exporting</a></h2>
+<div class="outline-text-2" id="text-org77c801f">
 <p>
 At that point, if you have a document that has an appropriately created list of
 header options (<code>#+</code> statements), and a suitable <code>sample.tex</code> file, you are ready to
@@ -408,9 +408,9 @@ them.
 </div>
 </div>
 
-<div id="outline-container-org4c00c12" class="outline-2">
-<h2 id="org4c00c12"><a href="#org4c00c12">Further reading:</a></h2>
-<div class="outline-text-2" id="text-org4c00c12">
+<div id="outline-container-orgc53de25" class="outline-2">
+<h2 id="orgc53de25"><a href="#orgc53de25">Further reading:</a></h2>
+<div class="outline-text-2" id="text-orgc53de25">
 <p>
 You may also want to have a look at <a href="20230309_a_practical_note_taking_system.html">my notetaking system</a> setup. I&rsquo;m trying to
 build a detailed analysis of that system before I implement a <i>series</i>

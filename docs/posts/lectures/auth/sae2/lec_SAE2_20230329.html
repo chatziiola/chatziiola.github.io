@@ -51,32 +51,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd5a6e10">Εισαγωγή</a></li>
-<li><a href="#org464af7b">Εξέταση γραμμικής φύσεως συστήματος</a>
+<li><a href="#org867a2f5">Εισαγωγή</a></li>
+<li><a href="#orgef4578f">Εξέταση γραμμικής φύσεως συστήματος</a>
 <ul>
-<li><a href="#org260968c">Ιδιότητα 1</a></li>
-<li><a href="#org56afc92">Ιδιότητα 2</a></li>
-<li><a href="#org344f76c">Ιδιότητα 3</a></li>
+<li><a href="#orge75905f">Ιδιότητα 1</a></li>
+<li><a href="#org775fa74">Ιδιότητα 2</a></li>
+<li><a href="#orgf1904ab">Ιδιότητα 3</a></li>
 </ul>
 </li>
-<li><a href="#orga7af470">Χρονική μεταβλητότητα.</a></li>
-<li><a href="#orge73f403">Παράδειγμα για λύση εισόδου?</a></li>
-<li><a href="#orga81c8ca">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#orgb504736">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#orgc883107">Μερικές ακόμα ειδικές περιπτώσεις:</a>
+<li><a href="#org8a452e6">Χρονική μεταβλητότητα.</a></li>
+<li><a href="#org84764c1">Παράδειγμα για λύση εισόδου?</a></li>
+<li><a href="#orgb8ac35e">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#orge941a06">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#orgd188172">Μερικές ακόμα ειδικές περιπτώσεις:</a>
 <ul>
-<li><a href="#org5c99734">Α διαγώνιος</a></li>
-<li><a href="#orgbd3624a">Διαγωνοποίηση συστήματος.</a></li>
-<li><a href="#org48c4d7e">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></li>
+<li><a href="#orgf4d6338">Α διαγώνιος</a></li>
+<li><a href="#orgd7b56b6">Διαγωνοποίηση συστήματος.</a></li>
+<li><a href="#org03239d0">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgd5a6e10" class="outline-2">
-<h2 id="orgd5a6e10"><a href="#orgd5a6e10">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-orgd5a6e10">
+<div id="outline-container-org867a2f5" class="outline-2">
+<h2 id="org867a2f5"><a href="#org867a2f5">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org867a2f5">
 <ul class="org-ul">
 <li>Γιατί εξετάζουμε γραμμικά συστήματα ενώ όλα τα πραγματικά είναι μη γραμμικά;
 <ol class="org-ol">
@@ -91,11 +91,11 @@
 </div>
 </div>
 
-<div id="outline-container-org464af7b" class="outline-2">
-<h2 id="org464af7b"><a href="#org464af7b">Εξέταση γραμμικής φύσεως συστήματος</a></h2>
-<div class="outline-text-2" id="text-org464af7b">
+<div id="outline-container-orgef4578f" class="outline-2">
+<h2 id="orgef4578f"><a href="#orgef4578f">Εξέταση γραμμικής φύσεως συστήματος</a></h2>
+<div class="outline-text-2" id="text-orgef4578f">
 
-<div id="org59ca7cb" class="figure">
+<div id="org9ff3af6" class="figure">
 <p><img src="course_sae2_images/230329_1408_lec2-sample-system.png" alt="230329_1408_lec2-sample-system.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Βασικό και καλά σχεδιάγραμμα του εξεταζόμενου συστήματος.</p>
@@ -141,15 +141,15 @@ y &= Cx + Du
 </p>
 </div>
 
-<div id="outline-container-org260968c" class="outline-3">
-<h3 id="org260968c"><a href="#org260968c">Ιδιότητα 1</a></h3>
-<div class="outline-text-3" id="text-org260968c">
+<div id="outline-container-orge75905f" class="outline-3">
+<h3 id="orge75905f"><a href="#orge75905f">Ιδιότητα 1</a></h3>
+<div class="outline-text-3" id="text-orge75905f">
 \begin{equation}
 \label{eq:4}
 y(t; ax_1+ bx_2,0) = ay(t;x_1,0) + b y(t; x_2,0)
 \end{equation}
 
-<div class="note" id="org56c3e51">
+<div class="note" id="org41f2100">
 <p>
 Όπου ο συμβολισμός που υιοθετείται στις  \(\ref{eq:4}\)  \(\ref{eq:6}\)  \(\ref{eq:7}\)
 </p>
@@ -169,18 +169,18 @@ y(t; x,u)
 </div>
 </div>
 
-<div id="outline-container-org56afc92" class="outline-3">
-<h3 id="org56afc92"><a href="#org56afc92">Ιδιότητα 2</a></h3>
-<div class="outline-text-3" id="text-org56afc92">
+<div id="outline-container-org775fa74" class="outline-3">
+<h3 id="org775fa74"><a href="#org775fa74">Ιδιότητα 2</a></h3>
+<div class="outline-text-3" id="text-org775fa74">
 \begin{equation}
 \label{eq:6}
 y(t; ax_0, \gamma u) = a y(t;ax_0,0) + \gamma y(t;0, u)
 \end{equation}
 </div>
 </div>
-<div id="outline-container-org344f76c" class="outline-3">
-<h3 id="org344f76c"><a href="#org344f76c">Ιδιότητα 3</a></h3>
-<div class="outline-text-3" id="text-org344f76c">
+<div id="outline-container-orgf1904ab" class="outline-3">
+<h3 id="orgf1904ab"><a href="#orgf1904ab">Ιδιότητα 3</a></h3>
+<div class="outline-text-3" id="text-orgf1904ab">
 \begin{equation}
 \label{eq:7}
 y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
@@ -189,9 +189,9 @@ y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
 </div>
 </div>
 
-<div id="outline-container-orga7af470" class="outline-2">
-<h2 id="orga7af470"><a href="#orga7af470">Χρονική μεταβλητότητα.</a></h2>
-<div class="outline-text-2" id="text-orga7af470">
+<div id="outline-container-org8a452e6" class="outline-2">
+<h2 id="org8a452e6"><a href="#org8a452e6">Χρονική μεταβλητότητα.</a></h2>
+<div class="outline-text-2" id="text-org8a452e6">
 <p>
 Για είσοδο \(u\) την βηματική, στην αρχή \(u(t)\) και κατόπιν \(u(t-t_0)\), ένα
 σύστημα θα λέγεται χρονικά αμετάβλητο αν:
@@ -206,9 +206,9 @@ y(t;0, \zeta u_1 + \xi u_2) = \zeta y(t; 0, u_1) + \xi y(t;0,u_2)
 </div>
 </div>
 
-<div id="outline-container-orge73f403" class="outline-2">
-<h2 id="orge73f403"><a href="#orge73f403">Παράδειγμα για λύση εισόδου?</a></h2>
-<div class="outline-text-2" id="text-orge73f403">
+<div id="outline-container-org84764c1" class="outline-2">
+<h2 id="org84764c1"><a href="#org84764c1">Παράδειγμα για λύση εισόδου?</a></h2>
+<div class="outline-text-2" id="text-org84764c1">
 <p>
 Θέτοντας \(u=0\) στο σύστημα της \(\ref{eq:3}\):
 </p>
@@ -247,7 +247,7 @@ e^{At} = \cdots = \sum^{\infty}_{k=0}
 \frac{1}{k!} A^kt^k
 \end{equation}
 
-<div class="note" id="orgaa22f32">
+<div class="note" id="org1c368a2">
 <p>
 Ο πίνακας \(e^{At}\) ονομάζεται πίνακας μετάβασης και ο υπολογισμός του είναι
 προαπαιτούμενο για την εύρεση της λύσης.
@@ -270,9 +270,9 @@ e^{At} = \cdots = \sum^{\infty}_{k=0}
 </div>
 </div>
 
-<div id="outline-container-orga81c8ca" class="outline-2">
-<h2 id="orga81c8ca"><a href="#orga81c8ca">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-orga81c8ca">
+<div id="outline-container-orgb8ac35e" class="outline-2">
+<h2 id="orgb8ac35e"><a href="#orgb8ac35e">Ειδική περίπτωση υπολογισμού πίνακα μετάβασης&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-orgb8ac35e">
 <p>
 Δοθέντος συστήματος:
 </p>
@@ -328,7 +328,7 @@ x_1(0) + tx_2(0)\\x_2(0)
 </p>
 
 
-<div class="note" id="org49d8bf8">
+<div class="note" id="org9cdc057">
 <p>
 Αυτό το παράδειγμα είναι too good to be true για να είναι εφαρμόσιμο σε μεγαλο
 αριθμό περιπτώσεων. Ο μηδενισμός ορισμένης δύναμης του \(A\), αν και μπορεί να
@@ -339,9 +339,9 @@ x_1(0) + tx_2(0)\\x_2(0)
 </div>
 </div>
 
-<div id="outline-container-orgb504736" class="outline-2">
-<h2 id="orgb504736"><a href="#orgb504736">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-orgb504736">
+<div id="outline-container-orge941a06" class="outline-2">
+<h2 id="orge941a06"><a href="#orge941a06">Γενικός τρόπος υπολογισμού \(e^{At}\)&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-orge941a06">
 <p>
 Δουλεύοντας στην \(\ref{eq:9}\)
 </p>
@@ -393,13 +393,13 @@ e^{At} = \mathcal{L}^{-1} \{ (SI -A)^{-1} \} =
 </div>
 
 
-<div id="outline-container-orgc883107" class="outline-2">
-<h2 id="orgc883107"><a href="#orgc883107">Μερικές ακόμα ειδικές περιπτώσεις:</a></h2>
-<div class="outline-text-2" id="text-orgc883107">
+<div id="outline-container-orgd188172" class="outline-2">
+<h2 id="orgd188172"><a href="#orgd188172">Μερικές ακόμα ειδικές περιπτώσεις:</a></h2>
+<div class="outline-text-2" id="text-orgd188172">
 </div>
-<div id="outline-container-org5c99734" class="outline-3">
-<h3 id="org5c99734"><a href="#org5c99734">Α διαγώνιος</a></h3>
-<div class="outline-text-3" id="text-org5c99734">
+<div id="outline-container-orgf4d6338" class="outline-3">
+<h3 id="orgf4d6338"><a href="#orgf4d6338">Α διαγώνιος</a></h3>
+<div class="outline-text-3" id="text-orgf4d6338">
 <p>
 Στην ειδική περίπτωση όπου:
 </p>
@@ -433,9 +433,9 @@ e^{a_1t} &0 &0\\
 </div>
 </div>
 
-<div id="outline-container-orgbd3624a" class="outline-3">
-<h3 id="orgbd3624a"><a href="#orgbd3624a">Διαγωνοποίηση συστήματος.</a></h3>
-<div class="outline-text-3" id="text-orgbd3624a">
+<div id="outline-container-orgd7b56b6" class="outline-3">
+<h3 id="orgd7b56b6"><a href="#orgd7b56b6">Διαγωνοποίηση συστήματος.</a></h3>
+<div class="outline-text-3" id="text-orgd7b56b6">
 <p>
 Εστω ότι σύστημα όπως αυτό φαίνεται στην \(\ref{eq:9}\), και \(A\) πίνακας με
 ιδιοτιμές πολλαπλότητας 1.
@@ -483,9 +483,9 @@ x = Tz \Rightarrow z = T^{-1}x
 </div>
 </div>
 
-<div id="outline-container-org48c4d7e" class="outline-3">
-<h3 id="org48c4d7e"><a href="#org48c4d7e">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></h3>
-<div class="outline-text-3" id="text-org48c4d7e">
+<div id="outline-container-org03239d0" class="outline-3">
+<h3 id="org03239d0"><a href="#org03239d0">Ειδική περίπτωση όπου αρχική τιμή ιδιοδιάνυσμα</a></h3>
+<div class="outline-text-3" id="text-org03239d0">
 <p>
 Αν έχουμε:
 </p>

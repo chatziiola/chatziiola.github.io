@@ -20,18 +20,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org760547a">Introduction</a></li>
-<li><a href="#org1cf5f4d">In practice</a></li>
-<li><a href="#org77217ab">Pretentiously offering suggestions</a></li>
-<li><a href="#org0f9b0dd">Summary</a></li>
+<li><a href="#org4579fb1">Introduction</a></li>
+<li><a href="#org9b6b97b">In practice</a></li>
+<li><a href="#org41896b5">Pretentiously offering suggestions</a></li>
+<li><a href="#orgf846e75">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org760547a" class="outline-2">
-<h2 id="org760547a"><a href="#org760547a">Introduction</a></h2>
-<div class="outline-text-2" id="text-org760547a">
-<div class="note" id="org36ab4fe">
+<div id="outline-container-org4579fb1" class="outline-2">
+<h2 id="org4579fb1"><a href="#org4579fb1">Introduction</a></h2>
+<div class="outline-text-2" id="text-org4579fb1">
+<div class="note" id="orgb8a5987">
 <p>
 God, do I miss the non-exam period.
 </p>
@@ -58,9 +58,9 @@ if I had done that by hand.
 </div>
 </div>
 
-<div id="outline-container-org1cf5f4d" class="outline-2">
-<h2 id="org1cf5f4d"><a href="#org1cf5f4d">In practice</a></h2>
-<div class="outline-text-2" id="text-org1cf5f4d">
+<div id="outline-container-org9b6b97b" class="outline-2">
+<h2 id="org9b6b97b"><a href="#org9b6b97b">In practice</a></h2>
+<div class="outline-text-2" id="text-org9b6b97b">
 <p>
 The script is as simple as it gets, I just needed to replace a
 property that was wrongly set in my notes. The fact that it is less
@@ -71,14 +71,14 @@ tremendous practical value.
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(cl-loop for file in (chatziiola/get-lecture-file-list "CCNA") do
-         (message "Starting %s" file)
-         (with-current-buffer (get-file-buffer file)
-           (message "Inside the file")
+(<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list <span class="org-string">"CCNA"</span>) do
+         (message <span class="org-string">"Starting %s"</span> file)
+         (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
+           (message <span class="org-string">"Inside the file"</span>)
            (goto-char (point-min))
-           (if (search-forward "A.U.Th" nil t)
-            (replace-match "CISCO")
-            (message "Un-Successful search"))
+           (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
+            (replace-match <span class="org-string">"CISCO"</span>)
+            (message <span class="org-string">"Un-Successful search"</span>))
            )
          )
 
@@ -93,22 +93,22 @@ effectively solving the same <i>problem</i> again.
 
 <div class="org-src-container">
 <pre class="src src-elisp">
-(defun chatziiola/correct-lecturefiles-course-property course
-  "Fix the lectures' in COURSE, course property.
+(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/correct-lecturefiles-course-property</span> course
+  <span class="org-doc">"Fix the lectures' in COURSE, course property.</span>
 
-Get the property from the main (INFO) file of COURSE or, if that
-is not set, replace current value with the default one"
-  (cl-loop for file in (chatziiola/get-lecture-file-list course) do
-           (with-current-buffer (get-file-buffer file)
+<span class="org-doc">Get the property from the main (INFO) file of COURSE or, if that</span>
+<span class="org-doc">is not set, replace current value with the default one"</span>
+  (<span class="org-keyword">cl-loop</span> for file in (chatziiola/get-lecture-file-list course) do
+           (<span class="org-keyword">with-current-buffer</span> (get-file-buffer file)
              (goto-char (point-min))
-             ;; Actually this part needs to be modified to be used in a more
-             ;; generic environment, but for me this search is enough in 9 out
-             ;; of 10 times, and that is why i dont mess with a modification in
-             ;; the form of '#+course: .*\n'
-             (if (search-forward "A.U.Th" nil t)
-                 ;; See how a small function from another time may go a long way? ;P
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">Actually this part needs to be modified to be used in a more</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">generic environment, but for me this search is enough in 9 out</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">of 10 times, and that is why i dont mess with a modification in</span>
+             <span class="org-comment-delimiter">;; </span><span class="org-comment">the form of '#+course: .*\n'</span>
+             (<span class="org-keyword">if</span> (search-forward <span class="org-string">"A.U.Th"</span> nil t)
+                 <span class="org-comment-delimiter">;; </span><span class="org-comment">See how a small function from another time may go a long way? ;P</span>
                  (replace-match (chatziiola/get-lecture-institution course))
-               (message "Un-Successful search in file: %s" file)))
+               (message <span class="org-string">"Un-Successful search in file: %s"</span> file)))
            )
   )
 </pre>
@@ -116,9 +116,9 @@ is not set, replace current value with the default one"
 </div>
 </div>
 
-<div id="outline-container-org77217ab" class="outline-2">
-<h2 id="org77217ab"><a href="#org77217ab">Pretentiously offering suggestions</a></h2>
-<div class="outline-text-2" id="text-org77217ab">
+<div id="outline-container-org41896b5" class="outline-2">
+<h2 id="org41896b5"><a href="#org41896b5">Pretentiously offering suggestions</a></h2>
+<div class="outline-text-2" id="text-org41896b5">
 <p>
 I have to make a couple of points here:
 </p>
@@ -147,9 +147,9 @@ first place, but in the long run it is definitely worth it.</li>
 </div>
 
 
-<div id="outline-container-org0f9b0dd" class="outline-2">
-<h2 id="org0f9b0dd"><a href="#org0f9b0dd">Summary</a></h2>
-<div class="outline-text-2" id="text-org0f9b0dd">
+<div id="outline-container-orgf846e75" class="outline-2">
+<h2 id="orgf846e75"><a href="#orgf846e75">Summary</a></h2>
+<div class="outline-text-2" id="text-orgf846e75">
 <p>
 Summing up, the thing is, that <i>Rome was not built in a day</i>. From my experience,
 one needs to start building their script arsenal, keeping track of the problems
