@@ -15,17 +15,18 @@
 /* https://github.com/morhetz/gruvbox */
 :root {
     --main-font: "Roboto Mono", monospace;
-    --primary-color: #4A90E2; 
-    --secondary-color: #50E3C2; 
-    --background-color: #F5F7FA; 
-    --foreground-color: #4A4A4A; 
-    --accent-color: #E94E77; 
-    --success-color: #7ED321; 
-    --error-color: #D0021B; 
-    --disabled-color: #C4C4C4; 
-    --code-background-color: #E0E0E0; 
-    --code-foreground-color: #333333; 
-    /* Personal mappings */
+    --primary-color: #4A90E2; /* Blue */
+    --secondary-color: #50E3C2; /* Teal */
+    --background-color: #F5F7FA; /* Light Gray */
+    --foreground-color: #4A4A4A; /* Dark Gray */
+    --accent-color: #E94E77; /* Pinkish Red */
+    --success-color: #7ED321; /* Green */
+    --error-color: #D0021B; /* Red */
+    --hover-primary: #3B78C4; /* Slightly darker blue for hover states */
+    --hover-accent: #D83B6C; /* Slightly darker pinkish red */
+    --disabled-color: #C4C4C4; /* Gray for disabled elements */
+    --code-background-color: #E0E0E0; /* Light Gray */
+    --code-foreground-color: #333333; /* Very Dark Gray */
     --link-color: var(--primary-color); 
     --link-accent-color: var(--success-color); 
     --header-color: var(--link-color); 
@@ -33,17 +34,18 @@
 }
 
 .dark-mode{
-    --primary-color: #458588; 
-    --secondary-color: #83A598; 
-    --background-color: #282828; 
-    --foreground-color: #EBDBB2; 
-    --accent-color: #FB4934; 
-    --success-color: #B8BB26; 
-    --error-color: #CC241D; 
-    --disabled-color: #928374; 
-    --code-background-color: #3C3836; 
-    --code-foreground-color: #D5C4A1; 
-    /* Personal mappings */
+    --primary-color: #458588; /* Gruvbox Blue */
+    --secondary-color: #83A598; /* Gruvbox Aqua */
+    --background-color: #282828; /* Gruvbox Dark Background */
+    --foreground-color: #EBDBB2; /* Gruvbox Light Text */
+    --accent-color: #FB4934; /* Gruvbox Red */
+    --success-color: #B8BB26; /* Gruvbox Green */
+    --error-color: #CC241D; /* Gruvbox Dark Red */
+    --hover-primary: #3C797C; /* Darker Gruvbox Blue */
+    --hover-accent: #D64942; /* Darker Gruvbox Red */
+    --disabled-color: #928374; /* Gruvbox Gray */
+    --code-background-color: #3C3836; /* Gruvbox Medium Dark */
+    --code-foreground-color: #D5C4A1; /* Gruvbox Light Brown */
     --link-color: var(--primary-color); 
     --link-accent-color: var(--success-color); 
     --header-color: var(--link-color); 
@@ -88,6 +90,11 @@ i, i a {
 }
 
 
+/* Blinking cursor when strike-through */
+/* .custom { animation: blinker 1s linear infinite; } */
+/* @keyframes blinker { 50% { opacity: 0; } } */
+
+
 /* --- Table of contents --- */
 #table-of-contents {
     padding-top: 0em;
@@ -102,7 +109,6 @@ i, i a {
     list-style: none;
     counter-reset: list 0;
 }
-
 #table-of-contents ul ul {
     padding-left:0em;
     font-weight: 300;
@@ -111,6 +117,11 @@ i, i a {
     margin-top: 0em;
     margin-bottom: 1em;
     padding-left: 2em;
+}
+
+#table-of-contents h2:before {
+    content: "";
+    counter-reset: section;
 }
 
 #table-of-contents ul li:before {
@@ -152,6 +163,7 @@ ul.org-ul li p {
     display: inline-block;
     margin-top: 0em;
     margin-bottom: 0em;
+    counter-decrement: none;
 }
 
 ul.org-ul li::before {
@@ -181,9 +193,6 @@ ol.org-ol {
     margin-left: -2em;
 }
 
-/***************************************************
- * Footer
- ***************************************************/
 #content, #postamble {
     margin: 0 auto;
     max-width: 720px;
@@ -192,6 +201,7 @@ ol.org-ol {
 }
 
 #postamble {
+/*    border-top: 1px solid #999999; */
     padding-top: 1.5em;
 }
 
@@ -218,23 +228,32 @@ span.subtitle {
     color: #3C6E71;
 }
 
+/* h3 { padding-top: .5em; } */
 h1, h2, h3, h4 {
     color: var(--header-color);
     font-size: 1em;
     text-transform: uppercase;
 }
 
+/* FIXME σκέψου το λίγο ακόμα αυτό */
 h2 {
     border: #cac2c2;
     border-bottom-style: dotted;
     border-bottom-width: thin;
     padding-bottom: 0.3em;
-    padding-top: 5em;
-    counter-reset: subsection;
 }
 
 h3 { padding-top: 3em; }
 
+body {
+  counter-reset: section;
+}
+h2 {
+    padding-top: 5em;
+    counter-reset: subsection;
+}
+
+/* Fixing befores */
 h2::before, h3::before, h4::before, h5::before {
     color: var(--header-sign-color);
     float: left;
@@ -242,13 +261,33 @@ h2::before, h3::before, h4::before, h5::before {
     width: 2.5em;
     margin-left: -3.0em;
     counter-increment: subsection;
+    /* content: counter(section) "." counter(subsection) " "; */
 }
 
-h2::before { content: "# " }
-h3::before { content: "## " }
-h4::before { content: "### " }
-h5::before { content: "#### " }
+h2::before {
+    content: "# "
+    /* content: "Chapter " counter(section) " "; */
+}
 
+h3::before {
+    content: "## "
+    /* content: "Chapter " counter(section) " "; */
+}
+
+h4::before {
+    content: "### "
+}
+
+h5::before {
+    content: "#### "
+    /* content: counter(section) "." counter(subsection) " "; */
+}
+
+code {
+    background-color: #f9f9f9;
+    font-family: var(--main-font);
+    font-size: 14px;
+}
 
 /* --- Table --- */
 table { min-width: 100%; }
@@ -336,20 +375,25 @@ img {
 /*--------------------------------------------------*/
 /* Code Coloring
 /*--------------------------------------------------*/
+.org-string {
+    color: #3C6E71 
+    font-style: italic;
+}
+
 pre::before {
-    color: var(--accent-color);
+    color: #3C6E71;
     text-align: right;
     width: 3.0em;
     margin: 0.5em;
     position: absolute;
     top: 0;
     left: 0;
-    border-bottom: 2px dotted var(--accent-color);
+    border-bottom: 2px dotted #3C6E71;
 }
 
 pre {
-    border-left: 2px solid var(--accent-color);
-    background-color: var(--code-background-color);
+    border-left: 2px solid #3C6E71;
+    background-color: #eee;
     overflow: auto;
     padding: 3em 0.5em 0.5em;
     line-height: 1.35em;
@@ -358,13 +402,16 @@ pre {
     position: relative;
 }
 
-pre.src { overflow: scroll;}
+pre.src {
+    overflow: scroll;
+}
 
 pre.src-awk:before { content: 'Awk'; }
 pre.src-authinfo::before { content: 'Authinfo'; }
 pre.src-C:before { content: 'C'; }
 pre.src-css:before { content: 'CSS'; }
 pre.src-elisp:before { content: 'Elisp'; }
+pre.src-gnuplot:before { content: 'gnuplot'; }
 pre.src-java:before { content: 'Java'; }
 pre.src-latex:before { content: 'LaTeX'; }
 pre.src-matlab:before { content: 'MATLAB'; }
@@ -386,6 +433,12 @@ pre.src-tex:before { content: 'TeX'; }
 pre.src-conf:before { content: 'Configuration File'; }
 
 /*--------------------------------------------------*/
+/* Captions
+/*--------------------------------------------------*/
+caption.t-above { caption-side: top; }
+caption.t-bottom { caption-side: bottom; }
+
+/*--------------------------------------------------*/
 /* Footnotes
 /*--------------------------------------------------*/
 
@@ -393,6 +446,24 @@ pre.src-conf:before { content: 'Configuration File'; }
 .footdef  { margin-bottom: 1em; }
 .figure { padding: 1em; }
 .figure p { text-align: center; }
+
+
+/*--------------------------------------------------*/
+/* Equations
+/*--------------------------------------------------*/
+.equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+}
+.equation {
+  vertical-align: middle;
+}
+.equation-label {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+}
 
 
 /*--------------------------------------------------*/
@@ -420,23 +491,29 @@ pre.src-conf:before { content: 'Configuration File'; }
 
 .note::before {
     content: "Note";
-    color: var(--accent-color);
     text-decoration-line: underline;
 }
 
 .note {
-    background: var(--code-background-color) ;
+    background: #04626882;
     padding: 1em;
+    /* float: left; */
     font-size: .85em;
     line-height: 1.25em;
+    /* This was needed to ensure that notes didn't go on top of text-body*/
+    /* margin-left: -30em; */
+    /* width: 20em; */
 }
 
 
 /*--------------------------------------------------*/
 /* Miscellaneous - to bundle with the rest
 /*--------------------------------------------------*/
-.outline-3{ padding-left: 2em;}
-.outline-4{ padding-left: 4em;}
+.outline-3{
+    padding-left: 2em;}
+
+.outline-4{
+    padding-left: 4em;}
 
 div.paradeigma {
     background: #FFFFFF;
@@ -765,4 +842,16 @@ div#table-of-contents {
     clear: left;
     margin-left: -40%;
     max-width: 30%;
+
+}
+
+/* Check the about page */
+.skilliconscontainer {
+	text-align: center;
+}
+
+.skilliconscontainer img{
+    display: inline;
+    transform: none;
+    transition: none;
 }

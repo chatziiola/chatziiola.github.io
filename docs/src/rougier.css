@@ -10,14 +10,52 @@
 
 
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap'); 
+
+/* https://github.com/morhetz/gruvbox */
+:root {
+    --main-font: "JetBrains Mono", monospace;
+    --primary-color: #4A90E2; 
+    --secondary-color: #50E3C2; 
+    --background-color: #F5F7FA; 
+    --foreground-color: #4A4A4A; 
+    --accent-color: #E94E77; 
+    --success-color: #7ED321; 
+    --error-color: #D0021B; 
+    --disabled-color: #C4C4C4; 
+    --code-background-color: #E0E0E0; 
+    --code-foreground-color: #333333; 
+    /* Personal mappings */
+    --link-color: var(--primary-color); 
+    --link-accent-color: var(--success-color); 
+    --header-color: var(--link-color); 
+    --header-sign-color: var(--link-color); 
+}
+
+.dark-mode{
+    --primary-color: #458588; 
+    --secondary-color: #83A598; 
+    --background-color: #282828; 
+    --foreground-color: #EBDBB2; 
+    --accent-color: #FB4934; 
+    --success-color: #B8BB26; 
+    --error-color: #CC241D; 
+    --disabled-color: #928374; 
+    --code-background-color: #3C3836; 
+    --code-foreground-color: #D5C4A1; 
+    /* Personal mappings */
+    --link-color: var(--primary-color); 
+    --link-accent-color: var(--success-color); 
+    --header-color: var(--link-color); 
+    --header-sign-color: var(--link-color); 
+}
 
 body {
-    font-family: "Roboto Condensed";
+    font-family:  var(--main-font);
     font-size: 16px;
     font-weight: 400;
-    color: #353535 ;
-    background: #FFFFFF;
+    color: var(--foreground-color);
+    background: var(--background-color);
     line-height: 1.4em;
     counter-reset: section;
     counter-reset: toc-section;
@@ -26,12 +64,12 @@ body {
 
 a, a:visited {
     text-decoration: none;
-    color: #284B63;
+    color: var(--link-color);
 }
 
 a:hover {
     text-decoration: underline;
-    color: #353535;
+    color: var(--link-accent-color);
 }
 
 .org-bold {
@@ -40,20 +78,13 @@ a:hover {
 
 
 i, i a {
-    /* color: #3C6E71;  */
     font-style: italic;
 }
 
 .org-italic, .org-org-meta-line {
-    /* color: #284B63 ; */
+    color: var(--org-italic-color);
     font-style: italic;
 }
-
-
-/* Blinking cursor when strike-through */
-.custom { animation: blinker 1s linear infinite; }
-@keyframes blinker { 50% { opacity: 0; } }
-
 
 
 /* --- Table of contents --- */
@@ -70,6 +101,7 @@ i, i a {
     list-style: none;
     counter-reset: list 0;
 }
+
 #table-of-contents ul ul {
     padding-left:0em;
     font-weight: 300;
@@ -80,17 +112,12 @@ i, i a {
     padding-left: 2em;
 }
 
-#table-of-contents h2:before {
-    content: "";
-    counter-reset: section;
-}
-
 #table-of-contents ul li:before {
     display: inline-block;
     counter-increment: list;
     content: counters(list, ".") ".";
     text-transform: uppercase;
-    color: #284B63;
+    color: var(--header-color);
 }
 
 #table-of-contents ul li ul,
@@ -124,13 +151,12 @@ ul.org-ul li p {
     display: inline-block;
     margin-top: 0em;
     margin-bottom: 0em;
-    counter-decrement: none;
 }
 
 ul.org-ul li::before {
     display: inline-block;
     content: "— ";
-    color: #3C6E71;
+    color: var(--foreground-color);
     width: 1em;
     margin-left: -1em;
 }
@@ -148,12 +174,15 @@ ol.org-ol {
 }
 .org-ol li::before {
     content: counter(li) ". ";
-    color:  #3C6E71;
+    color:  var(--foreground-color);
     display: inline-block;
     width: 2em;
     margin-left: -2em;
 }
 
+/***************************************************
+ * Footer
+ ***************************************************/
 #content, #postamble {
     margin: 0 auto;
     max-width: 720px;
@@ -162,12 +191,11 @@ ol.org-ol {
 }
 
 #postamble {
-/*    border-top: 1px solid #999999; */
     padding-top: 1.5em;
 }
 
 #postamble p, #postamble a {
-    color: rgb(136 136 136);
+    color: var(--header-color);
     margin: 0;
     text-align: center;
     font-size: small;
@@ -189,67 +217,37 @@ span.subtitle {
     color: #3C6E71;
 }
 
-/* h3 { padding-top: .5em; } */
 h1, h2, h3, h4 {
-    color: #353535;
+    color: var(--header-color);
     font-size: 1em;
     text-transform: uppercase;
 }
 
-/* FIXME σκέψου το λίγο ακόμα αυτό */
 h2 {
     border: #cac2c2;
     border-bottom-style: dotted;
     border-bottom-width: thin;
     padding-bottom: 0.3em;
-}
-
-h3 { padding-top: 3em; }
-
-body {
-  counter-reset: section;
-}
-h2 {
     padding-top: 5em;
     counter-reset: subsection;
 }
 
-/* Fixing befores */
+h3 { padding-top: 3em; }
+
 h2::before, h3::before, h4::before, h5::before {
-    color: #3C6E71;
+    color: var(--header-sign-color);
     float: left;
     text-align: right;
     width: 2.5em;
     margin-left: -3.0em;
     counter-increment: subsection;
-    content: "## "
-    /* content: counter(section) "." counter(subsection) " "; */
 }
 
-h2::before {
-    content: "# "
-    /* content: "Chapter " counter(section) " "; */
-}
+h2::before { content: "# " }
+h3::before { content: "## " }
+h4::before { content: "### " }
+h5::before { content: "#### " }
 
-h3::before {
-    content: "## "
-    /* content: "Chapter " counter(section) " "; */
-}
-
-h4::before {
-    content: "### "
-}
-
-h5::before {
-    content: "#### "
-    /* content: counter(section) "." counter(subsection) " "; */
-}
-
-code {
-    background-color: #f9f9f9;
-    font-family: "Roboto Mono";
-    font-size: 14px;
-}
 
 /* --- Table --- */
 table { min-width: 100%; }
@@ -317,7 +315,7 @@ img {
 /* --- Default Parts --- */
 .tag    {
     background-color: #eee;
-    font-family: "Roboto Mono";
+    font-family: var(--main-font);
     font-size: 14px;
     padding: 2px;
     font-size: 80%;
@@ -337,43 +335,35 @@ img {
 /*--------------------------------------------------*/
 /* Code Coloring
 /*--------------------------------------------------*/
-.org-string {
-    color: #3C6E71 
-    font-style: italic;
-}
-
 pre::before {
-    color: #3C6E71;
+    color: var(--accent-color);
     text-align: right;
     width: 3.0em;
     margin: 0.5em;
     position: absolute;
     top: 0;
     left: 0;
-    border-bottom: 2px dotted #3C6E71;
+    border-bottom: 2px dotted var(--accent-color);
 }
 
 pre {
-    border-left: 2px solid #3C6E71;
-    background-color: #eee;
+    border-left: 2px solid var(--accent-color);
+    background-color: var(--code-background-color);
     overflow: auto;
     padding: 3em 0.5em 0.5em;
     line-height: 1.35em;
-    font-family: "Roboto Mono";
+    font-family: var(--main-font);
     font-size: 14px;
     position: relative;
 }
 
-pre.src {
-    overflow: scroll;
-}
+pre.src { overflow: scroll;}
 
 pre.src-awk:before { content: 'Awk'; }
 pre.src-authinfo::before { content: 'Authinfo'; }
 pre.src-C:before { content: 'C'; }
 pre.src-css:before { content: 'CSS'; }
 pre.src-elisp:before { content: 'Elisp'; }
-pre.src-gnuplot:before { content: 'gnuplot'; }
 pre.src-java:before { content: 'Java'; }
 pre.src-latex:before { content: 'LaTeX'; }
 pre.src-matlab:before { content: 'MATLAB'; }
@@ -395,12 +385,6 @@ pre.src-tex:before { content: 'TeX'; }
 pre.src-conf:before { content: 'Configuration File'; }
 
 /*--------------------------------------------------*/
-/* Captions
-/*--------------------------------------------------*/
-caption.t-above { caption-side: top; }
-caption.t-bottom { caption-side: bottom; }
-
-/*--------------------------------------------------*/
 /* Footnotes
 /*--------------------------------------------------*/
 
@@ -408,24 +392,6 @@ caption.t-bottom { caption-side: bottom; }
 .footdef  { margin-bottom: 1em; }
 .figure { padding: 1em; }
 .figure p { text-align: center; }
-
-
-/*--------------------------------------------------*/
-/* Equations
-/*--------------------------------------------------*/
-.equation-container {
-    display: table;
-    text-align: center;
-    width: 100%;
-}
-.equation {
-  vertical-align: middle;
-}
-.equation-label {
-  display: table-cell;
-  text-align: right;
-  vertical-align: middle;
-}
 
 
 /*--------------------------------------------------*/
@@ -453,29 +419,23 @@ caption.t-bottom { caption-side: bottom; }
 
 .note::before {
     content: "Note";
+    color: var(--accent-color);
     text-decoration-line: underline;
 }
 
 .note {
-    background: #04626882;
+    background: var(--code-background-color) ;
     padding: 1em;
-    /* float: left; */
     font-size: .85em;
     line-height: 1.25em;
-    /* This was needed to ensure that notes didn't go on top of text-body*/
-    /* margin-left: -30em; */
-    /* width: 20em; */
 }
 
 
 /*--------------------------------------------------*/
 /* Miscellaneous - to bundle with the rest
 /*--------------------------------------------------*/
-.outline-3{
-    padding-left: 2em;}
-
-.outline-4{
-    padding-left: 4em;}
+.outline-3{ padding-left: 2em;}
+.outline-4{ padding-left: 4em;}
 
 div.paradeigma {
     background: #FFFFFF;
@@ -620,12 +580,6 @@ i, i a {
 .custom { animation: blinker 1s linear infinite; }
 @keyframes blinker { 50% { opacity: 0; } }
 
-
-
-
-
-
-
 /*--------------------------------------------------*/
 /* Miscellaneous - to bundle with the rest
 /*--------------------------------------------------*/
@@ -661,6 +615,7 @@ div.paradeigma::before {
 
 /*--------------------------------------------------*/
 /* Code Coloring
+ * TODO fix
 /*--------------------------------------------------*/
 
 .org-keyword {
@@ -776,8 +731,8 @@ div#archive {
     position: absolute;
     top: 3px;
     right: 5px;
-    background-color: #284B63;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--background-color);
     border: none;
     border-radius: 5px;
     padding: 5px 10px;
@@ -785,17 +740,18 @@ div#archive {
 }
 
 blockquote {
-    background-color: #eee;
+    background-color: var(--code-background-color);
     padding: 2em;
     font-style: italic;
 }
 
-.fa-brands{
+.fa-brands, .fas{
     font-size: x-large;
+    color: var(--link-color);
 }
 
-.fa-brands:hover {
-    color: #284B63;
+.fa-brands:hover, .fas:hover {
+    color: var(--link-accent-color);
 }
 
 li#text-table-of-contents{
@@ -808,16 +764,4 @@ div#table-of-contents {
     clear: left;
     margin-left: -40%;
     max-width: 30%;
-
-}
-
-/* Check the about page */
-.skilliconscontainer {
-	text-align: center;
-}
-
-.skilliconscontainer img{
-    display: inline;
-    transform: none;
-    transition: none;
 }

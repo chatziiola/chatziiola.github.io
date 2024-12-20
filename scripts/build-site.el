@@ -4,8 +4,6 @@
 ;;;; TODO Someday I will write something here. Till then ;)
 
 ;;; Code:
-;; (load (expand-file-name "build-site.el" default-directory))
-
 ;; Load Configuration specifics
 (load (expand-file-name "config.el" (file-name-directory load-file-name)))
 
@@ -41,17 +39,8 @@
 
 (org-babel-do-load-languages
  'org-babel-load-languages
- '((emacs-lisp . t)
-   (gnuplot . t)
-   (haskell . nil)
-   (latex . t)
-   (octave . t)
-   (python . t)
-   (matlab . t)
-   (shell . t)
-   (ruby . t)
-   (sql . nil)
-   (sqlite . t)))
+ '((emacs-lisp . t) (gnuplot . t) (haskell . nil) (latex . t) (octave . t)
+   (python . t) (matlab . t) (shell . t) (ruby . t) (sql . nil) (sqlite . t)))
 
 (setq org-publish-project-alist
       (list
@@ -75,7 +64,6 @@
 	     :section-numbers nil       ;; Don't include section numbers
 	     :html-link-home "/index.html"
 	     :html-link-up "../index.html"
-
 	     :time-stamp-file nil)
 
        (list "blog-posts"
