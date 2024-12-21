@@ -1,53 +1,42 @@
 /*
  * Cascading stylesheet for GNU Emacs org mode
- * Nicolas P. Rougier - September 2020
+ * Lamprinos Chatziioannou (chatziiol)
  * Released under a Creative Commons CC-BY 4.0 licence
  *
- * --- Note added by Lamprinos Chatziioannou (chatziiol)
- * Only slight changes were made
- * up/home, logo and nav menu
+ * Initially based on the one designed by:
+ * Nicolas P. Rougier - September 2020
  */
 
 
 @charset "utf-8";
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap'); 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 
-/* https://github.com/morhetz/gruvbox */
+:root { --main-font: "Roboto Mono", monospace;}
+
 :root {
-    --main-font: "JetBrains Mono", monospace;
-    --primary-color: #4A90E2; 
-    --secondary-color: #50E3C2; 
-    --background-color: #F5F7FA; 
-    --foreground-color: #4A4A4A; 
-    --accent-color: #E94E77; 
-    --success-color: #7ED321; 
-    --error-color: #D0021B; 
-    --disabled-color: #C4C4C4; 
-    --code-background-color: #E0E0E0; 
-    --code-foreground-color: #333333; 
-    /* Personal mappings */
-    --link-color: var(--primary-color); 
-    --link-accent-color: var(--success-color); 
-    --header-color: var(--link-color); 
-    --header-sign-color: var(--link-color); 
+  --primary-color: #8d6e63;
+  --secondary-color: #d7ccc8; 
+  --background-color: #f5f5f5; 
+  --foreground-color: #4e342e; 
+  --accent-color: #a1887f; 
+  --success-color: #6d9e6a; 
+  --error-color: #d32f2f; 
+  --disabled-color: #a89984; 
+  --code-background-color: #ede0d4; 
+  --code-foreground-color: #4e342e; 
 }
 
-.dark-mode{
-    --primary-color: #458588; 
-    --secondary-color: #83A598; 
-    --background-color: #282828; 
-    --foreground-color: #EBDBB2; 
-    --accent-color: #FB4934; 
-    --success-color: #B8BB26; 
-    --error-color: #CC241D; 
-    --disabled-color: #928374; 
-    --code-background-color: #3C3836; 
-    --code-foreground-color: #D5C4A1; 
-    /* Personal mappings */
-    --link-color: var(--primary-color); 
-    --link-accent-color: var(--success-color); 
-    --header-color: var(--link-color); 
-    --header-sign-color: var(--link-color); 
+.dark-mode {
+  --primary-color: #ccaba0;
+  --secondary-color: #a1887f;
+  --background-color: #372620;
+  --foreground-color: #f5f5f5;
+  --accent-color: #c7a89e;
+  --success-color: #a2b97b;
+  --error-color: #e53935;
+  --disabled-color: #756a5d;
+  --code-background-color: #2c1f1a;
+  --code-foreground-color: #f5f5f5;
 }
 
 body {
@@ -60,84 +49,46 @@ body {
     counter-reset: section;
     counter-reset: toc-section;
     counter-increment: toc-section;
+    text-align: justify;
 }
 
 a, a:visited {
     text-decoration: none;
-    color: var(--link-color);
+    color: var(--primary-color);
 }
 
 a:hover {
     text-decoration: underline;
-    color: var(--link-accent-color);
+    color: var(--success-color);
 }
 
-.org-bold {
-    font-weight: 400;
-}
-
-
-i, i a {
-    font-style: italic;
-}
-
-.org-italic, .org-org-meta-line {
-    color: var(--org-italic-color);
-    font-style: italic;
-}
+.org-center { text-align: center; }
+i, i a { font-style: italic; }
+.org-italic, .org-org-meta-line { color: var(--diasbled-password); font-style: italic; }
 
 
 /* --- Table of contents --- */
 #table-of-contents {
-    padding-top: 0em;
-    margin-top: 0em;
-    /* text-transform: uppercase; */
     padding-bottom: 3em;
+    display:block; float: left; clear: left;
+    margin-left: -40%; max-width: 30%;
 }
 
-#table-of-contents ul {
-    padding: 0;
-    font-weight: 400;
-    list-style: none;
-    counter-reset: list 0;
-}
+#table-of-contents ul { padding: 0; list-style: none; counter-reset: list 0; }
 
 #table-of-contents ul ul {
-    padding-left:0em;
-    font-weight: 300;
-    font-size: 90%;
-    line-height: 1.5em;
-    margin-top: 0em;
-    margin-bottom: 1em;
-    padding-left: 2em;
+    font-size: 85%; line-height: 1.5em; padding-left: 1em; text-align: left;
 }
 
+/* Line numbers and - */
 #table-of-contents ul li:before {
-    display: inline-block;
-    counter-increment: list;
-    content: counters(list, ".") ".";
-    text-transform: uppercase;
-    color: var(--header-color);
-}
+    counter-increment: list; content: counters(list, ".") ".";
+    color: var(--primary-color); }
+#table-of-contents ul li ul li:before { content: "-"; margin-right: 1em; }
+#table-of-contents h2 { font-size: 1em; padding-top: 5em; }
+#table-of-contents h2:before { content: "⌘"; }
 
-#table-of-contents ul li ul,
-#table-of-contents ul li ul li {
-    display: static;
-    width: 100%;
-    padding-left: 0.6em;
-    line-height: 1.35em;
-}
-#table-of-contents ul li ul li:before {
-    content: ""
-}
-#table-of-contents h2 {
-    font-size: 1em;
-    padding-top: 5em;
-}
-#table-of-contents h2:before {
-    content: "⌘";
-}
-
+/* Lists in general */
 ul.org-ul {
     padding-left: 1em;
 }
@@ -195,7 +146,7 @@ ol.org-ol {
 }
 
 #postamble p, #postamble a {
-    color: var(--header-color);
+    color: var(--primary-color);
     margin: 0;
     text-align: center;
     font-size: small;
@@ -203,28 +154,18 @@ ol.org-ol {
     padding-bottom: 3em;
 }
 
-h1.title {
-    font-size: 1.75em;
-    margin-top: 3em;
-    margin-bottom: 1em;
-    text-align: center;
-}
-
-span.subtitle {
-    display: inline-block;
-    margin-top: .25em;
-    font-size: 74.5%;
-    color: #3C6E71;
+h1.title { font-size: 1.75em; margin-top: 3em; margin-bottom: 1em; text-align: center; }
+span.subtitle { margin-top: .25em; font-size: 74.5%; color: var(--secondary-color)
 }
 
 h1, h2, h3, h4 {
-    color: var(--header-color);
+    color: var(--primary-color);
     font-size: 1em;
     text-transform: uppercase;
 }
 
 h2 {
-    border: #cac2c2;
+    border: var(--primary-color);
     border-bottom-style: dotted;
     border-bottom-width: thin;
     padding-bottom: 0.3em;
@@ -235,7 +176,7 @@ h2 {
 h3 { padding-top: 3em; }
 
 h2::before, h3::before, h4::before, h5::before {
-    color: var(--header-sign-color);
+    color: var(--primary-color);
     float: left;
     text-align: right;
     width: 2.5em;
@@ -243,138 +184,73 @@ h2::before, h3::before, h4::before, h5::before {
     counter-increment: subsection;
 }
 
-h2::before { content: "# " }
-h3::before { content: "## " }
-h4::before { content: "### " }
-h5::before { content: "#### " }
+h2::before { content: "#" }
+h3::before { content: "##" }
+h4::before { content: "###" }
+h5::before { content: "####" }
 
 
 /* --- Table --- */
 table { min-width: 100%; }
-table, tbody, td, tr, th, colgroup, thead {
-    border: 0;
-/*    padding: 0;*/
-}
-table {
-    margin-top: 1em;
-}
-thead {
-    border-bottom: 1px dashed #353535;
-}
-th {
-    text-align: left;
-    padding: 0;
-    margin-bottom: 0.25em;
-    padding-bottom: 0.25em;
-}
+table, tbody, td, tr, th, colgroup, thead { border: 0; }
+table { margin-top: 1em; }
+thead { border-bottom: 1px dashed #353535; }
+th { text-align: left; padding: 0; margin-bottom: 0.25em; padding-bottom: 0.25em; }
 td { padding: 0; }
-
 tr:nth-child(even) {background: #f9f9f9;}
 tr:nth-child(odd) {background: #ffffff;}
 
-/* --- Back links in header --- */
-div.back a {
-    float: right;
-    color: #3C6E71;
-    font-variant: small-caps;
-    margin-top: -2.5em;
-}
-
-/* My personal additions */
-div#navigation {
-  top: 0;
-  text-align: center;
-  border-bottom: 1px;
-  padding-bottom: 1em;
-  /* https://stackoverflow.com/questions/1702559/ascii-art-in-html */
-  /* white-space: pre; */
-}
+div#org-div-home-and-up { text-align: right; font-size: 90%; margin-top: 10px; margin-right: 30%; }
 
 
-div#org-div-home-and-up
-{
-  text-align: right;
-  font-size: 90%;
-  margin-top: 10px;
-  margin-right: 30%;
-}
+img { max-width: 100%; display: block; margin-left: auto; margin-right: auto; }
 
-p {
-    text-align: justify;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-/* width: 50%;*/
-}
-
-
-/* --- Default Parts --- */
-.tag    {
-    background-color: #eee;
-    font-family: var(--main-font);
-    font-size: 14px;
-    padding: 2px;
-    font-size: 80%;
-}
-
-.timestamp {
-    color: #3C6E71;
-}
-.timestamp-kwd {
-    color: #284B63;
-}
-
-.underline {
-    text-decoration: underline;
-}
+.tag { padding: 2px; font-size: 80%; }
+.timestamp { color: #3C6E71; }
+.underline { text-decoration: underline; }
 
 /*--------------------------------------------------*/
 /* Code Coloring
 /*--------------------------------------------------*/
+
+blockquote { background-color: var(--code-background-color); padding: 2em; font-style: italic; }
+
+.copy-button {
+    position: absolute; top: 0.5em; right: 0.5em;
+    size: 50%; padding: 5px 10px; cursor: pointer;
+    color: var(--accent-color); }
+
 pre::before {
     color: var(--accent-color);
-    text-align: right;
-    width: 3.0em;
-    margin: 0.5em;
-    position: absolute;
-    top: 0;
-    left: 0;
+    text-align: right; margin: 0.5em;
+    position: absolute; top: 0.5em; left: 0.5em;
     border-bottom: 2px dotted var(--accent-color);
 }
 
 pre {
     border-left: 2px solid var(--accent-color);
     background-color: var(--code-background-color);
-    overflow: auto;
-    padding: 3em 0.5em 0.5em;
-    line-height: 1.35em;
-    font-family: var(--main-font);
-    font-size: 14px;
-    position: relative;
+    overflow: auto; position: relative;
+    padding: 3em 0.5em 0.5em; line-height: 1.35em;
+    font-family: var(--main-font); font-size: 90%;
 }
 
+/* TODO maybe js ? */
 pre.src { overflow: scroll;}
-
 pre.src-awk:before { content: 'Awk'; }
-pre.src-authinfo::before { content: 'Authinfo'; }
 pre.src-C:before { content: 'C'; }
 pre.src-css:before { content: 'CSS'; }
 pre.src-elisp:before { content: 'Elisp'; }
 pre.src-java:before { content: 'Java'; }
 pre.src-latex:before { content: 'LaTeX'; }
 pre.src-matlab:before { content: 'MATLAB'; }
-pre.src-octave:before { content: 'Octave'; }
 pre.src-org:before { content: 'Org mode'; }
 pre.src-python:before { content: 'Python'; }
 pre.src-sed:before { content: 'Sed'; }
 pre.src-sh:before { content: 'shell'; }
 pre.src-sql:before { content: 'SQL'; }
 pre.src-sqlite:before { content: 'SQLite'; }
-pre.src-shell:before { content: 'Shell Script'; }
+pre.src-shell:before { content: 'Shell'; }
 pre.src-cpp:before  { content: 'C++'; }
 pre.src-c:before  { content: 'C'; }
 pre.src-bash:before  { content: 'bash'; }
@@ -382,7 +258,6 @@ pre.example:before  { content: 'example'; }
 pre.src-asm:before { content: 'Assembler'; }
 pre.src-html:before { content: 'HTML'; }
 pre.src-tex:before { content: 'TeX'; }
-pre.src-conf:before { content: 'Configuration File'; }
 
 /*--------------------------------------------------*/
 /* Footnotes
@@ -393,43 +268,12 @@ pre.src-conf:before { content: 'Configuration File'; }
 .figure { padding: 1em; }
 .figure p { text-align: center; }
 
-
-/*--------------------------------------------------*/
-/* My /classes/
-/*--------------------------------------------------*/
-
-/* Quotes */
-.quote {
-    font-size: 14px;
-    color:  rgba(51, 51, 51, 1.00);
-    background: #3C6E71;
-    line-height: 1.4em;
-}
-
-
-.quote::before {
-    color: #3C6E71;
-    float: left;
-    text-align: right;
-    width: 7.5em;
-    margin-left: -8.0em;
-    content: "Quote ";
-}
-
-
 .note::before {
-    content: "Note";
-    color: var(--accent-color);
-    text-decoration-line: underline;
-}
+    content: "Note"; color: var(--accent-color); text-decoration-line: underline; }
 
 .note {
     background: var(--code-background-color) ;
-    padding: 1em;
-    font-size: .85em;
-    line-height: 1.25em;
-}
-
+    padding: 1em; font-size: .85em; line-height: 1.25em; }
 
 /*--------------------------------------------------*/
 /* Miscellaneous - to bundle with the rest
@@ -437,331 +281,20 @@ pre.src-conf:before { content: 'Configuration File'; }
 .outline-3{ padding-left: 2em;}
 .outline-4{ padding-left: 4em;}
 
-div.paradeigma {
-    background: #FFFFFF;
-    border: 2px solid #3b9ebe;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 2em;
-}
-
-h1 {
-    counter-reset: example;
-}
-
-/* Lectures specific specific */
-div.paradeigma::before {
-    counter-increment: example;
-    content: "Παράδειγμα " counter(section) "." counter(example) " ";
-    background: #3b9ebe;
-    border-radius: 0.2em;
-    padding: 0.5em;
-    /* margin-top: 2em; */
-    /* text-emphasis: revert; */
-    color: #FFFFFF;
-}
-
 /*--------------------------------------------------*/
 /* Code Coloring
 /*--------------------------------------------------*/
 
-.org-keyword {
-    color: red;
-}
+.org-keyword { color: var(--accent-color); }
+.org-constant { font-style: italic; }
+.org-variable-name, .org-type, .org-function-name{ color: var(--primary-color); }
+.org-builtin{ color: var(--primary-color); }
+.org-comment { color: var(--disabled-color); font-style: italic; }
+.org-string { color: var(--success-color); font-style: italic; }
 
-.org-constant {
-    font-style: italic;
-}
+.magnify-image { transform: scale(2); transition: transform 0.3s ease; z-index: 1000; position: relative; }
 
-.org-variable-name, .org-type, .org-function-name{
-    color: blue;
-}
+button { border: none; background: none; color: var(--foreground-color); }
 
-.org-builtin{
-    color: purple;
-}
-
-.org-comment {
-    font-style: italic;
-}
-
-.org-string {
-    color: #3C6E71;
-    font-style: italic;
-}
-
-/*--------------------------------------------------*/
-/* Org-static-blog 
-/*--------------------------------------------------*/
-div#archive {
-    padding-top: 5em;
-    border-top: black;
-    border-bottom: black;
-    border-top-style: solid;
-    border-bottom-style: solid;
-    margin-top: 10em;
-    padding-bottom: 5em;
-    margin-bottom: 10em;
-}
-
-/*--------------------------------------------------*/
-/* Previous Next navigation buttons
-/*--------------------------------------------------*/
-
-
-.series-navigation-div{
-  height: 4em; /* 3 lines */
-  padding: 4em;
-  background-color: transparent;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-button:hover {
-    border: black;
-    border-style: solid;
-}
-
-.nav-button{
-    width: 50%;
-}
-
-.previous-nav-button,
-.next-nav-button{
-  flex: 1;
-  text-align: center;
-}
-
-
-/*--------------------------------------------------*/
-/* Homepage image css
-/*--------------------------------------------------*/
-
-.nav-image-container {
-    max-width: 100%;
-    max-height: 12em;
-    text-align: center;
-    padding: 1em;
-    white-space: revert;
-}
-
-.nav-image {
-    width: 100%;
-    height: 10em;
-    overflow: hidden;
-    display: block;
-    padding: 0em;
-    border: 10px solid #284b63;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #353535;
-}
-
-.org-bold {
-    font-weight: 400;
-}
-
-
-i, i a {
-    /* color: #3C6E71;  */
-    font-style: italic;
-}
-
-.org-italic, .org-org-meta-line {
-    /* color: #284B63 ; */
-    font-style: italic;
-}
-
-
-/* Blinking cursor when strike-through */
-.custom { animation: blinker 1s linear infinite; }
-@keyframes blinker { 50% { opacity: 0; } }
-
-/*--------------------------------------------------*/
-/* Miscellaneous - to bundle with the rest
-/*--------------------------------------------------*/
-.outline-3{
-    padding-left: 2em;}
-
-.outline-4{
-    padding-left: 4em;}
-
-div.paradeigma {
-    background: #FFFFFF;
-    border: 2px solid #3b9ebe;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    padding: 2em;
-}
-
-h1 {
-    counter-reset: example;
-}
-
-/* Lectures specific specific */
-div.paradeigma::before {
-    counter-increment: example;
-    content: "Παράδειγμα " counter(section) "." counter(example) " ";
-    background: #3b9ebe;
-    border-radius: 0.2em;
-    padding: 0.5em;
-    /* margin-top: 2em; */
-    /* text-emphasis: revert; */
-    color: #FFFFFF;
-}
-
-/*--------------------------------------------------*/
-/* Code Coloring
- * TODO fix
-/*--------------------------------------------------*/
-
-.org-keyword {
-    color: red;
-}
-
-.org-constant {
-    font-style: italic;
-}
-
-.org-variable-name, .org-type, .org-function-name{
-    color: blue;
-}
-
-.org-builtin{
-    color: purple;
-}
-
-.org-comment {
-    font-style: italic;
-}
-
-.org-string {
-    color: #3C6E71;
-    font-style: italic;
-}
-
-/*--------------------------------------------------*/
-/* Org-static-blog 
-/*--------------------------------------------------*/
-div#archive {
-    padding-top: 5em;
-    border-top: black;
-    border-bottom: black;
-    border-top-style: solid;
-    border-bottom-style: solid;
-    margin-top: 10em;
-    padding-bottom: 5em;
-    margin-bottom: 10em;
-}
-
-/*--------------------------------------------------*/
-/* Previous Next navigation buttons
-/*--------------------------------------------------*/
-
-
-.series-navigation-div{
-  height: 4em; /* 3 lines */
-  padding: 4em;
-  background-color: transparent;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.nav-button:hover {
-    border: black;
-    border-style: solid;
-}
-
-.nav-button{
-    width: 50%;
-}
-
-.previous-nav-button,
-.next-nav-button{
-  flex: 1;
-  text-align: center;
-}
-
-
-/*--------------------------------------------------*/
-/* Homepage image css
-/*--------------------------------------------------*/
-
-.nav-image-container {
-    max-width: 100%;
-    max-height: 12em;
-    text-align: center;
-    padding: 1em;
-    white-space: revert;
-}
-
-.nav-image {
-    width: 100%;
-    height: 10em;
-    overflow: hidden;
-    display: block;
-    padding: 0em;
-    border: 10px solid #284b63;
-}
-
-.small {
-    font-size: 0.8em;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-/* // Add this CSS to your stylesheet or in a <style> tag in the HTML head */
-/* // This CSS class applies the magnification effect and any focusing styles you want */
-/* // Adjust the transform scale value and other properties as needed */
-.magnify-image {
-    transform: scale(2); /* Double the size */
-    transition: transform 0.3s ease; /* Smooth transition for magnification */
-    z-index: 1000; /* Ensure the image is above other content */
-    position: relative; /* Required for z-index to take effect */
-    /* cursor: zoom-out; /\* Change cursor to indicate the image can be clicked to reduce size *\/ */
-}
-
-/* Think its obvious this one */
-.copy-button {
-    position: absolute;
-    top: 3px;
-    right: 5px;
-    background-color: var(--accent-color);
-    color: var(--background-color);
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-blockquote {
-    background-color: var(--code-background-color);
-    padding: 2em;
-    font-style: italic;
-}
-
-.fa-brands, .fas{
-    font-size: x-large;
-    color: var(--link-color);
-}
-
-.fa-brands:hover, .fas:hover {
-    color: var(--link-accent-color);
-}
-
-li#text-table-of-contents{
-    padding: 1em;
-}
-
-div#table-of-contents {
-    display:block;
-    float: left;
-    clear: left;
-    margin-left: -40%;
-    max-width: 30%;
-}
+.fa-brands, .fas{ font-size: x-large; color: var(--primary-color); }
+.fa-brands:hover, .fas:hover { color: var(--success-color); }
