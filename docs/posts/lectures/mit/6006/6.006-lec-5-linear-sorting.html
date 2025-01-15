@@ -51,40 +51,40 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org76d2908">Lecture details:</a>
+<li><a href="#org49e9b41">Lecture details:</a>
 <ul>
-<li><a href="#org997c540">Note</a></li>
+<li><a href="#orgb25d1aa">Note</a></li>
 </ul>
 </li>
-<li><a href="#orgd5bb4aa">Introduction</a></li>
-<li><a href="#org18125c7">Sorting</a>
+<li><a href="#orgaa1cc55">Introduction</a></li>
+<li><a href="#orge9d6abd">Sorting</a>
 <ul>
-<li><a href="#orgf64b6f7">Direct Access Array Sort</a></li>
-<li><a href="#org8d53d15">Tuple sort</a>
+<li><a href="#org6d7a9de">Direct Access Array Sort</a></li>
+<li><a href="#org9b2756a">Tuple sort</a>
 <ul>
-<li><a href="#org2763c26">Counting sort</a></li>
-<li><a href="#orgddf35d6">Why is that faster?</a></li>
+<li><a href="#org661f08b">Counting sort</a></li>
+<li><a href="#orgaa1d53a">Why is that faster?</a></li>
 </ul>
 </li>
-<li><a href="#orgd521d83">Radix Sort</a></li>
+<li><a href="#orgea47628">Radix Sort</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org76d2908" class="outline-2">
-<h2 id="org76d2908"><a href="#org76d2908">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org76d2908">
+<div id="outline-container-org49e9b41" class="outline-2">
+<h2 id="org49e9b41"><a href="#org49e9b41">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org49e9b41">
 <ul class="org-ul">
 <li>Professor: Jason Kun</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=yndgIDO0zQQ&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=7">YouTube Link</a></li>
 </ul>
 </div>
 
-<div id="outline-container-org997c540" class="outline-3">
-<h3 id="org997c540"><a href="#org997c540">Note</a></h3>
-<div class="outline-text-3" id="text-org997c540">
+<div id="outline-container-orgb25d1aa" class="outline-3">
+<h3 id="orgb25d1aa"><a href="#orgb25d1aa">Note</a></h3>
+<div class="outline-text-3" id="text-orgb25d1aa">
 <p>
 This lecture seemed full of gaps to me. Only through the lecture and rescitation
 notes did I understand the topics discussed.
@@ -93,9 +93,9 @@ notes did I understand the topics discussed.
 </div>
 </div>
 
-<div id="outline-container-orgd5bb4aa" class="outline-2">
-<h2 id="orgd5bb4aa"><a href="#orgd5bb4aa">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd5bb4aa">
+<div id="outline-container-orgaa1cc55" class="outline-2">
+<h2 id="orgaa1cc55"><a href="#orgaa1cc55">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgaa1cc55">
 <p>
 In lecture 3, we discussed sorting algorithms based on the comparison model. We
 saw however, that using similar-to-hash functions we can move from the comparison to the
@@ -104,9 +104,9 @@ word RAM model and take advantage of \(O(1)\) access.
 </div>
 </div>
 
-<div id="outline-container-org18125c7" class="outline-2">
-<h2 id="org18125c7"><a href="#org18125c7">Sorting</a></h2>
-<div class="outline-text-2" id="text-org18125c7">
+<div id="outline-container-orge9d6abd" class="outline-2">
+<h2 id="orge9d6abd"><a href="#orge9d6abd">Sorting</a></h2>
+<div class="outline-text-2" id="text-orge9d6abd">
 <p>
 In the comparison model, the <code>find(k)</code> operation has \(n+1\) possible output
 items while the <code>sort()</code> function has \(n!\) possible outputs, the \(n!\)
@@ -124,9 +124,9 @@ O(\lg{n!}) \to \Omega(n\lg{n})
 \end{align}
 </div>
 
-<div id="outline-container-orgf64b6f7" class="outline-3">
-<h3 id="orgf64b6f7"><a href="#orgf64b6f7">Direct Access Array Sort</a></h3>
-<div class="outline-text-3" id="text-orgf64b6f7">
+<div id="outline-container-org6d7a9de" class="outline-3">
+<h3 id="org6d7a9de"><a href="#org6d7a9de">Direct Access Array Sort</a></h3>
+<div class="outline-text-3" id="text-org6d7a9de">
 <p>
 Instantiante a big access array and store every item <code>x</code> in the <code>x.key</code> slot.
 Then walk down the array (iterate through it), returning the items in their
@@ -172,9 +172,9 @@ that, the running time can be \(O(n)\) if \(u = O(n)\), however, it can also bec
 </div>
 </div>
 
-<div id="outline-container-org8d53d15" class="outline-3">
-<h3 id="org8d53d15"><a href="#org8d53d15">Tuple sort</a></h3>
-<div class="outline-text-3" id="text-org8d53d15">
+<div id="outline-container-org9b2756a" class="outline-3">
+<h3 id="org9b2756a"><a href="#org9b2756a">Tuple sort</a></h3>
+<div class="outline-text-3" id="text-org9b2756a">
 <p>
 What if we <i>split</i> the key values though?
 </p>
@@ -203,9 +203,9 @@ not <i>differentiate</i> between two items, the order that the items have in inp
 </p>
 </div>
 
-<div id="outline-container-org2763c26" class="outline-4">
-<h4 id="org2763c26"><a href="#org2763c26">Counting sort</a></h4>
-<div class="outline-text-4" id="text-org2763c26">
+<div id="outline-container-org661f08b" class="outline-4">
+<h4 id="org661f08b"><a href="#org661f08b">Counting sort</a></h4>
+<div class="outline-text-4" id="text-org661f08b">
 <p>
 In this <b>stable</b> algorithm, given an array \(A\) we put every item in \(x\in A\) in a
 dynamic structure at <code>B[x.key]</code>. Then we iterate through \(B\), returning the
@@ -229,11 +229,11 @@ items in a <i>FIFO</i> order.
 </div>
 </div>
 
-<div id="outline-container-orgddf35d6" class="outline-4">
-<h4 id="orgddf35d6"><a href="#orgddf35d6">Why is that faster?</a></h4>
-<div class="outline-text-4" id="text-orgddf35d6">
+<div id="outline-container-orgaa1d53a" class="outline-4">
+<h4 id="orgaa1d53a"><a href="#orgaa1d53a">Why is that faster?</a></h4>
+<div class="outline-text-4" id="text-orgaa1d53a">
 <p>
-Even though it does not look much different to <a href="#orgf64b6f7">DAA Sort</a>, counting sort handles
+Even though it does not look much different to <a href="#org6d7a9de">DAA Sort</a>, counting sort handles
 collisions, meaning that we have now no problem dealing with sets containing
 duplicate keys.
 </p>
@@ -247,9 +247,9 @@ implementation of tuple sort is called:
 </div>
 </div>
 
-<div id="outline-container-orgd521d83" class="outline-3">
-<h3 id="orgd521d83"><a href="#orgd521d83">Radix Sort</a></h3>
-<div class="outline-text-3" id="text-orgd521d83">
+<div id="outline-container-orgea47628" class="outline-3">
+<h3 id="orgea47628"><a href="#orgea47628">Radix Sort</a></h3>
+<div class="outline-text-3" id="text-orgea47628">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">radix_sort</span>(A):
     <span class="org-doc">"Sort A assuming items have non-negative keys"</span>
@@ -259,8 +259,8 @@ implementation of tuple sort is called:
     <span class="org-keyword">class</span> <span class="org-type">Obj</span>: <span class="org-keyword">pass</span>
     <span class="org-variable-name">D</span> <span class="org-operator">=</span> [Obj() <span class="org-keyword">for</span> a <span class="org-keyword">in</span> A]                                  <span class="org-comment-delimiter">#</span><span class="org-comment">O(n) initiate objects</span>
     <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(n):                                      <span class="org-comment-delimiter"># </span><span class="org-comment">O(nc) make digit tuples</span>
-        D[i].<span class="org-variable-name">digits</span> <span class="org-operator">=</span> []
-        D[i].<span class="org-variable-name">item</span> <span class="org-operator">=</span> A[i]
+        D[i].digits <span class="org-operator">=</span> []
+        D[i].item <span class="org-operator">=</span> A[i]
         <span class="org-variable-name">high</span> <span class="org-operator">=</span> A[i].key
         <span class="org-keyword">for</span> j <span class="org-keyword">in</span> <span class="org-builtin">range</span>(c):                                  <span class="org-comment-delimiter"># </span><span class="org-comment">O(c) make digit tuple</span>
             <span class="org-variable-name">high</span>, <span class="org-variable-name">low</span> <span class="org-operator">=</span> <span class="org-builtin">divmod</span>(high, n)
@@ -268,7 +268,7 @@ implementation of tuple sort is called:
     <span class="org-comment-delimiter"># </span><span class="org-comment">Sort based on each digit key</span>
     <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(c):                                      <span class="org-comment-delimiter"># </span><span class="org-comment">O(nc) sort each digit</span>
         <span class="org-keyword">for</span> j <span class="org-keyword">in</span> <span class="org-builtin">range</span>(n):                                  <span class="org-comment-delimiter"># </span><span class="org-comment">O(n) assign key i to tuples</span>
-            D[j].<span class="org-variable-name">key</span> <span class="org-operator">=</span> D[j].digits[i]
+            D[j].key <span class="org-operator">=</span> D[j].digits[i]
         counting_sort(D)                                    <span class="org-comment-delimiter"># </span><span class="org-comment">O(n) sort on digit i</span>
     <span class="org-keyword">for</span> i <span class="org-keyword">in</span> <span class="org-builtin">range</span>(n):                                      <span class="org-comment-delimiter"># </span><span class="org-comment">O(n) output</span>
         <span class="org-variable-name">A</span>[i] <span class="org-operator">=</span> D[i].item

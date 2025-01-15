@@ -20,21 +20,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3bf062a">Challenge</a>
+<li><a href="#org705e9fe">Challenge</a>
 <ul>
-<li><a href="#org5df7b64">Vulnerable part</a></li>
-<li><a href="#org0f956cb">Solution</a></li>
-<li><a href="#org7e939a8">Note on Angular</a></li>
+<li><a href="#org2b19e95">Vulnerable part</a></li>
+<li><a href="#org6c11ab1">Solution</a></li>
+<li><a href="#org7e1b7b4">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#org92048bd">Summary</a></li>
+<li><a href="#orga712dd7">Summary</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org3bf062a" class="outline-2">
-<h2 id="org3bf062a"><a href="#org3bf062a">Challenge</a></h2>
-<div class="outline-text-2" id="text-org3bf062a">
+<div id="outline-container-org705e9fe" class="outline-2">
+<h2 id="org705e9fe"><a href="#org705e9fe">Challenge</a></h2>
+<div class="outline-text-2" id="text-org705e9fe">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -51,7 +51,7 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="org23f3af4" class="figure">
+<div id="org5e25699" class="figure">
 <p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sample Input</p>
@@ -59,9 +59,9 @@ which we supply gets shown in the source code:
 </div>
 
 
-<div id="outline-container-org5df7b64" class="outline-3">
-<h3 id="org5df7b64"><a href="#org5df7b64">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-org5df7b64">
+<div id="outline-container-org2b19e95" class="outline-3">
+<h3 id="org2b19e95"><a href="#org2b19e95">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-org2b19e95">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -75,7 +75,7 @@ NG-app
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org5afb1f0">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
+<pre class="src src-html" id="org4680eef">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
   &lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/"</span> <span class="org-variable-name">method</span>=<span class="org-string">"GET"</span> <span class="org-variable-name">class</span>=<span class="org-string">"ng-pristine ng-valid"</span>&gt;
     &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">placeholder</span>=<span class="org-string">"Search the blog..."</span> <span class="org-variable-name">name</span>=<span class="org-string">"search"</span>&gt;
     &lt;<span class="org-function-name">button</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">class</span>=<span class="org-string">"button"</span>&gt;Search&lt;/<span class="org-function-name">button</span>&gt;
@@ -87,24 +87,24 @@ NG-app
 </div>
 
 
-<div id="outline-container-org0f956cb" class="outline-3">
-<h3 id="org0f956cb"><a href="#org0f956cb">Solution</a></h3>
-<div class="outline-text-3" id="text-org0f956cb">
+<div id="outline-container-org6c11ab1" class="outline-3">
+<h3 id="org6c11ab1"><a href="#org6c11ab1">Solution</a></h3>
+<div class="outline-text-3" id="text-org6c11ab1">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="org4b9e976">
+<pre class="example" id="orgef5ca91">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org7e939a8" class="outline-3">
-<h3 id="org7e939a8"><a href="#org7e939a8">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-org7e939a8">
+<div id="outline-container-org7e1b7b4" class="outline-3">
+<h3 id="org7e1b7b4"><a href="#org7e1b7b4">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-org7e1b7b4">
 <p>
 For more info check out:
 </p>
@@ -116,9 +116,9 @@ For more info check out:
 </div>
 </div>
 
-<div id="outline-container-org92048bd" class="outline-2">
-<h2 id="org92048bd"><a href="#org92048bd">Summary</a></h2>
-<div class="outline-text-2" id="text-org92048bd">
+<div id="outline-container-orga712dd7" class="outline-2">
+<h2 id="orga712dd7"><a href="#orga712dd7">Summary</a></h2>
+<div class="outline-text-2" id="text-orga712dd7">
 <div class="tenor-gif-embed" data-postid="18768386" data-share-method="host" data-aspect-ratio="1.34454" data-width="100%"><a href="https://tenor.com/view/annoyed-alive-annoying-anniversary-ahh-gif-18768386">Annoyed Alive GIF</a>from <a href="https://tenor.com/search/annoyed-gifs">Annoyed GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 </div>
 </div>
