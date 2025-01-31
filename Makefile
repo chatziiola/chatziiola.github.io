@@ -2,6 +2,7 @@
 # Directories
 PUBLIC_DIR := ./docs
 POSTS_PUBLIC_DIR := $(PUBLIC_DIR)/posts
+DRAFT_DIR := $(PUBLIC_DIR)/drafts
 LOCAL_DIR := content
 SHELL := /bin/bash
 
@@ -21,7 +22,6 @@ clean:
 # Necessary for publishing purposes
 # add_cname:
 # 	#echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
-
 # Build the site using Emacs
 build: runPy
 	echo "Building the site"
@@ -30,6 +30,7 @@ build: runPy
 copy_static:
 	cp $(PUBLIC_DIR)/index.html $(POSTS_PUBLIC_DIR)
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
+	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
 # Serve the public directory on localhost using Python
 serve_local:

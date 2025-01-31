@@ -1,0 +1,90 @@
+#+TITLE: Creating a secure usb drive
+#+SUBTITLE: Check my sources before doing anything ;)
+#+DATE: <2025-01-16 12:04>
+#+DESCRIPTION: 
+#+FILETAGS: 
+
+* Introduction
+This will be published someday, and to that end:
+
+* Making sure you got hard drive
+
+** Identify the USB Drive
+Use ~lsblk~ or ~fdisk~ to identify the USB drive:
+#+begin_src shell
+  lsblk
+#+end_src
+Note the device name (e.g., ~/dev/sdX~), where ~X~ is the drive letter.
+In my case, the device was ~/dev/sdb~
+
+** See if it has anything  you need
+Or you may eventually regret it.
+
+** Wipe the USB Drive (Optional but Recommended)
+Wipe the USB drive to ensure no existing data is recoverable:
+#+begin_src shell
+# Make sure to change the of (output file)
+# Make sure that your change reflects the device you found in the previous step
+sudo dd if=/dev/zero of=/dev/sdX bs=4M status=progress 
+#+end_src
+
+* Partition the USB Drive
+Use ~fdisk~ to create a new partition:
+#+begin_src shell
+  sudo fdisk /dev/sdX
+#+end_src
+- Press ~d~ to delete existing partitions (if any).
+- Press ~n~ to create a new partition.
+- Use the defaults or customize the size.
+- Press ~w~ to write changes and exit.
+
+* Encrypt the hard drive
+** Install ~cryptsetup~ 
+#+begin_src shell
+  sudo apt install cryptsetup
+  sudo pacman -S cryptsetup
+#+end_src
+
+** Encrypt the USB Drive
+Use ~cryptsetup~ to set up LUKS (Linux Unified Key Setup) encryption:
+#+begin_src shell
+  sudo cryptsetup luksFormat /dev/sdX1
+#+end_src
+- Replace ~/dev/sdX1~ with your partition name.
+- Type ~YES~ when prompted and set a strong passphrase.
+
+** Open the Encrypted Partition
+#+begin_src shell
+  sudo cryptsetup open /dev/sdX1 my_usb
+#+end_src
+- Replace ~my_usb~ with a name for the encrypted mapping.
+
+** Format the Encrypted Partition
+Format the unlocked partition with a filesystem:
+#+begin_src shell
+  sudo mkfs.ext4 /dev/mapper/my_usb
+#+end_src
+Replace ~ext4~ with a filesystem of your choice, if needed (e.g., ~vfat~ for compatibility).
+
+** Mount the Encrypted Drive
+Create a mount point and mount the drive:
+#+begin_src shell
+  sudo mkdir /mnt/usb
+  sudo mount /dev/mapper/my_usb /mnt/usb
+#+end_src
+
+* Unmount and Close
+To safely remove the drive:
+#+begin_src shell
+  sudo umount /mnt/usb
+  sudo cryptsetup close my_usb
+#+end_src
+
+* When you want to use it in the future
+- To access the drive later, you'll need to:
+  1. Open the partition with ~cryptsetup open~.
+  2. Mount it as described in steps 7-8.
+- Always ensure the correct device is used to avoid overwriting critical data.
+
+
+* The drive

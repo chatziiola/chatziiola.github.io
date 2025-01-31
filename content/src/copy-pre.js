@@ -1,106 +1,92 @@
-// Src: https://codepen.io/Umer_Farooq/pen/eYJgKGN
-function addDarkModeToggle() {
-    // Create a button that looks like a link
-    const container = document.createElement('button');
-    container.setAttribute("class", "theme-toggle");
-    container.style.background = "none";
-    container.style.border = "none";
-    container.style.cursor = "pointer";
-    container.style.textDecoration = "none";
-
-    // Create an <i> element for the moon icon
-    const icon = document.createElement('i');
-    icon.setAttribute("class", "fas fa-moon");
-    icon.style.fontSize = "1em";
-    container.appendChild(icon);
-
-    // Append the container to the element with id org-div-home-and-up
-    const targetElement = document.getElementById('org-div-home-and-up');
-    if (targetElement) {
-        targetElement.append('|');
-        targetElement.append(container);
-    } else {
-        console.error('Element with id "org-div-home-and-up" not found.');
-        return;
+document.addEventListener("DOMContentLoaded", function () {
+    // Load Highlight.js dynamically
+    function loadHighlightJs(callback) {
+        if (document.querySelector('script[src="/src/highlight.min.js"]')) return;
+        let script = document.createElement("script");
+        script.src = "/src/highlight.min.js";
+        script.onload = callback || function () { hljs.highlightAll(); };
+        document.head.appendChild(script);
     }
 
-    // Check localStorage for the theme and apply it
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        icon.setAttribute("class", "fas fa-sun");
-    }
-
-    // Add an event listener to toggle the dark-mode class
-    container.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains("dark-mode")) {
-            icon.setAttribute("class", "fas fa-sun");
-            localStorage.setItem('theme', 'dark');
-        } else {
-            icon.setAttribute("class", "fas fa-moon");
-            localStorage.setItem('theme', 'light');
+    // Toggle syntax highlighting
+    function toggleHighlighting() {
+        if (window.hljs) {
+            document.querySelectorAll("pre").forEach((block) => {
+                if (block.classList.contains("hljs")) {
+                    block.classList.remove("hljs");
+                    block.innerHTML = block.textContent; // Remove formatting
+                } else {
+                    hljs.highlightElement(block);
+                }
+            });
         }
-    });
-}
+    }
 
-document.addEventListener("DOMContentLoaded", function() {
-    // Function to add copy button to pre elements
-    function addCopyButtonToPreElements() {
-        // Get all pre elements
-        var preElements = document.querySelectorAll('pre');
+    // Add Dark Mode Toggle
+    function addDarkModeToggle() {
+        const targetElement = document.getElementById('org-div-home-and-up');
+        if (!targetElement) {
+            console.error('Element with id "org-div-home-and-up" not found.');
+            return;
+        }
 
-        // Iterate over each pre element
-        preElements.forEach(function(preElement) {
+        const button = document.createElement('button');
+        button.className = "theme-toggle";
+        button.innerHTML = `<i class="fas fa-moon"></i>`;
+        button.style.cssText = "size: 1em; background: none; border: none; cursor: pointer; text-decoration: none;";
+        targetElement.append('|', button);
 
-            // Create a button
-            var copyButton = document.createElement('button');
-            copyButton.classList.add('copy-button');
+        // Set initial theme
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+            button.innerHTML = `<i class="fas fa-sun"></i>`;
+        }
 
-            // Create the Font Awesome icon element
-            var icon = document.createElement('i');
-            icon.classList.add('fa-regular', 'fa-clipboard'); // Add Font Awesome classes for the clipboard icon
+        // Toggle dark mode
+        button.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            button.innerHTML = `<i class="fas ${isDark ? 'fa-sun' : 'fa-moon'}"></i>`;
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+    }
 
-            // Append the icon to the button
-            copyButton.appendChild(icon);
+    // Add Copy Buttons to Code Blocks
+    function addCopyButtons() {
+        document.querySelectorAll('pre').forEach((pre) => {
+            if (pre.querySelector('.copy-button')) return; // Prevent duplicate buttons
 
-            // Append the button to the pre element
-            preElement.appendChild(copyButton);
-            // Add click event listener to the button
-            copyButton.addEventListener('click', function() {
-                // Get the text content of the pre element
-                var contentToCopy = preElement.textContent.trim();
+            const button = document.createElement('button');
+            button.className = "copy-button";
+            button.innerHTML = `<i class="fa-regular fa-clipboard"></i>`;
 
-                // Remove the button's text content from the end
-                contentToCopy = contentToCopy.slice(0, -copyButton.textContent.length);
+            pre.style.position = "relative";
+            button.style.cssText = "position: absolute; top: 8px; right: 8px; background: none; border: none; cursor: pointer;";
+            pre.appendChild(button);
 
-                navigator.clipboard.writeText(contentToCopy).then(function() {
-                    console.log('Content copied to clipboard:', contentToCopy);
-                }, function(err) {
-                    console.error('Error copying content to clipboard:', err);
-                });
+            button.addEventListener("click", () => {
+                const content = pre.querySelector("code")?.textContent.trim() || pre.textContent.trim();
+                navigator.clipboard.writeText(content).then(() => {
+                    button.innerHTML = `<i class="fa-solid fa-check"></i>`;
+                    setTimeout(() => button.innerHTML = `<i class="fa-regular fa-clipboard"></i>`, 1000);
+                }).catch(err => console.error("Error copying:", err));
             });
         });
     }
 
-    // Call the function to add copy buttons to pre elements
-    addCopyButtonToPreElements();
-});
-
-// JavaScript to magnify images on click
-document.addEventListener('DOMContentLoaded', function() {
-    addDarkModeToggle();
-
-    // Find all images on the page
-    const images = document.querySelectorAll('img');
-    images.forEach(function(img) {
-        img.addEventListener('click', function() {
-            // Toggle a class that magnifies the image
-            this.classList.toggle('magnify-image');
+    // Magnify Images on Click
+    function addImageMagnifyFeature() {
+        document.body.addEventListener("click", (event) => {
+            if (event.target.tagName === "IMG") {
+                event.target.classList.toggle("magnify-image");
+            }
         });
-    });
+    }
+
+    // Initialize Features
+    loadHighlightJs();
+    toggleHighlighting();
+    addDarkModeToggle();
+    addCopyButtons();
+    addImageMagnifyFeature();
 });
-
-
-
-

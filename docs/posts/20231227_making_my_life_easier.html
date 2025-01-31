@@ -29,17 +29,15 @@
 </div>
 </div>
 
-
 <div id="outline-container-org151cfa9" class="outline-2">
 <h2 id="org151cfa9"><a href="#org151cfa9">Introduction</a></h2>
 <div class="outline-text-2" id="text-org151cfa9">
 <p>
-At the time of writing my blog directory surely is cluttered, and I
-<b>really</b> do not want this. It prevents me from easily checking my
-website (not sure if the clutter caused my lack of proper at times
-documentation or the other way round), but it has to change. Here I
-expect to document the next 10 minutes briefly for me, so that it all
-makes sense
+At the time of writing, my blog directory is certainly cluttered, and I  
+<b>really</b> don&rsquo;t want that. It prevents me from easily checking my website (I&rsquo;m  
+not sure if the clutter caused my occasional lack of proper documentation or  
+if it&rsquo;s the other way around), but this has to change. Here, I plan to briefly  
+document the next 10 minutes for myself so that it all makes sense.  
 </p>
 </div>
 </div>
@@ -48,12 +46,12 @@ makes sense
 <h2 id="org27a7caa"><a href="#org27a7caa">Goal</a></h2>
 <div class="outline-text-2" id="text-org27a7caa">
 <p>
-What I expect to do here is quickly create a makefile, with a <code>local</code>
-set of instructions, that will:
+My objective here is to quickly create a Makefile with a <code>local</code> set of  
+instructions that will:  
 </p>
 <ol class="org-ol">
-<li>Create a <code>public</code> directory and populate it</li>
-<li>Launch a python server</li>
+<li>Create a <code>public</code> directory and populate it.</li>
+<li>Launch a Python server.</li>
 </ol>
 </div>
 </div>
@@ -62,59 +60,61 @@ set of instructions, that will:
 <h2 id="org2cfbcab"><a href="#org2cfbcab">Execution</a></h2>
 <div class="outline-text-2" id="text-org2cfbcab">
 <p>
-Using the <code>local-build.sh</code> script, I knew this would not take too much.
-Being an open source file and not really bothered by the
-confidentiality of its contents, I uploaded it to ChatGPT asking for
-it to be refactored and documented into a Makefile:
+Using the <code>local-build.sh</code> script, I knew this wouldn&rsquo;t take long. Since it&rsquo;s  
+an open-source file and I&rsquo;m not particularly concerned about the  
+confidentiality of its contents, I uploaded it to ChatGPT, asking for it to be  
+refactored and documented into a Makefile:  
 </p>
-<pre class="example" id="org4821d29">
-# Makefile for building and publishing a site
-# Directories
-PUBLIC_DIR := public
-POSTS_DIR := $(PUBLIC_DIR)/posts
 
-# Targets
-.DEFAULT_GOAL := local
+<pre class="example" id="org6eefc79">
+# Makefile for building and publishing a site  
+# Directories  
+PUBLIC_DIR := public  
+POSTS_DIR := $(PUBLIC_DIR)/posts  
 
-# Remove local directory
-clean:
-	@if [ -d $(PUBLIC_DIR) ]; then \
-		rm -rf $(PUBLIC_DIR) &amp;&amp; echo "Local directory deleted"; \
-	fi
+# Targets  
+.DEFAULT_GOAL := local  
 
-# Build the site using Emacs
-build: clean
-	emacs -Q --script build-site.el
+# Remove local directory  
+clean:  
+	@if [ -d $(PUBLIC_DIR) ]; then \  
+		rm -rf $(PUBLIC_DIR) &amp;&amp; echo "Local directory deleted"; \  
+	fi  
 
-# Add latest posts to /index.html
-add_latest_posts:
-	echo "Adding mini archive on /index.html"
-	echo '&lt;ul class="org-ul indexul"&gt;' &gt; /tmp/index
-	grep "^&lt;li&gt;" $(PUBLIC_DIR)/posts/recents.html | head -5 &gt;&gt; /tmp/index
-	echo '&lt;/ul&gt;' &gt;&gt; /tmp/index
-	sed -i -e '/Latest Articles&lt;\/a&gt;&lt;\/h2&gt;/r /tmp/index' $(PUBLIC_DIR)/index.html
+# Build the site using Emacs  
+build: clean  
+	emacs -Q --script build-site.el  
 
-# Copy /index.html to /posts/index.html
-copy_index_to_posts:
-	echo "Copying /index to /posts/index"
-	cp $(PUBLIC_DIR)/index.html $(POSTS_DIR)/index.html
+# Add latest posts to /index.html  
+add_latest_posts:  
+	echo "Adding mini archive on /index.html"  
+	echo '&lt;ul class="org-ul indexul"&gt;' &gt; /tmp/index  
+	grep "^&lt;li&gt;" $(PUBLIC_DIR)/posts/recents.html | head -5 &gt;&gt; /tmp/index  
+	echo '&lt;/ul&gt;' &gt;&gt; /tmp/index  
+	sed -i -e '/Latest Articles&lt;\/a&gt;&lt;\/h2&gt;/r /tmp/index' $(PUBLIC_DIR)/index.html  
 
-# Build the site locally
-local: build add_latest_posts copy_index_to_posts
+# Copy /index.html to /posts/index.html  
+copy_index_to_posts:  
+	echo "Copying /index to /posts/index"  
+	cp $(PUBLIC_DIR)/index.html $(POSTS_DIR)/index.html  
+
+# Build the site locally  
+local: build add_latest_posts copy_index_to_posts  
 </pre>
 
 <p>
-It did a good job, which I suppose can also be attributed to the
-proper yet by no means extensive commenting on the shell script.
+It did a great job, which I suppose is also due to the script’s clear, albeit  
+not overly extensive, comments.  
 </p>
 
 <p>
-Adding a new target and updating local does the job:
+Adding a new target and updating <code>local</code> completes the setup:  
 </p>
-<pre class="example" id="org5fa4367">
-# Serve the public directory on localhost using Python
-serve_local:
-	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server
+
+<pre class="example" id="org21ed41d">
+# Serve the public directory on localhost using Python  
+serve_local:  
+	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server  
 </pre>
 </div>
 </div>
@@ -123,10 +123,10 @@ serve_local:
 <h2 id="org8862a9b"><a href="#org8862a9b">Completion</a></h2>
 <div class="outline-text-2" id="text-org8862a9b">
 <p>
-At this point everything is perfect, and well documented enough that I
-could refactor the whole blog, where spaghetti code is not only
-dominant but visible in its basic structure and organization as well,
-making it more manageable. 
+At this point, everything is working perfectly and is well-documented enough  
+that I could refactor the entire blog. Spaghetti code is not just prevalent  
+but is visible in its very structure and organization, making maintenance  
+challenging. This Makefile makes things far more manageable.  
 </p>
 </div>
 </div>
@@ -135,23 +135,22 @@ making it more manageable.
 <h2 id="org4fba493"><a href="#org4fba493">Some extra thoughts</a></h2>
 <div class="outline-text-2" id="text-org4fba493">
 <p>
-It is truly fascinating that I managed within <b>much less</b> than fifteen
-minutes to:
+It&rsquo;s truly fascinating that in <b>much less</b> than fifteen minutes, I managed to:  
 </p>
 <ul class="org-ul">
-<li>make a shell script obsolete</li>
-<li>make another shell script obsolete (further reducing the mess that I
-had embraced and my discomfort)</li>
-<li>Better streamline the whole publish sequence by creating a central
-file to use (makefile)</li>
-<li>write this simple article</li>
+<li>Make a shell script obsolete.</li>
+<li>Make another shell script obsolete, further reducing the mess I had  
+embraced—and my discomfort along with it.</li>
+<li>Better streamline the entire publishing process by creating a central file  
+to manage it (the Makefile).</li>
+<li>Write this simple article.</li>
 </ul>
 
 <p>
-With <b>minimal</b> experience in using and creating Makefiles. In fact,
-I thought I could try my hand at creating this manually and googled
-<b>Makefile templates</b> before realizing what a waste of time this would
-be. Ah, what a wonderful and yet peculiar time to be alive!
+And all this with <b>minimal</b> experience in using and creating Makefiles. In  
+fact, I initially considered writing one manually and even Googled <b>Makefile  
+templates</b> before realizing what a waste of time that would be. Ah, what a  
+wonderful and peculiar time to be alive!  
 </p>
 </div>
 </div>

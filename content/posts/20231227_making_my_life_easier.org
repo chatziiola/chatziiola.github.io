@@ -3,94 +3,93 @@
 #+DESCRIPTION: Notes on how I migrated to Make for this website, so that I can easily preview my posts before publishing
 #+FILETAGS: scripting blog 
 
+* Introduction  
+#+begin_comment  
+This is the second article of the day, but it's simply the result of a longer  
+period without publishing.  
+#+end_comment  
 
-* Introduction
-#+begin_comment
-This is the second article for the day, but it is simply the result of
-a longer period of not publishing.
-#+end_comment
+At the time of writing, my blog directory is certainly cluttered, and I  
+*really* don't want that. It prevents me from easily checking my website (I'm  
+not sure if the clutter caused my occasional lack of proper documentation or  
+if it's the other way around), but this has to change. Here, I plan to briefly  
+document the next 10 minutes for myself so that it all makes sense.  
 
-At the time of writing my blog directory surely is cluttered, and I
-*really* do not want this. It prevents me from easily checking my
-website (not sure if the clutter caused my lack of proper at times
-documentation or the other way round), but it has to change. Here I
-expect to document the next 10 minutes briefly for me, so that it all
-makes sense
+* Goal  
+My objective here is to quickly create a Makefile with a ~local~ set of  
+instructions that will:  
+1. Create a ~public~ directory and populate it.  
+2. Launch a Python server.  
 
-* Goal
-What I expect to do here is quickly create a makefile, with a ~local~
-set of instructions, that will:
-1. Create a ~public~ directory and populate it
-2. Launch a python server
+* Execution  
+Using the ~local-build.sh~ script, I knew this wouldn't take long. Since it's  
+an open-source file and I'm not particularly concerned about the  
+confidentiality of its contents, I uploaded it to ChatGPT, asking for it to be  
+refactored and documented into a Makefile:  
 
-* Execution
-Using the ~local-build.sh~ script, I knew this would not take too much.
-Being an open source file and not really bothered by the
-confidentiality of its contents, I uploaded it to ChatGPT asking for
-it to be refactored and documented into a Makefile:
-#+begin_example
-# Makefile for building and publishing a site
-# Directories
-PUBLIC_DIR := public
-POSTS_DIR := $(PUBLIC_DIR)/posts
+#+begin_example  
+# Makefile for building and publishing a site  
+# Directories  
+PUBLIC_DIR := public  
+POSTS_DIR := $(PUBLIC_DIR)/posts  
 
-# Targets
-.DEFAULT_GOAL := local
+# Targets  
+.DEFAULT_GOAL := local  
 
-# Remove local directory
-clean:
-	@if [ -d $(PUBLIC_DIR) ]; then \
-		rm -rf $(PUBLIC_DIR) && echo "Local directory deleted"; \
-	fi
+# Remove local directory  
+clean:  
+	@if [ -d $(PUBLIC_DIR) ]; then \  
+		rm -rf $(PUBLIC_DIR) && echo "Local directory deleted"; \  
+	fi  
 
-# Build the site using Emacs
-build: clean
-	emacs -Q --script build-site.el
+# Build the site using Emacs  
+build: clean  
+	emacs -Q --script build-site.el  
 
-# Add latest posts to /index.html
-add_latest_posts:
-	echo "Adding mini archive on /index.html"
-	echo '<ul class="org-ul indexul">' > /tmp/index
-	grep "^<li>" $(PUBLIC_DIR)/posts/recents.html | head -5 >> /tmp/index
-	echo '</ul>' >> /tmp/index
-	sed -i -e '/Latest Articles<\/a><\/h2>/r /tmp/index' $(PUBLIC_DIR)/index.html
+# Add latest posts to /index.html  
+add_latest_posts:  
+	echo "Adding mini archive on /index.html"  
+	echo '<ul class="org-ul indexul">' > /tmp/index  
+	grep "^<li>" $(PUBLIC_DIR)/posts/recents.html | head -5 >> /tmp/index  
+	echo '</ul>' >> /tmp/index  
+	sed -i -e '/Latest Articles<\/a><\/h2>/r /tmp/index' $(PUBLIC_DIR)/index.html  
 
-# Copy /index.html to /posts/index.html
-copy_index_to_posts:
-	echo "Copying /index to /posts/index"
-	cp $(PUBLIC_DIR)/index.html $(POSTS_DIR)/index.html
+# Copy /index.html to /posts/index.html  
+copy_index_to_posts:  
+	echo "Copying /index to /posts/index"  
+	cp $(PUBLIC_DIR)/index.html $(POSTS_DIR)/index.html  
 
-# Build the site locally
-local: build add_latest_posts copy_index_to_posts
-#+end_example
+# Build the site locally  
+local: build add_latest_posts copy_index_to_posts  
+#+end_example  
 
-It did a good job, which I suppose can also be attributed to the
-proper yet by no means extensive commenting on the shell script.
+It did a great job, which I suppose is also due to the script’s clear, albeit  
+not overly extensive, comments.  
 
-Adding a new target and updating local does the job:
-#+begin_example
-# Serve the public directory on localhost using Python
-serve_local:
-	cd $(PUBLIC_DIR) && python -m http.server
-#+end_example
+Adding a new target and updating ~local~ completes the setup:  
 
-* Completion
-At this point everything is perfect, and well documented enough that I
-could refactor the whole blog, where spaghetti code is not only
-dominant but visible in its basic structure and organization as well,
-making it more manageable. 
+#+begin_example  
+# Serve the public directory on localhost using Python  
+serve_local:  
+	cd $(PUBLIC_DIR) && python -m http.server  
+#+end_example  
 
-* Some extra thoughts
-It is truly fascinating that I managed within *much less* than fifteen
-minutes to:
-- make a shell script obsolete
-- make another shell script obsolete (further reducing the mess that I
-  had embraced and my discomfort)
-- Better streamline the whole publish sequence by creating a central
-  file to use (makefile)
-- write this simple article
+* Completion  
+At this point, everything is working perfectly and is well-documented enough  
+that I could refactor the entire blog. Spaghetti code is not just prevalent  
+but is visible in its very structure and organization, making maintenance  
+challenging. This Makefile makes things far more manageable.  
 
-With *minimal* experience in using and creating Makefiles. In fact,
-I thought I could try my hand at creating this manually and googled
-*Makefile templates* before realizing what a waste of time this would
-be. Ah, what a wonderful and yet peculiar time to be alive!
+* Some extra thoughts  
+It's truly fascinating that in *much less* than fifteen minutes, I managed to:  
+- Make a shell script obsolete.  
+- Make another shell script obsolete, further reducing the mess I had  
+  embraced—and my discomfort along with it.  
+- Better streamline the entire publishing process by creating a central file  
+  to manage it (the Makefile).  
+- Write this simple article.  
+
+And all this with *minimal* experience in using and creating Makefiles. In  
+fact, I initially considered writing one manually and even Googled *Makefile  
+templates* before realizing what a waste of time that would be. Ah, what a  
+wonderful and peculiar time to be alive!  

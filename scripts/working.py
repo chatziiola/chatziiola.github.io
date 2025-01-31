@@ -10,7 +10,6 @@ __author__ = "Lamprinos Chatziioannou"
 __license__ = "MIT License"
 __version__ = "0.0.1"
 
-# --- your code below this line --- #
 
 import json
 import sys,os
@@ -19,6 +18,7 @@ import re
 
 from datetime import datetime
 from blogjson import *
+
 
 # value = config.get('section', 'value')
 def setup_config():
@@ -53,6 +53,7 @@ def createTagsIndexOrg(jsonFilename):
         indexFile.write(f"#+TITLE: Tags Collection\n")
         indexFile.write(f"#+DESCRIPTION: Collection of all posts, based on tags\n")
         for tag in getAllTags(jsonFilename):
+            if tag.lower() in tag_blacklist: continue
             indexFile.write(f"* {tag}  :{tag}:\n")
             for post in sorted(getPostsWithTag(tag,jsonFilename), key=lambda x:x['date'], reverse=True):
                 publicPath = post.get('filepath')
@@ -76,21 +77,25 @@ def createRecentsIndexOrg(jsonFile):
         linkpath = f"..{post['filepath'][len('content'):]}"
         recents += orgDottedLink(linkpath,post['title'],post['date'])+'\n'
     overwriteBetwenAandBinFile(recents, start, end, "content/posts/recents.org")
-    # print(recents)
 
 def addRecentsToIndex(jsonFile):
-    data = sorted(getAllPosts(jsonFile), key=lambda x: x['date'])
+    data = sorted(getAllPosts(jsonFile), key=lambda x: x['date'], reverse=True)
     # Newest to oldest
-    recents = "\n\n"
+    recents = "\n"
     # TODO add number of posts to config.ini
     # TODO add starting/end strings to config.ini
     start="# recents start"
     end="# recents end"
-    for post in reversed(data[-5:]):
-        if re.search(r"index.org$",post['filepath']):
+    entries = 0
+    maxentries = 6
+    for post in data:
+        if post['filepath'].endswith("index.org") or "index" in post['filetags']:
             continue
         linkpath = f"..{post['filepath'][len('content'):]}"
         recents += orgDottedLink(linkpath,post['title'],post['date'])+'\n'
+        entries += 1
+        if entries == maxentries:
+            break
     overwriteBetwenAandBinFile(recents, start, end, "content/index.org")
     # print(recents)
     
@@ -122,7 +127,8 @@ def overwriteBetwenAandBinFile(newText, stringA, stringB, filePath):
 # Example of reading values
 config = setup_config()
 myjson = config.get('JSON','filename')
-blogdirectory = "content"
+blogdirectory = "content/posts"
+tag_blacklist = [ "index", "lecture", "noexport" ]
 
 createBlogJson(blogdirectory, myjson)
 
