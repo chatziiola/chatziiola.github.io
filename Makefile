@@ -10,6 +10,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := local
 
 runPy:
+	python3 scripts/generate_sitemap.py
 	python3 scripts/working.py
 # Remove local directory
 clean:

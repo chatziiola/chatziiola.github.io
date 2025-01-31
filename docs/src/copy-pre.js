@@ -1,26 +1,26 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Load Highlight.js dynamically
-    function loadHighlightJs(callback) {
-        if (document.querySelector('script[src="/src/highlight.min.js"]')) return;
-        let script = document.createElement("script");
-        script.src = "/src/highlight.min.js";
-        script.onload = callback || function () { hljs.highlightAll(); };
-        document.head.appendChild(script);
-    }
+    // function loadHighlightJs(callback) {
+    //     if (document.querySelector('script[src="/src/highlight.min.js"]')) return;
+    //     let script = document.createElement("script");
+    //     script.src = "/src/highlight.min.js";
+    //     script.onload = callback || function () { hljs.highlightAll(); };
+    //     document.head.appendChild(script);
+    // }
 
-    // Toggle syntax highlighting
-    function toggleHighlighting() {
-        if (window.hljs) {
-            document.querySelectorAll("pre").forEach((block) => {
-                if (block.classList.contains("hljs")) {
-                    block.classList.remove("hljs");
-                    block.innerHTML = block.textContent; // Remove formatting
-                } else {
-                    hljs.highlightElement(block);
-                }
-            });
-        }
-    }
+    // // Toggle syntax highlighting
+    // function toggleHighlighting() {
+    //     if (window.hljs) {
+    //         document.querySelectorAll("pre").forEach((block) => {
+    //             if (block.classList.contains("hljs")) {
+    //                 block.classList.remove("hljs");
+    //                 block.innerHTML = block.textContent; // Remove formatting
+    //             } else {
+    //                 hljs.highlightElement(block);
+    //             }
+    //         });
+    //     }
+    // }
 
     // Add Dark Mode Toggle
     function addDarkModeToggle() {
@@ -84,8 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Initialize Features
-    loadHighlightJs();
-    toggleHighlighting();
+    // loadHighlightJs();
+    // toggleHighlighting();
     addDarkModeToggle();
     addCopyButtons();
     addImageMagnifyFeature();

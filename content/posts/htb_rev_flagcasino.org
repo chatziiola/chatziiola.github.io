@@ -1,0 +1,234 @@
+#+title: HTB: FlagCasino
+#+subtitle: Fla-zino?
+#+date: <2025-01-31 Fri>
+#+description: Walkthrough for the very easy, reverse engineering, hack the box, challenge flag casino.
+#+filetags: reveng htb
+* Introduction
+Although this is not the first ~reveng~ challenge I have solved in the
+last month, I noticed many improvements while solving it. It always
+feels good when you make progress.
+
+#+NAME: work
+#+begin_note
+I work with ~radare2~, as it was suggested to me as a very good way
+for a /newbie/ to learn: it may have a steep learning curve, but it
+allows you to see things in greater depth.
+#+end_note
+
+#+begin_src txt
+     ,     ,
+    (\____/)
+     (_oo_)
+       (O)
+     __||__    \)
+  []/______\[] /
+  / \______/ \/
+ /    /__\
+(\   /____\
+---------------------
+[ ** WELCOME TO ROBO CASINO **]
+[*** PLEASE PLACE YOUR BETS ***]
+[ * CORRECT *]
+[ * INCORRECT * ]
+[ *** ACTIVATING SECURITY SYSTEM - PLEASE VACATE *** ]
+[ ** HOUSE BALANCE $0 - PLEASE COME BACK LATER ** ]
+#+end_src
+
+* Starting
+Through a first look at the disassembled code through graph visual mode
+~VV @ sym.main~, we see that only at the very surface is this a program imitating a casino:
+   1. In the first part, it produces some output for the end user.
+   2. Then we have a while loop that exits if the /house balance is 0/.
+   3. If the house balance is not 0: We are then tasked
+      with providing a bet, and the return code of ~scanf~ is tested to
+      see if we can proceed.
+   4. If we have properly passed input: The input now gets checked:
+      - ~srand~ (with a specific seed?)
+      - ~rand~ 
+      - Some comparison takes place here, given which we:
+        1. Get *correct*
+        2. Get *incorrect* -> exits
+   5. If we get *correct*, we just go back to /step 2/ again, but it is strange
+      since the flag is supposed to be given somewhere here.
+      - It could very well have something to do with ~var_4h~.
+
+      #+begin_note
+      Now, could it be that the proper input sequence is the flag?
+      -> Yep, this is the case, tested with *HTB{*.
+      #+end_note
+
+* Understanding the loop
+# 0x5b39eabbe1f5
+   1. First, we get the last byte of ~[var_5h]~, move it with
+      sign extension to ~eax~, and then to ~edi~, to be used as the seed in
+      ~srand~. After that, a random value is generated through ~rand~. We need to
+      validate that ~[var_5h]~ remains the same in each iteration, because that
+      would in turn mean that ~rand~ *ALWAYS returns the same value*.
+   2. After getting the rand value, we also get the ~[var_4h]~ variable into
+      ~rdx~ (two-step process).
+   3. Then, we get the address of ~obj.check~ and compare the value of:
+      - ~rcx~ (which is ~[signextended(dword [var_4h])*4]~).
+      - ~edx~, which is ~dword [rcx + obj.check]~.
+   4. Compare these two together: If not equal, exit.
+
+      #+begin_src asm
+            	0x5b39eabbe1f5      movzx eax, byte [var_5h]
+            	0x5b39eabbe1f9      movsx eax, al
+            	0x5b39eabbe1fc      mov edi, eax
+            	0x5b39eabbe1fe      call sym.imp.srand      ;[5] ; void srand(int seed)
+            	0x5b39eabbe203      call sym.imp.rand       ;[6] ; int rand(void)
+            	0x5b39eabbe208      mov edx, dword [var_4h]
+            	0x5b39eabbe20b      movsxd rdx, edx
+            	0x5b39eabbe20e      lea rcx, [rdx*4]
+            	0x5b39eabbe216      lea rdx, obj.check      ; 0x5b39eabc1080
+            	0x5b39eabbe21d      mov edx, dword [rcx + rdx]
+            	0x5b39eabbe220      cmp eax, edx
+            	0x5b39eabbe222      jne 0x5b39eabbe232
+      #+end_src
+
+      Nice, so we now need to understand:
+      - Where ~rand()~ output is used: Its output is saved at ~eax~.
+      - What exactly is ~var_4h~: Could be our index, and it makes sense, but at the
+        same point, it does not? A byte increase makes sense for the ~*4~ part, but
+        then why not just have it ~+4~?
+      - What exactly is ~obj.check~:
+        - ~obj.check~ is an array or data structure?
+
+** Asm notes
+- ~movzx~ move with zero extend.
+- ~movsx~ move with sign extend.
+- ~movsxd~ move with sign extend to a 64-bit register.
+
+** Obj.check hexdump
+#+begin_src txt
+[0x71025cdd1540]> px @ obj.check
+- offset -      8081 8283 8485 8687 8889 8A8B 8C8D 8E8F  0123456789ABCDEF
+0x5b39eabc1080  be28 4b24 0578 f70a 17fc 0d11 a1c3 af07  .(K$.x..........
+...
+#+end_src
+
+* Decompilation
+So far, we got to a really nice place with static binary analysis:
+  - We know that the input is the flag, the flag will not be returned in any
+    other way by the executable
+  - We know that ~srand~ is called along with var_4h
+
+    #+begin_note
+    Not going to lie, I thought of going for debugging instead of decompiling, but
+    1. I did not want to waste time atm figuring how debugging works in r2
+    2. GDB for some reason failed to insert breakpoints
+    So...decompiling, and not even done properly, but I need practice here
+    #+end_note
+
+  First things first, we see that: There are *a lot* of strange assignments, like:
+  #+begin_src c
+    ,*(*0x20 + -0x18) = 0x56c847aba199;
+  #+end_src
+
+  #+begin_note
+  How does it even dereference ~0x20~... How is it set?
+  #+end_note
+
+  I started removing these, whilst also making a point of seeing the instruction
+  at that address. At the end I was left with pretty readable code, except for
+  the user input: I could not exactly see how it gets transformed to be used by
+  ~srand()~. Turns out, even though I modified the code so that it more closely
+  resembles ~C~: I do not have the location of the check object so... it does
+  not really work that way. 
+
+  #+begin_src c
+      
+    int main(void) {
+      int loopIndex;
+      unsigned int userInput;
+
+      // First step
+      puts("[ ** WELCOME TO ROBO CASINO **]"); // obj.banner
+      puts("     ,     ,\n    (\\____/)\n     (_oo_)\n       (O)\n     __||__    "
+           "\\)\n  []/______\\[] /\n  / \\______/ \\/\n /    /__\\\n(\\   "
+           "/____\\\n---------------------");
+      puts("[*** PLEASE PLACE YOUR BETS ***]");
+
+      loopIndex = 0;
+      // Second step
+      while (1) {
+        // House balance check
+        if (29 < loopIndex) { // Length is 30
+          puts("[ ** HOUSE BALANCE $0 - PLEASE COME BACK LATER ** ]");
+          return 0;
+        }
+        // Step 3
+        printf("> "); // Prompt
+        if ( scanf("%c", &userInput) != 1)
+          break;
+        srand(userInput); // pending some transformation
+        if (rand() != *(loopIndex * 4 + obj.check)) {
+          puts("[ * INCORRECT * ]");
+          puts("[ *** ACTIVATING SECURITY SYSTEM - PLEASE VACATE *** ]");
+          exit(0xfffffffe);
+        }
+        puts("[ * CORRECT *]");
+        loopIndex = loopIndex + 1;
+      }
+      exit(0xffffffff);
+    }
+  #+end_src
+
+* Implementing the payload
+Now, simply following the decompiled code we see that any character we
+entered is fed into ~srand()~ as a seed, and then _the first_ ~rand()~ with
+that seed is checked to be equal to the object at address: ~loopIndex*4 + obj.check~
+
+This means that *each printable character has the same address to be
+checked against*: If we compute this association once, and store it in
+a dictionary we can retrieve the results without extra computations
+for each index. Thus, the payload can easily be produced:
+
+#+begin_src python
+  from pwn import *
+  from ctypes import CDLL 
+
+  # shoutout to ckrielle for mentioning this trick at the last HtB meetup
+  libc = CDLL("libc.so.6")
+  zino = ELF("./casino")
+
+  # Create the dictionary, printable characters are from 40 to 177, see ~man ascii~
+  dic = {}
+  for i in range(40,177):
+      libc.srand(i)
+      dic[ libc.rand() ] = chr(i)
+
+  # Now loop get the actual characters
+  answ = ""
+  objCheck = zino.sym.check # obj.check address
+  for i in range(30): # we know that the flag is 30 characters long, >0x1d
+      answ += dic[ zino.u32( 4 * i + objCheck )]
+  print(answ)
+
+#+end_src
+
+* Summary
+1. Start by looking at the disassembly. Visual graph mode helps a lot in
+   understanding the flow of the program.
+2. Do not overlook loop control variables: I did this and, as a result,
+   I got stuck (notice that I had not included the step increase in
+   ~loopIndex~ in the disassembly snippet I focused on).
+3. After decompilation, take your time: Use a plain buffer and
+   analyze step by step how it differs from what you have already
+   understood through assembly.
+4. If you encounter strange memory assignments added by Ghidra (or any
+   decompiler, for that matter), check the addresses they point to. If
+   they reference another command, it is highly likely they do
+   absolutely nothing.
+5. More variables than those that actually exist may appear in the
+   decompiled snippet. This could be due to name dependencies being
+   handled through register renaming. In any case, variables might
+   need to be merged or discarded.
+
+Today was a rest day after an exam. I won't have much time to
+polish something to publish for a while, so...
+
+#+label:Until-we-meet-again
+#+caption: Until we meet again
+#+attr_html: :alt Skeletor, until we meet again
+[[file:images/Summary/20250201_003217_screenshot.png]]

@@ -10,179 +10,96 @@
 
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-:root { --main-font: "Roboto Mono", monospace;}
+:root { --mono-font: "Roboto Mono", monospace; --main-font: "Montserrat", serif; }
 
-:root {
-  --primary-color: #8d6e63;
-  --secondary-color: #d7ccc8; 
-  --background-color: #f5f5f5; 
-  --foreground-color: #4e342e; 
-  --accent-color: #a1887f; 
-  --success-color: #6d9e6a; 
-  --error-color: #d32f2f; 
-  --disabled-color: #a89984; 
-  --code-background-color: #ede0d4; 
-  --code-foreground-color: #4e342e; 
-}
+:root { --primary-color: #8d6e63; --secondary-color: #d7ccc8; --background-color: #f5f5f5; --foreground-color: #4e342e; --accent-color: #a1887f; --success-color: #6d9e6a; --error-color: #d32f2f; --disabled-color: #a89984; --code-background-color: #ede0d4; --code-foreground-color: #4e342e; }
 
-.dark-mode {
-  --primary-color: #ccaba0;
-  --secondary-color: #a1887f;
-  --background-color: #372620;
-  --foreground-color: #f5f5f5;
-  --accent-color: #c7a89e;
-  --success-color: #a2b97b;
-  --error-color: #e53935;
-  --disabled-color: #756a5d;
-  --code-background-color: #2c1f1a;
-  --code-foreground-color: #f5f5f5;
-}
+.dark-mode { --primary-color: #ccaba0; --secondary-color: #a1887f; --background-color: #372620; --foreground-color: #f5f5f5; --accent-color: #c7a89e; --success-color: #a2b97b; --error-color: #e53935; --disabled-color: #756a5d; --code-background-color: #2c1f1a; --code-foreground-color: #f5f5f5; }
 
-body {
-    font-family:  var(--main-font);
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--foreground-color);
-    background: var(--background-color);
-    line-height: 1.4em;
-    counter-reset: section;
-    counter-reset: toc-section;
-    counter-increment: toc-section;
-    text-align: justify;
-}
+body { font-family:  var(--main-font); color: var(--foreground-color); background: var(--background-color);
+    font-size: 16px; font-weight: 400; line-height: 1.4em;
+    counter-reset: section; counter-reset: toc-section; counter-increment: toc-section;
+text-align: justify; }
 
-a, a:visited {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-a:hover {
-    text-decoration: underline;
-    color: var(--success-color);
-}
+a, a:visited { text-decoration: none; color: var(--primary-color); }
+a:hover { text-decoration: underline; color: var(--success-color); }
 
 .org-center { text-align: center; }
 i, i a { font-style: italic; }
 .org-italic, .org-org-meta-line { color: var(--diasbled-password); font-style: italic; }
 
-
 /* --- Table of contents --- */
-#table-of-contents {
-    padding-bottom: 3em;
-    display:block; float: left; clear: left;
-    margin-left: -40%; max-width: 30%;
-}
+#table-of-contents { display: block; max-width: 30%; margin-left: -40%; }
+
+/* Remove floating for screens smaller than 1500px */
+@media (max-width: 1499px) { #table-of-contents { float: none; clear: none; margin-left: auto; margin-right: auto; max-width: 100%; } }
+
+/* Keep floating behavior for screens 1500px and larger */
+@media (min-width: 1500px) { #table-of-contents { float: left; clear: left; } }
 
 #table-of-contents ul { padding: 0; list-style: none; counter-reset: list 0; }
-
-#table-of-contents ul ul {
-    font-size: 85%; line-height: 1.5em; padding-left: 1em; text-align: left;
-}
+#table-of-contents ul ul { font-size: 85%; line-height: 1.5em; padding-left: 1em; text-align: left; }
 
 /* Line numbers and - */
-#table-of-contents ul li:before {
-    counter-increment: list; content: counters(list, ".") ".";
-    color: var(--primary-color); }
+#table-of-contents ul li:before { counter-increment: list; content: counters(list, ".") "."; color: var(--primary-color); }
 #table-of-contents ul li ul li:before { content: "-"; margin-right: 1em; }
 #table-of-contents h2 { font-size: 1em; padding-top: 5em; }
 #table-of-contents h2:before { content: "⌘"; }
 
-/* Lists in general */
-ul.org-ul {
-    padding-left: 1em;
-}
+/* Unordered Lists */
+ul.org-ul { padding-left: 1em; }
+ul.org-ul li { list-style-type: none; margin-bottom: 0.5em; position: relative; padding-left: 1em; }
+ul.org-ul li::before { content: "— "; color: var(--foreground-color); position: absolute; left: 0; }
 
-ul.org-ul li  {
-    list-style-type: none;
-    margin-bottom: .5em;
-}
-
-ul.org-ul li p {
-    display: inline-block;
-    margin-top: 0em;
-    margin-bottom: 0em;
-}
-
-ul.org-ul li::before {
-    display: inline-block;
-    content: "— ";
-    color: var(--foreground-color);
-    width: 1em;
-    margin-left: -1em;
-}
-
-ol.org-ol {
-    padding-left: 1em;
-    margin-left: 2em;
-    list-style: none;
-    counter-reset: li;
-}
-
-.org-ol li{
-    counter-increment: li;
-    margin-bottom: .25em;
-}
-.org-ol li::before {
-    content: counter(li) ". ";
-    color:  var(--foreground-color);
-    display: inline-block;
-    width: 2em;
-    margin-left: -2em;
-}
+/* Ordered Lists */
+ol.org-ol { padding-left: 1em; margin-left: 2em; list-style: none; counter-reset: ol-counter; }
+ol.org-ol > li { counter-increment: ol-counter; margin-bottom: 0.25em; position: relative; padding-left: 2em; }
+ol.org-ol > li::before { content: counter(ol-counter) ". "; color: var(--foreground-color); position: absolute; left: 0; }
 
 /***************************************************
  * Footer
  ***************************************************/
 #content, #postamble {
     margin: 0 auto;
-    max-width: 720px;
+    max-width: 900px; /* Hard cap */
+    width: 90%; /* Default width for medium screens */
     margin-top: 2.5%;
     margin-bottom: 2.5%;
 }
 
-#postamble {
-    padding-top: 1.5em;
+/* Full width for phones and smaller screens */
+@media (max-width: 768px) {
+    #content, #postamble {
+        width: 100%;
+        max-width: 100%; /* Override any constraints */
+        margin: 0; /* Remove auto margins for true full width */
+    }
 }
 
-#postamble p, #postamble a {
-    color: var(--primary-color);
-    margin: 0;
-    text-align: center;
-    font-size: small;
-    padding-top: 1em;
-    padding-bottom: 3em;
-}
+/* When screen width is greater than 1500px, use up to 50% of the available space */
+@media (min-width: 1500px) { #content, #postamble { width: 50%; } }
+
+#postamble { padding-top: 1.5em; }
+#postamble p, #postamble a { color: var(--primary-color); margin: 0; text-align: center;
+    font-size: small; padding-top: 1em; padding-bottom: 3em; }
 
 h1.title { font-size: 1.75em; margin-top: 3em; margin-bottom: 1em; text-align: center; }
 span.subtitle { margin-top: .25em; font-size: 74.5%; color: var(--secondary-color)
 }
 
-h1, h2, h3, h4 {
-    color: var(--primary-color);
-    font-size: 1em;
-    text-transform: uppercase;
-}
+h1, h2, h3, h4 { color: var(--primary-color); font-size: 1em; text-transform: uppercase; }
 
-h2 {
-    border: var(--primary-color);
-    border-bottom-style: dotted;
-    border-bottom-width: thin;
-    padding-bottom: 0.3em;
-    padding-top: 5em;
-    counter-reset: subsection;
-}
+h2 { border: var(--primary-color);
+    border-bottom-style: dotted; border-bottom-width: thin; padding-bottom: 0.3em;
+    padding-top: 5em; counter-reset: subsection; }
 
 h3 { padding-top: 3em; }
 
 h2::before, h3::before, h4::before, h5::before {
-    color: var(--primary-color);
-    float: left;
-    text-align: right;
-    width: 2.5em;
-    margin-left: -3.0em;
-    counter-increment: subsection;
-}
+    color: var(--primary-color); float: left; text-align: right; width: 2.5em; margin-left: -3.0em;
+    counter-increment: subsection; }
 
 h2::before { content: "#" }
 h3::before { content: "##" }
@@ -201,8 +118,6 @@ tr:nth-child(even) {background: #f9f9f9;}
 tr:nth-child(odd) {background: #ffffff;}
 
 div#org-div-home-and-up { text-align: right; font-size: 90%; margin-top: 10px; margin-right: 30%; }
-
-
 img { max-width: 100%; display: block; margin-left: auto; margin-right: auto; }
 
 .tag { padding: 2px; font-size: 80%; visibility: hidden;}
@@ -215,24 +130,19 @@ img { max-width: 100%; display: block; margin-left: auto; margin-right: auto; }
 
 blockquote { background-color: var(--code-background-color); padding: 2em; font-style: italic; }
 
-.copy-button {
-    position: absolute; top: 0.5em; right: 0.5em;
-    size: 50%; padding: 5px 10px; cursor: pointer;
-    color: var(--accent-color); }
+.copy-button { position: absolute; top: 0.5em; right: 0.5em;
+size: 50%; padding: 5px 10px; cursor: pointer; color: var(--accent-color); }
 
 pre::before {
-    color: var(--accent-color);
-    text-align: right; margin: 0.5em;
-    position: absolute; top: 0.5em; left: 0.5em;
-    border-bottom: 2px dotted var(--accent-color);
-}
+    color: var(--accent-color); text-align: right; margin: 0.5em;
+position: absolute; top: 0.5em; left: 0.5em; border-bottom: 2px dotted var(--accent-color); }
 
 pre {
     border-left: 2px solid var(--accent-color);
     background-color: var(--code-background-color);
     overflow: auto; position: relative;
     padding: 3em 0.5em 0.5em; line-height: 1.35em;
-    font-family: var(--main-font); font-size: 90%;
+    font-family: var(--mono-font); font-size: 90%;
 }
 
 /* TODO maybe js ? */
@@ -242,17 +152,11 @@ pre.src { overflow: scroll;} pre.src-awk:before { content: 'Awk'; } pre.src-C:be
 /* Footnotes
 /*--------------------------------------------------*/
 
-.footpara { display: inline; }
-.footdef  { margin-bottom: 1em; }
-.figure { padding: 1em; }
-.figure p { text-align: center; }
+.footpara { display: inline; } .footdef  { margin-bottom: 1em; }
+.figure { padding: 1em; } .figure p { text-align: center; }
 
-.note::before {
-    content: "Note"; color: var(--accent-color); text-decoration-line: underline; }
-
-.note {
-    background: var(--code-background-color) ;
-    padding: 1em; font-size: .85em; line-height: 1.25em; }
+.note::before { content: "Note"; color: var(--accent-color); text-decoration-line: underline; }
+.note { background: var(--code-background-color) ; padding: 1em; font-size: 0.90em; line-height: 1.25em; }
 
 /*--------------------------------------------------*/
 /* Miscellaneous - to bundle with the rest
