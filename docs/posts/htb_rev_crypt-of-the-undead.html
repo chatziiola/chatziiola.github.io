@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTB: Crypt Of The Undead</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="Hack The Box (HtB) (very) easy reverse engineering challenge writeup: using radare2" />
+<meta name="generator" content="Org Mode" />
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="./index.html"> UP </a>
+ |
+ <a accesskey="H" href="/index.html"> HOME </a>
+</div><div id="content" class="content">
+<h1 class="title">HTB: Crypt Of The Undead
+<br>
+<span class="subtitle">A googling challenge</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org0ccecc0">Introduction</a></li>
+<li><a href="#org8af1e18">Static Analysis</a>
+<ul>
+<li><a href="#orgbe0bb89">The <code>main</code> part</a></li>
+<li><a href="#org662531a">The <code>encrypt_buf()</code> function</a></li>
+<li><a href="#orgf5fbbe5">ChaCha20</a></li>
+</ul>
+</li>
+<li><a href="#org5e87380">Summary</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org0ccecc0" class="outline-2">
+<h2 id="org0ccecc0"><a href="#org0ccecc0">Introduction</a></h2>
+<div class="outline-text-2" id="text-org0ccecc0">
+<p>
+Some days ago I published my <a href="htb_rev_flagcasino.html">FlagCasino</a> writeup; Now that was a fun
+reversing challenge, with a little bit of everything an amateur wants:
+you can execute it, you can disassemble it, you can decompile it, it&rsquo;s
+fun. This challenge was solved prior to that, and it is not that I did
+not like it; I just did not like the ending :P
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8af1e18" class="outline-2">
+<h2 id="org8af1e18"><a href="#org8af1e18">Static Analysis</a></h2>
+<div class="outline-text-2" id="text-org8af1e18">
+<p>
+After running <code>i</code> (information) within <code>radare2</code>, <code>hexdump</code> on the <code>.undead</code>
+flag file, We start with disassembly.
+</p>
+
+<p>
+Getting a list of functions with <code>afl</code>.Interesting functions: 
+</p>
+<ul class="org-ul">
+<li><code>encrypt_buf()</code></li>
+<li><code>rename()</code></li>
+<li><code>chacha20...</code> functions<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup></li>
+<li>Lots of I/O functions</li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-text" id="orge5d9644">0x58178fd07030    1      6 sym.imp.free
+0x58178fd07040    1      6 sym.imp.strncpy
+0x58178fd07050    1      6 sym.imp.strncmp
+0x58178fd07060    1      6 sym.imp.puts
+0x58178fd07070    1      6 sym.imp.write
+0x58178fd07080    1      6 sym.imp.strlen
+0x58178fd07090    1      6 sym.imp.__stack_chk_fail
+0x58178fd070a0    1      6 sym.imp.printf
+0x58178fd070b0    1      6 sym.imp.__assert_fail
+0x58178fd070c0    1      6 sym.imp.close
+0x58178fd070d0    1      6 sym.imp.read
+0x58178fd070e0    1      6 sym.imp.malloc
+0x58178fd070f0    1      6 sym.imp.realloc
+0x58178fd07100    1      6 sym.imp.open
+0x58178fd07110    1      6 sym.imp.perror
+0x58178fd07120    1      6 sym.imp.rename
+0x58178fd072f0    1     38 entry0
+0x58178fd09fc0    1     32 section..got
+0x58178fd07140    4     56 sym.main.cold
+0x58178fd07580    1    261 sym.chacha20_init_context
+0x58178fd079e0    1     13 sym._fini
+0x58178fd07500    3    128 sym.encrypt_buf
+0x58178fd07690   15    779 sym.chacha20_xor
+0x58178fd07430    9    198 sym.read_file
+0x58178fd07190   12    354 main
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbe0bb89" class="outline-3">
+<h3 id="orgbe0bb89"><a href="#orgbe0bb89">The <code>main</code> part</a></h3>
+<div class="outline-text-3" id="text-orgbe0bb89">
+<p>
+Running <code>pds @ sym.main</code>, <code>pdf @ sym.main</code>, and we can see that:
+</p>
+<ul class="org-ul">
+<li>At the beginning we get 40 bytes in the stack</li>
+<li><code>mov rax, qword fs:[0x28]</code>, get thread TID, and it get&rsquo;s saved to memory<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup></li>
+<li>if the app has no arguments <code>argc &lt;= 1</code>, quit and show usage</li>
+<li>if it has arguments:
+<ol class="org-ol">
+<li>Parse argv (<code>rsi</code>), so that:
+<ul class="org-ul">
+<li><code>rbp</code> contains the input string</li>
+<li><code>rdi</code> contains the <code>.undead</code> string</li>
+<li>checks if the input file ends with <code>.undead</code>: if already encrypted, exit</li>
+</ul></li>
+<li>Does some strlen/copy/strlen again <code>0x5c55632601ce</code></li>
+<li>Encrypts with string <code>BRAAA...INS</code>, then renames the file</li>
+<li>If successful in renaming</li>
+<li>Overwrite the file, inform user of <b>zombification</b></li>
+</ol></li>
+</ul>
+
+<p>
+So effectively we have to understand part 3 (and maybe part 2 as well):
+</p>
+</div>
+</div>
+
+<div id="outline-container-org662531a" class="outline-3">
+<h3 id="org662531a"><a href="#org662531a">The <code>encrypt_buf()</code> function</a></h3>
+<div class="outline-text-3" id="text-org662531a">
+<p>
+Part three is all about <code>encrypt_buf()</code> function, which can easily be
+visualized with <code>VV @ sym.encrypt_buf()</code>
+</p>
+
+
+<div id="orge52a744" class="figure">
+<p><img src="images/Static_Analysis/20250204_163930_screenshot.png" alt="&quot;Radare2-produced visual graph of encrypt_buf(): consists of three &quot;nodes&quot;: main one, handling arguments and making the call to chacha20, one for normal execution, one for fail&quot;">
+</p>
+<p><span class="figure-number">Figure 1: </span><code>encrypt_buf()</code> graph</p>
+</div>
+
+<ul class="org-ul">
+<li>It seems to take 4 arguments:
+<ol class="org-ol">
+<li><code>rdi</code> -&gt; value of r12 in main</li>
+<li><code>rsi</code> -&gt; value of rdi in main</li>
+<li><code>rdx</code> -&gt; &ldquo;BRAINS&rdquo; (or its address)</li>
+<li><code>r8</code> <sup><a id="fnr.3" class="footref" href="#fn.3" role="doc-backlink">3</a></sup></li>
+</ol></li>
+<li>Increases stack size by 224 bytes (<code>0xe0</code>), creating the following variables:
+<ul class="org-ul">
+<li><code>A</code>: <code>rsp+0xcc - 204</code> -&gt; 8 bytes</li>
+<li><code>B</code>: <code>rsp+0xd4 - 212</code> -&gt; 4 bytes?</li>
+<li><code>C</code>: <code>rsp+0xd8 - 216</code> -&gt; 8 bytes (since max size is 224)</li>
+</ul></li>
+<li>Uses <code>rsi</code> to load <code>fs[0x28]</code> -&gt; which is an address: tied to threading.</li>
+<li>Variable at <code>rsi</code> addr: stored in <code>C</code>
+<ul class="org-ul">
+<li>strangely it is not <code>C</code> itself that gets returned in <code>rax</code>, but the word
+minus the starting word?</li>
+</ul></li>
+</ul>
+
+<p>
+Strange parts: Calling these two functions:
+</p>
+<ul class="org-ul">
+<li><code>sym.chacha20_init_context</code> -&gt; ok <b>this one uses <code>r8</code></b></li>
+<li><code>sym.chacha20_xor</code></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgf5fbbe5" class="outline-3">
+<h3 id="orgf5fbbe5"><a href="#orgf5fbbe5">ChaCha20</a></h3>
+<div class="outline-text-3" id="text-orgf5fbbe5">
+<p>
+I was naive enough to think that the name somehow was an indicator
+that the function returned a <code>char char</code> array, with a length of 20.
+<a href="https://www.youtube.com/watch?v=OJ62RzJkYUo">Pixies</a>. Anyway, I started reviewing the <code>chacha20_xor</code> function in the
+same way I looked at <code>encrypt_buf()</code> above, slowly step by step. Then it
+struck me that I had somewhere seen that so I just googled <code>chacha20</code>.
+</p>
+
+<p>
+One of the first links, explaining this <b>widely used</b> encryption
+algorithm, was that of <a href="https://xilinx.github.io/Vitis_Libraries/security/2019.2/guide_L1/internals/chacha20.html">Xilinx</a><sup><a id="fnr.4" class="footref" href="#fn.4" role="doc-backlink">4</a></sup>stating that:
+</p>
+<blockquote>
+<p>
+Its encryption and decryption are same as long as input same initial
+key, counter and nonce.
+</p>
+</blockquote>
+
+<p>
+Seeing that all the program was doing was to repeatedly encrypt the
+file&rsquo;s contents with the same algorithm I did what any normal person
+would do:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell" id="orgf80958a">cp flag.txt.undead newflag.txt
+./crypt newflag.txt <span class="org-comment-delimiter"># </span><span class="org-comment">produced newflag.txt.undead</span>
+cat newflag.txt.undead <span class="org-comment-delimiter"># </span><span class="org-comment">flag in plain text ;)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org5e87380" class="outline-2">
+<h2 id="org5e87380"><a href="#org5e87380">Summary</a></h2>
+<div class="outline-text-2" id="text-org5e87380">
+<p>
+If you see any strange function names do not force them to make sense
+in your mind. <i>Google</i> it. It might prove useful, but in any case, you
+got nothing to lose.
+</p>
+
+
+<div id="org80a980f" class="figure">
+<p><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl1eDJpdnQ2NGF1ZXV2NHBnNGgyYXBzanM5eHE4Y2Z4Y2FlYXBhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUGWc0Rk5Lzbh8zstA/giphy.gif" alt="giphy.gif">
+</p>
+<p><span class="figure-number">Figure 2: </span>Cha-cha alright</p>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I think that experienced players would be able to solve the
+challenge before moving forward&#x2026; 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+I did not get much deeper on this, I realized now that I am in the
+process of <i>enriching</i> my notes. 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.3" class="footnum" href="#fnr.3" role="doc-backlink">3</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+A mystery ? 
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.4" class="footnum" href="#fnr.4" role="doc-backlink">4</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<b>war flashback</b> 
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-29 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+</div>
+</body>
+</html>

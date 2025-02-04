@@ -1,0 +1,200 @@
+#+TITLE: HTB: Crypt Of The Undead
+#+SUBTITLE: A googling challenge
+#+DATE: <2025-01-29 Wed>
+#+DESCRIPTION: Hack The Box (HtB) (very) easy reverse engineering challenge writeup: using radare2
+#+AUTHOR: Lamprinos Chatziioannou
+#+FILETAGS: reveng htb
+
+* Introduction
+Some days ago I published my [[file:htb_rev_flagcasino.org][FlagCasino]] writeup; Now that was a fun
+reversing challenge, with a little bit of everything an amateur wants:
+you can execute it, you can disassemble it, you can decompile it, it's
+fun. This challenge was solved prior to that, and it is not that I did
+not like it; I just did not like the ending :P
+
+* Info                                                                                    :noexport:
+Now this was the first challenge I tested ~radare2~ against, so, I
+actively tried to note down the commands to use in each part...
+
+** ~i~ for information
+#+NAME: Getting the basic information out
+#+begin_src text
+[0x7c657a744540]> i
+file     /home/thraller/0d3to0den/htb_challenges/rev_crypt_of_the_undead/crypt
+mode     rwx
+format   elf64
+iorw     true
+block    0x100
+referer  dbg://./crypt
+type     DYN (Shared object file)
+arch     x86
+binsz    14591
+bits     64
+canary   true
+compiler GCC: (GNU) 14.2.1 20240805 GCC: (GNU) 14.2.1 20240910
+crypto   false
+endian   little
+havecode true
+intrp    /lib64/ld-linux-x86-64.so.2
+laddr    0x0
+lang     c
+linenum  true
+lsyms    true
+machine  AMD x86-64 architecture
+nx       true
+os       linux
+pic      true
+relocs   true
+relro    partial
+rpath    NONE
+sanitize false
+static   false
+stripped false
+subsys   linux
+va       true
+#+end_src
+
+
+** Seeing the output:
+#+NAME: Hexdump of flag
+#+begin_src text
+└[~/0d3to0den/htb_challenges/rev_crypt_of_the_undead]> hexdump flag.txt.undead
+0000000 bd52 36a9 0450 55bc 75cd a2b8 0dd3 402e
+0000010 5447 370c df59 20fb 221f 8644 0207 0bd2
+0000020 b61e
+0000022
+#+end_src
+
+
+* Static Analysis
+After running ~i~ (information) within ~radare2~, ~hexdump~ on the ~.undead~
+flag file, We start with disassembly.
+
+Getting a list of functions with ~afl~.Interesting functions: 
+- ~encrypt_buf()~
+- ~rename()~
+- ~chacha20...~ functions[fn:1]
+- Lots of I/O functions
+#+NAME: Functions
+#+begin_src text
+0x58178fd07030    1      6 sym.imp.free
+0x58178fd07040    1      6 sym.imp.strncpy
+0x58178fd07050    1      6 sym.imp.strncmp
+0x58178fd07060    1      6 sym.imp.puts
+0x58178fd07070    1      6 sym.imp.write
+0x58178fd07080    1      6 sym.imp.strlen
+0x58178fd07090    1      6 sym.imp.__stack_chk_fail
+0x58178fd070a0    1      6 sym.imp.printf
+0x58178fd070b0    1      6 sym.imp.__assert_fail
+0x58178fd070c0    1      6 sym.imp.close
+0x58178fd070d0    1      6 sym.imp.read
+0x58178fd070e0    1      6 sym.imp.malloc
+0x58178fd070f0    1      6 sym.imp.realloc
+0x58178fd07100    1      6 sym.imp.open
+0x58178fd07110    1      6 sym.imp.perror
+0x58178fd07120    1      6 sym.imp.rename
+0x58178fd072f0    1     38 entry0
+0x58178fd09fc0    1     32 section..got
+0x58178fd07140    4     56 sym.main.cold
+0x58178fd07580    1    261 sym.chacha20_init_context
+0x58178fd079e0    1     13 sym._fini
+0x58178fd07500    3    128 sym.encrypt_buf
+0x58178fd07690   15    779 sym.chacha20_xor
+0x58178fd07430    9    198 sym.read_file
+0x58178fd07190   12    354 main
+#+end_src
+
+** The ~main~ part
+Running ~pds @ sym.main~, ~pdf @ sym.main~, and we can see that:
+- At the beginning we get 40 bytes in the stack
+- ~mov rax, qword fs:[0x28]~, get thread TID, and it get's saved to memory[fn:2]
+- if the app has no arguments ~argc <= 1~, quit and show usage
+- if it has arguments:
+    1. Parse argv (~rsi~), so that:
+        - ~rbp~ contains the input string
+        - ~rdi~ contains the ~.undead~ string
+        - checks if the input file ends with ~.undead~: if already encrypted, exit
+    2. Does some strlen/copy/strlen again ~0x5c55632601ce~
+    3. Encrypts with string ~BRAAA...INS~, then renames the file
+    4. If successful in renaming
+    5. Overwrite the file, inform user of *zombification*
+
+So effectively we have to understand part 3 (and maybe part 2 as well):
+
+** The ~encrypt_buf()~ function
+Part three is all about ~encrypt_buf()~ function, which can easily be
+visualized with ~VV @ sym.encrypt_buf()~
+
+# Put this right before image if wanted
+# #+attr_latex: :width 0.65\linewidth
+
+#+label:encryptbuf-graph
+#+caption: ~encrypt_buf()~ graph
+#+attr_html: :alt "Radare2-produced visual graph of encrypt_buf(): consists of three "nodes": main one, handling arguments and making the call to chacha20, one for normal execution, one for fail"
+[[file:images/Static_Analysis/20250204_163930_screenshot.png]]
+
+#+begin_comment
+- frees up ~r12, rbp, rbx~
+    - ~rsi~ goes to ~rbp~, is not ~rbp~ the base pointer?
+#+end_comment
+
+- It seems to take 4 arguments:
+    1. ~rdi~ -> value of r12 in main 
+    2. ~rsi~ -> value of rdi in main
+    3. ~rdx~ -> "BRAINS" (or its address)
+    4. ~r8~ [fn:3]
+- Increases stack size by 224 bytes (~0xe0~), creating the following variables:
+    - ~A~: ~rsp+0xcc - 204~ -> 8 bytes
+    - ~B~: ~rsp+0xd4 - 212~ -> 4 bytes?
+    - ~C~: ~rsp+0xd8 - 216~ -> 8 bytes (since max size is 224)
+- Uses ~rsi~ to load ~fs[0x28]~ -> which is an address: tied to threading.
+- Variable at ~rsi~ addr: stored in ~C~
+    - strangely it is not ~C~ itself that gets returned in ~rax~, but the word
+      minus the starting word?
+
+Strange parts: Calling these two functions:
+- ~sym.chacha20_init_context~ -> ok *this one uses ~r8~*
+- ~sym.chacha20_xor~
+
+** ChaCha20
+I was naive enough to think that the name somehow was an indicator
+that the function returned a ~char char~ array, with a length of 20.
+[[https://www.youtube.com/watch?v=OJ62RzJkYUo][Pixies]]. Anyway, I started reviewing the ~chacha20_xor~ function in the
+same way I looked at ~encrypt_buf()~ above, slowly step by step. Then it
+struck me that I had somewhere seen that so I just googled ~chacha20~.
+
+One of the first links, explaining this *widely used* encryption
+algorithm, was that of [[https://xilinx.github.io/Vitis_Libraries/security/2019.2/guide_L1/internals/chacha20.html][Xilinx]][fn:4]stating that:
+#+begin_quote
+Its encryption and decryption are same as long as input same initial
+key, counter and nonce.
+#+end_quote
+
+Seeing that all the program was doing was to repeatedly encrypt the
+file's contents with the same algorithm I did what any normal person
+would do:
+ #+NAME: Tried to encrypt the encrypted
+#+begin_src shell
+   cp flag.txt.undead newflag.txt
+   ./crypt newflag.txt # produced newflag.txt.undead
+   cat newflag.txt.undead # flag in plain text ;)
+#+end_src
+
+* Summary
+If you see any strange function names do not force them to make sense
+in your mind. /Google/ it. It might prove useful, but in any case, you
+got nothing to lose.
+
+#+caption: Cha-cha alright
+[[https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl1eDJpdnQ2NGF1ZXV2NHBnNGgyYXBzanM5eHE4Y2Z4Y2FlYXBhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUGWc0Rk5Lzbh8zstA/giphy.gif]]
+
+* Footnotes
+[fn:4] *war flashback* 
+
+[fn:3] A mystery ? 
+
+[fn:2] I did not get much deeper on this, I realized now that I am in the
+process of /enriching/ my notes. 
+
+[fn:1] I think that experienced players would be able to solve the
+challenge before moving forward... 

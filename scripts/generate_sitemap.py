@@ -1,6 +1,7 @@
 import os
 import subprocess
 import xml.etree.ElementTree as ET
+from datetime import datetime
 
 # CONFIGURATION: Change this to your site URL
 BASE_URL = "https://chatziiola.github.io"
@@ -30,7 +31,7 @@ def generate_sitemap():
                 relative_path = os.path.relpath(file_path, OUTPUT_DIR)
                 url = f"{BASE_URL}/{relative_path.replace(os.sep, '/')}"
                 
-                lastmod = get_git_lastmod(file_path) or "2024-01-01"  # Default to a safe fallback date
+                lastmod = get_git_lastmod(file_path) or datetime.today().strftime('%Y-%m-%d')
 
                 url_elem = ET.SubElement(urlset, "url")
                 ET.SubElement(url_elem, "loc").text = url

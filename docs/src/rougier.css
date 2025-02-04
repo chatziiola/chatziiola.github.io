@@ -1,13 +1,6 @@
-/*
- * Cascading stylesheet for GNU Emacs org mode
- * Lamprinos Chatziioannou (chatziiol)
+/* CSS for personal Org Mode blog by Lamprinos Chatziioannou (chatziiol)
  * Released under a Creative Commons CC-BY 4.0 licence
- *
- * Initially based on the one designed by:
- * Nicolas P. Rougier - September 2020
- */
-
-
+ * Initially based on a design by: Nicolas P. Rougier - retrieved September 2020 */
 @charset "utf-8";
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
@@ -15,13 +8,11 @@
 :root { --mono-font: "Roboto Mono", monospace; --main-font: "Montserrat", serif; }
 
 :root { --primary-color: #8d6e63; --secondary-color: #d7ccc8; --background-color: #f5f5f5; --foreground-color: #4e342e; --accent-color: #a1887f; --success-color: #6d9e6a; --error-color: #d32f2f; --disabled-color: #a89984; --code-background-color: #ede0d4; --code-foreground-color: #4e342e; }
-
 .dark-mode { --primary-color: #ccaba0; --secondary-color: #a1887f; --background-color: #372620; --foreground-color: #f5f5f5; --accent-color: #c7a89e; --success-color: #a2b97b; --error-color: #e53935; --disabled-color: #756a5d; --code-background-color: #2c1f1a; --code-foreground-color: #f5f5f5; }
 
 body { font-family:  var(--main-font); color: var(--foreground-color); background: var(--background-color);
-    font-size: 16px; font-weight: 400; line-height: 1.4em;
-    counter-reset: section; counter-reset: toc-section; counter-increment: toc-section;
-text-align: justify; }
+    font-size: 16px; font-weight: 400; line-height: 1.4em; counter-reset: section;
+    counter-reset: toc-section; counter-increment: toc-section; text-align: justify; }
 
 a, a:visited { text-decoration: none; color: var(--primary-color); }
 a:hover { text-decoration: underline; color: var(--success-color); }
@@ -49,14 +40,14 @@ i, i a { font-style: italic; }
 #table-of-contents h2:before { content: "⌘"; }
 
 /* Unordered Lists */
-ul.org-ul { padding-left: 1em; }
-ul.org-ul li { list-style-type: none; margin-bottom: 0.5em; position: relative; padding-left: 1em; }
-ul.org-ul li::before { content: "— "; color: var(--foreground-color); position: absolute; left: 0; }
+ul.org-ul {padding-left: 0.5em; list-style-type: none;}
+ul.org-ul li {margin-bottom: 0.5em; position: relative; padding-left: 1.5em; }
+ul.org-ul li::before {content: "— "; color: var(--foreground-color); position: absolute; left: 0; }
 
 /* Ordered Lists */
-ol.org-ol { padding-left: 1em; margin-left: 2em; list-style: none; counter-reset: ol-counter; }
-ol.org-ol > li { counter-increment: ol-counter; margin-bottom: 0.25em; position: relative; padding-left: 2em; }
-ol.org-ol > li::before { content: counter(ol-counter) ". "; color: var(--foreground-color); position: absolute; left: 0; }
+ol.org-ol {padding-left: 0.5em; list-style: none; counter-reset: ol-counter;}
+ol.org-ol > li {counter-increment: ol-counter; margin-bottom: 0.25em; position: relative; padding-left: 1em;}
+ol.org-ol > li::before {content: counter(ol-counter) ". "; color: var(--foreground-color); position: absolute; left: 0;}
 
 /***************************************************
  * Footer
@@ -146,7 +137,7 @@ pre {
 }
 
 /* TODO maybe js ? */
-pre.src { overflow: scroll;} pre.src-awk:before { content: 'Awk'; } pre.src-C:before { content: 'C'; } pre.src-css:before { content: 'CSS'; } pre.src-elisp:before { content: 'Elisp'; } pre.src-java:before { content: 'Java'; } pre.src-latex:before { content: 'LaTeX'; } pre.src-matlab:before { content: 'MATLAB'; } pre.src-org:before { content: 'Org mode'; } pre.src-python:before { content: 'Python'; } pre.src-sed:before { content: 'Sed'; } pre.src-sh:before { content: 'shell'; } pre.src-sql:before { content: 'SQL'; } pre.src-sqlite:before { content: 'SQLite'; } pre.src-shell:before { content: 'Shell'; } pre.src-cpp:before  { content: 'C++'; } pre.src-c:before  { content: 'C'; } pre.src-bash:before  { content: 'bash'; } pre.example:before  { content: 'example'; } pre.src-asm:before { content: 'Assembler'; } pre.src-html:before { content: 'HTML'; } pre.src-tex:before { content: 'TeX'; }
+pre.src { overflow: scroll;} pre.src-awk:before { content: 'Awk'; } pre.src-C:before { content: 'C'; } pre.src-css:before { content: 'CSS'; } pre.src-elisp:before { content: 'Elisp'; } pre.src-java:before { content: 'Java'; } pre.src-latex:before { content: 'LaTeX'; } pre.src-matlab:before { content: 'MATLAB'; } pre.src-org:before { content: 'Org mode'; } pre.src-python:before { content: 'Python'; } pre.src-sed:before { content: 'Sed'; } pre.src-sh:before { content: 'shell'; } pre.src-sql:before { content: 'SQL'; } pre.src-sqlite:before { content: 'SQLite'; } pre.src-shell:before { content: 'Shell'; } pre.src-cpp:before  { content: 'C++'; } pre.src-c:before  { content: 'C'; } pre.src-bash:before  { content: 'bash'; } pre.example:before  { content: 'example'; } pre.src-asm:before { content: 'Assembler'; } pre.src-html:before { content: 'HTML'; } pre.src-tex:before { content: 'TeX'; } pre.src-text:before { content: 'Example'; }
 
 /*--------------------------------------------------*/
 /* Footnotes
@@ -181,3 +172,5 @@ button { border: none; background: none; color: var(--foreground-color); }
 
 .fa-brands, .fas{ font-size: x-large; color: var(--primary-color); }
 .fa-brands:hover, .fas:hover { color: var(--success-color); }
+
+.tenor-gif-embed { max-width: 500px;}
