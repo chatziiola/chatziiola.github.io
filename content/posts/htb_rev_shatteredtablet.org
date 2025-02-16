@@ -1,0 +1,77 @@
+#+TITLE: Shattered Tablet
+#+SUBTITLE: 
+#+DESCRIPTION: Walkthrough of Shattered Tabled reversing (very easy) challenge by Hack The Box
+#+AUTHOR: Lamprinos Chatziioannou
+#+DATE: <2025-02-15 Sat>
+#+OPTIONS: 
+#+FILETAGS: reveng htb veryeasy
+
+* Introduction
+I had no intention of writing today, I just logged to get some
+practice in, on the basics, since I was tired to go into much theory,
+but this one was solved in less than 15-20 minutes. I thought why not:
+Let's try to get some writing practice as well.
+
+#+begin_quote
+Deep in an ancient tomb, you've discovered a stone tablet with secret
+information on the locations of other relics. However, while dodging a
+poison dart, it slipped from your hands and shattered into hundreds of
+pieces. Can you reassemble it and read the clues?
+#+end_quote
+
+* Static analysis:
+We are given just a single binary ~tablet~, and the flag /lies/ inside it,
+since there is no remote machine to launch.
+
+** ~rabin2 -I~, ~file~, ~checksec~                                                              :noexport:
+We see that we have an ~amd64~ ELF executable, dynamically linked:
+- Partial RELRO
+- No stack canaries
+- NX stack
+- PIE? 
+
+** Decompiling
+Immediately upon seeing the decompiled main, I thought of a similar
+challenge I recently completed: It must have been spooky license but I
+am not 100% sure of it.
+#+NAME: Why I thought about it
+#+begin_src c
+if (((((uStack_28._2_1_ == '4') && (uStack_38._4_1_ == '3')) && (uStack_28._4_1_ == 'r')) &&
+    ((((uStack_48._1_1_ == 'T' && (uStack_38._5_1_ == 'v')) &&
+      ((uStack_48._6_1_ == '0' && ((uStack_28._7_1_ == '}' && (uStack_28._6_1_ == 'd')))))) &&
+     (uStack_30._7_1_ == 'r')))) &&
+   ((((((uStack_30._5_1_ == '3' && (uStack_40 == '3')) && (uStack_38._6_1_ == 'e')) &&
+      ((uStack_28._3_1_ == '1' && (uStack_48._5_1_ == 'r')))) &&
+     ((uStack_48 == 'H' && ((uStack_28 == '3' && (uStack_38._2_1_ == '.')))))) &&
+    (((((uStack_40._5_1_ == '4' &&
+        (((((uStack_48._3_1_ == '{' && (uStack_40._2_1_ == '_')) && (uStack_38 == '.')) &&
+          ((uStack_48._4_1_ == 'b' && (uStack_48._7_1_ == 'k')))) && (uStack_40._7_1_ == 't')))) &&
+       (((uStack_40._6_1_ == 'r' && (uStack_38._3_1_ == 'n')) &&
+        ((uStack_30._1_1_ == 't' &&
+         (((uStack_38._1_1_ == '.' && (uStack_40._1_1_ == 'n')) && (uStack_30._6_1_ == '_')))))))) &&
+      (((uStack_30._2_1_ == '0' && (uStack_30 == '_')) && (uStack_40._4_1_ == 'p')))) &&
+     ((((uStack_38._7_1_ == 'r' && (uStack_30._4_1_ == 'b')) &&
+       ((uStack_28._1_1_ == 'p' &&
+        (((uStack_48._2_1_ == 'B' && (uStack_30._3_1_ == '_')) && (uStack_40._3_1_ == '4')))))) &&
+      (uStack_28._5_1_ == '3')))))))) {
+#+end_src
+We are given a set of constraints we need the flag to meet. To do that
+we can use the z3-solver library, though it feels even easier than
+that. In fact I can do it by myself probably:
+1. Write the checks above in a separate sample file
+2. Break it down to its essentials (see shell command)
+3. Some ~vim~ quick formatting tricks and ... We're good to go:
+   
+ #+NAME: Shell Command
+#+begin_src shell
+cat test.txt | sed -E 's/&&|\)+|\(+/\n/g' | grep uStack | uniq | sort
+#+end_src
+
+#+NAME: name
+#+begin_src text
+Ustack_48: HTB{br0k
+Ustack_40: 3n_4p4rt
+Ustack_38: ...n3ver
+Ustack_30: _t0_b3_r
+Ustack_28: 3p41r3d}
+#+end_src
