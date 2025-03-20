@@ -1,81 +1,81 @@
-#+TITLE: Literate DevOps in Emacs and Org Mode
+#+TITLE: Speedrun guide to Org Mode
 #+DATE: <2023-01-09 11:34>
 #+DESCRIPTION: 
-#+FILETAGS: literateprogramming org
-
+#+FILETAGS: literateprogramming org notetaking emacs
 
 * Commentary
-This is a set of notes on [[https://www.youtube.com/watch?v=dljNabciEGg&list=WL&index=119&ab_channel=HowardAbrams][Literate Devops with Emacs]].
-
-Ενώ ήδη χρησιμοποιώ Org Mode και literate programming αρκετά εκτεταμένα είδα ότι
-είχα αυτή την παρουσίαση στο /Watch Later/ μου εδώ και αρκετό καιρό οπότε είπα να
-την /καθαρίσω/.
-
-Ξέρω:
-#+begin_export html
-<iframe src="https://giphy.com/embed/qlKs0m0GxHN6ycbDmV" width="480"
-#height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a
-#href="https://giphy.com/gifs/pudgypenguins-aintmuch-aintmuchmoons-honnestworkmoon-qlKs0m0GxHN6ycbDmV">via
-#GIPHY</a></p>
-#+end_export
-
-Ακόμα θα ήθελα να πω, για την περίπτωση που κάποιος δει το source code, δεν
-χρησιμοποιώ τα ~:exports~ directives, μόνο και μόνο για να μην μου δημιουργούν
-πρόβλημα κατά το ~org-publish~, ενώ θα βλέπετε μπροστά στα παραδείγματα που δεν
-κάνουν render να υπάρχει μία ~#~ συνοδευόμενη από κενό.
-
-* Εισαγωγή
-Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
-στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
-διακοπτόμενο ανα σημεία από τον κώδικα και όχι κώδικα διακοπτόμενο ανα σημεία
-για σχόλια, είναι για να βελτιώσει την αναγνωσιμότητα του κώδικα: κατ αυτόν τον
-τρόπο, /αν και δουλεύεις περισσότερο γράφοντας τον κώδικα/, όταν τον επισκεφτείς
-στο μέλλον έχεις ένα σύνολο σημειώσεων, οι οποίες αν είναι αναλυτικές, μειώνουν
-ή ακόμα μηδενίζουν τον χρόνο για την πλοήγηση στον κώδικα, εύρεση του κατάλληλου
-σημείου και πραγματοποίηση των απαιτούμενων τροποποιήσεων.
+This started as a set of notes on [[https://www.youtube.com/watch?v=dljNabciEGg&list=WL&index=119&ab_channel=HowardAbrams][Literate Devops with Emacs]]. I never
+thought this was to be published, but it was revised on
+<2025-03-20 Thu>, so that I can send it to a friend of mine.
 
 
-Βέβαια, γράφοντας την παραπάνω παράγραφο, συνειδητοποίησα πως η τελευταία
-πρόταση μάλλον δεν επαληθεύεται από την προσωπική μου εμπειρία. Ενώ η λογική
-λέει πως πληκτρολογώντας περισσότερες λέξεις και όντας πολύ πιο αναλυτικός θα
-έπρεπε να σε παίρνει περισσότερο χρόνο, υπάρχει άλλη μία διασταση: η δυνατότητα
-να γράφεις τις σκέψεις σου, όπως εκείνες σε έρχονται εκείνη την στιγμή, στο ίδιο
-αρχείο, αντί να μετακινείσαι μεταξύ αρχείων ή από το χαρτί στην οθόνη και πάλι
-πίσω.
+#+NAME: On export directives
+#+begin_note
+Feel free to look at the [[https://github.com/chatziiola/chatziiola.github.io/blob/main/content/posts/20230109_notes_literate_devops_in_emacs_and_org_mode.org][source code]] of this file, since the whole
+post was written in Org Mode.
+#+end_note
 
-Είναι επιστημονικό γεγονός πως το να γράφεις τις ιδέες σου, αντί να τις
-δουλεύεις σε νοητικό επίπεδο, επιτρέπει την καλύτερη εργασία επί αυτών (βασικός
-λόγος για αυτό είναι τα οπτικά ερεθίσματα). Αυτό αποδίδω στην καλύτερη επίδοση
-που έχω παρατηρήσει, όταν δουλεύω σε κάποιο πρόγραμμα κατ' αυτόν τον τρόπο.
+* Introduction
+
+[[https://orgmode.org/][Org Mode]] is a wonderful plain text markup format. It is like markdown
+on steroids, yet much more intuitive and readable.
+
+#+NAME: Org mode example
+#+begin_src text
+  ,* Header
+  Headers start with *, this is a *bold* word, this is /italics/
+
+  You can have custom blocks with
+  ,#+begin_src, language
+  echo "I am no salesman, but well, you can also *execute* scripts inline with C-c C-c"
+  ,#+end_src
+  while inline code looks like this ~echo Hello World~
+
+  You can have references [[cref:...]], footnotes [[fn:1]] (C-c C-x f)...
 
 
-Πρέπει να παραδεχθώ, σε κάθε περίπτωση, πως δεν γράφω προγραμματισμό μόνο καθ'
-αυτόν τον τρόπο. Στην πλειοψηφία μάλιστα των προγραμμάτων μου, προσπαθώντας να
-τα κρατήσω μικρά και απλά, ούτως ώστε να συνδυάζονται και μεταξύ τους μένω στο
-παλιό, κλασσικό τρόπο προγραμματισμού.
+  ,#+NAME: This is a table
+  | column 1   | column 2    |
+  |------------+-------------|
+  | Elementary | Dear Watson |
+  |            |             |
 
-* Writing code
-Τα βασικά είναι:
-1. Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
-   βάλεις εύκολα χρησιμοποιώντας το ~C-c C-,~:
-    #+begin_example
-    #+begin_src sh
-    #+end_src
-    #+end_example
-2. Εκτελείς τον κώδικα εντός ενός source block με το ~C-c C-c~
+  ,#+CAPTION: Image caption
+  ,#+attr_latex: :width 0.65\linewidth
+  ,#+attr_html: :alt It usually works out best
+  [[file:/the/path/to/a.img]]
 
-** Code and Results
-This shows both input 
-#+begin_example
-#+begin_src sh :exports both
+  Links can be efficiently inserted with C-c C-l and look like this:
+  [[http://chatziiola.github.io][Link]]
 #+end_src
-#+end_example
 
-Παράδειγμα
+The thing is that OrgMode works best from within Emacs. Extensions
+exist for Nvim and other editors, but nothing even comes close. 
+
+* Org mode features
+This is found somewhere in the documentation of OrgMode (but it could
+have been CDLatex for ~`~) - in any case it stands true:
+
+#+NAME: General 
+#+begin_note
+When in doubt use ~C-c~ - (it is the default prefix for OrgMode shortcuts)
+#+end_note
+
+** Writing code
+1. You can write code easily within source blocks. You can write
+   ~#+begin_src <lang>~ , followed by ~#+end_src~, but the simpler
+   solution here is to use ~C-c C-,~. A menu then spawns showing you the
+   different environments you can use:
+2. You can edit the source block more efficiently, taking advantage of
+   your programming configuration by using ~C-c '~ while inside it.
+3. After you have finished writing everything, execute it with ~C-c C-c~
+4. The RESULTS will be shown in buffer
+
 #+begin_src sh 
 brew search pyenv
 #+end_src
 
+#+begin_src text
 #+RESULTS:
 | pyenv                   |
 | pyenv-ccache            |
@@ -85,80 +85,293 @@ brew search pyenv
 | pyenv-which-ext         |
 | plenv                   |
 | pipenv                  |
-
-
-** Example Only
-Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
-#+begin_example
-#+begin_src sh :exports code
-#+end_src
-#+end_example
-
-#+begin_src sh 
-pyenv virtualenv demo
-pyenv activate demo
-pip install --upgrade flake
 #+end_src
 
-* Setting directory in which the code is to run
-#+begin_example
-#+begin_src sh :dir ~
-#+end_src
-#+end_example
+** Customizing the source blocks
+By adding options to the first line of the source block one can modify
+its behavior. An example of that is the following, making sure that
+when exporting this file (see the exporting section for more), only
+the code block (not the results) will be exported:
 
-Παράδειγμα:
-#+begin_src sh :dir ~
-pwd 
-#+end_src
-
-#+RESULTS:
-: /Users/sickvm
-
-** Modifying the directory var to run on a server
-#+begin_example
-#:PROPERTIES:
-#:dir:  /<server-dns>:
-#:END:
-#+end_example
-
-I am not sure how this works though.
-
-* Setting Variables
-#+begin_example
-#+begin_src sh :var varname=varvalue
-#+end_src
-#+end_example
-
-#+begin_src sh :var hellostring="Hello World"
-echo $hellostring
+#+begin_src text
+  ,#+begin_src python3 :exports code
+  print("Nice ;)")
+  ,#+end_src
 #+end_src
 
-#+RESULTS:
-: Hello World
+You can also set the directory where the code block will be
+executed[fn:2], or set variables:
+#+begin_src text
+  ,#+begin_src sh :dir ~
+  pwd
+  ,#+end_src
 
-
-** Setting variables up so that they are used in all source blocks
-#+begin_example
-#:PROPERTIES:
-#:dir:  /Users/sickvm
-#:END:
-#+end_example
-
-Nah this does not seem to be working - I do not know why though.
-#+begin_src sh 
-pwd
+  ,#+RESULTS:
+  : /Users/sickvm
 #+end_src
 
-* Tangle
-Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
-/κλασσικού/ προγραμματισμού, μέσα από ένα αρχείο literate programming:
-~org-babel-tangle~
+#+begin_src text
+  ,#+begin_src sh :var hellostring="Hello World"
+  echo $hellostring
+  ,#+end_src
 
-#+begin_example
+  ,#+RESULTS:
+  Hello World
+#+end_src
+
+** Exporting
+OrgMode files can instantly be exported to  \LaTeX, HTML, ODT(?), even
+Markdown[fn:1]. Just run ~C-c C-e~ to see more.
+
+If you are interested in what an Org to HTML workflow looks like, [[https://chatziiola.github.io/posts/20221228_elisp-org-publish-blog-configuration.html][this
+is an excellent article to have a look at]]... What a writer :P
+
+** Tangling
+This is one of the best features of org mode, and in fact this is what
+leads us to the next section of this article. One can use tangling so
+that independent ~begin_src~ blocks are then (through ~org-babel-tangle~)
+combined to produce independent files. The next section, if tangled,
+creates a minimal emacs configuration for writing in OrgMode.
+
+#+begin_src text
 #+begin_src sh :tangle <filename>
 #+end_src
-#+end_example
 
-* Exporting
-Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το ~C-c C-e~ δουλέυει
-και απο μόνο του.
+You can even set it for a whole file 
+#+NAME: name
+#+begin_src text
+  ,#+TITLE: My file
+  ,#+PROPERTY: :tangle ~/filename"
+
+
+  ,* Header
+  :PROPERTIES:
+  :header-args:elisp: :tangle "~/filename"
+  :END:
+#+end_src
+
+
+* Sample-Configuration                                                                    :config:
+:PROPERTIES:
+:header-args:elisp: :tangle "./config.el"
+:END:
+
+** Package Management
+*** Straight configuration
+Using [[https://github.com/raxod502/straight.el][straight.el]] for package management
+
+This snippet is necessary to load ~bootstrap.el~ and get straight up and running.
+#+begin_src elisp
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 6))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+#+end_src
+
+This needs to be here to avoid mismatch org version
+#+begin_src elisp
+(straight-use-package 'org)
+#+end_src
+
+#+begin_src elisp
+(setq straight-vc-git-default-clone-depth 1)
+(setq straight-recipes-gnu-elpa-use-mirror t)
+#+end_src
+
+Use ~use-package~ forms when installing packages. This allows for the numerous
+/pieces/ of code to be self-dependent.
+#+begin_src elisp
+(straight-use-package 'use-package)
+(setq straight-use-package-by-default t)
+#+end_src
+
+*** Auto Package Update
+
+#+NAME: Auto Package Update
+#+begin_src elisp
+
+(use-package auto-package-update
+  :custom
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  :config
+  (auto-package-update-maybe)
+  (auto-package-update-at-time "09:00"))
+
+#+end_src
+
+** Evil Mode and some useful packages
+If you are a Vim user, then ~evil mode~ is ideal, I can not help but
+suggest it:
+
+#+name: evil emacs
+#+begin_src elisp
+
+(use-package evil
+    :demand
+    :init
+        (setq evil-want-keybinding nil)
+        (setq evil-want-C-u-scroll t)
+        (setq evil-want-integration t)
+        (setq evil-want-keybinding nil)
+        (setq evil-split-window-below t)
+        (setq evil-vsplit-window-right t)
+        (setq evil-want-C-u-scroll t)
+        (setq evil-want-C-i-jump t)
+        (setq evil-want-Y-yank-to-eol t)
+    :config
+        (evil-mode 1)
+        ;; No really need to set leader keys like that
+        (evil-set-leader 'normal (kbd "<SPC>"))
+        (evil-set-leader 'insert (kbd "M-<SPC>"))
+        ;; Use visual line motions even outside of visual-line-mode buffers
+        (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+        (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+)
+
+#+end_src
+
+*** Evil Collection
+Evil collection is a collection of multiple useful keybindings. Just like it is
+shown in the following snippet, I have decided against using the default
+~evil-collection-mode-list~, mainly to avoid unwanted behavior in certain modes. I
+have decided to keep evil collection only on certain modes (the ones described).
+
+#+NAME: Initializing evil collection with modified evil-collection-mode-list 
+#+begin_src elisp
+(use-package evil-collection
+  :after evil
+  :config
+  (let ((evil-collection-mode-list 
+	 '(org help man info helpful imenu imenu-list corfu popup (magit magit-repos
+	 magit-submodule magit-section magit-todos) org-roam git dired flycheck
+	 (pdf pdfview) doc-view eldoc python hackernews (term term mult-term)
+	 (which-key))))
+    (evil-collection-init))
+  )
+
+#+end_src
+
+This is for commenting out text as in vim
+#+NAME: evil comments
+#+begin_src elisp
+  (use-package evil-commentary
+    :ensure t
+    :config
+    (global-unset-key (kbd "C-x C-;")) ;; ;Do not use the default
+    (evil-commentary-mode)) ;; Enables gc by default
+#+end_src
+
+*** Keyboard
+The mode displays the key bindings following your currently entered incomplete command  in a popup.
+
+#+begin_src elisp
+
+  (use-package which-key
+      :config (which-key-mode))
+
+#+end_src
+*** Clipboard
+Allows system and Emacs clipboard to communicate smoothly (both ways)
+
+#+begin_src elisp
+
+(setq-default select-enable-clipboard t) ; Merge system's and Emacs' clipboard
+
+#+end_src
+
+** Org Mode
+
+Automatically tangle org-mode files with the option ~#+auto_tangle: t~
+#+begin_src elisp
+; Tangle org file when it is saved
+(use-package org-auto-tangle     
+    :hook (org-mode . org-auto-tangle-mode))
+
+#+end_src
+
+This is mind-breaking, allowing you to quickly insert images, handling
+the file creation part. I use this with snippets, but it still is
+*extremely powerful*.
+#+begin_src elisp
+(use-package org-download
+  :config
+  (setq org-download-heading-lvl nil)            ;; don't use headings when creating image names
+  (setq org-download-timestamp "%Y%m%d_%H%M%S_") 
+  (setq org-download-screenshot-method "/user/local/bin/pngpaste %s")
+  ;; Set the directory for storing images using :hook
+  :hook
+  (org-mode . (lambda () (setq-local org-download-image-dir "./images/"))))
+#+end_src
+
+And for references - bibliography management:
+#+begin_src elisp
+  (use-package org-ref
+    :config
+      (setq org-ref-notes-directory "~/org")
+      (setq org-ref-bibliography-notes (expand-file-name "notes.org" org-ref-notes-directory))
+      (setq org-ref-default-bibliography '("/path/to/your.bib"))
+      (setq bibtex-completion-bibliography org-ref-default-bibliography)
+      (setq bibtex-completion-notes-path org-ref-notes-directory)
+      (setq bibtex-autokey-name-case-convert-function 'capitalize)
+      (setq bibtex-autokey-name-year-separator "")
+      (setq bibtex-autokey-titleword-length 5)
+      (setq bibtex-autokey-titleword-separator "")
+      (setq bibtex-autokey-titlewords 2)
+      (setq bibtex-autokey-titlewords-stretch 1)
+      (setq bibtex-autokey-year-length 4)
+      (setq bibtex-autokey-year-title-separator "")
+      (setq bibtex-completion-pdf-field "file")
+      (setq org-ref-default-ref-type "cref")
+      (setq bibtex-completion-pdf-open-function (lambda (fpath) (start-process "open-pdf" "*open-pdf*" "open" fpath)))
+      (define-key bibtex-mode-map (kbd "H-b") 'org-ref-bibtex-hydra/body)
+      (define-key org-mode-map (kbd "M-[") 'org-ref-insert-link-hydra/body))
+#+end_src
+Documents need to end with:
+#+begin_src text
+,**** References
+<<bibliographystyle link>>
+ 
+bibliographystyle:ieeetr
+ 
+<<bibliography link>> bibliography:~/static/miref/master.bib
+#+end_src
+** Further suggestions
+- Snippets (~Yasnippets~): Cause we all want to write less and get more done
+- ~Vertico~: Revolutionizes the way you move around
+- ~Magit~: Git Integration
+- ~CDLaTeX~: Efficiently writing LaTeX in Org
+- ~Org-Roam~: An org-based obsidian-like solution
+- ~Deft~: If you are more into having lots of notes within one
+  directory - like using ~nvim~ with ~ripgrep~.
+- Colorschemes / Aesthetically configuring your emacs instance: Now
+  this is purely subjective, but I use ~nano~, with ~nano-modeline~, but
+  there is no shortage of configurations online. Find one that works
+  for you.
+
+#+NAME: name
+#+begin_note
+I will try to publish my full emacs configuration some day in this
+blog. Have a look at tags/emacs: Maybe I finally got to it.
+#+end_note
+
+
+
+* Footnotes
+[fn:2] You can even make it execute in a remote server, yet I have not
+played with that setting: ~dir:  /<server-dns>:path~
+
+[fn:1] If I remember correctly there is even an org to markdown conversion for
+those that want to publish their sites with hugo and other
+technologies :P

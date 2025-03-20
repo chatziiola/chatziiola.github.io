@@ -75,3 +75,68 @@ Ustack_38: ...n3ver
 Ustack_30: _t0_b3_r
 Ustack_28: 3p41r3d}
 #+end_src
+
+** Update: ~z3~ solution
+I wanted to test my z3 skills, since it took me a long time in the
+previous challenge. This one was more tedious, but here is the source:
+#+begin_src python
+  import z3
+
+  # To find the length I simply piped the shell command to wc
+  letters = [z3.Int(f's_{i}') for i in range(40) ]
+
+  solver = z3.Solver()
+
+  # Actually unnecessary, since we have the letters in == 
+  # for l in letters:
+  #     solver.add(z3.And( l >= 33, l <= 127))
+
+  solver.add(letters[33] == ord('p')) 
+  solver.add(letters[34] == ord('4'))
+  solver.add(letters[32] == ord('3')) 
+  solver.add(letters[35] == ord('1')) 
+  solver.add(letters[36] == ord('r'))
+  solver.add(letters[37] == ord('3'))
+  solver.add(letters[38] == ord('d'))
+  solver.add(letters[39] == ord('}')) 
+  solver.add(letters[24] == ord('_'))
+  solver.add(letters[25] == ord('t'))
+  solver.add(letters[26] == ord('0'))
+  solver.add(letters[27] == ord('_'))
+  solver.add(letters[28] == ord('b'))
+  solver.add(letters[29] == ord('3'))
+  solver.add(letters[30] == ord('_'))
+  solver.add(letters[31] == ord('r'))
+  solver.add(letters[16] == ord('.'))
+  solver.add(letters[17] == ord('.'))
+  solver.add(letters[18] == ord('.'))
+  solver.add(letters[19] == ord('n'))
+  solver.add(letters[20] == ord('3'))
+  solver.add(letters[21] == ord('v'))
+  solver.add(letters[22] == ord('e'))
+  solver.add(letters[23] == ord('r'))
+  solver.add(letters[9]  == ord('n'))
+  solver.add(letters[10] == ord('_'))
+  solver.add(letters[8]  == ord('3'))
+  solver.add(letters[11] == ord('4'))
+  solver.add(letters[12] == ord('p'))
+  solver.add(letters[13] == ord('4')) 
+  solver.add(letters[14] == ord('r')) 
+  solver.add(letters[15] == ord('t'))
+  solver.add(letters[1]  == ord('T')) 
+  solver.add(letters[2]  == ord('B')) 
+  solver.add(letters[3]  == ord('{')) 
+  solver.add(letters[4]  == ord('b')) 
+  solver.add(letters[5]  == ord('r'))
+  solver.add(letters[6]  == ord('0')) 
+  solver.add(letters[7]  == ord('k'))
+  solver.add(letters[0]  == ord('H')) 
+
+  if solver.check() == z3.sat:
+       m = solver.model()
+       answ = ''
+       for i in letters:
+           # as_string does not work -> the integer is transformed into a string.
+           answ += (f'{chr(m.evaluate(i).as_long())}')
+       print(answ)
+#+end_src

@@ -3,10 +3,42 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Literate DevOps in Emacs and Org Mode</title>
+<title>Speedrun guide to Org Mode</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
 <link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
 </head>
 <body>
 <div id="org-div-home-and-up">
@@ -14,264 +46,558 @@
  |
  <a accesskey="H" href="/index.html"> HOME </a>
 </div><div id="content" class="content">
-<h1 class="title">Literate DevOps in Emacs and Org Mode</h1>
+<h1 class="title">Speedrun guide to Org Mode</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#org9b96eef">Commentary</a></li>
-<li><a href="#org37dc6aa">Εισαγωγή</a></li>
-<li><a href="#org2abd578">Writing code</a>
+<li><a href="#orge378b7a">Introduction</a></li>
+<li><a href="#orgc781019">Org mode features</a>
 <ul>
-<li><a href="#org847d926">Code and Results</a></li>
-<li><a href="#org80a9604">Example Only</a></li>
-</ul>
-</li>
-<li><a href="#orgb93ac21">Setting directory in which the code is to run</a>
-<ul>
-<li><a href="#orgb2ab237">Modifying the directory var to run on a server</a></li>
-</ul>
-</li>
-<li><a href="#org912a6f5">Setting Variables</a>
-<ul>
-<li><a href="#org4119612">Setting variables up so that they are used in all source blocks</a></li>
-</ul>
-</li>
-<li><a href="#org0cbfdf0">Tangle</a></li>
+<li><a href="#org2abd578">Writing code</a></li>
+<li><a href="#org7dc36a2">Customizing the source blocks</a></li>
 <li><a href="#org18e7637">Exporting</a></li>
+<li><a href="#orga51eb70">Tangling</a></li>
+</ul>
+</li>
+<li><a href="#orgb912353">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a>
+<ul>
+<li><a href="#org9745ee7">Package Management</a>
+<ul>
+<li><a href="#orgffe9f2f">Straight configuration</a></li>
+<li><a href="#org0169ff6">Auto Package Update</a></li>
+</ul>
+</li>
+<li><a href="#orgd901748">Evil Mode and some useful packages</a>
+<ul>
+<li><a href="#orgbc94e90">Evil Collection</a></li>
+<li><a href="#org28e1d78">Keyboard</a></li>
+<li><a href="#orgff6197d">Clipboard</a></li>
+</ul>
+</li>
+<li><a href="#org95454a9">Org Mode</a></li>
+<li><a href="#org9831352">Further suggestions</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
-
 
 <div id="outline-container-org9b96eef" class="outline-2">
 <h2 id="org9b96eef"><a href="#org9b96eef">Commentary</a></h2>
 <div class="outline-text-2" id="text-org9b96eef">
 <p>
-This is a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>.
+This started as a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>. I never
+thought this was to be published, but it was revised on
+<span class="timestamp-wrapper"><span class="timestamp">&lt;2025-03-20 Thu&gt;</span></span>, so that I can send it to a friend of mine.
 </p>
 
+
+<div class="note" id="orge3d3667">
 <p>
-Ενώ ήδη χρησιμοποιώ Org Mode και literate programming αρκετά εκτεταμένα είδα ότι
-είχα αυτή την παρουσίαση στο <i>Watch Later</i> μου εδώ και αρκετό καιρό οπότε είπα να
-την <i>καθαρίσω</i>.
+Feel free to look at the <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/content/posts/20230109_notes_literate_devops_in_emacs_and_org_mode.org">source code</a> of this file, since the whole
+post was written in Org Mode.
 </p>
 
-<p>
-Ξέρω:
-</p>
-<iframe src="https://giphy.com/embed/qlKs0m0GxHN6ycbDmV" width="480"
-#height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a
-#href="https://giphy.com/gifs/pudgypenguins-aintmuch-aintmuchmoons-honnestworkmoon-qlKs0m0GxHN6ycbDmV">via
-#GIPHY</a></p>
-
-<p>
-Ακόμα θα ήθελα να πω, για την περίπτωση που κάποιος δει το source code, δεν
-χρησιμοποιώ τα <code>:exports</code> directives, μόνο και μόνο για να μην μου δημιουργούν
-πρόβλημα κατά το <code>org-publish</code>, ενώ θα βλέπετε μπροστά στα παραδείγματα που δεν
-κάνουν render να υπάρχει μία <code>#</code> συνοδευόμενη από κενό.
-</p>
+</div>
 </div>
 </div>
 
-<div id="outline-container-org37dc6aa" class="outline-2">
-<h2 id="org37dc6aa"><a href="#org37dc6aa">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-org37dc6aa">
+<div id="outline-container-orge378b7a" class="outline-2">
+<h2 id="orge378b7a"><a href="#orge378b7a">Introduction</a></h2>
+<div class="outline-text-2" id="text-orge378b7a">
 <p>
-Ο βασικός λόγος για τον οποίο κανείς θα έπρεπε να δοκιμάζει αυτή την προσέγγιση
-στον προγραμματισμό (literate programming), να γράφει δηλαδή κυρίως κείμενο,
-διακοπτόμενο ανα σημεία από τον κώδικα και όχι κώδικα διακοπτόμενο ανα σημεία
-για σχόλια, είναι για να βελτιώσει την αναγνωσιμότητα του κώδικα: κατ αυτόν τον
-τρόπο, <i>αν και δουλεύεις περισσότερο γράφοντας τον κώδικα</i>, όταν τον επισκεφτείς
-στο μέλλον έχεις ένα σύνολο σημειώσεων, οι οποίες αν είναι αναλυτικές, μειώνουν
-ή ακόμα μηδενίζουν τον χρόνο για την πλοήγηση στον κώδικα, εύρεση του κατάλληλου
-σημείου και πραγματοποίηση των απαιτούμενων τροποποιήσεων.
+<a href="https://orgmode.org/">Org Mode</a> is a wonderful plain text markup format. It is like markdown
+on steroids, yet much more intuitive and readable.
 </p>
 
+<div class="org-src-container">
+<pre class="src src-text" id="org4b2f290">* Header
+Headers start with *, this is a *bold* word, this is /italics/
 
-<p>
-Βέβαια, γράφοντας την παραπάνω παράγραφο, συνειδητοποίησα πως η τελευταία
-πρόταση μάλλον δεν επαληθεύεται από την προσωπική μου εμπειρία. Ενώ η λογική
-λέει πως πληκτρολογώντας περισσότερες λέξεις και όντας πολύ πιο αναλυτικός θα
-έπρεπε να σε παίρνει περισσότερο χρόνο, υπάρχει άλλη μία διασταση: η δυνατότητα
-να γράφεις τις σκέψεις σου, όπως εκείνες σε έρχονται εκείνη την στιγμή, στο ίδιο
-αρχείο, αντί να μετακινείσαι μεταξύ αρχείων ή από το χαρτί στην οθόνη και πάλι
-πίσω.
-</p>
-
-<p>
-Είναι επιστημονικό γεγονός πως το να γράφεις τις ιδέες σου, αντί να τις
-δουλεύεις σε νοητικό επίπεδο, επιτρέπει την καλύτερη εργασία επί αυτών (βασικός
-λόγος για αυτό είναι τα οπτικά ερεθίσματα). Αυτό αποδίδω στην καλύτερη επίδοση
-που έχω παρατηρήσει, όταν δουλεύω σε κάποιο πρόγραμμα κατ&rsquo; αυτόν τον τρόπο.
-</p>
-
-
-<p>
-Πρέπει να παραδεχθώ, σε κάθε περίπτωση, πως δεν γράφω προγραμματισμό μόνο καθ&rsquo;
-αυτόν τον τρόπο. Στην πλειοψηφία μάλιστα των προγραμμάτων μου, προσπαθώντας να
-τα κρατήσω μικρά και απλά, ούτως ώστε να συνδυάζονται και μεταξύ τους μένω στο
-παλιό, κλασσικό τρόπο προγραμματισμού.
-</p>
-</div>
-</div>
-
-<div id="outline-container-org2abd578" class="outline-2">
-<h2 id="org2abd578"><a href="#org2abd578">Writing code</a></h2>
-<div class="outline-text-2" id="text-org2abd578">
-<p>
-Τα βασικά είναι:
-</p>
-<ol class="org-ol">
-<li><p>
-Γράφεις κώδικα χρησιμοποιώντας source blocks αυτού του τύπου. Μπορείς να τα
-βάλεις εύκολα χρησιμοποιώντας το <code>C-c C-,</code>:
-</p>
-<pre class="example" id="org21140f9">
-#+begin_src sh
+You can have custom blocks with
+#+begin_src, language
+echo "I am no salesman, but well, you can also *execute* scripts inline with C-c C-c"
 #+end_src
-</pre></li>
-<li>Εκτελείς τον κώδικα εντός ενός source block με το <code>C-c C-c</code></li>
-</ol>
-</div>
+while inline code looks like this ~echo Hello World~
 
-<div id="outline-container-org847d926" class="outline-3">
-<h3 id="org847d926"><a href="#org847d926">Code and Results</a></h3>
-<div class="outline-text-3" id="text-org847d926">
-<p>
-This shows both input 
-</p>
-<pre class="example" id="orgd5e7ce2">
-#+begin_src sh :exports both
-#+end_src
+You can have references [[cref:...]], footnotes [[fn:1]] (C-c C-x f)...
+
+
+#+NAME: This is a table
+| column 1   | column 2    |
+|------------+-------------|
+| Elementary | Dear Watson |
+|            |             |
+
+#+CAPTION: Image caption
+#+attr_latex: :width 0.65\linewidth
+#+attr_html: :alt It usually works out best
+[[file:/the/path/to/a.img]]
+
+Links can be efficiently inserted with C-c C-l and look like this:
+[[http://chatziiola.github.io][Link]]
 </pre>
+</div>
 
 <p>
-Παράδειγμα
+The thing is that OrgMode works best from within Emacs. Extensions
+exist for Nvim and other editors, but nothing even comes close. 
 </p>
+</div>
+</div>
+
+<div id="outline-container-orgc781019" class="outline-2">
+<h2 id="orgc781019"><a href="#orgc781019">Org mode features</a></h2>
+<div class="outline-text-2" id="text-orgc781019">
+<p>
+This is found somewhere in the documentation of OrgMode (but it could
+have been CDLatex for <code>`</code>) - in any case it stands true:
+</p>
+
+<div class="note" id="org61c8b19">
+<p>
+When in doubt use <code>C-c</code> - (it is the default prefix for OrgMode shortcuts)
+</p>
+
+</div>
+</div>
+
+<div id="outline-container-org2abd578" class="outline-3">
+<h3 id="org2abd578"><a href="#org2abd578">Writing code</a></h3>
+<div class="outline-text-3" id="text-org2abd578">
+<ol class="org-ol">
+<li>You can write code easily within source blocks. You can write
+<code>#+begin_src &lt;lang&gt;</code> , followed by <code>#+end_src</code>, but the simpler
+solution here is to use <code>C-c C-,</code>. A menu then spawns showing you the
+different environments you can use:</li>
+<li>You can edit the source block more efficiently, taking advantage of
+your programming configuration by using <code>C-c '</code> while inside it.</li>
+<li>After you have finished writing everything, execute it with <code>C-c C-c</code></li>
+<li>The RESULTS will be shown in buffer</li>
+</ol>
+
 <div class="org-src-container">
 <pre class="src src-sh">brew search pyenv
 </pre>
 </div>
-</div>
-</div>
-
-
-<div id="outline-container-org80a9604" class="outline-3">
-<h3 id="org80a9604"><a href="#org80a9604">Example Only</a></h3>
-<div class="outline-text-3" id="text-org80a9604">
-<p>
-Αυτό δείχνει μόνο τον κώδικα, αγνοώντας το output.
-</p>
-<pre class="example" id="org947e841">
-#+begin_src sh :exports code
-#+end_src
-</pre>
 
 <div class="org-src-container">
-<pre class="src src-sh">pyenv virtualenv demo
-pyenv activate demo
-pip install --upgrade flake
+<pre class="src src-text">#+RESULTS:
+| pyenv                   |
+| pyenv-ccache            |
+| pyenv-pip-migrate       |
+| pyenv-virtualenv        |
+| pyenv-virtualenvwrapper |
+| pyenv-which-ext         |
+| plenv                   |
+| pipenv                  |
 </pre>
 </div>
 </div>
 </div>
-</div>
 
-<div id="outline-container-orgb93ac21" class="outline-2">
-<h2 id="orgb93ac21"><a href="#orgb93ac21">Setting directory in which the code is to run</a></h2>
-<div class="outline-text-2" id="text-orgb93ac21">
-<pre class="example" id="org7aebfe5">
-#+begin_src sh :dir ~
-#+end_src
-</pre>
-
+<div id="outline-container-org7dc36a2" class="outline-3">
+<h3 id="org7dc36a2"><a href="#org7dc36a2">Customizing the source blocks</a></h3>
+<div class="outline-text-3" id="text-org7dc36a2">
 <p>
-Παράδειγμα:
+By adding options to the first line of the source block one can modify
+its behavior. An example of that is the following, making sure that
+when exporting this file (see the exporting section for more), only
+the code block (not the results) will be exported:
 </p>
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">pwd</span> 
-</pre>
-</div>
-</div>
-
-<div id="outline-container-orgb2ab237" class="outline-3">
-<h3 id="orgb2ab237"><a href="#orgb2ab237">Modifying the directory var to run on a server</a></h3>
-<div class="outline-text-3" id="text-orgb2ab237">
-<pre class="example" id="orge83ed2d">
-#:PROPERTIES:
-#:dir:  /&lt;server-dns&gt;:
-#:END:
-</pre>
-
-<p>
-I am not sure how this works though.
-</p>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org912a6f5" class="outline-2">
-<h2 id="org912a6f5"><a href="#org912a6f5">Setting Variables</a></h2>
-<div class="outline-text-2" id="text-org912a6f5">
-<pre class="example" id="org26f9e2f">
-#+begin_src sh :var varname=varvalue
-#+end_src
-</pre>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">echo</span> $<span class="org-variable-name">hellostring</span>
-</pre>
-</div>
-</div>
-
-
-<div id="outline-container-org4119612" class="outline-3">
-<h3 id="org4119612"><a href="#org4119612">Setting variables up so that they are used in all source blocks</a></h3>
-<div class="outline-text-3" id="text-org4119612">
-<pre class="example" id="org43ca0e6">
-#:PROPERTIES:
-#:dir:  /Users/sickvm
-#:END:
-</pre>
-
-<p>
-Nah this does not seem to be working - I do not know why though.
-</p>
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">pwd</span>
-</pre>
-</div>
-</div>
-</div>
-</div>
-
-<div id="outline-container-org0cbfdf0" class="outline-2">
-<h2 id="org0cbfdf0"><a href="#org0cbfdf0">Tangle</a></h2>
-<div class="outline-text-2" id="text-org0cbfdf0">
-<p>
-Αυτό είναι ουσιαστικά και ο τρόπος με τον οποίο μπορείς να δημιουργήσεις αρχεία
-<i>κλασσικού</i> προγραμματισμού, μέσα από ένα αρχείο literate programming:
-<code>org-babel-tangle</code>
-</p>
-
-<pre class="example" id="orgd9620f6">
-#+begin_src sh :tangle &lt;filename&gt;
+<pre class="src src-text">#+begin_src python3 :exports code
+print("Nice ;)")
 #+end_src
 </pre>
 </div>
+
+<p>
+You can also set the directory where the code block will be
+executed<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, or set variables:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">#+begin_src sh :dir ~
+pwd
+#+end_src
+
+#+RESULTS:
+: /Users/sickvm
+</pre>
 </div>
 
-<div id="outline-container-org18e7637" class="outline-2">
-<h2 id="org18e7637"><a href="#org18e7637">Exporting</a></h2>
-<div class="outline-text-2" id="text-org18e7637">
+<div class="org-src-container">
+<pre class="src src-text">#+begin_src sh :var hellostring="Hello World"
+echo $hellostring
+#+end_src
+
+#+RESULTS:
+Hello World
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org18e7637" class="outline-3">
+<h3 id="org18e7637"><a href="#org18e7637">Exporting</a></h3>
+<div class="outline-text-3" id="text-org18e7637">
 <p>
-Το δοκίμασα και μόνος μου: Δεν χρειάζεται css η οτιδήποτε, το <code>C-c C-e</code> δουλέυει
-και απο μόνο του.
+OrgMode files can instantly be exported to  \LaTeX, HTML, ODT(?), even
+Markdown<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>. Just run <code>C-c C-e</code> to see more.
+</p>
+
+<p>
+If you are interested in what an Org to HTML workflow looks like, <a href="https://chatziiola.github.io/posts/20221228_elisp-org-publish-blog-configuration.html">this
+is an excellent article to have a look at</a>&#x2026; What a writer :P
 </p>
 </div>
 </div>
+
+<div id="outline-container-orga51eb70" class="outline-3">
+<h3 id="orga51eb70"><a href="#orga51eb70">Tangling</a></h3>
+<div class="outline-text-3" id="text-orga51eb70">
+<p>
+This is one of the best features of org mode, and in fact this is what
+leads us to the next section of this article. One can use tangling so
+that independent <code>begin_src</code> blocks are then (through <code>org-babel-tangle</code>)
+combined to produce independent files. The next section, if tangled,
+creates a minimal emacs configuration for writing in OrgMode.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">#+begin_src sh :tangle &lt;filename&gt;
+</pre>
 </div>
+
+<p>
+You can even set it for a whole file 
+</p>
+<div class="org-src-container">
+<pre class="src src-text" id="orgb09346d">#+TITLE: My file
+#+PROPERTY: :tangle ~/filename"
+
+
+* Header
+:PROPERTIES:
+:header-args:elisp: :tangle "~/filename"
+:END:
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgb912353" class="outline-2">
+<h2 id="orgb912353"><a href="#orgb912353">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a></h2>
+<div class="outline-text-2" id="text-orgb912353">
+</div>
+
+<div id="outline-container-org9745ee7" class="outline-3">
+<h3 id="org9745ee7"><a href="#org9745ee7">Package Management</a></h3>
+<div class="outline-text-3" id="text-org9745ee7">
+</div>
+<div id="outline-container-orgffe9f2f" class="outline-4">
+<h4 id="orgffe9f2f"><a href="#orgffe9f2f">Straight configuration</a></h4>
+<div class="outline-text-4" id="text-orgffe9f2f">
+<p>
+Using <a href="https://github.com/raxod502/straight.el">straight.el</a> for package management
+</p>
+
+<p>
+This snippet is necessary to load <code>bootstrap.el</code> and get straight up and running.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">defvar</span> <span class="org-variable-name">bootstrap-version</span>)
+(<span class="org-keyword">let</span> ((bootstrap-file
+       (expand-file-name <span class="org-string">"straight/repos/straight.el/bootstrap.el"</span> user-emacs-directory))
+      (bootstrap-version 6))
+  (<span class="org-keyword">unless</span> (file-exists-p bootstrap-file)
+    (<span class="org-keyword">with-current-buffer</span>
+        (url-retrieve-synchronously
+         <span class="org-string">"https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"</span>
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+</pre>
+</div>
+
+<p>
+This needs to be here to avoid mismatch org version
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(straight-use-package 'org)
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">setq</span> straight-vc-git-default-clone-depth 1)
+(<span class="org-keyword">setq</span> straight-recipes-gnu-elpa-use-mirror t)
+</pre>
+</div>
+
+<p>
+Use <code>use-package</code> forms when installing packages. This allows for the numerous
+<i>pieces</i> of code to be self-dependent.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(straight-use-package 'use-package)
+(<span class="org-keyword">setq</span> straight-use-package-by-default t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0169ff6" class="outline-4">
+<h4 id="org0169ff6"><a href="#org0169ff6">Auto Package Update</a></h4>
+<div class="outline-text-4" id="text-org0169ff6">
+<div class="org-src-container">
+<pre class="src src-elisp" id="orga182a29">
+(<span class="org-keyword">use-package</span> auto-package-update
+  <span class="org-builtin">:custom</span>
+  (auto-package-update-interval 7)
+  (auto-package-update-prompt-before-update t)
+  (auto-package-update-hide-results t)
+  <span class="org-builtin">:config</span>
+  (auto-package-update-maybe)
+  (auto-package-update-at-time <span class="org-string">"09:00"</span>))
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgd901748" class="outline-3">
+<h3 id="orgd901748"><a href="#orgd901748">Evil Mode and some useful packages</a></h3>
+<div class="outline-text-3" id="text-orgd901748">
+<p>
+If you are a Vim user, then <code>evil mode</code> is ideal, I can not help but
+suggest it:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="org899eac9">
+(<span class="org-keyword">use-package</span> evil
+    <span class="org-builtin">:demand</span>
+    <span class="org-builtin">:init</span>
+        (<span class="org-keyword">setq</span> evil-want-keybinding nil)
+        (<span class="org-keyword">setq</span> evil-want-C-u-scroll t)
+        (<span class="org-keyword">setq</span> evil-want-integration t)
+        (<span class="org-keyword">setq</span> evil-want-keybinding nil)
+        (<span class="org-keyword">setq</span> evil-split-window-below t)
+        (<span class="org-keyword">setq</span> evil-vsplit-window-right t)
+        (<span class="org-keyword">setq</span> evil-want-C-u-scroll t)
+        (<span class="org-keyword">setq</span> evil-want-C-i-jump t)
+        (<span class="org-keyword">setq</span> evil-want-Y-yank-to-eol t)
+    <span class="org-builtin">:config</span>
+        (evil-mode 1)
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">No really need to set leader keys like that</span>
+        (evil-set-leader 'normal (kbd <span class="org-string">"&lt;SPC&gt;"</span>))
+        (evil-set-leader 'insert (kbd <span class="org-string">"M-&lt;SPC&gt;"</span>))
+        <span class="org-comment-delimiter">;; </span><span class="org-comment">Use visual line motions even outside of visual-line-mode buffers</span>
+        (evil-global-set-key 'motion <span class="org-string">"j"</span> 'evil-next-visual-line)
+        (evil-global-set-key 'motion <span class="org-string">"k"</span> 'evil-previous-visual-line)
+)
+
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgbc94e90" class="outline-4">
+<h4 id="orgbc94e90"><a href="#orgbc94e90">Evil Collection</a></h4>
+<div class="outline-text-4" id="text-orgbc94e90">
+<p>
+Evil collection is a collection of multiple useful keybindings. Just like it is
+shown in the following snippet, I have decided against using the default
+<code>evil-collection-mode-list</code>, mainly to avoid unwanted behavior in certain modes. I
+have decided to keep evil collection only on certain modes (the ones described).
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp" id="orgcdb09dc">(<span class="org-keyword">use-package</span> evil-collection
+  <span class="org-builtin">:after</span> evil
+  <span class="org-builtin">:config</span>
+  (<span class="org-keyword">let</span> ((evil-collection-mode-list 
+         '(org help man info helpful imenu imenu-list corfu popup (magit magit-repos
+         magit-submodule magit-section magit-todos) <span class="org-warning">org-roam git dired flycheck</span>
+         (pdf pdfview) doc-view eldoc python hackernews (term term mult-term)
+         (which-key))))
+    (evil-collection-init))
+  )
+
+</pre>
+</div>
+
+<p>
+This is for commenting out text as in vim
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp" id="org03012c3">(<span class="org-keyword">use-package</span> evil-commentary
+  <span class="org-builtin">:ensure</span> t
+  <span class="org-builtin">:config</span>
+  (global-unset-key (kbd <span class="org-string">"C-x C-;"</span>)) <span class="org-comment-delimiter">;; </span><span class="org-comment">;Do not use the default</span>
+  (evil-commentary-mode)) <span class="org-comment-delimiter">;; </span><span class="org-comment">Enables gc by default</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org28e1d78" class="outline-4">
+<h4 id="org28e1d78"><a href="#org28e1d78">Keyboard</a></h4>
+<div class="outline-text-4" id="text-org28e1d78">
+<p>
+The mode displays the key bindings following your currently entered incomplete command  in a popup.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">use-package</span> which-key
+    <span class="org-builtin">:config</span> (which-key-mode))
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgff6197d" class="outline-4">
+<h4 id="orgff6197d"><a href="#orgff6197d">Clipboard</a></h4>
+<div class="outline-text-4" id="text-orgff6197d">
+<p>
+Allows system and Emacs clipboard to communicate smoothly (both ways)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp">
+(<span class="org-keyword">setq-default</span> select-enable-clipboard t) <span class="org-comment-delimiter">; </span><span class="org-comment">Merge system's and Emacs' clipboard</span>
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org95454a9" class="outline-3">
+<h3 id="org95454a9"><a href="#org95454a9">Org Mode</a></h3>
+<div class="outline-text-3" id="text-org95454a9">
+<p>
+Automatically tangle org-mode files with the option <code>#+auto_tangle: t</code>
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">; </span><span class="org-comment">Tangle org file when it is saved</span>
+(<span class="org-keyword">use-package</span> org-auto-tangle     
+    <span class="org-builtin">:hook</span> (org-mode . org-auto-tangle-mode))
+
+</pre>
+</div>
+
+<p>
+This is mind-breaking, allowing you to quickly insert images, handling
+the file creation part. I use this with snippets, but it still is
+<b>extremely powerful</b>.
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> org-download
+  <span class="org-builtin">:config</span>
+  (<span class="org-keyword">setq</span> org-download-heading-lvl nil)            <span class="org-comment-delimiter">;; </span><span class="org-comment">don't use headings when creating image names</span>
+  (<span class="org-keyword">setq</span> org-download-timestamp <span class="org-string">"%Y%m%d_%H%M%S_"</span>) 
+  (<span class="org-keyword">setq</span> org-download-screenshot-method <span class="org-string">"/user/local/bin/pngpaste %s"</span>)
+  <span class="org-comment-delimiter">;; </span><span class="org-comment">Set the directory for storing images using :hook</span>
+  <span class="org-builtin">:hook</span>
+  (org-mode . (<span class="org-keyword">lambda</span> () (<span class="org-keyword">setq-local</span> org-download-image-dir <span class="org-string">"./images/"</span>))))
+</pre>
+</div>
+
+<p>
+And for references - bibliography management:
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(<span class="org-keyword">use-package</span> org-ref
+  <span class="org-builtin">:config</span>
+    (<span class="org-keyword">setq</span> org-ref-notes-directory <span class="org-string">"~/org"</span>)
+    (<span class="org-keyword">setq</span> org-ref-bibliography-notes (expand-file-name <span class="org-string">"notes.org"</span> org-ref-notes-directory))
+    (<span class="org-keyword">setq</span> org-ref-default-bibliography '(<span class="org-string">"/path/to/your.bib"</span>))
+    (<span class="org-keyword">setq</span> bibtex-completion-bibliography org-ref-default-bibliography)
+    (<span class="org-keyword">setq</span> bibtex-completion-notes-path org-ref-notes-directory)
+    (<span class="org-keyword">setq</span> bibtex-autokey-name-case-convert-function 'capitalize)
+    (<span class="org-keyword">setq</span> bibtex-autokey-name-year-separator <span class="org-string">""</span>)
+    (<span class="org-keyword">setq</span> bibtex-autokey-titleword-length 5)
+    (<span class="org-keyword">setq</span> bibtex-autokey-titleword-separator <span class="org-string">""</span>)
+    (<span class="org-keyword">setq</span> bibtex-autokey-titlewords 2)
+    (<span class="org-keyword">setq</span> bibtex-autokey-titlewords-stretch 1)
+    (<span class="org-keyword">setq</span> bibtex-autokey-year-length 4)
+    (<span class="org-keyword">setq</span> bibtex-autokey-year-title-separator <span class="org-string">""</span>)
+    (<span class="org-keyword">setq</span> bibtex-completion-pdf-field <span class="org-string">"file"</span>)
+    (<span class="org-keyword">setq</span> org-ref-default-ref-type <span class="org-string">"cref"</span>)
+    (<span class="org-keyword">setq</span> bibtex-completion-pdf-open-function (<span class="org-keyword">lambda</span> (fpath) (start-process <span class="org-string">"open-pdf"</span> <span class="org-string">"*open-pdf*"</span> <span class="org-string">"open"</span> fpath)))
+    (define-key bibtex-mode-map (kbd <span class="org-string">"H-b"</span>) 'org-ref-bibtex-hydra/body)
+    (define-key org-mode-map (kbd <span class="org-string">"M-["</span>) 'org-ref-insert-link-hydra/body))
+</pre>
+</div>
+<p>
+Documents need to end with:
+</p>
+<div class="org-src-container">
+<pre class="src src-text">**** References
+&lt;&lt;bibliographystyle link&gt;&gt;
+
+bibliographystyle:ieeetr
+
+&lt;&lt;bibliography link&gt;&gt; bibliography:~/static/miref/master.bib
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9831352" class="outline-3">
+<h3 id="org9831352"><a href="#org9831352">Further suggestions</a></h3>
+<div class="outline-text-3" id="text-org9831352">
+<ul class="org-ul">
+<li>Snippets (<code>Yasnippets</code>): Cause we all want to write less and get more done</li>
+<li><code>Vertico</code>: Revolutionizes the way you move around</li>
+<li><code>Magit</code>: Git Integration</li>
+<li><code>CDLaTeX</code>: Efficiently writing LaTeX in Org</li>
+<li><code>Org-Roam</code>: An org-based obsidian-like solution</li>
+<li><code>Deft</code>: If you are more into having lots of notes within one
+directory - like using <code>nvim</code> with <code>ripgrep</code>.</li>
+<li>Colorschemes / Aesthetically configuring your emacs instance: Now
+this is purely subjective, but I use <code>nano</code>, with <code>nano-modeline</code>, but
+there is no shortage of configurations online. Find one that works
+for you.</li>
+</ul>
+
+<div class="note" id="org3b7555d">
+<p>
+I will try to publish my full emacs configuration some day in this
+blog. Have a look at tags/emacs: Maybe I finally got to it.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+You can even make it execute in a remote server, yet I have not
+played with that setting: <code>dir:  /&lt;server-dns&gt;:path</code>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+If I remember correctly there is even an org to markdown conversion for
+those that want to publish their sites with hugo and other
+technologies :P
+</p></div></div>
+
+
+</div>
+</div></div>
 <div id="postamble" class="status">
 <script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-01-09 Mon 11:34</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
 </div>
