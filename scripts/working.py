@@ -26,14 +26,13 @@ def setup_config():
     config.read("scripts/config.ini")
     return config
 
-
-# get list of json.objects with filepath    
+# get list of json.objects with filepath
 def getAllPosts(jsonFilename):
     with open(jsonFilename, 'r') as file:
         data = json.load(file)
     return data
-    
-# get list of json.objects with a certain filetag    
+
+# get list of json.objects with a certain filetag
 def getPostsWithTag(TAG,jsonFilename):
     files = []
     for obj in getAllPosts(jsonFilename):
@@ -76,7 +75,7 @@ def createRecentsIndexOrg(jsonFile):
             continue
         linkpath = f"..{post['filepath'][len('content'):]}"
         recents += orgDottedLink(linkpath,post['title'],post['date'])+'\n'
-    overwriteBetwenAandBinFile(recents, start, end, "content/posts/recents.org")
+    overwriteBetweenABinFile(recents, start, end, "content/posts/recents.org")
 
 def addRecentsToIndex(jsonFile):
     data = sorted(getAllPosts(jsonFile), key=lambda x: x['date'], reverse=True)
@@ -96,11 +95,11 @@ def addRecentsToIndex(jsonFile):
         entries += 1
         if entries == maxentries:
             break
-    overwriteBetwenAandBinFile(recents, start, end, "content/index.org")
+    overwriteBetweenABinFile(recents, start, end, "content/index.org")
     # print(recents)
-    
 
-def overwriteBetwenAandBinFile(newText, stringA, stringB, filePath):
+
+def overwriteBetweenABinFile(newText, stringA, stringB, filePath):
     try:
         with open(filePath, 'r') as file:
             content = file.read()
@@ -110,7 +109,7 @@ def overwriteBetwenAandBinFile(newText, stringA, stringB, filePath):
 
         if start_index != -1 and end_index != -1 and start_index < end_index:
             updated_content = content[:start_index + len(stringA)] + newText + content[end_index:]
-            
+
             with open(filePath, 'w') as file:
                 file.write(updated_content)
 
