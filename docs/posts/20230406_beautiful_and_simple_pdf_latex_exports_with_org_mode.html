@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="C'est la vie" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -42,35 +42,34 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Beautiful and simple pdf-latex exports with org mode</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2c9d1fd">Disclaimer</a></li>
-<li><a href="#org6c53349">A trip down memory lane</a></li>
-<li><a href="#org39e0ca1">Introduction: An Org vs LaTeX comparison</a></li>
-<li><a href="#org613ff91">Configuring Emacs</a></li>
-<li><a href="#orgcb560af">Writing in Org</a></li>
-<li><a href="#orgd248ff3">The LaTeX part</a>
+<li><a href="#org6233b27">Disclaimer</a></li>
+<li><a href="#orgfea3705">A trip down memory lane</a></li>
+<li><a href="#org49da3f0">Introduction: An Org vs LaTeX comparison</a></li>
+<li><a href="#orgab3c50d">Configuring Emacs</a></li>
+<li><a href="#orgd374f1a">Writing in Org</a></li>
+<li><a href="#org6025d2f">The LaTeX part</a>
 <ul>
-<li><a href="#org6fcdd2f">The LaTeX template: <code>sample.tex</code></a></li>
+<li><a href="#org12541e5">The LaTeX template: <code>sample.tex</code></a></li>
 </ul>
 </li>
-<li><a href="#org60860ce">Exporting</a></li>
-<li><a href="#org2012571">Further reading:</a></li>
+<li><a href="#org0ffac0d">Exporting</a></li>
+<li><a href="#org539f57f">Further reading:</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2c9d1fd" class="outline-2">
-<h2 id="org2c9d1fd"><a href="#org2c9d1fd">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-org2c9d1fd">
-<div class="note" id="org208c2c8">
+<div id="outline-container-org6233b27" class="outline-2">
+<h2 id="org6233b27"><a href="#org6233b27">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-org6233b27">
+<div class="note" id="org0943edb">
 <p>
 Cringineer will surely like this one :P
 </p>
@@ -84,10 +83,9 @@ exporting to PDF, disappoints you, this article is for you.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org6c53349" class="outline-2">
-<h2 id="org6c53349"><a href="#org6c53349">A trip down memory lane</a></h2>
-<div class="outline-text-2" id="text-org6c53349">
+<div id="outline-container-orgfea3705" class="outline-2">
+<h2 id="orgfea3705"><a href="#orgfea3705">A trip down memory lane</a></h2>
+<div class="outline-text-2" id="text-orgfea3705">
 <p>
 Historically, there were many different many different solutions to producing a
 scientific paper, or publishing any kind of digital document, for that matter.
@@ -120,10 +118,9 @@ documents, however, it has a relatively steep learning curve.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org39e0ca1" class="outline-2">
-<h2 id="org39e0ca1"><a href="#org39e0ca1">Introduction: An Org vs LaTeX comparison</a></h2>
-<div class="outline-text-2" id="text-org39e0ca1">
+<div id="outline-container-org49da3f0" class="outline-2">
+<h2 id="org49da3f0"><a href="#org49da3f0">Introduction: An Org vs LaTeX comparison</a></h2>
+<div class="outline-text-2" id="text-org49da3f0">
 <p>
 LaTeX might be more than simply wonderful as a publication backend, with
 templates being freely available on the Internet, but it is not so <i>easy</i> to write
@@ -168,11 +165,10 @@ Let&rsquo;s see what exactly is needed for a seamless LaTeX experience within Or
 </p>
 </div>
 </div>
-
-<div id="outline-container-org613ff91" class="outline-2">
-<h2 id="org613ff91"><a href="#org613ff91">Configuring Emacs</a></h2>
-<div class="outline-text-2" id="text-org613ff91">
-<div class="note" id="org688311e">
+<div id="outline-container-orgab3c50d" class="outline-2">
+<h2 id="orgab3c50d"><a href="#orgab3c50d">Configuring Emacs</a></h2>
+<div class="outline-text-2" id="text-orgab3c50d">
+<div class="note" id="org5c6b469">
 <p>
 At this point one should have some basic level understanding of customizing
 Emacs. If you use a different way of installing packages, my snippets should be
@@ -213,7 +209,7 @@ E = mc
 </pre>
 </div>
 
-<div class="note" id="orgc73c246">
+<div class="note" id="org7c31a0a">
 <p>
 And you could preview that while in buffer with <code>C-c C-x C-l</code>
 </p>
@@ -228,17 +224,15 @@ E = mc
 \end{equation}
 </div>
 </div>
-
-
-<div id="outline-container-orgcb560af" class="outline-2">
-<h2 id="orgcb560af"><a href="#orgcb560af">Writing in Org</a></h2>
-<div class="outline-text-2" id="text-orgcb560af">
+<div id="outline-container-orgd374f1a" class="outline-2">
+<h2 id="orgd374f1a"><a href="#orgd374f1a">Writing in Org</a></h2>
+<div class="outline-text-2" id="text-orgd374f1a">
 <p>
 Now we open an Emacs buffer pointing to an Org file (a plain text file with the
 <code>.org</code> extension).
 </p>
 
-<div class="note" id="org01f8e89">
+<div class="note" id="org5ced35d">
 <p>
 If you want a refresher on Org syntax, you may like this one <a href="https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/">org-mode cheatsheet</a>
 </p>
@@ -270,10 +264,9 @@ only set these before I export to LaTeX.
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgd248ff3" class="outline-2">
-<h2 id="orgd248ff3"><a href="#orgd248ff3">The LaTeX part</a></h2>
-<div class="outline-text-2" id="text-orgd248ff3">
+<div id="outline-container-org6025d2f" class="outline-2">
+<h2 id="org6025d2f"><a href="#org6025d2f">The LaTeX part</a></h2>
+<div class="outline-text-2" id="text-org6025d2f">
 <p>
 There are more specific options, that essentially modify the behavior (or
 certain aspects) of the export process you choose. In our case, since we are
@@ -305,10 +298,9 @@ The third one, is how you can turn a <i>decent</i> looking PDF (the one that get
 exported by default) into one that is tailored to your liking.
 </p>
 </div>
-
-<div id="outline-container-org6fcdd2f" class="outline-3">
-<h3 id="org6fcdd2f"><a href="#org6fcdd2f">The LaTeX template: <code>sample.tex</code></a></h3>
-<div class="outline-text-3" id="text-org6fcdd2f">
+<div id="outline-container-org12541e5" class="outline-3">
+<h3 id="org12541e5"><a href="#org12541e5">The LaTeX template: <code>sample.tex</code></a></h3>
+<div class="outline-text-3" id="text-org12541e5">
 <p>
 <code>sample.tex</code> needs to follow some properties. First of all, unlike any (template)
 LaTeX document you may have worked on, it <b>must not</b> start with <code>\documentclass</code>.
@@ -378,10 +370,9 @@ aesthetically pleasing result is the following.
 </div>
 </div>
 </div>
-
-<div id="outline-container-org60860ce" class="outline-2">
-<h2 id="org60860ce"><a href="#org60860ce">Exporting</a></h2>
-<div class="outline-text-2" id="text-org60860ce">
+<div id="outline-container-org0ffac0d" class="outline-2">
+<h2 id="org0ffac0d"><a href="#org0ffac0d">Exporting</a></h2>
+<div class="outline-text-2" id="text-org0ffac0d">
 <p>
 At that point, if you have a document that has an appropriately created list of
 header options (<code>#+</code> statements), and a suitable <code>sample.tex</code> file, you are ready to
@@ -407,10 +398,9 @@ them.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org2012571" class="outline-2">
-<h2 id="org2012571"><a href="#org2012571">Further reading:</a></h2>
-<div class="outline-text-2" id="text-org2012571">
+<div id="outline-container-org539f57f" class="outline-2">
+<h2 id="org539f57f"><a href="#org539f57f">Further reading:</a></h2>
+<div class="outline-text-2" id="text-org539f57f">
 <p>
 You may also want to have a look at <a href="20230309_a_practical_note_taking_system.html">my notetaking system</a> setup. I&rsquo;m trying to
 build a detailed analysis of that system before I implement a <i>series</i>

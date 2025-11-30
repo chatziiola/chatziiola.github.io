@@ -6,7 +6,7 @@
 <title>Διάλεξη 1: Εισαγωγική και σφάλματα</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,67 +41,65 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Διάλεξη 1: Εισαγωγική και σφάλματα</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd3c2070">Εισαγωγικά</a>
+<li><a href="#org4daeca3">Εισαγωγικά</a>
 <ul>
-<li><a href="#org83a9314">Βασικές έννοιες</a>
+<li><a href="#orgdf77756">Βασικές έννοιες</a>
 <ul>
-<li><a href="#orgdee9c85"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></li>
-<li><a href="#orge144080">Προδιαγραφές λειτουργίας</a></li>
+<li><a href="#org55a121d"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></li>
+<li><a href="#orgf352bb2">Προδιαγραφές λειτουργίας</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgb0e8b76">Παράδειγμα Σταμούλη</a>
+<li><a href="#orgd1238e4">Παράδειγμα Σταμούλη</a>
 <ul>
-<li><a href="#org687139b">Επίδραση κέρδους ενισχυτή</a></li>
+<li><a href="#org3dae54f">Επίδραση κέρδους ενισχυτή</a></li>
 </ul>
 </li>
-<li><a href="#org9daded7">Παράδειγμα Δουλγέρη στον πίνακα</a>
+<li><a href="#org11a9279">Παράδειγμα Δουλγέρη στον πίνακα</a>
 <ul>
-<li><a href="#orga2d6129">Unexpected</a></li>
+<li><a href="#org4f8f4ee">Unexpected</a></li>
 </ul>
 </li>
-<li><a href="#org1802cd3">Παράδειγμα αναρτήσεων αυτοκινήτου</a>
+<li><a href="#org2449dfb">Παράδειγμα αναρτήσεων αυτοκινήτου</a>
 <ul>
-<li><a href="#orgcd64461">Πόλοι και μηδενικά.</a></li>
+<li><a href="#orgfce82ca">Πόλοι και μηδενικά.</a></li>
 </ul>
 </li>
-<li><a href="#org7bed09b">Συναρτήσεις μεταφοράς σε σειρά</a>
+<li><a href="#orgb73468f">Συναρτήσεις μεταφοράς σε σειρά</a>
 <ul>
-<li><a href="#org162585a"><b>Η συνθήκη είναι:</b></a></li>
+<li><a href="#org079adfa"><b>Η συνθήκη είναι:</b></a></li>
 </ul>
 </li>
-<li><a href="#org361287a">Αρχή της επαλληλίας</a></li>
-<li><a href="#orgfbd5488">Πιο σύνθετο παράδειγμα</a></li>
-<li><a href="#orgf4601b5">Σφάλμα εισόδου</a>
+<li><a href="#orga5cec24">Αρχή της επαλληλίας</a></li>
+<li><a href="#orga0d6505">Πιο σύνθετο παράδειγμα</a></li>
+<li><a href="#orgd778531">Σφάλμα εισόδου</a>
 <ul>
-<li><a href="#org8e78ff1">Δίνοντας συγκεκριμένους τύπους</a></li>
-<li><a href="#org78b9ea4">Τύπος συστήματος</a>
+<li><a href="#org02e0639">Δίνοντας συγκεκριμένους τύπους</a></li>
+<li><a href="#org19ad106">Τύπος συστήματος</a>
 <ul>
-<li><a href="#org18d3cce">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></li>
+<li><a href="#orgecfa720">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgfb828a6">Τελευταία άσκηση:</a></li>
-<li><a href="#org459ec94">Βελτιώνοντας το σύστημα</a></li>
+<li><a href="#org41ed90f">Τελευταία άσκηση:</a></li>
+<li><a href="#org13d6215">Βελτιώνοντας το σύστημα</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgd3c2070" class="outline-2">
-<h2 id="orgd3c2070"><a href="#orgd3c2070">Εισαγωγικά</a></h2>
-<div class="outline-text-2" id="text-orgd3c2070">
+<div id="outline-container-org4daeca3" class="outline-2">
+<h2 id="org4daeca3"><a href="#org4daeca3">Εισαγωγικά</a></h2>
+<div class="outline-text-2" id="text-org4daeca3">
 <p>
 <i>Ποιο είναι το αντικείμενο του μαθήματος?</i>
 Ο καθορισμός της μεταβλητής που μας ενδιαφέρει βάση των μεταβλητών (εισόδων) του
@@ -120,13 +118,13 @@
 <li>Υλοποιείς τον ελεγκτή εντός του κυκλώματος.</li>
 </ol>
 </div>
-<div id="outline-container-org83a9314" class="outline-3">
-<h3 id="org83a9314"><a href="#org83a9314">Βασικές έννοιες</a></h3>
-<div class="outline-text-3" id="text-org83a9314">
+<div id="outline-container-orgdf77756" class="outline-3">
+<h3 id="orgdf77756"><a href="#orgdf77756">Βασικές έννοιες</a></h3>
+<div class="outline-text-3" id="text-orgdf77756">
 </div>
 <ul class="org-ul">
-<li><a id="org7954a72"></a><a href="#org7954a72">Η <i>φύση</i> του προβλήματος</a><br>
-<div class="outline-text-5" id="text-org7954a72">
+<li><a id="org7c7cc8e"></a><a href="#org7c7cc8e">Η <i>φύση</i> του προβλήματος</a><br>
+<div class="outline-text-5" id="text-org7c7cc8e">
 <p>
 Εξαρτάται από τον τύπο της εισόδου: αν εκείνη είναι σταθερή, τότε λέμε πως
 έχουμε <b>πρόβλημα ελέγχου ρύθμισης</b>. Αλλιώς, αν εκείνη μεταβάλλεται συναρτήσει
@@ -135,21 +133,19 @@
 </p>
 </div>
 </li>
+<li><a id="org6aa13dc"></a><a href="#org6aa13dc">Συστήματα <b>κλειστού δρόμου</b>:</a><br>
+<div class="outline-text-5" id="text-org6aa13dc">
 
-<li><a id="org0cfef85"></a><a href="#org0cfef85">Συστήματα <b>κλειστού δρόμου</b>:</a><br>
-<div class="outline-text-5" id="text-org0cfef85">
-
-<div id="org6443f11" class="figure">
+<div id="orgc04fb64" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_broxgxoi.png" alt="sae1_lec1_broxgxoi.png">
 </p>
 </div>
 </div>
 </li>
+<li><a id="org395812e"></a><a href="#org395812e"><b>Είσοδος αναφοράς</b>: καθορίζει το τί θέλουμε να κάνει η έξοδος</a><br></li>
 
-<li><a id="org58356a2"></a><a href="#org58356a2"><b>Είσοδος αναφοράς</b>: καθορίζει το τί θέλουμε να κάνει η έξοδος</a><br></li>
-
-<li><a id="org2615d4e"></a><a href="#org2615d4e">Συνάρτηση μεταφοράς</a><br>
-<div class="outline-text-5" id="text-org2615d4e">
+<li><a id="org1c9dda2"></a><a href="#org1c9dda2">Συνάρτηση μεταφοράς</a><br>
+<div class="outline-text-5" id="text-org1c9dda2">
 <p>
 Συνάρτηση μεταφοράς του συστήματος (ως προς <b>μία</b> μεταβλητή εισόδου) ονομάζουμε
 την συνάρτηση - πηλίκο του μετασχηματισμού Laplace της εξόδου προς τον
@@ -163,31 +159,29 @@
 </div>
 </li>
 </ul>
-
-<div id="outline-container-orgdee9c85" class="outline-4">
-<h4 id="orgdee9c85"><a href="#orgdee9c85"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></h4>
-<div class="outline-text-4" id="text-orgdee9c85">
+<div id="outline-container-org55a121d" class="outline-4">
+<h4 id="org55a121d"><a href="#org55a121d"><i>Επανάληψη</i> Μόνιμη κατάσταση</a></h4>
+<div class="outline-text-4" id="text-org55a121d">
 </div>
 <ul class="org-ul">
-<li><a id="org40d583f"></a><a href="#org40d583f">Μαθηματικά:</a><br>
-<div class="outline-text-6" id="text-org40d583f">
+<li><a id="org07325e7"></a><a href="#org07325e7">Μαθηματικά:</a><br>
+<div class="outline-text-6" id="text-org07325e7">
 <p>
 Η έξοδος του συστήματος όταν ο χρόνος τείνει στο άπειρο ( εφόσον το όριο
 υπάρχει. Αν δεν υπάρχει (ασταθές σύστημα) δεν έχουμε μόνιμη κατάσταση )
 </p>
 </div>
 </li>
-<li><a id="orgfb8f915"></a><a href="#orgfb8f915">Πρακτικά</a><br>
-<div class="outline-text-6" id="text-orgfb8f915">
+<li><a id="orgc2c26f5"></a><a href="#orgc2c26f5">Πρακτικά</a><br>
+<div class="outline-text-6" id="text-orgc2c26f5">
 <p>
 Όταν ουσιαστικά έχει εξασθενήσει η επιρροή οποιασδήποτε απρόσμενης μεταβολής.
 </p>
 </div>
 </li>
 </ul>
-
-<li><a id="org7e143df"></a><a href="#org7e143df">Θεώρημα Τελικής Τιμής</a><br>
-<div class="outline-text-5" id="text-org7e143df">
+<li><a id="org6db5029"></a><a href="#org6db5029">Θεώρημα Τελικής Τιμής</a><br>
+<div class="outline-text-5" id="text-org6db5029">
 <p>
 Μας λεει αυτό ( χρήση Laplace )
 </p>
@@ -199,10 +193,9 @@
 </li>
 </ul>
 </div>
-
-<div id="outline-container-orge144080" class="outline-4">
-<h4 id="orge144080"><a href="#orge144080">Προδιαγραφές λειτουργίας</a></h4>
-<div class="outline-text-4" id="text-orge144080">
+<div id="outline-container-orgf352bb2" class="outline-4">
+<h4 id="orgf352bb2"><a href="#orgf352bb2">Προδιαγραφές λειτουργίας</a></h4>
+<div class="outline-text-4" id="text-orgf352bb2">
 <p>
 Ουσιαστικά θα αναλύσουμε αυτά στην διάρκεια του εξαμήνου. Θα εξεταστούν πρωτα
 τα 1-3 και μετα κάποια στιγμή θα περάσουμε στο 4.
@@ -215,10 +208,9 @@
 <li>Απόσβεση διαταραχών του θορύβου.</li>
 </ol>
 </div>
-
 <ul class="org-ul">
-<li><a id="org9e43158"></a><a href="#org9e43158">Κλασσικές συναρτήσεις εισόδου(?):</a><br>
-<div class="outline-text-5" id="text-org9e43158">
+<li><a id="org8bc2bfd"></a><a href="#org8bc2bfd">Κλασσικές συναρτήσεις εισόδου(?):</a><br>
+<div class="outline-text-5" id="text-org8bc2bfd">
 <p>
 Επισημάνθηκε και η σημασία <b>γρήγορης</b> αναγνώρισης των μετατροπών Laplace των
 παρακάτω συναρτήσεων:
@@ -263,10 +255,9 @@ f(t) = t^{2n}, n\in{\mathbb N}
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgb0e8b76" class="outline-2">
-<h2 id="orgb0e8b76"><a href="#orgb0e8b76">Παράδειγμα Σταμούλη</a></h2>
-<div class="outline-text-2" id="text-orgb0e8b76">
+<div id="outline-container-orgd1238e4" class="outline-2">
+<h2 id="orgd1238e4"><a href="#orgd1238e4">Παράδειγμα Σταμούλη</a></h2>
+<div class="outline-text-2" id="text-orgd1238e4">
 <p>
 Επίδειξη απλού συστήματος. Κινητήρας, ελεγκτής και εμφάνιση τελικής λειτουργίας
 στην οθόνη  μέσω παλμογράφου.
@@ -284,16 +275,16 @@ f(t) = t^{2n}, n\in{\mathbb N}
 </p>
 
 
-<div id="org03e2edc" class="figure">
+<div id="orgc937b8c" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_potensiometro-grafiki.png" alt="sae1_lec1_potensiometro-grafiki.png">
 </p>
 </div></li>
 </ul></li>
 </ul>
 </div>
-<div id="outline-container-org687139b" class="outline-3">
-<h3 id="org687139b"><a href="#org687139b">Επίδραση κέρδους ενισχυτή</a></h3>
-<div class="outline-text-3" id="text-org687139b">
+<div id="outline-container-org3dae54f" class="outline-3">
+<h3 id="org3dae54f"><a href="#org3dae54f">Επίδραση κέρδους ενισχυτή</a></h3>
+<div class="outline-text-3" id="text-org3dae54f">
 <p>
 <b>Το κέρδος ενίσχυσης του ελεγκτή επηρεάζει <i>σημαντικά</i> την μορφή της εξόδου του
 συστήματος</b>. Αν και μειώνει τον χρόνο αποκατάστασης (δηλαδή κατα την μεταβολή της
@@ -303,17 +294,16 @@ f(t) = t^{2n}, n\in{\mathbb N}
 </p>
 
 
-<div id="org38fb99a" class="figure">
+<div id="orge50a916" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_epidrasikerdousenisxiti.png" alt="sae1_lec1_epidrasikerdousenisxiti.png">
 </p>
 </div>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org9daded7" class="outline-2">
-<h2 id="org9daded7"><a href="#org9daded7">Παράδειγμα Δουλγέρη στον πίνακα</a></h2>
-<div class="outline-text-2" id="text-org9daded7">
+<div id="outline-container-org11a9279" class="outline-2">
+<h2 id="org11a9279"><a href="#org11a9279">Παράδειγμα Δουλγέρη στον πίνακα</a></h2>
+<div class="outline-text-2" id="text-org11a9279">
 <p>
 Έχουμε το παρακάτω σύστημα:
 <img src="course_sae1_images/sae1_lec1_paradeigmakyklwma.png" alt="sae1_lec1_paradeigmakyklwma.png">
@@ -349,10 +339,9 @@ U(s) = {\mathcal L}[u(t)] = Y(s)(s^2LC + s CR + 1)
 Συνδέοντας την είσοδο με την έξοδο σε μία πολύ απλή σχέση.
 </p>
 </div>
-
-<div id="outline-container-orga2d6129" class="outline-3">
-<h3 id="orga2d6129"><a href="#orga2d6129">Unexpected</a></h3>
-<div class="outline-text-3" id="text-orga2d6129">
+<div id="outline-container-org4f8f4ee" class="outline-3">
+<h3 id="org4f8f4ee"><a href="#org4f8f4ee">Unexpected</a></h3>
+<div class="outline-text-3" id="text-org4f8f4ee">
 <p>
 Αυτό είναι κάτι που συνειδητοποίησα την ώρα που λύναμε το παράδειγμα και, παρόλο
 που φαντάζομαι πολλοί θα το ήξεραν εκ των προτέρων: <b>η λύση συστημάτων με σύνθετη
@@ -361,17 +350,16 @@ U(s) = {\mathcal L}[u(t)] = Y(s)(s^2LC + s CR + 1)
 </div>
 </div>
 </div>
-
-<div id="outline-container-org1802cd3" class="outline-2">
-<h2 id="org1802cd3"><a href="#org1802cd3">Παράδειγμα αναρτήσεων αυτοκινήτου</a></h2>
-<div class="outline-text-2" id="text-org1802cd3">
+<div id="outline-container-org2449dfb" class="outline-2">
+<h2 id="org2449dfb"><a href="#org2449dfb">Παράδειγμα αναρτήσεων αυτοκινήτου</a></h2>
+<div class="outline-text-2" id="text-org2449dfb">
 <p>
 Έστω λοιπόν πως έχουμε το παρακάτω σύστημα αναρτήσεων ενός αυτοκινήτου (ελατήριο
 και υγρό για απορρόφηση των ταλαντώσεων του πηνίου)
 </p>
 
 
-<div id="org4baf68f" class="figure">
+<div id="org49bd809" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_paradeigmaanartisi.png" alt="sae1_lec1_paradeigmaanartisi.png">
 </p>
 </div>
@@ -421,10 +409,9 @@ H(s) =
 \frac{bs+k}{ms^2+bs+k}
 \end{equation}
 </div>
-
-<div id="outline-container-orgcd64461" class="outline-3">
-<h3 id="orgcd64461"><a href="#orgcd64461">Πόλοι και μηδενικά.</a></h3>
-<div class="outline-text-3" id="text-orgcd64461">
+<div id="outline-container-orgfce82ca" class="outline-3">
+<h3 id="orgfce82ca"><a href="#orgfce82ca">Πόλοι και μηδενικά.</a></h3>
+<div class="outline-text-3" id="text-orgfce82ca">
 <p>
 Όταν μια συνάρτηση μεταφοράς μπορεί να εκφραστεί στην παρακάτω μορφή, λέμε πως
 έχουμε <b>πόλους</b> και <b>μηδενικά</b>:
@@ -446,10 +433,9 @@ H(s) = \frac{N(s)}{D(s)} \stackrel{nom, denom}{=} \frac{\prod_i (s-z_i)}{\prod (
 </div>
 </div>
 </div>
-
-<div id="outline-container-org7bed09b" class="outline-2">
-<h2 id="org7bed09b"><a href="#org7bed09b">Συναρτήσεις μεταφοράς σε σειρά</a></h2>
-<div class="outline-text-2" id="text-org7bed09b">
+<div id="outline-container-orgb73468f" class="outline-2">
+<h2 id="orgb73468f"><a href="#orgb73468f">Συναρτήσεις μεταφοράς σε σειρά</a></h2>
+<div class="outline-text-2" id="text-orgb73468f">
 <p>
 Σε περίπτωση που έχεις <i>πολλαπλά</i> συστήματα μεταφοράς, υπό συνθήκες:
 </p>
@@ -459,15 +445,14 @@ H(s) = H_{1}(s)H_2(s)
 \end{equation}
 
 
-<div id="orgf1f735c" class="figure">
+<div id="orgf96b452" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_synartiseis-metaforas-se-seira.png" alt="sae1_lec1_synartiseis-metaforas-se-seira.png">
 </p>
 </div>
 </div>
-
-<div id="outline-container-org162585a" class="outline-3">
-<h3 id="org162585a"><a href="#org162585a"><b>Η συνθήκη είναι:</b></a></h3>
-<div class="outline-text-3" id="text-org162585a">
+<div id="outline-container-org079adfa" class="outline-3">
+<h3 id="org079adfa"><a href="#org079adfa"><b>Η συνθήκη είναι:</b></a></h3>
+<div class="outline-text-3" id="text-org079adfa">
 <p>
 Η έξοδος του πρώτου συστήματος να μην επηρεάζεται από την παρουσία του δεύτερου
 συστήματος εκεί.
@@ -487,12 +472,11 @@ H(s) = H_{1}(s)H_2(s)
 </div>
 </div>
 </div>
+<div id="outline-container-orga5cec24" class="outline-2">
+<h2 id="orga5cec24"><a href="#orga5cec24">Αρχή της επαλληλίας</a></h2>
+<div class="outline-text-2" id="text-orga5cec24">
 
-<div id="outline-container-org361287a" class="outline-2">
-<h2 id="org361287a"><a href="#org361287a">Αρχή της επαλληλίας</a></h2>
-<div class="outline-text-2" id="text-org361287a">
-
-<div id="orge27c339" class="figure">
+<div id="org7eae513" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_sistimamethorybo.png" alt="sae1_lec1_sistimamethorybo.png">
 </p>
 </div>
@@ -523,12 +507,11 @@ T_r(s) = \frac{Y(s)}{r(s)} = \cdots = \frac{G(s)}{1+GH}
 </p>
 </div>
 </div>
+<div id="outline-container-orga0d6505" class="outline-2">
+<h2 id="orga0d6505"><a href="#orga0d6505">Πιο σύνθετο παράδειγμα</a></h2>
+<div class="outline-text-2" id="text-orga0d6505">
 
-<div id="outline-container-orgfbd5488" class="outline-2">
-<h2 id="orgfbd5488"><a href="#orgfbd5488">Πιο σύνθετο παράδειγμα</a></h2>
-<div class="outline-text-2" id="text-orgfbd5488">
-
-<div id="org998be1c" class="figure">
+<div id="orgc462e96" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_syntheto-paradeigma.png" alt="sae1_lec1_syntheto-paradeigma.png">
 </p>
 </div>
@@ -550,10 +533,9 @@ G(s) = \frac{H_2(k+H_1)}{1+H_1+H_2}
 \end{equation}
 </div>
 </div>
-
-<div id="outline-container-orgf4601b5" class="outline-2">
-<h2 id="orgf4601b5"><a href="#orgf4601b5">Σφάλμα εισόδου</a></h2>
-<div class="outline-text-2" id="text-orgf4601b5">
+<div id="outline-container-orgd778531" class="outline-2">
+<h2 id="orgd778531"><a href="#orgd778531">Σφάλμα εισόδου</a></h2>
+<div class="outline-text-2" id="text-orgd778531">
 <p>
 Ορίζουμε νέο μέγεθος, το <i>λάθος</i>, το οποίο συμβολίζουμε με \(e\) και δίνεται από την σχέση:
 </p>
@@ -587,18 +569,17 @@ e_{ssv} &= \frac{1}{s^2} - y(s) &\text{velocity}\\
 e_{ssa} &= \frac{1}{s^3} - y(s)&\text{acceleration}
 \end{align}
 </div>
-
-<div id="outline-container-org8e78ff1" class="outline-3">
-<h3 id="org8e78ff1"><a href="#org8e78ff1">Δίνοντας συγκεκριμένους τύπους</a></h3>
-<div class="outline-text-3" id="text-org8e78ff1">
+<div id="outline-container-org02e0639" class="outline-3">
+<h3 id="org02e0639"><a href="#org02e0639">Δίνοντας συγκεκριμένους τύπους</a></h3>
+<div class="outline-text-3" id="text-org02e0639">
 <p>
 Οι παρακάτω τύποι, όπου εμφανίζονται όρια, προφανώς συνδέονται με το θεώρημα
 τελικής τιμής από τις βασικές έννοιες.
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgaa5cf84"></a><a href="#orgaa5cf84">Μοναδιαία Αρνητική Ανάδραση</a><br>
-<div class="outline-text-5" id="text-orgaa5cf84">
+<li><a id="orga19c84e"></a><a href="#orga19c84e">Μοναδιαία Αρνητική Ανάδραση</a><br>
+<div class="outline-text-5" id="text-orga19c84e">
 <p>
 Έχουμε το κλασσικό σύστημα μοναδιαίας αρνητικής ανάδρασης:
 <img src="course_sae1_images/sae1_lec1_monadiaia-arn-anadrasi.png" alt="sae1_lec1_monadiaia-arn-anadrasi.png">
@@ -632,10 +613,9 @@ e_{ssv} &\stackrel{r = linear}{ = }  \frac{1}{s^2} \frac{1}{1+H_1} \stackrel{Fin
 e_{ssa} &\stackrel{r = parab}{ = }  \frac{1}{s^3} \frac{1}{1+H_1} \stackrel{FinalValueTheorem}{ = } \frac{1}{\lim_{s\to0}s^2H(s)} &&\text{acceleration}
 \end{align}
 </div>
-
 <ul class="org-ul">
-<li><a id="org0319df0"></a><a href="#org0319df0">Σταθερές ορίων</a><br>
-<div class="outline-text-6" id="text-org0319df0">
+<li><a id="org89b35ab"></a><a href="#org89b35ab">Σταθερές ορίων</a><br>
+<div class="outline-text-6" id="text-org89b35ab">
 <p>
 Ουσιαστικα οι σταθεροί όροι που εμφανίζονται με μορφή ορίων στα αντίστοιχα όρια
 ονομάζονται σταθερα σφαλματος θεσης, ταχύτητας, επιταχυνσης
@@ -654,8 +634,8 @@ K_a &= \lim_{s\to0} s^2H(s)
 </li>
 </ul>
 </li>
-<li><a id="org71b7857"></a><a href="#org71b7857">Γενική Περίπτωση (Closed Loop)</a><br>
-<div class="outline-text-5" id="text-org71b7857">
+<li><a id="org2a50d73"></a><a href="#org2a50d73">Γενική Περίπτωση (Closed Loop)</a><br>
+<div class="outline-text-5" id="text-org2a50d73">
 <p>
 Προφανώς, όμως, η παραπάνω ανάλυση, καθώς βασίζεται στην συνάρτηση μεταφοράς
 συστήματος με μοναδιαία αρνητική ανάδραση δεν είναι εφαρμόσιμη σε όλες τις
@@ -691,13 +671,11 @@ e_{ssp} &= \frac{1}{s^3}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} s^2(1-H_{cl}
 </li>
 </ul>
 </div>
-
-
-<div id="outline-container-org78b9ea4" class="outline-3">
-<h3 id="org78b9ea4"><a href="#org78b9ea4">Τύπος συστήματος</a></h3>
-<div class="outline-text-3" id="text-org78b9ea4">
+<div id="outline-container-org19ad106" class="outline-3">
+<h3 id="org19ad106"><a href="#org19ad106">Τύπος συστήματος</a></h3>
+<div class="outline-text-3" id="text-org19ad106">
 <p>
-Παραπάνω αναφέραμε <a href="#orgcd64461">τους πόλους και τα μηδενικά</a> μίας συνάρτησης. Ανάλογα με την
+Παραπάνω αναφέραμε <a href="#orgfce82ca">τους πόλους και τα μηδενικά</a> μίας συνάρτησης. Ανάλογα με την
 φύση των πόλων ορίζουμε και τον τύπο του συστήματος μας. Αναλυτικότερα, το
 πλήθος των πόλων στο σημείο μηδεν ισούται με τον τύπο του συστήματος όπως
 φαίνεται στον παρακάτω πίνακα:
@@ -739,10 +717,9 @@ e_{ssp} &= \frac{1}{s^3}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} s^2(1-H_{cl}
 </tbody>
 </table>
 </div>
-
-<div id="outline-container-org18d3cce" class="outline-4">
-<h4 id="org18d3cce"><a href="#org18d3cce">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></h4>
-<div class="outline-text-4" id="text-org18d3cce">
+<div id="outline-container-orgecfa720" class="outline-4">
+<h4 id="orgecfa720"><a href="#orgecfa720">Τι σημαίνει ο τύπος συστήματος για τις τιμές των σφαλμάτων;</a></h4>
+<div class="outline-text-4" id="text-orgecfa720">
 <p>
 Ο τύπος συστήματος μας δείχνει ποιο <i>επίπεδο</i> σφάλματος θα είναι το τελευταίο που
 θα έχει τιμή πραγματικού αριθμού (βασικά θα είναι το μόνο που μπορεί να έχει μη
@@ -801,9 +778,9 @@ e_{ssp} &= \frac{1}{s^3}(1-H_{cl}) \stackrel{FVT}{ = } \lim_{s\to0} s^2(1-H_{cl}
 </div>
 </div>
 </div>
-<div id="outline-container-orgfb828a6" class="outline-2">
-<h2 id="orgfb828a6"><a href="#orgfb828a6">Τελευταία άσκηση:</a></h2>
-<div class="outline-text-2" id="text-orgfb828a6">
+<div id="outline-container-org41ed90f" class="outline-2">
+<h2 id="org41ed90f"><a href="#org41ed90f">Τελευταία άσκηση:</a></h2>
+<div class="outline-text-2" id="text-org41ed90f">
 <p>
 Έχουμε το παρακάτω σύστημα
 <img src="course_sae1_images/sae1_lec1_teleytaiaaskisi.png" alt="sae1_lec1_teleytaiaaskisi.png">
@@ -859,11 +836,9 @@ e_{ssp} &= \infty\\
 \end{align}
 </div>
 </div>
-
-
-<div id="outline-container-org459ec94" class="outline-2">
-<h2 id="org459ec94"><a href="#org459ec94">Βελτιώνοντας το σύστημα</a></h2>
-<div class="outline-text-2" id="text-org459ec94">
+<div id="outline-container-org13d6215" class="outline-2">
+<h2 id="org13d6215"><a href="#org13d6215">Βελτιώνοντας το σύστημα</a></h2>
+<div class="outline-text-2" id="text-org13d6215">
 <p>
 Επομένως για να μηδενίσουμε το σφάλμα θέσης θα πρέπει να αλλάξουμε τον ελεγκτή μας.
 </p>
@@ -902,7 +877,7 @@ e_{ssp} = \cdots = 1
 </p>
 
 
-<div id="org0838430" class="figure">
+<div id="org41ba698" class="figure">
 <p><img src="course_sae1_images/sae1_lec1_teleytaiaaskisi-mideniko-ssp.png" alt="sae1_lec1_teleytaiaaskisi-mideniko-ssp.png">    
 </p>
 </div>

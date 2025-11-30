@@ -6,7 +6,7 @@
 <title>Διάλεξη 5: FM,PM Εισαγωγή στην διαμόρφωση FM</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,54 +41,51 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Διάλεξη 5: FM,PM Εισαγωγή στην διαμόρφωση FM</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org22e996f">Διαμόρφωση γωνίας: Angle Modulation</a>
+<li><a href="#org20dff66">Διαμόρφωση γωνίας: Angle Modulation</a>
 <ul>
-<li><a href="#org1fa8ea1">Στιγμιαία συχνότητα</a></li>
+<li><a href="#orgbae8cca">Στιγμιαία συχνότητα</a></li>
 </ul>
 </li>
-<li><a href="#orgf8a8281">PM: Phase Modulation</a>
+<li><a href="#org4431f9d">PM: Phase Modulation</a>
 <ul>
-<li><a href="#orga8b6b7a">Δείκτης διαμόρφωσης φάσης</a></li>
+<li><a href="#org1cddd87">Δείκτης διαμόρφωσης φάσης</a></li>
 </ul>
 </li>
-<li><a href="#org2c3c738">FM: Frequency Modulation</a>
+<li><a href="#org452d016">FM: Frequency Modulation</a>
 <ul>
-<li><a href="#org7c396c7">Δείκτης διαμόρφωσης συχνότητας</a></li>
+<li><a href="#org54e73f4">Δείκτης διαμόρφωσης συχνότητας</a></li>
 </ul>
 </li>
-<li><a href="#orga601f0f">Ανάλυση με παράλληλες και κάθετες συνιστώσες.</a>
+<li><a href="#org9c8c20b">Ανάλυση με παράλληλες και κάθετες συνιστώσες.</a>
 <ul>
-<li><a href="#org663f1b2">Baseband Αναπαράσταση:</a></li>
+<li><a href="#org22f98ad">Baseband Αναπαράσταση:</a></li>
 </ul>
 </li>
-<li><a href="#org0f4cd55">Visualizing PM and FM</a>
+<li><a href="#org5900f7b">Visualizing PM and FM</a>
 <ul>
-<li><a href="#org235c9fd">Παρατήρηση για το γράφημα</a></li>
-<li><a href="#org9dde7b0">Σύγκριση Γραφικών παραστάσεων AM, FM, PM</a></li>
+<li><a href="#orgf71b13c">Παρατήρηση για το γράφημα</a></li>
+<li><a href="#orgfb85933">Σύγκριση Γραφικών παραστάσεων AM, FM, PM</a></li>
 </ul>
 </li>
-<li><a href="#org1470df5">Ισχύς</a></li>
-<li><a href="#org5cad8d5">Ιδιότητα της δυικότητας</a></li>
-<li><a href="#orga069e97">Ψηφιακό και Διαμορφώσεις: FM</a></li>
-<li><a href="#orgb2c24f3">Κανόνας του Carson και εύρος ζώνης</a></li>
+<li><a href="#org52804b7">Ισχύς</a></li>
+<li><a href="#org3d924ac">Ιδιότητα της δυικότητας</a></li>
+<li><a href="#org111fb33">Ψηφιακό και Διαμορφώσεις: FM</a></li>
+<li><a href="#orgf783aeb">Κανόνας του Carson και εύρος ζώνης</a></li>
 </ul>
 </div>
 </div>
-
-
-<div id="outline-container-org22e996f" class="outline-2">
-<h2 id="org22e996f"><a href="#org22e996f">Διαμόρφωση γωνίας: Angle Modulation</a></h2>
-<div class="outline-text-2" id="text-org22e996f">
+<div id="outline-container-org20dff66" class="outline-2">
+<h2 id="org20dff66"><a href="#org20dff66">Διαμόρφωση γωνίας: Angle Modulation</a></h2>
+<div class="outline-text-2" id="text-org20dff66">
 <p>
 Όπως στην διαμόρφωση πλάτους έχουμε διάφορες υποκατηγορίες, έτσι και στην
 διαμόρφωση γωνίας. 
@@ -113,7 +110,7 @@
 <li>Μεγαλύτερη αντοχή στον θόρυβο.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup></li>
 </ul>
 
-<div class="note" id="org9d0680b">
+<div class="note" id="orge8417b1">
 <p>
 Κάτι το οποίο έπρεπε θεωρητικά να έχω παρατηρήσει από την AM διαμόρφωση:
 </p>
@@ -159,11 +156,10 @@ x(t) = A_C\cos{\left(\theta t\right)}
 \theta(t) = 2\pi f_ct + \phi(t)
 \end{equation}
 </div>
-
-<div id="outline-container-org1fa8ea1" class="outline-3">
-<h3 id="org1fa8ea1"><a href="#org1fa8ea1">Στιγμιαία συχνότητα</a></h3>
-<div class="outline-text-3" id="text-org1fa8ea1">
-<div class="note" id="org69ba495">
+<div id="outline-container-orgbae8cca" class="outline-3">
+<h3 id="orgbae8cca"><a href="#orgbae8cca">Στιγμιαία συχνότητα</a></h3>
+<div class="outline-text-3" id="text-orgbae8cca">
+<div class="note" id="orgdfdb36e">
 <p>
 Αν και σαν μέγεθος είναι δύσκολο να παρατηρηθεί <i>φυσικά</i>, είναι εύκολο να
 κατανοηθεί μέσα από την σχέση μεταξύ φάσης, γωνιακής συχνότητας/ταχύτητας, και
@@ -201,12 +197,9 @@ f_i(t) =
 </div>
 </div>
 </div>
-
-
-
-<div id="outline-container-orgf8a8281" class="outline-2">
-<h2 id="orgf8a8281"><a href="#orgf8a8281">PM: Phase Modulation</a></h2>
-<div class="outline-text-2" id="text-orgf8a8281">
+<div id="outline-container-org4431f9d" class="outline-2">
+<h2 id="org4431f9d"><a href="#org4431f9d">PM: Phase Modulation</a></h2>
+<div class="outline-text-2" id="text-org4431f9d">
 <p>
 Εδώ η <b>φάση έχει γραμμική σχέση με το μήνυμα</b>, με συντελεστή \(K_p\), ο οποίος
 λέγεται και ευαισθησίας φάσης.
@@ -224,10 +217,9 @@ f_i(t) =
 x(t) = A_c\cos{\left(2\pi f_ct + K_pm(t)\right)}
 \end{equation}
 </div>
-
-<div id="outline-container-orga8b6b7a" class="outline-3">
-<h3 id="orga8b6b7a"><a href="#orga8b6b7a">Δείκτης διαμόρφωσης φάσης</a></h3>
-<div class="outline-text-3" id="text-orga8b6b7a">
+<div id="outline-container-org1cddd87" class="outline-3">
+<h3 id="org1cddd87"><a href="#org1cddd87">Δείκτης διαμόρφωσης φάσης</a></h3>
+<div class="outline-text-3" id="text-org1cddd87">
 <p>
 Ο δείκτης διαμόρφωσης \(\beta_p\) για την PM ορίζεται ως εξής:
 </p>
@@ -236,7 +228,7 @@ x(t) = A_c\cos{\left(2\pi f_ct + K_pm(t)\right)}
 \beta_p = \max \Delta \phi = K_p \max |m(t)|
 \end{equation}
 
-<div class="note" id="org926990d">
+<div class="note" id="org96eab9c">
 <p>
 Ο δείκτης διαμόρφωσης της PM είναι ενδεικτικός της μέγιστης απόκλισης φάσης:
 είναι ουσιαστικά η μέγιστη διαφορά που μπορεί να αποκτήσει το \(\theta\) από την
@@ -247,10 +239,9 @@ x(t) = A_c\cos{\left(2\pi f_ct + K_pm(t)\right)}
 </div>
 </div>
 </div>
-
-<div id="outline-container-org2c3c738" class="outline-2">
-<h2 id="org2c3c738"><a href="#org2c3c738">FM: Frequency Modulation</a></h2>
-<div class="outline-text-2" id="text-org2c3c738">
+<div id="outline-container-org452d016" class="outline-2">
+<h2 id="org452d016"><a href="#org452d016">FM: Frequency Modulation</a></h2>
+<div class="outline-text-2" id="text-org452d016">
 <p>
 Η <b>\(f_i\) έχει γραμμική σχέση με το μήνυμα</b>, με συντελεστή \(K_f\), ονομαζόμενο και
 ευαισθησία συχνότητας.
@@ -278,10 +269,9 @@ f_i(t) &= f_c + K_f m(t)
 περιμένουμε να είναι γύρω από την \(f_{c}\)
 </p>
 </div>
-
-<div id="outline-container-org7c396c7" class="outline-3">
-<h3 id="org7c396c7"><a href="#org7c396c7">Δείκτης διαμόρφωσης συχνότητας</a></h3>
-<div class="outline-text-3" id="text-org7c396c7">
+<div id="outline-container-org54e73f4" class="outline-3">
+<h3 id="org54e73f4"><a href="#org54e73f4">Δείκτης διαμόρφωσης συχνότητας</a></h3>
+<div class="outline-text-3" id="text-org54e73f4">
 <p>
 Ο δείκτης διαμόρφωσης \(\beta_f\) για την FM ορίζεται, σε πλήρη αναλογία με την PM:
 </p>
@@ -296,7 +286,7 @@ f_i(t) &= f_c + K_f m(t)
 ζώνης.
 </p>
 
-<div class="note" id="org105bc22">
+<div class="note" id="org41d32ea">
 <p>
 Συνεχίζοντας την αναλογία με το \(\beta_p\) εδώ έχουμε πως το \(\beta_f\)
 (πολλαπλασιασμένο επί \(W\) λόγω της κανονικόποίησης) μας δείχνει την μεγαλύτερη
@@ -308,10 +298,9 @@ f_i(t) &= f_c + K_f m(t)
 </div>
 </div>
 </div>
-
-<div id="outline-container-orga601f0f" class="outline-2">
-<h2 id="orga601f0f"><a href="#orga601f0f">Ανάλυση με παράλληλες και κάθετες συνιστώσες.</a></h2>
-<div class="outline-text-2" id="text-orga601f0f">
+<div id="outline-container-org9c8c20b" class="outline-2">
+<h2 id="org9c8c20b"><a href="#org9c8c20b">Ανάλυση με παράλληλες και κάθετες συνιστώσες.</a></h2>
+<div class="outline-text-2" id="text-org9c8c20b">
 <p>
 Μπορούμε να κάνουμε ανάλυση του εκάστοτε σήματος σε <b>inphase</b> και <b>quadrature</b>
 συνιστώσα, όπως άλλωστε κάναμε και στο AM. Εδώ όμως, αυτή η ανάλυση είναι πολύ
@@ -334,10 +323,9 @@ V(t) &= \sqrt{x_I^2 + x_Q^2} = A_{c}\\
 \theta(t) &= \arctan{\frac{x_Q}{x_I}}
 \end{align}
 </div>
-
-<div id="outline-container-org663f1b2" class="outline-3">
-<h3 id="org663f1b2"><a href="#org663f1b2">Baseband Αναπαράσταση:</a></h3>
-<div class="outline-text-3" id="text-org663f1b2">
+<div id="outline-container-org22f98ad" class="outline-3">
+<h3 id="org22f98ad"><a href="#org22f98ad">Baseband Αναπαράσταση:</a></h3>
+<div class="outline-text-3" id="text-org22f98ad">
 <p>
 Αναπαράσταση της παραπάνω σχέσης με την χρήση μιγαδικών:
 </p>
@@ -357,12 +345,11 @@ x(t) = x_i(t) + \jmath x_Q(t)
 </div>
 </div>
 </div>
+<div id="outline-container-org5900f7b" class="outline-2">
+<h2 id="org5900f7b"><a href="#org5900f7b">Visualizing PM and FM</a></h2>
+<div class="outline-text-2" id="text-org5900f7b">
 
-<div id="outline-container-org0f4cd55" class="outline-2">
-<h2 id="org0f4cd55"><a href="#org0f4cd55">Visualizing PM and FM</a></h2>
-<div class="outline-text-2" id="text-org0f4cd55">
-
-<div id="orgf0117a7" class="figure">
+<div id="org12c6e6a" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec5_pm-fm-time-comparison.png" alt="tlp1_lec5_pm-fm-time-comparison.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Το σήμα εισόδου(πληροφορίας) και τα αντίστοιχα σήματα εξόδου κατόπιν διαμόρφωσης PM,FM.</p>
@@ -381,10 +368,9 @@ K_pm(t)\\
 \end{cases}
 \end{equation}
 </div>
-
-<div id="outline-container-org235c9fd" class="outline-3">
-<h3 id="org235c9fd"><a href="#org235c9fd">Παρατήρηση για το γράφημα</a></h3>
-<div class="outline-text-3" id="text-org235c9fd">
+<div id="outline-container-orgf71b13c" class="outline-3">
+<h3 id="orgf71b13c"><a href="#orgf71b13c">Παρατήρηση για το γράφημα</a></h3>
+<div class="outline-text-3" id="text-orgf71b13c">
 <p>
 Προσπαθώ γενικά να βγάζω τα διαγράμματα μου με python, αλλά λόγω της μη
 εξοικείωσης μου με τις <code>numpy</code> και <code>scipy</code>, βρίσκω συχνά ατέλειες οι οποίες είναι
@@ -451,10 +437,9 @@ fig.show()
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org9dde7b0" class="outline-3">
-<h3 id="org9dde7b0"><a href="#org9dde7b0">Σύγκριση Γραφικών παραστάσεων AM, FM, PM</a></h3>
-<div class="outline-text-3" id="text-org9dde7b0">
+<div id="outline-container-orgfb85933" class="outline-3">
+<h3 id="orgfb85933"><a href="#orgfb85933">Σύγκριση Γραφικών παραστάσεων AM, FM, PM</a></h3>
+<div class="outline-text-3" id="text-orgfb85933">
 <p>
 Σε αντίθεση με AM οπου βλέπεις διακυμάνσεις πλάτους σε ένα γενικότερο σήμα
 <i>σταθερής συχνότητας στην διαμόρφωση γωνίας η /τελική</i> γραφική παράσταση
@@ -468,10 +453,9 @@ fig.show()
 </div>
 </div>
 </div>
-
-<div id="outline-container-org1470df5" class="outline-2">
-<h2 id="org1470df5"><a href="#org1470df5">Ισχύς</a></h2>
-<div class="outline-text-2" id="text-org1470df5">
+<div id="outline-container-org52804b7" class="outline-2">
+<h2 id="org52804b7"><a href="#org52804b7">Ισχύς</a></h2>
+<div class="outline-text-2" id="text-org52804b7">
 <p>
 Η ισχύς του σήματος μας είναι σταθερή, όπως άλλωστε ήταν αναμενόμενο από τον
 γενικό τύπο: \(x(t) = A_c\cos{\theta}\):
@@ -482,10 +466,9 @@ P_{PM} = P_{FM} = \frac{A_c^2}{2}
 \end{equation}
 </div>
 </div>
-
-<div id="outline-container-org5cad8d5" class="outline-2">
-<h2 id="org5cad8d5"><a href="#org5cad8d5">Ιδιότητα της δυικότητας</a></h2>
-<div class="outline-text-2" id="text-org5cad8d5">
+<div id="outline-container-org3d924ac" class="outline-2">
+<h2 id="org3d924ac"><a href="#org3d924ac">Ιδιότητα της δυικότητας</a></h2>
+<div class="outline-text-2" id="text-org3d924ac">
 <p>
 Οι διαμορφώσεις PM, FM εμφανίζουν την ιδιότητα της δυικότητας, την οποία στην
 συγκεκριμένη περίπτωση αποδίδουμε στο γεγονός ότι μπορούμε να μεταδώσουμε την
@@ -498,7 +481,7 @@ P_{PM} = P_{FM} = \frac{A_c^2}{2}
 ΔΙΑΜΟΡΦΩΤΗΣ ΓΙΑ ΤΗΝ ΕΠΙΤΕΥΞΗ ΤΗΣ ΑΝΤΙΣΤΟΙΧΗΣ ΔΙΑΜΟΡΦΩΣΗΣ</b>.
 </p>
 
-<div class="note" id="org1c1317a">
+<div class="note" id="org26badd0">
 <p>
 Οι <i>ισότητες</i> παραπάνω ισχύουν υπό την προϋπόθεση πως<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>:
 </p>
@@ -510,18 +493,16 @@ K_p = 2\pi K_f
 </div>
 
 
-<div id="orgd3f93bb" class="figure">
+<div id="org9726d68" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec5_duality-analytical.png" alt="tlp1_lec5_duality-analytical.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Υποδεικνύοντας την δυικότητα μεταξύ PM, FM</p>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orga069e97" class="outline-2">
-<h2 id="orga069e97"><a href="#orga069e97">Ψηφιακό και Διαμορφώσεις: FM</a></h2>
-<div class="outline-text-2" id="text-orga069e97">
+<div id="outline-container-org111fb33" class="outline-2">
+<h2 id="org111fb33"><a href="#org111fb33">Ψηφιακό και Διαμορφώσεις: FM</a></h2>
+<div class="outline-text-2" id="text-org111fb33">
 <ul class="org-ul">
 <li><b>AM</b>: Κλασσικό έχει ήδη αναλυθεί</li>
 <li><b>FM</b>: Χρήση ταδε αριθμού διαφορετικών συχνοτήτων</li>
@@ -534,10 +515,9 @@ K_p = 2\pi K_f
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgb2c24f3" class="outline-2">
-<h2 id="orgb2c24f3"><a href="#orgb2c24f3">Κανόνας του Carson και εύρος ζώνης</a></h2>
-<div class="outline-text-2" id="text-orgb2c24f3">
+<div id="outline-container-orgf783aeb" class="outline-2">
+<h2 id="orgf783aeb"><a href="#orgf783aeb">Κανόνας του Carson και εύρος ζώνης</a></h2>
+<div class="outline-text-2" id="text-orgf783aeb">
 <p>
 Στην διαμόρφωση γωνίας έχουμε θεωρητικά άπειρο εύρος ζώνης, όπως προκύπτει από
 την σειρά Taylor:
@@ -562,7 +542,7 @@ A_c\cos{\left(\theta(t)\right)} &= A_c\cos{\left(2\pi f_ct\right)}\cos{\left(\ph
 W' = \lim_{n\to\infty} nW = \infty
 \end{align*}
 
-<div class="note" id="orgedaed51">
+<div class="note" id="org3a45b0d">
 <p>
 Αυτή  η προσέγγιση είναι εύκολη μαθηματικά και ίσως βοηθήσει στην κατανόηση.
 </p>

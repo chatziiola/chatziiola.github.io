@@ -7,14 +7,13 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="The proper form of a gitconfig file, and what to do when you mistakenly perform commits with wrong author details" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">&rsquo;Git&rsquo;ting things done
 <br>
 <span class="subtitle">make sure to have a proper gitconfig file</span>
@@ -23,8 +22,8 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org90a1def">Beware</a></li>
-<li><a href="#orgca5536f"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
+<li><a href="#org8f82ac2">Beware</a></li>
+<li><a href="#org63339ce"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
 </ul>
 </div>
 </div>
@@ -37,10 +36,9 @@ understatement) and on a forcibly new installation, some files were
 hastily rewritten/copied, so that I would not lose any time during the
 transition. One critical such file was my <code>.gitconfig</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
 </p>
-
-<div id="outline-container-org90a1def" class="outline-2">
-<h2 id="org90a1def"><a href="#org90a1def">Beware</a></h2>
-<div class="outline-text-2" id="text-org90a1def">
+<div id="outline-container-org8f82ac2" class="outline-2">
+<h2 id="org8f82ac2"><a href="#org8f82ac2">Beware</a></h2>
+<div class="outline-text-2" id="text-org8f82ac2">
 <p>
 Well, don&rsquo;t pay attention to the fanfare—just make sure to read your
 details carefully, or you will find yourself in my position, as I did.
@@ -50,7 +48,7 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-config" id="org9afe8f5">[user]
+<pre class="src src-config" id="org6fb0033">[user]
         name = &lt;your-name&gt;
         email = &lt;your-email&gt; ; make sure it really is your email
         username = &lt;your-username&gt; 
@@ -74,12 +72,11 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </div>
 </div>
 </div>
+<div id="outline-container-org63339ce" class="outline-2">
+<h2 id="org63339ce"><a href="#org63339ce"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
+<div class="outline-text-2" id="text-org63339ce">
 
-<div id="outline-container-orgca5536f" class="outline-2">
-<h2 id="orgca5536f"><a href="#orgca5536f"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
-<div class="outline-text-2" id="text-orgca5536f">
-
-<div id="org82fc3a4" class="figure">
+<div id="org91ec8b8" class="figure">
 <p><img src="images/20250115_195652_screenshot.png" alt="20250115_195652_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Don&rsquo;t mind the current date, just see the empty ones around it</p>
@@ -98,7 +95,7 @@ between this and my working installation. In fact, the config command
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org8b6741a">git config -l
+<pre class="src src-shell" id="org86626a6">git config -l
 </pre>
 </div>
 
@@ -110,7 +107,7 @@ solve, and all that is needed are <del>1</del>, <del>2</del>, and 3 commands.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org9e075a6"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
+<pre class="src src-shell" id="org870223d"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
 git log 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Fix faulty commits</span>
 git rebase -r &lt;proper_commit_id&gt; --exec <span class="org-string">'git commit --amend --no-edit --reset-author'</span> 

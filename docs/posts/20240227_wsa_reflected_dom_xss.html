@@ -7,36 +7,34 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA Lab: Reflected DOM XSS" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">WSA: Reflected DOM XSS</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfc36c0e">Introduction</a></li>
-<li><a href="#orgd7cd0a1">Challenge</a>
+<li><a href="#org6b93b73">Introduction</a></li>
+<li><a href="#orged98796">Challenge</a>
 <ul>
-<li><a href="#org17fe945">Search functionality</a></li>
-<li><a href="#org4239f93">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#orgd50c7b2">Keep Going</a></li>
-<li><a href="#orged909ce">Back</a></li>
+<li><a href="#org71edbf0">Search functionality</a></li>
+<li><a href="#orga9c79dc">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#orgdbcdd0a">Keep Going</a></li>
+<li><a href="#org085a164">Back</a></li>
 </ul>
 </li>
-<li><a href="#org12973e4">Summary</a></li>
+<li><a href="#orge43833e">Summary</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgfc36c0e" class="outline-2">
-<h2 id="orgfc36c0e"><a href="#orgfc36c0e">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgfc36c0e">
+<div id="outline-container-org6b93b73" class="outline-2">
+<h2 id="org6b93b73"><a href="#org6b93b73">Introduction</a></h2>
+<div class="outline-text-2" id="text-org6b93b73">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -46,10 +44,9 @@ time it takes, is always satisfying in the end!
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgd7cd0a1" class="outline-2">
-<h2 id="orgd7cd0a1"><a href="#orgd7cd0a1">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgd7cd0a1">
+<div id="outline-container-orged98796" class="outline-2">
+<h2 id="orged98796"><a href="#orged98796">Challenge</a></h2>
+<div class="outline-text-2" id="text-orged98796">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -64,31 +61,29 @@ writing it to a dangerous sink.
 </p>
 </blockquote>
 </div>
-
-<div id="outline-container-org17fe945" class="outline-3">
-<h3 id="org17fe945"><a href="#org17fe945">Search functionality</a></h3>
-<div class="outline-text-3" id="text-org17fe945">
+<div id="outline-container-org71edbf0" class="outline-3">
+<h3 id="org71edbf0"><a href="#org71edbf0">Search functionality</a></h3>
+<div class="outline-text-3" id="text-org71edbf0">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="orgb40568a">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+<pre class="src src-html" id="org71b40c0">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
 &lt;<span class="org-function-name">script</span>&gt;search('search-results')&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org4239f93" class="outline-3">
-<h3 id="org4239f93"><a href="#org4239f93">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-org4239f93">
+<div id="outline-container-orga9c79dc" class="outline-3">
+<h3 id="orga9c79dc"><a href="#orga9c79dc">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-orga9c79dc">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="org6fb6019"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
+<pre class="src src-js" id="org57f70f4"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
     <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = <span class="org-keyword">new</span> <span class="org-type">XMLHttpRequest</span>();
     xhr.onreadystatechange = <span class="org-keyword">function</span>() {
         <span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
@@ -167,7 +162,7 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="orge3a55b9" class="figure">
+<div id="org8a74dca" class="figure">
 <p><img src="images/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
@@ -214,11 +209,9 @@ link.
 </p>
 </div>
 </div>
-
-
-<div id="outline-container-orgd50c7b2" class="outline-3">
-<h3 id="orgd50c7b2"><a href="#orgd50c7b2">Keep Going</a></h3>
-<div class="outline-text-3" id="text-orgd50c7b2">
+<div id="outline-container-orgdbcdd0a" class="outline-3">
+<h3 id="orgdbcdd0a"><a href="#orgdbcdd0a">Keep Going</a></h3>
+<div class="outline-text-3" id="text-orgdbcdd0a">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -232,16 +225,14 @@ is not applicable</li>
 </ul>
 </div>
 </div>
-
-
-<div id="outline-container-orged909ce" class="outline-3">
-<h3 id="orged909ce"><a href="#orged909ce">Back</a></h3>
-<div class="outline-text-3" id="text-orged909ce">
+<div id="outline-container-org085a164" class="outline-3">
+<h3 id="org085a164"><a href="#org085a164">Back</a></h3>
+<div class="outline-text-3" id="text-org085a164">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgafb6d4d"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
+<pre class="src src-js" id="org6d4d79b"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
     eval(<span class="org-string">'var searchResultsObj = '</span> + <span class="org-constant">this</span>.responseText);
     displaySearchResults(searchResultsObj);
 }
@@ -255,7 +246,7 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="org5a7103f" class="figure">
+<div id="org7508b37" class="figure">
 <p><img src="images/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
@@ -268,11 +259,9 @@ as solved
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org12973e4" class="outline-2">
-<h2 id="org12973e4"><a href="#org12973e4">Summary</a></h2>
-<div class="outline-text-2" id="text-org12973e4">
+<div id="outline-container-orge43833e" class="outline-2">
+<h2 id="orge43833e"><a href="#orge43833e">Summary</a></h2>
+<div class="outline-text-2" id="text-orge43833e">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>

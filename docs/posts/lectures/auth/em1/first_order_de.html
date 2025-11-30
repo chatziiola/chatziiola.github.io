@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Πιο συγκεκριμένα η επίλυση τους" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -42,54 +42,53 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Διαφορικές εξισώσεις πρώτης τάξης</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd0c75fc">Γραμμικές</a>
+<li><a href="#org85f602a">Γραμμικές</a>
 <ul>
-<li><a href="#org4fdf546">Σημαντική υποσημείωση</a></li>
+<li><a href="#org3c8b761">Σημαντική υποσημείωση</a></li>
 </ul>
 </li>
-<li><a href="#org59c5cc7">Ricatti</a>
+<li><a href="#org0aacb06">Ricatti</a>
 <ul>
-<li><a href="#org7cc8c5e">Επίλυση</a></li>
+<li><a href="#org6befb04">Επίλυση</a></li>
 </ul>
 </li>
-<li><a href="#org3cb2ebf">Bernoulli</a>
+<li><a href="#org11227d1">Bernoulli</a>
 <ul>
-<li><a href="#org5d92112">Επίλυση</a></li>
+<li><a href="#org15136b9">Επίλυση</a></li>
 </ul>
 </li>
-<li><a href="#org56a3ab5">Ομογενείς ΔΕ</a>
+<li><a href="#orgd139097">Ομογενείς ΔΕ</a>
 <ul>
-<li><a href="#orgcff5d77">Επίλυση</a></li>
-<li><a href="#orgd1a61ce">Υποπεριπτώσεις</a>
+<li><a href="#org9d7c71d">Επίλυση</a></li>
+<li><a href="#org04bdc4f">Υποπεριπτώσεις</a>
 <ul>
-<li><a href="#orgaa2dae3">Επίλυση συστήματος</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#org390e93e">ΔΕ χωριζόμενων μεταβλητών</a></li>
-<li><a href="#org647e47d">Πλήρεις ΔΕ</a>
-<ul>
-<li><a href="#orga865575">Παρατήρηση</a></li>
-<li><a href="#orga23354b">Ολοκληρωτικός Παράγοντας</a></li>
-<li><a href="#org9b018ed">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a>
-<ul>
-<li><a href="#org2bd3fe3">Παρατηρήσεις</a></li>
+<li><a href="#org6b86040">Επίλυση συστήματος</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgc29bdac">Μη γραμμικές ως προς την παράγωγο</a></li>
+<li><a href="#org49a1914">ΔΕ χωριζόμενων μεταβλητών</a></li>
+<li><a href="#org729da3a">Πλήρεις ΔΕ</a>
+<ul>
+<li><a href="#org1b307cc">Παρατήρηση</a></li>
+<li><a href="#orgb5655d9">Ολοκληρωτικός Παράγοντας</a></li>
+<li><a href="#org54c7c67">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a>
+<ul>
+<li><a href="#org60d0278">Παρατηρήσεις</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgbd0fc7c">Μη γραμμικές ως προς την παράγωγο</a></li>
 </ul>
 </div>
 </div>
@@ -100,10 +99,9 @@
 εμφανίζεται και ο <b>βαθμός</b> ( δηλαδή η μεγαλύτερη δύναμη της μεγαλύτερης
 παραγώγου).
 </p>
-
-<div id="outline-container-orgd0c75fc" class="outline-2">
-<h2 id="orgd0c75fc"><a href="#orgd0c75fc">Γραμμικές</a></h2>
-<div class="outline-text-2" id="text-orgd0c75fc">
+<div id="outline-container-org85f602a" class="outline-2">
+<h2 id="org85f602a"><a href="#org85f602a">Γραμμικές</a></h2>
+<div class="outline-text-2" id="text-org85f602a">
 <p>
 Ονομάζονται όλες οι εξισώσεις της μορφής:
 </p>
@@ -121,10 +119,9 @@ y = e^{-\int p(x)dx}\int e^{\int p(x)dx}q(x)dx
 με τον όρο \(e^{\int p(x)dx}\)
 </p>
 </div>
-
-<div id="outline-container-org4fdf546" class="outline-3">
-<h3 id="org4fdf546"><a href="#org4fdf546">Σημαντική υποσημείωση</a></h3>
-<div class="outline-text-3" id="text-org4fdf546">
+<div id="outline-container-org3c8b761" class="outline-3">
+<h3 id="org3c8b761"><a href="#org3c8b761">Σημαντική υποσημείωση</a></h3>
+<div class="outline-text-3" id="text-org3c8b761">
 <p>
 Στην επίλυση της εξίσωσης είναι σημαντικό να μην ξεχαστεί η σταθερά ολοκλήρωσης:
 </p>
@@ -134,10 +131,9 @@ y = \cdots [ \int\cdots dx + c ]
 </div>
 </div>
 </div>
-
-<div id="outline-container-org59c5cc7" class="outline-2">
-<h2 id="org59c5cc7"><a href="#org59c5cc7">Ricatti</a></h2>
-<div class="outline-text-2" id="text-org59c5cc7">
+<div id="outline-container-org0aacb06" class="outline-2">
+<h2 id="org0aacb06"><a href="#org0aacb06">Ricatti</a></h2>
+<div class="outline-text-2" id="text-org0aacb06">
 <p>
 Ονομάζουμε Δ.Ε. Ricatti κάθε ΔΕ πρώτης τάξης της μορφής:
 </p>
@@ -145,10 +141,9 @@ y = \cdots [ \int\cdots dx + c ]
 \frac{d{y}}{d{x}}+f(x)y^2+g(x)y+h(x)=0
 \end{equation}
 </div>
-
-<div id="outline-container-org7cc8c5e" class="outline-3">
-<h3 id="org7cc8c5e"><a href="#org7cc8c5e">Επίλυση</a></h3>
-<div class="outline-text-3" id="text-org7cc8c5e">
+<div id="outline-container-org6befb04" class="outline-3">
+<h3 id="org6befb04"><a href="#org6befb04">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org6befb04">
 <p>
 Για την επίλυση μιας τέτοιας διαφορικής εξίσωσης χρειάζεται κανεις να ξέρει την
 πρώτη εκ των δύο ριζών \(y_1(x)\). Γνωρίζοντας την θέτεις \(y = y_1 + \frac{1}{u}\)
@@ -157,10 +152,9 @@ y = \cdots [ \int\cdots dx + c ]
 </div>
 </div>
 </div>
-
-<div id="outline-container-org3cb2ebf" class="outline-2">
-<h2 id="org3cb2ebf"><a href="#org3cb2ebf">Bernoulli</a></h2>
-<div class="outline-text-2" id="text-org3cb2ebf">
+<div id="outline-container-org11227d1" class="outline-2">
+<h2 id="org11227d1"><a href="#org11227d1">Bernoulli</a></h2>
+<div class="outline-text-2" id="text-org11227d1">
 <p>
 Της μορφής:
 </p>
@@ -168,10 +162,9 @@ y = \cdots [ \int\cdots dx + c ]
 \frac{d{y}}{d{x}} + g(x)y = f(x)y^n
 \end{equation}
 </div>
-
-<div id="outline-container-org5d92112" class="outline-3">
-<h3 id="org5d92112"><a href="#org5d92112">Επίλυση</a></h3>
-<div class="outline-text-3" id="text-org5d92112">
+<div id="outline-container-org15136b9" class="outline-3">
+<h3 id="org15136b9"><a href="#org15136b9">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org15136b9">
 <ol class="org-ol">
 <li>Διαίρεση με \(y^n\)
 Είναι προφανές πως θέλουμε να την φέρουμε σε μια μορφή πιο κοντά σε εκείνες
@@ -188,10 +181,9 @@ y = \cdots [ \int\cdots dx + c ]
 </div>
 </div>
 </div>
-
-<div id="outline-container-org56a3ab5" class="outline-2">
-<h2 id="org56a3ab5"><a href="#org56a3ab5">Ομογενείς ΔΕ</a></h2>
-<div class="outline-text-2" id="text-org56a3ab5">
+<div id="outline-container-orgd139097" class="outline-2">
+<h2 id="orgd139097"><a href="#orgd139097">Ομογενείς ΔΕ</a></h2>
+<div class="outline-text-2" id="text-orgd139097">
 <p>
 Αυτή η κατηγορία ΔΕ μπορεί να περιγραφεί από την
 </p>
@@ -204,9 +196,9 @@ y = \cdots [ \int\cdots dx + c ]
 <i>Κάτι πάει λάθος με τους διαφορετικούς ορισμούς σε πηγές</i>
 </p>
 </div>
-<div id="outline-container-orgcff5d77" class="outline-3">
-<h3 id="orgcff5d77"><a href="#orgcff5d77">Επίλυση</a></h3>
-<div class="outline-text-3" id="text-orgcff5d77">
+<div id="outline-container-org9d7c71d" class="outline-3">
+<h3 id="org9d7c71d"><a href="#org9d7c71d">Επίλυση</a></h3>
+<div class="outline-text-3" id="text-org9d7c71d">
 <ol class="org-ol">
 <li>Θέτουμε \(y = ux\) όπου \(u\) μια καταλλήλως ορισμένη συνάρτηση</li>
 <li>Αντικαθιστούμε στην εξίσωση, μετατρέποντας την στην πιο απλή κατηγορία ΔΕ</li>
@@ -214,14 +206,13 @@ y = \cdots [ \int\cdots dx + c ]
 </ol>
 </div>
 </div>
-
-<div id="outline-container-orgd1a61ce" class="outline-3">
-<h3 id="orgd1a61ce"><a href="#orgd1a61ce">Υποπεριπτώσεις</a></h3>
-<div class="outline-text-3" id="text-orgd1a61ce">
+<div id="outline-container-org04bdc4f" class="outline-3">
+<h3 id="org04bdc4f"><a href="#org04bdc4f">Υποπεριπτώσεις</a></h3>
+<div class="outline-text-3" id="text-org04bdc4f">
 </div>
-<div id="outline-container-orgaa2dae3" class="outline-4">
-<h4 id="orgaa2dae3"><a href="#orgaa2dae3">Επίλυση συστήματος</a></h4>
-<div class="outline-text-4" id="text-orgaa2dae3">
+<div id="outline-container-org6b86040" class="outline-4">
+<h4 id="org6b86040"><a href="#org6b86040">Επίλυση συστήματος</a></h4>
+<div class="outline-text-4" id="text-org6b86040">
 <p>
 Αν δεν έχουμε την <i>αρχική</i> μορφή ομογενούς ΔΕ αλλά:
 </p>
@@ -249,10 +240,9 @@ y = y_{0}
 </div>
 </div>
 </div>
-
-<div id="outline-container-org390e93e" class="outline-2">
-<h2 id="org390e93e"><a href="#org390e93e">ΔΕ χωριζόμενων μεταβλητών</a></h2>
-<div class="outline-text-2" id="text-org390e93e">
+<div id="outline-container-org49a1914" class="outline-2">
+<h2 id="org49a1914"><a href="#org49a1914">ΔΕ χωριζόμενων μεταβλητών</a></h2>
+<div class="outline-text-2" id="text-org49a1914">
 <p>
 Ονομάζονται οι ΔΕ πρώτης τάξης της μορφής:
 </p>
@@ -272,10 +262,9 @@ y = y_{0}
 </p>
 </div>
 </div>
-
-<div id="outline-container-org647e47d" class="outline-2">
-<h2 id="org647e47d"><a href="#org647e47d">Πλήρεις ΔΕ</a></h2>
-<div class="outline-text-2" id="text-org647e47d">
+<div id="outline-container-org729da3a" class="outline-2">
+<h2 id="org729da3a"><a href="#org729da3a">Πλήρεις ΔΕ</a></h2>
+<div class="outline-text-2" id="text-org729da3a">
 <p>
 Αποτελούν μια ιδιαίτερη <i>κατηγοριοποίηση</i> ΔΕ πρώτης τάξης της μορφής:
 </p>
@@ -294,20 +283,18 @@ P(x,y)dx + Q(x,y)dy = 0
 \int_a^x P(t,y)dt + \int Q(a,y)dy = c\in \mathbb{R}
 \end{equation}
 </div>
-
-<div id="outline-container-orga865575" class="outline-3">
-<h3 id="orga865575"><a href="#orga865575">Παρατήρηση</a></h3>
-<div class="outline-text-3" id="text-orga865575">
+<div id="outline-container-org1b307cc" class="outline-3">
+<h3 id="org1b307cc"><a href="#org1b307cc">Παρατήρηση</a></h3>
+<div class="outline-text-3" id="text-org1b307cc">
 <p>
 Στο ολοκλήρωμα η επιλογή της μεταβλητής \(a\) πρέπει να είναι καταλλήλως ορισμένη
 <span class="underline">και</span> ιδανικά να βοηθάει με τις πράξεις ( συχνά καλή επιλογή αποτελεί το \(0\) )
 </p>
 </div>
 </div>
-
-<div id="outline-container-orga23354b" class="outline-3">
-<h3 id="orga23354b"><a href="#orga23354b">Ολοκληρωτικός Παράγοντας</a></h3>
-<div class="outline-text-3" id="text-orga23354b">
+<div id="outline-container-orgb5655d9" class="outline-3">
+<h3 id="orgb5655d9"><a href="#orgb5655d9">Ολοκληρωτικός Παράγοντας</a></h3>
+<div class="outline-text-3" id="text-orgb5655d9">
 <p>
 Υπο ορισμένες συνθήκες είναι δυνατός ο πολλαπλασιασμός της <span class="underline">μη πλήρους</span>
 διαφορικής εξίσωσης με συνάρτηση \(R\) καταλλήλως ορισμένη έτσι ώστε η τελική
@@ -321,19 +308,17 @@ P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
 </p>
 </div>
 </div>
-
-
-<div id="outline-container-org9b018ed" class="outline-3">
-<h3 id="org9b018ed"><a href="#org9b018ed">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a></h3>
-<div class="outline-text-3" id="text-org9b018ed">
+<div id="outline-container-org54c7c67" class="outline-3">
+<h3 id="org54c7c67"><a href="#org54c7c67">Αναγωγή ΔΕ σε πλήρεις ΔΕ μέσω ολοκληρωτικού παράγοντα</a></h3>
+<div class="outline-text-3" id="text-org54c7c67">
 <p>
 Υπάρχουν ορισμένες περιπτώσεις στις οποίες ο ολοκληρωτικός παράγοντας προκύπτει
 <i>τυποποιημένα</i>:
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgbcbf099"></a><a href="#orgbcbf099">Απλή περίπτωση</a><br>
-<div class="outline-text-5" id="text-orgbcbf099">
+<li><a id="org014c7f1"></a><a href="#org014c7f1">Απλή περίπτωση</a><br>
+<div class="outline-text-5" id="text-org014c7f1">
 <p>
 Συνήθως, μάλιστα, είναι εύκολο αν είναι κανεις προσεκτικός να παρατηρήσει αυτή
 την περίπτωση.
@@ -348,8 +333,8 @@ P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
 </ol>
 </div>
 </li>
-<li><a id="orge538f49"></a><a href="#orge538f49">Σύνθετη</a><br>
-<div class="outline-text-5" id="text-orge538f49">
+<li><a id="orge022414"></a><a href="#orge022414">Σύνθετη</a><br>
+<div class="outline-text-5" id="text-orge022414">
 <ol class="org-ol">
 <li>\(\frac{1}{P-Q}(\frac{\partial{Q}}{\partial{x}}-\frac{\partial{P}}{\partial{y}})
    = F(x+y)\)
@@ -367,14 +352,13 @@ P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
 </div>
 </li>
 </ul>
-
-<div id="outline-container-org2bd3fe3" class="outline-4">
-<h4 id="org2bd3fe3"><a href="#org2bd3fe3">Παρατηρήσεις</a></h4>
-<div class="outline-text-4" id="text-org2bd3fe3">
+<div id="outline-container-org60d0278" class="outline-4">
+<h4 id="org60d0278"><a href="#org60d0278">Παρατηρήσεις</a></h4>
+<div class="outline-text-4" id="text-org60d0278">
 </div>
 <ul class="org-ul">
-<li><a id="org0dc335a"></a><a href="#org0dc335a">Προσοχή στο πρόσημο!</a><br>
-<div class="outline-text-5" id="text-org0dc335a">
+<li><a id="org1c085b8"></a><a href="#org1c085b8">Προσοχή στο πρόσημο!</a><br>
+<div class="outline-text-5" id="text-org1c085b8">
 <p>
 Είναι πολύ εύκολο να κάνει κανείς λάθος στο πρόσημο σε κάποιο από τα στάδια
 αναγωγής διαφορικής σε πλήρη ΔΕ, και το αποτέλεσμα να μην έχει καμία σχέση με το
@@ -382,8 +366,8 @@ P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgd4946be"></a><a href="#orgd4946be">Κανόνας για τον <i>ελεγχο</i> υποπεριπτώσεων:</a><br>
-<div class="outline-text-6" id="text-orgd4946be">
+<li><a id="orgce8a9ee"></a><a href="#orgce8a9ee">Κανόνας για τον <i>ελεγχο</i> υποπεριπτώσεων:</a><br>
+<div class="outline-text-6" id="text-orgce8a9ee">
 <p>
 Γενικά η συνάρτηση που βρίσκεται στον παρονομαστή πολλαπλασιαζόμενη με την
 μερική παράγωγο της πρέπει να έχει αρνητικό πρόσημο ( δες περιπτώσεις ). Τώρα,
@@ -398,9 +382,9 @@ P\cdot R(x,y)dx + Q\cdot R(x,y)dy = 0
 </div>
 </div>
 </div>
-<div id="outline-container-orgc29bdac" class="outline-2">
-<h2 id="orgc29bdac"><a href="#orgc29bdac">Μη γραμμικές ως προς την παράγωγο</a></h2>
-<div class="outline-text-2" id="text-orgc29bdac">
+<div id="outline-container-orgbd0fc7c" class="outline-2">
+<h2 id="orgbd0fc7c"><a href="#orgbd0fc7c">Μη γραμμικές ως προς την παράγωγο</a></h2>
+<div class="outline-text-2" id="text-orgbd0fc7c">
 <p>
 Μία ΔΕ η οποία μπορεί να μετασχηματιστεί στην μορφή<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
 </p>

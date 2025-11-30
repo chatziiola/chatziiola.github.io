@@ -6,7 +6,7 @@
 <title>2ο Εργαστήριο</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,35 +41,34 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">2ο Εργαστήριο</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orga0181b9">Προδιαγραφές.</a>
+<li><a href="#org2ea7c38">Προδιαγραφές.</a>
 <ul>
-<li><a href="#org2eaa0a0">Προδιαγραφή του \(v_a\)</a></li>
+<li><a href="#org32bbadc">Προδιαγραφή του \(v_a\)</a></li>
 </ul>
 </li>
-<li><a href="#org9b09ee1">Συνάρτηση μεταφοράς κλειστού βρόχου</a></li>
-<li><a href="#orgf993ac1">Σφάλμα Θέσης</a></li>
-<li><a href="#org313ec82">Μελέτη με \(k=1.5\)</a></li>
-<li><a href="#org98becb2">Closed Loop TF για το \(T\)</a></li>
-<li><a href="#org88235a6">Ανάλυση των ΣΜΚΒ</a></li>
-<li><a href="#org412da29">Στροφές κινητήρα</a></li>
-<li><a href="#orge4d8039">Υπολογισμός DC Gains</a></li>
-<li><a href="#orgc043518">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></li>
-<li><a href="#orgfd03427">Στροφές σε steady state</a></li>
-<li><a href="#org78d3f91">Ανάλυση σε matlab</a></li>
-<li><a href="#org570100b">Σύγκριση προδιαγραφών OL, CL</a></li>
-<li><a href="#org71a47df">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></li>
-<li><a href="#orge9223e1">Bode HV</a></li>
-<li><a href="#orgf715959">Bode HT</a></li>
+<li><a href="#org5830d26">Συνάρτηση μεταφοράς κλειστού βρόχου</a></li>
+<li><a href="#org4e4b968">Σφάλμα Θέσης</a></li>
+<li><a href="#orgbcf23f8">Μελέτη με \(k=1.5\)</a></li>
+<li><a href="#orgc485b79">Closed Loop TF για το \(T\)</a></li>
+<li><a href="#orgaf4705b">Ανάλυση των ΣΜΚΒ</a></li>
+<li><a href="#org3250bc0">Στροφές κινητήρα</a></li>
+<li><a href="#org2cecf6b">Υπολογισμός DC Gains</a></li>
+<li><a href="#orgd177568">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></li>
+<li><a href="#org72fa1e0">Στροφές σε steady state</a></li>
+<li><a href="#orgf0f7444">Ανάλυση σε matlab</a></li>
+<li><a href="#org09eb7e0">Σύγκριση προδιαγραφών OL, CL</a></li>
+<li><a href="#org9ffcaec">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></li>
+<li><a href="#orgca2c25a">Bode HV</a></li>
+<li><a href="#org2743033">Bode HT</a></li>
 </ul>
 </div>
 </div>
@@ -87,11 +86,9 @@ HT(s) = \frac{2.92(s+440)}{s+12.064}
 \label{eq:2}
 HV(s) = \frac{18.69}{s+12.064}
 \end{equation}
-
-
-<div id="outline-container-orga0181b9" class="outline-2">
-<h2 id="orga0181b9"><a href="#orga0181b9">Προδιαγραφές.</a></h2>
-<div class="outline-text-2" id="text-orga0181b9">
+<div id="outline-container-org2ea7c38" class="outline-2">
+<h2 id="org2ea7c38"><a href="#org2ea7c38">Προδιαγραφές.</a></h2>
+<div class="outline-text-2" id="text-org2ea7c38">
 <p>
 Ώστε να προσδιορίσουμε κατάλληλα τον ελεγκτή k
 </p>
@@ -113,10 +110,9 @@ e_{ss} = 0, \omega_{\delta,ss} = V
 <li>\(\omega_{\delta,max} = 200rad/sec\)</li>
 </ol>
 </div>
-
-<div id="outline-container-org2eaa0a0" class="outline-3">
-<h3 id="org2eaa0a0"><a href="#org2eaa0a0">Προδιαγραφή του \(v_a\)</a></h3>
-<div class="outline-text-3" id="text-org2eaa0a0">
+<div id="outline-container-org32bbadc" class="outline-3">
+<h3 id="org32bbadc"><a href="#org32bbadc">Προδιαγραφή του \(v_a\)</a></h3>
+<div class="outline-text-3" id="text-org32bbadc">
 <p>
 Πρέπει ανεξαρτήτως εισόδου \(v_a \leq 350V\)
 </p>
@@ -128,10 +124,9 @@ v_a = (v-\omega)*k = e_{max}*k \Rightarrow \cdots k\leq 1.75
 </div>
 </div>
 </div>
-
-<div id="outline-container-org9b09ee1" class="outline-2">
-<h2 id="org9b09ee1"><a href="#org9b09ee1">Συνάρτηση μεταφοράς κλειστού βρόχου</a></h2>
-<div class="outline-text-2" id="text-org9b09ee1">
+<div id="outline-container-org5830d26" class="outline-2">
+<h2 id="org5830d26"><a href="#org5830d26">Συνάρτηση μεταφοράς κλειστού βρόχου</a></h2>
+<div class="outline-text-2" id="text-org5830d26">
 <p>
 Από την αρχή της επαλληλίας, παίρνοντας $T<sub>L</sub> = 0$$
 </p>
@@ -147,10 +142,9 @@ v_a = (v-\omega)*k = e_{max}*k \Rightarrow \cdots k\leq 1.75
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgf993ac1" class="outline-2">
-<h2 id="orgf993ac1"><a href="#orgf993ac1">Σφάλμα Θέσης</a></h2>
-<div class="outline-text-2" id="text-orgf993ac1">
+<div id="outline-container-org4e4b968" class="outline-2">
+<h2 id="org4e4b968"><a href="#org4e4b968">Σφάλμα Θέσης</a></h2>
+<div class="outline-text-2" id="text-org4e4b968">
 <p>
 Από την θεωρία γνωρίζουμε πως:
 </p>
@@ -165,10 +159,9 @@ v_a = (v-\omega)*k = e_{max}*k \Rightarrow \cdots k\leq 1.75
 </p>
 </div>
 </div>
-
-<div id="outline-container-org313ec82" class="outline-2">
-<h2 id="org313ec82"><a href="#org313ec82">Μελέτη με \(k=1.5\)</a></h2>
-<div class="outline-text-2" id="text-org313ec82">
+<div id="outline-container-orgbcf23f8" class="outline-2">
+<h2 id="orgbcf23f8"><a href="#orgbcf23f8">Μελέτη με \(k=1.5\)</a></h2>
+<div class="outline-text-2" id="text-orgbcf23f8">
 <p>
 Γιατί όμως πήραμε 1.5 και όχι 1.75?
 </p>
@@ -183,10 +176,9 @@ HVk = tf(nHVK,dHVK)
 </div>
 </div>
 </div>
-
-<div id="outline-container-org98becb2" class="outline-2">
-<h2 id="org98becb2"><a href="#org98becb2">Closed Loop TF για το \(T\)</a></h2>
-<div class="outline-text-2" id="text-org98becb2">
+<div id="outline-container-orgc485b79" class="outline-2">
+<h2 id="orgc485b79"><a href="#orgc485b79">Closed Loop TF για το \(T\)</a></h2>
+<div class="outline-text-2" id="text-orgc485b79">
 <p>
 Οι πράξεις εδώ δεν έγιναν θεωρήθηκε δεδομένο
 </p>
@@ -200,19 +192,17 @@ HTk = tf(nHTK,dHTK)
 </div>
 </div>
 </div>
-
-<div id="outline-container-org88235a6" class="outline-2">
-<h2 id="org88235a6"><a href="#org88235a6">Ανάλυση των ΣΜΚΒ</a></h2>
-<div class="outline-text-2" id="text-org88235a6">
+<div id="outline-container-orgaf4705b" class="outline-2">
+<h2 id="orgaf4705b"><a href="#orgaf4705b">Ανάλυση των ΣΜΚΒ</a></h2>
+<div class="outline-text-2" id="text-orgaf4705b">
 <p>
 Ο πόλος μας πήγε στο -40, ενώ έχουμε ακόμα ένα μηδενικό&#x2026;
 </p>
 </div>
 </div>
-
-<div id="outline-container-org412da29" class="outline-2">
-<h2 id="org412da29"><a href="#org412da29">Στροφές κινητήρα</a></h2>
-<div class="outline-text-2" id="text-org412da29">
+<div id="outline-container-org3250bc0" class="outline-2">
+<h2 id="org3250bc0"><a href="#org3250bc0">Στροφές κινητήρα</a></h2>
+<div class="outline-text-2" id="text-org3250bc0">
 <p>
 Απολύτως αναμενόμενα βάση της θεωρίας:
 </p>
@@ -222,10 +212,9 @@ HTk = tf(nHTK,dHTK)
 \end{equation}
 </div>
 </div>
-
-<div id="outline-container-orge4d8039" class="outline-2">
-<h2 id="orge4d8039"><a href="#orge4d8039">Υπολογισμός DC Gains</a></h2>
-<div class="outline-text-2" id="text-orge4d8039">
+<div id="outline-container-org2cecf6b" class="outline-2">
+<h2 id="org2cecf6b"><a href="#org2cecf6b">Υπολογισμός DC Gains</a></h2>
+<div class="outline-text-2" id="text-org2cecf6b">
 <p>
 Θυμίσου από θεωρία dcgain = Tf(0)
 </p>
@@ -238,10 +227,9 @@ essp = 12.064/( 12.064+18.69*k )
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgc043518" class="outline-2">
-<h2 id="orgc043518"><a href="#orgc043518">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></h2>
-<div class="outline-text-2" id="text-orgc043518">
+<div id="outline-container-orgd177568" class="outline-2">
+<h2 id="orgd177568"><a href="#orgd177568">Σύγκριση με την μελέτη ανοιχτού βρόχου:</a></h2>
+<div class="outline-text-2" id="text-orgd177568">
 <p>
 Παρατηρούμε πως τα dcgain έχουν και στις0δύο περιπτώσεις μεωθεί,
 οδηγώντας σε μια μεγαλύτερη μείωση του σφάλματος με είσοδο μοναδιαία
@@ -249,10 +237,9 @@ essp = 12.064/( 12.064+18.69*k )
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgfd03427" class="outline-2">
-<h2 id="orgfd03427"><a href="#orgfd03427">Στροφές σε steady state</a></h2>
-<div class="outline-text-2" id="text-orgfd03427">
+<div id="outline-container-org72fa1e0" class="outline-2">
+<h2 id="org72fa1e0"><a href="#org72fa1e0">Στροφές σε steady state</a></h2>
+<div class="outline-text-2" id="text-org72fa1e0">
 <p>
 Από FVT:
 </p>
@@ -266,10 +253,9 @@ essp = 12.064/( 12.064+18.69*k )
 </p>
 </div>
 </div>
-
-<div id="outline-container-org78d3f91" class="outline-2">
-<h2 id="org78d3f91"><a href="#org78d3f91">Ανάλυση σε matlab</a></h2>
-<div class="outline-text-2" id="text-org78d3f91">
+<div id="outline-container-orgf0f7444" class="outline-2">
+<h2 id="orgf0f7444"><a href="#orgf0f7444">Ανάλυση σε matlab</a></h2>
+<div class="outline-text-2" id="text-orgf0f7444">
 <div class="org-src-container">
 <pre class="src src-matlab">figure(3)
 step(150*HV)
@@ -278,27 +264,24 @@ step(150*HVk)
 </pre>
 </div>
 
-<div id="org4f02f68" class="figure">
+<div id="org43e4ffd" class="figure">
 <p><img src="course_sae1_images/lab2_01.png" alt="lab2_01.png">
 </p>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org570100b" class="outline-2">
-<h2 id="org570100b"><a href="#org570100b">Σύγκριση προδιαγραφών OL, CL</a></h2>
-<div class="outline-text-2" id="text-org570100b">
+<div id="outline-container-org09eb7e0" class="outline-2">
+<h2 id="org09eb7e0"><a href="#org09eb7e0">Σύγκριση προδιαγραφών OL, CL</a></h2>
+<div class="outline-text-2" id="text-org09eb7e0">
 <ul class="org-ul">
 <li>Rise time -&gt; πτώση από τα 180+ στα 54, υπερκαλύπτοντας τις προδιαγραφες</li>
 <li>Settle Time -&gt; από 324+ στα 97</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org71a47df" class="outline-2">
-<h2 id="org71a47df"><a href="#org71a47df">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></h2>
-<div class="outline-text-2" id="text-org71a47df">
+<div id="outline-container-org9ffcaec" class="outline-2">
+<h2 id="org9ffcaec"><a href="#org9ffcaec">Απόκριση στροφών σε κλιμακωτού τύπου φορτίο</a></h2>
+<div class="outline-text-2" id="text-org9ffcaec">
 <p>
 Το γράφω μόνο για ορολογία
 Δειγματοληψία του χρόνου απο 0 εως 30 με 10ms sampling time
@@ -318,16 +301,15 @@ plot(t, y, t, 20*uT)
 </pre>
 </div>
 
-<div id="orgb9f6aa8" class="figure">
+<div id="orge22cb11" class="figure">
 <p><img src="course_sae1_images/lab2_03.png" alt="lab2_03.png">
 </p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge9223e1" class="outline-2">
-<h2 id="orge9223e1"><a href="#orge9223e1">Bode HV</a></h2>
-<div class="outline-text-2" id="text-orge9223e1">
+<div id="outline-container-orgca2c25a" class="outline-2">
+<h2 id="orgca2c25a"><a href="#orgca2c25a">Bode HV</a></h2>
+<div class="outline-text-2" id="text-orgca2c25a">
 <div class="org-src-container">
 <pre class="src src-matlab">figure(5)
 bode(HV)
@@ -337,17 +319,15 @@ bode(HVk)
 </div>
 
 
-<div id="orga0f5379" class="figure">
+<div id="org885ae78" class="figure">
 <p><img src="course_sae1_images/lab2_04.png" alt="lab2_04.png">
 </p>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orgf715959" class="outline-2">
-<h2 id="orgf715959"><a href="#orgf715959">Bode HT</a></h2>
-<div class="outline-text-2" id="text-orgf715959">
+<div id="outline-container-org2743033" class="outline-2">
+<h2 id="org2743033"><a href="#org2743033">Bode HT</a></h2>
+<div class="outline-text-2" id="text-org2743033">
 <div class="org-src-container">
 <pre class="src src-matlab">figure(6)
 bode(HT)
@@ -357,13 +337,13 @@ bode(HTk)
 </div>
 
 
-<div id="orgb47b693" class="figure">
+<div id="org5454ddb" class="figure">
 <p><img src="course_sae1_images/lab2_05.png" alt="lab2_05.png">
 </p>
 </div>
 
 
-<div id="org5bcd221" class="figure">
+<div id="org4903349" class="figure">
 <p><img src="course_sae1_images/lab2_01.png" alt="lab2_01.png">
 </p>
 </div>

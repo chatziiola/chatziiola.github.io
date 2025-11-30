@@ -6,31 +6,29 @@
 <title>HackerOne: CTF: Micro-CMS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">HackerOne: CTF: Micro-CMS</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6418469">Introduction</a></li>
-<li><a href="#org83e387c">Testing</a></li>
-<li><a href="#orgbeb9fdc">XSS</a></li>
-<li><a href="#org18bff2b">Getting access to the forbidden file</a></li>
-<li><a href="#orgbb75e0e">Not-so-good SQLi</a></li>
+<li><a href="#org701e96a">Introduction</a></li>
+<li><a href="#orgcd457bb">Testing</a></li>
+<li><a href="#org99f0e6c">XSS</a></li>
+<li><a href="#orgb519ba3">Getting access to the forbidden file</a></li>
+<li><a href="#org3a799e1">Not-so-good SQLi</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org6418469" class="outline-2">
-<h2 id="org6418469"><a href="#org6418469">Introduction</a></h2>
-<div class="outline-text-2" id="text-org6418469">
+<div id="outline-container-org701e96a" class="outline-2">
+<h2 id="org701e96a"><a href="#org701e96a">Introduction</a></h2>
+<div class="outline-text-2" id="text-org701e96a">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -56,10 +54,9 @@ have since completed.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org83e387c" class="outline-2">
-<h2 id="org83e387c"><a href="#org83e387c">Testing</a></h2>
-<div class="outline-text-2" id="text-org83e387c">
+<div id="outline-container-orgcd457bb" class="outline-2">
+<h2 id="orgcd457bb"><a href="#orgcd457bb">Testing</a></h2>
+<div class="outline-text-2" id="text-orgcd457bb">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -77,7 +74,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="orge441e7e">
+<div class="note" id="org77aa7a0">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -99,7 +96,7 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="orgf9ba3b0"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
+<pre class="src src-python" id="orgac556af"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
 <span class="org-keyword">import</span> webbrowser
 
@@ -114,7 +111,7 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="org953e8e3"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
+<pre class="src src-python" id="org642f4c7"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
 
 <span class="org-keyword">import</span> requests
@@ -139,7 +136,7 @@ stored within Burp Suite as well:
 </pre>
 </div>
 
-<pre class="example" id="org7f68d4b">
+<pre class="example" id="orga98e571">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -152,17 +149,16 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="orgba87618" class="figure">
+<div id="orgc410def" class="figure">
 <p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgbeb9fdc" class="outline-2">
-<h2 id="orgbeb9fdc"><a href="#orgbeb9fdc">XSS</a></h2>
-<div class="outline-text-2" id="text-orgbeb9fdc">
+<div id="outline-container-org99f0e6c" class="outline-2">
+<h2 id="org99f0e6c"><a href="#org99f0e6c">XSS</a></h2>
+<div class="outline-text-2" id="text-org99f0e6c">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -190,10 +186,9 @@ At this point we have flags 2,3, searching for 1,2.
 </div>
 </div>
 </div>
-
-<div id="outline-container-org18bff2b" class="outline-2">
-<h2 id="org18bff2b"><a href="#org18bff2b">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-org18bff2b">
+<div id="outline-container-orgb519ba3" class="outline-2">
+<h2 id="orgb519ba3"><a href="#orgb519ba3">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-orgb519ba3">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -202,10 +197,9 @@ want to <i>wrap</i> this mini challenge.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgbb75e0e" class="outline-2">
-<h2 id="orgbb75e0e"><a href="#orgbb75e0e">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-orgbb75e0e">
+<div id="outline-container-org3a799e1" class="outline-2">
+<h2 id="org3a799e1"><a href="#org3a799e1">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-org3a799e1">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall

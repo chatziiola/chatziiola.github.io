@@ -6,7 +6,7 @@
 <title>Διάλεξη (1): Υλική εξέλιξη των δικτύων.</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,38 +41,37 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Διάλεξη (1): Υλική εξέλιξη των δικτύων.</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org295333f">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></li>
-<li><a href="#orga356fb2">POTS</a></li>
-<li><a href="#orga9de084">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></li>
-<li><a href="#orgf194267">Λειτουργία χειριστηρίων TP</a>
+<li><a href="#orgdb8b4aa">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></li>
+<li><a href="#orgcf98e04">POTS</a></li>
+<li><a href="#org5205749">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></li>
+<li><a href="#org44badb2">Λειτουργία χειριστηρίων TP</a>
 <ul>
-<li><a href="#orgeb58e70">Περιστροφικός</a></li>
-<li><a href="#org343b09e">Πίνακας αριθμών</a></li>
+<li><a href="#org233c942">Περιστροφικός</a></li>
+<li><a href="#org627a348">Πίνακας αριθμών</a></li>
 </ul>
 </li>
-<li><a href="#org165b1e7">Εκπομπή σε μεγάλες αποστάσεις</a>
+<li><a href="#org64a092a">Εκπομπή σε μεγάλες αποστάσεις</a>
 <ul>
-<li><a href="#orgd11066b">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></li>
-<li><a href="#org2a73228">FDM</a></li>
-<li><a href="#org6a09afa">TDM και οπτικές ίνες</a></li>
+<li><a href="#org210f484">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></li>
+<li><a href="#org41381e1">FDM</a></li>
+<li><a href="#orgd15342a">TDM και οπτικές ίνες</a></li>
 </ul>
 </li>
-<li><a href="#orgaed92d3">Analog to Digital in voice:</a></li>
-<li><a href="#orgbc71486">Κλείνοντας</a></li>
+<li><a href="#org5779faa">Analog to Digital in voice:</a></li>
+<li><a href="#org4d22f82">Κλείνοντας</a></li>
 </ul>
 </div>
 </div>
-<div class="note" id="orgd13fa12">
+<div class="note" id="orgae34a86">
 <p>
 Δεν είναι ιδιαίτερα ποιοτικές σημειώσεις, τόσο λόγω της αδυναμίας μου να
 συγκεντρώσω κατάλληλα το αντικείμενο όπως αυτό διδάσκεται, όσο και λόγω της
@@ -81,12 +80,11 @@
 </p>
 
 </div>
+<div id="outline-container-orgdb8b4aa" class="outline-2">
+<h2 id="orgdb8b4aa"><a href="#orgdb8b4aa">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></h2>
+<div class="outline-text-2" id="text-orgdb8b4aa">
 
-<div id="outline-container-org295333f" class="outline-2">
-<h2 id="org295333f"><a href="#org295333f">Εισαγωγή (επανάληψη στα της αρχικής διάλεξης)</a></h2>
-<div class="outline-text-2" id="text-org295333f">
-
-<div id="org91631ba" class="figure">
+<div id="orgebcb84f" class="figure">
 <p><img src="course_cn1_images/230327_2341_intro.png" alt="230327_2341_intro.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Κάνοντας εικόνα τις διαφορετικές απαιτήσεις καλωδίων</p>
@@ -108,7 +106,7 @@
 Εγινε ακόμα γενική αναφορά σε LANs, WANs, και την μεταξύ τους σύνδεση.
 </p>
 
-<div id="org3cc6fbb" class="figure">
+<div id="orgb5a5cf5" class="figure">
 <p><img src="course_cn1_images/230327_2350_lan-wan.png" alt="230327_2350_lan-wan.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Προς έλλειψη καλύτερου σχήματος, ένα συνοπτικό σχήμα.</p>
@@ -138,11 +136,9 @@ Access Points, είτε ενσύρματα με τα γνωστά λίγο πο�
 </p>
 </div>
 </div>
-
-
-<div id="outline-container-orga356fb2" class="outline-2">
-<h2 id="orga356fb2"><a href="#orga356fb2">POTS</a></h2>
-<div class="outline-text-2" id="text-orga356fb2">
+<div id="outline-container-orgcf98e04" class="outline-2">
+<h2 id="orgcf98e04"><a href="#orgcf98e04">POTS</a></h2>
+<div class="outline-text-2" id="text-orgcf98e04">
 <ul class="org-ul">
 <li>Circuit Switching (Μεταγωγή κυκλώματος)</li>
 <li>Δίκτυα υπολογιστών επί <b>POTS</b> <i>(Plain Old Telephone Service)</i></li>
@@ -164,7 +160,7 @@ Access Points, είτε ενσύρματα με τα γνωστά λίγο πο�
 <li>Μπαταρίες για την διαμόρφωση του κυκλώματος.</li>
 </ul>
 
-<div class="note" id="org1a5b5b1">
+<div class="note" id="orga47ed5f">
 <p>
 Κατα Μητράκο η εξέταση τέτοιων συστημάτων επεξηγεί τις επιδόσεις στα σύγχρονα συστήματα
 </p>
@@ -172,12 +168,11 @@ Access Points, είτε ενσύρματα με τα γνωστά λίγο πο�
 </div>
 </div>
 </div>
+<div id="outline-container-org5205749" class="outline-2">
+<h2 id="org5205749"><a href="#org5205749">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></h2>
+<div class="outline-text-2" id="text-org5205749">
 
-<div id="outline-container-orga9de084" class="outline-2">
-<h2 id="orga9de084"><a href="#orga9de084">Αναλογικές επικοινωνίες και τρόπος λειτουργίας</a></h2>
-<div class="outline-text-2" id="text-orga9de084">
-
-<div id="org6089ba1" class="figure">
+<div id="org3dc0d2c" class="figure">
 <p><img src="course_cn1_images/230327_2232_aplo-pots-kykloma.png" alt="230327_2232_aplo-pots-kykloma.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Απλουστευμένο simplex τηλεφωνικό κύκλωμα</p>
@@ -202,7 +197,7 @@ Access Points, είτε ενσύρματα με τα γνωστά λίγο πο�
 λειτουργία τους.</li>
 </ul>
 
-<div class="note" id="org7cc27f6">
+<div class="note" id="org0cc58cf">
 <p>
 Δεν είχα κρατήσει κατάλληλες σημειώσεις ως προς το ίδιο το βελτιωμένο κύκλωμα
 την ώρα της διάλεξης και δεν μπόρεσα να βρω πουθενά το <i>σχεδιάγραμμα</i>. Αν το έχει
@@ -223,7 +218,7 @@ Access Points, είτε ενσύρματα με τα γνωστά λίγο πο�
 </p>
 
 
-<div id="org3ecfc38" class="figure">
+<div id="org6802843" class="figure">
 <p><img src="course_cn1_images/230327_2249_echo-and-echo-cancelling.png" alt="230327_2249_echo-and-echo-cancelling.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Μέρος του full duplex κυκλώματος που ουσιαστικά αποτελεί την τοπική τηλεφωνική συσκευή, και (δεξιά) αναλογική λύση για echo canceling με ενισχυτή και αφαιρέτη.</p>
@@ -241,11 +236,10 @@ Subscriber Line)
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgf194267" class="outline-2">
-<h2 id="orgf194267"><a href="#orgf194267">Λειτουργία χειριστηρίων TP</a></h2>
-<div class="outline-text-2" id="text-orgf194267">
-<div class="note" id="org98f4920">
+<div id="outline-container-org44badb2" class="outline-2">
+<h2 id="org44badb2"><a href="#org44badb2">Λειτουργία χειριστηρίων TP</a></h2>
+<div class="outline-text-2" id="text-org44badb2">
+<div class="note" id="orga27fc74">
 <p>
 Για μεταβατική περίοδο, τηλέφωνα που εξυπηρετούν και τις δύο ουσιαστικά
 τεχνολογίες (διακοπτάκι TP απο κάτω (TONE, PUNCH))
@@ -255,16 +249,15 @@ Subscriber Line)
 
 
 
-<div id="org0b8f0d4" class="figure">
+<div id="org89fa633" class="figure">
 <p><img src="course_cn1_images/230327_2256_tone-punch-models.png" alt="230327_2256_tone-punch-models.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Αριστουργηματική αναπαράσταση tone(αριστερά) και punch(δεξιά) τύπου τηλεφωνικής συσκευής.</p>
 </div>
 </div>
-
-<div id="outline-container-orgeb58e70" class="outline-3">
-<h3 id="orgeb58e70"><a href="#orgeb58e70">Περιστροφικός</a></h3>
-<div class="outline-text-3" id="text-orgeb58e70">
+<div id="outline-container-org233c942" class="outline-3">
+<h3 id="org233c942"><a href="#org233c942">Περιστροφικός</a></h3>
+<div class="outline-text-3" id="text-org233c942">
 <ul class="org-ul">
 <li>Λειτουργία του <i>περιστροφικού επιλογέα αριθμών (καντραν)</i></li>
 <li>Επιτυγχανόταν λόγω της σταθερής κυκλικής συχνότητας κατά την επιστροφή,
@@ -276,10 +269,9 @@ Subscriber Line)
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org343b09e" class="outline-3">
-<h3 id="org343b09e"><a href="#org343b09e">Πίνακας αριθμών</a></h3>
-<div class="outline-text-3" id="text-org343b09e">
+<div id="outline-container-org627a348" class="outline-3">
+<h3 id="org627a348"><a href="#org627a348">Πίνακας αριθμών</a></h3>
+<div class="outline-text-3" id="text-org627a348">
 <ul class="org-ul">
 <li>Εξέλιξη: number matrix αντί για περιστροφικού δίσκου (αυτό λέγεται και πινακας
 αριθμών).</li>
@@ -299,33 +291,30 @@ Tone Multiple Frequency)</li>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org165b1e7" class="outline-2">
-<h2 id="org165b1e7"><a href="#org165b1e7">Εκπομπή σε μεγάλες αποστάσεις</a></h2>
-<div class="outline-text-2" id="text-org165b1e7">
+<div id="outline-container-org64a092a" class="outline-2">
+<h2 id="org64a092a"><a href="#org64a092a">Εκπομπή σε μεγάλες αποστάσεις</a></h2>
+<div class="outline-text-2" id="text-org64a092a">
 </div>
-<div id="outline-container-orgd11066b" class="outline-3">
-<h3 id="orgd11066b"><a href="#orgd11066b">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></h3>
-<div class="outline-text-3" id="text-orgd11066b">
+<div id="outline-container-org210f484" class="outline-3">
+<h3 id="org210f484"><a href="#org210f484">Κολώνες (σαν ΔΕΗ), με διπλό σύρμα</a></h3>
+<div class="outline-text-3" id="text-org210f484">
 <p>
 Παλαιά διαρρύθμιση του ΟΤΕ κατ&rsquo; αυτόν τον τρόπο. Ουσιαστικά είχαμε πολύ <i>χαμηλή</i>
 εκμετάλλευση των υποδομών.
 </p>
 
 
-<div id="org9ad055c" class="figure">
+<div id="org155bc38" class="figure">
 <p><img src="course_cn1_images/230327_2303_metafora-me-kalodia-enaeria.png" alt="230327_2303_metafora-me-kalodia-enaeria.png">
 </p>
 <p><span class="figure-number">Figure 6: </span>Ναι σαν κολώνες ΔΕΗ, φαίνεται ξεκάθαρα</p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org2a73228" class="outline-3">
-<h3 id="org2a73228"><a href="#org2a73228">FDM</a></h3>
-<div class="outline-text-3" id="text-org2a73228">
-<div class="note" id="org606572c">
+<div id="outline-container-org41381e1" class="outline-3">
+<h3 id="org41381e1"><a href="#org41381e1">FDM</a></h3>
+<div class="outline-text-3" id="text-org41381e1">
+<div class="note" id="org4433364">
 <p>
 Προβληματική για το διαδίκτυο σύμβαση που ίσχυσε στα δίκτυα φωνής, ο
 περιορισμός του καναλιού με LPF στα 4KHz
@@ -334,7 +323,7 @@ Tone Multiple Frequency)</li>
 </div>
 
 
-<div id="orga74189a" class="figure">
+<div id="org993b939" class="figure">
 <p><img src="course_cn1_images/230327_2306_fdm-kai-rf-athroistes.png" alt="230327_2306_fdm-kai-rf-athroistes.png">
 </p>
 <p><span class="figure-number">Figure 7: </span>Άχρηστο γράφημα να δείξει ότι με την κατάλληλη διαμόρφωση και άθροιση των <b>πολλών</b> καναλιών εισόδου, μπορούν ουσιαστικά να ομαδοποιηθούν και να σταλούν ταυτόχρονα μεγάλα πλήθη τηλεφωνικών καναλιών.</p>
@@ -361,7 +350,7 @@ Tone Multiple Frequency)</li>
 </p>
 
 
-<div id="org925b784" class="figure">
+<div id="orga422dfb" class="figure">
 <p><img src="course_cn1_images/Coaxial_cable_cutaway.svg.png" alt="Coaxial_cable_cutaway.svg.png">
 </p>
 <p><span class="figure-number">Figure 8: </span>Ομοαξονικό χάλκινο καλώδιο. Πηγή:<a href="https://en.m.wikipedia.org/wiki/">https://en.m.wikipedia.org/wiki/</a></p>
@@ -377,10 +366,9 @@ Tone Multiple Frequency)</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org6a09afa" class="outline-3">
-<h3 id="org6a09afa"><a href="#org6a09afa">TDM και οπτικές ίνες</a></h3>
-<div class="outline-text-3" id="text-org6a09afa">
+<div id="outline-container-orgd15342a" class="outline-3">
+<h3 id="orgd15342a"><a href="#orgd15342a">TDM και οπτικές ίνες</a></h3>
+<div class="outline-text-3" id="text-orgd15342a">
 <p>
 Μετάβαση από FDM σε TDM:
 </p>
@@ -394,10 +382,9 @@ Tone Multiple Frequency)</li>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgaed92d3" class="outline-2">
-<h2 id="orgaed92d3"><a href="#orgaed92d3">Analog to Digital in voice:</a></h2>
-<div class="outline-text-2" id="text-orgaed92d3">
+<div id="outline-container-org5779faa" class="outline-2">
+<h2 id="org5779faa"><a href="#org5779faa">Analog to Digital in voice:</a></h2>
+<div class="outline-text-2" id="text-org5779faa">
 <p>
 Από αναλογικά κανάλια των 4KHz, να περάσουμε σε ψηφιοποίηση της πληροφορίας
 για μετάδοση μέσω ηλεκτρονικών/ψηφιακών συστημάτων:
@@ -417,10 +404,9 @@ Tone Multiple Frequency)</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgbc71486" class="outline-2">
-<h2 id="orgbc71486"><a href="#orgbc71486">Κλείνοντας</a></h2>
-<div class="outline-text-2" id="text-orgbc71486">
+<div id="outline-container-org4d22f82" class="outline-2">
+<h2 id="org4d22f82"><a href="#org4d22f82">Κλείνοντας</a></h2>
+<div class="outline-text-2" id="text-org4d22f82">
 <p>
 Και φτάσαμε μέχρι την οπτική ίνα, με μία απλή επεξήγηση της <i>φύσης</i> της.
 </p>

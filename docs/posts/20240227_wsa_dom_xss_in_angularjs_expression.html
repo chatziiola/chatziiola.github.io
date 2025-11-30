@@ -7,34 +7,32 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">WSA: DOM XSS in AngularJS expression</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org705e9fe">Challenge</a>
+<li><a href="#org92c376a">Challenge</a>
 <ul>
-<li><a href="#org2b19e95">Vulnerable part</a></li>
-<li><a href="#org6c11ab1">Solution</a></li>
-<li><a href="#org7e1b7b4">Note on Angular</a></li>
+<li><a href="#org03b1c59">Vulnerable part</a></li>
+<li><a href="#orgb1dac82">Solution</a></li>
+<li><a href="#orgb69ef43">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#orga712dd7">Summary</a></li>
+<li><a href="#orgd71b078">Summary</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org705e9fe" class="outline-2">
-<h2 id="org705e9fe"><a href="#org705e9fe">Challenge</a></h2>
-<div class="outline-text-2" id="text-org705e9fe">
+<div id="outline-container-org92c376a" class="outline-2">
+<h2 id="org92c376a"><a href="#org92c376a">Challenge</a></h2>
+<div class="outline-text-2" id="text-org92c376a">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -51,17 +49,15 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="orge3f0b71" class="figure">
+<div id="orgd2f031c" class="figure">
 <p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sample Input</p>
 </div>
 </div>
-
-
-<div id="outline-container-org2b19e95" class="outline-3">
-<h3 id="org2b19e95"><a href="#org2b19e95">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-org2b19e95">
+<div id="outline-container-org03b1c59" class="outline-3">
+<h3 id="org03b1c59"><a href="#org03b1c59">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-org03b1c59">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -72,7 +68,7 @@ We can <i>verify</i> that the website uses angular:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org4680eef">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
+<pre class="src src-html" id="org5958de9">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
   &lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/"</span> <span class="org-variable-name">method</span>=<span class="org-string">"GET"</span> <span class="org-variable-name">class</span>=<span class="org-string">"ng-pristine ng-valid"</span>&gt;
     &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">placeholder</span>=<span class="org-string">"Search the blog..."</span> <span class="org-variable-name">name</span>=<span class="org-string">"search"</span>&gt;
     &lt;<span class="org-function-name">button</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">class</span>=<span class="org-string">"button"</span>&gt;Search&lt;/<span class="org-function-name">button</span>&gt;
@@ -82,26 +78,23 @@ We can <i>verify</i> that the website uses angular:
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-org6c11ab1" class="outline-3">
-<h3 id="org6c11ab1"><a href="#org6c11ab1">Solution</a></h3>
-<div class="outline-text-3" id="text-org6c11ab1">
+<div id="outline-container-orgb1dac82" class="outline-3">
+<h3 id="orgb1dac82"><a href="#orgb1dac82">Solution</a></h3>
+<div class="outline-text-3" id="text-orgb1dac82">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="orgc344174">
+<pre class="example" id="orgffa4f2f">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
-
-<div id="outline-container-org7e1b7b4" class="outline-3">
-<h3 id="org7e1b7b4"><a href="#org7e1b7b4">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-org7e1b7b4">
+<div id="outline-container-orgb69ef43" class="outline-3">
+<h3 id="orgb69ef43"><a href="#orgb69ef43">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-orgb69ef43">
 <p>
 For more info check out:
 </p>
@@ -112,10 +105,9 @@ For more info check out:
 </div>
 </div>
 </div>
-
-<div id="outline-container-orga712dd7" class="outline-2">
-<h2 id="orga712dd7"><a href="#orga712dd7">Summary</a></h2>
-<div class="outline-text-2" id="text-orga712dd7">
+<div id="outline-container-orgd71b078" class="outline-2">
+<h2 id="orgd71b078"><a href="#orgd71b078">Summary</a></h2>
+<div class="outline-text-2" id="text-orgd71b078">
 <p>
 And another one gone, and another one gone&#x2026; Another one bites the dust 
 </p>

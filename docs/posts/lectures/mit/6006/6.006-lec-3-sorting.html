@@ -6,7 +6,7 @@
 <title>6.006 Lec 3: Sets and Sorting</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,38 +41,37 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">6.006 Lec 3: Sets and Sorting</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org818f54d">Lecture details:</a></li>
-<li><a href="#orgcadb849">The set interface</a></li>
-<li><a href="#orgec4d62c">Understanding and implementing</a>
+<li><a href="#org208cdbd">Lecture details:</a></li>
+<li><a href="#org117082e">The set interface</a></li>
+<li><a href="#orgf6bc67d">Understanding and implementing</a>
 <ul>
-<li><a href="#org1bad3c3">Using an unordered array</a></li>
-<li><a href="#org0415dba">Using an sorted array</a></li>
+<li><a href="#org9688837">Using an unordered array</a></li>
+<li><a href="#orgfdd0b04">Using an sorted array</a></li>
 </ul>
 </li>
-<li><a href="#org0f1c79f">Sorting</a>
+<li><a href="#org296010b">Sorting</a>
 <ul>
-<li><a href="#org678c2db">Basic vocabulary</a>
+<li><a href="#orgde4d35a">Basic vocabulary</a>
 <ul>
-<li><a href="#org2d0e4cf">Destructive</a></li>
-<li><a href="#org7add821">In place</a></li>
+<li><a href="#org1eecbe6">Destructive</a></li>
+<li><a href="#orgd7c5dd0">In place</a></li>
 </ul>
 </li>
-<li><a href="#orgdeddb4c">Algorithms</a>
+<li><a href="#org1783401">Algorithms</a>
 <ul>
-<li><a href="#org3cae1e2">Permutation sort</a></li>
-<li><a href="#orgc5d00f9">Selection sort</a></li>
-<li><a href="#orga1fa7ab">Insertion sort</a></li>
-<li><a href="#orge82bee5">Merge sort</a></li>
+<li><a href="#org2e2f151">Permutation sort</a></li>
+<li><a href="#orga89a36d">Selection sort</a></li>
+<li><a href="#org209c5c8">Insertion sort</a></li>
+<li><a href="#orga3f3905">Merge sort</a></li>
 </ul>
 </li>
 </ul>
@@ -80,10 +79,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org818f54d" class="outline-2">
-<h2 id="org818f54d"><a href="#org818f54d">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org818f54d">
+<div id="outline-container-org208cdbd" class="outline-2">
+<h2 id="org208cdbd"><a href="#org208cdbd">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-org208cdbd">
 <ul class="org-ul">
 <li>Instructor: Justin Solomon</li>
 <li>Link: <a href="https://www.youtube.com/watch?v=oS9aPzUNG-s&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=4">YouTube Lecture</a></li>
@@ -96,10 +94,9 @@ Java, all the code snippets here will be written in Java.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgcadb849" class="outline-2">
-<h2 id="orgcadb849"><a href="#orgcadb849">The set interface</a></h2>
-<div class="outline-text-2" id="text-orgcadb849">
+<div id="outline-container-org117082e" class="outline-2">
+<h2 id="org117082e"><a href="#org117082e">The set interface</a></h2>
+<div class="outline-text-2" id="text-org117082e">
 <p>
 Our interface is a container, hosting items and associating them with key
 values. The functions that we want the set implementation to perform are:
@@ -126,18 +123,16 @@ next or previous respectively</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgec4d62c" class="outline-2">
-<h2 id="orgec4d62c"><a href="#orgec4d62c">Understanding and implementing</a></h2>
-<div class="outline-text-2" id="text-orgec4d62c">
+<div id="outline-container-orgf6bc67d" class="outline-2">
+<h2 id="orgf6bc67d"><a href="#orgf6bc67d">Understanding and implementing</a></h2>
+<div class="outline-text-2" id="text-orgf6bc67d">
 <p>
 Now that we have outlined the set interface, let&rsquo;s check possible implementations
 </p>
 </div>
-
-<div id="outline-container-org1bad3c3" class="outline-3">
-<h3 id="org1bad3c3"><a href="#org1bad3c3">Using an unordered array</a></h3>
-<div class="outline-text-3" id="text-org1bad3c3">
+<div id="outline-container-org9688837" class="outline-3">
+<h3 id="org9688837"><a href="#org9688837">Using an unordered array</a></h3>
+<div class="outline-text-3" id="text-org9688837">
 <p>
 This is a <i>generally</i> poorly functioning implementation of the set ADT.
 </p>
@@ -208,10 +203,9 @@ costly.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org0415dba" class="outline-3">
-<h3 id="org0415dba"><a href="#org0415dba">Using an sorted array</a></h3>
-<div class="outline-text-3" id="text-org0415dba">
+<div id="outline-container-orgfdd0b04" class="outline-3">
+<h3 id="orgfdd0b04"><a href="#orgfdd0b04">Using an sorted array</a></h3>
+<div class="outline-text-3" id="text-orgfdd0b04">
 <table>
 
 
@@ -249,23 +243,21 @@ binary search to find the desired key reducing the <code>find(k)</code> complexi
 </div>
 </div>
 </div>
-
-<div id="outline-container-org0f1c79f" class="outline-2">
-<h2 id="org0f1c79f"><a href="#org0f1c79f">Sorting</a></h2>
-<div class="outline-text-2" id="text-org0f1c79f">
+<div id="outline-container-org296010b" class="outline-2">
+<h2 id="org296010b"><a href="#org296010b">Sorting</a></h2>
+<div class="outline-text-2" id="text-org296010b">
 <p>
 In order to have a sorted array, we need to study which algorithms will give us
 one:
 </p>
 </div>
-
-<div id="outline-container-org678c2db" class="outline-3">
-<h3 id="org678c2db"><a href="#org678c2db">Basic vocabulary</a></h3>
-<div class="outline-text-3" id="text-org678c2db">
+<div id="outline-container-orgde4d35a" class="outline-3">
+<h3 id="orgde4d35a"><a href="#orgde4d35a">Basic vocabulary</a></h3>
+<div class="outline-text-3" id="text-orgde4d35a">
 </div>
-<div id="outline-container-org2d0e4cf" class="outline-4">
-<h4 id="org2d0e4cf"><a href="#org2d0e4cf">Destructive</a></h4>
-<div class="outline-text-4" id="text-org2d0e4cf">
+<div id="outline-container-org1eecbe6" class="outline-4">
+<h4 id="org1eecbe6"><a href="#org1eecbe6">Destructive</a></h4>
+<div class="outline-text-4" id="text-org1eecbe6">
 <p>
 An algorithm is called destructive when it operates on the input array. More
 specifically, it <i>destroys</i> the input unsorted array, overwriting it with its
@@ -273,9 +265,9 @@ sorted version
 </p>
 </div>
 </div>
-<div id="outline-container-org7add821" class="outline-4">
-<h4 id="org7add821"><a href="#org7add821">In place</a></h4>
-<div class="outline-text-4" id="text-org7add821">
+<div id="outline-container-orgd7c5dd0" class="outline-4">
+<h4 id="orgd7c5dd0"><a href="#orgd7c5dd0">In place</a></h4>
+<div class="outline-text-4" id="text-orgd7c5dd0">
 <p>
 An algorith is called <span class="underline">in place</span> when, being a destructive algorithm, it uses
 constant extra space in memory (\(O(1)\)).
@@ -283,14 +275,13 @@ constant extra space in memory (\(O(1)\)).
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgdeddb4c" class="outline-3">
-<h3 id="orgdeddb4c"><a href="#orgdeddb4c">Algorithms</a></h3>
-<div class="outline-text-3" id="text-orgdeddb4c">
+<div id="outline-container-org1783401" class="outline-3">
+<h3 id="org1783401"><a href="#org1783401">Algorithms</a></h3>
+<div class="outline-text-3" id="text-org1783401">
 </div>
-<div id="outline-container-org3cae1e2" class="outline-4">
-<h4 id="org3cae1e2"><a href="#org3cae1e2">Permutation sort</a></h4>
-<div class="outline-text-4" id="text-org3cae1e2">
+<div id="outline-container-org2e2f151" class="outline-4">
+<h4 id="org2e2f151"><a href="#org2e2f151">Permutation sort</a></h4>
+<div class="outline-text-4" id="text-org2e2f151">
 <p>
 <i>Analysis</i>:  We have \(\Omega(n!n)\)<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>
 </p>
@@ -300,11 +291,9 @@ constant extra space in memory (\(O(1)\)).
 </ol>
 </div>
 </div>
-
-
-<div id="outline-container-orgc5d00f9" class="outline-4">
-<h4 id="orgc5d00f9"><a href="#orgc5d00f9">Selection sort</a></h4>
-<div class="outline-text-4" id="text-orgc5d00f9">
+<div id="outline-container-orga89a36d" class="outline-4">
+<h4 id="orga89a36d"><a href="#orga89a36d">Selection sort</a></h4>
+<div class="outline-text-4" id="text-orga89a36d">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -327,8 +316,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org21b5bfc"></a><a href="#org21b5bfc">Recursive</a><br>
-<div class="outline-text-5" id="text-org21b5bfc">
+<li><a id="orga16dd0b"></a><a href="#orga16dd0b">Recursive</a><br>
+<div class="outline-text-5" id="text-orga16dd0b">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">selectionSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>, <span class="org-type">int</span> <span class="org-variable-name">lastItem</span>)
 {
@@ -337,7 +326,7 @@ This is, following the definitions above, an <i>in place</i> algorithm
     <span class="org-type">int</span> <span class="org-variable-name">largestInd</span> = 0;
 
     <span class="org-comment-delimiter">// </span><span class="org-comment">Find the largest</span>
-    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; <span class="org-type">lastItem</span>; i++ )
+    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; lastItem; i++ )
        <span class="org-keyword">if</span> ( myArray[i] &gt; myArray[largestInd] )
             largestInd = i;
 
@@ -353,10 +342,8 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </div>
 </div>
 </li>
-
-
-<li><a id="org16167cc"></a><a href="#org16167cc">Simple Implementation</a><br>
-<div class="outline-text-5" id="text-org16167cc">
+<li><a id="org3613f92"></a><a href="#org3613f92">Simple Implementation</a><br>
+<div class="outline-text-5" id="text-org3613f92">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-type">void</span> <span class="org-function-name">selectionSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
@@ -371,7 +358,7 @@ This is, following the definitions above, an <i>in place</i> algorithm
         largestInd = 0;
 
         <span class="org-comment-delimiter">// </span><span class="org-comment">Find the largest</span>
-        <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; <span class="org-type">lastItem</span>; i++ )
+        <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; lastItem; i++ )
         <span class="org-keyword">if</span> ( myArray[i] &gt; myArray[largestInd] )
                 largestInd = i;
         <span class="org-comment-delimiter">// </span><span class="org-comment">Perform the swap</span>
@@ -386,11 +373,9 @@ This is, following the definitions above, an <i>in place</i> algorithm
 </li>
 </ul>
 </div>
-
-
-<div id="outline-container-orga1fa7ab" class="outline-4">
-<h4 id="orga1fa7ab"><a href="#orga1fa7ab">Insertion sort</a></h4>
-<div class="outline-text-4" id="text-orga1fa7ab">
+<div id="outline-container-org209c5c8" class="outline-4">
+<h4 id="org209c5c8"><a href="#org209c5c8">Insertion sort</a></h4>
+<div class="outline-text-4" id="text-org209c5c8">
 <p>
 <i>Analysis</i>: \(O(n^{2})\)
 </p>
@@ -415,7 +400,7 @@ it, swapping every element larger than it.
     <span class="org-comment-delimiter">// </span><span class="org-comment">Memory usage optimization</span>
     <span class="org-type">int</span> <span class="org-variable-name">temp</span>;
     <span class="org-comment-delimiter">// </span><span class="org-comment">Increase the sorted array size by one for each iteration</span>
-    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; myArray.<span class="org-type">length</span>; i++ )
+    <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">i</span> = 1; i &lt; myArray.length; i++ )
     {
         <span class="org-comment-delimiter">// </span><span class="org-comment">For every element in the 1-i subarray</span>
         <span class="org-keyword">for</span> ( <span class="org-type">int</span> <span class="org-variable-name">l</span> = i; l &gt; 0; l-- )
@@ -438,11 +423,9 @@ it, swapping every element larger than it.
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orge82bee5" class="outline-4">
-<h4 id="orge82bee5"><a href="#orge82bee5">Merge sort</a></h4>
-<div class="outline-text-4" id="text-orge82bee5">
+<div id="outline-container-orga3f3905" class="outline-4">
+<h4 id="orga3f3905"><a href="#orga3f3905">Merge sort</a></h4>
+<div class="outline-text-4" id="text-orga3f3905">
 <p>
 <i>Analysis</i>: \(O(n\lg{n})\)
 </p>
@@ -454,10 +437,9 @@ gradually merging them together (in \(O(n)\) time) till they reach the starting
 size of the array
 </p>
 </div>
-
 <ul class="org-ul">
-<li><a id="org46b91e2"></a><a href="#org46b91e2">Implementation</a><br>
-<div class="outline-text-5" id="text-org46b91e2">
+<li><a id="orge9dd5e5"></a><a href="#orge9dd5e5">Implementation</a><br>
+<div class="outline-text-5" id="text-orge9dd5e5">
 <div class="org-src-container">
 <pre class="src src-java"><span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">mergeSort</span>(<span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>)
 {
@@ -505,7 +487,7 @@ size of the array
 <span class="org-keyword">static</span> <span class="org-type">void</span> <span class="org-function-name">printArray</span> ( <span class="org-type">int</span>[] <span class="org-variable-name">myArray</span>, <span class="org-type">int</span> <span class="org-variable-name">start</span>, <span class="org-type">int</span> <span class="org-variable-name">end</span> )
 {
     System.out.printf(<span class="org-string">"Start: %d, End: %d\n"</span>, start,end);
-    <span class="org-keyword">while</span> ( start &lt; <span class="org-type">end</span> )
+    <span class="org-keyword">while</span> ( start &lt; end )
         System.out.printf(<span class="org-string">"%d "</span>, myArray[start++]);
     System.out.println(<span class="org-string">""</span>);
 }

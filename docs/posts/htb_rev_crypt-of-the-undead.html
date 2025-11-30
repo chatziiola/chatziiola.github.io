@@ -7,14 +7,13 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Hack The Box (HtB) (very) easy reverse engineering challenge writeup: using radare2" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">HTB: Crypt Of The Undead
 <br>
 <span class="subtitle">A googling challenge</span>
@@ -23,22 +22,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org0ccecc0">Introduction</a></li>
-<li><a href="#org8af1e18">Static Analysis</a>
+<li><a href="#orgc2c2a3e">Introduction</a></li>
+<li><a href="#org017d1f1">Static Analysis</a>
 <ul>
-<li><a href="#orgbe0bb89">The <code>main</code> part</a></li>
-<li><a href="#org662531a">The <code>encrypt_buf()</code> function</a></li>
-<li><a href="#orgf5fbbe5">ChaCha20</a></li>
+<li><a href="#org0f246d8">The <code>main</code> part</a></li>
+<li><a href="#orgf0bd9cc">The <code>encrypt_buf()</code> function</a></li>
+<li><a href="#org4cb5e85">ChaCha20</a></li>
 </ul>
 </li>
-<li><a href="#org5e87380">Summary</a></li>
+<li><a href="#orgfbcefe0">Summary</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org0ccecc0" class="outline-2">
-<h2 id="org0ccecc0"><a href="#org0ccecc0">Introduction</a></h2>
-<div class="outline-text-2" id="text-org0ccecc0">
+<div id="outline-container-orgc2c2a3e" class="outline-2">
+<h2 id="orgc2c2a3e"><a href="#orgc2c2a3e">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgc2c2a3e">
 <p>
 Some days ago I published my <a href="htb_rev_flagcasino.html">FlagCasino</a> writeup; Now that was a fun
 reversing challenge, with a little bit of everything an amateur wants:
@@ -48,10 +46,9 @@ not like it; I just did not like the ending :P
 </p>
 </div>
 </div>
-
-<div id="outline-container-org8af1e18" class="outline-2">
-<h2 id="org8af1e18"><a href="#org8af1e18">Static Analysis</a></h2>
-<div class="outline-text-2" id="text-org8af1e18">
+<div id="outline-container-org017d1f1" class="outline-2">
+<h2 id="org017d1f1"><a href="#org017d1f1">Static Analysis</a></h2>
+<div class="outline-text-2" id="text-org017d1f1">
 <p>
 After running <code>i</code> (information) within <code>radare2</code>, <code>hexdump</code> on the <code>.undead</code>
 flag file, We start with disassembly.
@@ -67,7 +64,7 @@ Getting a list of functions with <code>afl</code>.Interesting functions:
 <li>Lots of I/O functions</li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-text" id="orge5d9644">0x58178fd07030    1      6 sym.imp.free
+<pre class="src src-text" id="orgd321de7">0x58178fd07030    1      6 sym.imp.free
 0x58178fd07040    1      6 sym.imp.strncpy
 0x58178fd07050    1      6 sym.imp.strncmp
 0x58178fd07060    1      6 sym.imp.puts
@@ -95,10 +92,9 @@ Getting a list of functions with <code>afl</code>.Interesting functions:
 </pre>
 </div>
 </div>
-
-<div id="outline-container-orgbe0bb89" class="outline-3">
-<h3 id="orgbe0bb89"><a href="#orgbe0bb89">The <code>main</code> part</a></h3>
-<div class="outline-text-3" id="text-orgbe0bb89">
+<div id="outline-container-org0f246d8" class="outline-3">
+<h3 id="org0f246d8"><a href="#org0f246d8">The <code>main</code> part</a></h3>
+<div class="outline-text-3" id="text-org0f246d8">
 <p>
 Running <code>pds @ sym.main</code>, <code>pdf @ sym.main</code>, and we can see that:
 </p>
@@ -126,17 +122,16 @@ So effectively we have to understand part 3 (and maybe part 2 as well):
 </p>
 </div>
 </div>
-
-<div id="outline-container-org662531a" class="outline-3">
-<h3 id="org662531a"><a href="#org662531a">The <code>encrypt_buf()</code> function</a></h3>
-<div class="outline-text-3" id="text-org662531a">
+<div id="outline-container-orgf0bd9cc" class="outline-3">
+<h3 id="orgf0bd9cc"><a href="#orgf0bd9cc">The <code>encrypt_buf()</code> function</a></h3>
+<div class="outline-text-3" id="text-orgf0bd9cc">
 <p>
 Part three is all about <code>encrypt_buf()</code> function, which can easily be
 visualized with <code>VV @ sym.encrypt_buf()</code>
 </p>
 
 
-<div id="orge52a744" class="figure">
+<div id="orgd774de2" class="figure">
 <p><img src="images/Static_Analysis/20250204_163930_screenshot.png" alt="&quot;Radare2-produced visual graph of encrypt_buf(): consists of three &quot;nodes&quot;: main one, handling arguments and making the call to chacha20, one for normal execution, one for fail&quot;">
 </p>
 <p><span class="figure-number">Figure 1: </span><code>encrypt_buf()</code> graph</p>
@@ -173,10 +168,9 @@ Strange parts: Calling these two functions:
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgf5fbbe5" class="outline-3">
-<h3 id="orgf5fbbe5"><a href="#orgf5fbbe5">ChaCha20</a></h3>
-<div class="outline-text-3" id="text-orgf5fbbe5">
+<div id="outline-container-org4cb5e85" class="outline-3">
+<h3 id="org4cb5e85"><a href="#org4cb5e85">ChaCha20</a></h3>
+<div class="outline-text-3" id="text-org4cb5e85">
 <p>
 I was naive enough to think that the name somehow was an indicator
 that the function returned a <code>char char</code> array, with a length of 20.
@@ -202,7 +196,7 @@ file&rsquo;s contents with the same algorithm I did what any normal person
 would do:
 </p>
 <div class="org-src-container">
-<pre class="src src-shell" id="orgf80958a">cp flag.txt.undead newflag.txt
+<pre class="src src-shell" id="org65b2b9a">cp flag.txt.undead newflag.txt
 ./crypt newflag.txt <span class="org-comment-delimiter"># </span><span class="org-comment">produced newflag.txt.undead</span>
 cat newflag.txt.undead <span class="org-comment-delimiter"># </span><span class="org-comment">flag in plain text ;)</span>
 </pre>
@@ -210,10 +204,9 @@ cat newflag.txt.undead <span class="org-comment-delimiter"># </span><span class=
 </div>
 </div>
 </div>
-
-<div id="outline-container-org5e87380" class="outline-2">
-<h2 id="org5e87380"><a href="#org5e87380">Summary</a></h2>
-<div class="outline-text-2" id="text-org5e87380">
+<div id="outline-container-orgfbcefe0" class="outline-2">
+<h2 id="orgfbcefe0"><a href="#orgfbcefe0">Summary</a></h2>
+<div class="outline-text-2" id="text-orgfbcefe0">
 <p>
 If you see any strange function names do not force them to make sense
 in your mind. <i>Google</i> it. It might prove useful, but in any case, you
@@ -221,7 +214,7 @@ got nothing to lose.
 </p>
 
 
-<div id="org80a980f" class="figure">
+<div id="org848fd78" class="figure">
 <p><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl1eDJpdnQ2NGF1ZXV2NHBnNGgyYXBzanM5eHE4Y2Z4Y2FlYXBhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUGWc0Rk5Lzbh8zstA/giphy.gif" alt="giphy.gif">
 </p>
 <p><span class="figure-number">Figure 2: </span>Cha-cha alright</p>

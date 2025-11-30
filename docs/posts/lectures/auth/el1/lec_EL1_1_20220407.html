@@ -6,7 +6,7 @@
 <title>Η δίοδος</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,62 +41,59 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Η δίοδος</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org5e30f31">Εφαρμογές της διόδου</a></li>
-<li><a href="#orgd0a5193">Χαρακτηριστική ρεύματος-τάσης</a>
+<li><a href="#orgdadce27">Εφαρμογές της διόδου</a></li>
+<li><a href="#org42c4387">Χαρακτηριστική ρεύματος-τάσης</a>
 <ul>
-<li><a href="#org7bf0c4b">Θετική τάση</a></li>
-<li><a href="#org0d57f6f">Αρνητική τάση</a></li>
+<li><a href="#orge08bb63">Θετική τάση</a></li>
+<li><a href="#orgf1014ee">Αρνητική τάση</a></li>
 </ul>
 </li>
-<li><a href="#org10e9132">Ιδανικά Μοντέλα:</a>
+<li><a href="#orga568ff7">Ιδανικά Μοντέλα:</a>
 <ul>
-<li><a href="#org1522478">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></li>
+<li><a href="#org2fccf8e">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></li>
 </ul>
 </li>
-<li><a href="#orga207587">Εξίσωση ρεύματος εισόδου - εξόδου</a>
+<li><a href="#orgc4a4664">Εξίσωση ρεύματος εισόδου - εξόδου</a>
 <ul>
-<li><a href="#org00974d2">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></li>
+<li><a href="#orgc1ba11d">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></li>
 </ul>
 </li>
-<li><a href="#org505ce05">Ισοδύναμα Κυκλώματα:</a></li>
-<li><a href="#org494f788">Αναλυτική Λύση</a></li>
-<li><a href="#org85f6d4d">Πόλωση διόδου:</a></li>
-<li><a href="#orga1a422b">Δυναμική αντίσταση διόδου</a></li>
-<li><a href="#org8e0fc17">Ισχύς διόδου - Μέγιστο ρεύμα;</a></li>
+<li><a href="#orgfdaf367">Ισοδύναμα Κυκλώματα:</a></li>
+<li><a href="#org08f509d">Αναλυτική Λύση</a></li>
+<li><a href="#orga2411a0">Πόλωση διόδου:</a></li>
+<li><a href="#org6291bcc">Δυναμική αντίσταση διόδου</a></li>
+<li><a href="#org457537b">Ισχύς διόδου - Μέγιστο ρεύμα;</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org5e30f31" class="outline-2">
-<h2 id="org5e30f31"><a href="#org5e30f31">Εφαρμογές της διόδου</a></h2>
-<div class="outline-text-2" id="text-org5e30f31">
+<div id="outline-container-orgdadce27" class="outline-2">
+<h2 id="orgdadce27"><a href="#orgdadce27">Εφαρμογές της διόδου</a></h2>
+<div class="outline-text-2" id="text-orgdadce27">
 <ul class="org-ul">
 <li>Διακόπτες ( ανορθωτές ρεύματος - rectifier)</li>
 <li>Σταθεροποιητές ( δίοδος Zener )</li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-orgd0a5193" class="outline-2">
-<h2 id="orgd0a5193"><a href="#orgd0a5193">Χαρακτηριστική ρεύματος-τάσης</a></h2>
-<div class="outline-text-2" id="text-orgd0a5193">
+<div id="outline-container-org42c4387" class="outline-2">
+<h2 id="org42c4387"><a href="#org42c4387">Χαρακτηριστική ρεύματος-τάσης</a></h2>
+<div class="outline-text-2" id="text-org42c4387">
 <p>
 Η δίοδος είναι πολωμένο στοιχείο, γεγονός που σημαίνει ότι έχει <i>ιδιαίτερη</i>
 σημασία η θετική ( ή αντίστοιχα η αρνητική ) πόλωση. Πιο συγκεκριμένα:
 </p>
 
 
-<div id="orgaf58bc0" class="figure">
+<div id="org706554e" class="figure">
 <p><img src="../../../../images/EL1/el1_lec_1_diode.png" alt="el1_lec_1_diode.png">
 </p>
 </div>
@@ -107,10 +104,9 @@
 αρνητική τάση στα άκρα της μπορεί να φτάσει στο καταστροφικό σημείο.
 </p>
 </div>
-
-<div id="outline-container-org7bf0c4b" class="outline-3">
-<h3 id="org7bf0c4b"><a href="#org7bf0c4b">Θετική τάση</a></h3>
-<div class="outline-text-3" id="text-org7bf0c4b">
+<div id="outline-container-orge08bb63" class="outline-3">
+<h3 id="orge08bb63"><a href="#orge08bb63">Θετική τάση</a></h3>
+<div class="outline-text-3" id="text-orge08bb63">
 <ul class="org-ul">
 <li>Αρχίζει να άγει από περίπου 0.5V</li>
 <li>Σε αυτή την περίπτωση μιλάμε για: <b>Θετική/Forward Πόλωση της διόδου</b></li>
@@ -120,10 +116,9 @@
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org0d57f6f" class="outline-3">
-<h3 id="org0d57f6f"><a href="#org0d57f6f">Αρνητική τάση</a></h3>
-<div class="outline-text-3" id="text-org0d57f6f">
+<div id="outline-container-orgf1014ee" class="outline-3">
+<h3 id="orgf1014ee"><a href="#orgf1014ee">Αρνητική τάση</a></h3>
+<div class="outline-text-3" id="text-orgf1014ee">
 <ul class="org-ul">
 <li>Γενικά, μπορεί να θεωρηθεί πως με αρνητική τάση η δίοδος διαρρέεται από το
 αμελητέο <b>Ρεύμα διαρροής</b>:
@@ -145,7 +140,7 @@
 </p>
 
 
-<div id="org28ea1c3" class="figure">
+<div id="org816ecb5" class="figure">
 <p><img src="../../../../images/EL1/el1_lec_1_anorthosi.png" alt="el1_lec_1_anorthosi.png">
 </p>
 </div></li>
@@ -162,10 +157,9 @@
 </div>
 </div>
 </div>
-
-<div id="outline-container-org10e9132" class="outline-2">
-<h2 id="org10e9132"><a href="#org10e9132">Ιδανικά Μοντέλα:</a></h2>
-<div class="outline-text-2" id="text-org10e9132">
+<div id="outline-container-orga568ff7" class="outline-2">
+<h2 id="orga568ff7"><a href="#orga568ff7">Ιδανικά Μοντέλα:</a></h2>
+<div class="outline-text-2" id="text-orga568ff7">
 <p>
 Προηγουμένως αναφέρθηκε ότι η δίοδος αρχίζει να άγει από \(V_D\approx 0.5V\). Όπου
 το \(D\) προέρχεται από το αγγλικό Drain. Σε πολλά μοντέλα θεωρείται λογικό \(V_D =
@@ -174,10 +168,9 @@
 υλικό κατασκευής της διόδου ( πυρίτιο ή γερμάνιο ) \(V_D = 0.6V\) ή \(V_D = 0.7V\)
 </p>
 </div>
-
-<div id="outline-container-org1522478" class="outline-3">
-<h3 id="org1522478"><a href="#org1522478">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></h3>
-<div class="outline-text-3" id="text-org1522478">
+<div id="outline-container-org2fccf8e" class="outline-3">
+<h3 id="org2fccf8e"><a href="#org2fccf8e">Πότε χρησιμοποιούμε το \(V_D\), αντί να μένουμε στο 0</a></h3>
+<div class="outline-text-3" id="text-org2fccf8e">
 <p>
 Όταν τα \(0.6V\) έχουν κάποια λογική να μπουν στις εξισώσεις. Αν δηλαδή εξετάζουμε
 τάσεις της τάξης των \(6V\) αξίζει, ενώ στα \(220V\) είναι προφανές πως κάτι τέτοιο
@@ -186,10 +179,9 @@
 </div>
 </div>
 </div>
-
-<div id="outline-container-orga207587" class="outline-2">
-<h2 id="orga207587"><a href="#orga207587">Εξίσωση ρεύματος εισόδου - εξόδου</a></h2>
-<div class="outline-text-2" id="text-orga207587">
+<div id="outline-container-orgc4a4664" class="outline-2">
+<h2 id="orgc4a4664"><a href="#orgc4a4664">Εξίσωση ρεύματος εισόδου - εξόδου</a></h2>
+<div class="outline-text-2" id="text-orgc4a4664">
 \begin{equation}
 I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 \end{equation}
@@ -204,10 +196,9 @@ I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 Είναι σταθερά για το υλικό, ιδιότητα του , και θα δίνεται.</li>
 </ol>
 </div>
-
-<div id="outline-container-org00974d2" class="outline-3">
-<h3 id="org00974d2"><a href="#org00974d2">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></h3>
-<div class="outline-text-3" id="text-org00974d2">
+<div id="outline-container-orgc1ba11d" class="outline-3">
+<h3 id="orgc1ba11d"><a href="#orgc1ba11d">Επίδραση Θερμοκρασίας στην χαρακτηριστική:</a></h3>
+<div class="outline-text-3" id="text-orgc1ba11d">
 <p>
 Όσο αυξάνεται η θερμοκρασία για την ίδια τιμή τάσης θα έχουμε μεγαλύτερο ρεύμα.
 Και δημιουργεί προβλήματα ( εύλογο, καθώς το κύκλωμα δεν θα μείνει στις ίδιες
@@ -221,10 +212,9 @@ I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 </div>
 </div>
 </div>
-
-<div id="outline-container-org505ce05" class="outline-2">
-<h2 id="org505ce05"><a href="#org505ce05">Ισοδύναμα Κυκλώματα:</a></h2>
-<div class="outline-text-2" id="text-org505ce05">
+<div id="outline-container-orgfdaf367" class="outline-2">
+<h2 id="orgfdaf367"><a href="#orgfdaf367">Ισοδύναμα Κυκλώματα:</a></h2>
+<div class="outline-text-2" id="text-orgfdaf367">
 <p>
 Τα ισοδύναμα κυκλώματα δεν είναι ίδια για καθε τύπο ρεύματος που τα διαρρέι:
 </p>
@@ -244,10 +234,9 @@ I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 </p>
 </div>
 </div>
-
-<div id="outline-container-org494f788" class="outline-2">
-<h2 id="org494f788"><a href="#org494f788">Αναλυτική Λύση</a></h2>
-<div class="outline-text-2" id="text-org494f788">
+<div id="outline-container-org08f509d" class="outline-2">
+<h2 id="org08f509d"><a href="#org08f509d">Αναλυτική Λύση</a></h2>
+<div class="outline-text-2" id="text-org08f509d">
 <p>
 Κανείς δεν κάνει αναλυτική λύση με το χέρι. Είναι σημαντικό να γίνει αυτή η
 διαφοροποίηση: μαθαίνουμε να <i>κατανοούμε</i> το κύκλωμα, οι παράμετροι θα
@@ -255,10 +244,9 @@ I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 </p>
 </div>
 </div>
-
-<div id="outline-container-org85f6d4d" class="outline-2">
-<h2 id="org85f6d4d"><a href="#org85f6d4d">Πόλωση διόδου:</a></h2>
-<div class="outline-text-2" id="text-org85f6d4d">
+<div id="outline-container-orga2411a0" class="outline-2">
+<h2 id="orga2411a0"><a href="#orga2411a0">Πόλωση διόδου:</a></h2>
+<div class="outline-text-2" id="text-orga2411a0">
 <p>
 Ονομάζουμε το συνεχές ρεύμα που θα χρησιμοποιήσουμε για να θέσουμε την δίοδο μας
 σε συγκεκριμένες συνθήκες λειτουργίας. Πιο συγκεκριμένα, αναφερόμενοι στην
@@ -284,10 +272,9 @@ I_D = I_S ( e^{\frac{V_D}{nV_T}}-1 )
 </p>
 </div>
 </div>
-
-<div id="outline-container-orga1a422b" class="outline-2">
-<h2 id="orga1a422b"><a href="#orga1a422b">Δυναμική αντίσταση διόδου</a></h2>
-<div class="outline-text-2" id="text-orga1a422b">
+<div id="outline-container-org6291bcc" class="outline-2">
+<h2 id="org6291bcc"><a href="#org6291bcc">Δυναμική αντίσταση διόδου</a></h2>
+<div class="outline-text-2" id="text-org6291bcc">
 <p>
 Αναφερόμενοι στην χαρακτηριστική εξίσωση της διόδου, με παραγώγιση προκύπτει:
 </p>
@@ -302,10 +289,9 @@ r_d = \frac{1}{g_d} = \frac{nV_T}{I_D}
 \end{equation}
 </div>
 </div>
-
-<div id="outline-container-org8e0fc17" class="outline-2">
-<h2 id="org8e0fc17"><a href="#org8e0fc17">Ισχύς διόδου - Μέγιστο ρεύμα;</a></h2>
-<div class="outline-text-2" id="text-org8e0fc17">
+<div id="outline-container-org457537b" class="outline-2">
+<h2 id="org457537b"><a href="#org457537b">Ισχύς διόδου - Μέγιστο ρεύμα;</a></h2>
+<div class="outline-text-2" id="text-org457537b">
 <p>
 Όταν η δίοδος άγει εφαρμόζεται στα άκρα της ταση \(0.7 V\)<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, η οποία δεν
 μεταβάλλεται ( δεν μπορεί να λάβει μεγαλύτερες τιμές ), οπότε προφανώς:

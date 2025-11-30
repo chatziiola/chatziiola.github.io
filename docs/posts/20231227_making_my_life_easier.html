@@ -7,31 +7,29 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Notes on how I migrated to Make for this website, so that I can easily preview my posts before publishing" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Make-ing my life easier</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org151cfa9">Introduction</a></li>
-<li><a href="#org27a7caa">Goal</a></li>
-<li><a href="#org2cfbcab">Execution</a></li>
-<li><a href="#org8862a9b">Completion</a></li>
-<li><a href="#org4fba493">Some extra thoughts</a></li>
+<li><a href="#org13b23e1">Introduction</a></li>
+<li><a href="#orgfc7711b">Goal</a></li>
+<li><a href="#org6154072">Execution</a></li>
+<li><a href="#orga332bde">Completion</a></li>
+<li><a href="#org4a64ba3">Some extra thoughts</a></li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org151cfa9" class="outline-2">
-<h2 id="org151cfa9"><a href="#org151cfa9">Introduction</a></h2>
-<div class="outline-text-2" id="text-org151cfa9">
+<div id="outline-container-org13b23e1" class="outline-2">
+<h2 id="org13b23e1"><a href="#org13b23e1">Introduction</a></h2>
+<div class="outline-text-2" id="text-org13b23e1">
 <p>
 At the time of writing, my blog directory is certainly cluttered, and I  
 <b>really</b> don&rsquo;t want that. It prevents me from easily checking my website (I&rsquo;m  
@@ -41,10 +39,9 @@ document the next 10 minutes for myself so that it all makes sense.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org27a7caa" class="outline-2">
-<h2 id="org27a7caa"><a href="#org27a7caa">Goal</a></h2>
-<div class="outline-text-2" id="text-org27a7caa">
+<div id="outline-container-orgfc7711b" class="outline-2">
+<h2 id="orgfc7711b"><a href="#orgfc7711b">Goal</a></h2>
+<div class="outline-text-2" id="text-orgfc7711b">
 <p>
 My objective here is to quickly create a Makefile with a <code>local</code> set of  
 instructions that will:  
@@ -55,10 +52,9 @@ instructions that will:
 </ol>
 </div>
 </div>
-
-<div id="outline-container-org2cfbcab" class="outline-2">
-<h2 id="org2cfbcab"><a href="#org2cfbcab">Execution</a></h2>
-<div class="outline-text-2" id="text-org2cfbcab">
+<div id="outline-container-org6154072" class="outline-2">
+<h2 id="org6154072"><a href="#org6154072">Execution</a></h2>
+<div class="outline-text-2" id="text-org6154072">
 <p>
 Using the <code>local-build.sh</code> script, I knew this wouldn&rsquo;t take long. Since it&rsquo;s  
 an open-source file and I&rsquo;m not particularly concerned about the  
@@ -66,7 +62,7 @@ confidentiality of its contents, I uploaded it to ChatGPT, asking for it to be
 refactored and documented into a Makefile:  
 </p>
 
-<pre class="example" id="org6eefc79">
+<pre class="example" id="orgccdff98">
 # Makefile for building and publishing a site  
 # Directories  
 PUBLIC_DIR := public  
@@ -111,17 +107,16 @@ not overly extensive, comments.
 Adding a new target and updating <code>local</code> completes the setup:  
 </p>
 
-<pre class="example" id="org21ed41d">
+<pre class="example" id="orgac181c7">
 # Serve the public directory on localhost using Python  
 serve_local:  
 	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server  
 </pre>
 </div>
 </div>
-
-<div id="outline-container-org8862a9b" class="outline-2">
-<h2 id="org8862a9b"><a href="#org8862a9b">Completion</a></h2>
-<div class="outline-text-2" id="text-org8862a9b">
+<div id="outline-container-orga332bde" class="outline-2">
+<h2 id="orga332bde"><a href="#orga332bde">Completion</a></h2>
+<div class="outline-text-2" id="text-orga332bde">
 <p>
 At this point, everything is working perfectly and is well-documented enough  
 that I could refactor the entire blog. Spaghetti code is not just prevalent  
@@ -130,10 +125,9 @@ challenging. This Makefile makes things far more manageable.
 </p>
 </div>
 </div>
-
-<div id="outline-container-org4fba493" class="outline-2">
-<h2 id="org4fba493"><a href="#org4fba493">Some extra thoughts</a></h2>
-<div class="outline-text-2" id="text-org4fba493">
+<div id="outline-container-org4a64ba3" class="outline-2">
+<h2 id="org4a64ba3"><a href="#org4a64ba3">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-org4a64ba3">
 <p>
 It&rsquo;s truly fascinating that in <b>much less</b> than fifteen minutes, I managed to:  
 </p>

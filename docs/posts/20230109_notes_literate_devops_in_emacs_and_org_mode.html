@@ -6,7 +6,7 @@
 <title>Speedrun guide to Org Mode</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.css" /> <script src="/src/copy-pre.js"></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -41,52 +41,50 @@
 </script>
 </head>
 <body>
-<div id="org-div-home-and-up">
- <a accesskey="h" href="./index.html"> UP </a>
- |
- <a accesskey="H" href="/index.html"> HOME </a>
-</div><div id="content" class="content">
+<div id="preamble" class="status">
+<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+</div>
+<div id="content" class="content">
 <h1 class="title">Speedrun guide to Org Mode</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9b96eef">Commentary</a></li>
-<li><a href="#orge378b7a">Introduction</a></li>
-<li><a href="#orgc781019">Org mode features</a>
+<li><a href="#orga80c1f6">Commentary</a></li>
+<li><a href="#org8e3ddc8">Introduction</a></li>
+<li><a href="#org20767d2">Org mode features</a>
 <ul>
-<li><a href="#org2abd578">Writing code</a></li>
-<li><a href="#org7dc36a2">Customizing the source blocks</a></li>
-<li><a href="#org18e7637">Exporting</a></li>
-<li><a href="#orga51eb70">Tangling</a></li>
+<li><a href="#org19c8f1d">Writing code</a></li>
+<li><a href="#org6b00fb8">Customizing the source blocks</a></li>
+<li><a href="#orga8d0b35">Exporting</a></li>
+<li><a href="#org53ba347">Tangling</a></li>
 </ul>
 </li>
-<li><a href="#orgb912353">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a>
+<li><a href="#org612adbd">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a>
 <ul>
-<li><a href="#org9745ee7">Package Management</a>
+<li><a href="#orge7bafdd">Package Management</a>
 <ul>
-<li><a href="#orgffe9f2f">Straight configuration</a></li>
-<li><a href="#org0169ff6">Auto Package Update</a></li>
+<li><a href="#orge1ea05c">Straight configuration</a></li>
+<li><a href="#org808d33b">Auto Package Update</a></li>
 </ul>
 </li>
-<li><a href="#orgd901748">Evil Mode and some useful packages</a>
+<li><a href="#org414c237">Evil Mode and some useful packages</a>
 <ul>
-<li><a href="#orgbc94e90">Evil Collection</a></li>
-<li><a href="#org28e1d78">Keyboard</a></li>
-<li><a href="#orgff6197d">Clipboard</a></li>
+<li><a href="#org8a17930">Evil Collection</a></li>
+<li><a href="#org486af88">Keyboard</a></li>
+<li><a href="#orge73f431">Clipboard</a></li>
 </ul>
 </li>
-<li><a href="#org95454a9">Org Mode</a></li>
-<li><a href="#org9831352">Further suggestions</a></li>
+<li><a href="#orgfac5730">Org Mode</a></li>
+<li><a href="#org2bed17f">Further suggestions</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-
-<div id="outline-container-org9b96eef" class="outline-2">
-<h2 id="org9b96eef"><a href="#org9b96eef">Commentary</a></h2>
-<div class="outline-text-2" id="text-org9b96eef">
+<div id="outline-container-orga80c1f6" class="outline-2">
+<h2 id="orga80c1f6"><a href="#orga80c1f6">Commentary</a></h2>
+<div class="outline-text-2" id="text-orga80c1f6">
 <p>
 This started as a set of notes on <a href="https://www.youtube.com/watch?v=dljNabciEGg&amp;list=WL&amp;index=119&amp;ab_channel=HowardAbrams">Literate Devops with Emacs</a>. I never
 thought this was to be published, but it was revised on
@@ -94,7 +92,7 @@ thought this was to be published, but it was revised on
 </p>
 
 
-<div class="note" id="orge3d3667">
+<div class="note" id="org6def052">
 <p>
 Feel free to look at the <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/content/posts/20230109_notes_literate_devops_in_emacs_and_org_mode.org">source code</a> of this file, since the whole
 post was written in Org Mode.
@@ -103,17 +101,16 @@ post was written in Org Mode.
 </div>
 </div>
 </div>
-
-<div id="outline-container-orge378b7a" class="outline-2">
-<h2 id="orge378b7a"><a href="#orge378b7a">Introduction</a></h2>
-<div class="outline-text-2" id="text-orge378b7a">
+<div id="outline-container-org8e3ddc8" class="outline-2">
+<h2 id="org8e3ddc8"><a href="#org8e3ddc8">Introduction</a></h2>
+<div class="outline-text-2" id="text-org8e3ddc8">
 <p>
 <a href="https://orgmode.org/">Org Mode</a> is a wonderful plain text markup format. It is like markdown
 on steroids, yet much more intuitive and readable.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-text" id="org4b2f290">* Header
+<pre class="src src-text" id="org426f2dc">* Header
 Headers start with *, this is a *bold* word, this is /italics/
 
 You can have custom blocks with
@@ -147,26 +144,24 @@ exist for Nvim and other editors, but nothing even comes close.
 </p>
 </div>
 </div>
-
-<div id="outline-container-orgc781019" class="outline-2">
-<h2 id="orgc781019"><a href="#orgc781019">Org mode features</a></h2>
-<div class="outline-text-2" id="text-orgc781019">
+<div id="outline-container-org20767d2" class="outline-2">
+<h2 id="org20767d2"><a href="#org20767d2">Org mode features</a></h2>
+<div class="outline-text-2" id="text-org20767d2">
 <p>
 This is found somewhere in the documentation of OrgMode (but it could
 have been CDLatex for <code>`</code>) - in any case it stands true:
 </p>
 
-<div class="note" id="org61c8b19">
+<div class="note" id="org32d1d08">
 <p>
 When in doubt use <code>C-c</code> - (it is the default prefix for OrgMode shortcuts)
 </p>
 
 </div>
 </div>
-
-<div id="outline-container-org2abd578" class="outline-3">
-<h3 id="org2abd578"><a href="#org2abd578">Writing code</a></h3>
-<div class="outline-text-3" id="text-org2abd578">
+<div id="outline-container-org19c8f1d" class="outline-3">
+<h3 id="org19c8f1d"><a href="#org19c8f1d">Writing code</a></h3>
+<div class="outline-text-3" id="text-org19c8f1d">
 <ol class="org-ol">
 <li>You can write code easily within source blocks. You can write
 <code>#+begin_src &lt;lang&gt;</code> , followed by <code>#+end_src</code>, but the simpler
@@ -197,10 +192,9 @@ your programming configuration by using <code>C-c '</code> while inside it.</li>
 </div>
 </div>
 </div>
-
-<div id="outline-container-org7dc36a2" class="outline-3">
-<h3 id="org7dc36a2"><a href="#org7dc36a2">Customizing the source blocks</a></h3>
-<div class="outline-text-3" id="text-org7dc36a2">
+<div id="outline-container-org6b00fb8" class="outline-3">
+<h3 id="org6b00fb8"><a href="#org6b00fb8">Customizing the source blocks</a></h3>
+<div class="outline-text-3" id="text-org6b00fb8">
 <p>
 By adding options to the first line of the source block one can modify
 its behavior. An example of that is the following, making sure that
@@ -240,10 +234,9 @@ Hello World
 </div>
 </div>
 </div>
-
-<div id="outline-container-org18e7637" class="outline-3">
-<h3 id="org18e7637"><a href="#org18e7637">Exporting</a></h3>
-<div class="outline-text-3" id="text-org18e7637">
+<div id="outline-container-orga8d0b35" class="outline-3">
+<h3 id="orga8d0b35"><a href="#orga8d0b35">Exporting</a></h3>
+<div class="outline-text-3" id="text-orga8d0b35">
 <p>
 OrgMode files can instantly be exported to  \LaTeX, HTML, ODT(?), even
 Markdown<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>. Just run <code>C-c C-e</code> to see more.
@@ -255,10 +248,9 @@ is an excellent article to have a look at</a>&#x2026; What a writer :P
 </p>
 </div>
 </div>
-
-<div id="outline-container-orga51eb70" class="outline-3">
-<h3 id="orga51eb70"><a href="#orga51eb70">Tangling</a></h3>
-<div class="outline-text-3" id="text-orga51eb70">
+<div id="outline-container-org53ba347" class="outline-3">
+<h3 id="org53ba347"><a href="#org53ba347">Tangling</a></h3>
+<div class="outline-text-3" id="text-org53ba347">
 <p>
 This is one of the best features of org mode, and in fact this is what
 leads us to the next section of this article. One can use tangling so
@@ -276,7 +268,7 @@ creates a minimal emacs configuration for writing in OrgMode.
 You can even set it for a whole file 
 </p>
 <div class="org-src-container">
-<pre class="src src-text" id="orgb09346d">#+TITLE: My file
+<pre class="src src-text" id="org478bbbc">#+TITLE: My file
 #+PROPERTY: :tangle ~/filename"
 
 
@@ -289,20 +281,17 @@ You can even set it for a whole file
 </div>
 </div>
 </div>
-
-
-<div id="outline-container-orgb912353" class="outline-2">
-<h2 id="orgb912353"><a href="#orgb912353">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a></h2>
-<div class="outline-text-2" id="text-orgb912353">
+<div id="outline-container-org612adbd" class="outline-2">
+<h2 id="org612adbd"><a href="#org612adbd">Sample-Configuration&#xa0;&#xa0;&#xa0;<span class="tag"><span class="config">config</span></span></a></h2>
+<div class="outline-text-2" id="text-org612adbd">
 </div>
-
-<div id="outline-container-org9745ee7" class="outline-3">
-<h3 id="org9745ee7"><a href="#org9745ee7">Package Management</a></h3>
-<div class="outline-text-3" id="text-org9745ee7">
+<div id="outline-container-orge7bafdd" class="outline-3">
+<h3 id="orge7bafdd"><a href="#orge7bafdd">Package Management</a></h3>
+<div class="outline-text-3" id="text-orge7bafdd">
 </div>
-<div id="outline-container-orgffe9f2f" class="outline-4">
-<h4 id="orgffe9f2f"><a href="#orgffe9f2f">Straight configuration</a></h4>
-<div class="outline-text-4" id="text-orgffe9f2f">
+<div id="outline-container-orge1ea05c" class="outline-4">
+<h4 id="orge1ea05c"><a href="#orge1ea05c">Straight configuration</a></h4>
+<div class="outline-text-4" id="text-orge1ea05c">
 <p>
 Using <a href="https://github.com/raxod502/straight.el">straight.el</a> for package management
 </p>
@@ -353,12 +342,11 @@ Use <code>use-package</code> forms when installing packages. This allows for the
 </div>
 </div>
 </div>
-
-<div id="outline-container-org0169ff6" class="outline-4">
-<h4 id="org0169ff6"><a href="#org0169ff6">Auto Package Update</a></h4>
-<div class="outline-text-4" id="text-org0169ff6">
+<div id="outline-container-org808d33b" class="outline-4">
+<h4 id="org808d33b"><a href="#org808d33b">Auto Package Update</a></h4>
+<div class="outline-text-4" id="text-org808d33b">
 <div class="org-src-container">
-<pre class="src src-elisp" id="orga182a29">
+<pre class="src src-elisp" id="orgd2cc6ac">
 (<span class="org-keyword">use-package</span> auto-package-update
   <span class="org-builtin">:custom</span>
   (auto-package-update-interval 7)
@@ -373,17 +361,16 @@ Use <code>use-package</code> forms when installing packages. This allows for the
 </div>
 </div>
 </div>
-
-<div id="outline-container-orgd901748" class="outline-3">
-<h3 id="orgd901748"><a href="#orgd901748">Evil Mode and some useful packages</a></h3>
-<div class="outline-text-3" id="text-orgd901748">
+<div id="outline-container-org414c237" class="outline-3">
+<h3 id="org414c237"><a href="#org414c237">Evil Mode and some useful packages</a></h3>
+<div class="outline-text-3" id="text-org414c237">
 <p>
 If you are a Vim user, then <code>evil mode</code> is ideal, I can not help but
 suggest it:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org899eac9">
+<pre class="src src-elisp" id="orgfef2c0e">
 (<span class="org-keyword">use-package</span> evil
     <span class="org-builtin">:demand</span>
     <span class="org-builtin">:init</span>
@@ -409,10 +396,9 @@ suggest it:
 </pre>
 </div>
 </div>
-
-<div id="outline-container-orgbc94e90" class="outline-4">
-<h4 id="orgbc94e90"><a href="#orgbc94e90">Evil Collection</a></h4>
-<div class="outline-text-4" id="text-orgbc94e90">
+<div id="outline-container-org8a17930" class="outline-4">
+<h4 id="org8a17930"><a href="#org8a17930">Evil Collection</a></h4>
+<div class="outline-text-4" id="text-org8a17930">
 <p>
 Evil collection is a collection of multiple useful keybindings. Just like it is
 shown in the following snippet, I have decided against using the default
@@ -421,7 +407,7 @@ have decided to keep evil collection only on certain modes (the ones described).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgcdb09dc">(<span class="org-keyword">use-package</span> evil-collection
+<pre class="src src-elisp" id="org986c21b">(<span class="org-keyword">use-package</span> evil-collection
   <span class="org-builtin">:after</span> evil
   <span class="org-builtin">:config</span>
   (<span class="org-keyword">let</span> ((evil-collection-mode-list 
@@ -439,7 +425,7 @@ have decided to keep evil collection only on certain modes (the ones described).
 This is for commenting out text as in vim
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="org03012c3">(<span class="org-keyword">use-package</span> evil-commentary
+<pre class="src src-elisp" id="org0cf58d2">(<span class="org-keyword">use-package</span> evil-commentary
   <span class="org-builtin">:ensure</span> t
   <span class="org-builtin">:config</span>
   (global-unset-key (kbd <span class="org-string">"C-x C-;"</span>)) <span class="org-comment-delimiter">;; </span><span class="org-comment">;Do not use the default</span>
@@ -448,10 +434,9 @@ This is for commenting out text as in vim
 </div>
 </div>
 </div>
-
-<div id="outline-container-org28e1d78" class="outline-4">
-<h4 id="org28e1d78"><a href="#org28e1d78">Keyboard</a></h4>
-<div class="outline-text-4" id="text-org28e1d78">
+<div id="outline-container-org486af88" class="outline-4">
+<h4 id="org486af88"><a href="#org486af88">Keyboard</a></h4>
+<div class="outline-text-4" id="text-org486af88">
 <p>
 The mode displays the key bindings following your currently entered incomplete command  in a popup.
 </p>
@@ -465,9 +450,9 @@ The mode displays the key bindings following your currently entered incomplete c
 </div>
 </div>
 </div>
-<div id="outline-container-orgff6197d" class="outline-4">
-<h4 id="orgff6197d"><a href="#orgff6197d">Clipboard</a></h4>
-<div class="outline-text-4" id="text-orgff6197d">
+<div id="outline-container-orge73f431" class="outline-4">
+<h4 id="orge73f431"><a href="#orge73f431">Clipboard</a></h4>
+<div class="outline-text-4" id="text-orge73f431">
 <p>
 Allows system and Emacs clipboard to communicate smoothly (both ways)
 </p>
@@ -481,10 +466,9 @@ Allows system and Emacs clipboard to communicate smoothly (both ways)
 </div>
 </div>
 </div>
-
-<div id="outline-container-org95454a9" class="outline-3">
-<h3 id="org95454a9"><a href="#org95454a9">Org Mode</a></h3>
-<div class="outline-text-3" id="text-org95454a9">
+<div id="outline-container-orgfac5730" class="outline-3">
+<h3 id="orgfac5730"><a href="#orgfac5730">Org Mode</a></h3>
+<div class="outline-text-3" id="text-orgfac5730">
 <p>
 Automatically tangle org-mode files with the option <code>#+auto_tangle: t</code>
 </p>
@@ -553,9 +537,9 @@ bibliographystyle:ieeetr
 </div>
 </div>
 </div>
-<div id="outline-container-org9831352" class="outline-3">
-<h3 id="org9831352"><a href="#org9831352">Further suggestions</a></h3>
-<div class="outline-text-3" id="text-org9831352">
+<div id="outline-container-org2bed17f" class="outline-3">
+<h3 id="org2bed17f"><a href="#org2bed17f">Further suggestions</a></h3>
+<div class="outline-text-3" id="text-org2bed17f">
 <ul class="org-ul">
 <li>Snippets (<code>Yasnippets</code>): Cause we all want to write less and get more done</li>
 <li><code>Vertico</code>: Revolutionizes the way you move around</li>
@@ -570,7 +554,7 @@ there is no shortage of configurations online. Find one that works
 for you.</li>
 </ul>
 
-<div class="note" id="org3b7555d">
+<div class="note" id="org59b71c7">
 <p>
 I will try to publish my full emacs configuration some day in this
 blog. Have a look at tags/emacs: Maybe I finally got to it.

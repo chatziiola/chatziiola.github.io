@@ -2,7 +2,6 @@
 # Directories
 PUBLIC_DIR := ./docs
 POSTS_PUBLIC_DIR := $(PUBLIC_DIR)/posts
-DRAFT_DIR := $(PUBLIC_DIR)/drafts
 LOCAL_DIR := content
 SHELL := /bin/bash
 
@@ -12,6 +11,13 @@ SHELL := /bin/bash
 runPy:
 	python3 scripts/generate_sitemap.py
 	python3 scripts/working.py
+
+minify:
+	mkdir -p docs/src
+	npx csso-cli content/src/rougier.css -o docs/src/rougier.min.css
+	npx uglifyjs content/src/copy-pre.js -o docs/src/copy-pre.min.js
+	npx uglifyjs content/src/theme-switcher.js -o docs/src/theme-switcher.min.js
+
 # Remove local directory
 clean:
 	echo "Cleaning public dir"
@@ -24,8 +30,8 @@ clean:
 # add_cname:
 # 	#echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
 # Build the site using Emacs
-build: runPy
-	echo "Building the site"
+build: minify runPy
+	@echo "Building the site"
 	emacs -Q --script scripts/build-site.el >/dev/null
 
 copy_static:
