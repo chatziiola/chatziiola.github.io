@@ -1,0 +1,35 @@
+#+TITLE: Disabling YouTube Shorts: An easy way
+#+DATE: <2025-12-09 23:50>
+#+SUBTITLE: I'll keep this… short. /*sigh*/.
+#+DESCRIPTION: How to permanently block or disable YouTube Shorts on your browser. This guide provides simple filter rules for uBlock Origin, Brave, and similar ad-blockers.
+#+DRAFT: nil
+#+FILETAGS: youtube, ublock, productivity, adblocking
+# #+options: toc:nil
+
+I enjoy YouTube, but I find the "shorts" trend exhausting. It's easy to fall
+into a time-wasting trap that leaves me feeling mentally drained. Being able to
+filter them out would be the ideal solution, allowing me to use YouTube for what
+I want without the distraction.
+
+* The idea
+Having played around with many different filtering systems over the years, both
+on-device but also /site-wide/, with DNS sinkholes, I know how beneficial such a
+change might be.
+
+My go-to browser, Brave, comes with a ~uBlock~ compatible ad filtering mechanism.
+I played around with it to block shorts, which resulted in a set of three rules
+that fully (?) hide shorts from:
+- my homepage
+- the video pages (though I also use [[https://chromewebstore.google.com/detail/clean-youtube-hide-youtub/kalhfjomailhflienkfajocjodgjipie][Clean YouTube]])
+And it (fully) blocks shorts, as in: I cannot go to ~youtube.com/shorts~
+
+* The solution
+To block YouTube shorts, you just need to add the following rules to your ad-blocker's custom filter list. In Brave, you can do this by navigating to ~brave://settings/shields/filters~ and adding the rules in the "Create custom filters" section.
+
+#+begin_src text
+www.youtube.com/shorts/*
+www.youtube.com##ytd-rich-shelf-renderer
+www.youtube.com##ytd-reel-shelf-renderer
+#+end_src
+
+This should work with uBlock Origin and other compatible ad-blockers as well.
