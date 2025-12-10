@@ -5,30 +5,30 @@
 
 ;;; Code:
 ;; Load Configuration specifics
-(load (expand-file-name "config.el" (file-name-directory load-file-name)))
+(add-to-list 'load-path "~/Github/chatziiola.github.io/scripts")
 
 ;; ;; Load the publishing system
+(require 'config)
+(require 'org-publish-rss)
 (require 'ox-publish)
 (require 'ox-html)
 (require 'cl-extra)
-(load (expand-file-name "htmlize.el" (file-name-directory load-file-name)))
+(require 'htmlize)
 
-(setq org-export-exclude-tags '("draft" "noexport" "nopublish"))
+(setq make-backup-files nil)
 (setq org-use-property-inheritance t)
 (setq org-use-tag-inheritance t)
-
 (setq org-src-fontify-natively t)
 (setq org-html-htmlize-output-type 'css)
 (setq org-export-use-broken-links t)
 (setq org-html-doctype "html5")
 
-(setq org-src-fontify-natively t		; Fontify code in code blocks.
-      org-adapt-indentation nil			; Adaptive indentation
-      org-src-tab-acts-natively t		; Tab acts as in source editing
-      org-confirm-babel-evaluate nil		; No confirmation before executing code
-      org-edit-src-content-indentation 2	; No relative indentation for code blocks
-      org-fontify-whole-block-delimiter-line t) ; Fontify whole block
-
+(setq org-src-fontify-natively t)		; Fontify code in code blocks.
+(setq org-adapt-indentation nil)		; Adaptive indentation
+(setq org-src-tab-acts-natively t)		; Tab acts as in source editing
+(setq org-confirm-babel-evaluate nil)		; No confirmation before executing code
+(setq org-edit-src-content-indentation 2)	; No relative indentation for code blocks
+(setq org-fontify-whole-block-delimiter-line t) ; Fontify whole block
 
 ;; Customize the HTML output
 (setq org-html-validation-link nil
@@ -47,20 +47,28 @@
  '((emacs-lisp . t) (gnuplot . t) (haskell . nil) (latex . t) (octave . t)
    (python . t) (matlab . t) (shell . t) (ruby . t) (sql . nil) (sqlite . t)))
 
-(defun my-selective-publish (plist filename pub-dir)
-  "Publish FILENAME only if it is an index.org file."
-  (when (string-equal "index.org" (file-name-nondirectory filename))
-    (org-html-publish-to-html plist filename pub-dir)))
-
-(defun my-publish-non-drafts (plist filename pub-dir)
-  "Publish FILENAME only if it does not have a DRAFT property set to t."
-  (when (not (string-equal "index.org" (file-name-nondirectory filename)))
+(defun file-is-blog-post (filename)
+  "Whether a non-index file is a draft or not"
+  (when (not (file-is-index filename))
     (with-temp-buffer
       (insert-file-contents filename)
       (goto-char (point-min))
-      (let ((is-draft (re-search-forward "^#\\+DRAFT:\\s-*t" nil t)))
-	(unless is-draft
-	  (org-html-publish-to-html plist filename pub-dir))))))
+      (re-search-forward "^#\\+DRAFT:\\s-*t" nil t))))
+
+(defun file-is-index (filename)
+  "Whether a file is an index file"
+(string-equal "index.org" (file-name-nondirectory filename)))
+
+(defun my-publish-index (plist filename pub-dir)
+  "Publish FILENAME only if it is an index.org file."
+  (when (file-is-index filename)
+    (org-html-publish-to-html plist filename pub-dir)))
+
+(defun my-publish-blog-posts (plist filename pub-dir)
+  "Publish FILENAME only if it does not have a DRAFT property set to t."
+  (if (file-is-blog-post filename)
+      (org-html-publish-to-html plist filename pub-dir)
+    "index.html"))
 
 (setq org-publish-project-alist
       (list
@@ -70,7 +78,7 @@
        	     :recursive t
        	     :html-postamble general-postamble
        	     :publishing-directory public-dir
-       	     :publishing-function 'my-selective-publish
+       	     :publishing-function 'my-publish-index
 	     :with-author nil           ;; Don't include author name
 	     :with-creator nil            ;; Include Emacs and Org versions in footer
 	     :with-drawers t
@@ -83,7 +91,7 @@
        	     :recursive t
        	     :html-postamble  comments-postamble
        	     :publishing-directory posts-public-dir
-       	     :publishing-function 'my-publish-non-drafts
+       	     :publishing-function 'my-publish-blog-posts
        	     :with-author t           ;; Don't include author name
        	     :with-creator t            ;; Include Emacs and Org versions in footer
        	     :with-drawers t
@@ -91,7 +99,18 @@
        	     :headline-level 4
        	     :with-toc t                ;; Include a table of contents
        	     :section-numbers nil       ;; Don't include section numbers
-       	     :time-stamp-file nil)
+       	     :time-stamp-file nil
+	     ;; :auto-rss
+	     ;; :rss-file "rss.xml"
+	     ;; :rss-root-url "posts"
+	     ;; :rss-title "Chasing simplicity"
+	     ;; :rss-description "Shiiiz"
+	     ;; :rss-link "/"
+	     ;; :completion-function 'org-publish-rss
+	     ;; :auto-sitemap
+	     ;; :sitemap-filename "recents.org"
+	     ;; :sitemap-format-entry "%d - %t"
+	     )
        (list "Images"
        	     :base-directory posts-dir
        	     :base-extension "png"
@@ -99,16 +118,17 @@
        	     :publishing-function 'org-blog-publish-attachment
        	     :recursive t
        	     )
-
        (list "Website static stuff"
        	     :base-directory src-dir
-       	     :base-extension "html\\|css\\|ico"
+       	     :base-extension "html\\|css\\|ico\\|png"
        	     :publishing-directory src-public-dir
        	     :publishing-function 'org-publish-attachment
        	     :recursive t
        	     )
        )
       )
+
+(org-publish-rss "blog-posts")
 
 ;; Automatic image conversion
 (defun org-blog-publish-attachment (plist filename pub-dir)
@@ -122,7 +142,7 @@ pictures using imagemagick. Return output file name."
 	     (file-name-as-directory (expand-file-name pub-dir)))
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
 	(if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
-	    (shell-command (format "convert %s -resize 1920x1080\\> +dither -colors 16 -depth 4 %s" filename dst-file))
+	    (shell-command (format "magick %s -resize 1920x1080\\> +dither -colors 16 -depth 4 %s" filename dst-file))
 	  (copy-file filename dst-file t)))))
 
 (org-publish-all)
