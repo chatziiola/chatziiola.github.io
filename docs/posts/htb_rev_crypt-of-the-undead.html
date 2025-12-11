@@ -22,21 +22,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc2c2a3e">Introduction</a></li>
-<li><a href="#org017d1f1">Static Analysis</a>
+<li><a href="#orga3b9982">Introduction</a></li>
+<li><a href="#org8038097">Static Analysis</a>
 <ul>
-<li><a href="#org0f246d8">The <code>main</code> part</a></li>
-<li><a href="#orgf0bd9cc">The <code>encrypt_buf()</code> function</a></li>
-<li><a href="#org4cb5e85">ChaCha20</a></li>
+<li><a href="#orgb7efd96">The <code>main</code> part</a></li>
+<li><a href="#org8a9169b">The <code>encrypt_buf()</code> function</a></li>
+<li><a href="#org00b1eba">ChaCha20</a></li>
 </ul>
 </li>
-<li><a href="#orgfbcefe0">Summary</a></li>
+<li><a href="#orgb13abef">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc2c2a3e" class="outline-2">
-<h2 id="orgc2c2a3e"><a href="#orgc2c2a3e">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgc2c2a3e">
+<div id="outline-container-orga3b9982" class="outline-2">
+<h2 id="orga3b9982"><a href="#orga3b9982">Introduction</a></h2>
+<div class="outline-text-2" id="text-orga3b9982">
 <p>
 Some days ago I published my <a href="htb_rev_flagcasino.html">FlagCasino</a> writeup; Now that was a fun
 reversing challenge, with a little bit of everything an amateur wants:
@@ -46,9 +46,9 @@ not like it; I just did not like the ending :P
 </p>
 </div>
 </div>
-<div id="outline-container-org017d1f1" class="outline-2">
-<h2 id="org017d1f1"><a href="#org017d1f1">Static Analysis</a></h2>
-<div class="outline-text-2" id="text-org017d1f1">
+<div id="outline-container-org8038097" class="outline-2">
+<h2 id="org8038097"><a href="#org8038097">Static Analysis</a></h2>
+<div class="outline-text-2" id="text-org8038097">
 <p>
 After running <code>i</code> (information) within <code>radare2</code>, <code>hexdump</code> on the <code>.undead</code>
 flag file, We start with disassembly.
@@ -64,7 +64,7 @@ Getting a list of functions with <code>afl</code>.Interesting functions:
 <li>Lots of I/O functions</li>
 </ul>
 <div class="org-src-container">
-<pre class="src src-text" id="orgd321de7">0x58178fd07030    1      6 sym.imp.free
+<pre class="src src-text" id="org42afa04">0x58178fd07030    1      6 sym.imp.free
 0x58178fd07040    1      6 sym.imp.strncpy
 0x58178fd07050    1      6 sym.imp.strncmp
 0x58178fd07060    1      6 sym.imp.puts
@@ -92,9 +92,9 @@ Getting a list of functions with <code>afl</code>.Interesting functions:
 </pre>
 </div>
 </div>
-<div id="outline-container-org0f246d8" class="outline-3">
-<h3 id="org0f246d8"><a href="#org0f246d8">The <code>main</code> part</a></h3>
-<div class="outline-text-3" id="text-org0f246d8">
+<div id="outline-container-orgb7efd96" class="outline-3">
+<h3 id="orgb7efd96"><a href="#orgb7efd96">The <code>main</code> part</a></h3>
+<div class="outline-text-3" id="text-orgb7efd96">
 <p>
 Running <code>pds @ sym.main</code>, <code>pdf @ sym.main</code>, and we can see that:
 </p>
@@ -122,16 +122,16 @@ So effectively we have to understand part 3 (and maybe part 2 as well):
 </p>
 </div>
 </div>
-<div id="outline-container-orgf0bd9cc" class="outline-3">
-<h3 id="orgf0bd9cc"><a href="#orgf0bd9cc">The <code>encrypt_buf()</code> function</a></h3>
-<div class="outline-text-3" id="text-orgf0bd9cc">
+<div id="outline-container-org8a9169b" class="outline-3">
+<h3 id="org8a9169b"><a href="#org8a9169b">The <code>encrypt_buf()</code> function</a></h3>
+<div class="outline-text-3" id="text-org8a9169b">
 <p>
 Part three is all about <code>encrypt_buf()</code> function, which can easily be
 visualized with <code>VV @ sym.encrypt_buf()</code>
 </p>
 
 
-<div id="orgd774de2" class="figure">
+<div id="org67dc13c" class="figure">
 <p><img src="images/Static_Analysis/20250204_163930_screenshot.png" alt="&quot;Radare2-produced visual graph of encrypt_buf(): consists of three &quot;nodes&quot;: main one, handling arguments and making the call to chacha20, one for normal execution, one for fail&quot;">
 </p>
 <p><span class="figure-number">Figure 1: </span><code>encrypt_buf()</code> graph</p>
@@ -168,9 +168,9 @@ Strange parts: Calling these two functions:
 </ul>
 </div>
 </div>
-<div id="outline-container-org4cb5e85" class="outline-3">
-<h3 id="org4cb5e85"><a href="#org4cb5e85">ChaCha20</a></h3>
-<div class="outline-text-3" id="text-org4cb5e85">
+<div id="outline-container-org00b1eba" class="outline-3">
+<h3 id="org00b1eba"><a href="#org00b1eba">ChaCha20</a></h3>
+<div class="outline-text-3" id="text-org00b1eba">
 <p>
 I was naive enough to think that the name somehow was an indicator
 that the function returned a <code>char char</code> array, with a length of 20.
@@ -196,7 +196,7 @@ file&rsquo;s contents with the same algorithm I did what any normal person
 would do:
 </p>
 <div class="org-src-container">
-<pre class="src src-shell" id="org65b2b9a">cp flag.txt.undead newflag.txt
+<pre class="src src-shell" id="org0b77151">cp flag.txt.undead newflag.txt
 ./crypt newflag.txt <span class="org-comment-delimiter"># </span><span class="org-comment">produced newflag.txt.undead</span>
 cat newflag.txt.undead <span class="org-comment-delimiter"># </span><span class="org-comment">flag in plain text ;)</span>
 </pre>
@@ -204,9 +204,9 @@ cat newflag.txt.undead <span class="org-comment-delimiter"># </span><span class=
 </div>
 </div>
 </div>
-<div id="outline-container-orgfbcefe0" class="outline-2">
-<h2 id="orgfbcefe0"><a href="#orgfbcefe0">Summary</a></h2>
-<div class="outline-text-2" id="text-orgfbcefe0">
+<div id="outline-container-orgb13abef" class="outline-2">
+<h2 id="orgb13abef"><a href="#orgb13abef">Summary</a></h2>
+<div class="outline-text-2" id="text-orgb13abef">
 <p>
 If you see any strange function names do not force them to make sense
 in your mind. <i>Google</i> it. It might prove useful, but in any case, you
@@ -214,7 +214,7 @@ got nothing to lose.
 </p>
 
 
-<div id="org848fd78" class="figure">
+<div id="org0301e34" class="figure">
 <p><img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbWl1eDJpdnQ2NGF1ZXV2NHBnNGgyYXBzanM5eHE4Y2Z4Y2FlYXBhZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/pUGWc0Rk5Lzbh8zstA/giphy.gif" alt="giphy.gif">
 </p>
 <p><span class="figure-number">Figure 2: </span>Cha-cha alright</p>
@@ -247,7 +247,7 @@ A mystery ?
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-29 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-29 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

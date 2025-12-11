@@ -47,17 +47,19 @@
  '((emacs-lisp . t) (gnuplot . t) (haskell . nil) (latex . t) (octave . t)
    (python . t) (matlab . t) (shell . t) (ruby . t) (sql . nil) (sqlite . t)))
 
+;; Whether or not to include
 (defun file-is-blog-post (filename)
   "Whether a non-index file is a draft or not"
   (when (not (file-is-index filename))
     (with-temp-buffer
       (insert-file-contents filename)
       (goto-char (point-min))
-      (re-search-forward "^#\\+DRAFT:\\s-*t" nil t))))
+      (not (re-search-forward "^#\\+DRAFT:\\s-*t" nil t)))))
 
 (defun file-is-index (filename)
   "Whether a file is an index file"
-(string-equal "index.org" (file-name-nondirectory filename)))
+  (let ((f (file-name-nondirectory filename)))
+    (member f index-file-list)))
 
 (defun my-publish-index (plist filename pub-dir)
   "Publish FILENAME only if it is an index.org file."
@@ -70,47 +72,74 @@
       (org-html-publish-to-html plist filename pub-dir)
     "index.html"))
 
+(defun my-sitemap-entry (entry style project)
+  "Customized sitemap entry creation function, to use my /nicer/ formatting.
+
+It filters out drafts and indices, returning empty strings."
+  (if (and (not (directory-name-p entry))
+	   (file-is-blog-post (expand-file-name entry posts-dir)))
+      (let* ((date (org-publish-find-date entry project)))
+	(format "%s[[file:%s][%s]]"
+		(if date (format-time-string "[%Y-%m-%d] " date) "")
+		entry
+		(org-publish-find-title entry project)))
+    "")
+  )
+
+(defun my-sitemap-function (title list)
+  "Customized sitemap function to exclude the empty entries created by `my-sitemap-entry'"
+  (let ((fixedlist (seq-filter (lambda (i) ( if (listp i) (not (member "" i)) t)) list)))
+    (concat "#+TITLE: " title "\n\n"
+	    (org-list-to-org fixedlist))))
+
 (setq org-publish-project-alist
       (list
-
-       (list "indices"
-       	     :base-directory base-dir
-       	     :recursive t
-       	     :html-postamble general-postamble
-       	     :publishing-directory public-dir
-       	     :publishing-function 'my-publish-index
-	     :with-author nil           ;; Don't include author name
-	     :with-creator nil            ;; Include Emacs and Org versions in footer
-	     :with-drawers t
-	     :headline-level 4
-	     :with-toc nil
-	     :section-numbers nil       ;; Don't include section numbers
-	     :time-stamp-file nil)
        (list "blog-posts"
        	     :base-directory posts-dir
        	     :recursive t
        	     :html-postamble  comments-postamble
        	     :publishing-directory posts-public-dir
        	     :publishing-function 'my-publish-blog-posts
-       	     :with-author t           ;; Don't include author name
-       	     :with-creator t            ;; Include Emacs and Org versions in footer
+       	     :with-author t
+       	     :with-creator t
        	     :with-drawers t
        	     :with-date t
        	     :headline-level 4
-       	     :with-toc t                ;; Include a table of contents
-       	     :section-numbers nil       ;; Don't include section numbers
+       	     :with-toc t
+       	     :section-numbers nil
        	     :time-stamp-file nil
-	     ;; :auto-rss
-	     ;; :rss-file "rss.xml"
-	     ;; :rss-root-url "posts"
-	     ;; :rss-title "Chasing simplicity"
-	     ;; :rss-description "Shiiiz"
-	     ;; :rss-link "/"
-	     ;; :completion-function 'org-publish-rss
-	     ;; :auto-sitemap
-	     ;; :sitemap-filename "recents.org"
-	     ;; :sitemap-format-entry "%d - %t"
+	     :auto-rss t
+	     :rss-file "rss.xml"
+	     :rss-root-url "posts"
+	     :rss-title "Chasing simplicity"
+	     :rss-description "Shiiiz"
+	     :rss-link "https://chatziiola.github.io/rss"
+	     :rss-filter-function 'file-is-blog-post
+	     :rss-with-content t
+	     :completion-function 'org-publish-rss
+	     :auto-sitemap t
+	     :sitemap-filename "recents.org"
+	     :sitemap-title "Archive"
+	     :sitemap-sort-files 'anti-chronologically
+	     :sitemap-format-entry 'my-sitemap-entry
+	     :sitemap-function 'my-sitemap-function
+	     :sitemap-style 'list
 	     )
+       ;; Moved indices after blog posts, because index.org reads recents.org,
+       ;; which is generated there
+       (list "indices"
+	     :base-directory base-dir
+	     :recursive t
+	     :html-postamble general-postamble
+	     :publishing-directory public-dir
+	     :publishing-function 'my-publish-index
+	     :with-author nil
+	     :with-creator nil
+	     :with-drawers t
+	     :headline-level 4
+	     :with-toc nil
+	     :section-numbers nil
+	     :time-stamp-file nil)
        (list "Images"
        	     :base-directory posts-dir
        	     :base-extension "png"
@@ -125,10 +154,15 @@
        	     :publishing-function 'org-publish-attachment
        	     :recursive t
        	     )
+       (list "Sitemap and Rss"
+	     :base-directory base-dir
+	     :base-extension "xml"
+       	     :publishing-directory public-dir
+	     :publishing-function 'org-publish-attachment
+	     :recursive t
+	     )
        )
       )
-
-(org-publish-rss "blog-posts")
 
 ;; Automatic image conversion
 (defun org-blog-publish-attachment (plist filename pub-dir)

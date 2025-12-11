@@ -50,38 +50,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org50ea5c9">Lecture details:</a>
+<li><a href="#orgb856539">Lecture details:</a>
 <ul>
-<li><a href="#orga2af7db">Note</a></li>
+<li><a href="#org5655d86">Note</a></li>
 </ul>
 </li>
-<li><a href="#org9dad7cf">Introduction</a></li>
-<li><a href="#org32099a9">Sorting</a>
+<li><a href="#orgedac955">Introduction</a></li>
+<li><a href="#org6227e8a">Sorting</a>
 <ul>
-<li><a href="#orga38632e">Direct Access Array Sort</a></li>
-<li><a href="#org5800c07">Tuple sort</a>
+<li><a href="#org978e730">Direct Access Array Sort</a></li>
+<li><a href="#orgcb82f0a">Tuple sort</a>
 <ul>
-<li><a href="#org0117118">Counting sort</a></li>
-<li><a href="#org0c02f6d">Why is that faster?</a></li>
+<li><a href="#orge52febd">Counting sort</a></li>
+<li><a href="#orge7c6e0a">Why is that faster?</a></li>
 </ul>
 </li>
-<li><a href="#org593c119">Radix Sort</a></li>
+<li><a href="#org34040d7">Radix Sort</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org50ea5c9" class="outline-2">
-<h2 id="org50ea5c9"><a href="#org50ea5c9">Lecture details:</a></h2>
-<div class="outline-text-2" id="text-org50ea5c9">
+<div id="outline-container-orgb856539" class="outline-2">
+<h2 id="orgb856539"><a href="#orgb856539">Lecture details:</a></h2>
+<div class="outline-text-2" id="text-orgb856539">
 <ul class="org-ul">
 <li>Professor: Jason Kun</li>
 <li>Lecture: <a href="https://www.youtube.com/watch?v=yndgIDO0zQQ&amp;list=PLUl4u3cNGP63EdVPNLG3ToM6LaEUuStEY&amp;index=7">YouTube Link</a></li>
 </ul>
 </div>
-<div id="outline-container-orga2af7db" class="outline-3">
-<h3 id="orga2af7db"><a href="#orga2af7db">Note</a></h3>
-<div class="outline-text-3" id="text-orga2af7db">
+<div id="outline-container-org5655d86" class="outline-3">
+<h3 id="org5655d86"><a href="#org5655d86">Note</a></h3>
+<div class="outline-text-3" id="text-org5655d86">
 <p>
 This lecture seemed full of gaps to me. Only through the lecture and rescitation
 notes did I understand the topics discussed.
@@ -89,9 +89,9 @@ notes did I understand the topics discussed.
 </div>
 </div>
 </div>
-<div id="outline-container-org9dad7cf" class="outline-2">
-<h2 id="org9dad7cf"><a href="#org9dad7cf">Introduction</a></h2>
-<div class="outline-text-2" id="text-org9dad7cf">
+<div id="outline-container-orgedac955" class="outline-2">
+<h2 id="orgedac955"><a href="#orgedac955">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgedac955">
 <p>
 In lecture 3, we discussed sorting algorithms based on the comparison model. We
 saw however, that using similar-to-hash functions we can move from the comparison to the
@@ -99,9 +99,9 @@ word RAM model and take advantage of \(O(1)\) access.
 </p>
 </div>
 </div>
-<div id="outline-container-org32099a9" class="outline-2">
-<h2 id="org32099a9"><a href="#org32099a9">Sorting</a></h2>
-<div class="outline-text-2" id="text-org32099a9">
+<div id="outline-container-org6227e8a" class="outline-2">
+<h2 id="org6227e8a"><a href="#org6227e8a">Sorting</a></h2>
+<div class="outline-text-2" id="text-org6227e8a">
 <p>
 In the comparison model, the <code>find(k)</code> operation has \(n+1\) possible output
 items while the <code>sort()</code> function has \(n!\) possible outputs, the \(n!\)
@@ -118,9 +118,9 @@ n! = n * n-1 * n-2 * \cdots >= n^{n/2}\\
 O(\lg{n!}) \to \Omega(n\lg{n})
 \end{align}
 </div>
-<div id="outline-container-orga38632e" class="outline-3">
-<h3 id="orga38632e"><a href="#orga38632e">Direct Access Array Sort</a></h3>
-<div class="outline-text-3" id="text-orga38632e">
+<div id="outline-container-org978e730" class="outline-3">
+<h3 id="org978e730"><a href="#org978e730">Direct Access Array Sort</a></h3>
+<div class="outline-text-3" id="text-org978e730">
 <p>
 Instantiante a big access array and store every item <code>x</code> in the <code>x.key</code> slot.
 Then walk down the array (iterate through it), returning the items in their
@@ -165,9 +165,9 @@ that, the running time can be \(O(n)\) if \(u = O(n)\), however, it can also bec
 </p>
 </div>
 </div>
-<div id="outline-container-org5800c07" class="outline-3">
-<h3 id="org5800c07"><a href="#org5800c07">Tuple sort</a></h3>
-<div class="outline-text-3" id="text-org5800c07">
+<div id="outline-container-orgcb82f0a" class="outline-3">
+<h3 id="orgcb82f0a"><a href="#orgcb82f0a">Tuple sort</a></h3>
+<div class="outline-text-3" id="text-orgcb82f0a">
 <p>
 What if we <i>split</i> the key values though?
 </p>
@@ -195,9 +195,9 @@ where <span class="underline">stable</span> sorting algorithms come into play: I
 not <i>differentiate</i> between two items, the order that the items have in input is kept.
 </p>
 </div>
-<div id="outline-container-org0117118" class="outline-4">
-<h4 id="org0117118"><a href="#org0117118">Counting sort</a></h4>
-<div class="outline-text-4" id="text-org0117118">
+<div id="outline-container-orge52febd" class="outline-4">
+<h4 id="orge52febd"><a href="#orge52febd">Counting sort</a></h4>
+<div class="outline-text-4" id="text-orge52febd">
 <p>
 In this <b>stable</b> algorithm, given an array \(A\) we put every item in \(x\in A\) in a
 dynamic structure at <code>B[x.key]</code>. Then we iterate through \(B\), returning the
@@ -220,11 +220,11 @@ items in a <i>FIFO</i> order.
 </div>
 </div>
 </div>
-<div id="outline-container-org0c02f6d" class="outline-4">
-<h4 id="org0c02f6d"><a href="#org0c02f6d">Why is that faster?</a></h4>
-<div class="outline-text-4" id="text-org0c02f6d">
+<div id="outline-container-orge7c6e0a" class="outline-4">
+<h4 id="orge7c6e0a"><a href="#orge7c6e0a">Why is that faster?</a></h4>
+<div class="outline-text-4" id="text-orge7c6e0a">
 <p>
-Even though it does not look much different to <a href="#orga38632e">DAA Sort</a>, counting sort handles
+Even though it does not look much different to <a href="#org978e730">DAA Sort</a>, counting sort handles
 collisions, meaning that we have now no problem dealing with sets containing
 duplicate keys.
 </p>
@@ -237,9 +237,9 @@ implementation of tuple sort is called:
 </div>
 </div>
 </div>
-<div id="outline-container-org593c119" class="outline-3">
-<h3 id="org593c119"><a href="#org593c119">Radix Sort</a></h3>
-<div class="outline-text-3" id="text-org593c119">
+<div id="outline-container-org34040d7" class="outline-3">
+<h3 id="org34040d7"><a href="#org34040d7">Radix Sort</a></h3>
+<div class="outline-text-3" id="text-org34040d7">
 <div class="org-src-container">
 <pre class="src src-python"><span class="org-keyword">def</span> <span class="org-function-name">radix_sort</span>(A):
     <span class="org-doc">"Sort A assuming items have non-negative keys"</span>
@@ -284,7 +284,7 @@ constant calls to the tuple sort function will need to be called
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-19 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-19 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

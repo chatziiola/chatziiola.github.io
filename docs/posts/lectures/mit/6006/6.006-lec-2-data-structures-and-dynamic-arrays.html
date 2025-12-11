@@ -50,33 +50,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org70d3122">Difference between an interface and a data structure</a>
+<li><a href="#org6a026e4">Difference between an interface and a data structure</a>
 <ul>
-<li><a href="#orgf2f3f38">The main interfaces</a></li>
-<li><a href="#orgc1002b8">DS approaches</a></li>
+<li><a href="#orgd1038f3">The main interfaces</a></li>
+<li><a href="#org5e783d5">DS approaches</a></li>
 </ul>
 </li>
-<li><a href="#org1652e56">Analyzing static sequences</a>
+<li><a href="#orge882e2e">Analyzing static sequences</a>
 <ul>
-<li><a href="#orgb283a77">Interface functions</a></li>
-<li><a href="#orgb9b0457">Word RAM model of computation</a></li>
-<li><a href="#org257e30b">Reality and memory</a></li>
+<li><a href="#org02066df">Interface functions</a></li>
+<li><a href="#org9ee808b">Word RAM model of computation</a></li>
+<li><a href="#org10cc02f">Reality and memory</a></li>
 </ul>
 </li>
-<li><a href="#org803ea72">Analyzing dynamic sequences</a>
+<li><a href="#org4f21e7a">Analyzing dynamic sequences</a>
 <ul>
-<li><a href="#orgc3dc317">Interface functions</a></li>
-<li><a href="#org27cf66a">Linked List</a></li>
+<li><a href="#org3859177">Interface functions</a></li>
+<li><a href="#org93024c0">Linked List</a></li>
 </ul>
 </li>
-<li><a href="#orgdc9b33f">Dynamic arrays</a></li>
-<li><a href="#orgd822e2f">Summary: Comparing operations</a></li>
+<li><a href="#org0c667c5">Dynamic arrays</a></li>
+<li><a href="#orgf93aced">Summary: Comparing operations</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org70d3122" class="outline-2">
-<h2 id="org70d3122"><a href="#org70d3122">Difference between an interface and a data structure</a></h2>
-<div class="outline-text-2" id="text-org70d3122">
+<div id="outline-container-org6a026e4" class="outline-2">
+<h2 id="org6a026e4"><a href="#org6a026e4">Difference between an interface and a data structure</a></h2>
+<div class="outline-text-2" id="text-org6a026e4">
 <p>
 The interface can also be called <i>ADT or API</i>.
 </p>
@@ -90,9 +90,9 @@ perform and what they will be <i>achieving</i> while the data structures is the
 function.
 </p>
 </div>
-<div id="outline-container-orgf2f3f38" class="outline-3">
-<h3 id="orgf2f3f38"><a href="#orgf2f3f38">The main interfaces</a></h3>
-<div class="outline-text-3" id="text-orgf2f3f38">
+<div id="outline-container-orgd1038f3" class="outline-3">
+<h3 id="orgd1038f3"><a href="#orgd1038f3">The main interfaces</a></h3>
+<div class="outline-text-3" id="text-orgd1038f3">
 <p>
 There are two main interfaces:
 </p>
@@ -102,16 +102,16 @@ There are two main interfaces:
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc1002b8" class="outline-3">
-<h3 id="orgc1002b8"><a href="#orgc1002b8">DS approaches</a></h3>
-<div class="outline-text-3" id="text-orgc1002b8">
+<div id="outline-container-org5e783d5" class="outline-3">
+<h3 id="org5e783d5"><a href="#org5e783d5">DS approaches</a></h3>
+<div class="outline-text-3" id="text-org5e783d5">
 <p>
 Additionally there are two schools of thought:
 </p>
 <ol class="org-ol">
-<li><a href="#org1652e56"><i>static</i> arrays</a>
+<li><a href="#orge882e2e"><i>static</i> arrays</a>
 Their size is predefined and difficult to change</li>
-<li><a href="#org803ea72">dynamic structures</a>
+<li><a href="#org4f21e7a">dynamic structures</a>
 Focusing on variable length and easy addition/deletion operations.</li>
 </ol>
 
@@ -121,17 +121,17 @@ Now, we will combine these two together, focusing on sequences.
 </div>
 </div>
 </div>
-<div id="outline-container-org1652e56" class="outline-2">
-<h2 id="org1652e56"><a href="#org1652e56">Analyzing static sequences</a></h2>
-<div class="outline-text-2" id="text-org1652e56">
+<div id="outline-container-orge882e2e" class="outline-2">
+<h2 id="orge882e2e"><a href="#orge882e2e">Analyzing static sequences</a></h2>
+<div class="outline-text-2" id="text-orge882e2e">
 <p>
 Static sequences are to be used when dealing with data in which the order is
 important, however the volume of it does not change often.
 </p>
 </div>
-<div id="outline-container-orgb283a77" class="outline-3">
-<h3 id="orgb283a77"><a href="#orgb283a77">Interface functions</a></h3>
-<div class="outline-text-3" id="text-orgb283a77">
+<div id="outline-container-org02066df" class="outline-3">
+<h3 id="org02066df"><a href="#org02066df">Interface functions</a></h3>
+<div class="outline-text-3" id="text-org02066df">
 <p>
 <i>The methods that static data structures need to implement efficiently</i>
 </p>
@@ -146,7 +146,7 @@ Returns n, no matter how many elements are used inside the array</li>
 Visit every element from the beginning of the array to the end of the array</li>
 <li><code>get_at(i)</code>, O(1)</li>
 <li><code>set_at(i,x)</code>, O(1)
-These two functions take constant time as explained in <a href="#orgb9b0457">the word RAM model</a></li>
+These two functions take constant time as explained in <a href="#org9ee808b">the word RAM model</a></li>
 </ul>
 
 <p>
@@ -154,9 +154,9 @@ The natural solution to this <i>problem</i> is the static array.
 </p>
 </div>
 </div>
-<div id="outline-container-orgb9b0457" class="outline-3">
-<h3 id="orgb9b0457"><a href="#orgb9b0457">Word RAM model of computation</a></h3>
-<div class="outline-text-3" id="text-orgb9b0457">
+<div id="outline-container-org9ee808b" class="outline-3">
+<h3 id="org9ee808b"><a href="#org9ee808b">Word RAM model of computation</a></h3>
+<div class="outline-text-3" id="text-org9ee808b">
 <p>
 RAM stands out for Random Access Memory, meaning that the computer (CPU) can
 access every element in it in constant time. This differentiates data structures
@@ -167,7 +167,7 @@ that follow this model to ones that focus on other operations.
 Practically, this means that all items are stored in a continuous location in
 memory, where the ith field  consists of x<sub>i</sub>
 </p>
-<div class="source" id="org952906a">
+<div class="source" id="org6fd1b34">
 <p>
 x[i] = x<sub>i</sub>
 </p>
@@ -175,9 +175,9 @@ x[i] = x<sub>i</sub>
 </div>
 </div>
 </div>
-<div id="outline-container-org257e30b" class="outline-3">
-<h3 id="org257e30b"><a href="#org257e30b">Reality and memory</a></h3>
-<div class="outline-text-3" id="text-org257e30b">
+<div id="outline-container-org10cc02f" class="outline-3">
+<h3 id="org10cc02f"><a href="#org10cc02f">Reality and memory</a></h3>
+<div class="outline-text-3" id="text-org10cc02f">
 <p>
 <i>I must have misunderstood something here, cause I can not explain it clearly</i>
 </p>
@@ -192,17 +192,17 @@ use the data structure.
 </div>
 </div>
 </div>
-<div id="outline-container-org803ea72" class="outline-2">
-<h2 id="org803ea72"><a href="#org803ea72">Analyzing dynamic sequences</a></h2>
-<div class="outline-text-2" id="text-org803ea72">
+<div id="outline-container-org4f21e7a" class="outline-2">
+<h2 id="org4f21e7a"><a href="#org4f21e7a">Analyzing dynamic sequences</a></h2>
+<div class="outline-text-2" id="text-org4f21e7a">
 <p>
 Dynamic sequences are to be used when we care more about quick insertion and
 sorting and not so much about random access speeds
 </p>
 </div>
-<div id="outline-container-orgc3dc317" class="outline-3">
-<h3 id="orgc3dc317"><a href="#orgc3dc317">Interface functions</a></h3>
-<div class="outline-text-3" id="text-orgc3dc317">
+<div id="outline-container-org3859177" class="outline-3">
+<h3 id="org3859177"><a href="#org3859177">Interface functions</a></h3>
+<div class="outline-text-3" id="text-org3859177">
 <p>
 Analyzing the previous statement a little bit more, we use dynamic sequences
 when we find ourselves dealing with the following operations<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>:
@@ -225,9 +225,9 @@ scenario) the entire array</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org27cf66a" class="outline-3">
-<h3 id="org27cf66a"><a href="#org27cf66a">Linked List</a></h3>
-<div class="outline-text-3" id="text-org27cf66a">
+<div id="outline-container-org93024c0" class="outline-3">
+<h3 id="org93024c0"><a href="#org93024c0">Linked List</a></h3>
+<div class="outline-text-3" id="text-org93024c0">
 <p>
 The linked list is a data structure based on the Dynamic Sequence ADT. It is a
 sequence of nodes, each one with a <code>value</code> and a <code>next</code> field, pointing to the
@@ -242,9 +242,9 @@ pointers in each node, and why RAM operations do not work efficiently
 </div>
 </div>
 </div>
-<div id="outline-container-orgdc9b33f" class="outline-2">
-<h2 id="orgdc9b33f"><a href="#orgdc9b33f">Dynamic arrays</a></h2>
-<div class="outline-text-2" id="text-orgdc9b33f">
+<div id="outline-container-org0c667c5" class="outline-2">
+<h2 id="org0c667c5"><a href="#org0c667c5">Dynamic arrays</a></h2>
+<div class="outline-text-2" id="text-org0c667c5">
 <p>
 <i>In Python: lists</i>
 </p>
@@ -277,9 +277,9 @@ efficiency of static array to dynamic array</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd822e2f" class="outline-2">
-<h2 id="orgd822e2f"><a href="#orgd822e2f">Summary: Comparing operations</a></h2>
-<div class="outline-text-2" id="text-orgd822e2f">
+<div id="outline-container-orgf93aced" class="outline-2">
+<h2 id="orgf93aced"><a href="#orgf93aced">Summary: Comparing operations</a></h2>
+<div class="outline-text-2" id="text-orgf93aced">
 <table>
 
 
@@ -335,7 +335,7 @@ We use amortization: operation takes T(n) amortized time if any k operations tak
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-16 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-02-16 Wed 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

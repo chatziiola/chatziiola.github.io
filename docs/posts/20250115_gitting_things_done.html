@@ -22,8 +22,8 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8f82ac2">Beware</a></li>
-<li><a href="#org63339ce"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
+<li><a href="#org479a0e9">Beware</a></li>
+<li><a href="#org322b07c"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
 </ul>
 </div>
 </div>
@@ -36,9 +36,9 @@ understatement) and on a forcibly new installation, some files were
 hastily rewritten/copied, so that I would not lose any time during the
 transition. One critical such file was my <code>.gitconfig</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
 </p>
-<div id="outline-container-org8f82ac2" class="outline-2">
-<h2 id="org8f82ac2"><a href="#org8f82ac2">Beware</a></h2>
-<div class="outline-text-2" id="text-org8f82ac2">
+<div id="outline-container-org479a0e9" class="outline-2">
+<h2 id="org479a0e9"><a href="#org479a0e9">Beware</a></h2>
+<div class="outline-text-2" id="text-org479a0e9">
 <p>
 Well, don&rsquo;t pay attention to the fanfare—just make sure to read your
 details carefully, or you will find yourself in my position, as I did.
@@ -48,7 +48,7 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-config" id="org6fb0033">[user]
+<pre class="src src-config" id="org00422b3">[user]
         name = &lt;your-name&gt;
         email = &lt;your-email&gt; ; make sure it really is your email
         username = &lt;your-username&gt; 
@@ -72,11 +72,11 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </div>
 </div>
 </div>
-<div id="outline-container-org63339ce" class="outline-2">
-<h2 id="org63339ce"><a href="#org63339ce"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
-<div class="outline-text-2" id="text-org63339ce">
+<div id="outline-container-org322b07c" class="outline-2">
+<h2 id="org322b07c"><a href="#org322b07c"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
+<div class="outline-text-2" id="text-org322b07c">
 
-<div id="org91ec8b8" class="figure">
+<div id="orge258670" class="figure">
 <p><img src="images/20250115_195652_screenshot.png" alt="20250115_195652_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Don&rsquo;t mind the current date, just see the empty ones around it</p>
@@ -95,7 +95,7 @@ between this and my working installation. In fact, the config command
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org86626a6">git config -l
+<pre class="src src-shell" id="orgb8355f6">git config -l
 </pre>
 </div>
 
@@ -107,7 +107,7 @@ solve, and all that is needed are <del>1</del>, <del>2</del>, and 3 commands.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org870223d"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
+<pre class="src src-shell" id="org902e3b0"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
 git log 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Fix faulty commits</span>
 git rebase -r &lt;proper_commit_id&gt; --exec <span class="org-string">'git commit --amend --no-edit --reset-author'</span> 
@@ -145,7 +145,7 @@ I do not even know how I noticed that.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-15 Wed 19:33</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-01-15 Wed 19:33</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

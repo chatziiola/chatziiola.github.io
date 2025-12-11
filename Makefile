@@ -8,8 +8,12 @@ SHELL := /bin/bash
 # Targets
 .DEFAULT_GOAL := local
 
-runPy:
+sitemap_py:
+	@echo "Generating sitemap with python"
 	python3 scripts/generate_sitemap.py
+
+runPy:
+	@echo "Creating indices with python"
 	python3 scripts/working.py
 
 minify:
@@ -30,12 +34,13 @@ clean:
 # add_cname:
 # 	#echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
 # Build the site using Emacs
-build: minify runPy
-	@echo "Building the site"
-	emacs -Q --script scripts/build-site.el >/dev/null
+build_emacs:
+	@echo "Running emacs build"
+	emacs -Q --script scripts/build-site.el 
+
+build: minify sitemap_py build_emacs copy_static
 
 copy_static:
-	cp $(PUBLIC_DIR)/index.html $(POSTS_PUBLIC_DIR)
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
@@ -43,5 +48,4 @@ copy_static:
 serve_local:
 	cd $(PUBLIC_DIR) && python3 -m http.server
 
-local: build copy_static serve_local 
-
+local: build copy_static serve_local

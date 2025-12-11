@@ -18,37 +18,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8f570d0">Introduction</a></li>
-<li><a href="#org888f86e">The plan</a>
+<li><a href="#org3f29294">Introduction</a></li>
+<li><a href="#org06a30dc">The plan</a>
 <ul>
-<li><a href="#org746fd12">Subtasks</a></li>
+<li><a href="#orga409258">Subtasks</a></li>
 </ul>
 </li>
-<li><a href="#orgb0833c1">Assumptions</a></li>
-<li><a href="#org722a16c">Step 0: Configuring the wrapper</a></li>
-<li><a href="#org8ff2be4">Step 0.5: General Functions</a></li>
-<li><a href="#org6c95064">Step 1: Link Checker</a>
+<li><a href="#org0272029">Assumptions</a></li>
+<li><a href="#orgb7eed20">Step 0: Configuring the wrapper</a></li>
+<li><a href="#org78cd8bf">Step 0.5: General Functions</a></li>
+<li><a href="#org420c348">Step 1: Link Checker</a>
 <ul>
-<li><a href="#orga4db288">Links in Files</a></li>
+<li><a href="#org9a16a87">Links in Files</a></li>
 </ul>
 </li>
-<li><a href="#orgeed0d0f">Step 2: Move Images</a>
+<li><a href="#org43bbb30">Step 2: Move Images</a>
 <ul>
-<li><a href="#org8a3242b">The problem with moving images</a></li>
+<li><a href="#org8d36973">The problem with moving images</a></li>
 </ul>
 </li>
-<li><a href="#orgb9792ec">And it is never so simple</a></li>
-<li><a href="#orgf2c61ec">Summing Up and Criticizing</a>
+<li><a href="#orgcef0154">And it is never so simple</a></li>
+<li><a href="#org7e8f66d">Summing Up and Criticizing</a>
 <ul>
-<li><a href="#org4b75d39">Yet Another Note</a></li>
+<li><a href="#org105dd7c">Yet Another Note</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8f570d0" class="outline-2">
-<h2 id="org8f570d0"><a href="#org8f570d0">Introduction</a></h2>
-<div class="outline-text-2" id="text-org8f570d0">
+<div id="outline-container-org3f29294" class="outline-2">
+<h2 id="org3f29294"><a href="#org3f29294">Introduction</a></h2>
+<div class="outline-text-2" id="text-org3f29294">
 <p>
 When I first started using <code>org-download</code> to have pictures within my
 posts, I had not exactly configured it properly, resulting in numerous
@@ -56,7 +56,7 @@ subdirectories that I was not happy with:
 </p>
 
 
-<div id="org4567422" class="figure">
+<div id="orgc574b6b" class="figure">
 <p><img src="images/Introduction/20240709_140235_screenshot.png" alt="20240709_140235_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Look at all those image directories</p>
@@ -67,7 +67,7 @@ Moving on, I want that mess hidden within <code>images/</code>: The main directo
 should be cleaner.
 </p>
 
-<div class="note" id="orgd24c488">
+<div class="note" id="orge5e5167">
 <p>
 TLDR: Even though this post started as a form of documentation to the
 code I was writing, in order to tackle it quickly, I foolishly avoided
@@ -79,9 +79,9 @@ incomplete - I will fix it when I find myself in need to improve <code>morg</cod
 </div>
 </div>
 </div>
-<div id="outline-container-org888f86e" class="outline-2">
-<h2 id="org888f86e"><a href="#org888f86e">The plan</a></h2>
-<div class="outline-text-2" id="text-org888f86e">
+<div id="outline-container-org06a30dc" class="outline-2">
+<h2 id="org06a30dc"><a href="#org06a30dc">The plan</a></h2>
+<div class="outline-text-2" id="text-org06a30dc">
 <p>
 The plan here is to freshen up my python skills whilst creating a
 script to:
@@ -95,9 +95,9 @@ whatever links pointing to those images. If images with no links
 are found they are printed for manual removal.</li>
 </ol>
 </div>
-<div id="outline-container-org746fd12" class="outline-3">
-<h3 id="org746fd12"><a href="#org746fd12">Subtasks</a></h3>
-<div class="outline-text-3" id="text-org746fd12">
+<div id="outline-container-orga409258" class="outline-3">
+<h3 id="orga409258"><a href="#orga409258">Subtasks</a></h3>
+<div class="outline-text-3" id="text-orga409258">
 <p>
 Covering the creation process of our tool, the article shows how to:
 </p>
@@ -113,9 +113,9 @@ along with any photos it may have.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb0833c1" class="outline-2">
-<h2 id="orgb0833c1"><a href="#orgb0833c1">Assumptions</a></h2>
-<div class="outline-text-2" id="text-orgb0833c1">
+<div id="outline-container-org0272029" class="outline-2">
+<h2 id="org0272029"><a href="#org0272029">Assumptions</a></h2>
+<div class="outline-text-2" id="text-org0272029">
 <p>
 Before we begin we need to make clear the constraints:
 </p>
@@ -127,9 +127,9 @@ change that in the future if necessary.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org722a16c" class="outline-2">
-<h2 id="org722a16c"><a href="#org722a16c">Step 0: Configuring the wrapper</a></h2>
-<div class="outline-text-2" id="text-org722a16c">
+<div id="outline-container-orgb7eed20" class="outline-2">
+<h2 id="orgb7eed20"><a href="#orgb7eed20">Step 0: Configuring the wrapper</a></h2>
+<div class="outline-text-2" id="text-orgb7eed20">
 <p>
 I like using <code>argparse</code>, to easily add/remove options and manage them in
 a significantly more secure and straightforward manner than if I
@@ -137,9 +137,9 @@ quickly made something from scratch.
 </p>
 </div>
 </div>
-<div id="outline-container-org8ff2be4" class="outline-2">
-<h2 id="org8ff2be4"><a href="#org8ff2be4">Step 0.5: General Functions</a></h2>
-<div class="outline-text-2" id="text-org8ff2be4">
+<div id="outline-container-org78cd8bf" class="outline-2">
+<h2 id="org78cd8bf"><a href="#org78cd8bf">Step 0.5: General Functions</a></h2>
+<div class="outline-text-2" id="text-org78cd8bf">
 <p>
 At this point it is nice to develop some functions that will make the
 rest of the code more readable, maintainable (and robust, avoiding the
@@ -155,13 +155,13 @@ In this &ldquo;project&rdquo;:
 </ul>
 </div>
 </div>
-<div id="outline-container-org6c95064" class="outline-2">
-<h2 id="org6c95064"><a href="#org6c95064">Step 1: Link Checker</a></h2>
-<div class="outline-text-2" id="text-org6c95064">
+<div id="outline-container-org420c348" class="outline-2">
+<h2 id="org420c348"><a href="#org420c348">Step 1: Link Checker</a></h2>
+<div class="outline-text-2" id="text-org420c348">
 </div>
-<div id="outline-container-orga4db288" class="outline-3">
-<h3 id="orga4db288"><a href="#orga4db288">Links in Files</a></h3>
-<div class="outline-text-3" id="text-orga4db288">
+<div id="outline-container-org9a16a87" class="outline-3">
+<h3 id="org9a16a87"><a href="#org9a16a87">Links in Files</a></h3>
+<div class="outline-text-3" id="text-org9a16a87">
 <p>
 Obviously, there are common parts in the functions described above.
 The most apparent one is in <i>steps</i> 3 and 4: There needs to be a
@@ -170,7 +170,7 @@ a. Find (file) links
 b. See where they point
 </p>
 
-<div class="note" id="org8190515">
+<div class="note" id="org9a6d4e4">
 <p>
 Image links are slightly different than general purpose org links.
 Later in design, to avoid troubleshooting certain regex scenarios, I
@@ -181,13 +181,13 @@ also made a different function to search for image links only
 </div>
 </div>
 </div>
-<div id="outline-container-orgeed0d0f" class="outline-2">
-<h2 id="orgeed0d0f"><a href="#orgeed0d0f">Step 2: Move Images</a></h2>
-<div class="outline-text-2" id="text-orgeed0d0f">
+<div id="outline-container-org43bbb30" class="outline-2">
+<h2 id="org43bbb30"><a href="#org43bbb30">Step 2: Move Images</a></h2>
+<div class="outline-text-2" id="text-org43bbb30">
 </div>
-<div id="outline-container-org8a3242b" class="outline-3">
-<h3 id="org8a3242b"><a href="#org8a3242b">The problem with moving images</a></h3>
-<div class="outline-text-3" id="text-org8a3242b">
+<div id="outline-container-org8d36973" class="outline-3">
+<h3 id="org8d36973"><a href="#org8d36973">The problem with moving images</a></h3>
+<div class="outline-text-3" id="text-org8d36973">
 <p>
 It is not just a simple <code>mv</code>. It is a simple <code>mv</code> <b>along with</b> updating all
 the org-files pointing to them: and not messing the paths up is what
@@ -196,9 +196,9 @@ makes it difficult
 </div>
 </div>
 </div>
-<div id="outline-container-orgb9792ec" class="outline-2">
-<h2 id="orgb9792ec"><a href="#orgb9792ec">And it is never so simple</a></h2>
-<div class="outline-text-2" id="text-orgb9792ec">
+<div id="outline-container-orgcef0154" class="outline-2">
+<h2 id="orgcef0154"><a href="#orgcef0154">And it is never so simple</a></h2>
+<div class="outline-text-2" id="text-orgcef0154">
 <div class="tenor-gif-embed" data-postid="20462984" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/family-guy-peter-griffin-gif-20462984">Family Guy Peter Griffin GIF</a>from <a href="https://tenor.com/search/family+guy-gifs">Family Guy GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 <p>
@@ -213,25 +213,25 @@ functionality.
 </p>
 
 
-<div id="orge01ae6d" class="figure">
+<div id="orgb80252a" class="figure">
 <p><img src="images/And_it_is_never_so_simple/20240902_121914_screenshot.png" alt="20240902_121914_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>After running morg</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf2c61ec" class="outline-2">
-<h2 id="orgf2c61ec"><a href="#orgf2c61ec">Summing Up and Criticizing</a></h2>
-<div class="outline-text-2" id="text-orgf2c61ec">
+<div id="outline-container-org7e8f66d" class="outline-2">
+<h2 id="org7e8f66d"><a href="#org7e8f66d">Summing Up and Criticizing</a></h2>
+<div class="outline-text-2" id="text-org7e8f66d">
 <p>
 I have published this script in <a href="https://github.com/chatziiola/morg">chatziiola/morg</a>. If you want to use it
 please refer to that version since mistakes are surely made and they
 might have already been found.
 </p>
 </div>
-<div id="outline-container-org4b75d39" class="outline-3">
-<h3 id="org4b75d39"><a href="#org4b75d39">Yet Another Note</a></h3>
-<div class="outline-text-3" id="text-org4b75d39">
+<div id="outline-container-org105dd7c" class="outline-3">
+<h3 id="org105dd7c"><a href="#org105dd7c">Yet Another Note</a></h3>
+<div class="outline-text-3" id="text-org105dd7c">
 <p>
 There will come a time (maybe) when after spending some more time on
 these that I will do an even better job, preferably fixing my
@@ -244,7 +244,7 @@ images inside an <code>images</code> directory.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-07-09 Tue 13:57</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-07-09 Tue 13:57</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

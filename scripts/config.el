@@ -13,9 +13,7 @@
 ;;; Commentary:
 ;; DO BA DO BA DI
 
-(load (expand-file-name "ini.el" (file-name-directory load-file-name)))
-; (load (expand-file-name "ini.el" ))
-; (defvar configini (expand-file-name "config.ini" ) "Path to the configuration .ini file.")
+(require 'ini)
 
 (defvar configini (expand-file-name "config.ini" (file-name-directory load-file-name))
   "Path to the configuration .ini file.")
@@ -57,5 +55,8 @@
 (defvar comments-postamble (concat(ini/get-value-from-file  "HTML" "CommentsPostamble" configini) general-postamble)
   "Postamble for posts so that giscus comments are enabled.")
 
-;; (provide 'config)
+(defvar index-file-list '("index.org" "about.org" "404.org")
+  "List of files that have the /index/ property, and thus should not be considered plain posts.")
+
+(provide 'config)
 ;; config.el ends here

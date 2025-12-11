@@ -19,22 +19,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org6b93b73">Introduction</a></li>
-<li><a href="#orged98796">Challenge</a>
+<li><a href="#orgb2f5137">Introduction</a></li>
+<li><a href="#orge45bcde">Challenge</a>
 <ul>
-<li><a href="#org71edbf0">Search functionality</a></li>
-<li><a href="#orga9c79dc">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#orgdbcdd0a">Keep Going</a></li>
-<li><a href="#org085a164">Back</a></li>
+<li><a href="#org38f5f8e">Search functionality</a></li>
+<li><a href="#orgd799c8f">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#orgf053db3">Keep Going</a></li>
+<li><a href="#orgf9d80df">Back</a></li>
 </ul>
 </li>
-<li><a href="#orge43833e">Summary</a></li>
+<li><a href="#orgd0327a1">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org6b93b73" class="outline-2">
-<h2 id="org6b93b73"><a href="#org6b93b73">Introduction</a></h2>
-<div class="outline-text-2" id="text-org6b93b73">
+<div id="outline-container-orgb2f5137" class="outline-2">
+<h2 id="orgb2f5137"><a href="#orgb2f5137">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgb2f5137">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -44,9 +44,9 @@ time it takes, is always satisfying in the end!
 </p>
 </div>
 </div>
-<div id="outline-container-orged98796" class="outline-2">
-<h2 id="orged98796"><a href="#orged98796">Challenge</a></h2>
-<div class="outline-text-2" id="text-orged98796">
+<div id="outline-container-orge45bcde" class="outline-2">
+<h2 id="orge45bcde"><a href="#orge45bcde">Challenge</a></h2>
+<div class="outline-text-2" id="text-orge45bcde">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -61,29 +61,29 @@ writing it to a dangerous sink.
 </p>
 </blockquote>
 </div>
-<div id="outline-container-org71edbf0" class="outline-3">
-<h3 id="org71edbf0"><a href="#org71edbf0">Search functionality</a></h3>
-<div class="outline-text-3" id="text-org71edbf0">
+<div id="outline-container-org38f5f8e" class="outline-3">
+<h3 id="org38f5f8e"><a href="#org38f5f8e">Search functionality</a></h3>
+<div class="outline-text-3" id="text-org38f5f8e">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org71b40c0">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+<pre class="src src-html" id="org539b535">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
 &lt;<span class="org-function-name">script</span>&gt;search('search-results')&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orga9c79dc" class="outline-3">
-<h3 id="orga9c79dc"><a href="#orga9c79dc">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-orga9c79dc">
+<div id="outline-container-orgd799c8f" class="outline-3">
+<h3 id="orgd799c8f"><a href="#orgd799c8f">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-orgd799c8f">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="org57f70f4"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
+<pre class="src src-js" id="orge4e3c30"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
     <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = <span class="org-keyword">new</span> <span class="org-type">XMLHttpRequest</span>();
     xhr.onreadystatechange = <span class="org-keyword">function</span>() {
         <span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
@@ -162,7 +162,7 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="org8a74dca" class="figure">
+<div id="org052bd0c" class="figure">
 <p><img src="images/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
@@ -209,9 +209,9 @@ link.
 </p>
 </div>
 </div>
-<div id="outline-container-orgdbcdd0a" class="outline-3">
-<h3 id="orgdbcdd0a"><a href="#orgdbcdd0a">Keep Going</a></h3>
-<div class="outline-text-3" id="text-orgdbcdd0a">
+<div id="outline-container-orgf053db3" class="outline-3">
+<h3 id="orgf053db3"><a href="#orgf053db3">Keep Going</a></h3>
+<div class="outline-text-3" id="text-orgf053db3">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -225,14 +225,14 @@ is not applicable</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org085a164" class="outline-3">
-<h3 id="org085a164"><a href="#org085a164">Back</a></h3>
-<div class="outline-text-3" id="text-org085a164">
+<div id="outline-container-orgf9d80df" class="outline-3">
+<h3 id="orgf9d80df"><a href="#orgf9d80df">Back</a></h3>
+<div class="outline-text-3" id="text-orgf9d80df">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org6d4d79b"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
+<pre class="src src-js" id="org9ba2ad8"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
     eval(<span class="org-string">'var searchResultsObj = '</span> + <span class="org-constant">this</span>.responseText);
     displaySearchResults(searchResultsObj);
 }
@@ -246,7 +246,7 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="org7508b37" class="figure">
+<div id="org909ccb4" class="figure">
 <p><img src="images/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
@@ -259,9 +259,9 @@ as solved
 </div>
 </div>
 </div>
-<div id="outline-container-orge43833e" class="outline-2">
-<h2 id="orge43833e"><a href="#orge43833e">Summary</a></h2>
-<div class="outline-text-2" id="text-orge43833e">
+<div id="outline-container-orgd0327a1" class="outline-2">
+<h2 id="orgd0327a1"><a href="#orgd0327a1">Summary</a></h2>
+<div class="outline-text-2" id="text-orgd0327a1">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>
@@ -269,7 +269,7 @@ as solved
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

