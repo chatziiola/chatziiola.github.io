@@ -115,7 +115,7 @@ It filters out drafts and indices, returning empty strings."
 	     :rss-description "Shiiiz"
 	     :rss-link "https://chatziiola.github.io/rss"
 	     :rss-filter-function 'file-is-blog-post
-	     :rss-with-content t
+	     :rss-with-content nil
 	     :completion-function 'org-publish-rss
 	     :auto-sitemap t
 	     :sitemap-filename "recents.org"
