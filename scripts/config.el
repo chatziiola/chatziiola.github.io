@@ -46,13 +46,36 @@
 (defvar css-path (ini/get-value-from-file  "Site" "CssPath" configini)
   "Self-descriptive.")
 
-(defvar org-blog-head (ini/get-value-from-file  "HTML" "OrgBlogHead" configini)
+(defvar org-blog-head (concat
+			   (ini/get-value-from-file  "HTML" "FontImports" configini)
+			   (ini/get-value-from-file  "HTML" "CustomJS" configini)
+			   (ini/get-value-from-file  "HTML" "Stylesheet" configini)
+			   (ini/get-value-from-file  "HTML" "Favicon" configini)
+			   (ini/get-value-from-file  "HTML" "FontAwesome" configini)
+			   (ini/get-value-from-file  "HTML" "OrgBlogHead" configini))
   "Description - BLOG HTML HEAD.")
 
-(defvar general-postamble (ini/get-value-from-file  "HTML" "GeneralPostamble" configini)
+(defvar font-awesome-container (concat
+				(ini/get-value-from-file  "FontAwesome" "start" configini)
+				(ini/get-value-from-file  "FontAwesome" "github" configini)
+				(ini/get-value-from-file  "FontAwesome" "linkedin" configini)
+				(ini/get-value-from-file  "FontAwesome" "rss" configini)
+				(ini/get-value-from-file  "FontAwesome" "end" configini))
+  "FontAwesome container")
+
+(defvar general-postamble (concat
+			   (ini/get-value-from-file  "GeneralPostamble" "start" configini)
+			   (ini/get-value-from-file  "GeneralPostamble" "made_with" configini)
+			   (ini/get-value-from-file  "GeneralPostamble" "css_attribution" configini)
+			   (ini/get-value-from-file  "GeneralPostamble" "copyright" configini)
+			   (ini/get-value-from-file  "GeneralPostamble" "end" configini)
+			   font-awesome-container)
   "To be used on all pages.")
 
-(defvar comments-postamble (concat(ini/get-value-from-file  "HTML" "CommentsPostamble" configini) general-postamble)
+(defvar comments-postamble (concat
+			    (ini/get-value-from-file  "CommentsPostamble" "giscusJS" configini)
+			    (ini/get-value-from-file  "CommentsPostamble" "DateString" configini)
+			    general-postamble)
   "Postamble for posts so that giscus comments are enabled.")
 
 (defvar index-file-list '("index.org" "about.org" "404.org")
