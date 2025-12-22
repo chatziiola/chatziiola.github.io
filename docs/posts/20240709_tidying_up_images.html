@@ -6,7 +6,7 @@
 <title>Tidying up the blog</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -18,37 +18,37 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org3f29294">Introduction</a></li>
-<li><a href="#org06a30dc">The plan</a>
+<li><a href="#orgd2a79db">Introduction</a></li>
+<li><a href="#org4ae46d9">The plan</a>
 <ul>
-<li><a href="#orga409258">Subtasks</a></li>
+<li><a href="#orga82da12">Subtasks</a></li>
 </ul>
 </li>
-<li><a href="#org0272029">Assumptions</a></li>
-<li><a href="#orgb7eed20">Step 0: Configuring the wrapper</a></li>
-<li><a href="#org78cd8bf">Step 0.5: General Functions</a></li>
-<li><a href="#org420c348">Step 1: Link Checker</a>
+<li><a href="#org103d491">Assumptions</a></li>
+<li><a href="#orgdf8d6ec">Step 0: Configuring the wrapper</a></li>
+<li><a href="#org76443f3">Step 0.5: General Functions</a></li>
+<li><a href="#org01131ee">Step 1: Link Checker</a>
 <ul>
-<li><a href="#org9a16a87">Links in Files</a></li>
+<li><a href="#org7652026">Links in Files</a></li>
 </ul>
 </li>
-<li><a href="#org43bbb30">Step 2: Move Images</a>
+<li><a href="#org674b7b3">Step 2: Move Images</a>
 <ul>
-<li><a href="#org8d36973">The problem with moving images</a></li>
+<li><a href="#orgcbbacff">The problem with moving images</a></li>
 </ul>
 </li>
-<li><a href="#orgcef0154">And it is never so simple</a></li>
-<li><a href="#org7e8f66d">Summing Up and Criticizing</a>
+<li><a href="#orgc04fa8c">And it is never so simple</a></li>
+<li><a href="#org7ca9586">Summing Up and Criticizing</a>
 <ul>
-<li><a href="#org105dd7c">Yet Another Note</a></li>
+<li><a href="#org27806ee">Yet Another Note</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3f29294" class="outline-2">
-<h2 id="org3f29294"><a href="#org3f29294">Introduction</a></h2>
-<div class="outline-text-2" id="text-org3f29294">
+<div id="outline-container-orgd2a79db" class="outline-2">
+<h2 id="orgd2a79db"><a href="#orgd2a79db">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgd2a79db">
 <p>
 When I first started using <code>org-download</code> to have pictures within my
 posts, I had not exactly configured it properly, resulting in numerous
@@ -56,7 +56,7 @@ subdirectories that I was not happy with:
 </p>
 
 
-<div id="orgc574b6b" class="figure">
+<div id="orga2d8f71" class="figure">
 <p><img src="images/Introduction/20240709_140235_screenshot.png" alt="20240709_140235_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Look at all those image directories</p>
@@ -67,7 +67,7 @@ Moving on, I want that mess hidden within <code>images/</code>: The main directo
 should be cleaner.
 </p>
 
-<div class="note" id="orge5e5167">
+<div class="note" id="orgd1cf779">
 <p>
 TLDR: Even though this post started as a form of documentation to the
 code I was writing, in order to tackle it quickly, I foolishly avoided
@@ -79,9 +79,9 @@ incomplete - I will fix it when I find myself in need to improve <code>morg</cod
 </div>
 </div>
 </div>
-<div id="outline-container-org06a30dc" class="outline-2">
-<h2 id="org06a30dc"><a href="#org06a30dc">The plan</a></h2>
-<div class="outline-text-2" id="text-org06a30dc">
+<div id="outline-container-org4ae46d9" class="outline-2">
+<h2 id="org4ae46d9"><a href="#org4ae46d9">The plan</a></h2>
+<div class="outline-text-2" id="text-org4ae46d9">
 <p>
 The plan here is to freshen up my python skills whilst creating a
 script to:
@@ -95,9 +95,9 @@ whatever links pointing to those images. If images with no links
 are found they are printed for manual removal.</li>
 </ol>
 </div>
-<div id="outline-container-orga409258" class="outline-3">
-<h3 id="orga409258"><a href="#orga409258">Subtasks</a></h3>
-<div class="outline-text-3" id="text-orga409258">
+<div id="outline-container-orga82da12" class="outline-3">
+<h3 id="orga82da12"><a href="#orga82da12">Subtasks</a></h3>
+<div class="outline-text-3" id="text-orga82da12">
 <p>
 Covering the creation process of our tool, the article shows how to:
 </p>
@@ -113,9 +113,9 @@ along with any photos it may have.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org0272029" class="outline-2">
-<h2 id="org0272029"><a href="#org0272029">Assumptions</a></h2>
-<div class="outline-text-2" id="text-org0272029">
+<div id="outline-container-org103d491" class="outline-2">
+<h2 id="org103d491"><a href="#org103d491">Assumptions</a></h2>
+<div class="outline-text-2" id="text-org103d491">
 <p>
 Before we begin we need to make clear the constraints:
 </p>
@@ -127,9 +127,9 @@ change that in the future if necessary.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb7eed20" class="outline-2">
-<h2 id="orgb7eed20"><a href="#orgb7eed20">Step 0: Configuring the wrapper</a></h2>
-<div class="outline-text-2" id="text-orgb7eed20">
+<div id="outline-container-orgdf8d6ec" class="outline-2">
+<h2 id="orgdf8d6ec"><a href="#orgdf8d6ec">Step 0: Configuring the wrapper</a></h2>
+<div class="outline-text-2" id="text-orgdf8d6ec">
 <p>
 I like using <code>argparse</code>, to easily add/remove options and manage them in
 a significantly more secure and straightforward manner than if I
@@ -137,9 +137,9 @@ quickly made something from scratch.
 </p>
 </div>
 </div>
-<div id="outline-container-org78cd8bf" class="outline-2">
-<h2 id="org78cd8bf"><a href="#org78cd8bf">Step 0.5: General Functions</a></h2>
-<div class="outline-text-2" id="text-org78cd8bf">
+<div id="outline-container-org76443f3" class="outline-2">
+<h2 id="org76443f3"><a href="#org76443f3">Step 0.5: General Functions</a></h2>
+<div class="outline-text-2" id="text-org76443f3">
 <p>
 At this point it is nice to develop some functions that will make the
 rest of the code more readable, maintainable (and robust, avoiding the
@@ -155,13 +155,13 @@ In this &ldquo;project&rdquo;:
 </ul>
 </div>
 </div>
-<div id="outline-container-org420c348" class="outline-2">
-<h2 id="org420c348"><a href="#org420c348">Step 1: Link Checker</a></h2>
-<div class="outline-text-2" id="text-org420c348">
+<div id="outline-container-org01131ee" class="outline-2">
+<h2 id="org01131ee"><a href="#org01131ee">Step 1: Link Checker</a></h2>
+<div class="outline-text-2" id="text-org01131ee">
 </div>
-<div id="outline-container-org9a16a87" class="outline-3">
-<h3 id="org9a16a87"><a href="#org9a16a87">Links in Files</a></h3>
-<div class="outline-text-3" id="text-org9a16a87">
+<div id="outline-container-org7652026" class="outline-3">
+<h3 id="org7652026"><a href="#org7652026">Links in Files</a></h3>
+<div class="outline-text-3" id="text-org7652026">
 <p>
 Obviously, there are common parts in the functions described above.
 The most apparent one is in <i>steps</i> 3 and 4: There needs to be a
@@ -170,7 +170,7 @@ a. Find (file) links
 b. See where they point
 </p>
 
-<div class="note" id="org9a6d4e4">
+<div class="note" id="org94b98b2">
 <p>
 Image links are slightly different than general purpose org links.
 Later in design, to avoid troubleshooting certain regex scenarios, I
@@ -181,13 +181,13 @@ also made a different function to search for image links only
 </div>
 </div>
 </div>
-<div id="outline-container-org43bbb30" class="outline-2">
-<h2 id="org43bbb30"><a href="#org43bbb30">Step 2: Move Images</a></h2>
-<div class="outline-text-2" id="text-org43bbb30">
+<div id="outline-container-org674b7b3" class="outline-2">
+<h2 id="org674b7b3"><a href="#org674b7b3">Step 2: Move Images</a></h2>
+<div class="outline-text-2" id="text-org674b7b3">
 </div>
-<div id="outline-container-org8d36973" class="outline-3">
-<h3 id="org8d36973"><a href="#org8d36973">The problem with moving images</a></h3>
-<div class="outline-text-3" id="text-org8d36973">
+<div id="outline-container-orgcbbacff" class="outline-3">
+<h3 id="orgcbbacff"><a href="#orgcbbacff">The problem with moving images</a></h3>
+<div class="outline-text-3" id="text-orgcbbacff">
 <p>
 It is not just a simple <code>mv</code>. It is a simple <code>mv</code> <b>along with</b> updating all
 the org-files pointing to them: and not messing the paths up is what
@@ -196,9 +196,9 @@ makes it difficult
 </div>
 </div>
 </div>
-<div id="outline-container-orgcef0154" class="outline-2">
-<h2 id="orgcef0154"><a href="#orgcef0154">And it is never so simple</a></h2>
-<div class="outline-text-2" id="text-orgcef0154">
+<div id="outline-container-orgc04fa8c" class="outline-2">
+<h2 id="orgc04fa8c"><a href="#orgc04fa8c">And it is never so simple</a></h2>
+<div class="outline-text-2" id="text-orgc04fa8c">
 <div class="tenor-gif-embed" data-postid="20462984" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/family-guy-peter-griffin-gif-20462984">Family Guy Peter Griffin GIF</a>from <a href="https://tenor.com/search/family+guy-gifs">Family Guy GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 
 <p>
@@ -213,25 +213,25 @@ functionality.
 </p>
 
 
-<div id="orgb80252a" class="figure">
+<div id="org16c6ccc" class="figure">
 <p><img src="images/And_it_is_never_so_simple/20240902_121914_screenshot.png" alt="20240902_121914_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>After running morg</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org7e8f66d" class="outline-2">
-<h2 id="org7e8f66d"><a href="#org7e8f66d">Summing Up and Criticizing</a></h2>
-<div class="outline-text-2" id="text-org7e8f66d">
+<div id="outline-container-org7ca9586" class="outline-2">
+<h2 id="org7ca9586"><a href="#org7ca9586">Summing Up and Criticizing</a></h2>
+<div class="outline-text-2" id="text-org7ca9586">
 <p>
 I have published this script in <a href="https://github.com/chatziiola/morg">chatziiola/morg</a>. If you want to use it
 please refer to that version since mistakes are surely made and they
 might have already been found.
 </p>
 </div>
-<div id="outline-container-org105dd7c" class="outline-3">
-<h3 id="org105dd7c"><a href="#org105dd7c">Yet Another Note</a></h3>
-<div class="outline-text-3" id="text-org105dd7c">
+<div id="outline-container-org27806ee" class="outline-3">
+<h3 id="org27806ee"><a href="#org27806ee">Yet Another Note</a></h3>
+<div class="outline-text-3" id="text-org27806ee">
 <p>
 There will come a time (maybe) when after spending some more time on
 these that I will do an even better job, preferably fixing my
@@ -244,7 +244,7 @@ images inside an <code>images</code> directory.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-07-09 Tue 13:57</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-07-09 Tue 13:57</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

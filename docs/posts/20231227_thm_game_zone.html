@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Writeup for the GameZone ctf/walkthrough room in TryHackme." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -19,27 +19,27 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org50777fd">Introduction</a></li>
-<li><a href="#org3a2ad48">Reconnaissance</a>
+<li><a href="#org8c44af8">Introduction</a></li>
+<li><a href="#org03c2a73">Reconnaissance</a>
 <ul>
-<li><a href="#org1987e9a">Web Enumeration</a></li>
+<li><a href="#orgcc71b3b">Web Enumeration</a></li>
 </ul>
 </li>
-<li><a href="#org21b22df">SQLi</a>
+<li><a href="#orgbddc48a">SQLi</a>
 <ul>
-<li><a href="#org8d7f01a">Game Zone Portal</a></li>
-<li><a href="#org0e72468">SQLmap</a></li>
+<li><a href="#orgbecc54c">Game Zone Portal</a></li>
+<li><a href="#org4db81d8">SQLmap</a></li>
 </ul>
 </li>
-<li><a href="#orgddafeaa">Password Cracking</a></li>
-<li><a href="#org88da4fd">Initial Foothold</a></li>
-<li><a href="#org0a105ad">Thoughts</a></li>
+<li><a href="#org014ddbc">Password Cracking</a></li>
+<li><a href="#orgc02e357">Initial Foothold</a></li>
+<li><a href="#org89cd0c1">Thoughts</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org50777fd" class="outline-2">
-<h2 id="org50777fd"><a href="#org50777fd">Introduction</a></h2>
-<div class="outline-text-2" id="text-org50777fd">
+<div id="outline-container-org8c44af8" class="outline-2">
+<h2 id="org8c44af8"><a href="#org8c44af8">Introduction</a></h2>
+<div class="outline-text-2" id="text-org8c44af8">
 <p>
 Take me to the <del>danger</del> game zone. Merry Christmas everyone, today is
 yet another full day and I&rsquo;ll be trying to take the most out of it. 
@@ -51,14 +51,14 @@ Once again, I&rsquo;ve modified <code>/etc/hosts</code> and my local <code>bashr
 </p>
 </div>
 </div>
-<div id="outline-container-org3a2ad48" class="outline-2">
-<h2 id="org3a2ad48"><a href="#org3a2ad48">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org3a2ad48">
+<div id="outline-container-org03c2a73" class="outline-2">
+<h2 id="org03c2a73"><a href="#org03c2a73">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org03c2a73">
 <p>
 Starting with my go-to snippet for CTFs:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orga78b28e">nmap -sV -sC -oG nmap.initial $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org062a1fb">nmap -sV -sC -oG nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 
@@ -77,13 +77,13 @@ starting the full scan (hoping it may give us something extra).
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org84789c0">nmap -p- -oG nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org05b640f">nmap -p- -oG nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
-<div id="outline-container-org1987e9a" class="outline-3">
-<h3 id="org1987e9a"><a href="#org1987e9a">Web Enumeration</a></h3>
-<div class="outline-text-3" id="text-org1987e9a">
+<div id="outline-container-orgcc71b3b" class="outline-3">
+<h3 id="orgcc71b3b"><a href="#orgcc71b3b">Web Enumeration</a></h3>
+<div class="outline-text-3" id="text-orgcc71b3b">
 <p>
 Visiting the website (having already started Burp Proxy at the
 background, to record everything and limited the scope appropriately),
@@ -91,7 +91,7 @@ we get a home page pointing to the Hitman games.
 </p>
 
 
-<div id="org24f60a4" class="figure">
+<div id="org31ad8db" class="figure">
 <p><img src="images/Reconnaissance/20231227_084910_screenshot.png" alt="20231227_084910_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Hitman entry page</p>
@@ -104,7 +104,7 @@ sure to run <code>gobuster</code> as well:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org02f2606">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="org796e4d0">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 
@@ -125,14 +125,14 @@ Since the room <b>points</b> to SQLi, this is our next step.
 </div>
 </div>
 </div>
-<div id="outline-container-org21b22df" class="outline-2">
-<h2 id="org21b22df"><a href="#org21b22df">SQLi</a></h2>
-<div class="outline-text-2" id="text-org21b22df">
+<div id="outline-container-orgbddc48a" class="outline-2">
+<h2 id="orgbddc48a"><a href="#orgbddc48a">SQLi</a></h2>
+<div class="outline-text-2" id="text-orgbddc48a">
 <p>
 Now, we see that in each request there is a line in the following
 form:
 </p>
-<pre class="example" id="org0b68816">
+<pre class="example" id="org7ed8251">
 username=reqwer&amp;password=qwerqwer&amp;x=18&amp;y=7
 </pre>
 
@@ -141,7 +141,7 @@ Sending that to intruder to test our payloads hassle free. <del>Sadly, which I a
 </p>
 
 
-<div id="org7f15038" class="figure">
+<div id="org87f54f2" class="figure">
 <p><img src="images/SQLi/20231227_090646_screenshot.png" alt="20231227_090646_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Subtle Error</p>
@@ -162,7 +162,7 @@ the second field blank (should have thought of that by myself).
 <p>
 Tinkering just a little bit there I got this that worked:
 </p>
-<pre class="example" id="org101a98b">
+<pre class="example" id="org7c3e110">
 username=' or 1=1; ---&amp;password=&amp;x=0&amp;y=
 </pre>
 
@@ -170,9 +170,9 @@ username=' or 1=1; ---&amp;password=&amp;x=0&amp;y=
 Using that in our browser we get access to <i>Game Zone Portal</i>
 </p>
 </div>
-<div id="outline-container-org8d7f01a" class="outline-3">
-<h3 id="org8d7f01a"><a href="#org8d7f01a">Game Zone Portal</a></h3>
-<div class="outline-text-3" id="text-org8d7f01a">
+<div id="outline-container-orgbecc54c" class="outline-3">
+<h3 id="orgbecc54c"><a href="#orgbecc54c">Game Zone Portal</a></h3>
+<div class="outline-text-3" id="text-orgbecc54c">
 <p>
 Still taking advantage of Burp Suite Proxy, I&rsquo;m trying different
 payloads on the Portal&rsquo;s input field, to see what I can get:
@@ -185,38 +185,38 @@ room&rsquo;s advice<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-bac
 </ul>
 </div>
 </div>
-<div id="outline-container-org0e72468" class="outline-3">
-<h3 id="org0e72468"><a href="#org0e72468">SQLmap</a></h3>
-<div class="outline-text-3" id="text-org0e72468">
+<div id="outline-container-org4db81d8" class="outline-3">
+<h3 id="org4db81d8"><a href="#org4db81d8">SQLmap</a></h3>
+<div class="outline-text-3" id="text-org4db81d8">
 <p>
 It worked smoothly, giving us both the posts that I had already found
 <b>and</b> a hash:username combination.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org88e5e2a">sqlmap -r request.txt --dbms mysql --dump
+<pre class="src src-bash" id="org16e64e9">sqlmap -r request.txt --dbms mysql --dump
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-orgddafeaa" class="outline-2">
-<h2 id="orgddafeaa"><a href="#orgddafeaa">Password Cracking</a></h2>
-<div class="outline-text-2" id="text-orgddafeaa">
+<div id="outline-container-org014ddbc" class="outline-2">
+<h2 id="org014ddbc"><a href="#org014ddbc">Password Cracking</a></h2>
+<div class="outline-text-2" id="text-org014ddbc">
 <p>
 Going to my john notes and just running john against gave me the
 password, I suspect just using the suggested command would be fine as well.
 </p>
 </div>
 </div>
-<div id="outline-container-org88da4fd" class="outline-2">
-<h2 id="org88da4fd"><a href="#org88da4fd">Initial Foothold</a></h2>
-<div class="outline-text-2" id="text-org88da4fd">
+<div id="outline-container-orgc02e357" class="outline-2">
+<h2 id="orgc02e357"><a href="#orgc02e357">Initial Foothold</a></h2>
+<div class="outline-text-2" id="text-orgc02e357">
 <p>
 Knowing the user:password combination we can safely login as <code>agent47</code>:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org4a2c22b">ssh agent47@gamezone.thm
+<pre class="src src-bash" id="orgc6c6ed9">ssh agent47@gamezone.thm
 </pre>
 </div>
 
@@ -246,7 +246,7 @@ initialization that took place in my local machine. I did not deviate
 (at all) from the playbook&rsquo;s commands so it is easy for anyone to just
 follow the link and perform the same privesc.
 </p>
-<pre class="example" id="org5e2e798">
+<pre class="example" id="orgf989672">
 agent47@gamezone:~$ lxc image import ./alpine*.tar.gz --alias myimage # It's important doing this from YOUR HOME directory on the victim machine, or it might fail.
 Image imported with fingerprint: 78495f763d90135702f6430685b5cc0f14255034c8fccda355791263fdf49354
 agent47@gamezone:~$ lxd init
@@ -263,9 +263,9 @@ agent47@gamezone:~$ lxc exec mycontainer /bin/sh
 </pre>
 </div>
 </div>
-<div id="outline-container-org0a105ad" class="outline-2">
-<h2 id="org0a105ad"><a href="#org0a105ad">Thoughts</a></h2>
-<div class="outline-text-2" id="text-org0a105ad">
+<div id="outline-container-org89cd0c1" class="outline-2">
+<h2 id="org89cd0c1"><a href="#org89cd0c1">Thoughts</a></h2>
+<div class="outline-text-2" id="text-org89cd0c1">
 <p>
 This was the first time I performed port forwarding with ssh (even
 though it did not help me at all. I just did it to get the cms flags -
@@ -301,7 +301,7 @@ it later on.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-12-27 Wed 08:11</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-12-27 Wed 08:11</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

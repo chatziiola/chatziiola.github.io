@@ -6,7 +6,7 @@
 <title>Διάλεξη 3: AM: Διαμορφωτές και ασύμφωνοι αποδιαμορφωτές</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -50,31 +50,31 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org9c518da">Προαπαιτούμενες γνώσεις</a></li>
-<li><a href="#org0da64e9">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></li>
+<li><a href="#org434f0e3">Προαπαιτούμενες γνώσεις</a></li>
+<li><a href="#org35ae95e">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></li>
 </ul>
 </li>
-<li><a href="#orge0475ae">Παρουσίαση GNU-Radio</a></li>
-<li><a href="#org16e5cc6">Διαμορφωτής AM διόδου</a></li>
-<li><a href="#orgb931fe2">Αποδιαμορφωτές AM</a>
+<li><a href="#org8245691">Παρουσίαση GNU-Radio</a></li>
+<li><a href="#orge69172e">Διαμορφωτής AM διόδου</a></li>
+<li><a href="#org9d30dea">Αποδιαμορφωτές AM</a>
 <ul>
-<li><a href="#org905e700">Ασύμφωνοι αποδιαμορφωτές</a>
+<li><a href="#org1f66c05">Ασύμφωνοι αποδιαμορφωτές</a>
 <ul>
-<li><a href="#org683f2a1">Λειτουργία</a></li>
-<li><a href="#org5851c4f">Υπερδιαμόρφωση</a></li>
+<li><a href="#org41cb4f9">Λειτουργία</a></li>
+<li><a href="#org953de46">Υπερδιαμόρφωση</a></li>
 </ul>
 </li>
-<li><a href="#org483b475">Σύμφωνοι Αποδιαμορφωτές</a>
+<li><a href="#org3f2d2f9">Σύμφωνοι Αποδιαμορφωτές</a>
 <ul>
-<li><a href="#org706292f">Υποβάθμιση σήματος.</a></li>
+<li><a href="#org6d56622">Υποβάθμιση σήματος.</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org9c518da" class="outline-3">
-<h3 id="org9c518da"><a href="#org9c518da">Προαπαιτούμενες γνώσεις</a></h3>
-<div class="outline-text-3" id="text-org9c518da">
+<div id="outline-container-org434f0e3" class="outline-3">
+<h3 id="org434f0e3"><a href="#org434f0e3">Προαπαιτούμενες γνώσεις</a></h3>
+<div class="outline-text-3" id="text-org434f0e3">
 <p>
 Για την πλήρη κατανόηση της διάλεξης είναι <i>απαραίτητη</i> η κατανόηση των δύο αυτών
 εννοιών:
@@ -91,10 +91,10 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org0da64e9" class="outline-3">
-<h3 id="org0da64e9"><a href="#org0da64e9">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></h3>
-<div class="outline-text-3" id="text-org0da64e9">
-<div class="note" id="org38869ab">
+<div id="outline-container-org35ae95e" class="outline-3">
+<h3 id="org35ae95e"><a href="#org35ae95e">Παράδειγμα σε ψηφιακές επικοινωνίες.</a></h3>
+<div class="outline-text-3" id="text-org35ae95e">
+<div class="note" id="orga47b7e5">
 <p>
 Αυτή η υποπαράγραφος, η οποία έγινε ύπο την μορφή παραδείγματος στην τάξη
 αποτελεί ουσιαστικά την εισαγωγή στο δεύτερο κομμάτι του μαθήματος, την
@@ -138,9 +138,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orge0475ae" class="outline-2">
-<h2 id="orge0475ae"><a href="#orge0475ae">Παρουσίαση GNU-Radio</a></h2>
-<div class="outline-text-2" id="text-orge0475ae">
+<div id="outline-container-org8245691" class="outline-2">
+<h2 id="org8245691"><a href="#org8245691">Παρουσίαση GNU-Radio</a></h2>
+<div class="outline-text-2" id="text-org8245691">
 <ul class="org-ul">
 <li>έγινε μια παρουσίαση FM με την χρήση του παραπάνω πακέτου λογισμικού.</li>
 <li>Συνοπτικά απλά ενδεικτικό των ραδιοφωνικών σταθμών στις διάφορες συχνότητες
@@ -148,10 +148,10 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org16e5cc6" class="outline-2">
-<h2 id="org16e5cc6"><a href="#org16e5cc6">Διαμορφωτής AM διόδου</a></h2>
-<div class="outline-text-2" id="text-org16e5cc6">
-<div class="note" id="org4c706f4">
+<div id="outline-container-orge69172e" class="outline-2">
+<h2 id="orge69172e"><a href="#orge69172e">Διαμορφωτής AM διόδου</a></h2>
+<div class="outline-text-2" id="text-orge69172e">
+<div class="note" id="orgfee5e0e">
 <p>
 Ο διαμορφωτής ( και ο πομπός ) AM, είναι ένας φθηνός και απλός διαμορφωτής.
 Πλέον, όμως, έχει περιορισμένες εφαρμογές. Ακόμα η διάταξη δεν φαίνεται να
@@ -177,7 +177,7 @@ V_{out} = [A_c + m(t)]\cos{\left(2\pi f_ct\right)}
 Αυτό είναι επιτεύξιμό με την διάταξη του σήματος:
 </p>
 
-<div id="orgcfff946" class="figure">
+<div id="org391b3c5" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_diamorfotis.png" alt="tlp1_lec4_diamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Η απλή διάταξη ενός AM διαμορφωτή, με χρήση διόδου και αντίστασης.</p>
@@ -209,9 +209,9 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </p>
 </div>
 </div>
-<div id="outline-container-orgb931fe2" class="outline-2">
-<h2 id="orgb931fe2"><a href="#orgb931fe2">Αποδιαμορφωτές AM</a></h2>
-<div class="outline-text-2" id="text-orgb931fe2">
+<div id="outline-container-org9d30dea" class="outline-2">
+<h2 id="org9d30dea"><a href="#org9d30dea">Αποδιαμορφωτές AM</a></h2>
+<div class="outline-text-2" id="text-org9d30dea">
 <p>
 Χωρίζονται σε δύο κατηγορίες, στους ασύμφωνους και τους σύμφωνους
 αποδιαμορφωτές, με τους πρώτους να είναι πιο απλοί, και ιστορικά πρώτοι να
@@ -219,19 +219,19 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 λειτουργήσουν δίχως άλλη πληροφορία (πέραν του διαμορφωμένου σήματος εισόδου)
 </p>
 </div>
-<div id="outline-container-org905e700" class="outline-3">
-<h3 id="org905e700"><a href="#org905e700">Ασύμφωνοι αποδιαμορφωτές</a></h3>
-<div class="outline-text-3" id="text-org905e700">
+<div id="outline-container-org1f66c05" class="outline-3">
+<h3 id="org1f66c05"><a href="#org1f66c05">Ασύμφωνοι αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-org1f66c05">
 
-<div id="orga1c2265" class="figure">
+<div id="org22eb085" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis.png" alt="tlp1_lec4_asymfonosapodiamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Ασύμφωνος αποδιαμορφωτής με δίοδο, μία διάταξη εμφανώς όμοια με τον διαμορφωτή με δίοδο, μόνο που στην έξοδο της έχει τοποθετηθεί παράλληλα πυκνωτής.</p>
 </div>
 </div>
-<div id="outline-container-org683f2a1" class="outline-4">
-<h4 id="org683f2a1"><a href="#org683f2a1">Λειτουργία</a></h4>
-<div class="outline-text-4" id="text-org683f2a1">
+<div id="outline-container-org41cb4f9" class="outline-4">
+<h4 id="org41cb4f9"><a href="#org41cb4f9">Λειτουργία</a></h4>
+<div class="outline-text-4" id="text-org41cb4f9">
 <p>
 Κατά το τμήμα της περιόδου όπου η τάση έχει θετική τιμή, η δίοδος είναι
 κατάλληλα πολωμένη, άγει και κατ&rsquo; επέκταση φορτίζεται ο πυκνωτής. Όταν όμως, η
@@ -249,16 +249,16 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </p>
 
 
-<div id="org8438879" class="figure">
+<div id="org11e92dc" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png" alt="tlp1_lec4_asymfonosapodiamorfotis-leitourgia.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Άστοχη προσπάθεια του συγγραφέα να δείξει την προσέγγιση της περιβάλλουσας από το περιγραφόμενο κύκλωμα.</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org5851c4f" class="outline-4">
-<h4 id="org5851c4f"><a href="#org5851c4f">Υπερδιαμόρφωση</a></h4>
-<div class="outline-text-4" id="text-org5851c4f">
+<div id="outline-container-org953de46" class="outline-4">
+<h4 id="org953de46"><a href="#org953de46">Υπερδιαμόρφωση</a></h4>
+<div class="outline-text-4" id="text-org953de46">
 <p>
 Η υπερδιαμόρφωση, όταν προκύπτει, ουσιαστικά <i>εισάγει</i> στο σήμα εξόδου μια
 παραμόρφωση στην μορφή ημιτελούς περιόδου.
@@ -273,11 +273,11 @@ V_{out} = 2d_2A_C\cos{2\pi f_ct}[\frac{d_1}{2d_2}+m(t)] + d_1m(t) + d_2m^2(t) + 
 </div>
 </div>
 </div>
-<div id="outline-container-org483b475" class="outline-3">
-<h3 id="org483b475"><a href="#org483b475">Σύμφωνοι Αποδιαμορφωτές</a></h3>
-<div class="outline-text-3" id="text-org483b475">
+<div id="outline-container-org3f2d2f9" class="outline-3">
+<h3 id="org3f2d2f9"><a href="#org3f2d2f9">Σύμφωνοι Αποδιαμορφωτές</a></h3>
+<div class="outline-text-3" id="text-org3f2d2f9">
 
-<div id="org8df1451" class="figure">
+<div id="orga888b85" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_symfonosapodiamorfotis.png" alt="tlp1_lec4_symfonosapodiamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Συνοπτικό διάγραμμα ασύμφωνου αποδιαμορφωτή, με την χρήση ταλαντωτή (PLL).</p>
@@ -302,9 +302,9 @@ Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε 
 Έτσι, τελικά, μπορεί να προκύψει το \(\frac{1}{2} m(t)\), το σήμα πληροφοριών που θέλουμε
 </p>
 </div>
-<div id="outline-container-org706292f" class="outline-4">
-<h4 id="org706292f"><a href="#org706292f">Υποβάθμιση σήματος.</a></h4>
-<div class="outline-text-4" id="text-org706292f">
+<div id="outline-container-org6d56622" class="outline-4">
+<h4 id="org6d56622"><a href="#org6d56622">Υποβάθμιση σήματος.</a></h4>
+<div class="outline-text-4" id="text-org6d56622">
 <p>
 Παρόλα αυτά, υπο συνθήκες το PLL δεν <i>κλειδώνει</i>. Σε εκείνες τις περιπτώσεις, λόγω
 της μικρής διαφοράς φάσης σε είσοδο και \(c(t)\) (<i>έξοδο του PLL</i>) η τελική έξοδος
@@ -319,7 +319,7 @@ Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε 
 όπου \(\phi\) η <i>αστοχία φάσης</i>
 </p>
 
-<div class="note" id="org3aa9b0f">
+<div class="note" id="orgfdcce46">
 <p>
 Ανάλυση των σύμφωνων αποδιαμορφωτών, σε μεγαλύτερο βάθος, γίνεται και στην
 επόμενη διάλεξη: <a href="lec_TLP1_20221011.html">Διάλεξη 4</a>
@@ -343,7 +343,7 @@ Tο PLL, αποτελεί εξάρτημα το οποίο ρυθμίζουμε 
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-10-10 Mon 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-10-10 Mon 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

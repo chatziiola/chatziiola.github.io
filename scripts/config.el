@@ -48,7 +48,9 @@
 
 (defvar org-blog-head (concat
 			   (ini/get-value-from-file  "HTML" "FontImports" configini)
-			   (ini/get-value-from-file  "HTML" "CustomJS" configini)
+			   ;; (ini/get-value-from-file  "HTML" "Ox-tagfilter-JS" configini)
+			   (ini/get-value-from-file  "HTML" "CopyScript-JS" configini)
+			   (ini/get-value-from-file  "HTML" "ThemeSwitcher-JS" configini)
 			   (ini/get-value-from-file  "HTML" "Stylesheet" configini)
 			   (ini/get-value-from-file  "HTML" "Favicon" configini)
 			   (ini/get-value-from-file  "HTML" "FontAwesome" configini)

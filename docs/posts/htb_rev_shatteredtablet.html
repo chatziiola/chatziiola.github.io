@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough of Shattered Tabled reversing (very easy) challenge by Hack The Box" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -19,19 +19,19 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org40c1b80">Introduction</a></li>
-<li><a href="#org9122cb9">Static analysis:</a>
+<li><a href="#org2465e05">Introduction</a></li>
+<li><a href="#org06ddbec">Static analysis:</a>
 <ul>
-<li><a href="#orga166114">Decompiling</a></li>
-<li><a href="#orgf592d24">Update: <code>z3</code> solution</a></li>
+<li><a href="#orgde61e38">Decompiling</a></li>
+<li><a href="#org1622720">Update: <code>z3</code> solution</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org40c1b80" class="outline-2">
-<h2 id="org40c1b80"><a href="#org40c1b80">Introduction</a></h2>
-<div class="outline-text-2" id="text-org40c1b80">
+<div id="outline-container-org2465e05" class="outline-2">
+<h2 id="org2465e05"><a href="#org2465e05">Introduction</a></h2>
+<div class="outline-text-2" id="text-org2465e05">
 <p>
 I had no intention of writing today, I just logged to get some
 practice in, on the basics, since I was tired to go into much theory,
@@ -49,24 +49,24 @@ pieces. Can you reassemble it and read the clues?
 </blockquote>
 </div>
 </div>
-<div id="outline-container-org9122cb9" class="outline-2">
-<h2 id="org9122cb9"><a href="#org9122cb9">Static analysis:</a></h2>
-<div class="outline-text-2" id="text-org9122cb9">
+<div id="outline-container-org06ddbec" class="outline-2">
+<h2 id="org06ddbec"><a href="#org06ddbec">Static analysis:</a></h2>
+<div class="outline-text-2" id="text-org06ddbec">
 <p>
 We are given just a single binary <code>tablet</code>, and the flag <i>lies</i> inside it,
 since there is no remote machine to launch.
 </p>
 </div>
-<div id="outline-container-orga166114" class="outline-3">
-<h3 id="orga166114"><a href="#orga166114">Decompiling</a></h3>
-<div class="outline-text-3" id="text-orga166114">
+<div id="outline-container-orgde61e38" class="outline-3">
+<h3 id="orgde61e38"><a href="#orgde61e38">Decompiling</a></h3>
+<div class="outline-text-3" id="text-orgde61e38">
 <p>
 Immediately upon seeing the decompiled main, I thought of a similar
 challenge I recently completed: It must have been spooky license but I
 am not 100% sure of it.
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org068f462"><span class="org-keyword">if</span> (((((uStack_28._2_1_ == <span class="org-string">'4'</span>) &amp;&amp; (uStack_38._4_1_ == <span class="org-string">'3'</span>)) &amp;&amp; (uStack_28._4_1_ == <span class="org-string">'r'</span>)) &amp;&amp;
+<pre class="src src-c" id="org0557fbc"><span class="org-keyword">if</span> (((((uStack_28._2_1_ == <span class="org-string">'4'</span>) &amp;&amp; (uStack_38._4_1_ == <span class="org-string">'3'</span>)) &amp;&amp; (uStack_28._4_1_ == <span class="org-string">'r'</span>)) &amp;&amp;
     ((((uStack_48._1_1_ == <span class="org-string">'T'</span> &amp;&amp; (uStack_38._5_1_ == <span class="org-string">'v'</span>)) &amp;&amp;
       ((uStack_48._6_1_ == <span class="org-string">'0'</span> &amp;&amp; ((uStack_28._7_1_ == <span class="org-string">'}'</span> &amp;&amp; (uStack_28._6_1_ == <span class="org-string">'d'</span>)))))) &amp;&amp;
      (uStack_30._7_1_ == <span class="org-string">'r'</span>)))) &amp;&amp;
@@ -104,7 +104,7 @@ Some <code>vim</code> quick formatting tricks and &#x2026; We&rsquo;re good to g
 </div>
 
 <div class="org-src-container">
-<pre class="src src-text" id="org88aaff7">Ustack_48: HTB{br0k
+<pre class="src src-text" id="orgaeefeff">Ustack_48: HTB{br0k
 Ustack_40: 3n_4p4rt
 Ustack_38: ...n3ver
 Ustack_30: _t0_b3_r
@@ -113,9 +113,9 @@ Ustack_28: 3p41r3d}
 </div>
 </div>
 </div>
-<div id="outline-container-orgf592d24" class="outline-3">
-<h3 id="orgf592d24"><a href="#orgf592d24">Update: <code>z3</code> solution</a></h3>
-<div class="outline-text-3" id="text-orgf592d24">
+<div id="outline-container-org1622720" class="outline-3">
+<h3 id="org1622720"><a href="#org1622720">Update: <code>z3</code> solution</a></h3>
+<div class="outline-text-3" id="text-org1622720">
 <p>
 I wanted to test my z3 skills, since it took me a long time in the
 previous challenge. This one was more tedious, but here is the source:
@@ -187,7 +187,7 @@ solver.add(letters[0]  <span class="org-operator">==</span> <span class="org-bui
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-02-15 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2025-02-15 Sat 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

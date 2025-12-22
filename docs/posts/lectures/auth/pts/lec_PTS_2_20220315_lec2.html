@@ -6,7 +6,7 @@
 <title>Βασικά θεωρήματα και αξιώματα πιθανοτήτων</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -50,43 +50,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org22e7fa2">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a>
+<li><a href="#orgc66f034">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org137240e">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></li>
-<li><a href="#org409abda">Με διάταξη και επανάθεση</a></li>
-<li><a href="#orgcff3836">Με διάταξη χωρίς επανάθεση</a></li>
-<li><a href="#org6e54867">Χωρις διάταξη, με επανάθεση</a></li>
-<li><a href="#orgec5a9d4">Χωρίς διάταξη, χωρίς επανάθεση</a></li>
+<li><a href="#orgdd40630">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></li>
+<li><a href="#org0f52f3f">Με διάταξη και επανάθεση</a></li>
+<li><a href="#org189d7ae">Με διάταξη χωρίς επανάθεση</a></li>
+<li><a href="#orgb8e722f">Χωρις διάταξη, με επανάθεση</a></li>
+<li><a href="#org9ac0a2a">Χωρίς διάταξη, χωρίς επανάθεση</a></li>
 </ul>
 </li>
-<li><a href="#orge80e16c">Ταυτότητες</a></li>
-<li><a href="#orge91bfcc">Παραδείγματα</a>
+<li><a href="#orgaa3e84f">Ταυτότητες</a></li>
+<li><a href="#orgdb3fa2d">Παραδείγματα</a>
 <ul>
-<li><a href="#org5292f2e">Ρίψεις νομίσματος ( Bose-Einstein )</a></li>
+<li><a href="#orgdb150b4">Ρίψεις νομίσματος ( Bose-Einstein )</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgd0c0143">Εννοια της πιθανότητας</a>
+<li><a href="#org7a00643">Εννοια της πιθανότητας</a>
 <ul>
 <li>
 <ul>
-<li><a href="#org6beebc5">Παράδειγμα:</a></li>
+<li><a href="#org0a00cac">Παράδειγμα:</a></li>
 </ul>
 </li>
-<li><a href="#org480480c">Πρόβλημα γενεθλίων</a></li>
-<li><a href="#orgcbab51b">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></li>
-<li><a href="#org3a4ec1b">Βασικά θεωρήματα πιθανότητας</a></li>
+<li><a href="#orga10ec3b">Πρόβλημα γενεθλίων</a></li>
+<li><a href="#org3fe2544">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></li>
+<li><a href="#org389d7bf">Βασικά θεωρήματα πιθανότητας</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org22e7fa2" class="outline-2">
-<h2 id="org22e7fa2"><a href="#org22e7fa2">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a></h2>
-<div class="outline-text-2" id="text-org22e7fa2">
+<div id="outline-container-orgc66f034" class="outline-2">
+<h2 id="orgc66f034"><a href="#orgc66f034">Ανακεφαλαίωση: Μαθηματικοί τύποι δειγματοληψίας</a></h2>
+<div class="outline-text-2" id="text-orgc66f034">
 <p>
 Στις παρουσιάσεις του μαθήματος φαίνονται οι συγκεκριμένοι τύποι,
 χαρακτηριζόμενοι από το αν η σειρά έχει σημασία και από το κατα πόσο είναι
@@ -105,9 +105,9 @@ n^k\\
 σειρά τους)
 </p>
 </div>
-<div id="outline-container-org137240e" class="outline-4">
-<h4 id="org137240e"><a href="#org137240e">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></h4>
-<div class="outline-text-4" id="text-org137240e">
+<div id="outline-container-orgdd40630" class="outline-4">
+<h4 id="orgdd40630"><a href="#orgdd40630">Κάθε τρόπο που μπορούμε να τις μοιράσουμε:</a></h4>
+<div class="outline-text-4" id="text-orgdd40630">
 <p>
 Αυτό θα ήταν το δυναμοσύνολο που συναντήσαμε στην προηγούμενη διάλεξη άρα
 \(2^n=2^4=16\) πιθανές διαφορετικές μορφές.
@@ -119,9 +119,9 @@ n^k\\
 </p>
 </div>
 </div>
-<div id="outline-container-org409abda" class="outline-4">
-<h4 id="org409abda"><a href="#org409abda">Με διάταξη και επανάθεση</a></h4>
-<div class="outline-text-4" id="text-org409abda">
+<div id="outline-container-org0f52f3f" class="outline-4">
+<h4 id="org0f52f3f"><a href="#org0f52f3f">Με διάταξη και επανάθεση</a></h4>
+<div class="outline-text-4" id="text-org0f52f3f">
 <p>
 Αν στις τριάδες που θα φτιάξουμε μπορούμε να έχουμε την ίδια κάρτα σε δύο θέσεις
 ( μάλλον άστοχη η επιλογή του παραδείγματος, μα και πάλι ), οι πιθανοί
@@ -178,8 +178,8 @@ n^k
 \end{equation}
 </div>
 <ul class="org-ul">
-<li><a id="org375d7aa"></a><a href="#org375d7aa">Παρατήρηση:</a><br>
-<div class="outline-text-5" id="text-org375d7aa">
+<li><a id="orge545b0d"></a><a href="#orge545b0d">Παρατήρηση:</a><br>
+<div class="outline-text-5" id="text-orge545b0d">
 <p>
 Το συγκεκριμένο είναι εύκολο να <i>προκύψει</i> και από κάποιον που έχει έστω βασικές
 γνώσεις προγραμματισμού και μέσω της πολυπλοκότητας nested loops, καθώς
@@ -189,9 +189,9 @@ n^k
 </li>
 </ul>
 </div>
-<div id="outline-container-orgcff3836" class="outline-4">
-<h4 id="orgcff3836"><a href="#orgcff3836">Με διάταξη χωρίς επανάθεση</a></h4>
-<div class="outline-text-4" id="text-orgcff3836">
+<div id="outline-container-org189d7ae" class="outline-4">
+<h4 id="org189d7ae"><a href="#org189d7ae">Με διάταξη χωρίς επανάθεση</a></h4>
+<div class="outline-text-4" id="text-org189d7ae">
 <p>
 Αν όμως δεν μπορούμε να χρησιμοποιήσουμε μια κάρτα παραπάνω από μια φορές τότε
 αλλάζει εντελώς ο τύπος. Αυτό είναι εύκολα κατανοητό. Στις \(n\) κάρτες, μπορούμε
@@ -203,8 +203,8 @@ n(n-1)(n-2)(n-\cdots)(n-k+1)
 \end{equation}
 </div>
 <ul class="org-ul">
-<li><a id="org9d1b10f"></a><a href="#org9d1b10f">Παράδειγμα: Πρόεδρος, ταμίας γραμματέας</a><br>
-<div class="outline-text-5" id="text-org9d1b10f">
+<li><a id="orgfe584a1"></a><a href="#orgfe584a1">Παράδειγμα: Πρόεδρος, ταμίας γραμματέας</a><br>
+<div class="outline-text-5" id="text-orgfe584a1">
 <p>
 Επιλέγω τον πρόεδρο και κατόπιν επιλέγω τα υπόλοιπα μέλη του συμβουλίου:
 Είναι \(k = 3, n = 25\), όπου \(n\) ο υποτιθέμενος αριθμός των υποψηφίων:
@@ -220,9 +220,9 @@ n(n-1)(n-2)(n-\cdots)(n-k+1)
 </li>
 </ul>
 </div>
-<div id="outline-container-org6e54867" class="outline-4">
-<h4 id="org6e54867"><a href="#org6e54867">Χωρις διάταξη, με επανάθεση</a></h4>
-<div class="outline-text-4" id="text-org6e54867">
+<div id="outline-container-orgb8e722f" class="outline-4">
+<h4 id="orgb8e722f"><a href="#orgb8e722f">Χωρις διάταξη, με επανάθεση</a></h4>
+<div class="outline-text-4" id="text-orgb8e722f">
 <p>
 Δεν το έχω ξεκαθαρίσει αρκετά στο μυαλό μου - με κάποιο παράδειγμα: Είναι απλά
 ένας τύπος.
@@ -232,8 +232,8 @@ n(n-1)(n-2)(n-\cdots)(n-k+1)
 \end{equation}
 </div>
 <ul class="org-ul">
-<li><a id="org9c010cf"></a><a href="#org9c010cf">Ισοδύναμη έκφραση</a><br>
-<div class="outline-text-5" id="text-org9c010cf">
+<li><a id="orgcde219c"></a><a href="#orgcde219c">Ισοδύναμη έκφραση</a><br>
+<div class="outline-text-5" id="text-orgcde219c">
 <p>
 Με πόσους τρόπους μπορούμε να βάλουμε \(k\) πανομοιότυπα στοιχεία σε \(n\) κουτία
 </p>
@@ -241,9 +241,9 @@ n(n-1)(n-2)(n-\cdots)(n-k+1)
 </li>
 </ul>
 </div>
-<div id="outline-container-orgec5a9d4" class="outline-4">
-<h4 id="orgec5a9d4"><a href="#orgec5a9d4">Χωρίς διάταξη, χωρίς επανάθεση</a></h4>
-<div class="outline-text-4" id="text-orgec5a9d4">
+<div id="outline-container-org9ac0a2a" class="outline-4">
+<h4 id="org9ac0a2a"><a href="#org9ac0a2a">Χωρίς διάταξη, χωρίς επανάθεση</a></h4>
+<div class="outline-text-4" id="text-org9ac0a2a">
 <p>
 Να χωρίσουμε τα \(n\) στοιχεία ανά \(k\) στοιχεία. Η σειρά δεν μας νοιάζει, μα
 προφανώς, δεν μπορούμε να τα επαναχρησιμοποιήσουμε.
@@ -253,8 +253,8 @@ n(n-1)(n-2)(n-\cdots)(n-k+1)
 \end{equation}
 </div>
 <ul class="org-ul">
-<li><a id="org1321a0d"></a><a href="#org1321a0d">Κάρτες και full house</a><br>
-<div class="outline-text-5" id="text-org1321a0d">
+<li><a id="org36e5c88"></a><a href="#org36e5c88">Κάρτες και full house</a><br>
+<div class="outline-text-5" id="text-org36e5c88">
 <p>
 Θέλουμε να υπολογίσουμε τις πιθανότητες κάποιος να έχει full house.
 </p>
@@ -293,9 +293,9 @@ B = \text{pair} = 12 \binom{4}{2}
 </li>
 </ul>
 </div>
-<div id="outline-container-orge80e16c" class="outline-3">
-<h3 id="orge80e16c"><a href="#orge80e16c">Ταυτότητες</a></h3>
-<div class="outline-text-3" id="text-orge80e16c">
+<div id="outline-container-orgaa3e84f" class="outline-3">
+<h3 id="orgaa3e84f"><a href="#orgaa3e84f">Ταυτότητες</a></h3>
+<div class="outline-text-3" id="text-orgaa3e84f">
 \begin{align*}
 \binom{n}{k} &= \binom{n}{n-k} = \frac{n!}{(n-k)!k!}\\
 n\binom{n-1}{k-1} &= k\binom{n}{k} \\
@@ -303,13 +303,13 @@ n\binom{n-1}{k-1} &= k\binom{n}{k} \\
 \end{align*}
 </div>
 </div>
-<div id="outline-container-orge91bfcc" class="outline-3">
-<h3 id="orge91bfcc"><a href="#orge91bfcc">Παραδείγματα</a></h3>
-<div class="outline-text-3" id="text-orge91bfcc">
+<div id="outline-container-orgdb3fa2d" class="outline-3">
+<h3 id="orgdb3fa2d"><a href="#orgdb3fa2d">Παραδείγματα</a></h3>
+<div class="outline-text-3" id="text-orgdb3fa2d">
 </div>
-<div id="outline-container-org5292f2e" class="outline-4">
-<h4 id="org5292f2e"><a href="#org5292f2e">Ρίψεις νομίσματος ( Bose-Einstein )</a></h4>
-<div class="outline-text-4" id="text-org5292f2e">
+<div id="outline-container-orgdb150b4" class="outline-4">
+<h4 id="orgdb150b4"><a href="#orgdb150b4">Ρίψεις νομίσματος ( Bose-Einstein )</a></h4>
+<div class="outline-text-4" id="text-orgdb150b4">
 <p>
 Έστω ότι ρίχνουμε το ίδιο νόμισμα δύο φορές. Οπότε έχουμε \(A= \text{2 coin
 flips}\).
@@ -356,9 +356,9 @@ flips}\).
 </div>
 </div>
 </div>
-<div id="outline-container-orgd0c0143" class="outline-2">
-<h2 id="orgd0c0143"><a href="#orgd0c0143">Εννοια της πιθανότητας</a></h2>
-<div class="outline-text-2" id="text-orgd0c0143">
+<div id="outline-container-org7a00643" class="outline-2">
+<h2 id="org7a00643"><a href="#org7a00643">Εννοια της πιθανότητας</a></h2>
+<div class="outline-text-2" id="text-org7a00643">
 <p>
 Στην προηγούμενη ενότητα είδαμε την έννοια του δειγματοχώρου ( sample space ),
 \(S\). Έστω τώρα ένα σύνολο γεγονότων (δειγματοσημείων) που θέλουμε να συμβούν
@@ -369,9 +369,9 @@ flips}\).
 P(A) = \frac{\text{number of desired sample points}}{\text{number of possible sample points}}
 \end{equation}
 </div>
-<div id="outline-container-org6beebc5" class="outline-4">
-<h4 id="org6beebc5"><a href="#org6beebc5">Παράδειγμα:</a></h4>
-<div class="outline-text-4" id="text-org6beebc5">
+<div id="outline-container-org0a00cac" class="outline-4">
+<h4 id="org0a00cac"><a href="#org0a00cac">Παράδειγμα:</a></h4>
+<div class="outline-text-4" id="text-org0a00cac">
 <p>
 Έστω σε μία μάντρα αυτοκινήτων 8 χαλασμένα αυτοκίνητα, στα 20 συνολικά.
 Επιλέγονται τυχαία 4 για έλεγχο. Ποια είναι η πιθανότητα να επιλεγεί μόνο 1
@@ -394,9 +394,9 @@ P(A) = \frac{\binom{8}{1}\binom{12}{3}}{\binom{20}{4}} = \cdots = \frac{220}{484
 </ol>
 </div>
 </div>
-<div id="outline-container-org480480c" class="outline-3">
-<h3 id="org480480c"><a href="#org480480c">Πρόβλημα γενεθλίων</a></h3>
-<div class="outline-text-3" id="text-org480480c">
+<div id="outline-container-orga10ec3b" class="outline-3">
+<h3 id="orga10ec3b"><a href="#orga10ec3b">Πρόβλημα γενεθλίων</a></h3>
+<div class="outline-text-3" id="text-orga10ec3b">
 <p>
 Επανερχόμαστε στο πρόβλημα των γενεθλίων που αναφέρθηκε και στις σημειώσεις της
 πρώτης διάλεξης. Ποια είναι η πιθανότητα από τα \(n\) άτομα να υπάρχουν
@@ -459,9 +459,9 @@ P(A) =
 </p>
 </div>
 </div>
-<div id="outline-container-orgcbab51b" class="outline-3">
-<h3 id="orgcbab51b"><a href="#orgcbab51b">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></h3>
-<div class="outline-text-3" id="text-orgcbab51b">
+<div id="outline-container-org3fe2544" class="outline-3">
+<h3 id="org3fe2544"><a href="#org3fe2544">Αξιώματα πιθανότητας Kolmogorov για πεπερασμένο δειγματοχώρο</a></h3>
+<div class="outline-text-3" id="text-org3fe2544">
 <p>
 Ο χώρος πιθανοτήτων αποτελείται από τον δειγματοχώρο \(S\) και την συνάρτηση \(P: A
 \subseteq S\), για την οποία ισχύουν τα παρακάτω:
@@ -473,9 +473,9 @@ P(A) =
 </ol>
 </div>
 </div>
-<div id="outline-container-org3a4ec1b" class="outline-3">
-<h3 id="org3a4ec1b"><a href="#org3a4ec1b">Βασικά θεωρήματα πιθανότητας</a></h3>
-<div class="outline-text-3" id="text-org3a4ec1b">
+<div id="outline-container-org389d7bf" class="outline-3">
+<h3 id="org389d7bf"><a href="#org389d7bf">Βασικά θεωρήματα πιθανότητας</a></h3>
+<div class="outline-text-3" id="text-org389d7bf">
 <ol class="org-ol">
 <li>\(P(\emptyset)=0\)</li>
 <li>\(P(A)=1-P(\bar{A})\)</li>
@@ -494,7 +494,7 @@ They have been added twice, one could think of it in the same way as
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-03-11 Fri 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-03-11 Fri 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

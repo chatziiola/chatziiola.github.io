@@ -6,7 +6,7 @@
 <title>Elisp Org-Publish Configuration</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -18,38 +18,38 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgb18df27">Getting the gist</a></li>
-<li><a href="#orgbeef434">Site-wide Variables</a>
+<li><a href="#org8946fca">Getting the gist</a></li>
+<li><a href="#org90c8a26">Site-wide Variables</a>
 <ul>
-<li><a href="#orgc425486">Content directories</a></li>
-<li><a href="#org09f9abe">CSS Path</a></li>
-<li><a href="#orga341a9d">Head HTML</a></li>
-<li><a href="#org63ce2a0">Postamble</a></li>
-<li><a href="#org083c064">Org-static-blog index variables</a></li>
+<li><a href="#org1853b24">Content directories</a></li>
+<li><a href="#org1c9bffa">CSS Path</a></li>
+<li><a href="#orgbebba22">Head HTML</a></li>
+<li><a href="#orgc29e1bb">Postamble</a></li>
+<li><a href="#org08f5e14">Org-static-blog index variables</a></li>
 </ul>
 </li>
-<li><a href="#org3af5388">Package Settings&#xa0;&#xa0;&#xa0;<span class="tag"><span class="restructure">restructure</span></span></a></li>
-<li><a href="#orgbae5fa1">Org To Html Settings</a></li>
-<li><a href="#org5211526">Babel</a></li>
-<li><a href="#org0c5a97e">Series next/before links&#xa0;&#xa0;&#xa0;<span class="tag"><span class="INACTIVE">INACTIVE</span></span></a></li>
-<li><a href="#orga2b4174">Tips:</a></li>
-<li><a href="#orgf1b618b">Project Alist</a>
+<li><a href="#org0b15d07">Package Settings&#xa0;&#xa0;&#xa0;<span class="tag"><span class="restructure">restructure</span></span></a></li>
+<li><a href="#org9aa7035">Org To Html Settings</a></li>
+<li><a href="#org1f1904f">Babel</a></li>
+<li><a href="#org6fda4ab">Series next/before links&#xa0;&#xa0;&#xa0;<span class="tag"><span class="INACTIVE">INACTIVE</span></span></a></li>
+<li><a href="#org4970ec0">Tips:</a></li>
+<li><a href="#org8704f32">Project Alist</a>
 <ul>
 <li>
 <ul>
-<li><a href="#orgf482c00">The Brief</a></li>
-<li><a href="#org1257f48">Summing up</a></li>
+<li><a href="#org4da96b7">The Brief</a></li>
+<li><a href="#org8ceb281">Summing up</a></li>
 </ul>
 </li>
-<li><a href="#orgef85e65">Org-files</a></li>
-<li><a href="#orgf0ac0f2">Blog-posts</a></li>
-<li><a href="#orgfb7b4d2">Images</a></li>
-<li><a href="#orgfd70290">Static</a></li>
+<li><a href="#org394afa7">Org-files</a></li>
+<li><a href="#org3fefee9">Blog-posts</a></li>
+<li><a href="#org6c59665">Images</a></li>
+<li><a href="#org8da4430">Static</a></li>
 </ul>
 </li>
-<li><a href="#org5430a57">The End - Taking Action</a></li>
-<li><a href="#org4a6ef13">Org-static-blog for index creation</a></li>
-<li><a href="#orgb2f7b92">Sources of inspiration</a></li>
+<li><a href="#org0f55eb8">The End - Taking Action</a></li>
+<li><a href="#org24d89ed">Org-static-blog for index creation</a></li>
+<li><a href="#org5047b26">Sources of inspiration</a></li>
 </ul>
 </div>
 </div>
@@ -92,9 +92,9 @@ YouTube <a href="https://www.youtube.com/c/SystemCrafters">channel</a>.
 
 </pre>
 </div>
-<div id="outline-container-orgb18df27" class="outline-2">
-<h2 id="orgb18df27"><a href="#orgb18df27">Getting the gist</a></h2>
-<div class="outline-text-2" id="text-orgb18df27">
+<div id="outline-container-org8946fca" class="outline-2">
+<h2 id="org8946fca"><a href="#org8946fca">Getting the gist</a></h2>
+<div class="outline-text-2" id="text-org8946fca">
 <p>
 This is a literate configuration file, setting up and emacs instance to be run
 on a simple virtual machine (Github actions). As such, you will not see most of
@@ -108,9 +108,9 @@ you can see that I run emacs as <i>cleanly</i> as possible:
 </div>
 </div>
 </div>
-<div id="outline-container-orgbeef434" class="outline-2">
-<h2 id="orgbeef434"><a href="#orgbeef434">Site-wide Variables</a></h2>
-<div class="outline-text-2" id="text-orgbeef434">
+<div id="outline-container-org90c8a26" class="outline-2">
+<h2 id="org90c8a26"><a href="#org90c8a26">Site-wide Variables</a></h2>
+<div class="outline-text-2" id="text-org90c8a26">
 <p>
 In this section of the configuration file I initialize the variables that I use
 in the rest of the script. The goal here is to have no hard coded paths and/or
@@ -124,9 +124,9 @@ change the behavior of already implemented features.
 </pre>
 </div>
 </div>
-<div id="outline-container-orgc425486" class="outline-3">
-<h3 id="orgc425486"><a href="#orgc425486">Content directories</a></h3>
-<div class="outline-text-3" id="text-orgc425486">
+<div id="outline-container-org1853b24" class="outline-3">
+<h3 id="org1853b24"><a href="#org1853b24">Content directories</a></h3>
+<div class="outline-text-3" id="text-org1853b24">
 <p>
 To keep it simple:
 </p>
@@ -155,9 +155,9 @@ To keep it simple:
 </div>
 </div>
 </div>
-<div id="outline-container-org09f9abe" class="outline-3">
-<h3 id="org09f9abe"><a href="#org09f9abe">CSS Path</a></h3>
-<div class="outline-text-3" id="text-org09f9abe">
+<div id="outline-container-org1c9bffa" class="outline-3">
+<h3 id="org1c9bffa"><a href="#org1c9bffa">CSS Path</a></h3>
+<div class="outline-text-3" id="text-org1c9bffa">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">css-path</span> <span class="org-string">"/src/rougier.css"</span>
   <span class="org-doc">"Self-descriptive."</span>)
@@ -165,9 +165,9 @@ To keep it simple:
 </div>
 </div>
 </div>
-<div id="outline-container-orga341a9d" class="outline-3">
-<h3 id="orga341a9d"><a href="#orga341a9d">Head HTML</a></h3>
-<div class="outline-text-3" id="text-orga341a9d">
+<div id="outline-container-orgbebba22" class="outline-3">
+<h3 id="orgbebba22"><a href="#orgbebba22">Head HTML</a></h3>
+<div class="outline-text-3" id="text-orgbebba22">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">defvar</span> <span class="org-variable-name">org-blog-head</span>
   (concat
@@ -183,9 +183,9 @@ To keep it simple:
 </div>
 </div>
 </div>
-<div id="outline-container-org63ce2a0" class="outline-3">
-<h3 id="org63ce2a0"><a href="#org63ce2a0">Postamble</a></h3>
-<div class="outline-text-3" id="text-org63ce2a0">
+<div id="outline-container-orgc29e1bb" class="outline-3">
+<h3 id="orgc29e1bb"><a href="#orgc29e1bb">Postamble</a></h3>
+<div class="outline-text-3" id="text-orgc29e1bb">
 <div class="org-src-container">
 <pre class="src src-elisp">
 (<span class="org-keyword">defvar</span> <span class="org-variable-name">general-postamble</span>
@@ -203,9 +203,9 @@ To keep it simple:
 </div>
 </div>
 </div>
-<div id="outline-container-org083c064" class="outline-3">
-<h3 id="org083c064"><a href="#org083c064">Org-static-blog index variables</a></h3>
-<div class="outline-text-3" id="text-org083c064">
+<div id="outline-container-org08f5e14" class="outline-3">
+<h3 id="org08f5e14"><a href="#org08f5e14">Org-static-blog index variables</a></h3>
+<div class="outline-text-3" id="text-org08f5e14">
 <p>
 Being the person that I am, striving for simplicity and creating chaos to get
 there, I have taken parts of this wonderful package <a href="https://github.com/bastibe/org-static-blog">org-static-blog</a>, and
@@ -230,9 +230,9 @@ butchered it to my needs
 </div>
 </div>
 </div>
-<div id="outline-container-org3af5388" class="outline-2">
-<h2 id="org3af5388"><a href="#org3af5388">Package Settings&#xa0;&#xa0;&#xa0;<span class="tag"><span class="restructure">restructure</span></span></a></h2>
-<div class="outline-text-2" id="text-org3af5388">
+<div id="outline-container-org0b15d07" class="outline-2">
+<h2 id="org0b15d07"><a href="#org0b15d07">Package Settings&#xa0;&#xa0;&#xa0;<span class="tag"><span class="restructure">restructure</span></span></a></h2>
+<div class="outline-text-2" id="text-org0b15d07">
 <p>
 These are pretty basic settings, only required in order for us to call a <i>clean</i>
 emacs instance. A separate directory for packages is specified in order to not
@@ -301,9 +301,9 @@ Installing <code>use-package</code>
 </div>
 </div>
 </div>
-<div id="outline-container-orgbae5fa1" class="outline-2">
-<h2 id="orgbae5fa1"><a href="#orgbae5fa1">Org To Html Settings</a></h2>
-<div class="outline-text-2" id="text-orgbae5fa1">
+<div id="outline-container-org9aa7035" class="outline-2">
+<h2 id="org9aa7035"><a href="#org9aa7035">Org To Html Settings</a></h2>
+<div class="outline-text-2" id="text-org9aa7035">
 <p>
 These are settings that are used during the conversion of my org files
 (articles) to html files. Under certain circumstances they can be overwritten
@@ -337,9 +337,9 @@ from the <code>org-projects-alist</code>&rsquo; options.
 </div>
 </div>
 </div>
-<div id="outline-container-org5211526" class="outline-2">
-<h2 id="org5211526"><a href="#org5211526">Babel</a></h2>
-<div class="outline-text-2" id="text-org5211526">
+<div id="outline-container-org1f1904f" class="outline-2">
+<h2 id="org1f1904f"><a href="#org1f1904f">Babel</a></h2>
+<div class="outline-text-2" id="text-org1f1904f">
 <p>
 Babel-related settings. I&rsquo;m pretty sure I had this enabled for a fancier feature
 than simply highlighting but I&rsquo;m not 100% sure.
@@ -364,9 +364,9 @@ than simply highlighting but I&rsquo;m not 100% sure.
 </div>
 </div>
 </div>
-<div id="outline-container-org0c5a97e" class="outline-2">
-<h2 id="org0c5a97e"><a href="#org0c5a97e">Series next/before links&#xa0;&#xa0;&#xa0;<span class="tag"><span class="INACTIVE">INACTIVE</span></span></a></h2>
-<div class="outline-text-2" id="text-org0c5a97e">
+<div id="outline-container-org6fda4ab" class="outline-2">
+<h2 id="org6fda4ab"><a href="#org6fda4ab">Series next/before links&#xa0;&#xa0;&#xa0;<span class="tag"><span class="INACTIVE">INACTIVE</span></span></a></h2>
+<div class="outline-text-2" id="text-org6fda4ab">
 <p>
 This is a functionality that I long wanted to have implemented.  Now, although
 this works perfectly, it creates a restriction: The files are chronologically
@@ -377,7 +377,7 @@ of <i>forced</i> lectures.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orge303ec9">(<span class="org-keyword">defun</span> <span class="org-function-name">my-find-next-previous-series-article</span> (file)
+<pre class="src src-elisp" id="org66918d7">(<span class="org-keyword">defun</span> <span class="org-function-name">my-find-next-previous-series-article</span> (file)
   <span class="org-doc">"Find the filenames of the next and previous article, if they exist, in the same directory as FILE.</span>
 <span class="org-doc">   This function acts only on lectures (files starting with 'lec_.) as of now.</span>
 <span class="org-doc">The filenames are returned in HTML format."</span>
@@ -405,7 +405,7 @@ the content at the end of the org mode buffer, causing problems with footnotes,
 where they exist.
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="org133a627">(<span class="org-keyword">defun</span> <span class="org-function-name">my-add-links-to-next-previous-series-article</span> (backend)
+<pre class="src src-elisp" id="org860ba24">(<span class="org-keyword">defun</span> <span class="org-function-name">my-add-links-to-next-previous-series-article</span> (backend)
   <span class="org-doc">"Add links to the previous and next series articles, if they exist."</span>
   (<span class="org-keyword">when</span> (org-export-derived-backend-p backend 'html)
     (<span class="org-keyword">let</span> ((prev-next (my-find-next-previous-series-article (buffer-file-name))))
@@ -434,7 +434,7 @@ do not know which html files are created (only the previous one exists, the we
 can not add a next button).
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="orga719439">
+<pre class="src src-elisp" id="org3a75f55">
 (<span class="org-keyword">defun</span> <span class="org-function-name">my-add-links-to-next-previous-series-article</span> ()
   <span class="org-doc">"Add links to the previous and next series  articles, if they exist."</span>
   (<span class="org-keyword">let</span> ((prev-next (my-find-next-previous-series-article (buffer-file-name))))
@@ -456,9 +456,9 @@ can not add a next button).
 </div>
 </div>
 </div>
-<div id="outline-container-orga2b4174" class="outline-2">
-<h2 id="orga2b4174"><a href="#orga2b4174">Tips:</a></h2>
-<div class="outline-text-2" id="text-orga2b4174">
+<div id="outline-container-org4970ec0" class="outline-2">
+<h2 id="org4970ec0"><a href="#org4970ec0">Tips:</a></h2>
+<div class="outline-text-2" id="text-org4970ec0">
 <p>
 One could use relative paths (even though I now (<span class="timestamp-wrapper"><span class="timestamp">&lt;2023-01-01 Sun&gt;</span></span>) find some
 problems with this approach, as it breaks some stuff when creating index pages),
@@ -466,9 +466,9 @@ to ensure that no faulty links exist.
 </p>
 </div>
 </div>
-<div id="outline-container-orgf1b618b" class="outline-2">
-<h2 id="orgf1b618b"><a href="#orgf1b618b">Project Alist</a></h2>
-<div class="outline-text-2" id="text-orgf1b618b">
+<div id="outline-container-org8704f32" class="outline-2">
+<h2 id="org8704f32"><a href="#org8704f32">Project Alist</a></h2>
+<div class="outline-text-2" id="text-org8704f32">
 <p>
 Org publishing works with projects, a fancy way to call files and directories.
 </p>
@@ -477,10 +477,10 @@ Org publishing works with projects, a fancy way to call files and directories.
 There are four projects, with different variables and settings:
 </p>
 <ol class="org-ol">
-<li><a href="#orgef85e65">Org-files</a>, all org files in my <code>/content</code> folder</li>
-<li><a href="#orgf0ac0f2">Blog-posts</a>, all org files in my <code>/content/posts</code> folder</li>
-<li><a href="#orgfb7b4d2">Images</a>, images in <code>/content/images</code></li>
-<li><a href="#orgfd70290">Static</a>, html and css files in <code>/content/src</code></li>
+<li><a href="#org394afa7">Org-files</a>, all org files in my <code>/content</code> folder</li>
+<li><a href="#org3fefee9">Blog-posts</a>, all org files in my <code>/content/posts</code> folder</li>
+<li><a href="#org6c59665">Images</a>, images in <code>/content/images</code></li>
+<li><a href="#org8da4430">Static</a>, html and css files in <code>/content/src</code></li>
 </ol>
 
 <div class="org-src-container">
@@ -489,9 +489,9 @@ There are four projects, with different variables and settings:
 </pre>
 </div>
 </div>
-<div id="outline-container-orgf482c00" class="outline-4">
-<h4 id="orgf482c00"><a href="#orgf482c00">The Brief</a></h4>
-<div class="outline-text-4" id="text-orgf482c00">
+<div id="outline-container-org4da96b7" class="outline-4">
+<h4 id="org4da96b7"><a href="#org4da96b7">The Brief</a></h4>
+<div class="outline-text-4" id="text-org4da96b7">
 <p>
 The <code>org</code> mode files ( the articles ) exist in the <code>/contents/</code> folder, which is
 where I&rsquo;m working. We want to automate the process of converting these files to
@@ -504,18 +504,18 @@ To achieve that we first convert all org mode files
 </p>
 </div>
 </div>
-<div id="outline-container-org1257f48" class="outline-4">
-<h4 id="org1257f48"><a href="#org1257f48">Summing up</a></h4>
-<div class="outline-text-4" id="text-org1257f48">
+<div id="outline-container-org8ceb281" class="outline-4">
+<h4 id="org8ceb281"><a href="#org8ceb281">Summing up</a></h4>
+<div class="outline-text-4" id="text-org8ceb281">
 <ol class="org-ol">
 <li>Order is crucial, since the export is sequential and the later exports may
 overwrite previous ones.</li>
 </ol>
 </div>
 </div>
-<div id="outline-container-orgef85e65" class="outline-3">
-<h3 id="orgef85e65"><a href="#orgef85e65">Org-files</a></h3>
-<div class="outline-text-3" id="text-orgef85e65">
+<div id="outline-container-org394afa7" class="outline-3">
+<h3 id="org394afa7"><a href="#org394afa7">Org-files</a></h3>
+<div class="outline-text-3" id="text-org394afa7">
 <div class="org-src-container">
 <pre class="src src-elisp">(list <span class="org-string">"org-files"</span>
 </pre>
@@ -602,9 +602,9 @@ the <code>#+DATE:</code> header at the top of blog posts.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf0ac0f2" class="outline-3">
-<h3 id="orgf0ac0f2"><a href="#orgf0ac0f2">Blog-posts</a></h3>
-<div class="outline-text-3" id="text-orgf0ac0f2">
+<div id="outline-container-org3fefee9" class="outline-3">
+<h3 id="org3fefee9"><a href="#org3fefee9">Blog-posts</a></h3>
+<div class="outline-text-3" id="text-org3fefee9">
 <div class="org-src-container">
 <pre class="src src-elisp">(list <span class="org-string">"blog-posts"</span>
 </pre>
@@ -672,9 +672,9 @@ The following settings actually do not need further explanation
 </div>
 </div>
 </div>
-<div id="outline-container-orgfb7b4d2" class="outline-3">
-<h3 id="orgfb7b4d2"><a href="#orgfb7b4d2">Images</a></h3>
-<div class="outline-text-3" id="text-orgfb7b4d2">
+<div id="outline-container-org6c59665" class="outline-3">
+<h3 id="org6c59665"><a href="#org6c59665">Images</a></h3>
+<div class="outline-text-3" id="text-org6c59665">
 <p>
 You may have already noticed that the two previous projects contain only my org
 files, even though a website is so much more than html ( to which org will get
@@ -696,9 +696,9 @@ copies the specified files to the target directory
 </div>
 </div>
 </div>
-<div id="outline-container-orgfd70290" class="outline-3">
-<h3 id="orgfd70290"><a href="#orgfd70290">Static</a></h3>
-<div class="outline-text-3" id="text-orgfd70290">
+<div id="outline-container-org8da4430" class="outline-3">
+<h3 id="org8da4430"><a href="#org8da4430">Static</a></h3>
+<div class="outline-text-3" id="text-org8da4430">
 <div class="org-src-container">
 <pre class="src src-elisp">(list <span class="org-string">"Website static stuff"</span>
       <span class="org-builtin">:base-directory</span> src-dir
@@ -741,9 +741,9 @@ And another function to help with images
 </div>
 </div>
 </div>
-<div id="outline-container-org5430a57" class="outline-2">
-<h2 id="org5430a57"><a href="#org5430a57">The End - Taking Action</a></h2>
-<div class="outline-text-2" id="text-org5430a57">
+<div id="outline-container-org0f55eb8" class="outline-2">
+<h2 id="org0f55eb8"><a href="#org0f55eb8">The End - Taking Action</a></h2>
+<div class="outline-text-2" id="text-org0f55eb8">
 <div class="org-src-container">
 <pre class="src src-elisp">
 (org-publish-all t)
@@ -752,9 +752,9 @@ And another function to help with images
 </div>
 </div>
 </div>
-<div id="outline-container-org4a6ef13" class="outline-2">
-<h2 id="org4a6ef13"><a href="#org4a6ef13">Org-static-blog for index creation</a></h2>
-<div class="outline-text-2" id="text-org4a6ef13">
+<div id="outline-container-org24d89ed" class="outline-2">
+<h2 id="org24d89ed"><a href="#org24d89ed">Org-static-blog for index creation</a></h2>
+<div class="outline-text-2" id="text-org24d89ed">
 <p>
 I tried removing this section, but in great terror I realized how
 naive I was when I wrote this. It needs the variables that I set in
@@ -771,9 +771,9 @@ here.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb2f7b92" class="outline-2">
-<h2 id="orgb2f7b92"><a href="#orgb2f7b92">Sources of inspiration</a></h2>
-<div class="outline-text-2" id="text-orgb2f7b92">
+<div id="outline-container-org5047b26" class="outline-2">
+<h2 id="org5047b26"><a href="#org5047b26">Sources of inspiration</a></h2>
+<div class="outline-text-2" id="text-org5047b26">
 <p>
 This is intended to be the last section of my literate config file. It is
 devoted to all the websites that inspired me to take action towards improving my
@@ -786,7 +786,7 @@ site:
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-07-09 Sat 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-07-09 Sat 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

@@ -1,0 +1,127 @@
+#+TITLE: Never Publish a Typo Again: My AI Proofreading Setup
+#+DATE: <2025-12-22 13:45>
+#+DESCRIPTION: This article explores how I'm using an AI assistant, an LLM, as a proofreader to improve my writing skills as a non-native English speaker and enhance the quality of my blog posts.
+#+SUBTITLE: Jarvis, proofread this article!
+#+FILETAGS: LLM blog prompt-engineering
+
+* Introduction
+Writing an article is an extremely fulfilling process for me. At the same time,
+however, I feel uncomfortable publishing something out there: it undermines
+(my sense of) security and exposes me to a whole lot of /possible/ problems.
+
+I don't mind criticism, so I'll keep writing, but it got me thinking[fn:1]: Some
+problems can be mitigated by simply improving.
+
+#+NAME: name
+#+begin_note
+Με ένα σμπάρο δυό τριγώνια.[fn:4]
+#+end_note
+
+* How can this blog be improved?
+The list is long but, I could:
+1. Design a better website
+2. Write better articles
+   1. Select topics I'm more qualified to write about
+   2. Brush up my English vocabulary (and general usage) to greatly reduce my mistakes
+   3. Put more effort in writing
+3. Write more articles
+
+#+begin_note
+To make a blog better, according to yours truly, is to add more value to it. I
+do not aspire to be a blogger - thus I don't care about the number of readers,
+but I do care about its quality.
+#+end_note
+
+Now, to be frank, I am not willing to spend more time in designing a
+better-looking website[fn:3] *but* [2,3] are nice goals. On one hand, writing more
+articles will help me improve in the long run. Just the process of expressing my
+thoughts and going from scribbled notes to long-form passages will help me:
+1. Become more qualified on the topics I'm writing about
+2. With my English vocabulary (and general usage)
+3. And at the same time, I'll be putting effort into each article
+But, in this case [2] is not a guarantee: it is highly likely that writing in
+English as a non-native speaker might result in the proliferation of bad
+practices. To avoid that, *I need a proofreader*.
+
+* What exactly do I need?
+To translate the theoretical /analysis/ of the previous section into tangible goals,
+I want someone to work *with* me on:
+- Fixing grammar, vocabulary, and syntax mistakes, and helping me learn from them
+- Improving readability, perhaps by suggesting better vocabulary
+- Performing fact checks[fn:2] and maybe suggesting more targeted research
+
+I'm in no position to hire someone to do this with me. /(Also quite frankly, I'm
+not a sadist: I wouldn't want to put anyone through this)/. So... a helper would
+be nice
+
+#+begin_note
+Just a small note: *This is not about designing a system to mass-produce
+articles. This is about designing a system to improve both my writing skills and
+my articles*
+#+end_note
+
+* Prompt Engineering
+All of this is leading up to one thing: *Using an LLM as a proofreader*
+
+#+begin_example
+# Identity
+
+- **Education:** You are not just a proofreader; you embody the critical eye of a seasoned editor, the insightful inquiry of a journalist, and the refined craft of a writer.
+
+# Skills
+
+## Guidelines for Helping with Draft Articles
+
+When asked to help with a draft article (found in `content/posts`), you will follow these guidelines:
+
+### 1. Fixing Grammar, Vocabulary, and Syntax Mistakes
+
+- You will identify and correct any grammar, vocabulary, or syntax errors in the provided draft.
+- For each correction, you will briefly explain the mistake and provide the corrected version, aiming to help you learn and understand the improvement.
+- Make sure to also check the footnotes
+
+### 2. Improving Readability and Vocabulary
+
+- You will review the article for clarity, conciseness, and flow.
+- You will suggest alternative vocabulary to enhance the article's impact and readability, providing explanations for why the suggested words are better in context.
+- You will rephrase sentences or paragraphs for improved structure and logical progression where necessary.
+
+### 3. Performing Fact Checks and Suggesting Targeted Research
+
+- You will perform basic fact-checking on any claims made in the article to ensure accuracy.
+- If a claim requires more in-depth verification or if there are gaps in the information, you will suggest targeted research topics or specific areas that need further investigation.
+- You will point out any statements that could benefit from supporting evidence or citations.
+
+### 4. Helping with SEO
+
+Finally, after we have concluded the work on previous steps, you will:
+
+- You will offer feedback on the selected `TITLE`. You are encouraged to offer alternatives
+- You will generate a proper `DESCRIPTION` for the article, optimized for SEO
+- You will add some interesting `FILETAGS`, optimized for SEO
+  - You will add up to 5 tags, keep them as closely related to the article as possible
+  - Tags must be separated by space (and only space: no commas nor colons)
+  - Tags must be written as a single word: longer tags should be converted in a single word by changing spaces into dashes. An example: `prompt engineering` to `prompt-engineering`
+- If empty, you will generate a concise yet intriguing `SUBTITLE` for the article
+#+end_example
+
+
+* Summary
+This article was the first one to be proofread by my partner, Whiplash.
+
+#+NAME: Whip's comment
+#+begin_note
+Whip's comment: It has been a pleasure working with you on this article. I'm excited to continue helping you improve your writing and your blog.
+#+end_note
+
+* Footnotes
+[fn:2] Now this last one is not fully necessary, but I would appreciate it if I
+gradually added citations here; I feel like it is going to help a lot when
+reading the articles some months/years from now.
+
+[fn:3] Though I have started fixing the generation process a little bit, which
+(should) result in having a better-looking, less bloated website.
+
+[fn:1] Like a true overthinking engineer
+
+[fn:4] "Με ένα σμπάρο δυό τριγώνια." (Me ena sbaro dyo trigonia.) is a Greek idiom meaning "Two turtledoves with one shot," equivalent to the English idiom "to kill two birds with one stone."

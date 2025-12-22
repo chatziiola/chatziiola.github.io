@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough for the related PortSwigger Web Lab." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -19,29 +19,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgfc067a1">Introduction</a></li>
-<li><a href="#orgbe49e47">Web Security Academy</a></li>
-<li><a href="#org9b81448">The process</a>
+<li><a href="#org46fdb06">Introduction</a></li>
+<li><a href="#orge8d5769">Web Security Academy</a></li>
+<li><a href="#orgfab3fbb">The process</a>
 <ul>
-<li><a href="#org67b13a8">Finding the SQLi point</a></li>
-<li><a href="#orgd46d3bc">Finding the SQL backend</a></li>
-<li><a href="#org956c1db">Developing a base condition</a></li>
-<li><a href="#org5845482">Validating the existence of specifics</a></li>
-<li><a href="#org8fda400">Getting info about password</a>
+<li><a href="#org9a997ca">Finding the SQLi point</a></li>
+<li><a href="#org129095a">Finding the SQL backend</a></li>
+<li><a href="#org4abaab9">Developing a base condition</a></li>
+<li><a href="#org90d7bb4">Validating the existence of specifics</a></li>
+<li><a href="#org2485070">Getting info about password</a>
 <ul>
-<li><a href="#org61e1303">Password Length</a></li>
-<li><a href="#orgfd88017">Password Contents</a></li>
+<li><a href="#org0fcd23a">Password Length</a></li>
+<li><a href="#org444f70e">Password Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org28bf984">Summary</a></li>
+<li><a href="#orge5be8fc">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfc067a1" class="outline-2">
-<h2 id="orgfc067a1"><a href="#orgfc067a1">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgfc067a1">
+<div id="outline-container-org46fdb06" class="outline-2">
+<h2 id="org46fdb06"><a href="#org46fdb06">Introduction</a></h2>
+<div class="outline-text-2" id="text-org46fdb06">
 <p>
 I feel like much of the process I made during the last year, even
 though significant was disorganized and chaotic. I have reached a
@@ -59,9 +59,9 @@ Starting with SQL injections.
 </p>
 </div>
 </div>
-<div id="outline-container-orgbe49e47" class="outline-2">
-<h2 id="orgbe49e47"><a href="#orgbe49e47">Web Security Academy</a></h2>
-<div class="outline-text-2" id="text-orgbe49e47">
+<div id="outline-container-orge8d5769" class="outline-2">
+<h2 id="orge8d5769"><a href="#orge8d5769">Web Security Academy</a></h2>
+<div class="outline-text-2" id="text-orge8d5769">
 <p>
 <a href="https://portswigger.net/web-security/dashboard">Web Security Academy</a> has been a very interesting integration to my
 <i>studying</i> routine, allowing for easily deployable labs, directly from
@@ -76,16 +76,16 @@ the ones available in the website) by the end of May.
 </p>
 </div>
 </div>
-<div id="outline-container-org9b81448" class="outline-2">
-<h2 id="org9b81448"><a href="#org9b81448">The process</a></h2>
-<div class="outline-text-2" id="text-org9b81448">
+<div id="outline-container-orgfab3fbb" class="outline-2">
+<h2 id="orgfab3fbb"><a href="#orgfab3fbb">The process</a></h2>
+<div class="outline-text-2" id="text-orgfab3fbb">
 <p>
 &rsquo;nough said, let&rsquo;s dive into the lab. 
 </p>
 </div>
-<div id="outline-container-org67b13a8" class="outline-3">
-<h3 id="org67b13a8"><a href="#org67b13a8">Finding the SQLi point</a></h3>
-<div class="outline-text-3" id="text-org67b13a8">
+<div id="outline-container-org9a997ca" class="outline-3">
+<h3 id="org9a997ca"><a href="#org9a997ca">Finding the SQLi point</a></h3>
+<div class="outline-text-3" id="text-org9a997ca">
 <p>
 Knowing that this is a lab with a SQLi vulnerability, I just loaded
 the page on my browser, revealing a familiar page from previously
@@ -101,16 +101,16 @@ look at.</li>
 </ul>
 
 
-<div id="org7a9477f" class="figure">
+<div id="org1f20d94" class="figure">
 <p><img src="images/20240213_112605_screenshot.png" alt="20240213_112605_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>SQLi POC</p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd46d3bc" class="outline-3">
-<h3 id="orgd46d3bc"><a href="#orgd46d3bc">Finding the SQL backend</a></h3>
-<div class="outline-text-3" id="text-orgd46d3bc">
+<div id="outline-container-org129095a" class="outline-3">
+<h3 id="org129095a"><a href="#org129095a">Finding the SQL backend</a></h3>
+<div class="outline-text-3" id="text-org129095a">
 <p>
 Now, knowing that we have to manipulate the value of <code>TrackingID</code>
 cookie, we need to gather some more information about the underlying
@@ -137,16 +137,16 @@ that we are facing Oracle DBMS</li>
 
 
 
-<div id="org94262cf" class="figure">
+<div id="orgaa9c24c" class="figure">
 <p><img src="images/20240213_112905_screenshot.png" alt="20240213_112905_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Oracle DBMS poc</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org956c1db" class="outline-3">
-<h3 id="org956c1db"><a href="#org956c1db">Developing a base condition</a></h3>
-<div class="outline-text-3" id="text-org956c1db">
+<div id="outline-container-org4abaab9" class="outline-3">
+<h3 id="org4abaab9"><a href="#org4abaab9">Developing a base condition</a></h3>
+<div class="outline-text-3" id="text-org4abaab9">
 <p>
 Getting into our arsenal (<a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">SQLi Cheatsheet</a>), we insert a <code>CASE</code>
 statement, and a division by zero to throw an exception when the
@@ -160,16 +160,16 @@ effectively translates into:
 </ul>
 
 
-<div id="org57ddb1a" class="figure">
+<div id="orgb23a51a" class="figure">
 <p><img src="images/20240213_113037_screenshot.png" alt="20240213_113037_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Getting the DBMS to throw an error</p>
 </div>
 </div>
 </div>
-<div id="outline-container-org5845482" class="outline-3">
-<h3 id="org5845482"><a href="#org5845482">Validating the existence of specifics</a></h3>
-<div class="outline-text-3" id="text-org5845482">
+<div id="outline-container-org90d7bb4" class="outline-3">
+<h3 id="org90d7bb4"><a href="#org90d7bb4">Validating the existence of specifics</a></h3>
+<div class="outline-text-3" id="text-org90d7bb4">
 <p>
 Our goal is to get the password of the <code>administrator</code> account but first
 we need to verify some data:
@@ -183,25 +183,25 @@ we need to verify some data:
 <p>
 These were mostly completed as shown here:
 </p>
-<pre class="example" id="org0c86eab">
+<pre class="example" id="orgadd98f7">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users WHERE username='administrator'--
 </pre>
 </div>
 </div>
-<div id="outline-container-org8fda400" class="outline-3">
-<h3 id="org8fda400"><a href="#org8fda400">Getting info about password</a></h3>
-<div class="outline-text-3" id="text-org8fda400">
+<div id="outline-container-org2485070" class="outline-3">
+<h3 id="org2485070"><a href="#org2485070">Getting info about password</a></h3>
+<div class="outline-text-3" id="text-org2485070">
 <p>
 Pay attention to how my payload has slightly changed from the previous
 &ldquo;examples&rdquo;, and <b>special emphasis</b> should be given to the <code>from dual</code>
 part, since forgetting it causes 500 (oracle DBMS).
 </p>
 </div>
-<div id="outline-container-org61e1303" class="outline-4">
-<h4 id="org61e1303"><a href="#org61e1303">Password Length</a></h4>
-<div class="outline-text-4" id="text-org61e1303">
+<div id="outline-container-org0fcd23a" class="outline-4">
+<h4 id="org0fcd23a"><a href="#org0fcd23a">Password Length</a></h4>
+<div class="outline-text-4" id="text-org0fcd23a">
 <p>
 To get the length of the password field for the entry with
 <code>username='administrator'</code>, we can rely on the builtin function <code>LENGTH</code>
@@ -210,14 +210,14 @@ challenge at least) length of 100, we got that password length for
 administrator is 20 characters:
 </p>
 
-<pre class="example" id="org0ab22ce">
+<pre class="example" id="org1246a99">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&gt;0)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--
 Cookie: TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&lt;100)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--;
 </pre>
 
 
 
-<div id="org8044b2c" class="figure">
+<div id="org02ae7c6" class="figure">
 <p><img src="images/20240213_114312_screenshot.png" alt="20240213_114312_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Password Length Query</p>
@@ -228,9 +228,9 @@ This means that we need to get 20 characters
 </p>
 </div>
 </div>
-<div id="outline-container-orgfd88017" class="outline-4">
-<h4 id="orgfd88017"><a href="#orgfd88017">Password Contents</a></h4>
-<div class="outline-text-4" id="text-orgfd88017">
+<div id="outline-container-org444f70e" class="outline-4">
+<h4 id="org444f70e"><a href="#org444f70e">Password Contents</a></h4>
+<div class="outline-text-4" id="text-org444f70e">
 <p>
 Since I use Burp Community Edition I know that to get the password
 will take a fair share of my lifetime, should I stick with the
@@ -256,7 +256,7 @@ allowing through the usage of <code>proxies</code>, to have the requests sent to
 burp as well<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, while its payload is in the form of:
 </p>
 
-<pre class="example" id="org6859973">
+<pre class="example" id="org37764fb">
 'Cookie': f"TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT SUBSTR(password,{index},1) from users where username='administrator') ='{letter}') THEN TO_CHAR(1/0) ELSE null END from dual--; session=ImL77SPyy3Ne4HwEqb2Bnu2HFhIR18Vp",
 </pre>
 
@@ -274,7 +274,7 @@ This beautifully automates the process allowing me to get a:
 </p>
 
 
-<div id="orgf3e83a2" class="figure">
+<div id="orgcb3cc76" class="figure">
 <p><img src="images/20240213_115634_screenshot.png" alt="20240213_115634_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>BEAUTIFULLLLLLL</p>
@@ -283,9 +283,9 @@ This beautifully automates the process allowing me to get a:
 </div>
 </div>
 </div>
-<div id="outline-container-org28bf984" class="outline-2">
-<h2 id="org28bf984"><a href="#org28bf984">Summary</a></h2>
-<div class="outline-text-2" id="text-org28bf984">
+<div id="outline-container-orge5be8fc" class="outline-2">
+<h2 id="orge5be8fc"><a href="#orge5be8fc">Summary</a></h2>
+<div class="outline-text-2" id="text-orge5be8fc">
 <p>
 Do not make the mistake of overlooking these labs. They have been
 really fun to play with, and I feel like I have already learned so
@@ -305,7 +305,7 @@ Critical when debugging payload mistakes
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2024-02-13 Tue 11:22</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-13 Tue 11:22</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

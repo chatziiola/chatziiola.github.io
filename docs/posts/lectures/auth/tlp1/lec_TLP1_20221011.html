@@ -6,7 +6,7 @@
 <title>Διάλεξη 4: Ολοκλήρωση AM: Εναλλακτικές AM διαμορφώσεις.</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -50,30 +50,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd9de8c8">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a>
+<li><a href="#org9da5b2c">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a>
 <ul>
-<li><a href="#orgf8a1e46">Αναλογικό PLL</a></li>
+<li><a href="#orge18f535">Αναλογικό PLL</a></li>
 </ul>
 </li>
-<li><a href="#org5a56fbf">Άλλες μορφές διαμορφώσεων πλάτους</a>
+<li><a href="#orgda1c308">Άλλες μορφές διαμορφώσεων πλάτους</a>
 <ul>
-<li><a href="#org1db74e0">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a>
+<li><a href="#org46d6634">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a>
 <ul>
-<li><a href="#orgdeddb82">Σύγκριση με DSBAMTC</a></li>
-<li><a href="#org91e564a">Διαφορά στο πεδίο της συχνότητας</a></li>
-<li><a href="#org1fda068">Ισχύς</a></li>
-<li><a href="#orgb376d7f">(Σύμφωνη) Αποδιαμόρφωση</a></li>
+<li><a href="#orgd897ec9">Σύγκριση με DSBAMTC</a></li>
+<li><a href="#orgfa509c3">Διαφορά στο πεδίο της συχνότητας</a></li>
+<li><a href="#orgae71a95">Ισχύς</a></li>
+<li><a href="#org089e79f">(Σύμφωνη) Αποδιαμόρφωση</a></li>
 </ul>
 </li>
-<li><a href="#org8e160db">SSB-AM: Single Sideband AM</a>
+<li><a href="#orgc75f4bb">SSB-AM: Single Sideband AM</a>
 <ul>
-<li><a href="#org5643e2c">Μειονεκτήματα:</a></li>
+<li><a href="#org7544a52">Μειονεκτήματα:</a></li>
 </ul>
 </li>
-<li><a href="#org4d7ac8e">VSB-AM: Vestigial Side Band AM</a></li>
+<li><a href="#org04b669c">VSB-AM: Vestigial Side Band AM</a></li>
 </ul>
 </li>
-<li><a href="#orgc026b53">Σύνοψη διαμορφώσεων πλάτους.</a></li>
+<li><a href="#org04f5f7b">Σύνοψη διαμορφώσεων πλάτους.</a></li>
 </ul>
 </div>
 </div>
@@ -81,11 +81,11 @@
 <b>Αποδιαμόρφωση:</b> η διαδικασία με την οποία από το ληφθέν σήμα \(x(t)\) μπορούμε να
 <i>πάρουμε</i> το αρχικό σήμα ( σήμα πληροφορίας ) \(m(t)\)
 </p>
-<div id="outline-container-orgd9de8c8" class="outline-2">
-<h2 id="orgd9de8c8"><a href="#orgd9de8c8">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a></h2>
-<div class="outline-text-2" id="text-orgd9de8c8">
+<div id="outline-container-org9da5b2c" class="outline-2">
+<h2 id="org9da5b2c"><a href="#org9da5b2c">Σύμφωνοι Αποδιαμορφωτές ΑΜ</a></h2>
+<div class="outline-text-2" id="text-org9da5b2c">
 
-<div id="orgf67a30a" class="figure">
+<div id="org078f2a4" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_symfonosapodiamorfotis.png" alt="tlp1_lec4_symfonosapodiamorfotis.png">
 </p>
 </div>
@@ -102,23 +102,23 @@
 σχέσης που συνδέει τα δύο αυτά μεγέθη και τα δύο βρίσκονται από το PLL 
 </p>
 
-<div class="note" id="orged16da5">
+<div class="note" id="orgf587e9f">
 <p>
 Πρακτικά βρίσκει πρώτα την φάση και μετά την συχνότητα.
 </p>
 
 </div>
 </div>
-<div id="outline-container-orgf8a1e46" class="outline-3">
-<h3 id="orgf8a1e46"><a href="#orgf8a1e46">Αναλογικό PLL</a></h3>
-<div class="outline-text-3" id="text-orgf8a1e46">
+<div id="outline-container-orge18f535" class="outline-3">
+<h3 id="orge18f535"><a href="#orge18f535">Αναλογικό PLL</a></h3>
+<div class="outline-text-3" id="text-orge18f535">
 <p>
 <b>Συνοπτικά</b>: Το PLL αποτελεί σύστημα ελέγχου που επιτρέπει σε ταλαντωτή να
 ταυτιστεί/ μιμηθεί έναν άλλον.
 </p>
 
 
-<div id="org96461c9" class="figure">
+<div id="org8830e94" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_pll.png" alt="tlp1_lec4_pll.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Απλό μοντέλο (εσωτερικό) του PLL, για κατανόηση του τρόπου λειτουργίας.</p>
@@ -154,31 +154,31 @@ v(t) = A_y\cos{\left(2\pi f_ct + \phi(t)\right)}
 </div>
 </div>
 </div>
-<div id="outline-container-org5a56fbf" class="outline-2">
-<h2 id="org5a56fbf"><a href="#org5a56fbf">Άλλες μορφές διαμορφώσεων πλάτους</a></h2>
-<div class="outline-text-2" id="text-org5a56fbf">
+<div id="outline-container-orgda1c308" class="outline-2">
+<h2 id="orgda1c308"><a href="#orgda1c308">Άλλες μορφές διαμορφώσεων πλάτους</a></h2>
+<div class="outline-text-2" id="text-orgda1c308">
 <p>
-Στην <a href="lec_TLP1_20221012.html#orgebe855f">δεύτερη διάλεξη</a> είδαμε συνοπτικά πως υπάρχουν 4 είδη ΑΜ διαμόρφωσης. Μέχρι
+Στην <a href="lec_TLP1_20221012.html#org987f00e">δεύτερη διάλεξη</a> είδαμε συνοπτικά πως υπάρχουν 4 είδη ΑΜ διαμόρφωσης. Μέχρι
 στιγμής έχει εξεταστεί το βασικότερο: <b>Double Sided Band-AM Total Carrier</b>, όμως
 σε αυτή την διάλεξη, ολοκληρώνοντας το θεωρητικό κομμάτι της διαμόρφωσης
 πλάτους θα αναφερθούμε και στα υπόλοιπα
 </p>
 <ul class="org-ul">
-<li><a href="#org1db74e0">DSB-AM-SC</a></li>
-<li><a href="#org8e160db">SSB-AM</a></li>
-<li><a href="#org4d7ac8e">VSB-AM</a></li>
+<li><a href="#org46d6634">DSB-AM-SC</a></li>
+<li><a href="#orgc75f4bb">SSB-AM</a></li>
+<li><a href="#org04b669c">VSB-AM</a></li>
 </ul>
 </div>
-<div id="outline-container-org1db74e0" class="outline-3">
-<h3 id="org1db74e0"><a href="#org1db74e0">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a></h3>
-<div class="outline-text-3" id="text-org1db74e0">
+<div id="outline-container-org46d6634" class="outline-3">
+<h3 id="org46d6634"><a href="#org46d6634">DSB-AM-SC: Διπλής Πλευρικής Ζώνης με Καταργημένο Φέρον.</a></h3>
+<div class="outline-text-3" id="text-org46d6634">
 <p>
 Τα αρχικά της διαμόρφωσης, σε πλήρη αναλογία με την ελληνική ονομασία σημαίνουν:
 <b>Double Sided Band-AM-Suppressed Carrier</b>
 </p>
 
 
-<div id="org8740d78" class="figure">
+<div id="orgef57910" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_dsamtc-dsamsc-differences.png" alt="tlp1_lec4_dsamtc-dsamsc-differences.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Σύγκριση απλού, συνημιτονοειδούς σήματος πληροφορίας, με τις αντοίστιχες διαμορφώσεις πλάτους TC, SC.</p>
@@ -205,9 +205,9 @@ x(t) = A_Cm(t)\cos{2\pi f_ct}
 διαμορφωμένου σήματος και την αποδοτικότητα του.
 </p>
 </div>
-<div id="outline-container-orgdeddb82" class="outline-4">
-<h4 id="orgdeddb82"><a href="#orgdeddb82">Σύγκριση με DSBAMTC</a></h4>
-<div class="outline-text-4" id="text-orgdeddb82">
+<div id="outline-container-orgd897ec9" class="outline-4">
+<h4 id="orgd897ec9"><a href="#orgd897ec9">Σύγκριση με DSBAMTC</a></h4>
+<div class="outline-text-4" id="text-orgd897ec9">
 <p>
 <i>Στην DSBAMTC</i> το φέρον προστίθεται για να μπορούμε να κάνουμε ασύμφωνη
 αποδιαμόρφωση, χαρακτηριστική της TC, καθώς δεν είναι υλοποιήσιμη στην SC. Αυτό
@@ -218,7 +218,7 @@ PLL, που καθιστούσε την σύμφωνη αποδιαμόρφωσ�
 </p>
 
 
-<div id="orga21948b" class="figure">
+<div id="org6956314" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_dsamtc-dsamsc-differences-split.png" alt="tlp1_lec4_dsamtc-dsamsc-differences-split.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Σύγκριση των δυο διαμορφώσεων, σε ξεχωριστά διαγράμματα.</p>
@@ -235,9 +235,9 @@ PLL, που καθιστούσε την σύμφωνη αποδιαμόρφωσ�
 </ul>
 </div>
 </div>
-<div id="outline-container-org91e564a" class="outline-4">
-<h4 id="org91e564a"><a href="#org91e564a">Διαφορά στο πεδίο της συχνότητας</a></h4>
-<div class="outline-text-4" id="text-org91e564a">
+<div id="outline-container-orgfa509c3" class="outline-4">
+<h4 id="orgfa509c3"><a href="#orgfa509c3">Διαφορά στο πεδίο της συχνότητας</a></h4>
+<div class="outline-text-4" id="text-orgfa509c3">
 <p>
 Όπως φαίνεται και από τις παρακάτω εξισώσεις, το φασματικό περιεχόμενο της SC
 παρουσιάζει πολλές ομοιότητες με εκείνο της TC<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, λείπουν, όμως, οι ώσεις που
@@ -253,9 +253,9 @@ X(f) &= \frac{1}{2}A_c[M(f-f_c)+M(f+{f_c})]&\text{DSBAMSC}
 \end{align}
 </div>
 </div>
-<div id="outline-container-org1fda068" class="outline-4">
-<h4 id="org1fda068"><a href="#org1fda068">Ισχύς</a></h4>
-<div class="outline-text-4" id="text-org1fda068">
+<div id="outline-container-orgae71a95" class="outline-4">
+<h4 id="orgae71a95"><a href="#orgae71a95">Ισχύς</a></h4>
+<div class="outline-text-4" id="text-orgae71a95">
 <p>
 Ακόμα, ένας παράγοντας που όσο περνάνε τα χρόνια αποκτά αυξανόμενη σημασία
 είναι το ενεργειακό κόστος το οποίο, όπως μπορούμε να δούμε, είναι πιο εύκολα
@@ -279,11 +279,11 @@ P_{DSBAMTC} = \frac{1}{2}A_c^2 + \frac{1}{2}P_{m}
 \end{equation}
 </div>
 </div>
-<div id="outline-container-orgb376d7f" class="outline-4">
-<h4 id="orgb376d7f"><a href="#orgb376d7f">(Σύμφωνη) Αποδιαμόρφωση</a></h4>
-<div class="outline-text-4" id="text-orgb376d7f">
+<div id="outline-container-org089e79f" class="outline-4">
+<h4 id="org089e79f"><a href="#org089e79f">(Σύμφωνη) Αποδιαμόρφωση</a></h4>
+<div class="outline-text-4" id="text-org089e79f">
 
-<div id="org67a579e" class="figure">
+<div id="org3441bcf" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_dsbamsc-apodiamorfotis.png" alt="tlp1_lec4_dsbamsc-apodiamorfotis.png">
 </p>
 <p><span class="figure-number">Figure 4: </span>Απλός SC αποδιαμορφωτής, με την χρήση PLL</p>
@@ -314,10 +314,10 @@ y(t) = 1/2 A_cm(t)
 </div>
 </div>
 </div>
-<div id="outline-container-org8e160db" class="outline-3">
-<h3 id="org8e160db"><a href="#org8e160db">SSB-AM: Single Sideband AM</a></h3>
-<div class="outline-text-3" id="text-org8e160db">
-<div class="note" id="org05961e3">
+<div id="outline-container-orgc75f4bb" class="outline-3">
+<h3 id="orgc75f4bb"><a href="#orgc75f4bb">SSB-AM: Single Sideband AM</a></h3>
+<div class="outline-text-3" id="text-orgc75f4bb">
+<div class="note" id="org53415df">
 <p>
 Τόσο το SSB-AM, όσο και το VSB-AM αποτελούν πλέον παρωχημένες τεχνολογίες.
 Αναφέρθηκαν μόνο για σφαιρική γνώση και τονίστηκε πως δεν χρειάζεται εμβάθυνση
@@ -335,7 +335,7 @@ y(t) = 1/2 A_cm(t)
 </p>
 
 
-<div id="org7e2b3af" class="figure">
+<div id="orgfec0536" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec4_ssb-am-deixnontas-dipli-pliroforia.png" alt="tlp1_lec4_ssb-am-deixnontas-dipli-pliroforia.png">
 </p>
 <p><span class="figure-number">Figure 5: </span>Ανάδειξη της κάτω και άνω πλευρικής ζώνης κατά την DSBAMSC διαμόρφωση.</p>
@@ -353,9 +353,9 @@ y(t) = 1/2 A_cm(t)
 <li>LSSB <i>(Lower - SSB)</i></li>
 </ul>
 </div>
-<div id="outline-container-org5643e2c" class="outline-4">
-<h4 id="org5643e2c"><a href="#org5643e2c">Μειονεκτήματα:</a></h4>
-<div class="outline-text-4" id="text-org5643e2c">
+<div id="outline-container-org7544a52" class="outline-4">
+<h4 id="org7544a52"><a href="#org7544a52">Μειονεκτήματα:</a></h4>
+<div class="outline-text-4" id="text-org7544a52">
 <p>
 <b>Παρόλο που γλυτώνουν εύρος ζώνης δεν χρησιμοποιούνται λόγω θορύβου:</b>
 </p>
@@ -373,10 +373,10 @@ y(t) = 1/2 A_cm(t)
 </div>
 </div>
 </div>
-<div id="outline-container-org4d7ac8e" class="outline-3">
-<h3 id="org4d7ac8e"><a href="#org4d7ac8e">VSB-AM: Vestigial Side Band AM</a></h3>
-<div class="outline-text-3" id="text-org4d7ac8e">
-<div class="note" id="orgae32595">
+<div id="outline-container-org04b669c" class="outline-3">
+<h3 id="org04b669c"><a href="#org04b669c">VSB-AM: Vestigial Side Band AM</a></h3>
+<div class="outline-text-3" id="text-org04b669c">
+<div class="note" id="orgaaf1588">
 <p>
 Στις εξετάσεις μπορεί να βρίσκεται μόνο σε ερωτήσεις ΣΛ με σύντομη αιτιολόγηση.
 </p>
@@ -392,9 +392,9 @@ y(t) = 1/2 A_cm(t)
 </div>
 </div>
 </div>
-<div id="outline-container-orgc026b53" class="outline-2">
-<h2 id="orgc026b53"><a href="#orgc026b53">Σύνοψη διαμορφώσεων πλάτους.</a></h2>
-<div class="outline-text-2" id="text-orgc026b53">
+<div id="outline-container-org04f5f7b" class="outline-2">
+<h2 id="org04f5f7b"><a href="#org04f5f7b">Σύνοψη διαμορφώσεων πλάτους.</a></h2>
+<div class="outline-text-2" id="text-org04f5f7b">
 <table>
 
 
@@ -499,7 +499,7 @@ y(t) = 1/2 A_cm(t)
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2022-10-11 Tue 00:00</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-10-11 Tue 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

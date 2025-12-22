@@ -1,0 +1,133 @@
+#+TITLE: A stupid solution to a stupid problem
+#+DATE: <2025-11-30 21:23>
+#+SUBTITLE: Customizing Your Org-Publish Workflow for Draft Posts
+#+DESCRIPTION: Learn how to create a robust and flexible draft management system for your Org-mode blog. This guide walks you through customizing the org-publish process with Emacs Lisp functions to gain full control over which posts are published and which remain as drafts.
+#+FILETAGS: emacs blog orgmode
+
+* Introduction
+:PROPERTIES:
+:ID:       c44bacbd-ac08-4311-9265-6d70fff2d6d0
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+I haven't published any articles for quite a long time. Usually, when that
+happens, it's either because I didn't want to write about anything, or I didn't
+have the time.
+
+God knows I haven't had much time these past months (and won't have
+as much as one would like moving forward), but I've put in work on quite a few
+projects I was excited to write about. And I wrote, because I had made
+it easy for myself – just pressing `~<spc>la~` in Emacs creates a properly named and
+formatted article. I needed nothing more.
+
+* Current workflow
+:PROPERTIES:
+:ID:       06c3356c-5bd6-4332-a053-de12914a143b
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+But if that's all... why didn't I publish? Because I hadn't made it easy for publishing. In
+fact, the process of publishing an article remains quite cumbersome. For instance, if I create
+article A but don't publish (or even fully write) it before completing article B, it messes things up:
+1. It gets published in Org mode.
+2. It gets added by Python to my index files (both the generic archive, the tags index, and the latest articles).
+And I don't want to start "deleting" content I don't want to publish.
+
+#+NAME: draft directory
+#+begin_note
+An obvious solution is to keep my draft files in a directory separate from where they'll be published. I tried that once, but without elaborating, it presented its own set of problems.
+#+end_note
+
+* Bypassing the problem
+:PROPERTIES:
+:ID:       a49b8a9b-13ac-44a1-88e4-f2ad32046639
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+If you've read the Org documentation on publishing (for instance, the [[https://orgmode.org/manual/Selecting-files.html][Selecting files
+section]]), and then proceeded to tinker with your own configuration, you might
+have realized that exclusions are a tricky thing.
+
+It's a truly frustrating problem. Wanting to simply exclude a file[fn:1], yet somehow your
+`:exclude-tags '("draft" "noexport" "nopublish")` becomes another bystander. What
+if... I exclude the files I want by replacing the publishing function?
+
+* My index publication function
+:PROPERTIES:
+:ID:       5a0e0bf4-f6c0-498d-af8b-9259edcba249
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+Aptly named `my-selective-publish`, this function came to me while working on a
+wholly different project, yet I wanted to test it. And it worked!
+
+#+begin_src elisp
+(defun my-selective-publish (plist filename pub-dir)
+  "Publish FILENAME only if it is an index.org file."
+  (when (string-equal "index.org" (file-name-nondirectory filename))
+    (org-html-publish-to-html plist filename pub-dir)))
+#+end_src
+
+Instead of specifying `org-html-publish-to-html` as the publishing function
+directly, I simply replaced it with `my-selective-publish`. It ignores
+everything except the `index.org` files.
+#+begin_src elisp
+
+(setq org-publish-project-alist
+      (list
+
+       (list "indices"
+       	     :base-directory base-dir
+       	     :recursive t
+       	     :html-postamble general-postamble
+       	     :publishing-directory public-dir
+       	     :publishing-function 'my-selective-publish
+	     :with-author nil           ;; Don't include author name
+	     :with-creator nil            ;; Include Emacs and Org versions in footer
+	     :with-drawers t
+	     :headline-level 4
+	     :with-toc nil
+	     :section-numbers nil       ;; Don't include section numbers
+	     :time-stamp-file nil)
+#+end_src
+
+
+* Working with draft articles
+:PROPERTIES:
+:ID:       e3fe39e7-0cab-4774-aae4-95ef63670ed4
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+At this point, one might ask: "Great, but how is that helpful?" The thing is,
+since this works, we can 'hack' our way through: I can easily add a line
+like `#+DRAFT: t` to my draft articles, and I'm pretty sure you know where this
+is going. Since I can both add such a line (automatically) to all articles I
+haven't yet published[fn:2] and search for this line, I can create a wrapper
+function based on that:
+#+NAME: Name
+#+begin_src elisp
+(defun my-publish-non-drafts (plist filename pub-dir)
+  "Publish FILENAME only if it does not have a DRAFT property set to t."
+  (when (not (string-equal "index.org" (file-name-nondirectory filename)))
+    (with-temp-buffer
+      (insert-file-contents filename)
+      (goto-char (point-min))
+      (let ((is-draft (re-search-forward "^#\\+DRAFT:\\s-*t" nil t)))
+	(unless is-draft
+	  (org-html-publish-to-html plist filename pub-dir))))))
+#+end_src
+
+I would never characterize this function as elegant. *BUT* it gets the work done, and
+that's all that matters. Some years after migrating to `org+emacs+allmyhacks` for
+my blog, I now have a default 'draft' state on all of my articles.
+
+* Summary
+:PROPERTIES:
+:ID:       e3da967b-ec4b-4165-bfc8-ed47ff4ff402
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+Well, this is it: the stupid solution
+
+* Footnotes
+:PROPERTIES:
+:ID:       5f630ae7-53a4-4cea-8560-94af19e1ec02
+:PUBDATE:  2025-12-10 Wed 19:10
+:END:
+[fn:2] *and* to all new articles upon creation
+
+[fn:1] Or many of those

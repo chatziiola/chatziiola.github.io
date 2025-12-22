@@ -7,7 +7,7 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Learn how to create a robust and flexible draft management system for your Org-mode blog. This guide walks you through customizing the org-publish process with Emacs Lisp functions to gain full control over which posts are published and which remain as drafts." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"> <script src="https://cdn.jsdelivr.net/gh/oyvindstegard/ox-tagfilter-js/ox-tagfilter.js"></script> <link rel="stylesheet" href="/src/rougier.min.css" /> <script src="/src/copy-pre.min.js"></script> <script src="/src/theme-switcher.min.js" defer></script> <link rel="icon" type="image/x-icon" href="/src/favicon.ico"> <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-55X4GXWBKS"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-55X4GXWBKS'); </script><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
@@ -22,18 +22,18 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8caf33a">Introduction</a></li>
-<li><a href="#org591e5d7">Current workflow</a></li>
-<li><a href="#orgf4fab8d">Bypassing the problem</a></li>
-<li><a href="#orgbee7330">My index publication function</a></li>
-<li><a href="#orgf0524ad">Working with draft articles</a></li>
-<li><a href="#orgd634aa4">Summary</a></li>
+<li><a href="#orge47923d">Introduction</a></li>
+<li><a href="#org28e750e">Current workflow</a></li>
+<li><a href="#org5d0caf1">Bypassing the problem</a></li>
+<li><a href="#orgbefe015">My index publication function</a></li>
+<li><a href="#orgb82c428">Working with draft articles</a></li>
+<li><a href="#orge90d59b">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org8caf33a" class="outline-2">
-<h2 id="org8caf33a"><a href="#org8caf33a">Introduction</a></h2>
-<div class="outline-text-2" id="text-org8caf33a">
+<div id="outline-container-orge47923d" class="outline-2">
+<h2 id="orge47923d"><a href="#orge47923d">Introduction</a></h2>
+<div class="outline-text-2" id="text-orge47923d">
 <p>
 I haven&rsquo;t published any articles for quite a long time. Usually, when that
 happens, it&rsquo;s either because I didn&rsquo;t want to write about anything, or I didn&rsquo;t
@@ -49,9 +49,9 @@ formatted article. I needed nothing more.
 </p>
 </div>
 </div>
-<div id="outline-container-org591e5d7" class="outline-2">
-<h2 id="org591e5d7"><a href="#org591e5d7">Current workflow</a></h2>
-<div class="outline-text-2" id="text-org591e5d7">
+<div id="outline-container-org28e750e" class="outline-2">
+<h2 id="org28e750e"><a href="#org28e750e">Current workflow</a></h2>
+<div class="outline-text-2" id="text-org28e750e">
 <p>
 But if that&rsquo;s all&#x2026; why didn&rsquo;t I publish? Because I hadn&rsquo;t made it easy for publishing. In
 fact, the process of publishing an article remains quite cumbersome. For instance, if I create
@@ -65,7 +65,7 @@ article A but don&rsquo;t publish (or even fully write) it before completing art
 And I don&rsquo;t want to start &ldquo;deleting&rdquo; content I don&rsquo;t want to publish.
 </p>
 
-<div class="note" id="orgea450cd">
+<div class="note" id="org0982197">
 <p>
 An obvious solution is to keep my draft files in a directory separate from where they&rsquo;ll be published. I tried that once, but without elaborating, it presented its own set of problems.
 </p>
@@ -73,9 +73,9 @@ An obvious solution is to keep my draft files in a directory separate from where
 </div>
 </div>
 </div>
-<div id="outline-container-orgf4fab8d" class="outline-2">
-<h2 id="orgf4fab8d"><a href="#orgf4fab8d">Bypassing the problem</a></h2>
-<div class="outline-text-2" id="text-orgf4fab8d">
+<div id="outline-container-org5d0caf1" class="outline-2">
+<h2 id="org5d0caf1"><a href="#org5d0caf1">Bypassing the problem</a></h2>
+<div class="outline-text-2" id="text-org5d0caf1">
 <p>
 If you&rsquo;ve read the Org documentation on publishing (for instance, the <a href="https://orgmode.org/manual/Selecting-files.html">Selecting files
 section</a>), and then proceeded to tinker with your own configuration, you might
@@ -89,9 +89,9 @@ if&#x2026; I exclude the files I want by replacing the publishing function?
 </p>
 </div>
 </div>
-<div id="outline-container-orgbee7330" class="outline-2">
-<h2 id="orgbee7330"><a href="#orgbee7330">My index publication function</a></h2>
-<div class="outline-text-2" id="text-orgbee7330">
+<div id="outline-container-orgbefe015" class="outline-2">
+<h2 id="orgbefe015"><a href="#orgbefe015">My index publication function</a></h2>
+<div class="outline-text-2" id="text-orgbefe015">
 <p>
 Aptly named `my-selective-publish`, this function came to me while working on a
 wholly different project, yet I wanted to test it. And it worked!
@@ -132,9 +132,9 @@ everything except the `index.org` files.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf0524ad" class="outline-2">
-<h2 id="orgf0524ad"><a href="#orgf0524ad">Working with draft articles</a></h2>
-<div class="outline-text-2" id="text-orgf0524ad">
+<div id="outline-container-orgb82c428" class="outline-2">
+<h2 id="orgb82c428"><a href="#orgb82c428">Working with draft articles</a></h2>
+<div class="outline-text-2" id="text-orgb82c428">
 <p>
 At this point, one might ask: &ldquo;Great, but how is that helpful?&rdquo; The thing is,
 since this works, we can &rsquo;hack&rsquo; our way through: I can easily add a line
@@ -144,7 +144,7 @@ haven&rsquo;t yet published<sup><a id="fnr.2" class="footref" href="#fn.2" role=
 function based on that:
 </p>
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgb97b059">(<span class="org-keyword">defun</span> <span class="org-function-name">my-publish-non-drafts</span> (plist filename pub-dir)
+<pre class="src src-elisp" id="org41caec5">(<span class="org-keyword">defun</span> <span class="org-function-name">my-publish-non-drafts</span> (plist filename pub-dir)
   <span class="org-doc">"Publish FILENAME only if it does not have a DRAFT property set to t."</span>
   (<span class="org-keyword">when</span> (not (string-equal <span class="org-string">"index.org"</span> (file-name-nondirectory filename)))
     (<span class="org-keyword">with-temp-buffer</span>
@@ -163,9 +163,9 @@ my blog, I now have a default &rsquo;draft&rsquo; state on all of my articles.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd634aa4" class="outline-2">
-<h2 id="orgd634aa4"><a href="#orgd634aa4">Summary</a></h2>
-<div class="outline-text-2" id="text-orgd634aa4">
+<div id="outline-container-orge90d59b" class="outline-2">
+<h2 id="orge90d59b"><a href="#orge90d59b">Summary</a></h2>
+<div class="outline-text-2" id="text-orge90d59b">
 <p>
 Well, this is it: the stupid solution
 </p>
@@ -187,7 +187,7 @@ Or many of those
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async> </script> <p class=\"date footer\"> Originally created on 2025-11-30 Sun 21:23</p><p class="footer"> Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br> <a href="https://github.com/chatziiola"> <i class="fa-brands fa-github"></i> </a> <a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i> </a> <a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a> </p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2025-11-30 Sun 21:23</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>
