@@ -14,6 +14,13 @@
 (require 'ox-html)
 (require 'cl-extra)
 (require 'htmlize)
+(require 'blog-index)
+
+(setq blog-index-dir posts-dir)
+;; (setq blog-index-dir "/home/chatziiol/Github/chatziiola.github.io/content/posts")
+
+(if (blog-index-get-posts)
+    (message "Index generated"))
 
 (setq make-backup-files nil)
 (setq org-use-property-inheritance t)
@@ -73,24 +80,48 @@
     "index.html"))
 
 (defun my-sitemap-entry (entry style project)
-  "Customized sitemap entry creation function, to use my /nicer/ formatting.
-
-It filters out drafts and indices, returning empty strings."
+  "Customized sitemap entry creation function with Date, Title, Description, and Tags.
+Filters out drafts and indices, returning empty strings."
   (if (and (not (directory-name-p entry))
-	   (file-is-blog-post (expand-file-name entry posts-dir)))
-      (let* ((date (org-publish-find-date entry project)))
-	(format "%s[[file:%s][%s]]"
-		(if date (format-time-string "[%Y-%m-%d] " date) "")
-		entry
-		(org-publish-find-title entry project)))
-    "")
-  )
+	   (file-is-blog-post (expand-file-name entry blog-index-dir)))
+      (let* ((post (blog-index-get-post entry))
+	     (file (file-name-sans-extension (file-relative-name (plist-get post :file) base-dir)))
+	     (date (plist-get post :date))
+	     (title (plist-get post :title))
+	     (desc (plist-get post :description))
+	     (subtitle (plist-get post :subtitle))
+	     (tags (plist-get post :filetags)))
+	(concat
+         "<div class=\"sitemap-item\">"
+	    (format "<a class=\"sitemap-title\" href=\"/%s.html\">%s</a>" file title)
+           "<div class=\"sitemap-header\">"
+             (format "<span class=\"sitemap-date\">%s</span>" (or date ""))
+	 (if (and tags (not (string-empty-p tags)))
+	     (format "<span class=\"sitemap-tag\">%s</span>" tags)
+	   "")
+           "</div>"
+	 (if (and desc (not (string-empty-p desc)))
+	     (format "<span class=\"sitemap-description\">%s</span>" desc)
+	   "")
+	 "</div>"
+	 ))
+    ""))
 
 (defun my-sitemap-function (title list)
-  "Customized sitemap function to exclude the empty entries created by `my-sitemap-entry'"
-  (let ((fixedlist (seq-filter (lambda (i) ( if (listp i) (not (member "" i)) t)) list)))
-    (concat "#+TITLE: " title "\n\n"
-	    (org-list-to-org fixedlist))))
+  "Customized sitemap function to exclude empty entries and handle the style symbol."
+  (let* ((entries (cdr list)) ;; Removes 'unordered symbol
+         (fixedlist (seq-filter (lambda (i)
+                                  (and (listp i)
+                                       (not (string-empty-p (car i)))))
+                                entries)))
+    (concat "#+TITLE: " title "\n"
+	    "#+SUBTITLE: [[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]\n"
+	    "#+INCLUDE: ../src/header.html export html" "\n"
+
+	 "#+begin_export html\n"
+         (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
+	 "\n#+end_export"
+	 )))
 
 (setq org-publish-project-alist
       (list
@@ -175,7 +206,7 @@ pictures using imagemagick. Return output file name."
   (or (equal (expand-file-name (file-name-directory filename))
 	     (file-name-as-directory (expand-file-name pub-dir)))
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
-	(if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
+       (if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
 	    (shell-command (format "magick %s -resize 1920x1080\\> +dither -colors 16 -depth 4 %s" filename dst-file))
 	  (copy-file filename dst-file t)))))
 

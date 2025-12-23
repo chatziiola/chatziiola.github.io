@@ -3,11 +3,12 @@
  * Initially based on a design by: Nicolas P. Rougier - retrieved September 2020 */
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
 
 :root {
   --mono-font: "Roboto Mono", monospace;
-  --main-font: "Montserrat", serif;
+  --main-font: "Google Sans", monospace;
 }
 
 :root {
@@ -37,7 +38,7 @@
 }
 
 body {
-  font-family: var(--mono-font);
+  font-family: var(--main-font);
   color: var(--foreground-color);
   background: var(--background-color);
   font-size: 16px;
@@ -232,7 +233,7 @@ h2,
 h3,
 h4 {
   color: var(--primary-color);
-  font-size: 1em;
+  font-size: 1rem;
   text-transform: uppercase;
 }
 
@@ -333,8 +334,16 @@ img {
   font-size: 80%;
   visibility: hidden;
 }
-.timestamp {
+
+.timestamp, .sitemap-date {
   color: var(--success-color);
+  font: var(--mono-font);
+  font-size: small;
+  /* display: inline-block; */
+  /* align-items: center; /1* Centers content vertically *1/ */
+  /* width: 9em; */
+  /* text-align: justify; */
+  /* text-align-last: justify; */
 }
 .underline {
   text-decoration: underline;
@@ -536,6 +545,53 @@ button {
   vertical-align: middle;
 }
 
-#theme-toggle:hover {
-  color: var(--success-color);
+
+.sitemap-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 1rem 0 1.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px dashed var(--secondary-color);
+}
+
+/* Optional: Remove the dashed line from the very last item */
+.sitemap-item:last-child {
+    border-bottom: none;
+}
+
+/* Header layout: Title on left, Date on right */
+.sitemap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap; /* Good for mobile responsiveness */
+}
+
+/* The Link/Title */
+.sitemap-title {
+    font-weight: 700;
+    text-decoration: none;
+    line-height: 1.2;
+}
+
+/* Tags section */
+.sitemap-tag {
+    display: block;
+    text-align: right;
+    color: var(--disabled-color);
+    padding: 2px 10px;
+    margin-right: 6px;
+    font-size: small;
+}
+
+/* The Description */
+.sitemap-description {
+    font-size: 0.8rem;
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limits description to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
