@@ -6,17 +6,15 @@ LOCAL_DIR := content
 SHELL := /bin/bash
 
 # Targets
-.DEFAULT_GOAL := local
+.DEFAULT_GOAL := preview
 
-sitemap_py:
-	@echo "Generating sitemap with python"
-	python3 scripts/generate_sitemap.py
+install_js:
+	@if [ ! -d "node_modules" ]; then \
+		echo "Installing JS dependencies..."; \
+		npm install csso-cli uglify-js; \
+	fi
 
-runPy:
-	@echo "Creating indices with python"
-	python3 scripts/working.py
-
-minify:
+minify: install_js
 	mkdir -p docs/src
 	npx csso-cli content/src/rougier.css -o docs/src/rougier.min.css
 	npx uglifyjs content/src/copy-pre.js -o docs/src/copy-pre.min.js
@@ -31,21 +29,28 @@ clean:
 	rm ~/.org-timestamps/*.cache
 
 # Necessary for publishing purposes
-# add_cname:
-# 	#echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
+add_cname:
+	echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
+
 # Build the site using Emacs
 build_emacs:
 	@echo "Running emacs build"
 	emacs -Q --script scripts/build-site.el 
 
-build: minify sitemap_py build_emacs copy_static
 
 copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
-# Serve the public directory on localhost using Python
-serve_local:
-	cd $(PUBLIC_DIR) && python3 -m http.server
+build: minify build_emacs copy_static
 
-local: build copy_static serve_local
+preview:
+	@echo "Will now preview locally; make sure to use publish later on"
+	$(MAKE) build 
+	trap 'git restore $(PUBLIC_DIR)' SIGINT; python3 -m http.server -d $(PUBLIC_DIR)
+
+publish:
+	@echo "Publishing. Make sure to have DRAFT on unfinished posts"
+	git restore docs/
+	$(MAKE) build 
+

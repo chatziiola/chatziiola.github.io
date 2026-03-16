@@ -46,6 +46,9 @@
 (defvar css-path (ini/get-value-from-file  "Site" "CssPath" configini)
   "Self-descriptive.")
 
+(defvar org-blog-navigation (ini/get-value-from-file  "HTML" "CopyScript-JS" configini)
+  "Org blog navigation: Home, theme-switch")
+
 (defvar org-blog-head (concat
 			   ; (ini/get-value-from-file  "HTML" "FontImports" configini) ;; I think they are loaded from css all the same
 			   ;; (ini/get-value-from-file  "HTML" "Ox-tagfilter-JS" configini)

@@ -46,7 +46,7 @@
       org-export-with-tags t
       org-export-with-smart-quotes t
       org-html-head org-blog-head
-      org-html-preamble "<div id=\"org-div-home-and-up\"><a accesskey=\"H\" href=\"/index.html\"> HOME </a> | <button id=\"theme-toggle\" title=\"Toggle theme\">🌓</button></div>"
+      org-html-preamble org-blog-navigation
       org-html-postamble comments-postamble)
 
 (org-babel-do-load-languages
