@@ -5,7 +5,7 @@
 
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap");
 
 :root {
   /* Fonts */
@@ -23,11 +23,11 @@
   --selection: #e0f0ff;
 
   /* Layout */
-  --max-width: 1200px;
+  --max-width: 1000px;
   --padding: 2rem;
 }
 
-[data-theme='dark'] {
+[data-theme="dark"] {
   --bg: #121212;
   --fg: #e0e0e0;
   --muted: #a0a0a0;
@@ -64,24 +64,12 @@ body {
 }
 
 /* Layout Container */
-#content, #postamble {
+#content,
+#postamble {
   max-width: var(--max-width);
   width: 90%; /* Default for smaller screens */
   margin: 0 auto;
   padding: var(--padding);
-}
-
-@media (min-width: 2400px) {
-  #content, #postamble {
-    width: 50%; /* On ultrawides, use 50% if that's more than 1200px */
-    max-width: none;
-  }
-}
-
-@media (min-width: 1200px) and (max-width: 2399px) {
-  #content, #postamble {
-    width: 1200px;
-  }
 }
 
 @media (max-width: 600px) {
@@ -91,7 +79,12 @@ body {
 }
 
 /* Typography */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--fg);
   line-height: 1.2;
   margin-top: 2.5rem;
@@ -114,8 +107,14 @@ span.subtitle {
   margin-bottom: 2rem;
 }
 
-h2 { font-size: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-h3 { font-size: 1.4rem; }
+h2 {
+  font-size: 1.8rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+}
+h3 {
+  font-size: 1.4rem;
+}
 
 a {
   color: var(--accent);
@@ -133,7 +132,8 @@ p {
 }
 
 /* Lists */
-ul, ol {
+ul,
+ol {
   padding-left: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -143,7 +143,8 @@ li {
 }
 
 /* Code Blocks */
-pre, code {
+pre,
+code {
   font-family: var(--font-mono);
   font-size: 0.95rem;
 }
@@ -185,7 +186,8 @@ table {
   font-size: 0.9rem;
 }
 
-th, td {
+th,
+td {
   padding: 0.75rem;
   text-align: left;
   border-bottom: 1px solid var(--border);
@@ -264,7 +266,7 @@ th {
   cursor: pointer;
   font-size: 0.8rem;
   font-family: var(--font-main);
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 #theme-toggle:hover {
@@ -299,7 +301,9 @@ th {
 .footer-social a {
   color: var(--muted);
   font-size: 1.5rem;
-  transition: color 0.2s, transform 0.2s;
+  transition:
+    color 0.2s,
+    transform 0.2s;
 }
 
 .footer-social a:hover {
@@ -423,40 +427,113 @@ th {
 }
 
 /* Blockquotes */
-blockquote {
+blockquote,
+.note {
+  font-size: 0.95rem;
+  color: var(--fg);
+  position: relative; /* Allows us to position the label */
   margin: 2rem 0;
   padding: 1rem 2rem;
   border-left: 4px solid var(--accent);
   background: var(--code-bg);
-  font-style: italic;
-  color: var(--muted);
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-  h1.title { font-size: 2rem; }
-  .sitemap-header { flex-direction: column; }
-  .sitemap-date { margin-top: 0.25rem; }
+  h1.title {
+    font-size: 2rem;
+  }
+  .sitemap-header {
+    flex-direction: column;
+  }
+  .sitemap-date {
+    margin-top: 0.25rem;
+  }
 }
 
 /* Utility classes */
-.timestamp { color: var(--muted); font-size: 0.85rem; }
-.tag { font-size: 0.75rem; color: var(--muted); border: 1px solid var(--border); padding: 0.1rem 0.4rem; border-radius: 3px; }
+.timestamp {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.tag {
+  font-size: 0.75rem;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.4rem;
+  border-radius: 3px;
+}
 
 /* Org-specific overrides */
-.org-center { text-align: center; }
-.outline-text-2, .outline-text-3 { margin-bottom: 2rem; }
+.org-center {
+  text-align: center;
+}
+.outline-text-2,
+.outline-text-3 {
+  margin-bottom: 2rem;
+}
 
 /* Syntax Highlighting (Org-mode htmlize) */
-.org-keyword { color: var(--accent); font-weight: 700; }
-.org-string { color: var(--muted); font-style: italic; }
-.org-builtin { color: var(--accent); }
-.org-variable-name { color: var(--fg); }
-.org-function-name { color: var(--accent); font-weight: 500; }
-.org-comment { color: var(--muted); font-style: italic; }
-.org-comment-delimiter { color: var(--muted); }
-.org-type { color: var(--fg); }
-.org-constant { color: var(--accent); }
-.org-warning { color: #ff0000; font-weight: 700; }
-.org-doc { color: var(--muted); }
-.org-string { color: var(--accent); opacity: 0.8; }
+.org-keyword {
+  color: var(--accent);
+  font-weight: 700;
+}
+.org-string {
+  color: var(--muted);
+  font-style: italic;
+}
+.org-builtin {
+  color: var(--accent);
+}
+.org-variable-name {
+  color: var(--fg);
+}
+.org-function-name {
+  color: var(--accent);
+  font-weight: 500;
+}
+.org-comment {
+  color: var(--muted);
+  font-style: italic;
+}
+.org-comment-delimiter {
+  color: var(--muted);
+}
+.org-type {
+  color: var(--fg);
+}
+.org-constant {
+  color: var(--accent);
+}
+.org-warning {
+  color: #ff0000;
+  font-weight: 700;
+}
+.org-doc {
+  color: var(--muted);
+}
+.org-string {
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+/* /1* Shared label styling *1/ */
+.note::before,
+blockquote::before {
+  /* position: absolute; */
+  left: 1rem;
+  font-family: var(--font-mono); /* Monospace gives a "technical/meta" feel */
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.note::before {
+  content: "Note";
+}
+
+blockquote::before {
+  content: "Quote";
+}
