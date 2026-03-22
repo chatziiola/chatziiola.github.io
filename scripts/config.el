@@ -46,7 +46,7 @@
 (defvar css-path (ini/get-value-from-file  "Site" "CssPath" configini)
   "Self-descriptive.")
 
-(defvar org-blog-navigation (ini/get-value-from-file  "HTML" "CopyScript-JS" configini)
+(defvar org-blog-navigation (ini/get-value-from-file  "HTML" "Navigation" configini)
   "Org blog navigation: Home, theme-switch")
 
 (defvar org-blog-head (concat
