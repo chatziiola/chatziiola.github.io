@@ -1,26 +1,22 @@
 #+TITLE: Chasing simplicity
-#+SUBTITLE: Testing what's what
 #+Description: Lamprinos' Chatziioannou personal blog where I host notes, book reviews and ctf writeups. Powered by Emacs and Org Mode.
 #+properties: notoc
 #+FILETAGS: index
-#+INCLUDE: "src/header.html" export html
 
-#+begin_center
-I am an Electrical and Computer Engineering undergrad at [[https://ee.auth.gr/][A.U.Th]].
-Always tinkering with new stuff, you will most probably find me
-spending my time feeling stuck in many fields and working on others.
+#+begin_export html
+<section class="hero">
+  <h1 class="hero-title">A personal corner of the web.</h1>
+  <p class="hero-subtitle">Notes, book reviews, and cybersecurity writeups, built with Emacs and Org Mode.</p>
+</section>
+#+end_export
 
-Actively working around networks and cybersecurity, while also dealing
-with the stress being in that school may introduce into one's life.
-
-Hopefully, there will be time for everything.
-#+end_center
-
-** Blog Hosted Tweets
-Invert, always invert.
-
-** [[file:posts/recents.org][Latest Articles]]
+#+begin_export html
+<section class="home-posts">
+#+end_export
 #+INCLUDE: "posts/recents.org" :lines "5-9" export html
+#+begin_export html
+</section>
+#+end_export
 
 ** Notes on the site itself.
 - This site, despite its minimalist approach, contains a plethora of hacks,

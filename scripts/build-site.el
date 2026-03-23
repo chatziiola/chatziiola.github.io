@@ -91,20 +91,27 @@ Filters out drafts and indices, returning empty strings."
 	     (desc (plist-get post :description))
 	     (subtitle (plist-get post :subtitle))
 	     (tags (plist-get post :filetags)))
+	;; (concat
+        ;;  "<div class=\"sitemap-item\">"
+	;;     (format "<a class=\"sitemap-title\" href=\"/%s.html\">%s</a>" file title)
+        ;;    "<div class=\"sitemap-header\">"
+        ;;      (format "<span class=\"sitemap-date\">%s</span>" (or date ""))
+	;;  (if (and tags (not (string-empty-p tags)))
+	;;      (format "<span class=\"sitemap-tag\">%s</span>" tags)
+	;;    "")
+        ;;    "</div>"
+	;;  (if (and desc (not (string-empty-p desc)))
+	;;      (format "<span class=\"sitemap-description\">%s</span>" desc)
+	;;    "")
+	;;  "</div>"
+	;;  )
 	(concat
-         "<div class=\"sitemap-item\">"
-	    (format "<a class=\"sitemap-title\" href=\"/%s.html\">%s</a>" file title)
-           "<div class=\"sitemap-header\">"
-             (format "<span class=\"sitemap-date\">%s</span>" (or date ""))
-	 (if (and tags (not (string-empty-p tags)))
-	     (format "<span class=\"sitemap-tag\">%s</span>" tags)
-	   "")
-           "</div>"
-	 (if (and desc (not (string-empty-p desc)))
-	     (format "<span class=\"sitemap-description\">%s</span>" desc)
-	   "")
-	 "</div>"
-	 ))
+	 (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
+	 (format "<span class=\"home-post-title\">%s</span>" title)
+	 (format "<span class=\"home-post-date timestamp\">%s</span>" (or date ""))
+	 "</a>"
+	 )
+	)
     ""))
 
 (defun my-sitemap-function (title list)
@@ -117,10 +124,12 @@ Filters out drafts and indices, returning empty strings."
     (concat "#+TITLE: " title "\n"
 	    "#+SUBTITLE: [[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]\n"
 
-	 "#+begin_export html\n"
-         (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
-	 "\n#+end_export"
-	 )))
+	    "#+begin_export html\n"
+	    "<section class=\"home-posts\">\n"
+            (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
+	    "</section>"
+	    "\n#+end_export"
+	    )))
 
 (setq org-publish-project-alist
       (list
@@ -205,7 +214,7 @@ pictures using imagemagick. Return output file name."
   (or (equal (expand-file-name (file-name-directory filename))
 	     (file-name-as-directory (expand-file-name pub-dir)))
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
-       (if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
+	(if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
 	    (shell-command (format "magick %s -resize 1920x1080\\> +dither -colors 16 -depth 4 %s" filename dst-file))
 	  (copy-file filename dst-file t)))))
 

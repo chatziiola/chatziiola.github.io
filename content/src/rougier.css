@@ -304,7 +304,7 @@ th {
   right: 0;
   background-color: var(--bg);
   border: 1px solid var(--border);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   border-radius: 0 0 8px 8px;
   margin-top: 2px;
   padding: 1rem;
@@ -329,12 +329,84 @@ th {
     max-width: 100%;
     width: 100%;
   }
-  
+
   #search .pagefind-ui__drawer {
     position: static;
     max-height: none;
     box-shadow: none;
     border-radius: 8px;
+  }
+}
+
+/* Hero Section */
+.hero {
+  margin: 4rem 0 6rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  color: var(--fg);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: var(--muted);
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+/* Minimal Post List for Home */
+.home-posts {
+  margin-bottom: 4rem;
+}
+
+.home-posts h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--muted);
+  border: none;
+  margin-bottom: 2rem;
+}
+
+.home-post-item {
+  display: block;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+
+.home-post-item:hover {
+  transform: translateX(10px);
+  text-decoration: none;
+}
+
+.home-post-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--fg);
+  display: block;
+}
+
+/* Discrete Info */
+.discrete-info {
+  font-size: 0.9rem;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+  margin-top: 6rem;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+  .hero {
+    margin: 2rem 0 4rem;
   }
 }
 
@@ -463,35 +535,6 @@ th {
   color: var(--fg);
 }
 
-/* Sitemap / List items */
-.sitemap-item {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.sitemap-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.sitemap-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-}
-
-.sitemap-date {
-  font-size: 0.85rem;
-  color: var(--muted);
-  font-family: var(--font-mono);
-}
-
-.sitemap-description {
-  font-size: 0.9rem;
-  color: var(--muted);
-  margin-top: 0.5rem;
-}
-
 /* Blockquotes */
 blockquote,
 .note {
@@ -509,19 +552,15 @@ blockquote,
   h1.title {
     font-size: 2rem;
   }
-  .sitemap-header {
-    flex-direction: column;
-  }
-  .sitemap-date {
-    margin-top: 0.25rem;
-  }
 }
 
 /* Utility classes */
 .timestamp {
   color: var(--muted);
   font-size: 0.85rem;
+  font-family: var(--font-mono);
 }
+
 .tag {
   font-size: 0.75rem;
   color: var(--muted);
