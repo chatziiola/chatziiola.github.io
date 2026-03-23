@@ -19,6 +19,9 @@ minify: install_js
 	npx csso-cli content/src/rougier.css -o docs/src/rougier.min.css
 	npx uglifyjs content/src/copy-pre.js -o docs/src/copy-pre.min.js
 	npx uglifyjs content/src/theme-switcher.js -o docs/src/theme-switcher.min.js
+	@if [ -f content/src/nav.js ]; then \
+		npx uglifyjs content/src/nav.js -o docs/src/nav.min.js; \
+	fi
 	@if [ -f content/src/search.js ]; then \
 		npx uglifyjs content/src/search.js -o docs/src/search.min.js; \
 	fi
@@ -34,6 +37,10 @@ clean:
 	fi
 	rm -rf ~/.org-timestamps/*.cache
 
+cleanup:
+	echo "Cleaning static files (non-included images) under content/posts"
+	zsh scripts/cleanup.sh
+
 # Necessary for publishing purposes
 add_cname:
 	echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
@@ -48,15 +55,15 @@ copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
-build: minify build_emacs copy_static pagefind
+build: cleanup minify build_emacs copy_static pagefind
 
-preview:
-	@echo "Will now preview locally; make sure to use publish later on"
-	$(MAKE) build 
-	trap 'git restore $(PUBLIC_DIR)' SIGINT; python3 -m http.server -d $(PUBLIC_DIR)
+# Turns out git restore is not such good option most of the time
+# preview:
+# 	@echo "Will now preview locally; make sure to use publish later on"
+# 	$(MAKE) build 
+# 	trap 'git restore $(PUBLIC_DIR)' SIGINT; python3 -m http.server -d $(PUBLIC_DIR)
 
 publish:
 	@echo "Publishing. Make sure to have DRAFT on unfinished posts"
-	git restore docs/
-	$(MAKE) build 
+	$(MAKE) clean build 
 
