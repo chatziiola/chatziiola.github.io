@@ -116,7 +116,6 @@ Filters out drafts and indices, returning empty strings."
                                 entries)))
     (concat "#+TITLE: " title "\n"
 	    "#+SUBTITLE: [[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]\n"
-	    "#+INCLUDE: ../src/header.html export html" "\n"
 
 	 "#+begin_export html\n"
          (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")

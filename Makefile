@@ -11,7 +11,7 @@ SHELL := /bin/bash
 install_js:
 	@if [ ! -d "node_modules" ]; then \
 		echo "Installing JS dependencies..."; \
-		npm install csso-cli uglify-js; \
+		npm install csso-cli uglify-js pagefind; \
 	fi
 
 minify: install_js
@@ -19,6 +19,12 @@ minify: install_js
 	npx csso-cli content/src/rougier.css -o docs/src/rougier.min.css
 	npx uglifyjs content/src/copy-pre.js -o docs/src/copy-pre.min.js
 	npx uglifyjs content/src/theme-switcher.js -o docs/src/theme-switcher.min.js
+	@if [ -f content/src/search.js ]; then \
+		npx uglifyjs content/src/search.js -o docs/src/search.min.js; \
+	fi
+
+pagefind:
+	npx pagefind --site $(PUBLIC_DIR)
 
 # Remove local directory
 clean:
@@ -26,7 +32,7 @@ clean:
 	@if [ -d $(PUBLIC_DIR) ]; then \
 	    rm -rf $(PUBLIC_DIR) && echo "Local directory deleted"; \
 	fi
-	rm ~/.org-timestamps/*.cache
+	rm -rf ~/.org-timestamps/*.cache
 
 # Necessary for publishing purposes
 add_cname:
@@ -42,7 +48,7 @@ copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
-build: minify build_emacs copy_static
+build: minify build_emacs copy_static pagefind
 
 preview:
 	@echo "Will now preview locally; make sure to use publish later on"
