@@ -54,6 +54,7 @@
 			   ;; (ini/get-value-from-file  "HTML" "Ox-tagfilter-JS" configini)
 			   (ini/get-value-from-file  "HTML" "CopyScript-JS" configini)
 			   (ini/get-value-from-file  "HTML" "ThemeSwitcher-JS" configini)
+			   (ini/get-value-from-file  "HTML" "Nav-JS" configini)
 			   (ini/get-value-from-file  "HTML" "Pagefind-CSS" configini)
 			   (ini/get-value-from-file  "HTML" "Pagefind-JS" configini)
 			   (ini/get-value-from-file  "HTML" "Search-JS" configini)
@@ -74,7 +75,7 @@
 (defvar general-postamble (concat
 			   (ini/get-value-from-file  "GeneralPostamble" "start" configini)
 			   (ini/get-value-from-file  "GeneralPostamble" "made_with" configini)
-			   (ini/get-value-from-file  "GeneralPostamble" "css_attribution" configini)
+			   ; (ini/get-value-from-file  "GeneralPostamble" "css_attribution" configini)
 			   (ini/get-value-from-file  "GeneralPostamble" "copyright" configini)
 			   (ini/get-value-from-file  "GeneralPostamble" "end" configini)
 			   font-awesome-container)
