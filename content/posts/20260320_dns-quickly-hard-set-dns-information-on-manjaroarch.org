@@ -7,25 +7,25 @@
 
 * Introduction
 This article aims to show how easy it is to configure DNS on a Manjaro
-host so that you do not rely on the configuration the DHCP server shares with
-you. Having a proper DNS configuration is not something you do just to brag, but
-comes with serious security, privacy and performance considerations.
+host so that you do not rely on the configuration the DHCP server provides.
+Having a proper DNS configuration is not something you do just to brag, but
+it comes with serious security, privacy and performance considerations.
 
-To help people understand, by /blindly/ following your DHCP provider's suggestions
-when it comes to DNS you risk:
-- *security*: If they have a misconfigured / insecure dns server, DNS poisoning
-  can occur at that level: You're sure that you've visited your bank's website,
-  but in actuality, you are just visiting a malicious clone
+To help you understand: by /blindly/ following your DHCP provider's suggestions
+when it comes to DNS, you risk:
+- *security*: If they have a misconfigured or insecure **DNS** server, DNS poisoning
+  can occur at that level. You might think you've visited your bank's website,
+  but in actuality, you are just visiting a malicious clone.
 - *privacy*: If a provider wants to track your internet activity, it is trivial
-  to do so: They can see all websites that you've visited (without the need
-  for extensive infrastructure - for plain MitM attacks)
+  to do so: they can see all websites that you visit (without the need
+  for extensive infrastructure - for plain MitM attacks).
 - *performance*: Inadequate DNS servers have the potential to slow all your
-  requests down
+  requests down.
 
 #+NAME: Disclaimer
 #+begin_note
-*Disclaimer*: Make sure to avoid copying the exact same configuration in case you
-(or your company) has a DNS server: Then you might lose access to certain
+*Disclaimer*: Make sure to avoid copying the exact same configuration if you
+(or your company) has a dedicated DNS server; otherwise, you might lose access to certain
 endpoints and severely impact your workflow.
 #+end_note
 
@@ -39,7 +39,7 @@ one) looks like this:
 [[file:images/20260320_dns-quickly-hard-set-dns-information-on-manjaroarch/20260320_131349_screenshot.png]]
 
 We have a device that we are quick to call a ~router~ but in actuality, it is much
-more than that. It also functions as a :
+more than that. It also functions as a:
 - Wireless Access Point - Providing wireless access to our devices
 - Ethernet (/ Layer 2) Switch - Providing LAN functionality
 - Network Attached Storage (NAS) - Strangely, I've seen a lot of people attach a
@@ -56,41 +56,41 @@ ways of handling many of the underlying parts.
 
 Now, what is a ~DHCP~ server you might ask... To understand that I'll (grossly)
 explain in a paragraph all of computer networking (-_-): I'm sure that you've
-seen or heard quite a lot of times that computers have IP addresses. If you've
+seen or heard many times that computers have IP addresses. If you've
 ever thought about it, I'm pretty sure that you reached the following
 conclusion: they can't be /born/ with them[fn:1] since an address must always
-point to you, no matter where you are (which network you are connected to). And
+be able to reach you, no matter where you are (which network you are connected to). And
 that is right! I'll keep simplifying, but you can think of your
 /over-the-internet/ communications according to the following pattern:
 1. You /somehow/ (that's DNS) find the IP of the server/computer you want to /talk/
-   to
-2. You create the message with that ~Destination IP~, and your address as ~Source
-   IP~ but not knowing where to send it to, you pass it to your router
+   to.
+2. You create the message with that ~Destination IP~ and your address as ~Source
+   IP~. Not knowing where to send it, you pass it to your router.
 3. Your router does its magic and forwards it to a path that will ultimately
-   reach ~Destination IP~ *and* wait for its answer (they'll send their reply to
-   your ~Source IP~ )
-4. Your ~Source IP~ , obviously needs to somehow be /linked/ to your router
-   (otherwise, how would the network know where to forward it to to reach you?)
+   reach ~Destination IP~ *and* waits for its answer (the server will send their reply to
+   your ~Source IP~).
+4. Your ~Source IP~ obviously needs to somehow be /linked/ to your router
+   (otherwise, how would the network know where to forward it to reach you?).
 
-A lot of interesting stuff might happen when it comes to generating your ~IP~ *but*,
+A lot of interesting stuff might happen when it comes to generating your ~IP~, *but*
 let us ignore them. We've proven that it is necessary, and that it is related to
-your ~router~ in one way or another. When it comes to home networks your ~IP~ is
-~leased~ by the ~DHCP~ server inside your router: When you connect, you ask for it,
-and you receive one, for a given time. That's it... almost.
+your ~router~ in one way or another. When it comes to home networks, your ~IP~ is
+~leased~ by the ~DHCP~ server inside your router: when you connect, you ask for it,
+and you receive one for a given time. That's it... almost.
 
 #+begin_note
 There are many significant technologies that are hidden in this simplistic
 model (such as NAT), but these are not needed in this context.
 #+end_note
 
-You see ~DHCP~ servers are usually kinda nice and want to help you out. So,
-instead of just handing out addresses, they also give you some extra addresses
-such as these of:
+You see, ~DHCP~ servers are usually kinda nice and want to help you out. So,
+instead of just handing out addresses, they also give you some extra information
+such as those for:
 - The ~router~
 - The ~DNS~ servers
 
 ** ~DNS~
-We took a long way to get here! ~DNS~ stands for ~Domain Name Service~ and it is
+We took a long way to get here! ~DNS~ stands for ~Domain Name System~ and it is
 effectively a protocol for us to go from a ~Name~ to an ~Address~.
 #+NAME: name
 #+begin_example
@@ -106,14 +106,14 @@ Address: 2a00:1450:4017:812::200e
 #+end_example
 
 * The default DNS /stack/ on Manjaro
-By default Manjaro lets ~NetworkManager~ to handle practically everything around
+By default, Manjaro lets ~NetworkManager~ handle practically everything around
 networking, which includes ~DHCP~ *and* ~DNS~ configuration. Thus, ~systemd-resolved~
 might be installed but is *disabled*: we trust that the ~DHCP~ server promotes the
-name servers we want. Have a look at ~/etc/resolv.conf~ (you don't believers)
+name servers we want. Have a look at ~/etc/resolv.conf~ (for you non-believers):
 
 #+NAME: Systemd-resolved
 #+begin_src shell
-# Use this to  verify that systemd-resolved is in fact disabled
+# Use this to verify that systemd-resolved is in fact disabled
 systemctl status systemd-resolved
 #+end_src
 
@@ -126,11 +126,11 @@ nameserver 192.168.1.1
 nameserver 8.8.8.8
 #+end_example
 
-It works (but we'll break it)
+It works (but we'll break it).
 
 ** The Goal
 The rest of this article covers how we'll:
-- force ~NetworkManager~ to include ~DNS~ servers advertised by the network and
+- force ~NetworkManager~ to **ignore** ~DNS~ servers advertised by the network and
   instead rely on ~systemd-resolved~
 - enable ~systemd-resolved~
 - configure ~systemd-resolved~ (and add a couple of security features)
@@ -140,7 +140,7 @@ Before moving on, make sure that you understand what you're doing. If in doubt, 
 #+end_note
 
 ** ~NetworkManager~ let go of ~DNS~ pleeeeeeease
-Simply enough, you'll see that ~NetworkManager~, following the standard convention
+Simply enough, you'll see that ~NetworkManager~, following the standard convention,
 can be configured through: ~/etc/NetworkManager/conf.d/<files>~
 
 All we need, thus, is to edit (or create) ~dns.conf~ in that directory:
@@ -157,14 +157,14 @@ systemd-resolved=false
 #+begin_note
 In this process we effectively redirect the ~/etc/resolv.conf~ file to
 the ~stub~ created by ~systemd-resolved~. The system then /knows/ to look to
-~systemd-resolved~, but without proper configuration, it receives information from ~NetworkManager~
+~systemd-resolved~, but without proper configuration, it receives information from ~NetworkManager~.
 #+end_note
 
 
 
 ** Configure ~systemd-resolved~
-In the same way, either through ~man 5 resolve.conf~ or by visiting
-~/etc/systemd/resolve.conf~ we'll see that a standard configuration (minimal) is
+In the same way, either through ~man 5 resolved.conf~ or by visiting
+~/etc/systemd/resolved.conf~, we'll see that a standard configuration (minimal) is
 suggested:
 #+begin_example
 [Resolve]
@@ -181,7 +181,7 @@ suggested:
 #+end_example
 
 Not only does it give us properly formatted entries to use for DNS, but it also
-explains neatly, that if misconfigured, other services such as ~NetworkManager~
+explains neatly that if misconfigured, other services such as ~NetworkManager~
 may affect our active DNS configuration.
 
 Visiting the suggested ~manpage~ explains the syntax in each of the Cloudflare,
@@ -200,8 +200,8 @@ Google and Quad9 lines:
 #+end_example
 
 At this point, one could just copy any of these as the ~DNS=~ and a different one
-as the ~FallbackDNS=~ and skip over to the part where we enable ~systemd-resolve~,
-however this article will not stop at that:
+as the ~FallbackDNS=~ and skip over to the part where we enable ~systemd-resolved~.
+However, this article will not stop at that:
 #+NAME: name
 #+begin_example
 [Resolve]
@@ -211,15 +211,15 @@ FallbackDNS=9.9.9.9#dns.quad9.net 2620:fe::9#dns.quad9.net 1.1.1.1#cloudflare-dn
 
 ** Hardening
 Why bother? Adding a couple of minutes to this configuration can make your
-browsing more secure and private, by enabling the following features
+browsing more secure and private by enabling the following features:
 - ~DNS over TLS~: This encrypts your ~DNS Queries~ through ~TLS~ so that it is
   difficult for others to /eavesdrop/ on your requests. In an ideal world, this
-  setting would mean that only your ~DNS Server~ knows what you asked for: *Privacy*
+  setting would mean that only your ~DNS Server~ knows what you asked for: *Privacy*.
 - ~DNSSEC~ handles *security* by providing *integrity*: its mechanisms make it
-  difficult for anyone to give false information or tamper the responses: the
+  difficult for anyone to give false information or tamper with the responses: the
   response *must* come from the legitimate owners of that domain.
 
-These are both *easily* added to one's configuration
+These are both *easily* added to one's configuration:
 #+begin_example
 [Resolve]
 DNS=1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
@@ -232,7 +232,7 @@ Cache=yes
 
 #+NAME: name
 #+begin_note
-In this snippet I have ~DNSOverTLS=allow-downgrade~ , since it is notoriously easy
+In this snippet I have ~DNSOverTLS=allow-downgrade~, since it is notoriously easy
 for ~DoT~ to fail. *However*, if you do not mind your connection breaking down, use ~DNSOverTLS=yes~ instead.
 #+end_note
 
@@ -246,8 +246,8 @@ sudo systemctl restart NetworkManager
 #+end_src
 
 * Verifying the installation
-This article would not be complete, if it did not include the following tests,
-allowing us to verify that we did in fact configure the system properly:
+This article would not be complete if it did not include the following tests to
+verify that we did in fact configure the system properly:
  #+NAME: systemd-resolved tests
 #+begin_src shell
  # These tests are within resolvectl
@@ -265,22 +265,22 @@ You can also verify ~DNSSEC~ against this domain (it should fail):
 resolvectl query sigfail.verteiltesysteme.net
 #+end_src
 
-Finally you can have a look at ~NetworkManager~ ~DNS~ -related settings using:
+Finally, you can have a look at ~NetworkManager~ **DNS-related** settings using:
 #+begin_src shell
 nmcli connection show $yourconnection | grep dns
 #+end_src
 
 
 ** A couple of notes on ~resolvectl status~
- - If you see that ~resolv.conf mode: foreign~ it usually means that somehow that
-   file is not a link to the usual ~systemd-resolved stub~ . You might wanna use:
+ - If you see that ~resolv.conf mode: foreign~, it usually means that somehow that
+   file is not a link to the usual ~systemd-resolved stub~. You might want to use:
    - ~sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf~
    - Fixing that will show ~resolv.conf mode: stub~
- - If you see proper ~Global~ options, but your interface still using the ~DHCP~
-   provided configuration: According to [[https://andrea.corbellini.name/2020/04/28/ubuntu-global-dns/][this]], the ~NetworkManager~ configuration
-   should suffice. For me *it required restarting*: After restarting this
+ - If you see proper ~Global~ options, but your interface **is** still using the ~DHCP~
+   provided configuration: According to [[https://andrea.corbellini.name/2020/4/28/ubuntu-global-dns/][this]], the ~NetworkManager~ configuration
+   should suffice. For me, *it required restarting*: after restarting, this
    resulted in me seeing an empty configuration for my interface, thus falling
-   back on my ~Global~ options
+   back on my ~Global~ options.
     #+begin_example
     Link 2 (enp2s0)
         Current Scopes: LLMNR/IPv4 LLMNR/IPv6 mDNS/IPv4 mDNS/IPv6
@@ -304,4 +304,4 @@ first (not by default) because otherwise, all actions will be futile.
 * Footnotes
 [fn:2] Could even work as a DNS server, but I'm willing to let that go :P
 
-[fn:1] Though, crucially, MAC addresses pretty much work that way, but still an oversimplification.
+[fn:1] Although, crucially, MAC addresses pretty much work that way, but still an oversimplification.
