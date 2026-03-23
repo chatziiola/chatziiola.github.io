@@ -7,11 +7,11 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="How I lost a lecture (twice) and put the blame on me (human error) instead of pointing at the faulty part of my code." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">Identifying a lethal mistake - after it happened: Notetaking Edition</h1>
@@ -19,23 +19,23 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org66d30bc">Introduction</a></li>
-<li><a href="#orga6c7b3a">The story</a></li>
-<li><a href="#orgb4cdbbc">The Doombringer</a></li>
-<li><a href="#org73d887a">Understanding my mistake</a></li>
-<li><a href="#org72f1589">Implementing solutions</a>
+<li><a href="#org007ff03">Introduction</a></li>
+<li><a href="#org587fab7">The story</a></li>
+<li><a href="#org9704335">The Doombringer</a></li>
+<li><a href="#org18a9cc8">Understanding my mistake</a></li>
+<li><a href="#orgc119d8b">Implementing solutions</a>
 <ul>
-<li><a href="#org1bcceec">Impossible filename approach</a></li>
-<li><a href="#orged0c658">Check for file approach</a></li>
-<li><a href="#org8cc5816">Selecting the proper one</a></li>
+<li><a href="#org96b0968">Impossible filename approach</a></li>
+<li><a href="#orgfc9d071">Check for file approach</a></li>
+<li><a href="#org9ebf486">Selecting the proper one</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org66d30bc" class="outline-2">
-<h2 id="org66d30bc"><a href="#org66d30bc">Introduction</a></h2>
-<div class="outline-text-2" id="text-org66d30bc">
+<div id="outline-container-org007ff03" class="outline-2">
+<h2 id="org007ff03"><a href="#org007ff03">Introduction</a></h2>
+<div class="outline-text-2" id="text-org007ff03">
 <p>
 For a while now I use my own implementation of a <i>notetaking</i> system to quickly
 and efficiently create lecture notes, ready to be published, exported and
@@ -59,10 +59,10 @@ And today it failed again.
 </p>
 </div>
 </div>
-<div id="outline-container-orga6c7b3a" class="outline-2">
-<h2 id="orga6c7b3a"><a href="#orga6c7b3a">The story</a></h2>
-<div class="outline-text-2" id="text-orga6c7b3a">
-<div class="note" id="orgcd9b74c">
+<div id="outline-container-org587fab7" class="outline-2">
+<h2 id="org587fab7"><a href="#org587fab7">The story</a></h2>
+<div class="outline-text-2" id="text-org587fab7">
+<div class="note" id="org5412567">
 <p>
 While writing the draft for this article I realized that this might have never
 happened if I had published my configuration earlier. Anyone seeing the code
@@ -110,9 +110,9 @@ And that is when I saw how naive I was when I wrote this little part of the code
 </p>
 </div>
 </div>
-<div id="outline-container-orgb4cdbbc" class="outline-2">
-<h2 id="orgb4cdbbc"><a href="#orgb4cdbbc">The Doombringer</a></h2>
-<div class="outline-text-2" id="text-orgb4cdbbc">
+<div id="outline-container-org9704335" class="outline-2">
+<h2 id="org9704335"><a href="#org9704335">The Doombringer</a></h2>
+<div class="outline-text-2" id="text-org9704335">
 <p>
 This is the function that I had originally created (and used till this day)
 </p>
@@ -140,9 +140,9 @@ assume&#x2026; a lot of things.
 </p>
 </div>
 </div>
-<div id="outline-container-org73d887a" class="outline-2">
-<h2 id="org73d887a"><a href="#org73d887a">Understanding my mistake</a></h2>
-<div class="outline-text-2" id="text-org73d887a">
+<div id="outline-container-org18a9cc8" class="outline-2">
+<h2 id="org18a9cc8"><a href="#org18a9cc8">Understanding my mistake</a></h2>
+<div class="outline-text-2" id="text-org18a9cc8">
 <p>
 Back when I created this function I hoped my files would get named like that :
  <code>lec_course_lecnumber_title.org</code>.
@@ -176,7 +176,7 @@ the file title to separate lecture files it from each other. After all, I wanted
 to keep it minimal.
 </p>
 
-<div class="note" id="org62e88a1">
+<div class="note" id="orgbbff1e3">
 <p>
 <b>Free tip:</b> When you reach a point, even in scripts as simple as my notetaking
 ones, where you can spend 5 minutes implementing a check, please do it, no
@@ -194,13 +194,13 @@ the file exists.
 </p>
 </div>
 </div>
-<div id="outline-container-org72f1589" class="outline-2">
-<h2 id="org72f1589"><a href="#org72f1589">Implementing solutions</a></h2>
-<div class="outline-text-2" id="text-org72f1589">
+<div id="outline-container-orgc119d8b" class="outline-2">
+<h2 id="orgc119d8b"><a href="#orgc119d8b">Implementing solutions</a></h2>
+<div class="outline-text-2" id="text-orgc119d8b">
 </div>
-<div id="outline-container-org1bcceec" class="outline-3">
-<h3 id="org1bcceec"><a href="#org1bcceec">Impossible filename approach</a></h3>
-<div class="outline-text-3" id="text-org1bcceec">
+<div id="outline-container-org96b0968" class="outline-3">
+<h3 id="org96b0968"><a href="#org96b0968">Impossible filename approach</a></h3>
+<div class="outline-text-3" id="text-org96b0968">
 <p>
 Extremely safe yet against my <i>simple-filenames</i> policy (keeping filenames as
 simple and organized as possible to reduce visual clutter when manually visiting
@@ -217,9 +217,9 @@ these dirs)
 </div>
 </div>
 </div>
-<div id="outline-container-orged0c658" class="outline-3">
-<h3 id="orged0c658"><a href="#orged0c658">Check for file approach</a></h3>
-<div class="outline-text-3" id="text-orged0c658">
+<div id="outline-container-orgfc9d071" class="outline-3">
+<h3 id="orgfc9d071"><a href="#orgfc9d071">Check for file approach</a></h3>
+<div class="outline-text-3" id="text-orgfc9d071">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">defun</span> <span class="org-function-name">chatziiola/set-lectures-filename</span>(course)
   <span class="org-doc">"Returns the lecture's title in a format: lec_&lt;course&gt;_&lt;date&gt;.org. "</span>
@@ -241,9 +241,9 @@ these dirs)
 </div>
 </div>
 </div>
-<div id="outline-container-org8cc5816" class="outline-3">
-<h3 id="org8cc5816"><a href="#org8cc5816">Selecting the proper one</a></h3>
-<div class="outline-text-3" id="text-org8cc5816">
+<div id="outline-container-org9ebf486" class="outline-3">
+<h3 id="org9ebf486"><a href="#org9ebf486">Selecting the proper one</a></h3>
+<div class="outline-text-3" id="text-org9ebf486">
 <p>
 I will keep the second one, mainly because of the fact that rarely will I need
 the extra information that exists on the filename.
@@ -257,7 +257,7 @@ If anyone has a better solution though, I am always open to suggestions.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-01-10 Tue 20:41</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-01-10 Tue 20:41</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

@@ -1,35 +1,35 @@
-
-// theme-switcher.js
 (function() {
-    const themeToggleButton = document.getElementById('theme-toggle');
-    // Check for saved theme preference, or default to user's OS preference
-    const preferDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const savedTheme = localStorage.getItem('theme');
+  const toggleBtn = document.getElementById('theme-toggle');
+  const doc = document.documentElement;
 
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-        } else {
-            document.documentElement.classList.remove('dark-mode');
-        }
-    }
+  // 1. Determine theme (Priority: localStorage > System Preference)
+  const getInitialTheme = () => {
+    const saved = localStorage.getItem('theme');
+    if (saved) return saved;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  };
 
-    // Set the initial theme on page load
-    if (savedTheme) {
-        applyTheme(savedTheme);
-    } else if (preferDark) {
-        applyTheme('dark');
-    } else {
-        applyTheme('light');
-    }
+  // 2. Simple Apply function
+  const applyTheme = (theme, save = false) => {
+    doc.setAttribute('data-theme', theme);
+    toggleBtn.textContent = theme === 'dark' ? 'light mode' : 'dark mode';
+    if (save) localStorage.setItem('theme', theme);
+  };
 
-    // Add click event listener to the button
-    if (themeToggleButton) {
-        themeToggleButton.addEventListener('click', () => {
-            const currentTheme = document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
+  // 3. Initialize
+  const currentTheme = getInitialTheme();
+  applyTheme(currentTheme);
+
+  // 4. Toggle Event
+  toggleBtn.addEventListener('click', () => {
+    const nextTheme = doc.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme, true);
+  });
+
+  // 5. Listen for OS changes
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    if (!localStorage.getItem('theme')) {
+      applyTheme(e.matches ? 'dark' : 'light');
     }
+  });
 })();

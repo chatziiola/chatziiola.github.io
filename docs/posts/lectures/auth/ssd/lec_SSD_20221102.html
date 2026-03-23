@@ -6,7 +6,7 @@
 <title>Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -42,7 +42,7 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">Διάλεξη 6: Μεταχηματισμοί Τυχ Μεταβλητών</h1>
@@ -50,20 +50,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orge0dfd3a">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
+<li><a href="#orgdbe937f">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a>
 <ul>
-<li><a href="#orgb03ac51">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
-<li><a href="#org24d1179">Για ν τυχαίες μεταβλητές</a></li>
+<li><a href="#org4e5328b">Επέκταση για δυο τυχαίες μεταβλητές</a></li>
+<li><a href="#orgd44ab48">Για ν τυχαίες μεταβλητές</a></li>
 </ul>
 </li>
-<li><a href="#orgb097f2a">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
+<li><a href="#org8ac04ee">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a>
 <ul>
-<li><a href="#org7e87456">Μετασχηματισμός JCDF</a></li>
-<li><a href="#org2f8e252">Μετασχηματισμός JPDF</a></li>
-<li><a href="#orga13372f">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
+<li><a href="#org8150646">Μετασχηματισμός JCDF</a></li>
+<li><a href="#org313ccf1">Μετασχηματισμός JPDF</a></li>
+<li><a href="#orgfae1b0f">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></li>
 </ul>
 </li>
-<li><a href="#org7877d75">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
+<li><a href="#orgae68f39">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></li>
 </ul>
 </div>
 </div>
@@ -85,13 +85,13 @@ div.paradeigma {
 </p>
 
 <p>
-Συγκεκριμένα η πρώτη ενότητα (<a href="#orge0dfd3a">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
+Συγκεκριμένα η πρώτη ενότητα (<a href="#orgdbe937f">Μοντέλο πολλαπλών τυχαίων μεταβλητών</a>) μπήκε κατ&rsquo;
 αποκλειστικότητα για συμπλήρωση των υπολοίπων.
 </p>
-<div id="outline-container-orge0dfd3a" class="outline-2">
-<h2 id="orge0dfd3a"><a href="#orge0dfd3a">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
-<div class="outline-text-2" id="text-orge0dfd3a">
-<div class="note" id="org2380dea">
+<div id="outline-container-orgdbe937f" class="outline-2">
+<h2 id="orgdbe937f"><a href="#orgdbe937f">Μοντέλο πολλαπλών τυχαίων μεταβλητών.</a></h2>
+<div class="outline-text-2" id="text-orgdbe937f">
+<div class="note" id="org87b6fab">
 <p>
 &rsquo;Έξυπνη&rsquo; η μελέτη από Πανά:
 </p>
@@ -113,9 +113,9 @@ div.paradeigma {
 Χαρακτηριστικά, το στοχαστικό σήμα <i>χρειάζεται/εκμεταλλέυεται</i> άπειρες τμ.
 </p>
 </div>
-<div id="outline-container-orgb03ac51" class="outline-3">
-<h3 id="orgb03ac51"><a href="#orgb03ac51">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-orgb03ac51">
+<div id="outline-container-org4e5328b" class="outline-3">
+<h3 id="org4e5328b"><a href="#org4e5328b">Επέκταση για δυο τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-org4e5328b">
 <p>
 Έστω λοιπόν ότι οι μεταβλητές \(X,Y\) συνδέονται με το αποτέλεσμα του πειράματος
 και χρειαζόμαστε την πιθανότητα:
@@ -139,7 +139,7 @@ div.paradeigma {
 Για την οποία ισχύουν οι αναμενόμενες από την απλή CDF ιδιότητες.
 </p>
 
-<div class="note" id="orgae09fc5">
+<div class="note" id="orgbefa5c1">
 <p>
 Τόσο η JCDF όσο και η JPDF μπορούν εύκολα να γίνουν εικόνα ως <i>τομές</i> υποχώρων.
 </p>
@@ -172,8 +172,8 @@ F_{XY}(x,y) = \int_{-\infty}^x\int_{-\infty}^y f_{XY}(x,y)dydx
 \end{equation}
 </div>
 <ul class="org-ul">
-<li><a id="orgadeac18"></a><a href="#orgadeac18">Ροπές</a><br>
-<div class="outline-text-5" id="text-orgadeac18">
+<li><a id="orgb6201dc"></a><a href="#orgb6201dc">Ροπές</a><br>
+<div class="outline-text-5" id="text-orgb6201dc">
 <p>
 Παράλληλα, όπως αλλάζουν οι CDF, PDF, είναι αναμενόμενο πως θα χρειαστεί να
 ορίσουμε με διαφορετικό τρόπο και τις ροπές.
@@ -201,8 +201,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </p>
 </div>
 </li>
-<li><a id="org30bf2a8"></a><a href="#org30bf2a8">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
-<div class="outline-text-5" id="text-org30bf2a8">
+<li><a id="org482017e"></a><a href="#org482017e">Συσχέτιση και συντελεστής συσχέτισης.</a><br>
+<div class="outline-text-5" id="text-org482017e">
 <p>
 Εκ των ροπών όμως είναι μερικές που /ξεχωρίζουν:οι \(m_{11}\),\(\mu_{11}\), αλλιώς
 <b>συσχέτιση και συμμεταβλητότητα</b>.
@@ -241,8 +241,8 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 \end{align}
 </div>
 </li>
-<li><a id="org275d6b9"></a><a href="#org275d6b9">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
-<div class="outline-text-5" id="text-org275d6b9">
+<li><a id="org17eeb87"></a><a href="#org17eeb87">Χαρακτηριστική εξίσωση στο μοντέλο πολλών τμ:</a><br>
+<div class="outline-text-5" id="text-org17eeb87">
 \begin{equation}
 \label{eq:16}
 \Phi_{X}(\omega) = E[e^{j\omega x}] = \int_{-\infty}^{\infty} e^{j\omega x}f_x(x)dx \stackrel{JPDF}{\Rightarrow} \Phi_{XY}(\omega_1,\omega_2) = E[e^{j(\omega_1x+\omega_2y)}] = \cdots
@@ -251,26 +251,26 @@ m_{kr} = E[X^kY^r] = \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^ky^rf_{XY
 </li>
 </ul>
 </div>
-<div id="outline-container-org24d1179" class="outline-3">
-<h3 id="org24d1179"><a href="#org24d1179">Για ν τυχαίες μεταβλητές</a></h3>
-<div class="outline-text-3" id="text-org24d1179">
+<div id="outline-container-orgd44ab48" class="outline-3">
+<h3 id="orgd44ab48"><a href="#orgd44ab48">Για ν τυχαίες μεταβλητές</a></h3>
+<div class="outline-text-3" id="text-orgd44ab48">
 <p>
 Τα παραπάνω εύκολα ανάγονται για οποιονδήποτε αριθμό τυχαίων μεταβλητών.
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb097f2a" class="outline-2">
-<h2 id="orgb097f2a"><a href="#orgb097f2a">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
-<div class="outline-text-2" id="text-orgb097f2a">
+<div id="outline-container-org8ac04ee" class="outline-2">
+<h2 id="org8ac04ee"><a href="#org8ac04ee">Μετασχηματισμοί σε μοντέλλο πολλαπλών τμ</a></h2>
+<div class="outline-text-2" id="text-org8ac04ee">
 <p>
 Δοθείσης της τμ \(Z=g(X,Y)\), και του μοντέλου \((X,Y,f_{XY}(x,y))\) ζητείται να
 βρουμε ποιο είναι το μοντέλο \((Z,f_Z)\):
 </p>
 </div>
-<div id="outline-container-org7e87456" class="outline-3">
-<h3 id="org7e87456"><a href="#org7e87456">Μετασχηματισμός JCDF</a></h3>
-<div class="outline-text-3" id="text-org7e87456">
+<div id="outline-container-org8150646" class="outline-3">
+<h3 id="org8150646"><a href="#org8150646">Μετασχηματισμός JCDF</a></h3>
+<div class="outline-text-3" id="text-org8150646">
 <p>
 Την \(F_z(z)\) μπορούμε να την βρούμε σχετικά εύκολα μέσω της:
 </p>
@@ -283,9 +283,9 @@ F_z(z)=
 \end{equation}
 </div>
 </div>
-<div id="outline-container-org2f8e252" class="outline-3">
-<h3 id="org2f8e252"><a href="#org2f8e252">Μετασχηματισμός JPDF</a></h3>
-<div class="outline-text-3" id="text-org2f8e252">
+<div id="outline-container-org313ccf1" class="outline-3">
+<h3 id="org313ccf1"><a href="#org313ccf1">Μετασχηματισμός JPDF</a></h3>
+<div class="outline-text-3" id="text-org313ccf1">
 <p>
 Για την \(f_z(z)\), όμως, χρειάζεται να ακολουθήσουμε διαφορετική προσέγγιση:
 </p>
@@ -320,7 +320,7 @@ J(x,y) =
 \end{vmatrix}
 \end{equation}
 
-<div class="note" id="org90c1640">
+<div class="note" id="org16661c0">
 <p>
 Προφανώς αυτό πρόκειται για υποπερίπτωση, του να θέλεις να πας από το
 \((X,Y,f_{XY})\to (Z,\Theta,f_{z\theta})\), όπου \(Z=g(X,Y),\Theta=h(X,Y)\)
@@ -328,7 +328,7 @@ J(x,y) =
 
 </div>
 
-<div class="paradeigma" id="org254eefc">
+<div class="paradeigma" id="org3d08a3d">
 <p>
 Έστω ότι μας δίνεται η παρακάτω \(f\) και θέλουμε να πάμε από \((X,Y,f_{XY})\to(Z,W,f_{ZW})\)
 </p>
@@ -399,7 +399,7 @@ f_{ZW} =
 
 </div>
 
-<div class="paradeigma" id="org689c21f">
+<div class="paradeigma" id="orgca321b6">
 <p>
 Γνωρίζουμε το μοντέλο \((X,Y,f_{XY})\), και θέλουμε να πάμε στο \((Z,f_z)\) όπου ισχύει:
 \(Z = X+Y\)
@@ -424,7 +424,7 @@ f_Z(z) = f_X(z)*f_Y(z)
 </div>
 
 
-<div class="paradeigma" id="orge15f744">
+<div class="paradeigma" id="orgd0762de">
 <p>
 Για \(Z=max(X,Y)\)
 </p>
@@ -439,7 +439,7 @@ F_Z(z) =
 </div>
 
 
-<div class="paradeigma" id="org119a23d">
+<div class="paradeigma" id="org57fa1d4">
 <p>
 Για \(Z=min(X,Y)\)
 </p>
@@ -457,9 +457,9 @@ F_X(z) + F_Y(z)
 </div>
 </div>
 </div>
-<div id="outline-container-orga13372f" class="outline-3">
-<h3 id="orga13372f"><a href="#orga13372f">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
-<div class="outline-text-3" id="text-orga13372f">
+<div id="outline-container-orgfae1b0f" class="outline-3">
+<h3 id="orgfae1b0f"><a href="#orgfae1b0f">Εύρεση με μετασχηματισμό μίας μεταβλητής και υπο συνθήκη πιθανότητες</a></h3>
+<div class="outline-text-3" id="text-orgfae1b0f">
 <ul class="org-ul">
 <li>Ιδιαίτερα χρήσιμος όταν είσαι με πολλαπλασιασμό. Θέτεις την μία εκ των δύο
 τυχαίων μεταβλητών σε σταθερά. Έστω δηλαδή</li>
@@ -493,9 +493,9 @@ f_z(z) = \int_{-\infty}^{\infty}f_{Z|X}(z|X=x)f_X(x)dx
 </div>
 </div>
 </div>
-<div id="outline-container-org7877d75" class="outline-2">
-<h2 id="org7877d75"><a href="#org7877d75">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
-<div class="outline-text-2" id="text-org7877d75">
+<div id="outline-container-orgae68f39" class="outline-2">
+<h2 id="orgae68f39"><a href="#orgae68f39">Εισαγωγή σε κατανομές πολλαπλών τμ:</a></h2>
+<div class="outline-text-2" id="text-orgae68f39">
 <p>
 Η ανάλυση που κάναμε μέχρι στιγμές επεκτείνεται <b>με την χρήση διανυσμάτων</b> για \(n\)
 τυχαίες μεταβλητές. 
@@ -508,7 +508,7 @@ f_z(z) = \int_{-\infty}^{\infty}f_{Z|X}(z|X=x)f_X(x)dx
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-11-02 Wed 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-11-02 Wed 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

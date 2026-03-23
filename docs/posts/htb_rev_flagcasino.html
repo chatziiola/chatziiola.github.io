@@ -7,11 +7,11 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough for the very easy, reverse engineering, hack the box, challenge flag casino." />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">HTB: FlagCasino
@@ -22,30 +22,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd1838fd">Introduction</a></li>
-<li><a href="#orgfc30548">Starting</a></li>
-<li><a href="#org483111e">Understanding the loop</a>
+<li><a href="#org1b023af">Introduction</a></li>
+<li><a href="#org95c8d67">Starting</a></li>
+<li><a href="#orgf290e16">Understanding the loop</a>
 <ul>
-<li><a href="#org44b287c">Asm notes</a></li>
-<li><a href="#orgbb0cad0">Obj.check hexdump</a></li>
+<li><a href="#org88226b4">Asm notes</a></li>
+<li><a href="#orgb15686e">Obj.check hexdump</a></li>
 </ul>
 </li>
-<li><a href="#orgc9800f9">Decompilation</a></li>
-<li><a href="#org1fce2f5">Implementing the payload</a></li>
-<li><a href="#org63372aa">Summary</a></li>
+<li><a href="#org5bcf4e6">Decompilation</a></li>
+<li><a href="#org943dfea">Implementing the payload</a></li>
+<li><a href="#org07f465a">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd1838fd" class="outline-2">
-<h2 id="orgd1838fd"><a href="#orgd1838fd">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd1838fd">
+<div id="outline-container-org1b023af" class="outline-2">
+<h2 id="org1b023af"><a href="#org1b023af">Introduction</a></h2>
+<div class="outline-text-2" id="text-org1b023af">
 <p>
 Although this is not the first <code>reveng</code> challenge I have solved in the
 last month, I noticed many improvements while solving it. It always
 feels good when you make progress.
 </p>
 
-<div class="note" id="orgd1f3934">
+<div class="note" id="org6fec14b">
 <p>
 I work with <code>radare2</code>, as it was suggested to me as a very good way
 for a <i>newbie</i> to learn: it may have a steep learning curve, but it
@@ -75,9 +75,9 @@ allows you to see things in greater depth.
 </div>
 </div>
 </div>
-<div id="outline-container-orgfc30548" class="outline-2">
-<h2 id="orgfc30548"><a href="#orgfc30548">Starting</a></h2>
-<div class="outline-text-2" id="text-orgfc30548">
+<div id="outline-container-org95c8d67" class="outline-2">
+<h2 id="org95c8d67"><a href="#org95c8d67">Starting</a></h2>
+<div class="outline-text-2" id="text-org95c8d67">
 <p>
 Through a first look at the disassembled code through graph visual mode
 <code>VV @ sym.main</code>, we see that only at the very surface is this a program imitating a casino:
@@ -106,7 +106,7 @@ since the flag is supposed to be given somewhere here.
 <li>It could very well have something to do with <code>var_4h</code>.</li>
 </ul>
 
-<div class="note" id="org95ebe66">
+<div class="note" id="orgfb8d722">
 <p>
 Now, could it be that the proper input sequence is the flag?
 -&gt; Yep, this is the case, tested with <b>HTB{</b>.
@@ -116,9 +116,9 @@ Now, could it be that the proper input sequence is the flag?
 </ol>
 </div>
 </div>
-<div id="outline-container-org483111e" class="outline-2">
-<h2 id="org483111e"><a href="#org483111e">Understanding the loop</a></h2>
-<div class="outline-text-2" id="text-org483111e">
+<div id="outline-container-orgf290e16" class="outline-2">
+<h2 id="orgf290e16"><a href="#orgf290e16">Understanding the loop</a></h2>
+<div class="outline-text-2" id="text-orgf290e16">
 <ol class="org-ol">
 <li>First, we get the last byte of <code>[var_5h]</code>, move it with
 sign extension to <code>eax</code>, and then to <code>edi</code>, to be used as the seed in
@@ -167,9 +167,9 @@ then why not just have it <code>+4</code>?</li>
 </ul></li>
 </ol>
 </div>
-<div id="outline-container-org44b287c" class="outline-3">
-<h3 id="org44b287c"><a href="#org44b287c">Asm notes</a></h3>
-<div class="outline-text-3" id="text-org44b287c">
+<div id="outline-container-org88226b4" class="outline-3">
+<h3 id="org88226b4"><a href="#org88226b4">Asm notes</a></h3>
+<div class="outline-text-3" id="text-org88226b4">
 <ul class="org-ul">
 <li><code>movzx</code> move with zero extend.</li>
 <li><code>movsx</code> move with sign extend.</li>
@@ -177,9 +177,9 @@ then why not just have it <code>+4</code>?</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgbb0cad0" class="outline-3">
-<h3 id="orgbb0cad0"><a href="#orgbb0cad0">Obj.check hexdump</a></h3>
-<div class="outline-text-3" id="text-orgbb0cad0">
+<div id="outline-container-orgb15686e" class="outline-3">
+<h3 id="orgb15686e"><a href="#orgb15686e">Obj.check hexdump</a></h3>
+<div class="outline-text-3" id="text-orgb15686e">
 <div class="org-src-container">
 <pre class="src src-txt">[0x71025cdd1540]&gt; px @ obj.check
 - offset -      8081 8283 8485 8687 8889 8A8B 8C8D 8E8F  0123456789ABCDEF
@@ -190,9 +190,9 @@ then why not just have it <code>+4</code>?</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc9800f9" class="outline-2">
-<h2 id="orgc9800f9"><a href="#orgc9800f9">Decompilation</a></h2>
-<div class="outline-text-2" id="text-orgc9800f9">
+<div id="outline-container-org5bcf4e6" class="outline-2">
+<h2 id="org5bcf4e6"><a href="#org5bcf4e6">Decompilation</a></h2>
+<div class="outline-text-2" id="text-org5bcf4e6">
 <p>
 So far, we got to a really nice place with static binary analysis:
 </p>
@@ -203,7 +203,7 @@ other way by the executable</li>
 We know that <code>srand</code> is called along with var<sub>4h</sub>
 </p>
 
-<div class="note" id="org2b09e71">
+<div class="note" id="org9259b09">
 <p>
 Not going to lie, I thought of going for debugging instead of decompiling, but
 </p>
@@ -226,7 +226,7 @@ First things first, we see that: There are <b>a lot</b> of strange assignments, 
 </pre>
 </div>
 
-<div class="note" id="org139e713">
+<div class="note" id="org9ec1153">
 <p>
 How does it even dereference <code>0x20</code>&#x2026; How is it set?
 </p>
@@ -282,9 +282,9 @@ not really work that way.
 </div>
 </div>
 </div>
-<div id="outline-container-org1fce2f5" class="outline-2">
-<h2 id="org1fce2f5"><a href="#org1fce2f5">Implementing the payload</a></h2>
-<div class="outline-text-2" id="text-org1fce2f5">
+<div id="outline-container-org943dfea" class="outline-2">
+<h2 id="org943dfea"><a href="#org943dfea">Implementing the payload</a></h2>
+<div class="outline-text-2" id="text-org943dfea">
 <p>
 Now, simply following the decompiled code we see that any character we
 entered is fed into <code>srand()</code> as a seed, and then <span class="underline">the first</span> <code>rand()</code> with
@@ -323,9 +323,9 @@ for each index. Thus, the payload can easily be produced:
 </div>
 </div>
 </div>
-<div id="outline-container-org63372aa" class="outline-2">
-<h2 id="org63372aa"><a href="#org63372aa">Summary</a></h2>
-<div class="outline-text-2" id="text-org63372aa">
+<div id="outline-container-org07f465a" class="outline-2">
+<h2 id="org07f465a"><a href="#org07f465a">Summary</a></h2>
+<div class="outline-text-2" id="text-org07f465a">
 <ol class="org-ol">
 <li>Start by looking at the disassembly. Visual graph mode helps a lot in
 understanding the flow of the program.</li>
@@ -351,7 +351,7 @@ polish something to publish for a while, so&#x2026;
 </p>
 
 
-<div id="org553f617" class="figure">
+<div id="org4fbbd34" class="figure">
 <p><img src="images/Summary/20250201_003217_screenshot.png" alt="Skeletor, until we meet again">
 </p>
 <p><span class="figure-number">Figure 1: </span>Until we meet again</p>
@@ -360,7 +360,7 @@ polish something to publish for a while, so&#x2026;
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2025-01-31 Fri 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2025-01-31 Fri 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

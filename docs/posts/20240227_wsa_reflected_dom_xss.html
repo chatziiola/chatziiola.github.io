@@ -7,11 +7,11 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA Lab: Reflected DOM XSS" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">WSA: Reflected DOM XSS</h1>
@@ -19,22 +19,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd42649a">Introduction</a></li>
-<li><a href="#org72769a9">Challenge</a>
+<li><a href="#org52d8f74">Introduction</a></li>
+<li><a href="#orgc34a131">Challenge</a>
 <ul>
-<li><a href="#org0945f70">Search functionality</a></li>
-<li><a href="#org0c25b4f">Analyzing the vulnerable JS snippet</a></li>
-<li><a href="#org7eb690b">Keep Going</a></li>
-<li><a href="#org3a00422">Back</a></li>
+<li><a href="#orgf6a9718">Search functionality</a></li>
+<li><a href="#orgbb48ab7">Analyzing the vulnerable JS snippet</a></li>
+<li><a href="#org7641255">Keep Going</a></li>
+<li><a href="#org18073ed">Back</a></li>
 </ul>
 </li>
-<li><a href="#org9034402">Summary</a></li>
+<li><a href="#orge9720bf">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgd42649a" class="outline-2">
-<h2 id="orgd42649a"><a href="#orgd42649a">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd42649a">
+<div id="outline-container-org52d8f74" class="outline-2">
+<h2 id="org52d8f74"><a href="#org52d8f74">Introduction</a></h2>
+<div class="outline-text-2" id="text-org52d8f74">
 <p>
 This was the most interesting XSS lab I think I have seen so far. Not
 only did it made me dig a little bit deeper than the others, which
@@ -44,9 +44,9 @@ time it takes, is always satisfying in the end!
 </p>
 </div>
 </div>
-<div id="outline-container-org72769a9" class="outline-2">
-<h2 id="org72769a9"><a href="#org72769a9">Challenge</a></h2>
-<div class="outline-text-2" id="text-org72769a9">
+<div id="outline-container-orgc34a131" class="outline-2">
+<h2 id="orgc34a131"><a href="#orgc34a131">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgc34a131">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-dom-xss-reflected">here</a>
 </p>
@@ -61,29 +61,29 @@ writing it to a dangerous sink.
 </p>
 </blockquote>
 </div>
-<div id="outline-container-org0945f70" class="outline-3">
-<h3 id="org0945f70"><a href="#org0945f70">Search functionality</a></h3>
-<div class="outline-text-3" id="text-org0945f70">
+<div id="outline-container-orgf6a9718" class="outline-3">
+<h3 id="orgf6a9718"><a href="#orgf6a9718">Search functionality</a></h3>
+<div class="outline-text-3" id="text-orgf6a9718">
 <p>
 First things first, checking out t
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org74425af">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
+<pre class="src src-html" id="orga9556c1">&lt;<span class="org-function-name">script</span> <span class="org-variable-name">src</span>=<span class="org-string">"/resources/js/searchResults.js"</span>&gt;&lt;/<span class="org-function-name">script</span>&gt;
 &lt;<span class="org-function-name">script</span>&gt;search('search-results')&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org0c25b4f" class="outline-3">
-<h3 id="org0c25b4f"><a href="#org0c25b4f">Analyzing the vulnerable JS snippet</a></h3>
-<div class="outline-text-3" id="text-org0c25b4f">
+<div id="outline-container-orgbb48ab7" class="outline-3">
+<h3 id="orgbb48ab7"><a href="#orgbb48ab7">Analyzing the vulnerable JS snippet</a></h3>
+<div class="outline-text-3" id="text-orgbb48ab7">
 <p>
 Plainly: looking at <code>searchResults.js</code>
 </p>
 
 <div class="org-src-container">
-<pre class="src src-js" id="org62f427e"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
+<pre class="src src-js" id="org6d0551f"><span class="org-keyword">function</span> <span class="org-function-name">search</span>(<span class="org-variable-name">path</span>) {
     <span class="org-keyword">var</span> <span class="org-variable-name">xhr</span> = <span class="org-keyword">new</span> <span class="org-type">XMLHttpRequest</span>();
     xhr.onreadystatechange = <span class="org-keyword">function</span>() {
         <span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
@@ -162,7 +162,7 @@ came with our search request, as shown in the following picture:
 </p>
 
 
-<div id="org412ecf8" class="figure">
+<div id="org39f7ab1" class="figure">
 <p><img src="images/20240227_120813_screenshot.png" alt="20240227_120813_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Search and Response</p>
@@ -209,9 +209,9 @@ link.
 </p>
 </div>
 </div>
-<div id="outline-container-org7eb690b" class="outline-3">
-<h3 id="org7eb690b"><a href="#org7eb690b">Keep Going</a></h3>
-<div class="outline-text-3" id="text-org7eb690b">
+<div id="outline-container-org7641255" class="outline-3">
+<h3 id="org7641255"><a href="#org7641255">Keep Going</a></h3>
+<div class="outline-text-3" id="text-org7641255">
 <p>
 Not going to lie, I felt stuck:
 </p>
@@ -225,14 +225,14 @@ is not applicable</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org3a00422" class="outline-3">
-<h3 id="org3a00422"><a href="#org3a00422">Back</a></h3>
-<div class="outline-text-3" id="text-org3a00422">
+<div id="outline-container-org18073ed" class="outline-3">
+<h3 id="org18073ed"><a href="#org18073ed">Back</a></h3>
+<div class="outline-text-3" id="text-org18073ed">
 <p>
 This is the vulnerable snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="orgae710f0"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
+<pre class="src src-js" id="orge740aed"><span class="org-keyword">if</span> (<span class="org-constant">this</span>.readyState == 4 &amp;&amp; <span class="org-constant">this</span>.status == 200) {
     eval(<span class="org-string">'var searchResultsObj = '</span> + <span class="org-constant">this</span>.responseText);
     displaySearchResults(searchResultsObj);
 }
@@ -246,7 +246,7 @@ repeater, I developed a payload that gave me promising results:
 </p>
 
 
-<div id="org6491360" class="figure">
+<div id="org5fca3f1" class="figure">
 <p><img src="images/20240227_124012_screenshot.png" alt="20240227_124012_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Promising Payload</p>
@@ -259,9 +259,9 @@ as solved
 </div>
 </div>
 </div>
-<div id="outline-container-org9034402" class="outline-2">
-<h2 id="org9034402"><a href="#org9034402">Summary</a></h2>
-<div class="outline-text-2" id="text-org9034402">
+<div id="outline-container-orge9720bf" class="outline-2">
+<h2 id="orge9720bf"><a href="#orge9720bf">Summary</a></h2>
+<div class="outline-text-2" id="text-orge9720bf">
 <p>
 <b>DO NEVER OVERLOOK EVAL AGAIN, I KNEW BETTER THAN THAT</b>
 </p>
@@ -269,7 +269,7 @@ as solved
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-27 Tue 11:41</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

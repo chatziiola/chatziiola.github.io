@@ -6,7 +6,7 @@
 <title>Διάλεξη 5(1): Θεωρήματα Lyapunov</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -42,7 +42,7 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">Διάλεξη 5(1): Θεωρήματα Lyapunov</h1>
@@ -50,33 +50,33 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org61d309f">Εισαγωγή</a></li>
-<li><a href="#orgfa895c2">Ειδικές περιπτώσεις πίνακα \(A\)</a>
+<li><a href="#org7c37f81">Εισαγωγή</a></li>
+<li><a href="#org3633f06">Ειδικές περιπτώσεις πίνακα \(A\)</a>
 <ul>
-<li><a href="#org00c3f20">Διαγώνιος ή τριγωνικός</a></li>
-<li><a href="#orga9fb167"><i>Μπλοκ</i> πίνακας</a></li>
+<li><a href="#org3696c9b">Διαγώνιος ή τριγωνικός</a></li>
+<li><a href="#org00684a4"><i>Μπλοκ</i> πίνακας</a></li>
 </ul>
 </li>
-<li><a href="#org75d3c5f">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
-<li><a href="#orgc5633e7">Θεωρήματα Lyapunov</a>
+<li><a href="#org85580dc">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#orgdcaa40f">Θεωρήματα Lyapunov</a>
 <ul>
-<li><a href="#org70ce1d6">Έμμεση μέθοδος ευστάθειας</a>
+<li><a href="#orga1a803c">Έμμεση μέθοδος ευστάθειας</a>
 <ul>
-<li><a href="#org2df871a">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org291b6ba">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
 </ul>
 </li>
-<li><a href="#org64d8795">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a>
+<li><a href="#org195e099">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a>
 <ul>
-<li><a href="#org54ca092">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
+<li><a href="#org260c8f0">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></li>
 </ul>
 </li>
-<li><a href="#orgcef307c">Άμεση μέθοδος ευστάθειας</a></li>
+<li><a href="#org32e54ad">Άμεση μέθοδος ευστάθειας</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div class="note" id="orgd40b764">
+<div class="note" id="org0eb0135">
 <p>
 Το συγκεκριμένο μάθημα απο εδώ και στο εξής θα ακολουθήσει την αρίθμηση 1,2,3
 (κλασσική), όμως το 5 εδώ δείχνει πως ουσιαστικά <i>πρέπει</i> να έγιναν 4 διαλέξεις
@@ -84,9 +84,9 @@
 </p>
 
 </div>
-<div id="outline-container-org61d309f" class="outline-2">
-<h2 id="org61d309f"><a href="#org61d309f">Εισαγωγή</a></h2>
-<div class="outline-text-2" id="text-org61d309f">
+<div id="outline-container-org7c37f81" class="outline-2">
+<h2 id="org7c37f81"><a href="#org7c37f81">Εισαγωγή</a></h2>
+<div class="outline-text-2" id="text-org7c37f81">
 <p>
 Περιορισμός του αντικειμένου του μαθήματος σε γραμμικά συστήματα, δηλαδή σε
 συστήματα που περιγράφονται από εξισώσεις της μορφής:
@@ -120,13 +120,13 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orgfa895c2" class="outline-2">
-<h2 id="orgfa895c2"><a href="#orgfa895c2">Ειδικές περιπτώσεις πίνακα \(A\)</a></h2>
-<div class="outline-text-2" id="text-orgfa895c2">
+<div id="outline-container-org3633f06" class="outline-2">
+<h2 id="org3633f06"><a href="#org3633f06">Ειδικές περιπτώσεις πίνακα \(A\)</a></h2>
+<div class="outline-text-2" id="text-org3633f06">
 </div>
-<div id="outline-container-org00c3f20" class="outline-3">
-<h3 id="org00c3f20"><a href="#org00c3f20">Διαγώνιος ή τριγωνικός</a></h3>
-<div class="outline-text-3" id="text-org00c3f20">
+<div id="outline-container-org3696c9b" class="outline-3">
+<h3 id="org3696c9b"><a href="#org3696c9b">Διαγώνιος ή τριγωνικός</a></h3>
+<div class="outline-text-3" id="text-org3696c9b">
 <p>
 Αν ο \(A\) διαγώνιος ή τριγωνικός, ως γνωστόν τα στοιχεία της διαγωνίου είναι οι
 ιδιοτιμές:
@@ -144,9 +144,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-orga9fb167" class="outline-3">
-<h3 id="orga9fb167"><a href="#orga9fb167"><i>Μπλοκ</i> πίνακας</a></h3>
-<div class="outline-text-3" id="text-orga9fb167">
+<div id="outline-container-org00684a4" class="outline-3">
+<h3 id="org00684a4"><a href="#org00684a4"><i>Μπλοκ</i> πίνακας</a></h3>
+<div class="outline-text-3" id="text-org00684a4">
 \begin{equation}
 \label{eq:4}
 \begin{bmatrix}
@@ -187,9 +187,9 @@ x_{2j-1}(t) = e^{\sigma_jt}(x_{2j-1}(0)\cos{\left(\omega_jt\right)}+x_{2j}(0)\si
 </div>
 </div>
 </div>
-<div id="outline-container-org75d3c5f" class="outline-2">
-<h2 id="org75d3c5f"><a href="#org75d3c5f">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
-<div class="outline-text-2" id="text-org75d3c5f">
+<div id="outline-container-org85580dc" class="outline-2">
+<h2 id="org85580dc"><a href="#org85580dc">Παράδειγμα: Εξέταση ευστάθειας&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h2>
+<div class="outline-text-2" id="text-org85580dc">
 <p>
 Έχουμε σύστημα της μορφής:
 </p>
@@ -218,7 +218,7 @@ b_0\\0
 u = -kx_2
 \end{equation}
 
-<div class="note" id="org9ba04ef">
+<div class="note" id="org0912388">
 <p>
 Γραμμική ανάδραση <i>μεταβολής</i> 
 </p>
@@ -292,17 +292,17 @@ det(sI - A) = 0 \Rightarrow \cdots \Rightarrow  s^2+ (k_0+k_1+k_2)s + k_2(b_0k+k
 </ul>
 </div>
 </div>
-<div id="outline-container-orgc5633e7" class="outline-2">
-<h2 id="orgc5633e7"><a href="#orgc5633e7">Θεωρήματα Lyapunov</a></h2>
-<div class="outline-text-2" id="text-orgc5633e7">
+<div id="outline-container-orgdcaa40f" class="outline-2">
+<h2 id="orgdcaa40f"><a href="#orgdcaa40f">Θεωρήματα Lyapunov</a></h2>
+<div class="outline-text-2" id="text-orgdcaa40f">
 <p>
 Στα μη γραμμικά συστήματα η ανάλυση ευστάθειας γίνεται με δύο κυρίως τρόπους:
 </p>
 </div>
-<div id="outline-container-org70ce1d6" class="outline-3">
-<h3 id="org70ce1d6"><a href="#org70ce1d6">Έμμεση μέθοδος ευστάθειας</a></h3>
-<div class="outline-text-3" id="text-org70ce1d6">
-<div class="note" id="org576a9aa">
+<div id="outline-container-orga1a803c" class="outline-3">
+<h3 id="orga1a803c"><a href="#orga1a803c">Έμμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-orga1a803c">
+<div class="note" id="org0a0feb1">
 <p>
 Επί του θεωρήματος. Με το εξεταζόμενο θεώρημα (πρώτο θεώρημα του
 <a href="https://en.wikipedia.org/wiki/Aleksandr_Lyapunov">Lyapunov</a>) ελέγχουμε μόνο
@@ -350,9 +350,9 @@ det(sI - A) = 0 \Rightarrow \cdots \Rightarrow  s^2+ (k_0+k_1+k_2)s + k_2(b_0k+k
 z^{\cdot} = {\dot x}
 \end{equation}
 </div>
-<div id="outline-container-org2df871a" class="outline-4">
-<h4 id="org2df871a"><a href="#org2df871a">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
-<div class="outline-text-4" id="text-org2df871a">
+<div id="outline-container-org291b6ba" class="outline-4">
+<h4 id="org291b6ba"><a href="#org291b6ba">Φυσικό παράδειγμα εκκρεμούς&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-org291b6ba">
 \begin{equation}
 \label{eq:19}
 {\dot x} = 
@@ -383,8 +383,8 @@ x_2 \\ \sin{\left(x_1\right)} - \gamma x_2
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="org596f85b"></a><a href="#org596f85b">Εξετάζοντας το πρώτο σημείο</a><br>
-<div class="outline-text-5" id="text-org596f85b">
+<li><a id="org219641e"></a><a href="#org219641e">Εξετάζοντας το πρώτο σημείο</a><br>
+<div class="outline-text-5" id="text-org219641e">
 <ul class="org-ul">
 <li>Για μικρές γωνίες: \(\sin{\left(x_1\right)}\approx x_1\), οπότε και να κάνω την
 αντικατάσταση επί του πίνακα:</li>
@@ -420,14 +420,14 @@ x
 \end{equation}
 
 <p>
-Από <a href="#org75d3c5f">το σχόλιο για την εφαρμογή του Routh σε δευτεροβάθμια εξίσωση</a> το σύστημα δεν
+Από <a href="#org85580dc">το σχόλιο για την εφαρμογή του Routh σε δευτεροβάθμια εξίσωση</a> το σύστημα δεν
 είναι ευσταθές σε αυτό το σημείο ισορροπίας.
 </p>
 </div>
 </li>
-<li><a id="orgb4e694e"></a><a href="#orgb4e694e">Εξετάζοντας το δεύτερο σημείο</a><br>
-<div class="outline-text-5" id="text-orgb4e694e">
-<div class="note" id="org344d008">
+<li><a id="orgd2204e4"></a><a href="#orgd2204e4">Εξετάζοντας το δεύτερο σημείο</a><br>
+<div class="outline-text-5" id="text-orgd2204e4">
+<div class="note" id="orgdf58173">
 <p>
 Αν το σημείο ισορροπίας είναι το 0, καλώς. Αν όχι χρειάζεται να κάνουμε αλλαγή
 μεταβλητής της μεταβλητής: \(z = x- x^{*}\). Αυτό είναι επιτρεπτό χωρίς βλάβη της γενικότητας.
@@ -504,9 +504,9 @@ z_2 & 0 \\
 </ul>
 </div>
 </div>
-<div id="outline-container-org64d8795" class="outline-3">
-<h3 id="org64d8795"><a href="#org64d8795">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a></h3>
-<div class="outline-text-3" id="text-org64d8795">
+<div id="outline-container-org195e099" class="outline-3">
+<h3 id="org195e099"><a href="#org195e099">Αναγκαίος ορισμός: Θετικά/Αρνητικά ορισμένη συνάρτηση</a></h3>
+<div class="outline-text-3" id="text-org195e099">
 <p>
 Οριζουμε συνάρτηση: \(V: {\mathbb R}^n \to {\mathbb R}\). Εκείνη ονομάζεται θετικά
 ορισμένη αν και μόνο αν:
@@ -531,9 +531,9 @@ V(0) = 0
 V(x)<0 \forall x \neq 0
 \end{equation}
 </div>
-<div id="outline-container-org54ca092" class="outline-4">
-<h4 id="org54ca092"><a href="#org54ca092">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
-<div class="outline-text-4" id="text-org54ca092">
+<div id="outline-container-org260c8f0" class="outline-4">
+<h4 id="org260c8f0"><a href="#org260c8f0">Προσοχή στον ορισμό&#xa0;&#xa0;&#xa0;<span class="tag"><span class="example">example</span></span></a></h4>
+<div class="outline-text-4" id="text-org260c8f0">
 <p>
 Έστω ότι έχουμε αυτές τις δύο συναρτήσεις, και θέλουμε
 </p>
@@ -553,13 +553,13 @@ V_2(x_1,x_2) &= x_1^{2}
 </div>
 </div>
 </div>
-<div id="outline-container-orgcef307c" class="outline-3">
-<h3 id="orgcef307c"><a href="#orgcef307c">Άμεση μέθοδος ευστάθειας</a></h3>
-<div class="outline-text-3" id="text-orgcef307c">
+<div id="outline-container-org32e54ad" class="outline-3">
+<h3 id="org32e54ad"><a href="#org32e54ad">Άμεση μέθοδος ευστάθειας</a></h3>
+<div class="outline-text-3" id="text-org32e54ad">
 <p>
 Δεύτερο θεώρημα του Lyapunov.
 </p>
-<div class="note" id="org0e26424">
+<div class="note" id="org07940cf">
 <p>
 Πηγή: <a href="https://helit.org/ece-notes/sae2.pdf">https://helit.org/ece-notes/sae2.pdf</a>, σελίδα 27.
 </p>
@@ -622,7 +622,7 @@ B_r(0) = \left\{ x\in {\mathbb R}^n : |x| < r\right\}
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-03-17 Fri 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-03-17 Fri 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

@@ -7,11 +7,11 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough of the already mentioned WSA lab by PortSwigger" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">WSA: Visible Error-Based SQLi</h1>
@@ -19,26 +19,26 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org820fc6e">Introduction</a></li>
-<li><a href="#org7f3cd25">Getting in position</a>
+<li><a href="#org7d6f9f4">Introduction</a></li>
+<li><a href="#org7c1726b">Getting in position</a>
 <ul>
-<li><a href="#org9ed5a87">SQL Injection Point</a></li>
-<li><a href="#org3b577e4">DBMS enumeration</a></li>
+<li><a href="#org08d6e9d">SQL Injection Point</a></li>
+<li><a href="#orgdd66e96">DBMS enumeration</a></li>
 </ul>
 </li>
-<li><a href="#org1a2f5ba">He protec he atac he gets the data bac</a>
+<li><a href="#org978b38d">He protec he atac he gets the data bac</a>
 <ul>
-<li><a href="#org8c8f690">Trying some stuff out</a></li>
-<li><a href="#org1b3eae2">Searching for shorter payloads</a></li>
+<li><a href="#org0a62094">Trying some stuff out</a></li>
+<li><a href="#org452d565">Searching for shorter payloads</a></li>
 </ul>
 </li>
-<li><a href="#orgbd60431">Summary</a></li>
+<li><a href="#orgead3d01">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org820fc6e" class="outline-2">
-<h2 id="org820fc6e"><a href="#org820fc6e">Introduction</a></h2>
-<div class="outline-text-2" id="text-org820fc6e">
+<div id="outline-container-org7d6f9f4" class="outline-2">
+<h2 id="org7d6f9f4"><a href="#org7d6f9f4">Introduction</a></h2>
+<div class="outline-text-2" id="text-org7d6f9f4">
 <p>
 We are given this task:
 </p>
@@ -56,13 +56,13 @@ basic information.
 </p>
 </div>
 </div>
-<div id="outline-container-org7f3cd25" class="outline-2">
-<h2 id="org7f3cd25"><a href="#org7f3cd25">Getting in position</a></h2>
-<div class="outline-text-2" id="text-org7f3cd25">
+<div id="outline-container-org7c1726b" class="outline-2">
+<h2 id="org7c1726b"><a href="#org7c1726b">Getting in position</a></h2>
+<div class="outline-text-2" id="text-org7c1726b">
 </div>
-<div id="outline-container-org9ed5a87" class="outline-3">
-<h3 id="org9ed5a87"><a href="#org9ed5a87">SQL Injection Point</a></h3>
-<div class="outline-text-3" id="text-org9ed5a87">
+<div id="outline-container-org08d6e9d" class="outline-3">
+<h3 id="org08d6e9d"><a href="#org08d6e9d">SQL Injection Point</a></h3>
+<div class="outline-text-3" id="text-org08d6e9d">
 <p>
 It is trivial, once again, to see that modifying the value of the
 cookie results in an error code, thus signaling that the cookie&rsquo;s
@@ -70,7 +70,7 @@ value is the point our payload should be inserted at.
 </p>
 
 
-<div id="orgfe91c53" class="figure">
+<div id="orgd8d236c" class="figure">
 <p><img src="images/Getting_in_position/20240214_221538_screenshot.png" alt="20240214_221538_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>SQL error through injection in the cookie field</p>
@@ -81,7 +81,7 @@ By taking a better look at that response, however, we see that it
 gives us some more information regarding the error that was produced:
 </p>
 
-<pre class="example" id="org8bec486">
+<pre class="example" id="org56ef215">
 &lt;h4&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/h4&gt;
 &lt;p class=is-warning&gt;Unterminated string literal started at position 57 in SQL SELECT * FROM tracking WHERE id = 'TwPUGarplaH8g4da' test'. Expected  char&lt;/p&gt;
 </pre>
@@ -92,9 +92,9 @@ example, might somehow be exploited.
 </p>
 </div>
 </div>
-<div id="outline-container-org3b577e4" class="outline-3">
-<h3 id="org3b577e4"><a href="#org3b577e4">DBMS enumeration</a></h3>
-<div class="outline-text-3" id="text-org3b577e4">
+<div id="outline-container-orgdd66e96" class="outline-3">
+<h3 id="orgdd66e96"><a href="#orgdd66e96">DBMS enumeration</a></h3>
+<div class="outline-text-3" id="text-orgdd66e96">
 <p>
 Trying a <code>SELECT null</code> statement in our payload, without a <code>FROM</code> part,
 resulted in <code>200 OK</code>, which means that our target DBMS surely is not
@@ -103,16 +103,16 @@ Oracle.
 </div>
 </div>
 </div>
-<div id="outline-container-org1a2f5ba" class="outline-2">
-<h2 id="org1a2f5ba"><a href="#org1a2f5ba">He protec he atac he gets the data bac</a></h2>
-<div class="outline-text-2" id="text-org1a2f5ba">
+<div id="outline-container-org978b38d" class="outline-2">
+<h2 id="org978b38d"><a href="#org978b38d">He protec he atac he gets the data bac</a></h2>
+<div class="outline-text-2" id="text-org978b38d">
 <p>
 After that, we just have to see what to do there. Having completed the
 blind version of that room some days before (or was it just
 yesterday), I went ahead and dug the following payload from my notes:
 </p>
 
-<pre class="example" id="orgd2e7842">
+<pre class="example" id="orgb6dc71e">
 UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 </pre>
 
@@ -121,7 +121,7 @@ It needs to be properly tinkered with, to match with our DBMS, but
 that is not so difficult. Using the Burp SQLi cheatsheet once again:
 </p>
 
-<pre class="example" id="org017fe5e">
+<pre class="example" id="org48a0643">
 UNION SELECT CASE WHEN ('b'='a') THEN 1/0 ELSE null END--  
 UNION SELECT CASE WHEN ('b'='a') THEN 1/(SELECT 0) ELSE null END--  
 UNION SELECT IF('b'='a',1/0,null)--
@@ -141,7 +141,7 @@ problem was obvious: The input string gets truncated.
 </p>
 
 
-<div id="org78273db" class="figure">
+<div id="org6e273d9" class="figure">
 <p><img src="images/He_protec_he_atac_he_gets_the_data_bac/20240214_223053_screenshot.png" alt="20240214_223053_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Truncation POC</p>
@@ -155,9 +155,9 @@ change. The string is too long to be accepted. I need to use shorter
 payloads <b>or</b> find a way to overcome that truncation.
 </p>
 </div>
-<div id="outline-container-org8c8f690" class="outline-3">
-<h3 id="org8c8f690"><a href="#org8c8f690">Trying some stuff out</a></h3>
-<div class="outline-text-3" id="text-org8c8f690">
+<div id="outline-container-org0a62094" class="outline-3">
+<h3 id="org0a62094"><a href="#org0a62094">Trying some stuff out</a></h3>
+<div class="outline-text-3" id="text-org0a62094">
 <p>
 To get a better understanding of the tools in our hands, I started
 testing payloads, so that I get more information from the visible
@@ -167,14 +167,14 @@ gets recognized, even though it does not run due to the wrong syntax)
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sql" id="orga1131b8">TrackingId=TwPUGarplaH8g4da<span class="org-string">' UNION SELECT PG_SLEEP(1)--;</span>
+<pre class="src src-sql" id="org96108a0">TrackingId=TwPUGarplaH8g4da<span class="org-string">' UNION SELECT PG_SLEEP(1)--;</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org1b3eae2" class="outline-3">
-<h3 id="org1b3eae2"><a href="#org1b3eae2">Searching for shorter payloads</a></h3>
-<div class="outline-text-3" id="text-org1b3eae2">
+<div id="outline-container-org452d565" class="outline-3">
+<h3 id="org452d565"><a href="#org452d565">Searching for shorter payloads</a></h3>
+<div class="outline-text-3" id="text-org452d565">
 <p>
 Heading back to the cheatsheet it has a nice suggestion for exploiting
 visible errors, using typecasting.
@@ -184,14 +184,14 @@ visible errors, using typecasting.
 I already know where to look at so:
 </p>
 <div class="org-src-container">
-<pre class="src src-sql" id="org39d59a9">TrackingId=<span class="org-string">' AND CAST((SELECT username from users limit 1)as int)&lt;0--</span>
+<pre class="src src-sql" id="orgd34e761">TrackingId=<span class="org-string">' AND CAST((SELECT username from users limit 1)as int)&lt;0--</span>
 </pre>
 </div>
 
 <p>
 returns
 </p>
-<pre class="example" id="org2cce91a">
+<pre class="example" id="orgd326c0b">
 ERROR: invalid input syntax for type integer: "administrator"
 </pre>
 
@@ -203,9 +203,9 @@ password directly in the response (visible error)!
 </div>
 </div>
 </div>
-<div id="outline-container-orgbd60431" class="outline-2">
-<h2 id="orgbd60431"><a href="#orgbd60431">Summary</a></h2>
-<div class="outline-text-2" id="text-orgbd60431">
+<div id="outline-container-orgead3d01" class="outline-2">
+<h2 id="orgead3d01"><a href="#orgead3d01">Summary</a></h2>
+<div class="outline-text-2" id="text-orgead3d01">
 <p>
 The way I decided to initially tackle the lab was problematic. Was not
 my input length limited, it could have worked, but it would have been
@@ -238,7 +238,7 @@ or five would be more than enough.
 </div>
 </div></div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-14 Wed 22:12</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-14 Wed 22:12</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

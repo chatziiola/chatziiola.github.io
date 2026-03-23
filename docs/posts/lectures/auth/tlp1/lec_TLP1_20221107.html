@@ -6,7 +6,7 @@
 <title>Διάλεξη 7: Πολυπλεξία και Υπερετερόδυνος Δέκτης.</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.MathJax = {
     tex: {
@@ -42,7 +42,7 @@
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">Διάλεξη 7: Πολυπλεξία και Υπερετερόδυνος Δέκτης.</h1>
@@ -50,20 +50,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org22d8ead">Πολυπλεξία</a>
+<li><a href="#org9fb4c11">Πολυπλεξία</a>
 <ul>
-<li><a href="#orgce6218c">Πολυπλεξία στην συχνότητα</a></li>
+<li><a href="#orgf0868d5">Πολυπλεξία στην συχνότητα</a></li>
 </ul>
 </li>
-<li><a href="#org0cef9ce">Δέκτες</a>
+<li><a href="#org0738c43">Δέκτες</a>
 <ul>
-<li><a href="#org159def9">Ομόδυνος δέκτης</a></li>
-<li><a href="#orga63786f">Υπερετερόδυνος Δέκτης:</a>
+<li><a href="#org6868685">Ομόδυνος δέκτης</a></li>
+<li><a href="#orge4c8374">Υπερετερόδυνος Δέκτης:</a>
 <ul>
-<li><a href="#org4fc13cc">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></li>
-<li><a href="#org4dd9ce0">Up and Down Conversion</a></li>
-<li><a href="#orgee1a7ae">Low and High Side Injection</a></li>
-<li><a href="#orge801194">Εικονικό σήμα</a></li>
+<li><a href="#orga3d7a2b">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></li>
+<li><a href="#orgccdff59">Up and Down Conversion</a></li>
+<li><a href="#orgd70fc91">Low and High Side Injection</a></li>
+<li><a href="#orgce39fb8">Εικονικό σήμα</a></li>
 </ul>
 </li>
 </ul>
@@ -71,10 +71,10 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org22d8ead" class="outline-2">
-<h2 id="org22d8ead"><a href="#org22d8ead">Πολυπλεξία</a></h2>
-<div class="outline-text-2" id="text-org22d8ead">
-<div class="note" id="org5b87a9d">
+<div id="outline-container-org9fb4c11" class="outline-2">
+<h2 id="org9fb4c11"><a href="#org9fb4c11">Πολυπλεξία</a></h2>
+<div class="outline-text-2" id="text-org9fb4c11">
+<div class="note" id="org7e958b8">
 <p>
 Θα ήταν καλό, όποιος βλέπει αυτές τις σημειώσεις, να ανατρέξει και στην σελίδα
 233 των Καραγιαννίδη, Παππή, καθώς το περιεχόμενο αυτής της ενότητας, αν και
@@ -112,9 +112,9 @@
 Οι δύο τελευταίες τεχνολογίες περιορίζονται, αποκλειστικά, σε ψηφιακά συστήματα.
 </p>
 </div>
-<div id="outline-container-orgce6218c" class="outline-3">
-<h3 id="orgce6218c"><a href="#orgce6218c">Πολυπλεξία στην συχνότητα</a></h3>
-<div class="outline-text-3" id="text-orgce6218c">
+<div id="outline-container-orgf0868d5" class="outline-3">
+<h3 id="orgf0868d5"><a href="#orgf0868d5">Πολυπλεξία στην συχνότητα</a></h3>
+<div class="outline-text-3" id="text-orgf0868d5">
 <p>
 Γενικά κινούμαστε μεταξύ των 
 </p>
@@ -129,7 +129,7 @@
 </p>
 
 
-<div id="org06a4726" class="figure">
+<div id="org3096bf8" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_radiospectrum-transportationgov.png" alt="tlp1_lec7_radiospectrum-transportationgov.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Photo retrieved from <a href="https://www.transportation.gov/pnt/what-radio-spectrum">the U.S. Department of Transportation</a> on <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-04 Sun&gt;</span></span></p>
@@ -137,9 +137,9 @@
 </div>
 </div>
 </div>
-<div id="outline-container-org0cef9ce" class="outline-2">
-<h2 id="org0cef9ce"><a href="#org0cef9ce">Δέκτες</a></h2>
-<div class="outline-text-2" id="text-org0cef9ce">
+<div id="outline-container-org0738c43" class="outline-2">
+<h2 id="org0738c43"><a href="#org0738c43">Δέκτες</a></h2>
+<div class="outline-text-2" id="text-org0738c43">
 <p>
 Στις προηγούμενες διαλέξεις έχουμε δει το κομμάτι των αποδιαμορφωτών και
 διαμορφωτών, αλλά δεν είναι <b>όλες</b> οι τηλεπικοινωνίες. Αγνοήσαμε ένα πολύ
@@ -147,9 +147,9 @@
 αντικείμενο της συγκεκριμένης διάλεξης:
 </p>
 </div>
-<div id="outline-container-org159def9" class="outline-3">
-<h3 id="org159def9"><a href="#org159def9">Ομόδυνος δέκτης</a></h3>
-<div class="outline-text-3" id="text-org159def9">
+<div id="outline-container-org6868685" class="outline-3">
+<h3 id="org6868685"><a href="#org6868685">Ομόδυνος δέκτης</a></h3>
+<div class="outline-text-3" id="text-org6868685">
 <p>
 Αποτελεί, ιστορικά, την πρώτη μορφή δέκτη, η οποία παραγκωνίσθηκε από τον
 υπερετερόδυνο δέκτη. Έχει αρχίσει να χρησιμοποιείται ευρέως ξανά, με την άνοδο
@@ -161,7 +161,7 @@ SHTR.
 </ul>
 
 
-<div id="org9b89206" class="figure">
+<div id="orgdbf3a9d" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_homodyne-amp.png" alt="tlp1_lec7_homodyne-amp.png">
 </p>
 <p><span class="figure-number">Figure 2: </span>Μια <b>πολύ</b> απλουστευμένη μορφή του ομόδυνου δέκτη, με ενισχυτή και φίλτρα narrow-band</p>
@@ -183,9 +183,9 @@ SHTR.
 </ul>
 </div>
 </div>
-<div id="outline-container-orga63786f" class="outline-3">
-<h3 id="orga63786f"><a href="#orga63786f">Υπερετερόδυνος Δέκτης:</a></h3>
-<div class="outline-text-3" id="text-orga63786f">
+<div id="outline-container-orge4c8374" class="outline-3">
+<h3 id="orge4c8374"><a href="#orge4c8374">Υπερετερόδυνος Δέκτης:</a></h3>
+<div class="outline-text-3" id="text-orge4c8374">
 <p>
 Ο <i>τύπος</i> δέκτη που μας ενδιαφέρει (SHTR: Super Heterodyne Receiver), λειτουργεί
 μετατοπίζοντας το σήμα εισόδου σε μία ενδιάμεση συχνότητα \(f_{if}\), συνήθως
@@ -208,16 +208,16 @@ SHTR.
 </p>
 
 
-<div id="orgb555dc2" class="figure">
+<div id="org8bc6cc7" class="figure">
 <p><img src="course_tlp1_images/tlp1_lec7_shtr.png" alt="tlp1_lec7_shtr.png">
 </p>
 <p><span class="figure-number">Figure 3: </span>Διάταξη υπερετερόδυνου δέκτη, περιλαμβάνοντας όλες τις <i>κρίσιμες</i> έννοιες</p>
 </div>
 </div>
-<div id="outline-container-org4fc13cc" class="outline-4">
-<h4 id="org4fc13cc"><a href="#org4fc13cc">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></h4>
-<div class="outline-text-4" id="text-org4fc13cc">
-<div class="note" id="org185366c">
+<div id="outline-container-orga3d7a2b" class="outline-4">
+<h4 id="orga3d7a2b"><a href="#orga3d7a2b">Καταλαβαίνοντας την μορφή του σήματος σε κάθε βήμα</a></h4>
+<div class="outline-text-4" id="text-orga3d7a2b">
+<div class="note" id="orgc603da9">
 <p>
 Ό,τι σημειώνεται για ΑΜ προφανώς ισχύει και για FM, αν και <i>ενδεχομένως</i> με
 κάποιες αλλαγές.
@@ -236,7 +236,7 @@ x(t) = [A_c + m(t)]\cos{2\pi f_ct}
 
 <p>
 Πολλαπλασιάζεται με το σήμα του τοπικού ταλαντωτή (στην πραγματικότητα εδώ, για
-χάρη απλότητας, φαίνεται μόνο η μία από τις δύο περιπτώσεις. Αναλυτικότερα δες <a href="#orgee1a7ae">LSI,HSI</a>, \(\ref{eq:4}\)):
+χάρη απλότητας, φαίνεται μόνο η μία από τις δύο περιπτώσεις. Αναλυτικότερα δες <a href="#orgd70fc91">LSI,HSI</a>, \(\ref{eq:4}\)):
 </p>
 
 \begin{align}
@@ -257,9 +257,9 @@ z(t) = [A_c + m(t)]cos{2\pi f_{if}t}
 \end{equation}
 </div>
 </div>
-<div id="outline-container-org4dd9ce0" class="outline-4">
-<h4 id="org4dd9ce0"><a href="#org4dd9ce0">Up and Down Conversion</a></h4>
-<div class="outline-text-4" id="text-org4dd9ce0">
+<div id="outline-container-orgccdff59" class="outline-4">
+<h4 id="orgccdff59"><a href="#orgccdff59">Up and Down Conversion</a></h4>
+<div class="outline-text-4" id="text-orgccdff59">
 <p>
 Η άνω ή κάτω μετατροπή <i>αποφασίζεται</i> βάση της σχέσης μεταξύ των \(f_{if},f_c\).
 </p>
@@ -276,10 +276,10 @@ z(t) = [A_c + m(t)]cos{2\pi f_{if}t}
 </p>
 </div>
 </div>
-<div id="outline-container-orgee1a7ae" class="outline-4">
-<h4 id="orgee1a7ae"><a href="#orgee1a7ae">Low and High Side Injection</a></h4>
-<div class="outline-text-4" id="text-orgee1a7ae">
-<div class="note" id="org5c4ca31">
+<div id="outline-container-orgd70fc91" class="outline-4">
+<h4 id="orgd70fc91"><a href="#orgd70fc91">Low and High Side Injection</a></h4>
+<div class="outline-text-4" id="text-orgd70fc91">
+<div class="note" id="org5491699">
 <p>
 Ένας εύκολος τρόπος να θυμάσαι up/down conversion και LSI/HSI:
 </p>
@@ -307,9 +307,9 @@ y(t) =
 \end{equation}
 </div>
 </div>
-<div id="outline-container-orge801194" class="outline-4">
-<h4 id="orge801194"><a href="#orge801194">Εικονικό σήμα</a></h4>
-<div class="outline-text-4" id="text-orge801194">
+<div id="outline-container-orgce39fb8" class="outline-4">
+<h4 id="orgce39fb8"><a href="#orgce39fb8">Εικονικό σήμα</a></h4>
+<div class="outline-text-4" id="text-orgce39fb8">
 <p>
 Αν το φίλτρο RF δεν είναι ρυθμισμένο κατάλληλα, και περάσουν συχνότητες πέραν
 του επιθυμητού εύρους ( δηλαδή γύρω από την \(f_c\) που θέλουμε) μπορεί στο βήμα
@@ -385,7 +385,7 @@ f_c + \frac{B_{RF}}{2} < 2f_{if}+f_c\iff \cdots \iff B_{RF} < 4f_{if}
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-11-07 Mon 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2022-11-07 Mon 00:00</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

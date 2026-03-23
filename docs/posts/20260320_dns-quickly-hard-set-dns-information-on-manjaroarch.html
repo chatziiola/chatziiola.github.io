@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DNS Hardening on Manjaro: Ignore DHCP</title>
+<meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="A guide to configuring systemd-resolved with DNS-over-TLS and DNSSEC for a faster, more private Linux experience." />
+<meta name="generator" content="Org Mode" />
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div id="preamble" class="status">
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
+</div>
+<div id="content" class="content">
+<h1 class="title">DNS Hardening on Manjaro: Ignore DHCP
+<br>
+<span class="subtitle">A rabbit hole but who is to blame?</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#org340c04e">Introduction</a></li>
+<li><a href="#orgb4d0350">Only read if you have absolutely no idea what DNS is</a>
+<ul>
+<li><a href="#org1e467f3"><code>DHCP</code></a></li>
+<li><a href="#org56bf03e"><code>DNS</code></a></li>
+</ul>
+</li>
+<li><a href="#org081ccac">The default DNS <i>stack</i> on Manjaro</a>
+<ul>
+<li><a href="#orgdded50d">The Goal</a></li>
+<li><a href="#org6bde8f0"><code>NetworkManager</code> let go of <code>DNS</code> pleeeeeeease</a></li>
+<li><a href="#org2029233">Configure <code>systemd-resolved</code></a></li>
+<li><a href="#orgb976373">Hardening</a></li>
+<li><a href="#org820f102">Enabling <code>systemd-resolved</code></a></li>
+</ul>
+</li>
+<li><a href="#org1e0022c">Verifying the installation</a>
+<ul>
+<li><a href="#org02134b2">A couple of notes on <code>resolvectl status</code></a></li>
+</ul>
+</li>
+<li><a href="#org0584637">Resources / Further reading:</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org340c04e" class="outline-2">
+<h2 id="org340c04e"><a href="#org340c04e">Introduction</a></h2>
+<div class="outline-text-2" id="text-org340c04e">
+<p>
+This article aims to show how easy it is to configure DNS on a Manjaro
+host so that you do not rely on the configuration the DHCP server shares with
+you. Having a proper DNS configuration is not something you do just to brag, but
+comes with serious security, privacy and performance considerations.
+</p>
+
+<p>
+To help people understand, by <i>blindly</i> following your DHCP provider&rsquo;s suggestions
+when it comes to DNS you risk:
+</p>
+<ul class="org-ul">
+<li><b>security</b>: If they have a misconfigured / insecure dns server, DNS poisoning
+can occur at that level: You&rsquo;re sure that you&rsquo;ve visited your bank&rsquo;s website,
+but in actuality, you are just visiting a malicious clone</li>
+<li><b>privacy</b>: If a provider wants to track your internet activity, it is trivial
+to do so: They can see all websites that you&rsquo;ve visited (without the need
+for extensive infrastructure - for plain MitM attacks)</li>
+<li><b>performance</b>: Inadequate DNS servers have the potential to slow all your
+requests down</li>
+</ul>
+
+<div class="note" id="org8429ecb">
+<p>
+<b>Disclaimer</b>: Make sure to avoid copying the exact same configuration in case you
+(or your company) has a DNS server: Then you might lose access to certain
+endpoints and severely impact your workflow.
+</p>
+
+</div>
+</div>
+</div>
+<div id="outline-container-orgb4d0350" class="outline-2">
+<h2 id="orgb4d0350"><a href="#orgb4d0350">Only read if you have absolutely no idea what DNS is</a></h2>
+<div class="outline-text-2" id="text-orgb4d0350">
+<p>
+If you&rsquo;re reading this, then in all probability your network (at least your home
+one) looks like this:
+</p>
+
+
+<div id="orgeb4a718" class="figure">
+<p><img src="images/20260320_dns-quickly-hard-set-dns-information-on-manjaroarch/20260320_131349_screenshot.png" alt="20260320_131349_screenshot.png">
+</p>
+<p><span class="figure-number">Figure 1: </span>Gloriously sketched home network</p>
+</div>
+
+<p>
+We have a device that we are quick to call a <code>router</code> but in actuality, it is much
+more than that. It also functions as a :
+</p>
+<ul class="org-ul">
+<li>Wireless Access Point - Providing wireless access to our devices</li>
+<li>Ethernet (/ Layer 2) Switch - Providing LAN functionality</li>
+<li>Network Attached Storage (NAS) - Strangely, I&rsquo;ve seen a lot of people attach a
+hard drive directly to the router when this functionality is supported</li>
+<li>and so much more, but crucially it also</li>
+<li><b>WORKS AS A <code>DHCP</code> SERVER</b><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup></li>
+</ul>
+</div>
+<div id="outline-container-org1e467f3" class="outline-3">
+<h3 id="org1e467f3"><a href="#org1e467f3"><code>DHCP</code></a></h3>
+<div class="outline-text-3" id="text-org1e467f3">
+<div class="note" id="org30e5583">
+<p>
+This simplified model of the network focuses on IPv4. IPv6 introduced different
+ways of handling many of the underlying parts.
+</p>
+
+</div>
+
+<p>
+Now, what is a <code>DHCP</code> server you might ask&#x2026; To understand that I&rsquo;ll (grossly)
+explain in a paragraph all of computer networking (-_-): I&rsquo;m sure that you&rsquo;ve
+seen or heard quite a lot of times that computers have IP addresses. If you&rsquo;ve
+ever thought about it, I&rsquo;m pretty sure that you reached the following
+conclusion: they can&rsquo;t be <i>born</i> with them<sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup> since an address must always
+point to you, no matter where you are (which network you are connected to). And
+that is right! I&rsquo;ll keep simplifying, but you can think of your
+<i>over-the-internet</i> communications according to the following pattern:
+</p>
+<ol class="org-ol">
+<li>You <i>somehow</i> (that&rsquo;s DNS) find the IP of the server/computer you want to <i>talk</i>
+to</li>
+<li>You create the message with that <code>Destination IP</code>, and your address as <code>Source
+   IP</code> but not knowing where to send it to, you pass it to your router</li>
+<li>Your router does its magic and forwards it to a path that will ultimately
+reach <code>Destination IP</code> <b>and</b> wait for its answer (they&rsquo;ll send their reply to
+your <code>Source IP</code> )</li>
+<li>Your <code>Source IP</code> , obviously needs to somehow be <i>linked</i> to your router
+(otherwise, how would the network know where to forward it to to reach you?)</li>
+</ol>
+
+<p>
+A lot of interesting stuff might happen when it comes to generating your <code>IP</code> <b>but</b>,
+let us ignore them. We&rsquo;ve proven that it is necessary, and that it is related to
+your <code>router</code> in one way or another. When it comes to home networks your <code>IP</code> is
+<code>leased</code> by the <code>DHCP</code> server inside your router: When you connect, you ask for it,
+and you receive one, for a given time. That&rsquo;s it&#x2026; almost.
+</p>
+
+<div class="note" id="orgced9324">
+<p>
+There are many significant technologies that are hidden in this simplistic
+model (such as NAT), but these are not needed in this context.
+</p>
+
+</div>
+
+<p>
+You see <code>DHCP</code> servers are usually kinda nice and want to help you out. So,
+instead of just handing out addresses, they also give you some extra addresses
+such as these of:
+</p>
+<ul class="org-ul">
+<li>The <code>router</code></li>
+<li>The <code>DNS</code> servers</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org56bf03e" class="outline-3">
+<h3 id="org56bf03e"><a href="#org56bf03e"><code>DNS</code></a></h3>
+<div class="outline-text-3" id="text-org56bf03e">
+<p>
+We took a long way to get here! <code>DNS</code> stands for <code>Domain Name Service</code> and it is
+effectively a protocol for us to go from a <code>Name</code> to an <code>Address</code>.
+</p>
+<pre class="example" id="org9c7b699">
+ -&gt; nslookup google.com
+Server:		127.0.0.53
+Address:	127.0.0.53#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 192.178.24.46
+Name:	google.com
+Address: 2a00:1450:4017:812::200e
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org081ccac" class="outline-2">
+<h2 id="org081ccac"><a href="#org081ccac">The default DNS <i>stack</i> on Manjaro</a></h2>
+<div class="outline-text-2" id="text-org081ccac">
+<p>
+By default Manjaro lets <code>NetworkManager</code> to handle practically everything around
+networking, which includes <code>DHCP</code> <b>and</b> <code>DNS</code> configuration. Thus, <code>systemd-resolved</code>
+might be installed but is <b>disabled</b>: we trust that the <code>DHCP</code> server promotes the
+name servers we want. Have a look at <code>/etc/resolv.conf</code> (you don&rsquo;t believers)
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org59bf634"><span class="org-comment-delimiter"># </span><span class="org-comment">Use this to  verify that systemd-resolved is in fact disabled</span>
+systemctl status systemd-resolved
+</pre>
+</div>
+
+<pre class="example" id="orgd95035d">
+# My hallucinated /etc/resolv.conf
+# This often is not an actual file, but a link to somewhere else in the system.
+search home.arpa
+nameserver 192.168.1.1
+nameserver 8.8.8.8
+</pre>
+
+<p>
+It works (but we&rsquo;ll break it)
+</p>
+</div>
+<div id="outline-container-orgdded50d" class="outline-3">
+<h3 id="orgdded50d"><a href="#orgdded50d">The Goal</a></h3>
+<div class="outline-text-3" id="text-orgdded50d">
+<p>
+The rest of this article covers how we&rsquo;ll:
+</p>
+<ul class="org-ul">
+<li>force <code>NetworkManager</code> to include <code>DNS</code> servers advertised by the network and
+instead rely on <code>systemd-resolved</code></li>
+<li>enable <code>systemd-resolved</code></li>
+<li>configure <code>systemd-resolved</code> (and add a couple of security features)</li>
+</ul>
+
+<div class="note" id="orgbaef84e">
+<p>
+Before moving on, make sure that you understand what you&rsquo;re doing. If in doubt, read some more.
+</p>
+
+</div>
+</div>
+</div>
+<div id="outline-container-org6bde8f0" class="outline-3">
+<h3 id="org6bde8f0"><a href="#org6bde8f0"><code>NetworkManager</code> let go of <code>DNS</code> pleeeeeeease</a></h3>
+<div class="outline-text-3" id="text-org6bde8f0">
+<p>
+Simply enough, you&rsquo;ll see that <code>NetworkManager</code>, following the standard convention
+can be configured through: <code>/etc/NetworkManager/conf.d/&lt;files&gt;</code>
+</p>
+
+<p>
+All we need, thus, is to edit (or create) <code>dns.conf</code> in that directory:
+</p>
+<pre class="example" id="org2620424">
+# /etc/NetworkManager/conf.d/dns.conf
+[main]
+# This tells NM to avoid passing information to systemd-resolved
+dns=none
+systemd-resolved=false
+</pre>
+
+<div class="note" id="org746fba9">
+<p>
+In this process we effectively redirect the <code>/etc/resolv.conf</code> file to
+the <code>stub</code> created by <code>systemd-resolved</code>. The system then <i>knows</i> to look to
+<code>systemd-resolved</code>, but without proper configuration, it receives information from <code>NetworkManager</code>
+</p>
+
+</div>
+</div>
+</div>
+<div id="outline-container-org2029233" class="outline-3">
+<h3 id="org2029233"><a href="#org2029233">Configure <code>systemd-resolved</code></a></h3>
+<div class="outline-text-3" id="text-org2029233">
+<p>
+In the same way, either through <code>man 5 resolve.conf</code> or by visiting
+<code>/etc/systemd/resolve.conf</code> we&rsquo;ll see that a standard configuration (minimal) is
+suggested:
+</p>
+<pre class="example" id="org5af4b1a">
+[Resolve]
+# Some examples of DNS servers which may be used for DNS= and FallbackDNS=:
+# Cloudflare: 1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
+# Google:     8.8.8.8#dns.google 8.8.4.4#dns.google 2001:4860:4860::8888#dns.google 2001:4860:4860::8844#dns.google
+# Quad9:      9.9.9.9#dns.quad9.net 149.112.112.112#dns.quad9.net 2620:fe::fe#dns.quad9.net 2620:fe::9#dns.quad9.net
+#
+# Using DNS= configures global DNS servers and does not suppress link-specific
+# configuration. Parallel requests will be sent to per-link DNS servers
+# configured automatically by systemd-networkd.service(8), NetworkManager(8), or
+# similar management services, or configured manually via resolvectl(1). See
+# resolved.conf(5) and systemd-resolved(8) for more details.
+</pre>
+
+<p>
+Not only does it give us properly formatted entries to use for DNS, but it also
+explains neatly, that if misconfigured, other services such as <code>NetworkManager</code>
+may affect our active DNS configuration.
+</p>
+
+<p>
+Visiting the suggested <code>manpage</code> explains the syntax in each of the Cloudflare,
+Google and Quad9 lines:
+</p>
+<pre class="example" id="org22e272a">
+# From man 5 resolved.conf
+    DNS=
+        A space-separated list of IPv4 and IPv6 addresses to use as system DNS servers. Each address can optionally take a port number
+        separated with ":", a network interface name or index separated with "%", and a Server Name Indication (SNI) separated with "#".
+        When IPv6 address is specified with a port number, then the address must be in the square brackets. That is, the acceptable full
+        formats are "111.222.333.444:9953%ifname#example.com" for IPv4 and "[1111:2222::3333]:9953%ifname#example.com" for IPv6. DNS
+        requests are sent to one of the listed DNS servers in parallel to suitable per-link DNS servers acquired from systemd-
+        networkd.service(8) or set at runtime by external applications. For compatibility reasons, if this setting is not specified, the
+        DNS servers listed in /etc/resolv.conf are used instead, if that file exists and any servers are configured in it. This setting
+        defaults to the empty list.
+</pre>
+
+<p>
+At this point, one could just copy any of these as the <code>DNS=</code> and a different one
+as the <code>FallbackDNS=</code> and skip over to the part where we enable <code>systemd-resolve</code>,
+however this article will not stop at that:
+</p>
+<pre class="example" id="orgf2e44ae">
+[Resolve]
+DNS=1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
+FallbackDNS=9.9.9.9#dns.quad9.net 2620:fe::9#dns.quad9.net 1.1.1.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 8.8.8.8#dns.google 2001:4860:4860::8888#dns.google
+</pre>
+</div>
+</div>
+<div id="outline-container-orgb976373" class="outline-3">
+<h3 id="orgb976373"><a href="#orgb976373">Hardening</a></h3>
+<div class="outline-text-3" id="text-orgb976373">
+<p>
+Why bother? Adding a couple of minutes to this configuration can make your
+browsing more secure and private, by enabling the following features
+</p>
+<ul class="org-ul">
+<li><code>DNS over TLS</code>: This encrypts your <code>DNS Queries</code> through <code>TLS</code> so that it is
+difficult for others to <i>eavesdrop</i> on your requests. In an ideal world, this
+setting would mean that only your <code>DNS Server</code> knows what you asked for: <b>Privacy</b></li>
+<li><code>DNSSEC</code> handles <b>security</b> by providing <b>integrity</b>: its mechanisms make it
+difficult for anyone to give false information or tamper the responses: the
+response <b>must</b> come from the legitimate owners of that domain.</li>
+</ul>
+
+<p>
+These are both <b>easily</b> added to one&rsquo;s configuration
+</p>
+<pre class="example" id="org4b5ef2e">
+[Resolve]
+DNS=1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
+FallbackDNS=9.9.9.9#dns.quad9.net 2620:fe::9#dns.quad9.net 1.1.1.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 8.8.8.8#dns.google 2001:4860:4860::8888#dns.google
+DNSSEC=yes
+DNSOverTLS=allow-downgrade
+ReadEtcHosts=yes
+Cache=yes
+</pre>
+
+<div class="note" id="org50b9c75">
+<p>
+In this snippet I have <code>DNSOverTLS=allow-downgrade</code> , since it is notoriously easy
+for <code>DoT</code> to fail. <b>However</b>, if you do not mind your connection breaking down, use <code>DNSOverTLS=yes</code> instead.
+</p>
+
+</div>
+</div>
+</div>
+<div id="outline-container-org820f102" class="outline-3">
+<h3 id="org820f102"><a href="#org820f102">Enabling <code>systemd-resolved</code></a></h3>
+<div class="outline-text-3" id="text-org820f102">
+<p>
+If you&rsquo;ve followed so far, all you need to do is:
+</p>
+<ul class="org-ul">
+<li>enable the service</li>
+<li>make <code>NetworkManager</code> reload its configuration so that it does not handle <code>DNS</code></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell">sudo systemctl enable --now systemd-resolved
+sudo systemctl restart NetworkManager
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org1e0022c" class="outline-2">
+<h2 id="org1e0022c"><a href="#org1e0022c">Verifying the installation</a></h2>
+<div class="outline-text-2" id="text-org1e0022c">
+<p>
+This article would not be complete, if it did not include the following tests,
+allowing us to verify that we did in fact configure the system properly:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell" id="orgdd63555"><span class="org-comment-delimiter"># </span><span class="org-comment">These tests are within resolvectl</span>
+resolvectl status <span class="org-comment-delimiter"># </span><span class="org-comment">look for DNSOverTLS, DNSSEC</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell" id="org6b00151">resolvectl statistics
+</pre>
+</div>
+
+<p>
+You can also verify <code>DNSSEC</code> against this domain (it should fail):
+</p>
+<div class="org-src-container">
+<pre class="src src-shell" id="org7a87e4d">resolvectl query sigfail.verteiltesysteme.net
+</pre>
+</div>
+
+<p>
+Finally you can have a look at <code>NetworkManager</code> <code>DNS</code> -related settings using:
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">nmcli connection show $<span class="org-variable-name">yourconnection</span> | grep dns
+</pre>
+</div>
+</div>
+<div id="outline-container-org02134b2" class="outline-3">
+<h3 id="org02134b2"><a href="#org02134b2">A couple of notes on <code>resolvectl status</code></a></h3>
+<div class="outline-text-3" id="text-org02134b2">
+<ul class="org-ul">
+<li>If you see that <code>resolv.conf mode: foreign</code> it usually means that somehow that
+file is not a link to the usual <code>systemd-resolved stub</code> . You might wanna use:
+<ul class="org-ul">
+<li><code>sudo ln -sf /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf</code></li>
+<li>Fixing that will show <code>resolv.conf mode: stub</code></li>
+</ul></li>
+<li><p>
+If you see proper <code>Global</code> options, but your interface still using the <code>DHCP</code>
+provided configuration: According to <a href="https://andrea.corbellini.name/2020/04/28/ubuntu-global-dns/">this</a>, the <code>NetworkManager</code> configuration
+should suffice. For me <b>it required restarting</b>: After restarting this
+resulted in me seeing an empty configuration for my interface, thus falling
+back on my <code>Global</code> options
+</p>
+<pre class="example" id="org3af6b7a">
+Link 2 (enp2s0)
+    Current Scopes: LLMNR/IPv4 LLMNR/IPv6 mDNS/IPv4 mDNS/IPv6
+        Protocols: -DefaultRoute +LLMNR +mDNS +DNSOverTLS
+                    DNSSEC=yes/supported
+    Default Route: no
+</pre></li>
+</ul>
+
+<div class="note" id="org9d5f310">
+<p>
+You might see too many breadcrumbs in <code>ArchWiki</code> and in multiple random posts,
+pointing to the modification of <code>/etc/systemd/networkd.conf</code> (or sub-configuration
+files) to have <code>UseDNS=false</code>. Just make sure that <code>systemd-networkd</code> is enabled
+first (not by default) because otherwise, all actions will be futile.
+</p>
+
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org0584637" class="outline-2">
+<h2 id="org0584637"><a href="#org0584637">Resources / Further reading:</a></h2>
+<div class="outline-text-2" id="text-org0584637">
+<ul class="org-ul">
+<li><a href="https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/8/html/configuring_and_managing_networking/manually-configuring-the-etc-resolv-conf-file_configuring-and-managing-networking">RedHat: /etc/resolv.conf docs</a></li>
+<li><a href="https://wiki.archlinux.org/title/NetworkManager">ArchWiki: NetworkManager</a></li>
+<li><a href="https://bbs.archlinux.org/viewtopic.php?id=258865">ArchForum: systemd-resolved to ignore DHCP DNS</a></li>
+</ul>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Could even work as a DNS server, but I&rsquo;m willing to let that go :P
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+Though, crucially, MAC addresses pretty much work that way, but still an oversimplification.
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2026-03-20 Fri 12:39</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+</div>
+</body>
+</html>

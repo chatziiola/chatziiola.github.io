@@ -7,11 +7,11 @@
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">WSA: DOM XSS in AngularJS expression</h1>
@@ -19,20 +19,20 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2892e73">Challenge</a>
+<li><a href="#orgc628e52">Challenge</a>
 <ul>
-<li><a href="#org34e0215">Vulnerable part</a></li>
-<li><a href="#org23ed4f9">Solution</a></li>
-<li><a href="#org03ac18f">Note on Angular</a></li>
+<li><a href="#org1c8c8da">Vulnerable part</a></li>
+<li><a href="#org3a1d20a">Solution</a></li>
+<li><a href="#orgd81b589">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#orgc579cf1">Summary</a></li>
+<li><a href="#orgb5b2e20">Summary</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org2892e73" class="outline-2">
-<h2 id="org2892e73"><a href="#org2892e73">Challenge</a></h2>
-<div class="outline-text-2" id="text-org2892e73">
+<div id="outline-container-orgc628e52" class="outline-2">
+<h2 id="orgc628e52"><a href="#orgc628e52">Challenge</a></h2>
+<div class="outline-text-2" id="text-orgc628e52">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -49,15 +49,15 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="org3a5c554" class="figure">
+<div id="org88f3213" class="figure">
 <p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
 </p>
 <p><span class="figure-number">Figure 1: </span>Sample Input</p>
 </div>
 </div>
-<div id="outline-container-org34e0215" class="outline-3">
-<h3 id="org34e0215"><a href="#org34e0215">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-org34e0215">
+<div id="outline-container-org1c8c8da" class="outline-3">
+<h3 id="org1c8c8da"><a href="#org1c8c8da">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-org1c8c8da">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -68,7 +68,7 @@ We can <i>verify</i> that the website uses angular:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org89d6fa7">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
+<pre class="src src-html" id="org2887da9">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
   &lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/"</span> <span class="org-variable-name">method</span>=<span class="org-string">"GET"</span> <span class="org-variable-name">class</span>=<span class="org-string">"ng-pristine ng-valid"</span>&gt;
     &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">placeholder</span>=<span class="org-string">"Search the blog..."</span> <span class="org-variable-name">name</span>=<span class="org-string">"search"</span>&gt;
     &lt;<span class="org-function-name">button</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">class</span>=<span class="org-string">"button"</span>&gt;Search&lt;/<span class="org-function-name">button</span>&gt;
@@ -78,23 +78,23 @@ We can <i>verify</i> that the website uses angular:
 </div>
 </div>
 </div>
-<div id="outline-container-org23ed4f9" class="outline-3">
-<h3 id="org23ed4f9"><a href="#org23ed4f9">Solution</a></h3>
-<div class="outline-text-3" id="text-org23ed4f9">
+<div id="outline-container-org3a1d20a" class="outline-3">
+<h3 id="org3a1d20a"><a href="#org3a1d20a">Solution</a></h3>
+<div class="outline-text-3" id="text-org3a1d20a">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="org757db22">
+<pre class="example" id="org125e5f8">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
-<div id="outline-container-org03ac18f" class="outline-3">
-<h3 id="org03ac18f"><a href="#org03ac18f">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-org03ac18f">
+<div id="outline-container-orgd81b589" class="outline-3">
+<h3 id="orgd81b589"><a href="#orgd81b589">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-orgd81b589">
 <p>
 For more info check out:
 </p>
@@ -105,9 +105,9 @@ For more info check out:
 </div>
 </div>
 </div>
-<div id="outline-container-orgc579cf1" class="outline-2">
-<h2 id="orgc579cf1"><a href="#orgc579cf1">Summary</a></h2>
-<div class="outline-text-2" id="text-orgc579cf1">
+<div id="outline-container-orgb5b2e20" class="outline-2">
+<h2 id="orgb5b2e20"><a href="#orgb5b2e20">Summary</a></h2>
+<div class="outline-text-2" id="text-orgb5b2e20">
 <p>
 And another one gone, and another one gone&#x2026; Another one bites the dust 
 </p>
@@ -115,7 +115,7 @@ And another one gone, and another one gone&#x2026; Another one bites the dust
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-27 Tue 11:21</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2024-02-27 Tue 11:21</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>

