@@ -58,12 +58,11 @@ copy_static:
 build: cleanup minify build_emacs copy_static pagefind
 
 # Turns out git restore is not such good option most of the time
-# preview:
-# 	@echo "Will now preview locally; make sure to use publish later on"
-# 	$(MAKE) build 
-# 	trap 'git restore $(PUBLIC_DIR)' SIGINT; python3 -m http.server -d $(PUBLIC_DIR)
+preview:
+	@echo "Will now preview locally; make sure to use publish later on"
+	$(MAKE) build 
+	trap 'git restore $(PUBLIC_DIR)' SIGINT; python3 -m http.server -d $(PUBLIC_DIR)
 
-publish:
+full_build:
 	@echo "Publishing. Make sure to have DRAFT on unfinished posts"
 	$(MAKE) clean build 
-
