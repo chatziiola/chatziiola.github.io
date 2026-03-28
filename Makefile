@@ -46,7 +46,7 @@ add_cname:
 	echo "blog.chatziiola.live" > $(PUBLIC_DIR)/CNAME
 
 # Build the site using Emacs
-build_emacs:
+emacs:
 	@echo "Running emacs build"
 	emacs -Q --script scripts/build-site.el 
 
@@ -55,7 +55,7 @@ copy_static:
 	cp -r $(LOCAL_DIR)/src $(PUBLIC_DIR)
 	cp $(LOCAL_DIR)/src/robots.txt $(PUBLIC_DIR)
 
-build: cleanup minify build_emacs copy_static pagefind
+build: cleanup minify emacs copy_static pagefind
 
 # Turns out git restore is not such good option most of the time
 preview:
