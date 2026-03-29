@@ -372,81 +372,62 @@ th {
   font-size: 0.85rem;
 }
 
-/* Section Headers */
-.home-posts h2 {
-  font-size: 0.85rem; /* Slightly smaller for a more refined look */
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-  opacity: 0.8;
-}
-/* Update the Wrapper */
+/* 1. Mobile-First Styles (Default) */
 .home-post-item {
   display: flex;
-  flex-direction: column; /* Stack vertically by default (mobile-first) */
+  flex-direction: column; /* Stack vertically */
+  align-items: flex-start; /* Align everything to the left */
   padding: 1.25rem 0;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
-  transition: all 0.2s ease;
+  gap: 0.5rem; /* Adds consistent spacing between stacked items */
 }
 
-/* Adjust the Title for mobile */
 .home-post-title {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--fg);
-  margin-bottom: 0.5rem; /* Space between title and meta on mobile */
-  margin-right: 0;
   line-height: 1.4;
+  margin-right: 0; /* Reset desktop margin */
 }
 
-/* Metadata container adjustments */
-.home-post-date, .home-post-tags, .home-post-count {
+/* Metadata wrapping logic */
+.home-post-tags, .home-post-date, .home-post-count {
   font-family: monospace;
   font-size: 0.85rem;
   color: var(--muted);
+  white-space: normal; /* Allows text to wrap if it hits the screen edge */
+  word-break: break-word;
 }
 
-
-/* This targets the last element inside your div */
-.home-post-item > *:last-child {
-  margin-left: auto;
+/* Ensure the tag container wraps internal tags */
+.home-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-
-/* Metadata (Date and Count) */
-.home-post-date, .home-post-tags, .home-post-count {
-  font-family: monospace; /* Monospace looks great for dates/numbers */
-  font-size: 0.85rem;
-  color: var(--muted);
-  flex-shrink: 0; /* Prevents the date from wrapping */
-  white-space: nowrap;
-}
-
-/* Specific styling for the Count Badge */
-.home-post-count {
-  background: var(--border); /* Subtle background */
-  padding: 2px 8px;
-  border-radius: 4px; /* Slight roundness looks more "pro" than full pill */
-  font-weight: 600;
-}
-
-/* Desktop Fix: Revert to row layout on larger screens */
+/* 2. Desktop Refinement (Screens wider than 768px) */
 @media (min-width: 768px) {
   .home-post-item {
-    flex-direction: row; /* Back to a single line */
+    flex-direction: row; /* Back to horizontal */
     align-items: baseline;
+    gap: 0; /* Let margins handle spacing */
   }
 
+  /* The "Magic" that pushes the last element (date/count) to the right */
   .home-post-item > *:last-child {
-    margin-left: auto; /* Pushes date/count to the right */
+    margin-left: auto;
+    white-space: nowrap; /* Keep date on one line on desktop */
   }
 
   .home-post-title {
-    margin-bottom: 0;
     margin-right: 1.5rem;
     flex-shrink: 1;
+  }
+
+  .home-post-tags {
+    margin-right: 1rem;
   }
 }
 

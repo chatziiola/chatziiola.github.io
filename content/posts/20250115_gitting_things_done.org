@@ -2,7 +2,7 @@
 #+SUBTITLE: make sure to have a proper gitconfig file
 #+DATE: <2025-01-15 19:33>
 #+DESCRIPTION: The proper form of a gitconfig file, and what to do when you mistakenly perform commits with wrong author details
-#+FILETAGS: 
+#+FILETAGS:  git sysad
 
 After a long time, I'm writing an article, and it sadly is not about
 the things I'm working on. This one is more like a note to anyone out
@@ -24,7 +24,7 @@ noticed something off with my GitHub timeline[fn:2].
 [user]
 	name = <your-name>
 	email = <your-email> ; make sure it really is your email
-	username = <your-username> 
+	username = <your-username>
 
 [init]
     ;; Instead of master, main is alright
@@ -70,14 +70,14 @@ solve, and all that is needed are +1+, +2+, and 3 commands.
 
 #+NAME: Git rebase
 #+begin_src shell
-  # Find your last "proper" commit 
-  git log 
+  # Find your last "proper" commit
+  git log
   # Fix faulty commits
-  git rebase -r <proper_commit_id> --exec 'git commit --amend --no-edit --reset-author' 
-  # Overwrite remote repo, necessary to my knowledge buuuut 
+  git rebase -r <proper_commit_id> --exec 'git commit --amend --no-edit --reset-author'
+  # Overwrite remote repo, necessary to my knowledge buuuut
   # well, it will be more painful in shared repos,
   # than it was in my personal ones. Check it first.
-  git push -f 
+  git push -f
 #+end_src
 
 These will update *all* commits after the one specified so that they
@@ -93,4 +93,4 @@ borrowed something from my past self. ;)
 
 [fn:2] I do not even know how I noticed that.
 
-[fn:1] Which now exists on the much clearer ~.config/git/config~, along with my default ignore file, but that is not the point. 
+[fn:1] Which now exists on the much clearer ~.config/git/config~, along with my default ignore file, but that is not the point.

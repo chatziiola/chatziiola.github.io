@@ -1,6 +1,7 @@
 #+TITLE: Tidying up the blog
 #+DATE: <2024-07-09 13:57>
-#+DESCRIPTION: 
+#+DESCRIPTION:
+#+FILETAGS: blog emacs
 
 * Introduction
 When I first started using ~org-download~ to have pictures within my
@@ -50,7 +51,7 @@ Before we begin we need to make clear the constraints:
 - All image files are of ~png~ format. Minimal steps have been taken to
   change that in the future if necessary.
 - My org files do not include paths to images outside of links.
-  
+
 * Step 0: Configuring the wrapper
 I like using ~argparse~, to easily add/remove options and manage them in
 a significantly more secure and straightforward manner than if I
@@ -81,18 +82,18 @@ Later in design, to avoid troubleshooting certain regex scenarios, I
 also made a different function to search for image links only
 #+end_note
 
-* Step 2: Move Images 
+* Step 2: Move Images
 
 ** The problem with moving images
 It is not just a simple ~mv~. It is a simple ~mv~ *along with* updating all
 the org-files pointing to them: and not messing the paths up is what
-makes it difficult 
+makes it difficult
 
 * And it is never so simple
 #+begin_export html
 <div class="tenor-gif-embed" data-postid="20462984" data-share-method="host" data-aspect-ratio="1.33333" data-width="100%"><a href="https://tenor.com/view/family-guy-peter-griffin-gif-20462984">Family Guy Peter Griffin GIF</a>from <a href="https://tenor.com/search/family+guy-gifs">Family Guy GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 #+end_export
- 
+
 Long story short, I am writing this 2 months after I finished the
 ~mimdir~ functionality, effectively cleaning up the directory (as shown
 in the image). I did not finish the script back there, nor did I
@@ -112,7 +113,7 @@ I have published this script in [[https://github.com/chatziiola/morg][chatziiola
 please refer to that version since mistakes are surely made and they
 might have already been found.
 
-** Yet Another Note 
+** Yet Another Note
 There will come a time (maybe) when after spending some more time on
 these that I will do an even better job, preferably fixing my
 ~org-download~ configuration in a way that will render this relatively

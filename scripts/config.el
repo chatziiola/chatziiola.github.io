@@ -147,7 +147,7 @@
       org-export-with-smart-quotes t
       org-export-headline-levels 4
       org-export-with-section-numbers nil
-      org-export-timestamp-file t
+      org-export-timestamp-file nil
       org-html-head org-blog-head
       org-html-preamble org-blog-navigation
       org-html-postamble comments-postamble)

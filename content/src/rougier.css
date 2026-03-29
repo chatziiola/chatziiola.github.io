@@ -372,68 +372,65 @@ th {
   font-size: 0.85rem;
 }
 
-/* Section Headers */
-.home-posts h2 {
-  font-size: 0.85rem; /* Slightly smaller for a more refined look */
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--muted);
-  margin-bottom: 1.5rem;
-  opacity: 0.8;
-}
-
-/* The Wrapper Link */
+/* 1. Mobile-First Styles (Default) */
 .home-post-item {
-  display: flex; /* Key: keeps title and metadata on one line */
-  justify-content: space-between; /* Pushes metadata to the far right */
-  align-items: baseline; /* Aligns text bottoms perfectly */
-  padding: 1rem 0;
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  align-items: flex-start; /* Align everything to the left */
+  padding: 1.25rem 0;
   border-bottom: 1px solid var(--border);
   text-decoration: none;
-  transition: all 0.2s ease;
+  gap: 0.5rem; /* Adds consistent spacing between stacked items */
 }
 
-.home-post-item:hover {
-  transform: translateX(8px);
-  background-color: rgba(0, 0, 0, 0.02); /* Very subtle hint of depth */
-}
-
-/* The Title */
 .home-post-title {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--fg);
-  /* Ensures long titles don't crush the date/count */
-  margin-right: 1.5rem;
-  flex-shrink: 1;
+  line-height: 1.4;
+  margin-right: 0; /* Reset desktop margin */
 }
 
-/* Metadata (Date and Count) */
-.home-post-date,
-.home-post-count {
-  font-family: monospace; /* Monospace looks great for dates/numbers */
+/* Metadata wrapping logic */
+.home-post-tags, .home-post-date, .home-post-count {
+  font-family: monospace;
   font-size: 0.85rem;
   color: var(--muted);
-  flex-shrink: 0; /* Prevents the date from wrapping */
-  white-space: nowrap;
+  white-space: normal; /* Allows text to wrap if it hits the screen edge */
+  word-break: break-word;
 }
 
-/* Specific styling for the Count Badge */
-.home-post-count {
-  background: var(--border); /* Subtle background */
-  padding: 2px 8px;
-  border-radius: 4px; /* Slight roundness looks more "pro" than full pill */
-  font-weight: 600;
+/* Ensure the tag container wraps internal tags */
+.home-post-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
+/* 2. Desktop Refinement (Screens wider than 768px) */
+@media (min-width: 768px) {
+  .home-post-item {
+    flex-direction: row; /* Back to horizontal */
+    align-items: baseline;
+    gap: 0; /* Let margins handle spacing */
   }
-  .hero {
-    margin: 2rem 0 4rem;
+
+  /* The "Magic" that pushes the last element (date/count) to the right */
+  .home-post-item > *:last-child {
+    margin-left: auto;
+    white-space: nowrap; /* Keep date on one line on desktop */
+  }
+
+  .home-post-title {
+    margin-right: 1.5rem;
+    flex-shrink: 1;
+  }
+
+  .home-post-tags {
+    margin-right: 1rem;
   }
 }
+
 
 /* Footer & Postamble */
 #postamble {
@@ -476,12 +473,13 @@ th {
 }
 
 /* Images & Figures */
-.figure {
+figure {
   margin: 3rem 0;
   text-align: center;
 }
 
-img {
+/* Specific styling for the image inside the figure */
+img, video {
   max-width: 80%;
   max-height: 50vh;
   object-fit: contain;
@@ -490,16 +488,19 @@ img {
   display: block;
 }
 
-.figure-number {
-  font-weight: 500;
-  color: var(--fg);
-}
-
-.figure p:last-child {
+/* Replaces the old .figure p:last-child logic */
+figcaption {
   font-size: 0.85rem;
   color: var(--muted);
   font-style: italic;
   margin-top: 0.5rem;
+}
+
+/* Target the specific figure number span */
+.figure-number {
+  font-weight: 500;
+  color: var(--fg);
+  font-style: normal; /* Keeps the number upright if the caption is italic */
 }
 
 /* Table of Contents */
