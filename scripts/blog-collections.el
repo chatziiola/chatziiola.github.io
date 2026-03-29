@@ -10,6 +10,7 @@
 ;;;; - [ ] Includes the attachment publish function TODO
 ;;;;   - TODO Make this check for "unlinked" statics
 
+(require 'cl-lib)
 (require 'config)
 (require 'org-cache)
 
@@ -46,12 +47,12 @@
   "Publish FILENAME only if it does not have a DRAFT property set to t."
   (if (file-is-blog-post filename)
       (org-html-publish-to-html plist filename pub-dir)
-    "index.html"))
+      "index.html"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defun create-html-item-entry (file title &optional date description)
+(cl-defun html--item-entry (file title &key date description)
   (concat
    (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
    (format "<span class=\"home-post-title\">%s</span>" title)
@@ -60,10 +61,10 @@
    "</a>"
    ))
 
-(defun create-collection-org-file (filename title content &optional description subtitle)
+(cl-defun html--collection-org-file (filename title content &key description subtitle)
   (write-region (concat "#+TITLE: " title "\n"
 			(if subtitle (concat "#+SUBTITLE:" subtitle "\n"))
-			description "\n"
+			(if description (concat description "\n"))
 			"#+begin_export html\n"
 			"<section class=\"home-posts\">\n"
 			content "\n"
@@ -86,7 +87,7 @@ pictures using imagemagick. Return output file name."
       (let ((dst-file (expand-file-name (file-name-nondirectory filename) pub-dir)))
 	(if (string-match-p ".*\\.\\(png\\|jpg\\|gif\\)$" filename)
 	    (shell-command (format "magick %s -resize 1920x1080\\> +dither -colors 16 -depth 4 %s" filename dst-file))
-	  (copy-file filename dst-file t)))))
+	    (copy-file filename dst-file t)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Tags
@@ -100,37 +101,48 @@ pictures using imagemagick. Return output file name."
   "Sort tags numerically by the number of articles (descending)."
   (> (cdr a) (cdr b)))
 
-(defun create-tag-index (tag-list)
+(defun tags--mnode-html-entry (entry)
+  "Turns an org-mnode ENTRY into a full <html> entry.
+Uses `html--item-entry' to ensure conformity."
+  (let* ((filepath (org-mnode-file entry))
+	 (file (file-name-sans-extension (file-relative-name filepath base-dir)))
+	 (title (org-mnode-title entry))
+	 (date (plist-get (org-mnode-properties entry) :date)))
+    (html--item-entry file title :date date)))
+
+(defun tags--generate-index-org (tag-list)
+  "Given TAG-LIST, it creates index.org, using `tag-sorting-function'"
   (let* ((file-path (expand-file-name "index.org" tags-dir))
 	 (sorted-list (sort tag-list tag-sorting-function))
 	 (content (mapconcat (lambda (c)
 			       (let ((tag (car c))
 				     (taglen (cdr c)))
-				 (create-html-item-entry (concat "tags/" tag) tag nil taglen)))
+				 (html--item-entry (concat "tags/" tag) tag :description taglen)))
 			     sorted-list "\n")))
-    (create-collection-org-file file-path "Tags" content "Not half bad")))
+    (html--collection-org-file file-path "Tags" content :description "Not half bad")))
 
-(defun tag-entry (entry)
-  "Customized sitemap entry creation function with Date, Title, Description, and Tags.
-Filters out drafts and indices, returning empty strings."
-  (let* ((filepath (org-mnode-file entry))
-	 (file (file-name-sans-extension (file-relative-name filepath base-dir)))
-	 (title (org-mnode-title entry))
-	 (date (plist-get (org-mnode-properties entry) :date)))
-    (create-html-item-entry file title date)))
 
-(defun create-tag-file (tag tag-entries)
-  "Creates an org mode index file for TAG using a list of TAG-ENTRIES."
+(defun tags--generate-tag-org (tag tag-entries)
+  "Creates an org mode index file for TAG using a list of TAG-ENTRIES sorted newest first."
   (let* ((file-path (expand-file-name (concat tag ".org") tags-dir))
-	 ;; TODO implement sorting here
-	 (content (mapconcat #'tag-entry tag-entries "\n")))
-    (create-collection-org-file file-path tag content) ))
+         ;; Sort tag-entries by date in descending order
+         (sorted-entries (sort (copy-sequence tag-entries)
+                               (lambda (a b)
+                                 (let ((date-a (plist-get (org-mnode-properties a) :date))
+                                       (date-b (plist-get (org-mnode-properties b) :date)))
+                                   (string> date-a date-b)))))
+         (content (mapconcat #'tags--mnode-html-entry sorted-entries "\n")))
+    (html--collection-org-file file-path tag content)))
 
 (defun create-tag-pages ()
-  "Handles everything around tags"
+  "Handles everything around tags:
+1. Populate Hash Table with lists of entries
+2. Ensure that the tags directory is empty:
+3. Create tags file for every tag
+4. Create master tag file index
+"
   (let* ((org-cache-mnode-default-properties-list '("DATE" "DRAFT"))
 	 (h (make-hash-table :test 'equal)))
-    ;; 1: Populate Hash Table with lists of entries
     (dolist (entry blog-cache)
       (let ((draft (plist-get (org-mnode-properties entry) :draft))
 	    (tags (org-mnode-tags entry)))
@@ -140,21 +152,18 @@ Filters out drafts and indices, returning empty strings."
 	      (puthash tag
 		       (cons entry (gethash tag h))
 		       h))))))
-    ;; 2.0: Ensure that the tags directory is empty:
     (delete-directory tags-dir t)
     (make-directory tags-dir)
 
-    ;; 2: Create tags file for every tag
     (dolist (tag (hash-table-keys h))
-      (create-tag-file tag (gethash tag h)))
+      (tags--generate-tag-org tag (gethash tag h)))
 
-    ;; 3: Create master tag file index
     (let ((tag-list (mapcar (lambda (k) (cons k (length (gethash k h))))
 			    (hash-table-keys h))))
-      (create-tag-index tag-list))
+      (tags--generate-index-org tag-list))
     ))
 
-;
+					;
 (defun my-sitemap-entry (entry style project)
   "Customized sitemap entry creation function with Date, Title, Description, and Tags.
 Filters out drafts and indices, returning empty strings."
@@ -164,9 +173,9 @@ Filters out drafts and indices, returning empty strings."
 	     (file (file-name-sans-extension (file-relative-name (plist-get post :file) base-dir)))
 	     (date (plist-get post :date))
 	     (title (plist-get post :title)))
-	(create-html-item-entry file title date)
+	(html--item-entry file title :date date)
 	)
-    ""))
+      ""))
 
 (defun my-sitemap-function (title list)
   "Customized sitemap function to exclude empty entries and handle the style symbol."
@@ -176,8 +185,9 @@ Filters out drafts and indices, returning empty strings."
 				  (and (listp i)
 				       (not (string-empty-p (car i)))))
 				entries)))
-    (create-collection-org-file sitemap-file title (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n") nil  "[[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]")))
-
+    (html--collection-org-file sitemap-file title
+			       (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
+			       :subtitle "[[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]")))
 
 ;; (defun create-archive ()
 ;;   )
