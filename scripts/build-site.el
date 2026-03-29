@@ -6,6 +6,7 @@
 ;;; Code:
 ;; Load Configuration specifics
 (add-to-list 'load-path "~/Github/chatziiola.github.io/scripts")
+(add-to-list 'load-path "~/Github/org-cache")
 
 ;; ;; Load the publishing system
 (require 'config)
@@ -14,13 +15,21 @@
 (require 'ox-html)
 (require 'cl-extra)
 (require 'htmlize)
+
+;; TODO migrate to org-cache
+(require 'org-cache)
 (require 'blog-index)
 
+;; TODO REMOVE
 (setq blog-index-dir posts-dir)
-;; (setq blog-index-dir "/home/chatziiol/Github/chatziiola.github.io/content/posts")
 
+;; TODO REMOVE
 (if (blog-index-get-posts)
     (message "Index generated"))
+
+;; TODO to config
+(setq tags-blacklist '("index"))
+(setq tags-dir (expand-file-name "tags" base-dir))
 
 (setq make-backup-files nil)
 (setq org-use-property-inheritance t)
@@ -79,6 +88,26 @@
       (org-html-publish-to-html plist filename pub-dir)
     "index.html"))
 
+
+(defun post-entry (file title &optional date description)
+  (concat
+   (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
+   (format "<span class=\"home-post-title\">%s</span>" title)
+   (if date (format "<span class=\"home-post-date timestamp\">%s</span>" date))
+   (if description (format "<span class=\"home-post-description timestamp\">%s</span>" description))
+   "</a>"
+   ))
+
+(defun post-section (title content &optional description subtitle)
+  (concat "#+TITLE: " title "\n"
+	  (if subtitle (concat "#+SUBTITLE:" subtitle "\n"))
+	  description "\n"
+	  "#+begin_export html\n"
+	  "<section class=\"home-posts\">\n"
+	  content "\n"
+	  "</section>"
+	  "\n#+end_export"))
+
 (defun my-sitemap-entry (entry style project)
   "Customized sitemap entry creation function with Date, Title, Description, and Tags.
 Filters out drafts and indices, returning empty strings."
@@ -87,50 +116,73 @@ Filters out drafts and indices, returning empty strings."
       (let* ((post (blog-index-get-post entry))
 	     (file (file-name-sans-extension (file-relative-name (plist-get post :file) base-dir)))
 	     (date (plist-get post :date))
-	     (title (plist-get post :title))
-	     (desc (plist-get post :description))
-	     (subtitle (plist-get post :subtitle))
-	     (tags (plist-get post :filetags)))
-	;; (concat
-        ;;  "<div class=\"sitemap-item\">"
-	;;     (format "<a class=\"sitemap-title\" href=\"/%s.html\">%s</a>" file title)
-        ;;    "<div class=\"sitemap-header\">"
-        ;;      (format "<span class=\"sitemap-date\">%s</span>" (or date ""))
-	;;  (if (and tags (not (string-empty-p tags)))
-	;;      (format "<span class=\"sitemap-tag\">%s</span>" tags)
-	;;    "")
-        ;;    "</div>"
-	;;  (if (and desc (not (string-empty-p desc)))
-	;;      (format "<span class=\"sitemap-description\">%s</span>" desc)
-	;;    "")
-	;;  "</div>"
-	;;  )
-	(concat
-	 (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
-	 (format "<span class=\"home-post-title\">%s</span>" title)
-	 (format "<span class=\"home-post-date timestamp\">%s</span>" (or date ""))
-	 "</a>"
-	 )
+	     (title (plist-get post :title)))
+	(post-entry file title date)
 	)
     ""))
 
 (defun my-sitemap-function (title list)
   "Customized sitemap function to exclude empty entries and handle the style symbol."
   (let* ((entries (cdr list)) ;; Removes 'unordered symbol
-         (fixedlist (seq-filter (lambda (i)
-                                  (and (listp i)
-                                       (not (string-empty-p (car i)))))
-                                entries)))
-    (concat "#+TITLE: " title "\n"
-	    "#+SUBTITLE: [[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]\n"
+	 (fixedlist (seq-filter (lambda (i)
+				  (and (listp i)
+				       (not (string-empty-p (car i)))))
+				entries)))
+    (post-section title (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n") nil  "[[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]")))
 
-	    "#+begin_export html\n"
-	    "<section class=\"home-posts\">\n"
-            (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
-	    "</section>"
-	    "\n#+end_export"
-	    )))
+(defun create-tag-index (tag-list)
+  (let* ((file-path (expand-file-name "tags/index.org" base-dir))
+	 (content (mapconcat (lambda (c)
+			       (let ((tag (car c))
+				     (taglen (cdr c)))
+				 (post-entry (concat "tags/" tag) tag nil taglen)))
+			     tag-list "\n")))
+    (write-region (post-section "Tags" content "Not half bad") nil file-path)))
 
+(defun tag-entry (entry)
+  "Customized sitemap entry creation function with Date, Title, Description, and Tags.
+Filters out drafts and indices, returning empty strings."
+  (let* ((filepath (org-mnode-file entry))
+	 (file (file-name-sans-extension (file-relative-name filepath base-dir)))
+	 (title (org-mnode-title entry))
+	 (date (plist-get (org-mnode-properties entry) :date)))
+    (post-entry file title date)))
+
+(defun create-tag-file (tag tag-entries)
+  "Creates an org mode index file for TAG using a list of TAG-ENTRIES."
+  (let* ((file-path (expand-file-name (concat "tags/" tag ".org") base-dir))
+	 ;; TODO implement sorting here
+	 (content (mapconcat #'tag-entry tag-entries "\n")))
+    (write-region (post-section tag content) nil file-path)))
+
+(let* ((org-cache-mnode-default-properties-list '("DATE" "DRAFT"))
+       (c (org-cache-get posts-dir t))
+       (h (make-hash-table :test 'equal)))
+  ;; 1: Populate Hash Table with lists of entries
+  (dolist (entry c)
+    (let ((draft (plist-get (org-mnode-properties entry) :draft))
+	  (tags (org-mnode-tags entry)))
+      (unless (string= draft "t")
+	(dolist (tag tags)
+	  (unless (member tag tags-blacklist)
+	    (puthash tag
+		     (cons entry (gethash tag h))
+		     h))
+	  ))))
+  ;; 2.0: Ensure that the tags directory is empty:
+  (delete-directory tags-dir t)
+  (make-directory tags-dir)
+
+  ;; 2: Create tags file for every tag
+  (dolist (tag (hash-table-keys h))
+    (create-tag-file tag (gethash tag h)))
+
+
+  ;; 3: Create master tag file index
+  (let ((tag-list (mapcar (lambda (k) (cons k (length (gethash k h))))
+			  (hash-table-keys h))))
+    (create-tag-index tag-list))
+  )
 (setq org-publish-project-alist
       (list
        (list "blog-posts"
@@ -164,6 +216,16 @@ Filters out drafts and indices, returning empty strings."
 	     :sitemap-function 'my-sitemap-function
 	     :sitemap-style 'list
 	     )
+       (list "tags"
+	     :base-directory (expand-file-name "tags" base-dir)
+	     :recursive t
+	     :html-postamble general-postamble
+	     :publishing-directory (expand-file-name "tags" public-dir)
+	     :publishing-function 'org-html-publish-to-html
+	     :headline-level 4
+	     :with-toc nil
+	     :section-numbers nil
+	     :time-stamp-file nil)
        ;; Moved indices after blog posts, because index.org reads recents.org,
        ;; which is generated there
        (list "indices"
@@ -219,5 +281,4 @@ pictures using imagemagick. Return output file name."
 	  (copy-file filename dst-file t)))))
 
 (org-publish-all)
-;; (chatziiola/org-static-blog-assemble-index-no-content)
 ;;; build-site.el ends here.
