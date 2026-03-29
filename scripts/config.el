@@ -90,5 +90,54 @@
 (defvar index-file-list '("index.org" "about.org" "404.org")
   "List of files that have the /index/ property, and thus should not be considered plain posts.")
 
+
+;; TODO to config
+(defvar tags-blacklist '("index")
+  "TAGS to be excluded when generating TAGS-INDEX")
+
+;; WARNING: Before modifying this know that "tags/" is heavily *hardcoded* in blog-collections.el
+(defvar tags-dir (expand-file-name "tags" base-dir)
+  "The directory in which TAGS are supposed to reside")
+
+;; This is the "Switch" you can modify inline or via M-x customize
+(defvar tag-sorting-function #'tags-sort--articles
+  "The function used to sort the tag list.
+   Set to `tags-sort--alphabetical' or `tags-sort--articles'.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; ORG OPTIONS
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq make-backup-files nil)
+(setq org-use-property-inheritance t)
+(setq org-use-tag-inheritance t)
+(setq org-src-fontify-natively t)
+(setq org-html-htmlize-output-type 'css)
+(setq org-export-use-broken-links t)
+(setq org-html-doctype "html5")
+
+(setq org-src-fontify-natively t)		; Fontify code in code blocks.
+(setq org-adapt-indentation nil)		; Adaptive indentation
+(setq org-src-tab-acts-natively t)		; Tab acts as in source editing
+(setq org-confirm-babel-evaluate nil)		; No confirmation before executing code
+(setq org-edit-src-content-indentation 2)	; No relative indentation for code blocks
+(setq org-fontify-whole-block-delimiter-line t) ; Fontify whole block
+
+;; Customize the HTML output
+(setq org-html-validation-link nil
+      org-html-head-include-scripts nil
+      org-html-head-include-default-style nil
+      org-html-indent nil
+      org-html-self-link-headlines t
+      org-export-with-tags t
+      org-export-with-smart-quotes t
+      org-export-headline-levels 4
+      org-export-with-section-numbers nil
+      org-export-timestamp-file t
+      org-html-head org-blog-head
+      org-html-preamble org-blog-navigation
+      org-html-postamble comments-postamble)
+
+
+
 (provide 'config)
 ;; config.el ends here
