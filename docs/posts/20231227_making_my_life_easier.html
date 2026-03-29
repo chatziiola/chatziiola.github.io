@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Make-ing my life easier</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Notes on how I migrated to Make for this website, so that I can easily preview my posts before publishing" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">Make-ing my life easier</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/scripting.html" class="tag">scripting</a> <a href="/tags/blog.html" class="tag">blog</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org98e3ea9">Introduction</a></li>
-<li><a href="#org656a632">Goal</a></li>
-<li><a href="#org5d5d0a4">Execution</a></li>
-<li><a href="#org4fd7973">Completion</a></li>
-<li><a href="#orga76d0bf">Some extra thoughts</a></li>
+<li><a href="#org3ca3b6e">Introduction</a></li>
+<li><a href="#org5c73fd7">Goal</a></li>
+<li><a href="#org71f7275">Execution</a></li>
+<li><a href="#org28134bc">Completion</a></li>
+<li><a href="#org7dd7d2d">Some extra thoughts</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org98e3ea9" class="outline-2">
-<h2 id="org98e3ea9"><a href="#org98e3ea9">Introduction</a></h2>
-<div class="outline-text-2" id="text-org98e3ea9">
+</nav>
+<div id="outline-container-org3ca3b6e" class="outline-2">
+<h2 id="org3ca3b6e"><a href="#org3ca3b6e">Introduction</a></h2>
+<div class="outline-text-2" id="text-org3ca3b6e">
 <p>
 At the time of writing, my blog directory is certainly cluttered, and I  
 <b>really</b> don&rsquo;t want that. It prevents me from easily checking my website (I&rsquo;m  
@@ -39,9 +43,9 @@ document the next 10 minutes for myself so that it all makes sense.
 </p>
 </div>
 </div>
-<div id="outline-container-org656a632" class="outline-2">
-<h2 id="org656a632"><a href="#org656a632">Goal</a></h2>
-<div class="outline-text-2" id="text-org656a632">
+<div id="outline-container-org5c73fd7" class="outline-2">
+<h2 id="org5c73fd7"><a href="#org5c73fd7">Goal</a></h2>
+<div class="outline-text-2" id="text-org5c73fd7">
 <p>
 My objective here is to quickly create a Makefile with a <code>local</code> set of  
 instructions that will:  
@@ -52,9 +56,9 @@ instructions that will:
 </ol>
 </div>
 </div>
-<div id="outline-container-org5d5d0a4" class="outline-2">
-<h2 id="org5d5d0a4"><a href="#org5d5d0a4">Execution</a></h2>
-<div class="outline-text-2" id="text-org5d5d0a4">
+<div id="outline-container-org71f7275" class="outline-2">
+<h2 id="org71f7275"><a href="#org71f7275">Execution</a></h2>
+<div class="outline-text-2" id="text-org71f7275">
 <p>
 Using the <code>local-build.sh</code> script, I knew this wouldn&rsquo;t take long. Since it&rsquo;s  
 an open-source file and I&rsquo;m not particularly concerned about the  
@@ -62,7 +66,7 @@ confidentiality of its contents, I uploaded it to ChatGPT, asking for it to be
 refactored and documented into a Makefile:  
 </p>
 
-<pre class="example" id="org943520a">
+<pre class="example" id="org2c69cbb">
 # Makefile for building and publishing a site  
 # Directories  
 PUBLIC_DIR := public  
@@ -107,16 +111,16 @@ not overly extensive, comments.
 Adding a new target and updating <code>local</code> completes the setup:  
 </p>
 
-<pre class="example" id="org28f4912">
+<pre class="example" id="org37192f6">
 # Serve the public directory on localhost using Python  
 serve_local:  
 	cd $(PUBLIC_DIR) &amp;&amp; python -m http.server  
 </pre>
 </div>
 </div>
-<div id="outline-container-org4fd7973" class="outline-2">
-<h2 id="org4fd7973"><a href="#org4fd7973">Completion</a></h2>
-<div class="outline-text-2" id="text-org4fd7973">
+<div id="outline-container-org28134bc" class="outline-2">
+<h2 id="org28134bc"><a href="#org28134bc">Completion</a></h2>
+<div class="outline-text-2" id="text-org28134bc">
 <p>
 At this point, everything is working perfectly and is well-documented enough  
 that I could refactor the entire blog. Spaghetti code is not just prevalent  
@@ -125,9 +129,9 @@ challenging. This Makefile makes things far more manageable.
 </p>
 </div>
 </div>
-<div id="outline-container-orga76d0bf" class="outline-2">
-<h2 id="orga76d0bf"><a href="#orga76d0bf">Some extra thoughts</a></h2>
-<div class="outline-text-2" id="text-orga76d0bf">
+<div id="outline-container-org7dd7d2d" class="outline-2">
+<h2 id="org7dd7d2d"><a href="#org7dd7d2d">Some extra thoughts</a></h2>
+<div class="outline-text-2" id="text-org7dd7d2d">
 <p>
 It&rsquo;s truly fascinating that in <b>much less</b> than fifteen minutes, I managed to:  
 </p>

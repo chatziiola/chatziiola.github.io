@@ -1,56 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Literate Configuration Management with vanilla Emacs</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Creating an easy way to review configs" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">Literate Configuration Management with vanilla Emacs</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/emacs.html" class="tag">emacs</a> <a href="/tags/elisp.html" class="tag">elisp</a> <a href="/tags/literateprogramming.html" class="tag">literateprogramming</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc248715">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
-<li><a href="#org55209b4">Introduction</a></li>
-<li><a href="#org7cc4add">Building the script</a>
+<li><a href="#org6dd68b1">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></li>
+<li><a href="#orgb892542">Introduction</a></li>
+<li><a href="#org562c9df">Building the script</a>
 <ul>
-<li><a href="#org6e989bf">Dealing with too many org files</a></li>
-<li><a href="#orgdfb1dbb">Getting the titles</a></li>
-<li><a href="#orgecd6026">Presenting Them To The User</a></li>
-<li><a href="#org9e04da5">Integrating rougier&rsquo;s scripts</a>
+<li><a href="#org0a901eb">Dealing with too many org files</a></li>
+<li><a href="#org1250f0f">Getting the titles</a>
 <ul>
-<li><a href="#org64ba4c9">@rougier functions</a></li>
-<li><a href="#org2bcd264">Merging them with our funcs</a></li>
+<li>
+<ul>
+<li><a href="#org328f892">Complementary functions</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org103de36">Making it usable</a></li>
-<li><a href="#orgf0ac4fc">Summing Up ( some extra details )</a></li>
+<li><a href="#orgedf9e29">Presenting Them To The User</a></li>
+<li><a href="#orge994db5">Integrating rougier&rsquo;s scripts</a>
+<ul>
+<li><a href="#orgdc9d5a2">@rougier functions</a></li>
+<li><a href="#orge99fb45">Merging them with our funcs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org1d20b4f">Making it usable</a></li>
+<li><a href="#orgfa53d53">Summing Up ( some extra details )</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-orgc248715" class="outline-2">
-<h2 id="orgc248715"><a href="#orgc248715">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
-<div class="outline-text-2" id="text-orgc248715">
+</nav>
+<div id="outline-container-org6dd68b1" class="outline-2">
+<h2 id="org6dd68b1"><a href="#org6dd68b1">Update: <span class="timestamp-wrapper"><span class="timestamp">&lt;2022-12-23 Fri&gt;</span></span>:</a></h2>
+<div class="outline-text-2" id="text-org6dd68b1">
 <p>
 This is all completely unnecessary. It turns out that you can practically
 achieve the same functionality with <code>imenu-list</code>, without it being so slow.
 </p>
 </div>
 </div>
-<div id="outline-container-org55209b4" class="outline-2">
-<h2 id="org55209b4"><a href="#org55209b4">Introduction</a></h2>
-<div class="outline-text-2" id="text-org55209b4">
+<div id="outline-container-orgb892542" class="outline-2">
+<h2 id="orgb892542"><a href="#orgb892542">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgb892542">
 <p>
 I manage my dotfiles using GNU Stow. This means that I have a git directory
 <a href="../../">dotfiles</a>, which contains the configuration files for the applications I have
@@ -64,9 +76,9 @@ in the past couple days
 </p>
 </div>
 </div>
-<div id="outline-container-org7cc4add" class="outline-2">
-<h2 id="org7cc4add"><a href="#org7cc4add">Building the script</a></h2>
-<div class="outline-text-2" id="text-org7cc4add">
+<div id="outline-container-org562c9df" class="outline-2">
+<h2 id="org562c9df"><a href="#org562c9df">Building the script</a></h2>
+<div class="outline-text-2" id="text-org562c9df">
 <p>
 The following folder hierarchy shows part of the general dotfiles problem:
 </p>
@@ -127,9 +139,9 @@ want to recursively search our directory for <code>.org</code> files.
 </pre>
 </div>
 </div>
-<div id="outline-container-org6e989bf" class="outline-3">
-<h3 id="org6e989bf"><a href="#org6e989bf">Dealing with too many org files</a></h3>
-<div class="outline-text-3" id="text-org6e989bf">
+<div id="outline-container-org0a901eb" class="outline-3">
+<h3 id="org0a901eb"><a href="#org0a901eb">Dealing with too many org files</a></h3>
+<div class="outline-text-3" id="text-org0a901eb">
 <p>
 A problem arises: Too many files within the emacs directory, almost all of which
 from the <code>straight</code> subdirectory <i>(this is what hapenned to me, it may be different
@@ -165,9 +177,9 @@ their &ldquo;TITLE&rdquo; property
 </ol>
 </div>
 </div>
-<div id="outline-container-orgdfb1dbb" class="outline-3">
-<h3 id="orgdfb1dbb"><a href="#orgdfb1dbb">Getting the titles</a></h3>
-<div class="outline-text-3" id="text-orgdfb1dbb">
+<div id="outline-container-org1250f0f" class="outline-3">
+<h3 id="org1250f0f"><a href="#org1250f0f">Getting the titles</a></h3>
+<div class="outline-text-3" id="text-org1250f0f">
 <p>
 Make sure that we get the title of our configuration files:
 </p>
@@ -180,9 +192,9 @@ Make sure that we get the title of our configuration files:
 </pre>
 </div>
 </div>
-<ul class="org-ul">
-<li><a id="orgd5927bf"></a><a href="#orgd5927bf">Complementary functions</a><br>
-<div class="outline-text-5" id="text-orgd5927bf">
+<div id="outline-container-org328f892" class="outline-5">
+<h5 id="org328f892"><a href="#org328f892">Complementary functions</a></h5>
+<div class="outline-text-5" id="text-org328f892">
 <p>
 These functions were found online (albeit the second one has been changed) when
 I was building my lecture notetaking scripts
@@ -216,12 +228,11 @@ I was building my lecture notetaking scripts
 </pre>
 </div>
 </div>
-</li>
-</ul>
 </div>
-<div id="outline-container-orgecd6026" class="outline-3">
-<h3 id="orgecd6026"><a href="#orgecd6026">Presenting Them To The User</a></h3>
-<div class="outline-text-3" id="text-orgecd6026">
+</div>
+<div id="outline-container-orgedf9e29" class="outline-3">
+<h3 id="orgedf9e29"><a href="#orgedf9e29">Presenting Them To The User</a></h3>
+<div class="outline-text-3" id="text-orgedf9e29">
 <p>
 Create a dictionary in the form of <code>"TITLE":"FILE"</code>:
 </p>
@@ -272,9 +283,9 @@ Script building is over: Just open the file
 </div>
 </div>
 </div>
-<div id="outline-container-org9e04da5" class="outline-3">
-<h3 id="org9e04da5"><a href="#org9e04da5">Integrating rougier&rsquo;s scripts</a></h3>
-<div class="outline-text-3" id="text-org9e04da5">
+<div id="outline-container-orge994db5" class="outline-3">
+<h3 id="orge994db5"><a href="#orge994db5">Integrating rougier&rsquo;s scripts</a></h3>
+<div class="outline-text-3" id="text-orge994db5">
 <p>
 With the steps above with have achieved a <i>basic level</i> of ease when dealing with
 dotfiles. What is missing?
@@ -285,9 +296,9 @@ dotfiles. What is missing?
 <li>Integrating Rougier</li>
 </ol>
 </div>
-<div id="outline-container-org64ba4c9" class="outline-4">
-<h4 id="org64ba4c9"><a href="#org64ba4c9">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
-<div class="outline-text-4" id="text-org64ba4c9">
+<div id="outline-container-orgdc9d5a2" class="outline-4">
+<h4 id="orgdc9d5a2"><a href="#orgdc9d5a2">@<a href="https://github.com/rougier">rougier</a> functions</a></h4>
+<div class="outline-text-4" id="text-orgdc9d5a2">
 <p>
 <code>rougier</code> implemented these wonderful functions ( that inspired me to work on
 this ):
@@ -306,7 +317,7 @@ this ):
 </div>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="orgd8f4c43">
+<pre class="src src-elisp" id="orgd7dea47">
 (<span class="org-keyword">require</span> '<span class="org-constant">imenu</span>)
 (<span class="org-keyword">require</span> '<span class="org-constant">imenu-list</span>)
 
@@ -368,9 +379,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </p>
 </div>
 </div>
-<div id="outline-container-org2bcd264" class="outline-4">
-<h4 id="org2bcd264"><a href="#org2bcd264">Merging them with our funcs</a></h4>
-<div class="outline-text-4" id="text-org2bcd264">
+<div id="outline-container-orge99fb45" class="outline-4">
+<h4 id="orge99fb45"><a href="#orge99fb45">Merging them with our funcs</a></h4>
+<div class="outline-text-4" id="text-orge99fb45">
 <div class="org-src-container">
 <pre class="src src-elisp">(<span class="org-keyword">setq</span> chatziiola/dot-dir <span class="org-string">"~/dotfiles/"</span>)
 
@@ -395,9 +406,9 @@ changing it <b>just a little bit</b>, we have the perfect end product:
 </div>
 </div>
 </div>
-<div id="outline-container-org103de36" class="outline-2">
-<h2 id="org103de36"><a href="#org103de36">Making it usable</a></h2>
-<div class="outline-text-2" id="text-org103de36">
+<div id="outline-container-org1d20b4f" class="outline-2">
+<h2 id="org1d20b4f"><a href="#org1d20b4f">Making it usable</a></h2>
+<div class="outline-text-2" id="text-org1d20b4f">
 <p>
 Autoload the configuration function ( so that it is always available ), <i>stolen</i>
 from <code>rougier</code>, once again.
@@ -420,9 +431,9 @@ from <code>rougier</code>, once again.
 </div>
 </div>
 </div>
-<div id="outline-container-orgf0ac4fc" class="outline-2">
-<h2 id="orgf0ac4fc"><a href="#orgf0ac4fc">Summing Up ( some extra details )</a></h2>
-<div class="outline-text-2" id="text-orgf0ac4fc">
+<div id="outline-container-orgfa53d53" class="outline-2">
+<h2 id="orgfa53d53"><a href="#orgfa53d53">Summing Up ( some extra details )</a></h2>
+<div class="outline-text-2" id="text-orgfa53d53">
 <p>
 This article took for granted that one has some prior experience with org mode,
 though I understand that this is not always the case. To gain advantage of the

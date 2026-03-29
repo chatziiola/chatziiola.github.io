@@ -1,51 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HTB: FlagCasino</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough for the very easy, reverse engineering, hack the box, challenge flag casino." />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">HTB: FlagCasino
-<br>
-<span class="subtitle">Fla-zino?</span>
-</h1>
-<div id="table-of-contents" role="doc-toc">
+<header>
+<h1 class="title">HTB: FlagCasino</h1>
+<p class="subtitle" role="doc-subtitle">Fla-zino?</p>
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/reveng.html" class="tag">reveng</a> <a href="/tags/htb.html" class="tag">htb</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1b023af">Introduction</a></li>
-<li><a href="#org95c8d67">Starting</a></li>
-<li><a href="#orgf290e16">Understanding the loop</a>
+<li><a href="#org8f5950d">Introduction</a></li>
+<li><a href="#org6cbdd08">Starting</a></li>
+<li><a href="#org7fddd3e">Understanding the loop</a>
 <ul>
-<li><a href="#org88226b4">Asm notes</a></li>
-<li><a href="#orgb15686e">Obj.check hexdump</a></li>
+<li><a href="#org54f0a19">Asm notes</a></li>
+<li><a href="#org43205e0">Obj.check hexdump</a></li>
 </ul>
 </li>
-<li><a href="#org5bcf4e6">Decompilation</a></li>
-<li><a href="#org943dfea">Implementing the payload</a></li>
-<li><a href="#org07f465a">Summary</a></li>
+<li><a href="#orgc06b5eb">Decompilation</a></li>
+<li><a href="#orgeb504d7">Implementing the payload</a></li>
+<li><a href="#orge81c67f">Summary</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org1b023af" class="outline-2">
-<h2 id="org1b023af"><a href="#org1b023af">Introduction</a></h2>
-<div class="outline-text-2" id="text-org1b023af">
+</nav>
+<div id="outline-container-org8f5950d" class="outline-2">
+<h2 id="org8f5950d"><a href="#org8f5950d">Introduction</a></h2>
+<div class="outline-text-2" id="text-org8f5950d">
 <p>
 Although this is not the first <code>reveng</code> challenge I have solved in the
 last month, I noticed many improvements while solving it. It always
 feels good when you make progress.
 </p>
 
-<div class="note" id="org6fec14b">
+<div class="note" id="org468f793">
 <p>
 I work with <code>radare2</code>, as it was suggested to me as a very good way
 for a <i>newbie</i> to learn: it may have a steep learning curve, but it
@@ -75,9 +77,9 @@ allows you to see things in greater depth.
 </div>
 </div>
 </div>
-<div id="outline-container-org95c8d67" class="outline-2">
-<h2 id="org95c8d67"><a href="#org95c8d67">Starting</a></h2>
-<div class="outline-text-2" id="text-org95c8d67">
+<div id="outline-container-org6cbdd08" class="outline-2">
+<h2 id="org6cbdd08"><a href="#org6cbdd08">Starting</a></h2>
+<div class="outline-text-2" id="text-org6cbdd08">
 <p>
 Through a first look at the disassembled code through graph visual mode
 <code>VV @ sym.main</code>, we see that only at the very surface is this a program imitating a casino:
@@ -106,7 +108,7 @@ since the flag is supposed to be given somewhere here.
 <li>It could very well have something to do with <code>var_4h</code>.</li>
 </ul>
 
-<div class="note" id="orgfb8d722">
+<div class="note" id="orge232e05">
 <p>
 Now, could it be that the proper input sequence is the flag?
 -&gt; Yep, this is the case, tested with <b>HTB{</b>.
@@ -116,9 +118,9 @@ Now, could it be that the proper input sequence is the flag?
 </ol>
 </div>
 </div>
-<div id="outline-container-orgf290e16" class="outline-2">
-<h2 id="orgf290e16"><a href="#orgf290e16">Understanding the loop</a></h2>
-<div class="outline-text-2" id="text-orgf290e16">
+<div id="outline-container-org7fddd3e" class="outline-2">
+<h2 id="org7fddd3e"><a href="#org7fddd3e">Understanding the loop</a></h2>
+<div class="outline-text-2" id="text-org7fddd3e">
 <ol class="org-ol">
 <li>First, we get the last byte of <code>[var_5h]</code>, move it with
 sign extension to <code>eax</code>, and then to <code>edi</code>, to be used as the seed in
@@ -167,9 +169,9 @@ then why not just have it <code>+4</code>?</li>
 </ul></li>
 </ol>
 </div>
-<div id="outline-container-org88226b4" class="outline-3">
-<h3 id="org88226b4"><a href="#org88226b4">Asm notes</a></h3>
-<div class="outline-text-3" id="text-org88226b4">
+<div id="outline-container-org54f0a19" class="outline-3">
+<h3 id="org54f0a19"><a href="#org54f0a19">Asm notes</a></h3>
+<div class="outline-text-3" id="text-org54f0a19">
 <ul class="org-ul">
 <li><code>movzx</code> move with zero extend.</li>
 <li><code>movsx</code> move with sign extend.</li>
@@ -177,9 +179,9 @@ then why not just have it <code>+4</code>?</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-orgb15686e" class="outline-3">
-<h3 id="orgb15686e"><a href="#orgb15686e">Obj.check hexdump</a></h3>
-<div class="outline-text-3" id="text-orgb15686e">
+<div id="outline-container-org43205e0" class="outline-3">
+<h3 id="org43205e0"><a href="#org43205e0">Obj.check hexdump</a></h3>
+<div class="outline-text-3" id="text-org43205e0">
 <div class="org-src-container">
 <pre class="src src-txt">[0x71025cdd1540]&gt; px @ obj.check
 - offset -      8081 8283 8485 8687 8889 8A8B 8C8D 8E8F  0123456789ABCDEF
@@ -190,9 +192,9 @@ then why not just have it <code>+4</code>?</li>
 </div>
 </div>
 </div>
-<div id="outline-container-org5bcf4e6" class="outline-2">
-<h2 id="org5bcf4e6"><a href="#org5bcf4e6">Decompilation</a></h2>
-<div class="outline-text-2" id="text-org5bcf4e6">
+<div id="outline-container-orgc06b5eb" class="outline-2">
+<h2 id="orgc06b5eb"><a href="#orgc06b5eb">Decompilation</a></h2>
+<div class="outline-text-2" id="text-orgc06b5eb">
 <p>
 So far, we got to a really nice place with static binary analysis:
 </p>
@@ -203,7 +205,7 @@ other way by the executable</li>
 We know that <code>srand</code> is called along with var<sub>4h</sub>
 </p>
 
-<div class="note" id="org9259b09">
+<div class="note" id="org71a9905">
 <p>
 Not going to lie, I thought of going for debugging instead of decompiling, but
 </p>
@@ -226,7 +228,7 @@ First things first, we see that: There are <b>a lot</b> of strange assignments, 
 </pre>
 </div>
 
-<div class="note" id="org9ec1153">
+<div class="note" id="org8f9721c">
 <p>
 How does it even dereference <code>0x20</code>&#x2026; How is it set?
 </p>
@@ -282,9 +284,9 @@ not really work that way.
 </div>
 </div>
 </div>
-<div id="outline-container-org943dfea" class="outline-2">
-<h2 id="org943dfea"><a href="#org943dfea">Implementing the payload</a></h2>
-<div class="outline-text-2" id="text-org943dfea">
+<div id="outline-container-orgeb504d7" class="outline-2">
+<h2 id="orgeb504d7"><a href="#orgeb504d7">Implementing the payload</a></h2>
+<div class="outline-text-2" id="text-orgeb504d7">
 <p>
 Now, simply following the decompiled code we see that any character we
 entered is fed into <code>srand()</code> as a seed, and then <span class="underline">the first</span> <code>rand()</code> with
@@ -323,9 +325,9 @@ for each index. Thus, the payload can easily be produced:
 </div>
 </div>
 </div>
-<div id="outline-container-org07f465a" class="outline-2">
-<h2 id="org07f465a"><a href="#org07f465a">Summary</a></h2>
-<div class="outline-text-2" id="text-org07f465a">
+<div id="outline-container-orge81c67f" class="outline-2">
+<h2 id="orge81c67f"><a href="#orge81c67f">Summary</a></h2>
+<div class="outline-text-2" id="text-orge81c67f">
 <ol class="org-ol">
 <li>Start by looking at the disassembly. Visual graph mode helps a lot in
 understanding the flow of the program.</li>
@@ -351,11 +353,11 @@ polish something to publish for a while, so&#x2026;
 </p>
 
 
-<div id="org4fbbd34" class="figure">
-<p><img src="images/Summary/20250201_003217_screenshot.png" alt="Skeletor, until we meet again">
-</p>
-<p><span class="figure-number">Figure 1: </span>Until we meet again</p>
-</div>
+<figure id="org2aa25bf">
+<img src="images/Summary/20250201_003217_screenshot.png" alt="Skeletor, until we meet again">
+
+<figcaption><span class="figure-number">Figure 1: </span>Until we meet again</figcaption>
+</figure>
 </div>
 </div>
 </div>

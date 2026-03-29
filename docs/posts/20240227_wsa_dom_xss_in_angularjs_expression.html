@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>WSA: DOM XSS in AngularJS expression</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough to WSA lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">WSA: DOM XSS in AngularJS expression</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/angularjs.html" class="tag">angularjs</a> <a href="/tags/wsa.html" class="tag">wsa</a> <a href="/tags/xss.html" class="tag">xss</a> <a href="/tags/domxss.html" class="tag">domxss</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgc628e52">Challenge</a>
+<li><a href="#org2f8ed81">Challenge</a>
 <ul>
-<li><a href="#org1c8c8da">Vulnerable part</a></li>
-<li><a href="#org3a1d20a">Solution</a></li>
-<li><a href="#orgd81b589">Note on Angular</a></li>
+<li><a href="#orgcbfbd01">Vulnerable part</a></li>
+<li><a href="#orgbbec731">Solution</a></li>
+<li><a href="#org05e875e">Note on Angular</a></li>
 </ul>
 </li>
-<li><a href="#orgb5b2e20">Summary</a></li>
+<li><a href="#org174265d">Summary</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-orgc628e52" class="outline-2">
-<h2 id="orgc628e52"><a href="#orgc628e52">Challenge</a></h2>
-<div class="outline-text-2" id="text-orgc628e52">
+</nav>
+<div id="outline-container-org2f8ed81" class="outline-2">
+<h2 id="org2f8ed81"><a href="#org2f8ed81">Challenge</a></h2>
+<div class="outline-text-2" id="text-org2f8ed81">
 <p>
 You can check the lab out: <a href="https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-angularjs-expression">here</a>
 </p>
@@ -49,15 +53,15 @@ which we supply gets shown in the source code:
 </p>
 
 
-<div id="org88f3213" class="figure">
-<p><img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Sample Input</p>
+<figure id="org798022e">
+<img src="images/Challenge/20240227_112515_screenshot.png" alt="20240227_112515_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Sample Input</figcaption>
+</figure>
 </div>
-</div>
-<div id="outline-container-org1c8c8da" class="outline-3">
-<h3 id="org1c8c8da"><a href="#org1c8c8da">Vulnerable part</a></h3>
-<div class="outline-text-3" id="text-org1c8c8da">
+<div id="outline-container-orgcbfbd01" class="outline-3">
+<h3 id="orgcbfbd01"><a href="#orgcbfbd01">Vulnerable part</a></h3>
+<div class="outline-text-3" id="text-orgcbfbd01">
 <p>
 We can <i>verify</i> that the website uses angular:
 </p>
@@ -68,7 +72,7 @@ We can <i>verify</i> that the website uses angular:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-html" id="org2887da9">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
+<pre class="src src-html" id="org3e1c785">&lt;<span class="org-function-name">section</span> <span class="org-variable-name">class</span>=<span class="org-string">"search"</span>&gt;
   &lt;<span class="org-function-name">form</span> <span class="org-variable-name">action</span>=<span class="org-string">"/"</span> <span class="org-variable-name">method</span>=<span class="org-string">"GET"</span> <span class="org-variable-name">class</span>=<span class="org-string">"ng-pristine ng-valid"</span>&gt;
     &lt;<span class="org-function-name">input</span> <span class="org-variable-name">type</span>=<span class="org-string">"text"</span> <span class="org-variable-name">placeholder</span>=<span class="org-string">"Search the blog..."</span> <span class="org-variable-name">name</span>=<span class="org-string">"search"</span>&gt;
     &lt;<span class="org-function-name">button</span> <span class="org-variable-name">type</span>=<span class="org-string">"submit"</span> <span class="org-variable-name">class</span>=<span class="org-string">"button"</span>&gt;Search&lt;/<span class="org-function-name">button</span>&gt;
@@ -78,23 +82,23 @@ We can <i>verify</i> that the website uses angular:
 </div>
 </div>
 </div>
-<div id="outline-container-org3a1d20a" class="outline-3">
-<h3 id="org3a1d20a"><a href="#org3a1d20a">Solution</a></h3>
-<div class="outline-text-3" id="text-org3a1d20a">
+<div id="outline-container-orgbbec731" class="outline-3">
+<h3 id="orgbbec731"><a href="#orgbbec731">Solution</a></h3>
+<div class="outline-text-3" id="text-orgbbec731">
 <p>
 After playing around, testing <code>{{alert(1)}}</code> and similar naive payloads
 :P, then checking out the documentation for ways to effectively use
 <code>{{}}</code> to our advantage, the solution was given by <a href="https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/XSS%20Injection/XSS%20in%20Angular.md">PayloadsAllTheThings</a>.
 </p>
 
-<pre class="example" id="org125e5f8">
+<pre class="example" id="org6297c19">
 {{constructor.constructor('alert(1)')()}}
 </pre>
 </div>
 </div>
-<div id="outline-container-orgd81b589" class="outline-3">
-<h3 id="orgd81b589"><a href="#orgd81b589">Note on Angular</a></h3>
-<div class="outline-text-3" id="text-orgd81b589">
+<div id="outline-container-org05e875e" class="outline-3">
+<h3 id="org05e875e"><a href="#org05e875e">Note on Angular</a></h3>
+<div class="outline-text-3" id="text-org05e875e">
 <p>
 For more info check out:
 </p>
@@ -105,9 +109,9 @@ For more info check out:
 </div>
 </div>
 </div>
-<div id="outline-container-orgb5b2e20" class="outline-2">
-<h2 id="orgb5b2e20"><a href="#orgb5b2e20">Summary</a></h2>
-<div class="outline-text-2" id="text-orgb5b2e20">
+<div id="outline-container-org174265d" class="outline-2">
+<h2 id="org174265d"><a href="#org174265d">Summary</a></h2>
+<div class="outline-text-2" id="text-org174265d">
 <p>
 And another one gone, and another one gone&#x2026; Another one bites the dust 
 </p>

@@ -3,13 +3,6 @@
 ;; This function was deliberately modified to keep things simple
 ;; DO NOT USE THIS FUNCTION (if you ain't me)
 
-;; You might destroy options you relied upon.
-(defun tag-link-function (tag)
-  "Create an HTML link for a TAG pointing to tags/<tag>.html."
-  (let ((encoded-tag (url-encode-url tag)))
-    (format "<a href=\"/tags/%s.html\" class=\"tag\">%s</a>"
-            encoded-tag
-            tag)))
 
 (defun org-html-template (contents info)
   "Return complete document string after HTML conversion.

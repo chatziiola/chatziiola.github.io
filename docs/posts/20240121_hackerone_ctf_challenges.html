@@ -1,34 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>HackerOne: CTF: Micro-CMS</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">HackerOne: CTF: Micro-CMS</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/hackerone.html" class="tag">hackerone</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org90bfa59">Introduction</a></li>
-<li><a href="#org49f966d">Testing</a></li>
-<li><a href="#orgaeefc90">XSS</a></li>
-<li><a href="#orgd1d4a4e">Getting access to the forbidden file</a></li>
-<li><a href="#orge562339">Not-so-good SQLi</a></li>
+<li><a href="#org798f663">Introduction</a></li>
+<li><a href="#org90f7809">Testing</a></li>
+<li><a href="#org3a40c79">XSS</a></li>
+<li><a href="#orgf8cdabd">Getting access to the forbidden file</a></li>
+<li><a href="#org843659f">Not-so-good SQLi</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org90bfa59" class="outline-2">
-<h2 id="org90bfa59"><a href="#org90bfa59">Introduction</a></h2>
-<div class="outline-text-2" id="text-org90bfa59">
+</nav>
+<div id="outline-container-org798f663" class="outline-2">
+<h2 id="org798f663"><a href="#org798f663">Introduction</a></h2>
+<div class="outline-text-2" id="text-org798f663">
 <p>
 Hello World! Long time no see! After taking a break from writing, to
 focus on the rest of my responsibilities and tasks, I&rsquo;m back with
@@ -54,9 +58,9 @@ have since completed.
 </p>
 </div>
 </div>
-<div id="outline-container-org49f966d" class="outline-2">
-<h2 id="org49f966d"><a href="#org49f966d">Testing</a></h2>
-<div class="outline-text-2" id="text-org49f966d">
+<div id="outline-container-org90f7809" class="outline-2">
+<h2 id="org90f7809"><a href="#org90f7809">Testing</a></h2>
+<div class="outline-text-2" id="text-org90f7809">
 <p>
 Heading to the website we can see that there are some pre-existing
 articles, and we can freely create some ourselves. Since it was (is?)
@@ -74,7 +78,7 @@ Brushing up python can not possibly hurt.
 
 
 
-<div class="note" id="org1c2249d">
+<div class="note" id="orgf0b6366">
 <p>
 This definitely should not be listed as a fuzzer but, well.
 </p>
@@ -96,7 +100,7 @@ to see if they existed</li>
 
 
 <div class="org-src-container">
-<pre class="src src-python" id="org9d2be75"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
+<pre class="src src-python" id="org5f2fd59"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages in my browser</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: Inefficient and illogical, I only want to get the interesting pages</span>
 <span class="org-keyword">import</span> webbrowser
 
@@ -111,7 +115,7 @@ Or, in a more convenient manner, allowing for our requests to be
 stored within Burp Suite as well: 
 </p>
 <div class="org-src-container">
-<pre class="src src-python" id="org7e7ff7f"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
+<pre class="src src-python" id="org7b8ecce"><span class="org-comment-delimiter"># </span><span class="org-comment">Snippet to open all pages virtually in python, utilizing burp at the same time</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">Verdict: The way to go, quickly getting the results I want without messing with GUI</span>
 
 <span class="org-keyword">import</span> requests
@@ -136,7 +140,7 @@ stored within Burp Suite as well:
 </pre>
 </div>
 
-<pre class="example" id="org878e086">
+<pre class="example" id="orgde6f037">
 #+RESULTS: Smarter Implementation
 | Intersting! 200: Article 1\n | Intersting! 200: Article 2\n | Intersting! 403: Article 6\n | Intersting! 200: Article 8\n |
 </pre>
@@ -149,16 +153,16 @@ us to witness an abnormality: <b>Post 6 gives us 403: forbidden</b>
 
 
 
-<div id="orgc2d3282" class="figure">
-<p><img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</p>
+<figure id="org7fea029">
+<img src="images/Testing/20240121_210542_screenshot.png" alt="20240121_210542_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Good ol&rsquo; opencat function becomes handy when writing such posts</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-orgaeefc90" class="outline-2">
-<h2 id="orgaeefc90"><a href="#orgaeefc90">XSS</a></h2>
-<div class="outline-text-2" id="text-orgaeefc90">
+<div id="outline-container-org3a40c79" class="outline-2">
+<h2 id="org3a40c79"><a href="#org3a40c79">XSS</a></h2>
+<div class="outline-text-2" id="text-org3a40c79">
 <p>
 My first thought, seeing a lot of input fields was to check for
 self-XSS on what was already available to me:
@@ -186,9 +190,9 @@ At this point we have flags 2,3, searching for 1,2.
 </div>
 </div>
 </div>
-<div id="outline-container-orgd1d4a4e" class="outline-2">
-<h2 id="orgd1d4a4e"><a href="#orgd1d4a4e">Getting access to the forbidden file</a></h2>
-<div class="outline-text-2" id="text-orgd1d4a4e">
+<div id="outline-container-orgf8cdabd" class="outline-2">
+<h2 id="orgf8cdabd"><a href="#orgf8cdabd">Getting access to the forbidden file</a></h2>
+<div class="outline-text-2" id="text-orgf8cdabd">
 <p>
 I was so sure that the answer to bypassing the 403 there would be
 something extremely silly&#x2026; and it was :P. Just heading to the
@@ -197,9 +201,9 @@ want to <i>wrap</i> this mini challenge.
 </p>
 </div>
 </div>
-<div id="outline-container-orge562339" class="outline-2">
-<h2 id="orge562339"><a href="#orge562339">Not-so-good SQLi</a></h2>
-<div class="outline-text-2" id="text-orge562339">
+<div id="outline-container-org843659f" class="outline-2">
+<h2 id="org843659f"><a href="#org843659f">Not-so-good SQLi</a></h2>
+<div class="outline-text-2" id="text-org843659f">
 <p>
 This bothered me a lot, not knowing where to look and what to pay
 attention to. After feeling like I was hitting my head against a wall

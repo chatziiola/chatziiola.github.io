@@ -102,13 +102,19 @@
    Set to `tags-sort--alphabetical' or `tags-sort--articles'.")
 
 (defvar tags-blog-post-prefix "Tags:"
-  "Snippet to be used in <header> prior to tags")
+  "Snippet to be used in <header> prior to tags (IN ALL BLOG POSTS)")
+
+(defvar tags-index-subtitle "All categories and keywords. Browse by topic:"
+  "Snippet to be used in <header> prior to tags (IN ALL BLOG POSTS)")
+
+(defvar tags-index-description ""
+  "Snippet to be used in <header> prior to tags (IN ALL BLOG POSTS)")
 
 (defvar archive-filename "recents.org"
   "Filename for ARCHIVE")
 
 (defvar archive-title "Archive")
-(defvar archive-subtitle "And all that is now,And all that is gone, And all that's to come...")
+(defvar archive-subtitle "And all that is now, and all that is gone, and all that's to come... and everything under the sun")
 
 (defvar index-file-list (list "index.org" "about.org" "404.org" archive-filename)
   "List of files that have the /index/ property, and thus should not be considered plain posts.")

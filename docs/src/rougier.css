@@ -43,6 +43,7 @@
   box-sizing: border-box;
 }
 
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -92,20 +93,6 @@ h6 {
   font-weight: 500;
 }
 
-h1.title {
-  font-size: 2.5rem;
-  text-align: left;
-  margin-top: 4rem;
-  margin-bottom: 0.5rem;
-}
-
-span.subtitle {
-  display: block;
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--muted);
-  margin-bottom: 2rem;
-}
 
 h2 {
   font-size: 1.8rem;
@@ -268,12 +255,9 @@ th {
 .site-nav a:hover {
   color: var(--fg);
   text-decoration: none;
-}
-
-.site-nav a.active {
-  color: var(--fg);
   border-bottom: 1px solid var(--accent);
 }
+
 
 @media (max-width: 900px) {
   .site-nav {
@@ -388,84 +372,84 @@ th {
   font-size: 0.85rem;
 }
 
-/* Hero Section */
-.hero {
-  margin: 4rem 0 6rem;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -2px;
-  line-height: 1;
-  margin-bottom: 1.5rem;
-  color: var(--fg);
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
+/* Section Headers */
+.home-posts h2 {
+  font-size: 0.85rem; /* Slightly smaller for a more refined look */
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   color: var(--muted);
-  max-width: 600px;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+/* Update the Wrapper */
+.home-post-item {
+  display: flex;
+  flex-direction: column; /* Stack vertically by default (mobile-first) */
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* Adjust the Title for mobile */
+.home-post-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--fg);
+  margin-bottom: 0.5rem; /* Space between title and meta on mobile */
+  margin-right: 0;
   line-height: 1.4;
 }
 
-/* Minimal Post List for Home */
-.home-posts {
-  margin-bottom: 4rem;
-}
-
-.home-posts h2 {
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--muted);
-  border: none;
-  margin-bottom: 2rem;
-}
-
-.home-post-item {
-  display: block;
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--border);
-  transition: transform 0.2s;
-}
-
-.home-post-item:hover {
-  transform: translateX(10px);
-  text-decoration: none;
-}
-
-.home-post-title {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--fg);
-  display: block;
-}
-
-.home-post-count {
-  color: var(--muted);
+/* Metadata container adjustments */
+.home-post-date, .home-post-tags, .home-post-count {
+  font-family: monospace;
   font-size: 0.85rem;
-  padding: 2px 10px;
-  border-radius: 20px; /* Makes it a pill shape */
+  color: var(--muted);
+}
+
+
+/* This targets the last element inside your div */
+.home-post-item > *:last-child {
+  margin-left: auto;
+}
+
+
+/* Metadata (Date and Count) */
+.home-post-date, .home-post-tags, .home-post-count {
+  font-family: monospace; /* Monospace looks great for dates/numbers */
+  font-size: 0.85rem;
+  color: var(--muted);
+  flex-shrink: 0; /* Prevents the date from wrapping */
+  white-space: nowrap;
+}
+
+/* Specific styling for the Count Badge */
+.home-post-count {
+  background: var(--border); /* Subtle background */
+  padding: 2px 8px;
+  border-radius: 4px; /* Slight roundness looks more "pro" than full pill */
   font-weight: 600;
 }
-/* Discrete Info */
-.discrete-info {
-  font-size: 0.9rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 2rem;
-  margin-top: 6rem;
+
+/* Desktop Fix: Revert to row layout on larger screens */
+@media (min-width: 768px) {
+  .home-post-item {
+    flex-direction: row; /* Back to a single line */
+    align-items: baseline;
+  }
+
+  .home-post-item > *:last-child {
+    margin-left: auto; /* Pushes date/count to the right */
+  }
+
+  .home-post-title {
+    margin-bottom: 0;
+    margin-right: 1.5rem;
+    flex-shrink: 1;
+  }
 }
 
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.5rem;
-  }
-  .hero {
-    margin: 2rem 0 4rem;
-  }
-}
 
 /* Footer & Postamble */
 #postamble {
@@ -473,7 +457,7 @@ th {
   color: var(--muted);
   border-top: 1px solid var(--border);
   margin-top: 6rem;
-  padding: 3rem var(--padding);
+  /* padding: 3rem var(--padding); */
   text-align: center;
   line-height: 1.6;
 }
@@ -508,12 +492,13 @@ th {
 }
 
 /* Images & Figures */
-.figure {
+figure {
   margin: 3rem 0;
   text-align: center;
 }
 
-img {
+/* Specific styling for the image inside the figure */
+img, video {
   max-width: 80%;
   max-height: 50vh;
   object-fit: contain;
@@ -522,16 +507,19 @@ img {
   display: block;
 }
 
-.figure-number {
-  font-weight: 500;
-  color: var(--fg);
-}
-
-.figure p:last-child {
+/* Replaces the old .figure p:last-child logic */
+figcaption {
   font-size: 0.85rem;
   color: var(--muted);
   font-style: italic;
   margin-top: 0.5rem;
+}
+
+/* Target the specific figure number span */
+.figure-number {
+  font-weight: 500;
+  color: var(--fg);
+  font-style: normal; /* Keeps the number upright if the caption is italic */
 }
 
 /* Table of Contents */
@@ -616,14 +604,6 @@ blockquote,
   color: var(--muted);
   font-size: 0.85rem;
   font-family: var(--font-mono);
-}
-
-.tag {
-  font-size: 0.75rem;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 0.1rem 0.4rem;
-  border-radius: 3px;
 }
 
 /* Org-specific overrides */
@@ -718,4 +698,56 @@ blockquote::before {
 
 .footpara {
   display: inline; /* Keeps text flowing naturally */
+}
+
+/* Container for the tags row */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap; /* Essential for mobile responsiveness */
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  font-family: monospace; /* Matching your date/count style */
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* The "Tags:" label */
+.post-tags span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+  .post-tags {
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 4px 10px; /* Larger tap target for mobile fingers */
+  }
+}
+
+header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-top: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  display: block;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+  padding: 0;
 }

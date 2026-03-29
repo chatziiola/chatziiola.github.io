@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:22 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>'Git'ting things done</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="The proper form of a gitconfig file, and what to do when you mistakenly perform commits with wrong author details" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
-<h1 class="title">&rsquo;Git&rsquo;ting things done
-<br>
-<span class="subtitle">make sure to have a proper gitconfig file</span>
-</h1>
-<div id="table-of-contents" role="doc-toc">
+<header>
+<h1 class="title">&rsquo;Git&rsquo;ting things done</h1>
+<p class="subtitle" role="doc-subtitle">make sure to have a proper gitconfig file</p>
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/git.html" class="tag">git</a> <a href="/tags/sysad.html" class="tag">sysad</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgca39d34">Beware</a></li>
-<li><a href="#orgb9ca4c3"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
+<li><a href="#orgaa7e60c">Beware</a></li>
+<li><a href="#orgeeb396e"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></li>
 </ul>
 </div>
-</div>
+</nav>
 <p>
 After a long time, I&rsquo;m writing an article, and it sadly is not about
 the things I&rsquo;m working on. This one is more like a note to anyone out
@@ -36,9 +38,9 @@ understatement) and on a forcibly new installation, some files were
 hastily rewritten/copied, so that I would not lose any time during the
 transition. One critical such file was my <code>.gitconfig</code><sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>.
 </p>
-<div id="outline-container-orgca39d34" class="outline-2">
-<h2 id="orgca39d34"><a href="#orgca39d34">Beware</a></h2>
-<div class="outline-text-2" id="text-orgca39d34">
+<div id="outline-container-orgaa7e60c" class="outline-2">
+<h2 id="orgaa7e60c"><a href="#orgaa7e60c">Beware</a></h2>
+<div class="outline-text-2" id="text-orgaa7e60c">
 <p>
 Well, don&rsquo;t pay attention to the fanfare—just make sure to read your
 details carefully, or you will find yourself in my position, as I did.
@@ -48,10 +50,10 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </p>
 
 <div class="org-src-container">
-<pre class="src src-config" id="orgbf448ef">[user]
+<pre class="src src-config" id="orgd6f7313">[user]
         name = &lt;your-name&gt;
         email = &lt;your-email&gt; ; make sure it really is your email
-        username = &lt;your-username&gt; 
+        username = &lt;your-username&gt;
 
 [init]
     ;; Instead of master, main is alright
@@ -72,15 +74,15 @@ noticed something off with my GitHub timeline<sup><a id="fnr.2" class="footref" 
 </div>
 </div>
 </div>
-<div id="outline-container-orgb9ca4c3" class="outline-2">
-<h2 id="orgb9ca4c3"><a href="#orgb9ca4c3"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
-<div class="outline-text-2" id="text-orgb9ca4c3">
+<div id="outline-container-orgeeb396e" class="outline-2">
+<h2 id="orgeeb396e"><a href="#orgeeb396e"><del>Identification, Evaluation, Solution</del>&#x2026; Amendment</a></h2>
+<div class="outline-text-2" id="text-orgeeb396e">
 
-<div id="orge4cba0f" class="figure">
-<p><img src="images/20250115_195652_screenshot.png" alt="20250115_195652_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Don&rsquo;t mind the current date, just see the empty ones around it</p>
-</div>
+<figure id="orga6d152c">
+<img src="images/20250115_195652_screenshot.png" alt="20250115_195652_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Don&rsquo;t mind the current date, just see the empty ones around it</figcaption>
+</figure>
 
 <p>
 My timeline was empty during arguably one of the busiest periods I had
@@ -95,7 +97,7 @@ between this and my working installation. In fact, the config command
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org9d0206f">git config -l
+<pre class="src src-shell" id="org5543742">git config -l
 </pre>
 </div>
 
@@ -107,14 +109,14 @@ solve, and all that is needed are <del>1</del>, <del>2</del>, and 3 commands.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell" id="org8f86cb8"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit </span>
-git log 
+<pre class="src src-shell" id="orgfc21bab"><span class="org-comment-delimiter"># </span><span class="org-comment">Find your last "proper" commit</span>
+git log
 <span class="org-comment-delimiter"># </span><span class="org-comment">Fix faulty commits</span>
-git rebase -r &lt;proper_commit_id&gt; --exec <span class="org-string">'git commit --amend --no-edit --reset-author'</span> 
-<span class="org-comment-delimiter"># </span><span class="org-comment">Overwrite remote repo, necessary to my knowledge buuuut </span>
+git rebase -r &lt;proper_commit_id&gt; --exec <span class="org-string">'git commit --amend --no-edit --reset-author'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">Overwrite remote repo, necessary to my knowledge buuuut</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">well, it will be more painful in shared repos,</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">than it was in my personal ones. Check it first.</span>
-git push -f 
+git push -f
 </pre>
 </div>
 
@@ -134,7 +136,7 @@ borrowed something from my past self. ;)
 <div id="text-footnotes">
 
 <div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
-Which now exists on the much clearer <code>.config/git/config</code>, along with my default ignore file, but that is not the point. 
+Which now exists on the much clearer <code>.config/git/config</code>, along with my default ignore file, but that is not the point.
 </p></div></div>
 
 <div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">

