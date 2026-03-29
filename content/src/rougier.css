@@ -5,11 +5,11 @@
 
 @charset "utf-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 :root {
   /* Fonts */
-  --font-main: "Google Sans", system-ui, -apple-system, sans-serif;
+  --font-main: "Inter", system-ui, -apple-system, sans-serif;
   --font-mono: "Roboto Mono", monospace;
 
   /* Light Mode Colors */
@@ -409,46 +409,63 @@ th {
   line-height: 1.4;
 }
 
-/* Minimal Post List for Home */
+/* Container spacing */
 .home-posts {
   margin-bottom: 4rem;
 }
 
+/* Section Headers */
 .home-posts h2 {
-  font-size: 1rem;
+  font-size: 0.85rem; /* Slightly smaller for a more refined look */
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.15em;
   color: var(--muted);
-  border: none;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
 }
 
+/* The Wrapper Link */
 .home-post-item {
-  display: block;
+  display: flex; /* Key: keeps title and metadata on one line */
+  justify-content: space-between; /* Pushes metadata to the far right */
+  align-items: baseline; /* Aligns text bottoms perfectly */
   padding: 1rem 0;
   border-bottom: 1px solid var(--border);
-  transition: transform 0.2s;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .home-post-item:hover {
-  transform: translateX(10px);
-  text-decoration: none;
+  transform: translateX(8px);
+  background-color: rgba(0, 0, 0, 0.02); /* Very subtle hint of depth */
 }
 
+/* The Title */
 .home-post-title {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 500;
   color: var(--fg);
-  display: block;
+  /* Ensures long titles don't crush the date/count */
+  margin-right: 1.5rem;
+  flex-shrink: 1;
 }
 
-/* Discrete Info */
-.discrete-info {
-  font-size: 0.9rem;
+/* Metadata (Date and Count) */
+.home-post-date,
+.home-post-count {
+  font-family: monospace; /* Monospace looks great for dates/numbers */
+  font-size: 0.85rem;
   color: var(--muted);
-  border-top: 1px solid var(--border);
-  padding-top: 2rem;
-  margin-top: 6rem;
+  flex-shrink: 0; /* Prevents the date from wrapping */
+  white-space: nowrap;
+}
+
+/* Specific styling for the Count Badge */
+.home-post-count {
+  background: var(--border); /* Subtle background */
+  padding: 2px 8px;
+  border-radius: 4px; /* Slight roundness looks more "pro" than full pill */
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
@@ -605,7 +622,7 @@ blockquote,
 }
 
 /* Utility classes */
-.timestamp {
+.timestamp, .home-post-date{
   color: var(--muted);
   font-size: 0.85rem;
   font-family: var(--font-mono);
