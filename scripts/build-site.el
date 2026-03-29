@@ -78,7 +78,7 @@
 
 ;; Before publishing
 (create-tag-pages)
-; TODO (create-archive)
+(create-archive)
 ; TODO (create-sitemap)
 ; TODO (create-rss)
 (org-publish-all)

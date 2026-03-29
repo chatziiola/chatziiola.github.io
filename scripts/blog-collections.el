@@ -14,10 +14,6 @@
 (require 'config)
 (require 'org-cache)
 
-;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
-;;(setq posts-dir "~/Github/chatziiola.github.io/content/posts")
-(setq blog-cache (org-cache-get posts-dir nil))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; File functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,11 +25,23 @@
 ;; Whether or not to include
 (defun file-is-blog-post (filename)
   "Whether a non-index file is a draft or not"
-  (let* ((filepath (expand-file-name filename))
-	 (entry (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file))
-	 (post (not (file-is-index filename)))
-	 (draft (if entry (string= (plist-get (org-mnode-properties entry) :draft) "t") nil)))
-    (message "%s %s %s" entry post draft)))
+  (let* ((filepath (expand-file-name filename)))
+    (if (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file)
+	t
+	nil)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CACHE creation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(setq posts-dir "~/Github/chatziiola.github.io/content/posts")
+  (setq blog-cache (cl-remove-if
+		    (lambda (entry)
+		      (let ((filename (org-mnode-file entry)))
+			(or (file-is-index filename)                                ; Filter out index files
+			    (string= (plist-get (org-mnode-properties entry) :draft) "t")))) ; Filter out drafts
+		    ;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
+		    (org-cache-get posts-dir nil))
+	)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Publishing functions
@@ -52,12 +60,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; HTML functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(cl-defun html--item-entry (file title &key date description)
+
+(cl-defun html--item-entry (file title &rest args &allow-other-keys)
   (concat
    (format "<a class=\"home-post-item\" href=\"/%s.html\">" file )
    (format "<span class=\"home-post-title\">%s</span>" title)
-   (if date (format "<span class=\"home-post-date timestamp\">%s</span>" date))
-   (if description (format "<span class=\"home-post-description timestamp\">%s</span>" description))
+   (let ((extra-html ""))
+     (cl-loop for (key value) on args by #'cddr
+	      do (setq extra-html
+		       (concat extra-html
+			       (format "<span class=\"home-post-%s\">%s</span>"
+				       (substring (symbol-name key) 1) ; removes the ":"
+				       value))))
+     extra-html)
    "</a>"
    ))
 
@@ -117,20 +132,22 @@ Uses `html--item-entry' to ensure conformity."
 	 (content (mapconcat (lambda (c)
 			       (let ((tag (car c))
 				     (taglen (cdr c)))
-				 (html--item-entry (concat "tags/" tag) tag :description taglen)))
+				 (html--item-entry (concat "tags/" tag) tag :count taglen)))
 			     sorted-list "\n")))
     (html--collection-org-file file-path "Tags" content :description "Not half bad")))
 
+(defun mnode-date-sort (a b)
+  "Function to be used by `sort' to sort two `org-mnode' structs"
+  (let ((date-a (plist-get (org-mnode-properties a) :date))
+        (date-b (plist-get (org-mnode-properties b) :date)))
+    (string> date-a date-b)))
 
 (defun tags--generate-tag-org (tag tag-entries)
   "Creates an org mode index file for TAG using a list of TAG-ENTRIES sorted newest first."
   (let* ((file-path (expand-file-name (concat tag ".org") tags-dir))
          ;; Sort tag-entries by date in descending order
          (sorted-entries (sort (copy-sequence tag-entries)
-                               (lambda (a b)
-                                 (let ((date-a (plist-get (org-mnode-properties a) :date))
-                                       (date-b (plist-get (org-mnode-properties b) :date)))
-                                   (string> date-a date-b)))))
+			       #'mnode-date-sort))
          (content (mapconcat #'tags--mnode-html-entry sorted-entries "\n")))
     (html--collection-org-file file-path tag content)))
 
@@ -152,6 +169,7 @@ Uses `html--item-entry' to ensure conformity."
 	      (puthash tag
 		       (cons entry (gethash tag h))
 		       h))))))
+
     (delete-directory tags-dir t)
     (make-directory tags-dir)
 
@@ -163,33 +181,15 @@ Uses `html--item-entry' to ensure conformity."
       (tags--generate-index-org tag-list))
     ))
 
-					;
-(defun my-sitemap-entry (entry style project)
-  "Customized sitemap entry creation function with Date, Title, Description, and Tags.
-Filters out drafts and indices, returning empty strings."
-  (if (and (not (directory-name-p entry))
-	   (file-is-blog-post (expand-file-name entry blog-index-dir)))
-      (let* ((post (blog-index-get-post entry))
-	     (file (file-name-sans-extension (file-relative-name (plist-get post :file) base-dir)))
-	     (date (plist-get post :date))
-	     (title (plist-get post :title)))
-	(html--item-entry file title :date date)
-	)
-      ""))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Archive
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; will use tags--mnode-html-entry
 
-(defun my-sitemap-function (title list)
+(defun create-archive ()
   "Customized sitemap function to exclude empty entries and handle the style symbol."
-  (let* ((sitemap-file "BULLSHIT")
-	 (entries (cdr list)) ;; Removes 'unordered symbol
-	 (fixedlist (seq-filter (lambda (i)
-				  (and (listp i)
-				       (not (string-empty-p (car i)))))
-				entries)))
-    (html--collection-org-file sitemap-file title
-			       (mapconcat (lambda (x) (format "%s" (car x))) fixedlist "\n")
-			       :subtitle "[[https://www.youtube.com/watch?v=jPWNcfrZzBE][again?!]]")))
-
-;; (defun create-archive ()
-;;   )
+  (let* ((sorted-entries (sort (copy-sequence blog-cache) #'mnode-date-sort))
+	 (content (mapconcat #'tags--mnode-html-entry sorted-entries "\n")))
+    (html--collection-org-file (expand-file-name archive-filename posts-dir) archive-title content :subtitle archive-subtitle)))
 
 (provide 'blog-collections)

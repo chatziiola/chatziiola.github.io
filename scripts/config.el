@@ -87,9 +87,6 @@
 			    general-postamble)
   "Postamble for posts so that giscus comments are enabled.")
 
-(defvar index-file-list '("index.org" "about.org" "404.org")
-  "List of files that have the /index/ property, and thus should not be considered plain posts.")
-
 
 ;; TODO to config
 (defvar tags-blacklist '("index")
@@ -104,6 +101,14 @@
   "The function used to sort the tag list.
    Set to `tags-sort--alphabetical' or `tags-sort--articles'.")
 
+(defvar archive-filename "recents.org"
+  "Filename for ARCHIVE")
+
+(defvar archive-title "Archive")
+(defvar archive-subtitle "And all that is now,And all that is gone, And all that's to come...")
+
+(defvar index-file-list (list "index.org" "about.org" "404.org" archive-filename)
+  "List of files that have the /index/ property, and thus should not be considered plain posts.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; ORG OPTIONS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
