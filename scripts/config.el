@@ -101,6 +101,9 @@
   "The function used to sort the tag list.
    Set to `tags-sort--alphabetical' or `tags-sort--articles'.")
 
+(defvar tags-blog-post-prefix "Tags:"
+  "Snippet to be used in <header> prior to tags")
+
 (defvar archive-filename "recents.org"
   "Filename for ARCHIVE")
 
@@ -119,6 +122,7 @@
 (setq org-html-htmlize-output-type 'css)
 (setq org-export-use-broken-links t)
 (setq org-html-doctype "html5")
+(setq org-html-html5-fancy t)
 
 (setq org-src-fontify-natively t)		; Fontify code in code blocks.
 (setq org-adapt-indentation nil)		; Adaptive indentation

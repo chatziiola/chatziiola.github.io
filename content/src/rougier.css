@@ -43,6 +43,7 @@
   box-sizing: border-box;
 }
 
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -92,20 +93,6 @@ h6 {
   font-weight: 500;
 }
 
-h1.title {
-  font-size: 2.5rem;
-  text-align: left;
-  margin-top: 4rem;
-  margin-bottom: 0.5rem;
-}
-
-span.subtitle {
-  display: block;
-  font-size: 1.1rem;
-  font-style: italic;
-  color: var(--muted);
-  margin-bottom: 2rem;
-}
 
 h2 {
   font-size: 1.8rem;
@@ -268,12 +255,9 @@ th {
 .site-nav a:hover {
   color: var(--fg);
   text-decoration: none;
-}
-
-.site-nav a.active {
-  color: var(--fg);
   border-bottom: 1px solid var(--accent);
 }
+
 
 @media (max-width: 900px) {
   .site-nav {
@@ -388,32 +372,6 @@ th {
   font-size: 0.85rem;
 }
 
-/* Hero Section */
-.hero {
-  margin: 4rem 0 6rem;
-}
-
-.hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  letter-spacing: -2px;
-  line-height: 1;
-  margin-bottom: 1.5rem;
-  color: var(--fg);
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: var(--muted);
-  max-width: 600px;
-  line-height: 1.4;
-}
-
-/* Container spacing */
-.home-posts {
-  margin-bottom: 4rem;
-}
-
 /* Section Headers */
 .home-posts h2 {
   font-size: 0.85rem; /* Slightly smaller for a more refined look */
@@ -483,7 +441,7 @@ th {
   color: var(--muted);
   border-top: 1px solid var(--border);
   margin-top: 6rem;
-  padding: 3rem var(--padding);
+  /* padding: 3rem var(--padding); */
   text-align: center;
   line-height: 1.6;
 }
@@ -628,14 +586,6 @@ blockquote,
   font-family: var(--font-mono);
 }
 
-.tag {
-  font-size: 0.75rem;
-  color: var(--muted);
-  border: 1px solid var(--border);
-  padding: 0.1rem 0.4rem;
-  border-radius: 3px;
-}
-
 /* Org-specific overrides */
 .org-center {
   text-align: center;
@@ -728,4 +678,56 @@ blockquote::before {
 
 .footpara {
   display: inline; /* Keeps text flowing naturally */
+}
+
+/* Container for the tags row */
+.post-tags {
+  display: flex;
+  flex-wrap: wrap; /* Essential for mobile responsiveness */
+  align-items: baseline;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  font-family: monospace; /* Matching your date/count style */
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* The "Tags:" label */
+.post-tags span {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 600px) {
+  .post-tags {
+    gap: 0.5rem;
+  }
+
+  .tag {
+    padding: 4px 10px; /* Larger tap target for mobile fingers */
+  }
+}
+
+header {
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: left;
+  margin-top: 4rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  display: block;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0;
+  padding: 0;
 }

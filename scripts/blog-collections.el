@@ -26,9 +26,7 @@
 (defun file-is-blog-post (filename)
   "Whether a non-index file is a draft or not"
   (let* ((filepath (expand-file-name filename)))
-    (if (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file)
-	t
-	nil)))
+	 (cl-find filepath blog-cache :test #'string= :key #'org-mnode-file)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CACHE creation

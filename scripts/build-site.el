@@ -21,6 +21,7 @@
 
 ; (require 'org-cache) NOT DIRECTLY NEEDED HERE BUT REQUIRED BY COLLECTIONS
 (require 'blog-collections)
+(require 'ox-html-override)
 
 (org-babel-do-load-languages
  'org-babel-load-languages
