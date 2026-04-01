@@ -32,14 +32,15 @@
 ;; CACHE creation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;(setq posts-dir "~/Github/chatziiola.github.io/content/posts")
+(setq org-cache-mnode-default-properties-list '("DATE" "DRAFT"))
 (setq blog-cache (cl-remove-if
 		  (lambda (entry)
 		    (let ((filename (org-mnode-file entry)))
+		      (message "Parsing %s: properties %s" filename (org-mnode-properties entry))
 		      (or (file-is-index filename)                                ; Filter out index files
 			  (string= (plist-get (org-mnode-properties entry) :draft) "t")))) ; Filter out drafts
 		  ;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
-		  (org-cache-get posts-dir nil))
-      )
+		  (org-cache-get posts-dir nil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Publishing functions
@@ -163,8 +164,7 @@ Uses `html--item-entry' to ensure conformity."
 3. Create tags file for every tag
 4. Create master tag file index
 "
-  (let* ((org-cache-mnode-default-properties-list '("DATE" "DRAFT"))
-	 (h (make-hash-table :test 'equal)))
+  (let* ((h (make-hash-table :test 'equal)))
     (dolist (entry blog-cache)
       (let ((draft (plist-get (org-mnode-properties entry) :draft))
 	    (tags (org-mnode-tags entry)))

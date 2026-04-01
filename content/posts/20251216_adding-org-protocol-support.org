@@ -1,0 +1,316 @@
+#+TITLE: Adding org-protocol support
+#+DATE: <2026-03-31 Tue>
+#+DESCRIPTION:
+#+SUBTITLE:
+#+FILETAGS: org org-protocol
+
+#+begin_note
+Originally created on <2025-12-16 18:20>. For a more complete look at
+~org-protocol~, see this wonderful [[https://orgmode.org/worg/org-contrib/org-protocol.html#using-org-protocol][post]].[fn:5]
+#+end_note
+
+
+* Introduction
+They say that the best way to make yourself do something, is to leave no
+other option; I agree. That's why I unapologetically dedicate this article to
+Mozilla for discontinuing [[https://getpocket.com/home][Pocket]][fn:1]. It is not that I relied on it heavily,
+but it was a /staple/: a nice extension to have, especially when finding
+interesting articles I could not exactly read at the moment.
+
+The solution proposed in this article is not a full equivalent. Unless you sync
+your org-mode files with your mobile device, this one is closer to using your
+browser's built-in reading list (/sigh/: no I did *not* have a bookmarks folder full
+of articles to read). But it offers more than just a subset of what pocket
+boasted.
+
+It allows us to utilize the powerful ~org-capture-templates~ to handle articles:
+that way, it offers the functionality to not just save articles (so that we
+can +never+ eventually read them) but to also instantly keep notes on them!
+
+To implement it we will need to:
+1. Properly set up ~org-protocol~ in ~Emacs~
+   - A /shooort/ detour to map ~org-protocol~ links to ~Emacs~ via ~xdg-open~ in Linux
+2. Create a simple bookmark in our browser
+
+#+NAME: disclaimer
+#+begin_note
+This article will not cover a full installation of ~Emacs~ nor ~org-mode~. See
+related ~tags/~ for this, or other tutorials.
+#+end_note
+
+* Emacs
+
+** Understanding ~org-protocol~ links
+If you've played with computers, even just a little bit, you'll be aware that
+not all ~URLs~ have the same syntax. The easiest example I can think of? In a
+website you might see links that do not start with ~http(s):~ but with ~mailto:~
+(usually in the ~/contact~ page).[fn:2]
+
+This prefix is then /parsed/, with each link-type being mapped to an application.
+That application, in turn, is responsible for handling that link. ~org-protocol~
+is an ~Emacs~ package that allows us to gracefully handle *properly formatted* URLs
+with the ~org-protocol~ prefix!
+
+More specifically, citing the [[https://orgmode.org/worg/org-contrib/org-protocol.html#capture][official org-protocol documentation]], we can use it
+to capture links and information as such:
+#+begin_example
+The form of an Org protocol URL request with the capture protocol looks like this:
+
+org-protocol://capture?template=TEMPLATE&url=URL&title=TITLE&body=BODY
+In table form the following keys for the capture protocol are described as follows:
+
+Key	Description	Template Placeholder	Notes
+template	Template key	 	Capture template key in org-capture-templates. If omitted, then org-protocol-default-template-key is used.
+url	URL	%:link	Typically the web page URL to capture.
+title	Title	%:description	Typically the title of the above web page, but can be arbitrary.
+body	Body Text	%i	Typically the selected text in the web page, but can be arbitrary.
+#+end_example
+
+** Understanding ~org-capture~
+Without going in too much depth, ~org-mode~ is a wonderful tool when it comes to
+letting the users automate mundane tasks and that is particularly shown in the
+case of [[https://www.labri.fr/perso/nrougier/GTD/index.html][GTD Workflows]] [fn:3]. Usually, you use them within ~Emacs~, but the previous
+section shows that ~org-protocol~ takes advantage of such templates (at least
+one).
+
+Once again [[https://orgmode.org/manual/Capture-templates.html][the official documentation]], explains best (this time through
+examples):
+#+NAME: easy examples
+#+begin_src elisp
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+         "* TODO %?\n  %i\n  %a")
+        ("j" "Journal" entry (file+olp+datetree "~/org/journal.org")
+         "* %?\nEntered on %U\n  %i\n  %a")))
+#+end_src
+
+Each template has [[https://orgmode.org/manual/Template-elements.html][specific elements:]]
+- *keys*: (usually) a single letter[fn:4]
+- *description*: /sigh/
+- *type* such as ~entry, item, plain~
+- *target*: such as ~file , ~file+<stuff>, clock, here, id~ and ~function~
+- *template*: a ~string~, a ~file~ or a ~function~, usually containing [[https://orgmode.org/manual/Template-expansion.html][special characters]]
+- *properties*
+
+#+NAME: name
+#+begin_note
+For the templates included in this article, one needs to understand that being
+able to use a ~function~ gives us much power.
+#+end_note
+
+
+Also, ~org-protocol~ gives us some more /expansions/ available:
+#+NAME: org-protocol expansion
+#+begin_example
+%:link          The URL
+%:description   The webpage title
+%:annotation    Equivalent to [[%:link][%:description]]
+%i              The selected text
+#+end_example
+
+** Configuring
+Having explained both the link structure and the ~org-capture-templates~, to use
+~org-protocol~ all that is left at the moment is to configure emacs:
+- We must configure it to act like a server (so that new Emacs instances
+  (~emacsclient~) are effectively just new frames of that server)
+- We must load ~org-protocol~
+
+#+NAME: Name
+#+begin_src elisp
+(server-start)
+(require 'org-protocol)
+#+end_src
+
+To keep a reading list I went with perhaps the simplest template - using just
+what is available through ~org-protocol~ :
+#+begin_src elisp
+(add-to-list 'org-capture-templates
+'("x" "Org-Protocol Reading List Capture"
+  entry
+  (file "reading_list.org") ;; relative to org-directory
+ "* TODO %:annotation\n:PROPERTIES:\n:CREATED: %U\n:END:\n%i\n%?\n" :immediate-finish t :jump-to-captured t))
+#+end_src
+
+This is perfect to keep a list of articles to read in the future, but it is not
+exactly what I often need. Often, when I find something that I like, it happens
+that I want to take some notes (or jot down some ideas I got out of it). For
+that, I prefer to have multiple small files, instead of a single big one.
+- To handle that /requirement/ I had to use a *function*, since ~target~ no longer is
+  a simple string, static for all URLs. I want it to /parse/ the URL so that it
+  writes to the right file.
+
+  #+begin_src elisp
+  (defun org-protocol-note-name ()
+    "function to set the target file for org-protocol note capture."
+    ;; 1. get the url from the plist (note: check both :url and :link)
+    (let* ((url (or (plist-get org-store-link-plist :url)
+  						   (plist-get org-store-link-plist :link)))
+  	 ;; (domain (url-host (url-generic-parse-url url))) ;; one could use just the domain
+  	 (filename (if url
+  		       (org-cache-file-namer-default url :category "article")
+  		     (progn
+  		       (message "org-protocol: no url found, defaulting to inbox.org")
+  		       "inbox.org")))
+  	 (path (expand-file-name filename "/tmp"))) ;; debugging ;)
+      (org-capture-put :target (list 'file path))
+      (set-buffer (find-file-noselect path))
+      (goto-char (point-max))
+      ))
+
+  (add-to-list 'org-capture-templates
+  '("n" "org-protocol note capture"
+    entry
+    (function org-protocol-note-name)
+    "* %U\n:PROPERTIES:\n:CREATED: %U\n:SOURCE: %:link\n:END:\n#+begin_quote\n%i\n#+end_quote"
+     :immediate-finish t :jump-to-captured t))
+#+end_src
+
+The documentation here should (in my mind) include an example, because I had to
+play around a little bit (with ~org-capture-put~ and with setting the buffer nicely):
+#+NAME: name
+#+begin_example
+‘(function function-finding-location)’
+    Most general way: write your own function which both visits the file and moves point to the right location.
+#+end_example
+
+
+* System-level integration
+:PROPERTIES:
+:ID:       bde89175-4d1f-429b-80b0-45e9bf1c8e97
+:END:
+#+begin_note
+This section is somewhat Linux-specific. I guess ~macOS~ and ~Windows~ will have different
+ways to handle this. The ~org-protocol~ documentation/post I suggested before has
+sections for those systems as well
+#+end_note
+
+If you've already added the emacs configuration (and executed it), you might
+want to run the following:
+#+NAME: xdg-open link
+#+begin_src shell
+# use your own template key instead of x
+xdg-open 'org-protocol://capture?template=x&url=site.com&title=test&body=shakeit'
+#+end_src
+
+If it works, then please feel free to ignore the following subsection. If you
+see any template related errors, you'll need to take a step back and see what
+you changed. If, however, you are also unlucky to see some strange emacs frames
+popping up and doing nothing, off we go...
+
+#+label:a-rabbit-hole
+#+caption: A ... rabbit hole
+#+attr_latex: :width  0.85\textwidth
+#+attr_html: :width 500px
+[[file:images/20251216_adding-org-protocol-support/20260401_105902_screenshot.png]]
+
+
+** Desktop Files
+In Linux the system knows how to handle specific URLs based on ~.desktop~ files
+(and the ~mimeapps.list~, but I am not sure of the precedence and configurability
+of the latter). Finding the available desktop files is relatively easy:
+ #+NAME: find emacs desktop
+#+begin_src shell
+ # Check the available emacs desktop files in your setup
+ find / -type f -name '*macs*.desktop' 2>/dev/null
+ # If you've already customized anything:
+ find $HOME/.local/share/applications -type f -name '*.desktop' 2>/dev/null
+#+end_src
+
+I was glad to see that in my distro the default desktop files (for ~emacsclient~)
+included the ~MimeType=x-scheme-handler/org-protocol~ property: meaning that they
+/advertised/ that they could handle ~org-protocol~ links.
+
+*But I wish they did not*
+
+Because my first thought was that, necessarily, I had misconfigured something
+myself so I ended up losing time for nothing. Taking a better look at those
+desktop files I realized the ~Exec~ command was rather unsightly and unnecessarily
+complicated, given that most of the checks are already handled by ~emacs~
+internally, provided you start it as a server. So, I deleted them.
+
+The thing is that you probably do not need to do this too. All you need to do
+is:
+#+begin_src shell
+ # Source: https://orgmode.org/worg/org-contrib/org-protocol.html#using-org-protocol
+ cat <<'EOF' > $HOME/.local/share/applications/org-protocol.desktop
+ [Desktop Entry]
+ Name=org-protocol
+ Comment=Intercept calls from emacsclient to trigger custom actions
+ Categories=Other;
+ Keywords=org-protocol;
+ Icon=emacs
+ Type=Application
+ Exec=emacsclient -- %u
+ Terminal=false
+ StartupWMClass=Emacs
+ MimeType=x-scheme-handler/org-protocol;
+ 'EOF'
+ # Then update the desktop files database
+ update-desktop-database ~/.local/share/applications/
+#+end_src
+
+At this point, you should rerun the ~xdg-open~ tests. Everything *must* be working
+before moving on to the next section.
+
+* Browser Integration
+In this section we /automate/ the creation of proper ~org-protocol~ links inside the
+browser. There used to be extensions providing this functionality, but my
+searches revealed nothing of the sort. Thus the options were:
+1. Create an extension
+2. K.I.S.S.
+And I went with option (2): Creating a simple bookmark (or 2)!
+
+#+NAME: name
+#+begin_note
+Make sure to test it with your browser because I saw differences in how each
+browser handled these. ~Chromium~ handled these perfectly, while for some reason
+~Firefox~ overwrites the page (showing the org-protocol URL) and requires a reload
+afterwards.
+#+end_note
+
+I suggest that you use the following bookmark as found in [[https://emacsdocs.org/docs/org/The-capture-protocol][docs]]:
+#+begin_src html
+javascript:location.href='org-protocol://capture?template=x'+
+      '&url='+encodeURIComponent(window.location.href)+
+      '&title='+encodeURIComponent(document.title)+
+      '&body='+encodeURIComponent(window.getSelection());
+#+end_src
+
+If this does not work, I also found [[https://github.com/alphapapa/org-protocol-capture-html][these by alphapapa]]
+#+NAME: Name
+#+begin_src html
+javascript:location.href = 'org-protocol:///capture-html?template=w&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title || "[untitled page]") + '&body=' + encodeURIComponent(function () {var html = ""; if (typeof window.getSelection != "undefined") {var sel = window.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i < len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != "undefined") {if (document.selection.type == "Text") {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement("a"); a.href = href; var abs = a.protocol + "//" + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [['a', 'href'], ['img', 'src']]; var div = document.createElement('div'); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i < elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
+javascript:location.href = 'org-protocol:///capture?template=x&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title || "[untitled page]");
+#+end_src
+
+And fooled around with these as well: I think I once had a problem with URL
+encoding so that's why they're encoded? *The first one is way more readable, try
+to use that one*
+#+begin_src html
+javascript:location.href='org-protocol:///capture?template=x&url=' + encodeURIComponent(location.href) + '&title=' + encodeURIComponent(document.title || "[untitled page]");
+javascript:location.href='org-protocol:///capture?template=x&url=%27+encodeURIComponent(location.href)+%27&title+encodeURIComponent(document.title)+%27&body=%27+encodeURIComponent(window.getSelection().toString())
+javascript:location.href='org-protocol://capture?url=%27+encodeURIComponent(location.href)+%27&title+encodeURIComponent(document.title)+%27&body=%27+encodeURIComponent(window.getSelection().toString())
+javascript:location.href='org-protocol://capture?template=x&url=%27+encodeURIComponent(location.href)+%27&title+encodeURIComponent(document.title)+%27&body=%27+encodeURIComponent(window.getSelection().toString())
+#+end_src
+
+* Caveat
+If you go for the bookmark solution you might find yourself /annoyed/ by the fact
+that you repeatedly have to *allow* the site you're visiting to visit ~org-protocol~
+URLs. This is a security feature and can under certain circumstances be
+bypassed.
+
+* Footnotes
+
+[fn:5] It is a slightly more technical and more complete version of my article. For
+some reason I had forgotten all about it and found it just before publishing.
+
+[fn:4] It is possible to have nested capture templates but that is not our focus
+
+[fn:3] This article might be the reason why I started using ~emacs~ (though I am not
+entirely sure). What I am *absolutely sure* of, however, is that this article, was
+the reason why I decided to create my blog using emacs, and why (even now) my
+~css~ file is called ~rougier.css~.
+
+[fn:2] I thought of the ~file:~ example as well, but I guess it is not as common
+
+[fn:1] I was not aware of the link between Pocket and Mozilla to be frank.
