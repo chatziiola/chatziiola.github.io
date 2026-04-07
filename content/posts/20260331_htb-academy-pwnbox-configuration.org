@@ -1,0 +1,97 @@
+#+TITLE: HTB Academy: Pwnbox configuration
+#+date: [2026-03-31 Tue]
+#+SUBTITLE: In life sometimes simple is much better than complex
+#+description: Making up for the lack of persistent configuration in HackTheBox Academy Pwnbox instances using a simple script.
+#+filetags: htb academy pwnbox
+
+#+begin_disclaimer
+Below, you will find the current contents of my personal configuration ~gist~ and
+the one-liner to immediately set up your ~Pwnbox~. For security purposes and
+long-term personalization, I recommend hosting your own version of this script.
+#+end_disclaimer
+
+[[https://academy.hackthebox.com/][HackTheBox Academy]] offers a ~Pwnbox~ environment similar to vanilla HtB. However,
+there is a particularly important (to me) piece of functionality missing:
+*Persistent configuration*. Because these instances are ephemeral, any
+quality-of-life adjustments vanish the moment the lab ends.
+
+Having worked for some time with ~zsh~ I can no longer tolerate most other
+shells. It is not that I have high standards or use obscure configuration
+options. It is much simpler than that: I use ~bindkey -v~ [fn:1] and have written quite
+a lot of scripts in it to be wary of a transition. At the same time, an
+indispensable tool in my arsenal is ~tmux~. My configuration for it mimics
+~vi~ keybindings, using ~C-b h/j/k/l~ for pane navigation instead
+of the arrow keys. Frankly, a no-brainer.
+
+Inspired by the "fetch-and-run" ease of tools like ~linpeas~, I created a single
+command that retrieves my environment and applies it instantly:
+#+begin_src shell
+zsh <(curl -fsSL 'https://gist.githubusercontent.com/chatziiola/4960b0bd6d0f323c2d79432216cb8b87/raw/htbacad_setup.sh'); zsh
+#+end_src
+
+This script effectively configures the ~Pwnbox~ to use my preferred shell and
+multiplexer settings:
+#+NAME: placeholder
+#+begin_src zsh
+# TLDR: this is a basic configuration gist for htb academy: responsible for zsh, tmux
+# feel free to use it yourself, but try to make your own copy: this one might be changed ?
+
+# zsh <(curl -fsSL 'https://gist.githubusercontent.com/chatziiola/4960b0bd6d0f323c2d79432216cb8b87/raw/htbacad_setup.sh')
+echo "Creating zshrc"
+cat << 'END' > "$HOME/.zshrc"
+autoload -Uz compinit
+compinit -d ~/.cache/zcompdump
+
+# Custom prompt
+setopt PROMPT_SUBST
+
+# Function to display Python virtual environment if active
+venv_prompt() {
+  if [[ -n "$VIRTUAL_ENV" ]]; then
+    echo "($(basename $VIRTUAL_ENV))"
+  fi
+}
+
+unset VIRTUAL_ENV_DISABLE_PROMPT
+# Main prompt
+PROMPT='%F{red}[ %~ ]%f (%?%)
+%F{green}$(venv_prompt)%f -> '
+
+
+bindkey -v
+alias cll='clear && ls -l'
+alias cl='clear'
+END
+
+echo "Now tmux"
+cat << 'END' > "$HOME/.tmux.conf"
+# Src: https://gist.github.com/william8th/faf23d311fc842be698a1d80737d9631
+bind c new-window -c "#{pane_current_path}"
+bind '"' split-window -c "#{pane_current_path}"
+bind % split-window -h -c "#{pane_current_path}"
+
+# Src: https://stackoverflow.com/questions/51639540/tmux-scroll-mode-vim-keybindings
+set-option -g default-shell /usr/bin/zsh
+
+set-window-option -g mode-keys vi
+bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -selection c"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+
+
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+bind : command-prompt
+
+setw -g mouse on
+END
+#+end_src
+
+
+
+
+* Footnotes
+
+[fn:1] While writing this I decided to test this belief: It is *wrong*. Even ~bash~  has
+~vi~  keybindings with ~set -o vi~. I could perhaps go back to it but, [[https://dictionary.cambridge.org/dictionary/english/if-it-ain-t-broke-don-t-fix-it][if it ain't broke, don't fix it]].
