@@ -40,7 +40,8 @@
 		      (or (file-is-index filename)                                ; Filter out index files
 			  (string= (plist-get (org-mnode-properties entry) :draft) "t")))) ; Filter out drafts
 		  ;; WARNING: FORCE WITH t INSTEAD OF nil if doing major changes
-		  (org-cache-get posts-dir nil)))
+          ;; Borderline leave it with t
+		  (org-cache-get posts-dir t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Publishing functions

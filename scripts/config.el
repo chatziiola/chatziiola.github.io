@@ -152,7 +152,7 @@
       org-html-preamble org-blog-navigation
       org-html-postamble comments-postamble)
 
-
+(setq org-publish-timestamp-directory "./export-cache/")
 
 (provide 'config)
 ;; config.el ends here

@@ -13,11 +13,11 @@
 (add-to-list 'load-path "~/Github/org-cache")
 
 ;; ;; Load the publishing system
-(require 'config)
 (require 'ox-publish)
 (require 'ox-html)
 (require 'cl-extra)
 (require 'htmlize)
+(require 'config)
 
 ; (require 'org-cache) NOT DIRECTLY NEEDED HERE BUT REQUIRED BY COLLECTIONS
 (require 'blog-collections)

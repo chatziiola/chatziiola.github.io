@@ -1,6 +1,6 @@
 #+TITLE: Adding org-protocol support
 #+DATE: <2026-03-31 Tue>
-#+DESCRIPTION:
+#+DESCRIPTION: A guide to an Emacs workflow using org-protocol and custom capture templates to save articles and take notes.
 #+SUBTITLE:
 #+FILETAGS: org org-protocol
 
@@ -32,11 +32,10 @@ To implement it we will need to:
    - A /shooort/ detour to map ~org-protocol~ links to ~Emacs~ via ~xdg-open~ in Linux
 2. Create a simple bookmark in our browser
 
-#+NAME: disclaimer
-#+begin_note
+#+begin_disclaimer
 This article will not cover a full installation of ~Emacs~ nor ~org-mode~. See
 related ~tags/~ for this, or other tutorials.
-#+end_note
+#+end_disclaimer
 
 * Emacs
 
@@ -172,7 +171,6 @@ play around a little bit (with ~org-capture-put~ and with setting the buffer nic
 ‘(function function-finding-location)’
     Most general way: write your own function which both visits the file and moves point to the right location.
 #+end_example
-
 
 * System-level integration
 :PROPERTIES:

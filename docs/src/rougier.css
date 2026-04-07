@@ -21,6 +21,8 @@
   --code-bg: #f5f5f5;
   --code-fg: #333333;
   --selection: #e0f0ff;
+  --danger: #cc0000;
+  --danger-bg: #fff0f0;
 
   /* Layout */
   --max-width: 1000px;
@@ -36,6 +38,8 @@
   --code-bg: #1e1e1e;
   --code-fg: #dcdcdc;
   --selection: #264f78;
+  --danger: #ff6b6b;
+  --danger-bg: #2d1a1a;
 }
 
 /* Base Styles */
@@ -563,7 +567,8 @@ figcaption {
 
 /* Blockquotes */
 blockquote,
-.note {
+.note,
+.disclaimer {
   font-size: 0.95rem;
   color: var(--fg);
   position: relative; /* Allows us to position the label */
@@ -571,6 +576,11 @@ blockquote,
   padding: 1rem 2rem;
   border-left: 4px solid var(--accent);
   background: var(--code-bg);
+}
+
+.disclaimer {
+  border-left-color: var(--danger);
+  background: var(--danger-bg);
 }
 
 /* Responsive adjustments */
@@ -642,7 +652,8 @@ blockquote,
 
 /* /1* Shared label styling *1/ */
 .note::before,
-blockquote::before {
+blockquote::before,
+.disclaimer::before {
   /* position: absolute; */
   left: 1rem;
   font-family: var(--font-mono); /* Monospace gives a "technical/meta" feel */
@@ -651,6 +662,8 @@ blockquote::before {
   letter-spacing: 0.1rem;
   font-weight: 700;
   color: var(--accent);
+  display: block; /* Ensures it stands out as a header */
+  margin-bottom: 0.5rem;
 }
 
 .note::before {
@@ -659,6 +672,11 @@ blockquote::before {
 
 blockquote::before {
   content: "Quote";
+}
+
+.disclaimer::before {
+  content: "Disclaimer";
+  color: var(--danger);
 }
 
 .footdef {

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Adding org-protocol support</title>
 <meta name="author" content="Lamprinos Chatziioannou" />
+<meta name="description" content="A guide to an Emacs workflow using org-protocol and custom capture templates to save articles and take notes." />
 <meta name="generator" content="Org Mode" />
 <script src="/src/copy-pre.min.js"></script><script src="/src/theme-switcher.min.js" defer></script><script src="/src/nav.min.js" defer></script><link href="/pagefind/pagefind-ui.css" rel="stylesheet"><script src="/pagefind/pagefind-ui.js"></script><script src="/src/search.min.js" defer></script><link rel="stylesheet" href="/src/rougier.min.css" /><link rel="icon" type="image/x-icon" href="/src/favicon.ico"><script src="https://kit.fontawesome.com/78d5a086dd.js" crossorigin="anonymous"></script>
 </head>
@@ -39,7 +40,7 @@
 </ul>
 </div>
 </nav>
-<div class="note" id="orgdbb3c97">
+<div class="note" id="org5c1d1aa">
 <p>
 Originally created on <span class="timestamp-wrapper"><span class="timestamp">&lt;2025-12-16 Tue 18:20&gt;</span></span>. For a more complete look at
 <code>org-protocol</code>, see this wonderful <a href="https://orgmode.org/worg/org-contrib/org-protocol.html#using-org-protocol">post</a>.<sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup>
@@ -82,7 +83,7 @@ To implement it we will need to:
 <li>Create a simple bookmark in our browser</li>
 </ol>
 
-<div class="note" id="org4ba40d4">
+<div class="disclaimer" id="org7823270">
 <p>
 This article will not cover a full installation of <code>Emacs</code> nor <code>org-mode</code>. See
 related <code>tags/</code> for this, or other tutorials.
@@ -116,7 +117,7 @@ with the <code>org-protocol</code> prefix!
 More specifically, citing the <a href="https://orgmode.org/worg/org-contrib/org-protocol.html#capture">official org-protocol documentation</a>, we can use it
 to capture links and information as such:
 </p>
-<pre class="example" id="org0919f09">
+<pre class="example" id="org8ddaf2f">
 The form of an Org protocol URL request with the capture protocol looks like this:
 
 org-protocol://capture?template=TEMPLATE&amp;url=URL&amp;title=TITLE&amp;body=BODY
@@ -166,7 +167,7 @@ Each template has <a href="https://orgmode.org/manual/Template-elements.html">sp
 <li><b>properties</b></li>
 </ul>
 
-<div class="note" id="org48d4f60">
+<div class="note" id="org947c6dc">
 <p>
 For the templates included in this article, one needs to understand that being
 able to use a <code>function</code> gives us much power.
@@ -200,7 +201,7 @@ Having explained both the link structure and the <code>org-capture-templates</co
 </ul>
 
 <div class="org-src-container">
-<pre class="src src-elisp" id="org2e26c21">(server-start)
+<pre class="src src-elisp" id="orgd4cd77b">(server-start)
 (<span class="org-keyword">require</span> '<span class="org-constant">org-protocol</span>)
 </pre>
 </div>
@@ -263,7 +264,7 @@ writes to the right file.
 The documentation here should (in my mind) include an example, because I had to
 play around a little bit (with <code>org-capture-put</code> and with setting the buffer nicely):
 </p>
-<pre class="example" id="orgf55eb31">
+<pre class="example" id="org4345bfe">
 ‘(function function-finding-location)’
     Most general way: write your own function which both visits the file and moves point to the right location.
 </pre>
@@ -273,7 +274,7 @@ play around a little bit (with <code>org-capture-put</code> and with setting the
 <div id="outline-container-org8be9371" class="outline-2">
 <h2 id="org8be9371"><a href="#org8be9371">System-level integration</a></h2>
 <div class="outline-text-2" id="text-org8be9371">
-<div class="note" id="org281ae5d">
+<div class="note" id="org1ceaa9a">
 <p>
 This section is somewhat Linux-specific. I guess <code>macOS</code> and <code>Windows</code> will have different
 ways to handle this. The <code>org-protocol</code> documentation/post I suggested before has
@@ -387,7 +388,7 @@ searches revealed nothing of the sort. Thus the options were:
 And I went with option (2): Creating a simple bookmark (or 2)!
 </p>
 
-<div class="note" id="org947c6dc">
+<div class="note" id="org8677669">
 <p>
 Make sure to test it with your browser because I saw differences in how each
 browser handled these. <code>Chromium</code> handled these perfectly, while for some reason
@@ -412,7 +413,7 @@ I suggest that you use the following bookmark as found in <a href="https://emacs
 If this does not work, I also found <a href="https://github.com/alphapapa/org-protocol-capture-html">these by alphapapa</a>
 </p>
 <div class="org-src-container">
-<pre class="src src-html" id="orgd4cd77b">javascript:location.href = 'org-protocol:///capture-html?template=w<span class="org-variable-name">&amp;url</span>=' + encodeURIComponent(location.href) + '<span class="org-variable-name">&amp;title</span>=' + encodeURIComponent(document.title || "[untitled page]") + '<span class="org-variable-name">&amp;body</span>=' + encodeURIComponent(function () {var html = ""; if (typeof window.getSelection != "undefined") {var sel = window.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i &lt; len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != <span class="org-string">"undefined"</span>) {if (document.selection.type == <span class="org-string">"Text"</span>) {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement(<span class="org-string">"a"</span>); a.href = href; var abs = a.protocol + <span class="org-string">"//"</span> + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [[<span class="org-string">'a'</span>, <span class="org-string">'href'</span>], [<span class="org-string">'img'</span>, <span class="org-string">'src'</span>]]; var div = document.createElement(<span class="org-string">'div'</span>); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i &lt; elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
+<pre class="src src-html" id="org6ccfd71">javascript:location.href = 'org-protocol:///capture-html?template=w<span class="org-variable-name">&amp;url</span>=' + encodeURIComponent(location.href) + '<span class="org-variable-name">&amp;title</span>=' + encodeURIComponent(document.title || "[untitled page]") + '<span class="org-variable-name">&amp;body</span>=' + encodeURIComponent(function () {var html = ""; if (typeof window.getSelection != "undefined") {var sel = window.getSelection(); if (sel.rangeCount) {var container = document.createElement("div"); for (var i = 0, len = sel.rangeCount; i &lt; len; ++i) {container.appendChild(sel.getRangeAt(i).cloneContents());} html = container.innerHTML;}} else if (typeof document.selection != <span class="org-string">"undefined"</span>) {if (document.selection.type == <span class="org-string">"Text"</span>) {html = document.selection.createRange().htmlText;}} var relToAbs = function (href) {var a = document.createElement(<span class="org-string">"a"</span>); a.href = href; var abs = a.protocol + <span class="org-string">"//"</span> + a.host + a.pathname + a.search + a.hash; a.remove(); return abs;}; var elementTypes = [[<span class="org-string">'a'</span>, <span class="org-string">'href'</span>], [<span class="org-string">'img'</span>, <span class="org-string">'src'</span>]]; var div = document.createElement(<span class="org-string">'div'</span>); div.innerHTML = html; elementTypes.map(function(elementType) {var elements = div.getElementsByTagName(elementType[0]); for (var i = 0; i &lt; elements.length; i++) {elements[i].setAttribute(elementType[1], relToAbs(elements[i].getAttribute(elementType[1])));}}); return div.innerHTML;}());
 javascript:location.href = <span class="org-string">'org-protocol:///capture?template=x&amp;url='</span> + encodeURIComponent(location.href) + <span class="org-string">'&amp;title='</span> + encodeURIComponent(document.title || <span class="org-string">"[untitled page]"</span>);
 </pre>
 </div>
